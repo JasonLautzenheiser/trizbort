@@ -1,0 +1,843 @@
+/*
+    Copyright (c) 2010 by Genstein
+
+    This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+*/
+
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using System.Globalization;
+using PdfSharp.Drawing;
+
+namespace Trizbort
+{
+	/// <summary>
+	/// A connection between elements or points in space.
+	/// </summary>
+	/// <remarks>
+	/// Connections are multi-segment lines between vertices.
+	/// Each vertex is fixed either to a point in space or 
+	/// to an element's port.
+	/// </remarks>
+	internal class Connection : Element
+	{
+		public Connection(Project project)
+			: base(project)
+		{
+			m_vertexList.Added += OnVertexAdded;
+			m_vertexList.Removed += OnVertexRemoved;
+		}
+
+		public Connection(Project project, Vertex a, Vertex b)
+			: this(project)
+		{
+			VertexList.Add(a);
+			VertexList.Add(b);
+		}
+
+		public Connection(Project project, Vertex a, Vertex b, params Vertex[] args)
+			: this(project, a, b)
+		{
+			foreach (var vertex in args)
+			{
+				VertexList.Add(vertex);
+			}
+		}
+
+		private void OnVertexAdded(object sender, ItemEventArgs<Vertex> e)
+		{
+			e.Item.Connection = this;
+			e.Item.Changed += OnVertexChanged;
+			PortList.Add(new VertexPort(e.Item, this));
+		}
+
+		private void OnVertexRemoved(object sender, ItemEventArgs<Vertex> e)
+		{
+			e.Item.Connection = null;
+			e.Item.Changed -= OnVertexChanged;
+			foreach (VertexPort port in PortList)
+			{
+				if (port.Vertex == e.Item)
+				{
+					PortList.Remove(port);
+					break;
+				}
+			}
+		}
+
+		private void OnVertexChanged(object sender, EventArgs e)
+		{
+			RaiseChanged();
+		}
+
+		public ConnectionStyle Style
+		{
+			get { return m_style; }
+			set
+			{
+				if (m_style != value)
+				{
+					m_style = value;
+					RaiseChanged();
+				}
+			}
+		}
+
+		public ConnectionFlow Flow
+		{
+			get { return m_flow; }
+			set
+			{
+				if (m_flow != value)
+				{
+					m_flow = value;
+					RaiseChanged();
+				}
+			}
+		}
+
+		public string StartText
+		{
+			get { return m_startText.Text; }
+			set
+			{
+				if (m_startText.Text != value)
+				{
+					m_startText.Text = value;
+					RaiseChanged();
+				}
+			}
+		}
+
+		public string MidText
+		{
+            get { return m_midText.Text; }
+			set
+			{
+                if (m_midText.Text != value)
+				{
+                    m_midText.Text = value;
+					RaiseChanged();
+				}
+			}
+		}
+
+		public string EndText
+		{
+            get { return m_endText.Text; }
+			set
+			{
+                if (m_endText.Text != value)
+				{
+                    m_endText.Text = value;
+					RaiseChanged();
+				}
+			}
+		}
+
+		public void SetText(string start, string mid, string end)
+		{
+			StartText = start;
+			MidText = mid ?? MidText;
+			EndText = end;
+		}
+
+        public static void GetText(ConnectionLabel label, out string start, out string end)
+        {
+            start = string.Empty;
+            end = string.Empty;
+            switch (label)
+            {
+                case ConnectionLabel.None:
+                    start = string.Empty;
+                    end = string.Empty;
+                    break;
+                case ConnectionLabel.Up:
+                    start = Up;
+                    end = Down;
+                    break;
+                case ConnectionLabel.Down:
+                    start = Down;
+                    end = Up;
+                    break;
+                case ConnectionLabel.In:
+                    start = In;
+                    end = Out;
+                    break;
+                case ConnectionLabel.Out:
+                    start = Out;
+                    end = In;
+                    break;
+            }
+        }
+
+        public void SetText(ConnectionLabel label)
+        {
+            string start, end;
+            GetText(label, out start, out end);
+            SetText(start, null, end);
+        }
+
+		public BoundList<Vertex> VertexList
+		{
+			get { return m_vertexList; }
+		}
+
+		public override Depth Depth
+		{
+			get { return Depth.Low; }
+		}
+
+		private List<LineSegment> GetSegments()
+		{
+			var list = new List<LineSegment>();
+			if (VertexList.Count > 0)
+			{
+				var first = VertexList[0];
+				var last = VertexList[VertexList.Count - 1];
+
+				int index = 0;
+				Vector a = VertexList[index++].Position;
+
+				if (first.Port != null && first.Port.HasStalk)
+				{
+					var stalkPos = first.Port.StalkPosition;
+					list.Add(new LineSegment(a, stalkPos));
+					a = stalkPos;
+				}
+
+				while (index < VertexList.Count)
+				{
+					Vertex v = VertexList[index++];
+					Vector b = v.Position;
+
+					if (index == VertexList.Count && v.Port != null && v.Port.HasStalk)
+					{
+						var stalkPos = v.Port.StalkPosition;
+						list.Add(new LineSegment(a, stalkPos));
+						a = stalkPos;
+					}
+
+					list.Add(new LineSegment(a, b));
+					a = b;
+				}
+			}
+			return list;
+		}
+
+		/// <summary>
+		/// Split the given line segment if it crosses line segments we've already drawn.
+		/// </summary>
+		/// <param name="lineSegment">The line segment to consider.</param>
+		/// <param name="context">The context in which we've been drawing line segments.</param>
+		/// <param name="newSegments">The results of splitting the given line segment, if any. Call with a reference to a null list.</param>
+		/// <returns>True if the line segment was split and newSegments now exists and contains line segments; false otherwise.</returns>
+		private bool Split(LineSegment lineSegment, DrawingContext context, ref List<LineSegment> newSegments)
+		{
+			foreach (var previousSegment in context.LinesDrawn)
+			{
+				float amount = Math.Max(1,Settings.LineWidth) * 3;
+				List<LineSegmentIntersect> intersects;
+				if (lineSegment.Intersect(previousSegment, true, out intersects))
+				{
+					foreach (var intersect in intersects)
+					{
+						switch (intersect.Type)
+						{
+							case LineSegmentIntersectType.MidPointA:
+								var one = new LineSegment(lineSegment.Start, intersect.Position);
+								if (one.Shorten(amount))
+								{
+									if (!Split(one, context, ref newSegments))
+									{
+										if (newSegments == null)
+										{
+											newSegments = new List<LineSegment>();
+										}
+										newSegments.Add(one);
+									}
+								}
+								var two = new LineSegment(intersect.Position, lineSegment.End);
+								if (two.Forshorten(amount))
+								{
+									if (!Split(two, context, ref newSegments))
+									{
+										if (newSegments == null)
+										{
+											newSegments = new List<LineSegment>();
+										}
+										newSegments.Add(two);
+									}
+								}
+								break;
+
+							case LineSegmentIntersectType.StartA:
+								if (lineSegment.Forshorten(amount))
+								{
+									if (!Split(lineSegment, context, ref newSegments))
+									{
+										if (newSegments == null)
+										{
+											newSegments = new List<LineSegment>();
+										}
+										newSegments.Add(lineSegment);
+									}
+								}
+								break;
+
+							case LineSegmentIntersectType.EndA:
+								if (lineSegment.Shorten(amount))
+								{
+									if (!Split(lineSegment, context, ref newSegments))
+									{
+										if (newSegments == null)
+										{
+											newSegments = new List<LineSegment>();
+										}
+										newSegments.Add(lineSegment);
+									}
+								}
+								break;
+						}
+
+						// don't check other intersects;
+						// we've already split this line, and tested the parts for further intersects.
+						return newSegments != null;
+					}
+				}
+
+			}
+			return false;
+		}
+
+		public override void RecomputeSmartLineSegments(DrawingContext context)
+		{
+			m_smartSegments.Clear();
+			foreach (var lineSegment in GetSegments())
+			{
+				List<LineSegment> newSegments = null;
+				if (Split(lineSegment, context, ref newSegments))
+				{
+					foreach (var newSegment in newSegments)
+					{
+						m_smartSegments.Add(newSegment);
+					}
+				}
+				else
+				{
+					m_smartSegments.Add(lineSegment);
+				}
+			}
+
+			foreach (var segment in m_smartSegments)
+			{
+				context.LinesDrawn.Add(segment);
+			}
+		}
+
+		public override void Draw(XGraphics graphics, Palette palette, DrawingContext context)
+		{
+			List<LineSegment> lineSegments;
+			if (context.UseSmartLineSegments)
+			{
+				lineSegments = m_smartSegments;
+			}
+			else
+			{
+				lineSegments = GetSegments();
+			}
+
+			var path = palette.Path();
+			var random = new Random(GetHashCode());
+			foreach (var lineSegment in lineSegments)
+			{
+				var pen = palette.GetLinePen(context.Selected, context.Hover, Style == ConnectionStyle.Dashed);
+				if (!Settings.DebugDisableLineRendering)
+				{
+					graphics.DrawLine(pen, lineSegment.Start.ToPointF(), lineSegment.End.ToPointF());
+				}
+				var delta = lineSegment.Delta;
+				if (Flow == ConnectionFlow.OneWay && delta.Length > Settings.ConnectionArrowSize)
+				{
+					var brush = palette.GetLineBrush(context.Selected, context.Hover);
+					Drawing.DrawChevron(graphics, lineSegment.Mid.ToPointF(), (float)(Math.Atan2(delta.Y, delta.X) / Math.PI * 180), Settings.ConnectionArrowSize, brush);
+				}
+				context.LinesDrawn.Add(lineSegment);
+			}
+
+			Annotate(graphics, palette, lineSegments);
+		}
+
+		private void Annotate(XGraphics graphics, Palette palette, List<LineSegment> lineSegments)
+		{
+			if (lineSegments.Count == 0)
+				return;
+
+			if (!string.IsNullOrEmpty(StartText))
+			{
+				Annotate(graphics, palette, lineSegments[0], m_startText, StringAlignment.Near);
+			}
+
+			if (!string.IsNullOrEmpty(EndText))
+			{
+				Annotate(graphics, palette, lineSegments[lineSegments.Count - 1], m_endText, StringAlignment.Far);
+			}
+
+			if (!string.IsNullOrEmpty(MidText))
+			{
+				float totalLength = 0;
+				foreach (var lineSegment in lineSegments)
+				{
+					totalLength += lineSegment.Length;
+				}
+				float middle = totalLength / 2;
+				foreach (var lineSegment in lineSegments)
+				{
+					var length = lineSegment.Length;
+					if (middle > length)
+					{
+						middle -= length;
+					}
+					else
+					{
+						middle /= length;
+						var pos = lineSegment.Start + lineSegment.Delta * middle;
+						var fakeSegment = new LineSegment(pos - lineSegment.Delta * Numeric.Small, pos + lineSegment.Delta * Numeric.Small);
+						Annotate(graphics, palette, fakeSegment, m_midText, StringAlignment.Center);
+						break;
+					}
+				}
+			}
+		}
+
+		private static void Annotate(XGraphics graphics, Palette palette, LineSegment lineSegment, TextBlock text, StringAlignment alignment)
+		{
+			Vector point;
+			var delta = lineSegment.Delta;
+			switch (alignment)
+			{
+				case StringAlignment.Near:
+				default:
+					point = lineSegment.Start;
+					delta.Negate();
+					break;
+				case StringAlignment.Center:
+					point = lineSegment.Mid;
+					break;
+				case StringAlignment.Far:
+					point = lineSegment.End;
+					break;
+			}
+
+			var bounds = new Rect(point, Vector.Zero);
+			bounds.Inflate(Settings.TextOffsetFromConnection);
+
+			var angle = (float)-(Math.Atan2(delta.Y, delta.X) / Math.PI * 180.0);
+			var compassPoint = CompassPoint.East;
+			if (Numeric.InRange(angle, 0, 45))
+			{
+				compassPoint = CompassPoint.NorthWest;
+			}
+			else if (Numeric.InRange(angle, 45, 90))
+			{
+				compassPoint = CompassPoint.SouthEast;
+			}
+			else if (Numeric.InRange(angle, 90, 135))
+			{
+				compassPoint = CompassPoint.SouthWest;
+			}
+			else if (Numeric.InRange(angle, 135, 180))
+			{
+				compassPoint = CompassPoint.NorthEast;
+			}
+			else if (Numeric.InRange(angle, 0, -45))
+			{
+				compassPoint = CompassPoint.NorthEast;
+			}
+			else if (Numeric.InRange(angle, -45, -90))
+			{
+				compassPoint = CompassPoint.NorthEast;
+			}
+			else if (Numeric.InRange(angle, -90, -135))
+			{
+				compassPoint = CompassPoint.NorthWest;
+			}
+			else if (Numeric.InRange(angle, -135, -180))
+			{
+				compassPoint = CompassPoint.SouthEast;
+			}
+
+			var pos = bounds.GetCorner(compassPoint);
+			XStringFormat format = new XStringFormat();
+			Drawing.SetAlignmentFromCardinalOrOrdinalDirection(format, compassPoint);
+			if (alignment == StringAlignment.Center && Numeric.InRange(angle, -10, 10))
+			{
+				// HACK: if the line segment is pretty horizontal and we're drawing mid-line text,
+				// move text below the line to get it out of the way of any labels at the ends,
+				// and center the text so it fits onto a line between two proximal rooms.
+				pos = bounds.GetCorner(CompassPoint.South);
+				format.Alignment = XStringAlignment.Center;
+				format.LineAlignment = XLineAlignment.Near;
+			}
+            text.Draw(graphics, Settings.LineFont, palette.LineBrush, pos, Vector.Zero, format);
+		}
+
+		public override Rect UnionBoundsWith(Rect rect, bool includeMargins)
+		{
+			foreach (var vertex in VertexList)
+			{
+				rect = rect.Union(vertex.Position);
+			}
+
+			return rect;
+		}
+
+		public override Vector GetPortPosition(Port port)
+		{
+			var vertexPort = (VertexPort)port;
+			return vertexPort.Vertex.Position;
+		}
+
+		public override Vector GetPortStalkPosition(Port port)
+		{
+			return GetPortPosition(port);
+		}
+
+		public override float Distance(Vector pos, bool includeMargins)
+		{
+			float distance = float.MaxValue;
+			foreach (var segment in GetSegments())
+			{
+				distance = Math.Min(distance, pos.DistanceFromLineSegment(segment));
+			}
+			return distance;
+		}
+
+        public override bool Intersects(Rect rect)
+        {
+            foreach (var segment in GetSegments())
+            {
+                if (segment.IntersectsWith(rect))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+		internal class VertexPort : MoveablePort
+		{
+			public VertexPort(Vertex vertex, Connection connection)
+				: base(connection)
+			{
+				Vertex = vertex;
+				Connection = connection;
+			}
+
+			public override string ID
+			{
+				get { return Connection.VertexList.IndexOf(Vertex).ToString(CultureInfo.InvariantCulture); }
+			}
+
+			public override void SetPosition(Vector pos)
+			{
+				Vertex.Position = pos;
+				Connection.RaiseChanged();
+			}
+
+			public override void DockAt(Port port)
+			{
+				Vertex.Port = port;
+				Connection.RaiseChanged();
+			}
+
+			public override Port DockedAt
+			{
+				get { return Vertex.Port; }
+			}
+
+			public Vertex Vertex
+			{
+				get;
+				private set;
+			}
+
+			public Connection Connection
+			{
+				get;
+				private set;
+			}
+		}
+
+		public override bool HasDialog
+		{
+			get { return true; }
+		}
+
+		public override void ShowDialog()
+		{
+			using (var dialog = new ConnectionPropertiesDialog())
+			{
+				dialog.IsDotted = Style == ConnectionStyle.Dashed;
+				dialog.IsDirectional = Flow == ConnectionFlow.OneWay;
+				dialog.StartText = StartText;
+				dialog.MidText = MidText;
+				dialog.EndText = EndText;
+				if (dialog.ShowDialog() == DialogResult.OK)
+				{
+					Style = dialog.IsDotted ? ConnectionStyle.Dashed : ConnectionStyle.Solid;
+					Flow = dialog.IsDirectional ? ConnectionFlow.OneWay : ConnectionFlow.TwoWay;
+					StartText = dialog.StartText;
+					MidText = dialog.MidText;
+					EndText = dialog.EndText;
+				}
+			}
+		}
+
+		public void Save(XmlScribe scribe)
+		{
+			if (Style != DefaultStyle)
+			{
+				switch (Style)
+				{
+					case ConnectionStyle.Solid:
+						scribe.Attribute("style", "solid");
+						break;
+					case ConnectionStyle.Dashed:
+						scribe.Attribute("style", "dashed");
+						break;
+				}
+			}
+			if (Flow != DefaultFlow)
+			{
+				switch (Flow)
+				{
+					case ConnectionFlow.OneWay:
+						scribe.Attribute("flow", "oneWay");
+						break;
+					case ConnectionFlow.TwoWay:
+						scribe.Attribute("flow", "twoWay");
+						break;
+				}
+			}
+
+			if (!string.IsNullOrEmpty(StartText))
+			{
+				scribe.Attribute("startText", StartText);
+			}
+			if (!string.IsNullOrEmpty(MidText))
+			{
+				scribe.Attribute("midText", MidText);
+			}
+			if (!string.IsNullOrEmpty(EndText))
+			{
+				scribe.Attribute("endText", EndText);
+			}
+
+			int index = 0;
+			foreach (var vertex in VertexList)
+			{
+				if (vertex.Port != null)
+				{
+					scribe.StartElement("dock");
+					scribe.Attribute("index", index);
+					scribe.Attribute("id", vertex.Port.Owner.ID);
+					scribe.Attribute("port", vertex.Port.ID);
+					scribe.EndElement();
+				}
+				else
+				{
+					scribe.StartElement("point");
+					scribe.Attribute("index", index);
+					scribe.Attribute("x", vertex.Position.X);
+					scribe.Attribute("y", vertex.Position.Y);
+					scribe.EndElement();
+				}
+				++index;
+			}
+		}
+
+		public object BeginLoad(XmlElementReader element)
+		{
+			switch (element.Attribute("style").Text)
+			{
+				case "solid":
+				default:
+					Style = ConnectionStyle.Solid;
+					break;
+				case "dashed":
+					Style = ConnectionStyle.Dashed;
+					break;
+			}
+			switch (element.Attribute("flow").Text)
+			{
+				case "twoWay":
+				default:
+					Flow = ConnectionFlow.TwoWay;
+					break;
+				case "oneWay":
+					Flow = ConnectionFlow.OneWay;
+					break;
+			}
+			StartText = element.Attribute("startText").Text;
+			MidText = element.Attribute("midText").Text;
+			EndText = element.Attribute("endText").Text;
+			
+			var vertexElementList = new List<XmlElementReader>();
+			vertexElementList.AddRange(element.Children);
+			vertexElementList.Sort((a, b) => { return a.Attribute("index").ToInt().CompareTo(b.Attribute("index").ToInt()); });
+			
+			foreach (var vertexElement in vertexElementList)
+			{
+				if (vertexElement.HasName("point"))
+				{
+					var vertex = new Vertex();
+					vertex.Position = new Vector(vertexElement.Attribute("x").ToFloat(), vertexElement.Attribute("y").ToFloat());
+					VertexList.Add(vertex);
+				}
+				else if (vertexElement.HasName("dock"))
+				{
+					var vertex = new Vertex();
+					// temporarily leave this vertex as a positional vertex;
+					// we can't safely dock it to a port until EndLoad().
+					VertexList.Add(vertex);
+				}
+			}
+
+			return vertexElementList;
+		}
+
+		public void EndLoad(object state)
+		{
+			var elements = (List<XmlElementReader>)(state);
+			for (int index=0; index<elements.Count; ++index)
+			{
+				var element = elements[index];
+				if (element.HasName("dock"))
+				{
+					Element target;
+					if (Project.FindElement(element.Attribute("id").ToInt(), out target))
+					{
+						var portID = element.Attribute("port").Text;
+						foreach (var port in target.Ports)
+						{
+							if (StringComparer.InvariantCultureIgnoreCase.Compare(portID, port.ID) == 0)
+							{
+								var vertex = VertexList[index];
+								vertex.Port = port;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+
+        public void Reverse()
+        {
+            VertexList.Reverse();
+            RaiseChanged();
+        }
+
+        public Room GetSourceRoom(out CompassPoint sourceCompassPoint)
+        {
+            if (m_vertexList.Count > 0)
+            {
+                var port = m_vertexList[0].Port;
+                if (port is Room.CompassPort)
+                {
+                    var compassPort = (Room.CompassPort)port;
+                    sourceCompassPoint = compassPort.CompassPoint;
+                    return port.Owner as Room;
+                }
+            }
+            sourceCompassPoint = CompassPoint.North;
+            return null;
+        }
+
+        public Room GetTargetRoom(out CompassPoint targetCompassPoint)
+        {
+            if (m_vertexList.Count > 1)
+            {
+                var port = m_vertexList[m_vertexList.Count - 1].Port;
+                if (port is Room.CompassPort)
+                {
+                    var compassPort = (Room.CompassPort)port;
+                    targetCompassPoint = compassPort.CompassPoint;
+                    return compassPort.Owner as Room;
+                }
+            }
+            targetCompassPoint = CompassPoint.North;
+            return null;
+        }
+
+		private static readonly ConnectionStyle DefaultStyle = ConnectionStyle.Solid;
+		private static readonly ConnectionFlow DefaultFlow = ConnectionFlow.TwoWay;
+
+		public const string Up = "up";
+        public const string Down = "down";
+        public const string In = "in";
+        public const string Out = "out";
+
+		private ConnectionStyle m_style = DefaultStyle;
+		private ConnectionFlow m_flow = DefaultFlow;
+		private BoundList<Vertex> m_vertexList = new BoundList<Vertex>();
+		private List<LineSegment> m_smartSegments = new List<LineSegment>();
+
+        private TextBlock m_startText = new TextBlock();
+        private TextBlock m_midText = new TextBlock();
+        private TextBlock m_endText = new TextBlock();
+	}
+
+	/// <summary>
+	/// The visual style of a connection.
+	/// </summary>
+	internal enum ConnectionStyle
+	{
+		Solid,
+		Dashed,
+	}
+
+	/// <summary>
+	/// The direction in which a connection flows.
+	/// </summary>
+	internal enum ConnectionFlow
+	{
+		TwoWay,
+		OneWay
+	}
+
+    /// <summary>
+    /// The style of label to display on a line.
+    /// This is a simple set of defaults; lines may have entirely custom labels.
+    /// </summary>
+    internal enum ConnectionLabel
+    {
+        None,
+        Up,
+        Down,
+        In,
+        Out
+    }
+}

@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <PlatformTarget>x86</PlatformTarget>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F462E085-AFBE-46EC-936E-AEF63C83A796}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Trizbort</RootNamespace>
+    <AssemblyName>Trizbort</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Map.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PdfSharp, Version=1.31.1789.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutDialog.Designer.cs">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Automap.cs" />
+    <Compile Include="AutomapBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutomapBar.Designer.cs">
+      <DependentUpon>AutomapBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutomapDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutomapDialog.Designer.cs">
+      <DependentUpon>AutomapDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutomapSettings.cs" />
+    <Compile Include="Canvas.Automap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Canvas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Canvas.Designer.cs">
+      <DependentUpon>Canvas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Colors.cs" />
+    <Compile Include="CompassPoint.cs" />
+    <Compile Include="Connection.cs" />
+    <Compile Include="ConnectionPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConnectionPropertiesDialog.Designer.cs">
+      <DependentUpon>ConnectionPropertiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DisambiguateRoomsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisambiguateRoomsDialog.Designer.cs">
+      <DependentUpon>DisambiguateRoomsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrawingContext.cs" />
+    <Compile Include="Element.cs" />
+    <Compile Include="BoundList.cs" />
+    <Compile Include="Export\CodeExporter.cs" />
+    <Compile Include="Export\Inform6Exporter.cs" />
+    <Compile Include="Export\TadsExporter.cs" />
+    <Compile Include="IAutomapCanvas.cs" />
+    <Compile Include="IMoveable.cs" />
+    <Compile Include="Export\Inform7Exporter.cs" />
+    <Compile Include="ISizeable.cs" />
+    <Compile Include="LineSegment.cs" />
+    <Compile Include="Minimap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Minimap.Designer.cs">
+      <DependentUpon>Minimap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MoveablePort.cs" />
+    <Compile Include="MruList.cs" />
+    <Compile Include="NewVersionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewVersionDialog.Designer.cs">
+      <DependentUpon>NewVersionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Numeric.cs" />
+    <Compile Include="PathHelper.cs" />
+    <Compile Include="Port.cs" />
+    <Compile Include="Rect.cs" />
+    <Compile Include="Smoothing.cs" />
+    <Compile Include="TextBlock.cs" />
+    <Compile Include="Vector.cs" />
+    <Compile Include="Vertex.cs" />
+    <Compile Include="Events.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Palette.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Project.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutDialog.resx">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutomapBar.resx">
+      <DependentUpon>AutomapBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutomapDialog.resx">
+      <DependentUpon>AutomapDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Canvas.resx">
+      <DependentUpon>Canvas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConnectionPropertiesDialog.resx">
+      <DependentUpon>ConnectionPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisambiguateRoomsDialog.resx">
+      <DependentUpon>DisambiguateRoomsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Minimap.resx">
+      <DependentUpon>Minimap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewVersionDialog.resx">
+      <DependentUpon>NewVersionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RoomPropertiesDialog.resx">
+      <DependentUpon>RoomPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsDialog.resx">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Setup\License.rtf" />
+    <Compile Include="Drawing.cs" />
+    <Compile Include="ResizeHandle.cs" />
+    <Compile Include="Room.cs" />
+    <Compile Include="RoomPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RoomPropertiesDialog.Designer.cs">
+      <DependentUpon>RoomPropertiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="SettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsDialog.Designer.cs">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StringFormats.cs" />
+    <Compile Include="Depth.cs" />
+    <Compile Include="XmlAttributeReader.cs" />
+    <Compile Include="XmlElementReader.cs" />
+    <Compile Include="XmlScribe.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Arrow.png" />
+    <Content Include="Images\Blank.png" />
+    <Content Include="Images\DrawLine.cur" />
+    <Content Include="Images\DrawLine.png" />
+    <Content Include="Images\DrawLineInverted.cur" />
+    <Content Include="Images\LineDirection.png" />
+    <Content Include="Images\LineStyle.png" />
+    <Content Include="Images\MoveLine.cur" />
+    <Content Include="Images\MoveLineInverted.cur" />
+    <Content Include="Images\ToolStripBackground.png" />
+    <Content Include="Images\ToolStripBackground2.png" />
+    <Content Include="Map.ico" />
+    <Content Include="Setup\Wizard4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -28,24 +28,24 @@ using System.Text;
 
 namespace Trizbort
 {
-	/// <summary>
-	/// "Depth" of an element, indicating its drawing order.
-	/// </summary>
-	internal enum Depth
-	{
-		/// <summary>
-		/// Low depth. Draw before Medium and High.
-		/// </summary>
-		Low,
+    /// <summary>
+    /// "Depth" of an element, indicating its drawing order.
+    /// </summary>
+    internal enum Depth
+    {
+        /// <summary>
+        /// Low depth. Draw before Medium and High.
+        /// </summary>
+        Low,
 
-		/// <summary>
-		/// Medium depth. Draw before High.
-		/// </summary>
-		Medium,
+        /// <summary>
+        /// Medium depth. Draw before High.
+        /// </summary>
+        Medium,
 
-		/// <summary>
-		/// High depth.
-		/// </summary>
-		High,
-	}
+        /// <summary>
+        /// High depth.
+        /// </summary>
+        High,
+    }
 }

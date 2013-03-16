@@ -28,11 +28,11 @@ using System.Text;
 
 namespace Trizbort
 {
-	internal interface ISizeable : IMoveable
-	{
-		Vector Size { get; set; }
-		float Width { get; }
-		float Height { get; }
-		Rect InnerBounds { get; }
-	}
+    internal interface ISizeable : IMoveable
+    {
+        Vector Size { get; set; }
+        float Width { get; }
+        float Height { get; }
+        Rect InnerBounds { get; }
+    }
 }

@@ -24,34 +24,34 @@
 
 namespace Trizbort
 {
-	partial class MainForm
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class MainForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.m_menuStrip = new System.Windows.Forms.MenuStrip();
             this.m_fileMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -772,55 +772,55 @@ namespace Trizbort
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.MenuStrip m_menuStrip;
-		private System.Windows.Forms.ToolStripMenuItem m_fileMenu;
-		private System.Windows.Forms.ToolStripMenuItem m_fileExitMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem m_projectMenu;
-		private System.Windows.Forms.ToolStripMenuItem m_projectSettingsMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem m_fileNewMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripMenuItem m_editMenu;
-		private System.Windows.Forms.ToolStripMenuItem m_editAddRoomMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-		private System.Windows.Forms.ToolStripMenuItem m_editDeleteMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-		private System.Windows.Forms.ToolStripMenuItem m_editPropertiesMenuItem;
-		private System.Windows.Forms.ToolStrip m_toolStrip;
-		private System.Windows.Forms.ToolStripButton m_toggleDottedLinesButton;
-		private System.Windows.Forms.ToolStripButton m_toggleDirectionalLinesButton;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.MenuStrip m_menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem m_fileMenu;
+        private System.Windows.Forms.ToolStripMenuItem m_fileExitMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_projectMenu;
+        private System.Windows.Forms.ToolStripMenuItem m_projectSettingsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_fileNewMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem m_editMenu;
+        private System.Windows.Forms.ToolStripMenuItem m_editAddRoomMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem m_editDeleteMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem m_editPropertiesMenuItem;
+        private System.Windows.Forms.ToolStrip m_toolStrip;
+        private System.Windows.Forms.ToolStripButton m_toggleDottedLinesButton;
+        private System.Windows.Forms.ToolStripButton m_toggleDirectionalLinesButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-		private System.Windows.Forms.ToolStripMenuItem m_lineStylesMenuItem;
-		private Canvas m_canvas;
-		private System.Windows.Forms.ToolStripMenuItem m_viewMenu;
-		private System.Windows.Forms.ToolStripMenuItem m_viewZoomMenu;
-		private System.Windows.Forms.ToolStripMenuItem m_viewZoomInMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem m_viewZoomOutMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-		private System.Windows.Forms.ToolStripMenuItem m_viewZoomFiftyPercentMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem m_viewZoomOneHundredPercentMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem m_viewZoomTwoHundredPercentMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem m_viewResetMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem m_editRenameMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem m_editIsDarkMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-		private System.Windows.Forms.ToolStripMenuItem m_fileOpenMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-		private System.Windows.Forms.ToolStripMenuItem m_fileSaveMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem m_fileSaveAsMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
-		private System.Windows.Forms.ToolStripMenuItem m_projectResetToDefaultSettingsMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem m_fileExportMenu;
-		private System.Windows.Forms.ToolStripMenuItem m_fileExportPDFMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem m_fileExportImageMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
-		private System.Windows.Forms.ToolStripMenuItem m_helpMenu;
-		private System.Windows.Forms.ToolStripMenuItem m_helpAboutMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_lineStylesMenuItem;
+        private Canvas m_canvas;
+        private System.Windows.Forms.ToolStripMenuItem m_viewMenu;
+        private System.Windows.Forms.ToolStripMenuItem m_viewZoomMenu;
+        private System.Windows.Forms.ToolStripMenuItem m_viewZoomInMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_viewZoomOutMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem m_viewZoomFiftyPercentMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_viewZoomOneHundredPercentMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_viewZoomTwoHundredPercentMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_viewResetMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_editRenameMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_editIsDarkMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem m_fileOpenMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem m_fileSaveMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_fileSaveAsMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem m_projectResetToDefaultSettingsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_fileExportMenu;
+        private System.Windows.Forms.ToolStripMenuItem m_fileExportPDFMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_fileExportImageMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripMenuItem m_helpMenu;
+        private System.Windows.Forms.ToolStripMenuItem m_helpAboutMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_plainLinesMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem m_toggleDottedLinesMenuItem;
@@ -852,6 +852,6 @@ namespace Trizbort
         private System.Windows.Forms.ToolStripMenuItem tADSToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem10;
         private System.Windows.Forms.ToolStripMenuItem inform6ToolStripMenuItem;
-	}
+    }
 }
 

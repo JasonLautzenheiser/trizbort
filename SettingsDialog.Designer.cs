@@ -24,34 +24,34 @@
 
 namespace Trizbort
 {
-	partial class SettingsDialog
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class SettingsDialog
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsDialog));
             this.m_okButton = new System.Windows.Forms.Button();
             this.m_cancelButton = new System.Windows.Forms.Button();
@@ -1004,72 +1004,72 @@ namespace Trizbort
             ((System.ComponentModel.ISupportInitialize)(this.m_preferredDistanceBetweenRoomsUpDown)).EndInit();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Button m_okButton;
-		private System.Windows.Forms.Button m_cancelButton;
-		private System.Windows.Forms.CheckBox m_handDrawnCheckBox;
-		private System.Windows.Forms.NumericUpDown m_lineWidthUpDown;
-		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.GroupBox m_linesGroupBox;
-		private System.Windows.Forms.GroupBox m_gridGroupBox;
-		private System.Windows.Forms.CheckBox m_snapToGridCheckBox;
-		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.NumericUpDown m_gridSizeUpDown;
-		private System.Windows.Forms.CheckBox m_showGridCheckBox;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.Label label13;
-		private System.Windows.Forms.NumericUpDown m_darknessStripeSizeNumericUpDown;
-		private System.Windows.Forms.Label label34;
-		private System.Windows.Forms.NumericUpDown m_objectListOffsetFromRoomNumericUpDown;
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.GroupBox m_colorsGroupBox;
-		private System.Windows.Forms.ListBox m_colorListBox;
-		private System.Windows.Forms.Button m_changeColorButton;
-		private System.Windows.Forms.GroupBox m_fontsGroupBox;
-		private System.Windows.Forms.Label label12;
-		private System.Windows.Forms.TextBox m_smallFontSizeTextBox;
-		private System.Windows.Forms.Button m_changeSmallFontButton;
-		private System.Windows.Forms.TextBox m_smallFontNameTextBox;
-		private System.Windows.Forms.Label label11;
-		private System.Windows.Forms.TextBox m_largeFontSizeTextBox;
-		private System.Windows.Forms.Button m_changeLargeFontButton;
-		private System.Windows.Forms.TextBox m_largeFontNameTextBox;
-		private System.Windows.Forms.TabPage tabPage2;
-		private System.Windows.Forms.TabPage tabPage3;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.NumericUpDown m_arrowSizeUpDown;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.NumericUpDown m_connectionStalkLengthUpDown;
-		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.NumericUpDown m_snapToElementDistanceUpDown;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.NumericUpDown m_handleSizeUpDown;
-		private System.Windows.Forms.Label label8;
-		private System.Windows.Forms.NumericUpDown m_textOffsetFromLineUpDown;
-		private System.Windows.Forms.Label label9;
-		private System.Windows.Forms.TextBox m_lineFontSizeTextBox;
-		private System.Windows.Forms.Button m_changeLineFontButton;
-		private System.Windows.Forms.TextBox m_lineFontNameTextBox;
-		private System.Windows.Forms.TabPage tabPage4;
-		private System.Windows.Forms.Label label16;
-		private System.Windows.Forms.TextBox m_descriptionTextBox;
-		private System.Windows.Forms.Label label15;
-		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.TextBox m_authorTextBox;
-		private System.Windows.Forms.Label label10;
-		private System.Windows.Forms.TextBox m_titleTextBox;
-		private System.Windows.Forms.TextBox m_historyTextBox;
-		private System.Windows.Forms.Label label17;
-		private System.Windows.Forms.GroupBox groupBox3;
-		private System.Windows.Forms.CheckBox m_showOriginCheckBox;
+        private System.Windows.Forms.Button m_okButton;
+        private System.Windows.Forms.Button m_cancelButton;
+        private System.Windows.Forms.CheckBox m_handDrawnCheckBox;
+        private System.Windows.Forms.NumericUpDown m_lineWidthUpDown;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.GroupBox m_linesGroupBox;
+        private System.Windows.Forms.GroupBox m_gridGroupBox;
+        private System.Windows.Forms.CheckBox m_snapToGridCheckBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown m_gridSizeUpDown;
+        private System.Windows.Forms.CheckBox m_showGridCheckBox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown m_darknessStripeSizeNumericUpDown;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.NumericUpDown m_objectListOffsetFromRoomNumericUpDown;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.GroupBox m_colorsGroupBox;
+        private System.Windows.Forms.ListBox m_colorListBox;
+        private System.Windows.Forms.Button m_changeColorButton;
+        private System.Windows.Forms.GroupBox m_fontsGroupBox;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox m_smallFontSizeTextBox;
+        private System.Windows.Forms.Button m_changeSmallFontButton;
+        private System.Windows.Forms.TextBox m_smallFontNameTextBox;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox m_largeFontSizeTextBox;
+        private System.Windows.Forms.Button m_changeLargeFontButton;
+        private System.Windows.Forms.TextBox m_largeFontNameTextBox;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown m_arrowSizeUpDown;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown m_connectionStalkLengthUpDown;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown m_snapToElementDistanceUpDown;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown m_handleSizeUpDown;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown m_textOffsetFromLineUpDown;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox m_lineFontSizeTextBox;
+        private System.Windows.Forms.Button m_changeLineFontButton;
+        private System.Windows.Forms.TextBox m_lineFontNameTextBox;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox m_descriptionTextBox;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox m_authorTextBox;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox m_titleTextBox;
+        private System.Windows.Forms.TextBox m_historyTextBox;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox m_showOriginCheckBox;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.NumericUpDown m_preferredDistanceBetweenRoomsUpDown;
-	}
+    }
 }

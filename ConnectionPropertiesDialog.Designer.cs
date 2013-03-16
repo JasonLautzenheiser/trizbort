@@ -24,34 +24,34 @@
 
 namespace Trizbort
 {
-	partial class ConnectionPropertiesDialog
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class ConnectionPropertiesDialog
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectionPropertiesDialog));
             this.m_cancelButton = new System.Windows.Forms.Button();
             this.m_okButton = new System.Windows.Forms.Button();
@@ -278,26 +278,26 @@ namespace Trizbort
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Button m_cancelButton;
-		private System.Windows.Forms.Button m_okButton;
-		private System.Windows.Forms.CheckBox m_oneWayCheckBox;
-		private System.Windows.Forms.CheckBox m_dottedCheckBox;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.RadioButton m_customRadioButton;
-		private System.Windows.Forms.RadioButton m_oiRadioButton;
-		private System.Windows.Forms.RadioButton m_ioRadioButton;
-		private System.Windows.Forms.RadioButton m_duRadioButton;
-		private System.Windows.Forms.RadioButton m_udRadioButton;
-		private System.Windows.Forms.Label m_endLabel;
-		private System.Windows.Forms.TextBox m_endTextBox;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TextBox m_middleTextBox;
-		private System.Windows.Forms.TextBox m_startTextBox;
-		private System.Windows.Forms.GroupBox groupBox2;
-	}
+        private System.Windows.Forms.Button m_cancelButton;
+        private System.Windows.Forms.Button m_okButton;
+        private System.Windows.Forms.CheckBox m_oneWayCheckBox;
+        private System.Windows.Forms.CheckBox m_dottedCheckBox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton m_customRadioButton;
+        private System.Windows.Forms.RadioButton m_oiRadioButton;
+        private System.Windows.Forms.RadioButton m_ioRadioButton;
+        private System.Windows.Forms.RadioButton m_duRadioButton;
+        private System.Windows.Forms.RadioButton m_udRadioButton;
+        private System.Windows.Forms.Label m_endLabel;
+        private System.Windows.Forms.TextBox m_endTextBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox m_middleTextBox;
+        private System.Windows.Forms.TextBox m_startTextBox;
+        private System.Windows.Forms.GroupBox groupBox2;
+    }
 }

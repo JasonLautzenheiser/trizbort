@@ -29,78 +29,78 @@ using PdfSharp.Drawing;
 
 namespace Trizbort
 {
-	/// <summary>
-	/// A docking point at which a connection's vertex may join to an element.
-	/// </summary>
-	internal abstract class Port
-	{
-		public Port(Element owner)
-		{
-			Owner = owner;
-		}
+    /// <summary>
+    /// A docking point at which a connection's vertex may join to an element.
+    /// </summary>
+    internal abstract class Port
+    {
+        public Port(Element owner)
+        {
+            Owner = owner;
+        }
 
-		public Element Owner
-		{
-			get;
-			private set;
-		}
+        public Element Owner
+        {
+            get;
+            private set;
+        }
 
-		/// <summary>
-		/// Get the unique identifier for this port amongst all of the owner's ports.
-		/// </summary>
-		public abstract string ID
-		{
-			get;
-		}
+        /// <summary>
+        /// Get the unique identifier for this port amongst all of the owner's ports.
+        /// </summary>
+        public abstract string ID
+        {
+            get;
+        }
 
-		public virtual Vector Position
-		{
-			get { return Owner.GetPortPosition(this); }
-		}
+        public virtual Vector Position
+        {
+            get { return Owner.GetPortPosition(this); }
+        }
 
-		public virtual bool HasStalk
-		{
-			get { return StalkPosition != Position; }
-		}
+        public virtual bool HasStalk
+        {
+            get { return StalkPosition != Position; }
+        }
 
-		public virtual Vector StalkPosition
-		{
-			get { return Owner.GetPortStalkPosition(this); }
-		}
+        public virtual Vector StalkPosition
+        {
+            get { return Owner.GetPortStalkPosition(this); }
+        }
 
-		public virtual float X
-		{
-			get { return Position.X; }
-		}
+        public virtual float X
+        {
+            get { return Position.X; }
+        }
 
-		public virtual float Y
-		{
-			get { return Position.Y; }
-		}
+        public virtual float Y
+        {
+            get { return Position.Y; }
+        }
 
-		private Vector Size
-		{
-			get { return new Vector(Settings.HandleSize); }
-		}
+        private Vector Size
+        {
+            get { return new Vector(Settings.HandleSize); }
+        }
 
         private Vector VisualPosition
         {
             get { return Position; }
         }
 
-		private Rect VisualBounds
-		{
-			get { return new Rect(VisualPosition - Size / 2, Size); }
-		}
+        private Rect VisualBounds
+        {
+            get { return new Rect(VisualPosition - Size / 2, Size); }
+        }
 
-		public virtual void Draw(Canvas canvas, XGraphics graphics, Palette palette, DrawingContext context)
-		{
+        public virtual void Draw(Canvas canvas, XGraphics graphics, Palette palette, DrawingContext context)
+        {
             Drawing.DrawHandle(canvas, graphics, palette, VisualBounds, context, false, true);
-		}
+        }
 
-		public float Distance(Vector pos)
-		{
-			return pos.DistanceFromRect(VisualBounds);
-		}
-	}
+        public float Distance(Vector pos)
+        {
+            return pos.DistanceFromRect(VisualBounds);
+        }
+    }
 }

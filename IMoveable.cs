@@ -26,10 +26,10 @@ using System;
 
 namespace Trizbort
 {
-	internal interface IMoveable
-	{
-		Vector Position { get; set; }
-		float X { get; }
-		float Y { get; }
-	}
+    internal interface IMoveable
+    {
+        Vector Position { get; set; }
+        float X { get; }
+        float Y { get; }
+    }
 }

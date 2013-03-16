@@ -28,36 +28,36 @@ using System.Collections.ObjectModel;
 
 namespace Trizbort
 {
-	internal class BoundList<T> : Collection<T>
-	{
-		public void AddRange<U>(IEnumerable<U> list) where U : T
-		{
-			foreach (var item in list)
-			{
-				Add(item);
-			}
-		}
+    internal class BoundList<T> : Collection<T>
+    {
+        public void AddRange<U>(IEnumerable<U> list) where U : T
+        {
+            foreach (var item in list)
+            {
+                Add(item);
+            }
+        }
 
-		public void RemoveRange<U>(IEnumerable<U> list) where U : T
-		{
-			foreach (var item in list)
-			{
-				Remove(item);
-			}
-		}
+        public void RemoveRange<U>(IEnumerable<U> list) where U : T
+        {
+            foreach (var item in list)
+            {
+                Remove(item);
+            }
+        }
 
-		protected override void InsertItem(int index, T item)
-		{
-			base.InsertItem(index, item);
-			RaiseAdded(item);
-		}
+        protected override void InsertItem(int index, T item)
+        {
+            base.InsertItem(index, item);
+            RaiseAdded(item);
+        }
 
-		protected override void RemoveItem(int index)
-		{
-			var element = Items[index];
-			base.RemoveItem(index);
-			RaiseRemoved(element);
-		}
+        protected override void RemoveItem(int index)
+        {
+            var element = Items[index];
+            base.RemoveItem(index);
+            RaiseRemoved(element);
+        }
 
         public void Reverse()
         {
@@ -70,25 +70,25 @@ namespace Trizbort
             }
         }
 
-		public event ItemEventHandler<T> Added;
-		public event ItemEventHandler<T> Removed;
+        public event ItemEventHandler<T> Added;
+        public event ItemEventHandler<T> Removed;
 
-		private void RaiseAdded(T item)
-		{
-			var added = Added;
-			if (added != null)
-			{
-				added(this, new ItemEventArgs<T>(item));
-			}
-		}
+        private void RaiseAdded(T item)
+        {
+            var added = Added;
+            if (added != null)
+            {
+                added(this, new ItemEventArgs<T>(item));
+            }
+        }
 
-		private void RaiseRemoved(T item)
-		{
-			var removed = Removed;
-			if (removed != null)
-			{
-				removed(this, new ItemEventArgs<T>(item));
-			}
-		}
-	}
+        private void RaiseRemoved(T item)
+        {
+            var removed = Removed;
+            if (removed != null)
+            {
+                removed(this, new ItemEventArgs<T>(item));
+            }
+        }
+    }
 }

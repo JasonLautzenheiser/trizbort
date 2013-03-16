@@ -32,57 +32,57 @@ using System.Windows.Forms;
 
 namespace Trizbort
 {
-	public partial class ConnectionPropertiesDialog : Form
-	{
-		public ConnectionPropertiesDialog()
-		{
-			InitializeComponent();
-		}
+    public partial class ConnectionPropertiesDialog : Form
+    {
+        public ConnectionPropertiesDialog()
+        {
+            InitializeComponent();
+        }
 
-		public bool IsDirectional
-		{
-			get { return m_oneWayCheckBox.Checked; }
-			set { m_oneWayCheckBox.Checked = value; }
-		}
+        public bool IsDirectional
+        {
+            get { return m_oneWayCheckBox.Checked; }
+            set { m_oneWayCheckBox.Checked = value; }
+        }
 
-		public bool IsDotted
-		{
-			get { return m_dottedCheckBox.Checked; }
-			set { m_dottedCheckBox.Checked = value; }
-		}
+        public bool IsDotted
+        {
+            get { return m_dottedCheckBox.Checked; }
+            set { m_dottedCheckBox.Checked = value; }
+        }
 
-		public string StartText
-		{
-			get { return m_startTextBox.Text; }
-			set
-			{
-				m_startTextBox.Text = value;
-				UpdateControls();
-			}
-		}
+        public string StartText
+        {
+            get { return m_startTextBox.Text; }
+            set
+            {
+                m_startTextBox.Text = value;
+                UpdateControls();
+            }
+        }
 
-		public string MidText
-		{
-			get { return m_middleTextBox.Text; }
-			set
-			{
-				m_middleTextBox.Text = value;
-				UpdateControls();
-			}
-		}
+        public string MidText
+        {
+            get { return m_middleTextBox.Text; }
+            set
+            {
+                m_middleTextBox.Text = value;
+                UpdateControls();
+            }
+        }
 
-		public string EndText
-		{
-			get { return m_endTextBox.Text; }
-			set
-			{
-				m_endTextBox.Text = value;
-				UpdateControls();
-			}
-		}
+        public string EndText
+        {
+            get { return m_endTextBox.Text; }
+            set
+            {
+                m_endTextBox.Text = value;
+                UpdateControls();
+            }
+        }
 
-		private void UpdateControls()
-		{
+        private void UpdateControls()
+        {
             if (MatchText(ConnectionLabel.Up))
             {
                 m_udRadioButton.Checked = true;
@@ -103,7 +103,7 @@ namespace Trizbort
             {
                 m_customRadioButton.Checked = true;
             }
-		}
+        }
 
         private bool MatchText(ConnectionLabel label)
         {
@@ -112,25 +112,25 @@ namespace Trizbort
             return StartText == start && EndText == end && string.IsNullOrEmpty(MidText);
         }
 
-		private void OnRadioButtonCheckedChanged(object sender, EventArgs e)
-		{
-			if (m_udRadioButton.Checked)
-			{
+        private void OnRadioButtonCheckedChanged(object sender, EventArgs e)
+        {
+            if (m_udRadioButton.Checked)
+            {
                 SetText(ConnectionLabel.Up);
-			}
-			else if (m_duRadioButton.Checked)
-			{
+            }
+            else if (m_duRadioButton.Checked)
+            {
                 SetText(ConnectionLabel.Down);
             }
-			else if (m_ioRadioButton.Checked)
-			{
+            else if (m_ioRadioButton.Checked)
+            {
                 SetText(ConnectionLabel.In);
             }
-			else if (m_oiRadioButton.Checked)
-			{
+            else if (m_oiRadioButton.Checked)
+            {
                 SetText(ConnectionLabel.Out);
             }
-		}
+        }
 
         private void SetText(ConnectionLabel label)
         {
@@ -139,5 +139,5 @@ namespace Trizbort
             StartText = start;
             EndText = end;
         }
-	}
+    }
 }

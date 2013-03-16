@@ -24,34 +24,34 @@
 
 namespace Trizbort
 {
-	partial class RoomPropertiesDialog
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class RoomPropertiesDialog
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RoomPropertiesDialog));
             this.m_okButton = new System.Windows.Forms.Button();
             this.m_cancelButton = new System.Windows.Forms.Button();
@@ -368,13 +368,13 @@ namespace Trizbort
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Button m_okButton;
-		private System.Windows.Forms.Button m_cancelButton;
-		private System.Windows.Forms.TextBox m_nameTextBox;
+        private System.Windows.Forms.Button m_okButton;
+        private System.Windows.Forms.Button m_cancelButton;
+        private System.Windows.Forms.TextBox m_nameTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox m_isDarkCheckBox;
         private System.Windows.Forms.TabControl m_tabControl;
@@ -392,5 +392,5 @@ namespace Trizbort
         private System.Windows.Forms.CheckBox m_eCheckBox;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox m_descriptionTextBox;
-	}
+    }
 }

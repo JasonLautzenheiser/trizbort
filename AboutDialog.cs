@@ -29,11 +29,11 @@ using System.Reflection;
 
 namespace Trizbort
 {
-	public partial class AboutDialog : Form
-	{
-		public AboutDialog()
-		{
-			InitializeComponent();
+    public partial class AboutDialog : Form
+    {
+        public AboutDialog()
+        {
+            InitializeComponent();
             try
             {
                 m_versionLabel.Text = string.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString().Trim('.', '0'));
@@ -41,17 +41,17 @@ namespace Trizbort
             catch (Exception)
             {
             }
-		}
+        }
 
-		private void OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-		{
-			var label = (LinkLabel)sender;
-			var url = label.Text.Substring(label.LinkArea.Start, label.LinkArea.Length);
-			if (!url.StartsWith("http"))
-			{
-				url = "http://" + url;
-			}
-			Process.Start(url);
-		}
-	}
+        private void OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var label = (LinkLabel)sender;
+            var url = label.Text.Substring(label.LinkArea.Start, label.LinkArea.Length);
+            if (!url.StartsWith("http"))
+            {
+                url = "http://" + url;
+            }
+            Process.Start(url);
+        }
+    }
 }

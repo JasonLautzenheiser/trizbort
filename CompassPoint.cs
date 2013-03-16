@@ -28,119 +28,119 @@ using System.Collections.Generic;
 
 namespace Trizbort
 {
-	/// <summary>
-	/// A abstract point on the compass rose.
-	/// </summary>
-	internal enum CompassPoint
-	{
-		North,
-		NorthNorthEast,
-		NorthEast,
-		EastNorthEast,
-		East,
-		EastSouthEast,
-		SouthEast,
-		SouthSouthEast,
-		South,
-		SouthSouthWest,
-		SouthWest,
-		WestSouthWest,
-		West,
-		WestNorthWest,
-		NorthWest,
-		NorthNorthWest,
+    /// <summary>
+    /// A abstract point on the compass rose.
+    /// </summary>
+    internal enum CompassPoint
+    {
+        North,
+        NorthNorthEast,
+        NorthEast,
+        EastNorthEast,
+        East,
+        EastSouthEast,
+        SouthEast,
+        SouthSouthEast,
+        South,
+        SouthSouthWest,
+        SouthWest,
+        WestSouthWest,
+        West,
+        WestNorthWest,
+        NorthWest,
+        NorthNorthWest,
 
-		Min = North,
-		Max = NorthNorthWest,
-	}
+        Min = North,
+        Max = NorthNorthWest,
+    }
 
-	internal static class CompassPointHelper
-	{
-		private static readonly string[] Names =
-		{
-			"n",
-			"nne",
-			"ne",
-			"ene",
-			"e",
-			"ese",
-			"se",
-			"sse",
-			"s",
-			"ssw",
-			"sw",
-			"wsw",
-			"w",
-			"wnw",
-			"nw",
-			"nnw",
-		};
+    internal static class CompassPointHelper
+    {
+        private static readonly string[] Names =
+        {
+            "n",
+            "nne",
+            "ne",
+            "ene",
+            "e",
+            "ese",
+            "se",
+            "sse",
+            "s",
+            "ssw",
+            "sw",
+            "wsw",
+            "w",
+            "wnw",
+            "nw",
+            "nnw",
+        };
 
-		public static bool ToName(CompassPoint point, out string name)
-		{
-			int index = (int)point;
-			if (index >= 0 && index < Names.Length)
-			{
-				name = Names[index];
-				return true;
-			}
-			name = string.Empty;
-			return false;
-		}
+        public static bool ToName(CompassPoint point, out string name)
+        {
+            int index = (int)point;
+            if (index >= 0 && index < Names.Length)
+            {
+                name = Names[index];
+                return true;
+            }
+            name = string.Empty;
+            return false;
+        }
 
-		public static bool FromName(string name, out CompassPoint point)
-		{
-			for (int index = 0; index < Names.Length; ++index)
-			{
-				if (StringComparer.InvariantCultureIgnoreCase.Compare(name ?? string.Empty, Names[index]) == 0)
-				{
-					point = (CompassPoint)index;
-					return true;
-				}
-			}
-			point = CompassPoint.North;
-			return false;
-		}
+        public static bool FromName(string name, out CompassPoint point)
+        {
+            for (int index = 0; index < Names.Length; ++index)
+            {
+                if (StringComparer.InvariantCultureIgnoreCase.Compare(name ?? string.Empty, Names[index]) == 0)
+                {
+                    point = (CompassPoint)index;
+                    return true;
+                }
+            }
+            point = CompassPoint.North;
+            return false;
+        }
 
         /// <summary>
         /// Rotate a point clockwise to find its neighbour on that side.
         /// </summary>
         public static CompassPoint RotateClockwise(CompassPoint point)
-		{
-			point = (CompassPoint)((int)point + 1);
-			if (point > CompassPoint.Max)
-			{
-				point = CompassPoint.Min;
-			}
-			return point;
-		}
+        {
+            point = (CompassPoint)((int)point + 1);
+            if (point > CompassPoint.Max)
+            {
+                point = CompassPoint.Min;
+            }
+            return point;
+        }
 
         /// <summary>
         /// Rotate a point anti-clockwise to find its neighbour on that side.
         /// </summary>
-		public static CompassPoint RotateAntiClockwise(CompassPoint point)
-		{
-			point = (CompassPoint)((int)point - 1);
-			if (point < CompassPoint.Min)
-			{
-				point = CompassPoint.Max;
-			}
-			return point;
-		}
+        public static CompassPoint RotateAntiClockwise(CompassPoint point)
+        {
+            point = (CompassPoint)((int)point - 1);
+            if (point < CompassPoint.Min)
+            {
+                point = CompassPoint.Max;
+            }
+            return point;
+        }
 
         /// <summary>
         /// Get the geometric opposite of a compass point on the compass rose.
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-		public static CompassPoint GetOpposite(CompassPoint point)
-		{
-			for (int index = 0; index < (int)(CompassPoint.Max - CompassPoint.Min + 1) / 2; ++index)
-			{
-				point = RotateClockwise(point);
-			}
-			return point;
-		}
+        public static CompassPoint GetOpposite(CompassPoint point)
+        {
+            for (int index = 0; index < (int)(CompassPoint.Max - CompassPoint.Min + 1) / 2; ++index)
+            {
+                point = RotateClockwise(point);
+            }
+            return point;
+        }
 
         /// <summary>
         /// Get the compass point which is the opposite of the given point,
@@ -359,5 +359,5 @@ namespace Trizbort
                     return AutomapDirection.North;
             }
         }
-	}
+    }
 }

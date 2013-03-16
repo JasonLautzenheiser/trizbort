@@ -33,114 +33,114 @@ using PdfSharp.Drawing;
 
 namespace Trizbort
 {
-	internal static class Drawing
-	{
-		static Drawing()
-		{
-			m_drawLineCursor = LoadCursor(Properties.Resources.DrawLineCursor);
-			m_drawLineInvertedCursor = LoadCursor(Properties.Resources.DrawLineInvertedCursor);
-			m_moveLineCursor = LoadCursor(Properties.Resources.MoveLineCursor);
-			m_moveLineInvertedCursor = LoadCursor(Properties.Resources.MoveLineInvertedCursor);
-		}
+    internal static class Drawing
+    {
+        static Drawing()
+        {
+            m_drawLineCursor = LoadCursor(Properties.Resources.DrawLineCursor);
+            m_drawLineInvertedCursor = LoadCursor(Properties.Resources.DrawLineInvertedCursor);
+            m_moveLineCursor = LoadCursor(Properties.Resources.MoveLineCursor);
+            m_moveLineInvertedCursor = LoadCursor(Properties.Resources.MoveLineInvertedCursor);
+        }
 
-		private static Cursor LoadCursor(byte[] bytes)
-		{
-			using (var stream = new MemoryStream(bytes))
-			{
-				return new Cursor(stream);
-			}
-		}
+        private static Cursor LoadCursor(byte[] bytes)
+        {
+            using (var stream = new MemoryStream(bytes))
+            {
+                return new Cursor(stream);
+            }
+        }
 
-		public static Cursor DrawLineCursor
-		{
-			get
-			{
-				return Drawing.IsDark(Settings.Color[Colors.Canvas]) ? m_drawLineInvertedCursor : m_drawLineCursor;
-			}
-		}
+        public static Cursor DrawLineCursor
+        {
+            get
+            {
+                return Drawing.IsDark(Settings.Color[Colors.Canvas]) ? m_drawLineInvertedCursor : m_drawLineCursor;
+            }
+        }
 
-		public static Cursor MoveLineCursor
-		{
-			get
-			{
-				return Drawing.IsDark(Settings.Color[Colors.Canvas]) ? m_moveLineInvertedCursor : m_moveLineCursor;
-			}
-		}
+        public static Cursor MoveLineCursor
+        {
+            get
+            {
+                return Drawing.IsDark(Settings.Color[Colors.Canvas]) ? m_moveLineInvertedCursor : m_moveLineCursor;
+            }
+        }
 
-		public static Rectangle ToRectangle(RectangleF rect)
-		{
-			return new Rectangle((int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height);
-		}
+        public static Rectangle ToRectangle(RectangleF rect)
+        {
+            return new Rectangle((int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height);
+        }
 
-		public static void AddLine(XGraphicsPath path, LineSegment segment, Random random)
-		{
-			if (Settings.HandDrawn)
-			{
-				float dx = segment.End.X - segment.Start.X;
-				float dy = segment.End.Y - segment.Start.Y;
-				float distance = (float)Math.Sqrt(dx * dx + dy * dy);
-				int points = random.Next(Math.Max(3, (int)(distance / 15)), Math.Max(6, (int)(distance / 8)));
-				int lines = points - 1;
-				Vector last = segment.Start;
-				for (int line = 0; line < lines; ++line)
-				{
-					Vector next;
-					if (line == 0)
-					{
-						next = last;
-					}
-					else if (line == lines - 1)
-					{
-						next = segment.End;
-					}
-					else
-					{
-						float fraction = (float)line / (float)(lines - 1);
-						float x = segment.Start.X + (segment.End.X - segment.Start.X) * fraction;
-						float y = segment.Start.Y + (segment.End.Y - segment.Start.Y) * fraction;
+        public static void AddLine(XGraphicsPath path, LineSegment segment, Random random)
+        {
+            if (Settings.HandDrawn)
+            {
+                float dx = segment.End.X - segment.Start.X;
+                float dy = segment.End.Y - segment.Start.Y;
+                float distance = (float)Math.Sqrt(dx * dx + dy * dy);
+                int points = random.Next(Math.Max(3, (int)(distance / 15)), Math.Max(6, (int)(distance / 8)));
+                int lines = points - 1;
+                Vector last = segment.Start;
+                for (int line = 0; line < lines; ++line)
+                {
+                    Vector next;
+                    if (line == 0)
+                    {
+                        next = last;
+                    }
+                    else if (line == lines - 1)
+                    {
+                        next = segment.End;
+                    }
+                    else
+                    {
+                        float fraction = (float)line / (float)(lines - 1);
+                        float x = segment.Start.X + (segment.End.X - segment.Start.X) * fraction;
+                        float y = segment.Start.Y + (segment.End.Y - segment.Start.Y) * fraction;
 
-						x += random.Next(-1, 2);
-						y += random.Next(-1, 2);
-						next = new Vector(x, y);
-					}
+                        x += random.Next(-1, 2);
+                        y += random.Next(-1, 2);
+                        next = new Vector(x, y);
+                    }
 
-					path.AddLine(last.ToPointF(), next.ToPointF());
-					last = next;
-				}
-			}
-			else
-			{
-				path.AddLine(segment.Start.ToPointF(), segment.End.ToPointF());
-			}
-		}
+                    path.AddLine(last.ToPointF(), next.ToPointF());
+                    last = next;
+                }
+            }
+            else
+            {
+                path.AddLine(segment.Start.ToPointF(), segment.End.ToPointF());
+            }
+        }
 
-		public static void DrawHandle(Canvas canvas, XGraphics graphics, Palette palette, Rect bounds, DrawingContext context, bool alwaysAlpha, bool round)
-		{
+        public static void DrawHandle(Canvas canvas, XGraphics graphics, Palette palette, Rect bounds, DrawingContext context, bool alwaysAlpha, bool round)
+        {
             if (bounds.Width <= 0 || bounds.Height <= 0)
             {
                 return;
             }
 
-			using (var quality = new Smoothing(graphics, XSmoothingMode.Default))
-			{
-				XBrush brush;
-				Pen pen;
+            using (var quality = new Smoothing(graphics, XSmoothingMode.Default))
+            {
+                XBrush brush;
+                Pen pen;
                 var alpha = 180;
 
-				if (context.Selected)
-				{
+                if (context.Selected)
+                {
                     if (!alwaysAlpha)
                     {
                         alpha = 255;
                     }
-					brush = palette.Gradient(bounds, Color.FromArgb(alpha, Color.LemonChiffon), Color.FromArgb(alpha, Color.DarkOrange));
-					pen = palette.Pen(Color.FromArgb(alpha, Color.Chocolate), 0);
-				}
-				else
-				{
-					brush = palette.Gradient(bounds, Color.FromArgb(alpha, Color.LightCyan), Color.FromArgb(alpha, Color.SteelBlue));
-					pen = palette.Pen(Color.FromArgb(alpha, Color.Navy), 0);
-				}
+                    brush = palette.Gradient(bounds, Color.FromArgb(alpha, Color.LemonChiffon), Color.FromArgb(alpha, Color.DarkOrange));
+                    pen = palette.Pen(Color.FromArgb(alpha, Color.Chocolate), 0);
+                }
+                else
+                {
+                    brush = palette.Gradient(bounds, Color.FromArgb(alpha, Color.LightCyan), Color.FromArgb(alpha, Color.SteelBlue));
+                    pen = palette.Pen(Color.FromArgb(alpha, Color.Navy), 0);
+                }
 
                 if (round)
                 {
@@ -152,95 +152,95 @@ namespace Trizbort
                     graphics.DrawRectangle(brush, bounds.ToRectangleF());
                     graphics.DrawRectangle(pen, bounds.ToRectangleF());
                 }
-			}
-		}
+            }
+        }
 
-		public static Color Mix(Color a, Color b, int propA, int propB)
-		{
-			return Color.FromArgb(
-				(byte)(((a.R * propA) + (b.R * propB)) / (propA + propB)),
-				(byte)(((a.G * propA) + (b.G * propB)) / (propA + propB)),
-				(byte)(((a.B * propA) + (b.B * propB)) / (propA + propB)));
-		}
+        public static Color Mix(Color a, Color b, int propA, int propB)
+        {
+            return Color.FromArgb(
+                (byte)(((a.R * propA) + (b.R * propB)) / (propA + propB)),
+                (byte)(((a.G * propA) + (b.G * propB)) / (propA + propB)),
+                (byte)(((a.B * propA) + (b.B * propB)) / (propA + propB)));
+        }
 
-		public static bool IsDark(Color color)
-		{
-			return Math.Max(color.R, Math.Max(color.G, color.B)) < 128;
-		}
+        public static bool IsDark(Color color)
+        {
+            return Math.Max(color.R, Math.Max(color.G, color.B)) < 128;
+        }
 
-		public static PointF Subtract(PointF a, PointF b)
-		{
-			return new PointF(a.X - b.X, a.Y - b.Y);
-		}
+        public static PointF Subtract(PointF a, PointF b)
+        {
+            return new PointF(a.X - b.X, a.Y - b.Y);
+        }
 
-		public static PointF Divide(PointF pos, float scalar)
-		{
-			return new PointF(pos.X / scalar, pos.Y / scalar);
-		}
+        public static PointF Divide(PointF pos, float scalar)
+        {
+            return new PointF(pos.X / scalar, pos.Y / scalar);
+        }
 
-		public static void DrawChevron(XGraphics graphics, PointF pos, float angle, float size, Brush fillBrush)
-		{
-			if (m_chevronPath == null)
-			{
-				var apex = new PointF(0.5f, 0);
-				var leftCorner = new PointF(-0.5f, 0.5f);
-				var rightCorner = new PointF(-0.5f, -0.5f);
-				m_chevronPath = new XGraphicsPath();
-				m_chevronPath.AddLine(apex, rightCorner);
-				m_chevronPath.AddLine(rightCorner, leftCorner);
-				m_chevronPath.AddLine(leftCorner, apex);
-			}
-			var state = graphics.Save();
-			graphics.TranslateTransform(pos.X, pos.Y);
-			graphics.RotateTransform(angle);
-			graphics.ScaleTransform(size, size);
-			graphics.DrawPath(fillBrush, m_chevronPath);
-			graphics.Restore(state);
-		}
+        public static void DrawChevron(XGraphics graphics, PointF pos, float angle, float size, Brush fillBrush)
+        {
+            if (m_chevronPath == null)
+            {
+                var apex = new PointF(0.5f, 0);
+                var leftCorner = new PointF(-0.5f, 0.5f);
+                var rightCorner = new PointF(-0.5f, -0.5f);
+                m_chevronPath = new XGraphicsPath();
+                m_chevronPath.AddLine(apex, rightCorner);
+                m_chevronPath.AddLine(rightCorner, leftCorner);
+                m_chevronPath.AddLine(leftCorner, apex);
+            }
+            var state = graphics.Save();
+            graphics.TranslateTransform(pos.X, pos.Y);
+            graphics.RotateTransform(angle);
+            graphics.ScaleTransform(size, size);
+            graphics.DrawPath(fillBrush, m_chevronPath);
+            graphics.Restore(state);
+        }
 
-		public static bool SetAlignmentFromCardinalOrOrdinalDirection(XStringFormat format, CompassPoint compassPoint)
-		{
-			switch (compassPoint)
-			{
-				case CompassPoint.North:
-				case CompassPoint.NorthEast:
-					format.LineAlignment = XLineAlignment.Far;
-					format.Alignment = XStringAlignment.Near;
-					break;
-				case CompassPoint.East:
-				case CompassPoint.SouthEast:
-				case CompassPoint.South:
-					format.LineAlignment = XLineAlignment.Near;
-					format.Alignment = XStringAlignment.Near;
-					break;
-				case CompassPoint.West:
-				case CompassPoint.SouthWest:
-					format.LineAlignment = XLineAlignment.Near;
-					format.Alignment = XStringAlignment.Far;
-					break;
-				case CompassPoint.NorthWest:
-					format.LineAlignment = XLineAlignment.Far;
-					format.Alignment = XStringAlignment.Far;
-					break;
-				default:
-					return false;
-			}
-			return true;
-		}
+        public static bool SetAlignmentFromCardinalOrOrdinalDirection(XStringFormat format, CompassPoint compassPoint)
+        {
+            switch (compassPoint)
+            {
+                case CompassPoint.North:
+                case CompassPoint.NorthEast:
+                    format.LineAlignment = XLineAlignment.Far;
+                    format.Alignment = XStringAlignment.Near;
+                    break;
+                case CompassPoint.East:
+                case CompassPoint.SouthEast:
+                case CompassPoint.South:
+                    format.LineAlignment = XLineAlignment.Near;
+                    format.Alignment = XStringAlignment.Near;
+                    break;
+                case CompassPoint.West:
+                case CompassPoint.SouthWest:
+                    format.LineAlignment = XLineAlignment.Near;
+                    format.Alignment = XStringAlignment.Far;
+                    break;
+                case CompassPoint.NorthWest:
+                    format.LineAlignment = XLineAlignment.Far;
+                    format.Alignment = XStringAlignment.Far;
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+        }
 
-		public static string FontName(Font font)
-		{
-			if (!string.IsNullOrEmpty(font.OriginalFontName))
-			{
-				return font.OriginalFontName;
-			}
-			return font.Name;
-		}
+        public static string FontName(Font font)
+        {
+            if (!string.IsNullOrEmpty(font.OriginalFontName))
+            {
+                return font.OriginalFontName;
+            }
+            return font.Name;
+        }
 
-		private static Cursor m_drawLineCursor;
-		private static Cursor m_drawLineInvertedCursor;
-		private static Cursor m_moveLineCursor;
-		private static Cursor m_moveLineInvertedCursor;
-		private static XGraphicsPath m_chevronPath;
-	}
+        private static Cursor m_drawLineCursor;
+        private static Cursor m_drawLineInvertedCursor;
+        private static Cursor m_moveLineCursor;
+        private static Cursor m_moveLineInvertedCursor;
+        private static XGraphicsPath m_chevronPath;
+    }
 }

@@ -30,21 +30,21 @@ using PdfSharp.Drawing;
 
 namespace Trizbort
 {
-	internal class Smoothing : IDisposable
-	{
-		public Smoothing(XGraphics graphics, XSmoothingMode mode)
-		{
-			Graphics = graphics;
-			SmoothingMode = graphics.SmoothingMode;
-			graphics.SmoothingMode = mode;
-		}
+    internal class Smoothing : IDisposable
+    {
+        public Smoothing(XGraphics graphics, XSmoothingMode mode)
+        {
+            Graphics = graphics;
+            SmoothingMode = graphics.SmoothingMode;
+            graphics.SmoothingMode = mode;
+        }
 
-		public void Dispose()
-		{
-			Graphics.SmoothingMode = SmoothingMode;
-		}
+        public void Dispose()
+        {
+            Graphics.SmoothingMode = SmoothingMode;
+        }
 
-		public XGraphics Graphics { get; private set; }
-		public XSmoothingMode SmoothingMode { get; private set; }
-	}
+        public XGraphics Graphics { get; private set; }
+        public XSmoothingMode SmoothingMode { get; private set; }
+    }
 }

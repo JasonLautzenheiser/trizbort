@@ -28,57 +28,57 @@ using System.Text;
 
 namespace Trizbort
 {
-	internal static class Colors
-	{
-		public static readonly int Canvas = 0;
-		public static readonly int Fill = 1;
-		public static readonly int Border = 2;
-		public static readonly int Line = 3;
-		public static readonly int SelectedLine = 4;
-		public static readonly int HoverLine = 5;
-		public static readonly int LargeText = 6;
-		public static readonly int SmallText = 7;
-		public static readonly int LineText = 8;
-		public static readonly int Grid = 9;
-		public static readonly int Count = 10;
+    internal static class Colors
+    {
+        public static readonly int Canvas = 0;
+        public static readonly int Fill = 1;
+        public static readonly int Border = 2;
+        public static readonly int Line = 3;
+        public static readonly int SelectedLine = 4;
+        public static readonly int HoverLine = 5;
+        public static readonly int LargeText = 6;
+        public static readonly int SmallText = 7;
+        public static readonly int LineText = 8;
+        public static readonly int Grid = 9;
+        public static readonly int Count = 10;
 
-		private static readonly string[] Names =
-		{
-			"canvas",
-			"fill",
-			"border",
-			"line",
-			"selectedLine",
-			"hoverLine",
-			"largeText",
-			"smallText",
-			"lineText",
-			"grid"
-		};
+        private static readonly string[] Names =
+        {
+            "canvas",
+            "fill",
+            "border",
+            "line",
+            "selectedLine",
+            "hoverLine",
+            "largeText",
+            "smallText",
+            "lineText",
+            "grid"
+        };
 
-		public static bool ToName(int color, out string name)
-		{
-			if (color >= 0 && color < Names.Length)
-			{
-				name = Names[color];
-				return true;
-			}
-			name = string.Empty;
-			return false;
-		}
+        public static bool ToName(int color, out string name)
+        {
+            if (color >= 0 && color < Names.Length)
+            {
+                name = Names[color];
+                return true;
+            }
+            name = string.Empty;
+            return false;
+        }
 
-		public static bool FromName(string name, out int color)
-		{
-			for (int index = 0; index < Names.Length; ++index)
-			{
-				if (StringComparer.InvariantCultureIgnoreCase.Compare(name ?? string.Empty, Names[index]) == 0)
-				{
-					color = index;
-					return true;
-				}
-			}
-			color = -1;
-			return false;
-		}
-	}
+        public static bool FromName(string name, out int color)
+        {
+            for (int index = 0; index < Names.Length; ++index)
+            {
+                if (StringComparer.InvariantCultureIgnoreCase.Compare(name ?? string.Empty, Names[index]) == 0)
+                {
+                    color = index;
+                    return true;
+                }
+            }
+            color = -1;
+            return false;
+        }
+    }
 }

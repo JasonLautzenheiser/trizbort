@@ -30,11 +30,11 @@ using System.Windows.Forms;
 
 namespace Trizbort
 {
-	internal partial class RoomPropertiesDialog : Form
-	{
-		public RoomPropertiesDialog()
-		{
-			InitializeComponent();
+    internal partial class RoomPropertiesDialog : Form
+    {
+        public RoomPropertiesDialog()
+        {
+            InitializeComponent();
 
             switch (m_lastViewedTab)
             {
@@ -45,13 +45,13 @@ namespace Trizbort
                     m_tabControl.SelectedIndex = 1;
                     break;
             }
-		}
+        }
 
-		public string RoomName
-		{
-			get { return m_nameTextBox.Text; }
-			set { m_nameTextBox.Text = value; }
-		}
+        public string RoomName
+        {
+            get { return m_nameTextBox.Text; }
+            set { m_nameTextBox.Text = value; }
+        }
 
         public string Description
         {
@@ -59,66 +59,66 @@ namespace Trizbort
             set { m_descriptionTextBox.Text = value; }
         }
 
-		public bool IsDark
-		{
-			get { return m_isDarkCheckBox.Checked; }
-			set { m_isDarkCheckBox.Checked = value; }
-		}
+        public bool IsDark
+        {
+            get { return m_isDarkCheckBox.Checked; }
+            set { m_isDarkCheckBox.Checked = value; }
+        }
 
-		public string Objects
-		{
-			get { return m_objectsTextBox.Text; }
-			set { m_objectsTextBox.Text = value; }
-		}
+        public string Objects
+        {
+            get { return m_objectsTextBox.Text; }
+            set { m_objectsTextBox.Text = value; }
+        }
 
-		public CompassPoint ObjectsPosition
-		{
-			get
-			{
-				if (m_nCheckBox.Checked) return CompassPoint.North;
-				else if (m_sCheckBox.Checked) return CompassPoint.South;
-				else if (m_eCheckBox.Checked) return CompassPoint.East;
-				else if (m_wCheckBox.Checked) return CompassPoint.West;
-				else if (m_neCheckBox.Checked) return CompassPoint.NorthEast;
-				else if (m_nwCheckBox.Checked) return CompassPoint.NorthWest;
-				else if (m_seCheckBox.Checked) return CompassPoint.SouthEast;
-				else if (m_swCheckBox.Checked) return CompassPoint.SouthWest;
-				else return CompassPoint.WestSouthWest;
-			}
-			set
-			{
-				switch (value)
-				{
-					case CompassPoint.North:
-						m_nCheckBox.Checked = true;
-						break;
-					case CompassPoint.South:
-						m_sCheckBox.Checked = true;
-						break;
-					case CompassPoint.East:
-						m_eCheckBox.Checked = true;
-						break;
-					case CompassPoint.West:
-						m_wCheckBox.Checked = true;
-						break;
-					case CompassPoint.NorthEast:
-						m_neCheckBox.Checked = true;
-						break;
-					case CompassPoint.NorthWest:
-						m_nwCheckBox.Checked = true;
-						break;
-					case CompassPoint.SouthEast:
-						m_seCheckBox.Checked = true;
-						break;
-					case CompassPoint.SouthWest:
-						m_swCheckBox.Checked = true;
-						break;
-					default:
-						m_cCheckBox.Checked = true;
-						break;
-				}
-			}
-		}
+        public CompassPoint ObjectsPosition
+        {
+            get
+            {
+                if (m_nCheckBox.Checked) return CompassPoint.North;
+                else if (m_sCheckBox.Checked) return CompassPoint.South;
+                else if (m_eCheckBox.Checked) return CompassPoint.East;
+                else if (m_wCheckBox.Checked) return CompassPoint.West;
+                else if (m_neCheckBox.Checked) return CompassPoint.NorthEast;
+                else if (m_nwCheckBox.Checked) return CompassPoint.NorthWest;
+                else if (m_seCheckBox.Checked) return CompassPoint.SouthEast;
+                else if (m_swCheckBox.Checked) return CompassPoint.SouthWest;
+                else return CompassPoint.WestSouthWest;
+            }
+            set
+            {
+                switch (value)
+                {
+                    case CompassPoint.North:
+                        m_nCheckBox.Checked = true;
+                        break;
+                    case CompassPoint.South:
+                        m_sCheckBox.Checked = true;
+                        break;
+                    case CompassPoint.East:
+                        m_eCheckBox.Checked = true;
+                        break;
+                    case CompassPoint.West:
+                        m_wCheckBox.Checked = true;
+                        break;
+                    case CompassPoint.NorthEast:
+                        m_neCheckBox.Checked = true;
+                        break;
+                    case CompassPoint.NorthWest:
+                        m_nwCheckBox.Checked = true;
+                        break;
+                    case CompassPoint.SouthEast:
+                        m_seCheckBox.Checked = true;
+                        break;
+                    case CompassPoint.SouthWest:
+                        m_swCheckBox.Checked = true;
+                        break;
+                    default:
+                        m_cCheckBox.Checked = true;
+                        break;
+                }
+            }
+        }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -134,37 +134,37 @@ namespace Trizbort
             }
         }
 
-		private void PositionCheckBox_CheckedChanged(object sender, EventArgs e)
-		{
-			if (m_adjustingPosition)
-				return;
+        private void PositionCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_adjustingPosition)
+                return;
 
-			m_adjustingPosition = true;
-			try
-			{
-				var checkBox = (CheckBox)sender;
-				if (checkBox.Checked)
-				{
-					foreach (Control other in checkBox.Parent.Controls)
-					{
-						if (other is CheckBox && other != checkBox)
-						{
-							((CheckBox)other).Checked = false;
-						}
-					}
-				}
-				else
-				{
-					m_sCheckBox.Checked = true;
-				}
-			}
-			finally
-			{
-				m_adjustingPosition = false;
-			}
-		}
+            m_adjustingPosition = true;
+            try
+            {
+                var checkBox = (CheckBox)sender;
+                if (checkBox.Checked)
+                {
+                    foreach (Control other in checkBox.Parent.Controls)
+                    {
+                        if (other is CheckBox && other != checkBox)
+                        {
+                            ((CheckBox)other).Checked = false;
+                        }
+                    }
+                }
+                else
+                {
+                    m_sCheckBox.Checked = true;
+                }
+            }
+            finally
+            {
+                m_adjustingPosition = false;
+            }
+        }
 
-		private bool m_adjustingPosition = false;
+        private bool m_adjustingPosition = false;
 
         enum Tab
         {
@@ -173,5 +173,5 @@ namespace Trizbort
         }
 
         private static Tab m_lastViewedTab = Tab.Objects;
-	}
+    }
 }

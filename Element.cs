@@ -30,159 +30,159 @@ using PdfSharp.Drawing;
 
 namespace Trizbort
 {
-	/// <summary>
-	/// An element in the project, represented visually on the canvas.
-	/// </summary>
-	/// <remarks>
-	/// Elements have a position and size and may be drawn.
-	/// Elements have zero or more ports to which connections may be made.
-	/// </remarks>
-	internal abstract class Element : IComparable<Element>
-	{
-		public Element(Project project)
-		{
-			m_ports = new ReadOnlyCollection<Port>(m_portList);
-			Project = project;
-			int id = 1;
-			while (Project.IsElementIDInUse(id))
-			{
-				++id;
-			}
-			ID = id;
-		}
+    /// <summary>
+    /// An element in the project, represented visually on the canvas.
+    /// </summary>
+    /// <remarks>
+    /// Elements have a position and size and may be drawn.
+    /// Elements have zero or more ports to which connections may be made.
+    /// </remarks>
+    internal abstract class Element : IComparable<Element>
+    {
+        public Element(Project project)
+        {
+            m_ports = new ReadOnlyCollection<Port>(m_portList);
+            Project = project;
+            int id = 1;
+            while (Project.IsElementIDInUse(id))
+            {
+                ++id;
+            }
+            ID = id;
+        }
 
-		/// <summary>
-		/// Get the project of which this element is part.
-		/// </summary>
-		/// <remarks>
-		/// The project defines the namespace in which element identifiers are unique.
-		/// </remarks>
-		public Project Project
-		{
-			get;
-			private set;
-		}
+        /// <summary>
+        /// Get the project of which this element is part.
+        /// </summary>
+        /// <remarks>
+        /// The project defines the namespace in which element identifiers are unique.
+        /// </remarks>
+        public Project Project
+        {
+            get;
+            private set;
+        }
 
-		/// <summary>
-		/// Get the unique identifier of this element.
-		/// </summary>
-		public int ID
-		{
-			get { return m_id; }
-			set
-			{
-				if (!Project.IsElementIDInUse(value))
-				{
-					m_id = value;
-				}
-			}
-		}
+        /// <summary>
+        /// Get the unique identifier of this element.
+        /// </summary>
+        public int ID
+        {
+            get { return m_id; }
+            set
+            {
+                if (!Project.IsElementIDInUse(value))
+                {
+                    m_id = value;
+                }
+            }
+        }
 
-		/// <summary>
-		/// Compare this element to another.
-		/// </summary>
-		/// <param name="element">The other element.</param>
-		/// <remarks>
-		/// This method is used to sort into drawing order. Depth is the 
-		/// primary criterion; after that a deterministic sort order is 
-		/// guaranteed by using a unique, monotonically increasing sort 
-		/// identifier for each element.
-		/// </remarks>
-		public int CompareTo(Element element)
-		{
-			int delta = Depth.CompareTo(element.Depth);
-			if (delta == 0)
-			{
-				delta = ID.CompareTo(element.ID);
-			}
-			return delta;
-		}
+        /// <summary>
+        /// Compare this element to another.
+        /// </summary>
+        /// <param name="element">The other element.</param>
+        /// <remarks>
+        /// This method is used to sort into drawing order. Depth is the 
+        /// primary criterion; after that a deterministic sort order is 
+        /// guaranteed by using a unique, monotonically increasing sort 
+        /// identifier for each element.
+        /// </remarks>
+        public int CompareTo(Element element)
+        {
+            int delta = Depth.CompareTo(element.Depth);
+            if (delta == 0)
+            {
+                delta = ID.CompareTo(element.ID);
+            }
+            return delta;
+        }
 
-		/// <summary>
-		/// Get the drawing priority of this element.
-		/// </summary>
-		/// <remarks>
-		/// Elements with a higher drawing priority are drawn last.
-		/// </remarks>
-		public virtual Depth Depth
-		{
-			get { return Depth.Low; }
-		}
+        /// <summary>
+        /// Get the drawing priority of this element.
+        /// </summary>
+        /// <remarks>
+        /// Elements with a higher drawing priority are drawn last.
+        /// </remarks>
+        public virtual Depth Depth
+        {
+            get { return Depth.Low; }
+        }
 
-		/// <summary>
-		/// Event raised when the element changes.
-		/// </summary>
-		public event EventHandler Changed;
+        /// <summary>
+        /// Event raised when the element changes.
+        /// </summary>
+        public event EventHandler Changed;
 
-		/// <summary>
-		/// Raise the Changed event.
-		/// </summary>
-		protected void RaiseChanged()
-		{
-			if (RaiseChangedEvents)
-			{
-				var changed = Changed;
-				if (changed != null)
-				{
-					changed(this, EventArgs.Empty);
-				}
-			}
-		}
+        /// <summary>
+        /// Raise the Changed event.
+        /// </summary>
+        protected void RaiseChanged()
+        {
+            if (RaiseChangedEvents)
+            {
+                var changed = Changed;
+                if (changed != null)
+                {
+                    changed(this, EventArgs.Empty);
+                }
+            }
+        }
 
-		/// <summary>
-		/// Get/set whether to raise change events.
-		/// </summary>
-		protected bool RaiseChangedEvents
-		{
-			get { return m_raiseChangedEvents; }
-			set { m_raiseChangedEvents = value; }
-		}
+        /// <summary>
+        /// Get/set whether to raise change events.
+        /// </summary>
+        protected bool RaiseChangedEvents
+        {
+            get { return m_raiseChangedEvents; }
+            set { m_raiseChangedEvents = value; }
+        }
 
-		/// <summary>
-		/// Recompute any "smart" line segments we use when drawing.
-		/// </summary>
-		public virtual void RecomputeSmartLineSegments(DrawingContext context)
-		{
-		}
+        /// <summary>
+        /// Recompute any "smart" line segments we use when drawing.
+        /// </summary>
+        public virtual void RecomputeSmartLineSegments(DrawingContext context)
+        {
+        }
 
-		/// <summary>
-		/// Perform a pre-drawing pass for this element.
-		/// </summary>
-		/// <param name="context">The context in which drawing is taking place.</param>
-		/// <remarks>
-		/// Elements which wish to add to context.LinesDrawn such that
-		/// Connections lines will detect them may do so here.
-		/// </remarks>
-		public virtual void PreDraw(DrawingContext context)
-		{
-		}
+        /// <summary>
+        /// Perform a pre-drawing pass for this element.
+        /// </summary>
+        /// <param name="context">The context in which drawing is taking place.</param>
+        /// <remarks>
+        /// Elements which wish to add to context.LinesDrawn such that
+        /// Connections lines will detect them may do so here.
+        /// </remarks>
+        public virtual void PreDraw(DrawingContext context)
+        {
+        }
 
-		/// <summary>
-		/// Draw the element.
-		/// </summary>
-		/// <param name="graphics">The graphics with which to draw.</param>
-		/// <param name="palette">The palette from which to obtain drawing tools.</param>
-		/// <param name="context">The context in which drawing is taking place.</param>
-		public abstract void Draw(XGraphics graphics, Palette palette, DrawingContext context);
+        /// <summary>
+        /// Draw the element.
+        /// </summary>
+        /// <param name="graphics">The graphics with which to draw.</param>
+        /// <param name="palette">The palette from which to obtain drawing tools.</param>
+        /// <param name="context">The context in which drawing is taking place.</param>
+        public abstract void Draw(XGraphics graphics, Palette palette, DrawingContext context);
 
-		/// <summary>
-		/// Enlarge the given rectangle so as to fully incorporate this element.
-		/// </summary>
-		/// <param name="rect">The rectangle to enlarge.</param>
+        /// <summary>
+        /// Enlarge the given rectangle so as to fully incorporate this element.
+        /// </summary>
+        /// <param name="rect">The rectangle to enlarge.</param>
         /// <param name="includeMargins">True to include suitable margins around elements which need them; false otherwise.</param>
-		/// <returns>The new rectangle which incorporates this element.</returns>
-		/// <remarks>
-		/// This method is used to determine the bounds of the canvas on which
-		/// elements are drawn when exporting as an image or PDF.
+        /// <returns>The new rectangle which incorporates this element.</returns>
+        /// <remarks>
+        /// This method is used to determine the bounds of the canvas on which
+        /// elements are drawn when exporting as an image or PDF.
         /// 
         /// For that usage, includeMargins should be set to true.
         /// For more exacting bounds tests, includeMargins should be set to false.
-		/// </remarks>
-		public abstract Rect UnionBoundsWith(Rect rect, bool includeMargins);
+        /// </remarks>
+        public abstract Rect UnionBoundsWith(Rect rect, bool includeMargins);
 
-		/// <summary>
-		/// Get the distance from this element to the given point.
-		/// </summary>
+        /// <summary>
+        /// Get the distance from this element to the given point.
+        /// </summary>
         /// <param name="includeMargins">True to include suitable margins around elements which need them; false otherwise.</param>
         public abstract float Distance(Vector pos, bool includeMargins);
 
@@ -191,36 +191,36 @@ namespace Trizbort
         /// </summary>
         public abstract bool Intersects(Rect rect);
 
-		/// <summary>
-		/// Get whether the element has a properties dialog which may be displayed.
-		/// </summary>
-		public virtual bool HasDialog
-		{
-			get { return false; }
-		}
+        /// <summary>
+        /// Get whether the element has a properties dialog which may be displayed.
+        /// </summary>
+        public virtual bool HasDialog
+        {
+            get { return false; }
+        }
 
-		/// <summary>
-		/// Display the element's properties dialog.
-		/// </summary>
-		public virtual void ShowDialog()
-		{			
-		}
+        /// <summary>
+        /// Display the element's properties dialog.
+        /// </summary>
+        public virtual void ShowDialog()
+        {            
+        }
 
-		/// <summary>
-		/// Get the collection of ports on the element.
-		/// </summary>
-		public ReadOnlyCollection<Port> Ports
-		{
-			get { return m_ports; }
-		}
+        /// <summary>
+        /// Get the collection of ports on the element.
+        /// </summary>
+        public ReadOnlyCollection<Port> Ports
+        {
+            get { return m_ports; }
+        }
 
-		/// <summary>
-		/// Get the collection of ports on the element.
-		/// </summary>
-		protected List<Port> PortList
-		{
-			get { return m_portList; }
-		}
+        /// <summary>
+        /// Get the collection of ports on the element.
+        /// </summary>
+        protected List<Port> PortList
+        {
+            get { return m_portList; }
+        }
 
         /// <summary>
         /// Get/set whether this element is flagged. For temporary use by the Canvas when traversing elements.
@@ -231,23 +231,23 @@ namespace Trizbort
             set;
         }
 
-		/// <summary>
-		/// Get the position of a given port on the element.
-		/// </summary>
-		/// <param name="port">The port in question.</param>
-		/// <returns>The position of the port.</returns>
-		public abstract Vector GetPortPosition(Port port);
+        /// <summary>
+        /// Get the position of a given port on the element.
+        /// </summary>
+        /// <param name="port">The port in question.</param>
+        /// <returns>The position of the port.</returns>
+        public abstract Vector GetPortPosition(Port port);
 
-		/// <summary>
-		/// Get the position of the end of the "stalk" on the given port; or the port position if none.
-		/// </summary>
-		/// <param name="port">The port in question.</param>
-		/// <returns>The position of the end of the stalk, or the port position.</returns>
-		public abstract Vector GetPortStalkPosition(Port port);
+        /// <summary>
+        /// Get the position of the end of the "stalk" on the given port; or the port position if none.
+        /// </summary>
+        /// <param name="port">The port in question.</param>
+        /// <returns>The position of the end of the stalk, or the port position.</returns>
+        public abstract Vector GetPortStalkPosition(Port port);
 
-		private bool m_raiseChangedEvents = true;
-		private List<Port> m_portList = new List<Port>();
-		private ReadOnlyCollection<Port> m_ports;
-		private int m_id;
-	}
+        private bool m_raiseChangedEvents = true;
+        private List<Port> m_portList = new List<Port>();
+        private ReadOnlyCollection<Port> m_ports;
+        private int m_id;
+    }
 }

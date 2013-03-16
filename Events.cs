@@ -27,29 +27,29 @@ using System.Collections.Generic;
 
 namespace Trizbort
 {
-	internal class ProjectChangedEventArgs : EventArgs
-	{
-		public ProjectChangedEventArgs(Project oldProject, Project newProject)
-		{
-			OldProject = oldProject;
-			NewProject = newProject;
-		}
+    internal class ProjectChangedEventArgs : EventArgs
+    {
+        public ProjectChangedEventArgs(Project oldProject, Project newProject)
+        {
+            OldProject = oldProject;
+            NewProject = newProject;
+        }
 
-		public Project OldProject { get; private set; }
-		public Project NewProject { get; private set; }
-	}
+        public Project OldProject { get; private set; }
+        public Project NewProject { get; private set; }
+    }
 
-	internal class ItemEventArgs<T> : EventArgs
-	{
-		public ItemEventArgs(T item)
-		{
-			Item = item;
-		}
+    internal class ItemEventArgs<T> : EventArgs
+    {
+        public ItemEventArgs(T item)
+        {
+            Item = item;
+        }
 
-		public T Item { get; private set; }
-	}
+        public T Item { get; private set; }
+    }
 
-	internal delegate void ProjectChangedEventHandler(object sender, ProjectChangedEventArgs e);
-	internal delegate void ItemEventHandler<T>(object sender, ItemEventArgs<T> e);
+    internal delegate void ProjectChangedEventHandler(object sender, ProjectChangedEventArgs e);
+    internal delegate void ItemEventHandler<T>(object sender, ItemEventArgs<T> e);
 
 }

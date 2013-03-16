@@ -24,21 +24,21 @@
 
 namespace Trizbort
 {
-	partial class Canvas
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class Canvas
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.m_vScrollBar = new System.Windows.Forms.VScrollBar();
             this.m_hScrollBar = new System.Windows.Forms.HScrollBar();
             this.m_cornerPanel = new System.Windows.Forms.Panel();
@@ -96,13 +96,13 @@ namespace Trizbort
             this.Size = new System.Drawing.Size(419, 335);
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
         private System.Windows.Forms.VScrollBar m_vScrollBar;
         private System.Windows.Forms.HScrollBar m_hScrollBar;
         private System.Windows.Forms.Panel m_cornerPanel;
         private Minimap m_minimap;
-	}
+    }
 }

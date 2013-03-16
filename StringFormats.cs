@@ -27,33 +27,33 @@ using System.Drawing;
 
 namespace Trizbort
 {
-	internal class StringFormats
-	{
-		static StringFormats()
-		{
-			Center = new StringFormat();
-			Center.Alignment = StringAlignment.Center;
-			Center.LineAlignment = StringAlignment.Center;
-			Center.Trimming = StringTrimming.EllipsisCharacter;
-			Center.FormatFlags = StringFormatFlags.LineLimit;
+    internal class StringFormats
+    {
+        static StringFormats()
+        {
+            Center = new StringFormat();
+            Center.Alignment = StringAlignment.Center;
+            Center.LineAlignment = StringAlignment.Center;
+            Center.Trimming = StringTrimming.EllipsisCharacter;
+            Center.FormatFlags = StringFormatFlags.LineLimit;
 
-			Left = new StringFormat();
-			Left.Alignment = StringAlignment.Near;
-			Left.LineAlignment = StringAlignment.Center;
-			Left.Trimming = StringTrimming.EllipsisCharacter;
-			Left.FormatFlags = StringFormatFlags.LineLimit;
-		}
+            Left = new StringFormat();
+            Left.Alignment = StringAlignment.Near;
+            Left.LineAlignment = StringAlignment.Center;
+            Left.Trimming = StringTrimming.EllipsisCharacter;
+            Left.FormatFlags = StringFormatFlags.LineLimit;
+        }
 
-		public static StringFormat Center
-		{
-			get;
-			private set;
-		}
+        public static StringFormat Center
+        {
+            get;
+            private set;
+        }
 
-		public static StringFormat Left
-		{
-			get;
-			private set;
-		}
-	}
+        public static StringFormat Left
+        {
+            get;
+            private set;
+        }
+    }
 }

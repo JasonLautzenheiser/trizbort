@@ -28,20 +28,20 @@ using System.Text;
 
 namespace Trizbort
 {
-	internal abstract class MoveablePort : Port
-	{
-		public MoveablePort(Element owner)
-			: base(owner)
-		{
-		}
+    internal abstract class MoveablePort : Port
+    {
+        public MoveablePort(Element owner)
+            : base(owner)
+        {
+        }
 
-		public abstract void SetPosition(Vector pos);
+        public abstract void SetPosition(Vector pos);
 
-		public abstract void DockAt(Port port);
+        public abstract void DockAt(Port port);
 
-		public abstract Port DockedAt
-		{
-			get;
-		}
-	}
+        public abstract Port DockedAt
+        {
+            get;
+        }
+    }
 }

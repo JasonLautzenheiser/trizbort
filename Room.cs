@@ -36,8 +36,37 @@ namespace Trizbort
     /// </summary>
     internal class Room : Element, IMoveable, ISizeable
     {
+
         public Room(Project project)
             : base(project)
+        {
+            Name = "Cave";
+            Size = new Vector(3 * Settings.GridSize, 2 * Settings.GridSize);
+            Position = new Vector(-Size.X / 2, -Size.Y / 2);
+
+            // connections may connect to any of our "corners"
+            PortList.Add(new CompassPort(CompassPoint.North, this));
+            PortList.Add(new CompassPort(CompassPoint.NorthNorthEast, this));
+            PortList.Add(new CompassPort(CompassPoint.NorthEast, this));
+            PortList.Add(new CompassPort(CompassPoint.EastNorthEast, this));
+            PortList.Add(new CompassPort(CompassPoint.East, this));
+            PortList.Add(new CompassPort(CompassPoint.EastSouthEast, this));
+            PortList.Add(new CompassPort(CompassPoint.SouthEast, this));
+            PortList.Add(new CompassPort(CompassPoint.SouthSouthEast, this));
+            PortList.Add(new CompassPort(CompassPoint.South, this));
+            PortList.Add(new CompassPort(CompassPoint.SouthSouthWest, this));
+            PortList.Add(new CompassPort(CompassPoint.SouthWest, this));
+            PortList.Add(new CompassPort(CompassPoint.WestSouthWest, this));
+            PortList.Add(new CompassPort(CompassPoint.West, this));
+            PortList.Add(new CompassPort(CompassPoint.WestNorthWest, this));
+            PortList.Add(new CompassPort(CompassPoint.NorthWest, this));
+            PortList.Add(new CompassPort(CompassPoint.NorthNorthWest, this));
+        }
+
+        // Added this second constructor to be used when loading a room
+        // This constructor is significantly faster as it doesn't look for gap in the element IDs
+        public Room(Project project, int TotalIDs)
+            : base(project, TotalIDs)
         {
             Name = "Cave";
             Size = new Vector(3 * Settings.GridSize, 2 * Settings.GridSize);

@@ -2051,6 +2051,12 @@ namespace Trizbort
             while (!Viewport.Contains(canvasBounds))
             {
                 ZoomOut();
+
+                // Added an escape clause in the case the map is too large to shrink to the screen
+                if (ZoomFactor <= 1 / 100.0f)
+                {
+                    return;
+                }
             }
         }
 

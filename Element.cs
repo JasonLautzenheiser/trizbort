@@ -51,6 +51,20 @@ namespace Trizbort
             ID = id;
         }
 
+        // Added this second constructor to be used when loading a room
+        // This constructor is significantly faster as it doesn't look for gap in the element IDs
+        public Element(Project project, int TotalIDs)
+        {
+            m_ports = new ReadOnlyCollection<Port>(m_portList);
+            Project = project;
+            int id = TotalIDs;
+            while (Project.IsElementIDInUse(id))
+            {
+                ++id;
+            }
+            ID = id;
+        }
+
         /// <summary>
         /// Get the project of which this element is part.
         /// </summary>

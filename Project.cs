@@ -220,14 +220,16 @@ namespace Trizbort
                 {
                     if (element.HasName("room"))
                     {
-                        var room = new Room(this);
+                        // Changed the constructor used for elements when loading a file for a significant speed increase
+                        var room = new Room(this, Elements.Count+1);
                         room.ID = element.Attribute("id").ToInt(room.ID);
                         room.Load(element);
                         Elements.Add(room);
                     }
                     else if (element.HasName("line"))
                     {
-                        var connection = new Connection(this);
+                        // Changed the constructor used for elements when loading a file for a significant speed increase
+                        var connection = new Connection(this, Elements.Count+1);
                         connection.ID = element.Attribute("id").ToInt(connection.ID);
                         var loadState = connection.BeginLoad(element);
                         if (loadState != null)

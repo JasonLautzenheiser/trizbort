@@ -42,8 +42,18 @@ namespace Trizbort
     /// </remarks>
     internal class Connection : Element
     {
+
         public Connection(Project project)
             : base(project)
+        {
+            m_vertexList.Added += OnVertexAdded;
+            m_vertexList.Removed += OnVertexRemoved;
+        }
+
+        // Added this second constructor to be used when loading a room
+        // This constructor is significantly faster as it doesn't look for gap in the element IDs
+        public Connection(Project project, int TotalIDs)
+            : base(project, TotalIDs)
         {
             m_vertexList.Added += OnVertexAdded;
             m_vertexList.Removed += OnVertexRemoved;

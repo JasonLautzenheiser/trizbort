@@ -120,24 +120,28 @@ namespace Trizbort
             }
         }
 
+        // Added for Room specific colors
         public Color RoomFillColor
         {
             get { return m_roomFillTextBox.BackColor; }
             set { m_roomFillTextBox.BackColor = value; }
         }
 
+        // Added for Room specific colors
         public Color RoomBorderColor
         {
             get { return m_roomBorderTextBox.BackColor; }
             set { m_roomBorderTextBox.BackColor = value; }
         }
 
+        // Added for Room specific colors
         public Color RoomTextColor
         {
             get { return m_roomTextTextBox.BackColor; }
             set { m_roomTextTextBox.BackColor = value; }
         }
 
+        // Added for Room specific colors
         public Color ObjectTextColor
         {
             get { return m_objectTextTextBox.BackColor; }
@@ -203,26 +207,31 @@ namespace Trizbort
 
         }
 
+        // Added for Room specific colors
         private void m_changeLargeFontButton_Click(object sender, EventArgs e)
         {
             RoomFillColor = ShowColorDialog(RoomFillColor);
         }
 
+        // Added for Room specific colors
         private void button1_Click(object sender, EventArgs e)
         {
             RoomBorderColor = ShowColorDialog(RoomFillColor);
         }
 
+        // Added for Room specific colors
         private void button2_Click(object sender, EventArgs e)
         {
             RoomTextColor = ShowColorDialog(RoomFillColor);
         }
 
+        // Added for Room specific colors
         private void button3_Click(object sender, EventArgs e)
         {
             ObjectTextColor = ShowColorDialog(RoomFillColor);
         }
 
+        // Added for Room specific colors
         private Color ShowColorDialog(Color color)
         {
             using (var dialog = new ColorDialog())

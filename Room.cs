@@ -307,7 +307,7 @@ namespace Trizbort
             context.LinesDrawn.Add(left);
 
             var brush = context.Selected ? palette.BorderBrush : palette.FillBrush;
-            // Room specific fill brush
+            // Room specific fill brush (White shows global color)
             if (RoomFill != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomFill); }
 
             if (!Settings.DebugDisableLineRendering)
@@ -324,7 +324,7 @@ namespace Trizbort
                     var state = graphics.Save();
                     graphics.IntersectClip(path);
                     brush = context.Selected ? palette.FillBrush : palette.BorderBrush;
-                    // Room specific border brush
+                    // Room specific fill brush (White shows global color)
                     if (RoomBorder != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomBorder); }
                     graphics.DrawPolygon(brush, new PointF[] { topRight.ToPointF(), new PointF(topRight.X - Settings.DarknessStripeSize, topRight.Y), new PointF(topRight.X, topRight.Y + Settings.DarknessStripeSize) }, XFillMode.Alternate);
                     graphics.Restore(state);
@@ -345,7 +345,7 @@ namespace Trizbort
 
             var font = Settings.LargeFont;
             brush = context.Selected ? palette.FillBrush : palette.LargeTextBrush;
-            // Room specific large text brush
+            // Room specific fill brush (White shows global color)
             if (RoomLargeText != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomLargeText); }
 
             Rect textBounds = InnerBounds;
@@ -362,7 +362,7 @@ namespace Trizbort
 
             font = Settings.SmallFont;
             brush = palette.SmallTextBrush;
-            // Room specific small text brush
+            // Room specific fill brush (White shows global color)
             if (RoomSmallText != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomSmallText); }
 
             if (!string.IsNullOrEmpty(Objects))
@@ -421,9 +421,13 @@ namespace Trizbort
                 dialog.IsDark = IsDark;
                 dialog.Objects = Objects;
                 dialog.ObjectsPosition = ObjectsPosition;
+                // Added for Room specific colors
                 dialog.RoomFillColor = RoomFill;
+                // Added for Room specific colors
                 dialog.RoomBorderColor = RoomBorder;
+                // Added for Room specific colors
                 dialog.RoomTextColor = RoomLargeText;
+                // Added for Room specific colors
                 dialog.ObjectTextColor = RoomSmallText;
 
                 if (dialog.ShowDialog() == DialogResult.OK)
@@ -437,9 +441,13 @@ namespace Trizbort
                     IsDark = dialog.IsDark;
                     Objects = dialog.Objects;
                     ObjectsPosition = dialog.ObjectsPosition;
+                    // Added for Room specific colors
                     RoomFill = dialog.RoomFillColor;
+                    // Added for Room specific colors
                     RoomBorder = dialog.RoomBorderColor;
+                    // Added for Room specific colors
                     RoomLargeText = dialog.RoomTextColor;
+                    // Added for Room specific colors
                     RoomSmallText = dialog.ObjectTextColor;
                 }
             }
@@ -457,7 +465,7 @@ namespace Trizbort
                 scribe.Attribute("isDark", IsDark);
             }
             scribe.Attribute("description", PrimaryDescription);
-            // Added for room specific fill color
+            // Added for room specific fill color, down to the next comment
             string rValue = "";
             string bValue = "";
             string gValue = "";
@@ -524,6 +532,7 @@ namespace Trizbort
 
             colorValue = "#" + rValue + "" + gValue + "" + bValue;
             scribe.Attribute("roomSmallText", colorValue);
+            // Up to this point was added to turn colors to Hex code for xmpl saving/loading
 
             if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DefaultObjectsPosition)
             {
@@ -785,7 +794,7 @@ namespace Trizbort
         private static readonly CompassPoint DefaultObjectsPosition = CompassPoint.South;
         private CompassPoint m_objectsPosition = DefaultObjectsPosition;
         private List<string> m_descriptions = new List<string>();
-        // Added for Room specific colors
+        // Added for Room specific colors (White shows global color)
         private Color m_roomfill = ColorTranslator.FromHtml("White");
         private Color m_roomborder = ColorTranslator.FromHtml("White");
         private Color m_roomlargetext = ColorTranslator.FromHtml("White");

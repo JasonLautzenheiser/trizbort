@@ -307,6 +307,8 @@ namespace Trizbort
             context.LinesDrawn.Add(left);
 
             var brush = context.Selected ? palette.BorderBrush : palette.FillBrush;
+            // Room specific fill brush
+            if (RoomFill != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomFill); }
 
             if (!Settings.DebugDisableLineRendering)
             {
@@ -322,15 +324,30 @@ namespace Trizbort
                     var state = graphics.Save();
                     graphics.IntersectClip(path);
                     brush = context.Selected ? palette.FillBrush : palette.BorderBrush;
+                    // Room specific border brush
+                    if (RoomBorder != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomBorder); }
                     graphics.DrawPolygon(brush, new PointF[] { topRight.ToPointF(), new PointF(topRight.X - Settings.DarknessStripeSize, topRight.Y), new PointF(topRight.X, topRight.Y + Settings.DarknessStripeSize) }, XFillMode.Alternate);
                     graphics.Restore(state);
                 }
 
-                graphics.DrawPath(palette.BorderPen, path);
+                if (RoomBorder == ColorTranslator.FromHtml("White") || RoomSmallText == ColorTranslator.FromHtml("#FFFFFF"))
+                {
+                    graphics.DrawPath(palette.BorderPen, path);
+                }
+                else
+                {
+                    var RoomBorderPen = new Pen(RoomBorder, Settings.LineWidth);
+                    RoomBorderPen.StartCap = LineCap.Round;
+                    RoomBorderPen.EndCap = LineCap.Round;
+                    graphics.DrawPath(RoomBorderPen, path);
+                }
             }
 
             var font = Settings.LargeFont;
             brush = context.Selected ? palette.FillBrush : palette.LargeTextBrush;
+            // Room specific large text brush
+            if (RoomLargeText != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomLargeText); }
+
             Rect textBounds = InnerBounds;
             textBounds.Inflate(-5, -5);
 
@@ -345,6 +362,8 @@ namespace Trizbort
 
             font = Settings.SmallFont;
             brush = palette.SmallTextBrush;
+            // Room specific small text brush
+            if (RoomSmallText != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomSmallText); }
 
             if (!string.IsNullOrEmpty(Objects))
             {
@@ -402,6 +421,11 @@ namespace Trizbort
                 dialog.IsDark = IsDark;
                 dialog.Objects = Objects;
                 dialog.ObjectsPosition = ObjectsPosition;
+                dialog.RoomFillColor = RoomFill;
+                dialog.RoomBorderColor = RoomBorder;
+                dialog.RoomTextColor = RoomLargeText;
+                dialog.ObjectTextColor = RoomSmallText;
+
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     Name = dialog.RoomName;
@@ -413,6 +437,10 @@ namespace Trizbort
                     IsDark = dialog.IsDark;
                     Objects = dialog.Objects;
                     ObjectsPosition = dialog.ObjectsPosition;
+                    RoomFill = dialog.RoomFillColor;
+                    RoomBorder = dialog.RoomBorderColor;
+                    RoomLargeText = dialog.RoomTextColor;
+                    RoomSmallText = dialog.ObjectTextColor;
                 }
             }
         }
@@ -429,6 +457,74 @@ namespace Trizbort
                 scribe.Attribute("isDark", IsDark);
             }
             scribe.Attribute("description", PrimaryDescription);
+            // Added for room specific fill color
+            string rValue = "";
+            string bValue = "";
+            string gValue = "";
+            if (RoomFill.R < 16)
+            { rValue = "0" + RoomFill.R.ToString("X"); }
+            else
+            { rValue = RoomFill.R.ToString("X"); }
+            if (RoomFill.G < 16)
+            { gValue = "0" + RoomFill.G.ToString("X"); }
+            else
+            { gValue = RoomFill.G.ToString("X"); }
+            if (RoomFill.B < 16)
+            { bValue = "0" + RoomFill.B.ToString("X"); }
+            else
+            { bValue = RoomFill.B.ToString("X"); }
+
+            string colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            scribe.Attribute("roomFill", colorValue);
+
+            if (RoomBorder.R < 16)
+            { rValue = "0" + RoomBorder.R.ToString("X"); }
+            else
+            { rValue = RoomBorder.R.ToString("X"); }
+            if (RoomBorder.G < 16)
+            { gValue = "0" + RoomBorder.G.ToString("X"); }
+            else
+            { gValue = RoomBorder.G.ToString("X"); }
+            if (RoomBorder.B < 16)
+            { bValue = "0" + RoomBorder.B.ToString("X"); }
+            else
+            { bValue = RoomBorder.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            scribe.Attribute("roomBorder", colorValue);
+
+            if (RoomLargeText.R < 16)
+            { rValue = "0" + RoomLargeText.R.ToString("X"); }
+            else
+            { rValue = RoomLargeText.R.ToString("X"); }
+            if (RoomLargeText.G < 16)
+            { gValue = "0" + RoomLargeText.G.ToString("X"); }
+            else
+            { gValue = RoomLargeText.G.ToString("X"); }
+            if (RoomLargeText.B < 16)
+            { bValue = "0" + RoomLargeText.B.ToString("X"); }
+            else
+            { bValue = RoomLargeText.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            scribe.Attribute("roomLargeText", colorValue);
+
+            if (RoomSmallText.R < 16)
+            { rValue = "0" + RoomSmallText.R.ToString("X"); }
+            else
+            { rValue = RoomSmallText.R.ToString("X"); }
+            if (RoomSmallText.G < 16)
+            { gValue = "0" + RoomSmallText.G.ToString("X"); }
+            else
+            { gValue = RoomSmallText.G.ToString("X"); }
+            if (RoomSmallText.B < 16)
+            { bValue = "0" + RoomSmallText.B.ToString("X"); }
+            else
+            { bValue = RoomSmallText.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            scribe.Attribute("roomSmallText", colorValue);
+
             if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DefaultObjectsPosition)
             {
                 scribe.StartElement("objects");
@@ -438,7 +534,7 @@ namespace Trizbort
                 }
                 if (!string.IsNullOrEmpty(Objects))
                 {
-                    scribe.Value(Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n","|"));
+                    scribe.Value(Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|"));
                 }
                 scribe.EndElement();
             }
@@ -452,7 +548,11 @@ namespace Trizbort
             Position = new Vector(element.Attribute("x").ToFloat(), element.Attribute("y").ToFloat());
             Size = new Vector(element.Attribute("w").ToFloat(), element.Attribute("h").ToFloat());
             IsDark = element.Attribute("isDark").ToBool();
-            Objects = element["objects"].Text.Replace("|","\r\n").Replace("\\\r\n", "|");
+            if (element.Attribute("roomFill").Text != "") { RoomFill = ColorTranslator.FromHtml(element.Attribute("roomFill").Text); }
+            if (element.Attribute("roomBorder").Text != "") { RoomBorder = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text); }
+            if (element.Attribute("roomLargeText").Text != "") { RoomLargeText = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text); }
+            if (element.Attribute("roomSmallText").Text != "") { RoomSmallText = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text); }
+            Objects = element["objects"].Text.Replace("|", "\r\n").Replace("\\\r\n", "|");
             ObjectsPosition = element["objects"].Attribute("at").ToCompassPoint(ObjectsPosition);
         }
 
@@ -478,7 +578,7 @@ namespace Trizbort
                         }
                     }
                 }
-                
+
                 return false;
             }
         }
@@ -621,6 +721,62 @@ namespace Trizbort
             return false;
         }
 
+        // Added for Room specific colors
+        public Color RoomFill
+        {
+            get { return m_roomfill; }
+            set
+            {
+                if (m_roomfill != value)
+                {
+                    m_roomfill = value;
+                    RaiseChanged();
+                }
+            }
+        }
+
+        // Added for Room specific colors
+        public Color RoomBorder
+        {
+            get { return m_roomborder; }
+            set
+            {
+                if (m_roomborder != value)
+                {
+                    m_roomborder = value;
+                    RaiseChanged();
+                }
+            }
+        }
+
+        // Added for Room specific colors
+        public Color RoomLargeText
+        {
+            get { return m_roomlargetext; }
+            set
+            {
+                if (m_roomlargetext != value)
+                {
+                    m_roomlargetext = value;
+                    RaiseChanged();
+                }
+            }
+        }
+
+        // Added for Room specific colors
+        public Color RoomSmallText
+        {
+            get { return m_roomsmalltext; }
+            set
+            {
+                if (m_roomsmalltext != value)
+                {
+                    m_roomsmalltext = value;
+                    RaiseChanged();
+                }
+            }
+        }
+
         private Vector m_position;
         private Vector m_size;
         private TextBlock m_name = new TextBlock();
@@ -629,5 +785,10 @@ namespace Trizbort
         private static readonly CompassPoint DefaultObjectsPosition = CompassPoint.South;
         private CompassPoint m_objectsPosition = DefaultObjectsPosition;
         private List<string> m_descriptions = new List<string>();
+        // Added for Room specific colors
+        private Color m_roomfill = ColorTranslator.FromHtml("White");
+        private Color m_roomborder = ColorTranslator.FromHtml("White");
+        private Color m_roomlargetext = ColorTranslator.FromHtml("White");
+        private Color m_roomsmalltext = ColorTranslator.FromHtml("White");
     }
 }

@@ -57,12 +57,7 @@ namespace Trizbort
         {
             m_ports = new ReadOnlyCollection<Port>(m_portList);
             Project = project;
-            int id = TotalIDs;
-            while (Project.IsElementIDInUse(id))
-            {
-                ++id;
-            }
-            ID = id;
+            ID = TotalIDs;
         }
 
         /// <summary>

@@ -66,8 +66,26 @@ namespace Trizbort
             VertexList.Add(b);
         }
 
+        // Added to ignore ID gaps
+        public Connection(Project project, Vertex a, Vertex b, int TotalIDs)
+            : this(project, TotalIDs)
+        {
+            VertexList.Add(a);
+            VertexList.Add(b);
+        }
+
         public Connection(Project project, Vertex a, Vertex b, params Vertex[] args)
             : this(project, a, b)
+        {
+            foreach (var vertex in args)
+            {
+                VertexList.Add(vertex);
+            }
+        }
+
+        // Added to ignore ID gaps
+        public Connection(Project project, Vertex a, Vertex b, int TotalIDs, params Vertex[] args)
+            : this(project, a, b, TotalIDs)
         {
             foreach (var vertex in args)
             {

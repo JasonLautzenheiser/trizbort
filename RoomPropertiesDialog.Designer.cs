@@ -73,10 +73,24 @@ namespace Trizbort
             this.m_eCheckBox = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.m_descriptionTextBox = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.m_changeObjectTextButton = new System.Windows.Forms.Button();
+            this.m_objectTextTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.m_changeRoomTextButton = new System.Windows.Forms.Button();
+            this.m_roomTextTextBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.m_changeRoomBorderButton = new System.Windows.Forms.Button();
+            this.m_roomBorderTextBox = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.m_changeRoomFillButton = new System.Windows.Forms.Button();
+            this.m_roomFillTextBox = new System.Windows.Forms.TextBox();
             this.m_tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.m_objectsPositionGroupBox.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_okButton
@@ -103,8 +117,8 @@ namespace Trizbort
             // 
             // m_nameTextBox
             // 
-            this.m_nameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_nameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_nameTextBox.Location = new System.Drawing.Point(15, 34);
             this.m_nameTextBox.Name = "m_nameTextBox";
             this.m_nameTextBox.Size = new System.Drawing.Size(408, 21);
@@ -132,11 +146,12 @@ namespace Trizbort
             // 
             // m_tabControl
             // 
-            this.m_tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_tabControl.Controls.Add(this.tabPage1);
             this.m_tabControl.Controls.Add(this.tabPage2);
+            this.m_tabControl.Controls.Add(this.tabPage3);
             this.m_tabControl.Location = new System.Drawing.Point(15, 81);
             this.m_tabControl.Name = "m_tabControl";
             this.m_tabControl.SelectedIndex = 0;
@@ -159,9 +174,9 @@ namespace Trizbort
             // m_objectsTextBox
             // 
             this.m_objectsTextBox.AcceptsReturn = true;
-            this.m_objectsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_objectsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_objectsTextBox.Location = new System.Drawing.Point(2, 6);
             this.m_objectsTextBox.Multiline = true;
             this.m_objectsTextBox.Name = "m_objectsTextBox";
@@ -327,14 +342,165 @@ namespace Trizbort
             // m_descriptionTextBox
             // 
             this.m_descriptionTextBox.AcceptsReturn = true;
-            this.m_descriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_descriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_descriptionTextBox.Location = new System.Drawing.Point(2, 6);
             this.m_descriptionTextBox.Multiline = true;
             this.m_descriptionTextBox.Name = "m_descriptionTextBox";
             this.m_descriptionTextBox.Size = new System.Drawing.Size(395, 160);
             this.m_descriptionTextBox.TabIndex = 3;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.label4);
+            this.tabPage3.Controls.Add(this.m_changeObjectTextButton);
+            this.tabPage3.Controls.Add(this.m_objectTextTextBox);
+            this.tabPage3.Controls.Add(this.label3);
+            this.tabPage3.Controls.Add(this.m_changeRoomTextButton);
+            this.tabPage3.Controls.Add(this.m_roomTextTextBox);
+            this.tabPage3.Controls.Add(this.label2);
+            this.tabPage3.Controls.Add(this.m_changeRoomBorderButton);
+            this.tabPage3.Controls.Add(this.m_roomBorderTextBox);
+            this.tabPage3.Controls.Add(this.label11);
+            this.tabPage3.Controls.Add(this.m_changeRoomFillButton);
+            this.tabPage3.Controls.Add(this.m_roomFillTextBox);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(400, 169);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Colors";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 111);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 13);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Object Text";
+            // 
+            // m_changeObjectTextButton
+            // 
+            this.m_changeObjectTextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_changeObjectTextButton.Location = new System.Drawing.Point(319, 106);
+            this.m_changeObjectTextButton.Name = "m_changeObjectTextButton";
+            this.m_changeObjectTextButton.Size = new System.Drawing.Size(75, 23);
+            this.m_changeObjectTextButton.TabIndex = 16;
+            this.m_changeObjectTextButton.Text = "Ch&ange...";
+            this.m_changeObjectTextButton.UseVisualStyleBackColor = true;
+            this.m_changeObjectTextButton.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // m_objectTextTextBox
+            // 
+            this.m_objectTextTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_objectTextTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.m_objectTextTextBox.Enabled = false;
+            this.m_objectTextTextBox.Location = new System.Drawing.Point(81, 108);
+            this.m_objectTextTextBox.Name = "m_objectTextTextBox";
+            this.m_objectTextTextBox.ReadOnly = true;
+            this.m_objectTextTextBox.Size = new System.Drawing.Size(232, 21);
+            this.m_objectTextTextBox.TabIndex = 15;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 82);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Room Text";
+            // 
+            // m_changeRoomTextButton
+            // 
+            this.m_changeRoomTextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_changeRoomTextButton.Location = new System.Drawing.Point(319, 77);
+            this.m_changeRoomTextButton.Name = "m_changeRoomTextButton";
+            this.m_changeRoomTextButton.Size = new System.Drawing.Size(75, 23);
+            this.m_changeRoomTextButton.TabIndex = 13;
+            this.m_changeRoomTextButton.Text = "Ch&ange...";
+            this.m_changeRoomTextButton.UseVisualStyleBackColor = true;
+            this.m_changeRoomTextButton.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // m_roomTextTextBox
+            // 
+            this.m_roomTextTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_roomTextTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.m_roomTextTextBox.Enabled = false;
+            this.m_roomTextTextBox.Location = new System.Drawing.Point(81, 79);
+            this.m_roomTextTextBox.Name = "m_roomTextTextBox";
+            this.m_roomTextTextBox.ReadOnly = true;
+            this.m_roomTextTextBox.Size = new System.Drawing.Size(232, 21);
+            this.m_roomTextTextBox.TabIndex = 12;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Room Border";
+            // 
+            // m_changeRoomBorderButton
+            // 
+            this.m_changeRoomBorderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_changeRoomBorderButton.Location = new System.Drawing.Point(319, 48);
+            this.m_changeRoomBorderButton.Name = "m_changeRoomBorderButton";
+            this.m_changeRoomBorderButton.Size = new System.Drawing.Size(75, 23);
+            this.m_changeRoomBorderButton.TabIndex = 10;
+            this.m_changeRoomBorderButton.Text = "Ch&ange...";
+            this.m_changeRoomBorderButton.UseVisualStyleBackColor = true;
+            this.m_changeRoomBorderButton.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // m_roomBorderTextBox
+            // 
+            this.m_roomBorderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_roomBorderTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.m_roomBorderTextBox.Enabled = false;
+            this.m_roomBorderTextBox.Location = new System.Drawing.Point(81, 50);
+            this.m_roomBorderTextBox.Name = "m_roomBorderTextBox";
+            this.m_roomBorderTextBox.ReadOnly = true;
+            this.m_roomBorderTextBox.Size = new System.Drawing.Size(232, 21);
+            this.m_roomBorderTextBox.TabIndex = 9;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 24);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(49, 13);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Room Fill";
+            // 
+            // m_changeRoomFillButton
+            // 
+            this.m_changeRoomFillButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_changeRoomFillButton.Location = new System.Drawing.Point(319, 19);
+            this.m_changeRoomFillButton.Name = "m_changeRoomFillButton";
+            this.m_changeRoomFillButton.Size = new System.Drawing.Size(75, 23);
+            this.m_changeRoomFillButton.TabIndex = 7;
+            this.m_changeRoomFillButton.Text = "Ch&ange...";
+            this.m_changeRoomFillButton.UseVisualStyleBackColor = true;
+            this.m_changeRoomFillButton.Click += new System.EventHandler(this.m_changeLargeFontButton_Click);
+            // 
+            // m_roomFillTextBox
+            // 
+            this.m_roomFillTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_roomFillTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.m_roomFillTextBox.Enabled = false;
+            this.m_roomFillTextBox.Location = new System.Drawing.Point(81, 21);
+            this.m_roomFillTextBox.Name = "m_roomFillTextBox";
+            this.m_roomFillTextBox.ReadOnly = true;
+            this.m_roomFillTextBox.Size = new System.Drawing.Size(232, 21);
+            this.m_roomFillTextBox.TabIndex = 6;
+            this.m_roomFillTextBox.TextChanged += new System.EventHandler(this.m_roomFillTextBox_TextChanged);
             // 
             // RoomPropertiesDialog
             // 
@@ -365,6 +531,8 @@ namespace Trizbort
             this.m_objectsPositionGroupBox.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -392,5 +560,18 @@ namespace Trizbort
         private System.Windows.Forms.CheckBox m_eCheckBox;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox m_descriptionTextBox;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button m_changeObjectTextButton;
+        private System.Windows.Forms.TextBox m_objectTextTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button m_changeRoomTextButton;
+        private System.Windows.Forms.TextBox m_roomTextTextBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button m_changeRoomBorderButton;
+        private System.Windows.Forms.TextBox m_roomBorderTextBox;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button m_changeRoomFillButton;
+        private System.Windows.Forms.TextBox m_roomFillTextBox;
     }
 }

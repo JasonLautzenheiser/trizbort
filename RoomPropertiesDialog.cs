@@ -120,6 +120,30 @@ namespace Trizbort
             }
         }
 
+        public Color RoomFillColor
+        {
+            get { return m_roomFillTextBox.BackColor; }
+            set { m_roomFillTextBox.BackColor = value; }
+        }
+
+        public Color RoomBorderColor
+        {
+            get { return m_roomBorderTextBox.BackColor; }
+            set { m_roomBorderTextBox.BackColor = value; }
+        }
+
+        public Color RoomTextColor
+        {
+            get { return m_roomTextTextBox.BackColor; }
+            set { m_roomTextTextBox.BackColor = value; }
+        }
+
+        public Color ObjectTextColor
+        {
+            get { return m_objectTextTextBox.BackColor; }
+            set { m_objectTextTextBox.BackColor = value; }
+        }
+
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (m_tabControl.SelectedIndex)
@@ -173,5 +197,44 @@ namespace Trizbort
         }
 
         private static Tab m_lastViewedTab = Tab.Objects;
+
+        private void m_roomFillTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void m_changeLargeFontButton_Click(object sender, EventArgs e)
+        {
+            RoomFillColor = ShowColorDialog(RoomFillColor);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RoomBorderColor = ShowColorDialog(RoomFillColor);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            RoomTextColor = ShowColorDialog(RoomFillColor);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ObjectTextColor = ShowColorDialog(RoomFillColor);
+        }
+
+        private Color ShowColorDialog(Color color)
+        {
+            using (var dialog = new ColorDialog())
+            {
+                dialog.Color = color;
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    return dialog.Color;
+                }
+            }
+            return color;
+        }
+
     }
 }

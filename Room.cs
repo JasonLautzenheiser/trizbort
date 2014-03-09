@@ -308,7 +308,7 @@ namespace Trizbort
 
             var brush = context.Selected ? palette.BorderBrush : palette.FillBrush;
             // Room specific fill brush (White shows global color)
-            if (RoomFill != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomFill); }
+            if (RoomFill != ColorTranslator.FromHtml("White") && RoomFill != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomFill); }
 
             if (!Settings.DebugDisableLineRendering)
             {
@@ -325,12 +325,12 @@ namespace Trizbort
                     graphics.IntersectClip(path);
                     brush = context.Selected ? palette.FillBrush : palette.BorderBrush;
                     // Room specific fill brush (White shows global color)
-                    if (RoomBorder != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomBorder); }
+                    if (RoomBorder != ColorTranslator.FromHtml("White") && RoomBorder != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomBorder); }
                     graphics.DrawPolygon(brush, new PointF[] { topRight.ToPointF(), new PointF(topRight.X - Settings.DarknessStripeSize, topRight.Y), new PointF(topRight.X, topRight.Y + Settings.DarknessStripeSize) }, XFillMode.Alternate);
                     graphics.Restore(state);
                 }
 
-                if (RoomBorder == ColorTranslator.FromHtml("White") || RoomSmallText == ColorTranslator.FromHtml("#FFFFFF"))
+                if (RoomBorder == ColorTranslator.FromHtml("White") || RoomBorder == ColorTranslator.FromHtml("#FFFFFF"))
                 {
                     graphics.DrawPath(palette.BorderPen, path);
                 }
@@ -346,7 +346,7 @@ namespace Trizbort
             var font = Settings.LargeFont;
             brush = context.Selected ? palette.FillBrush : palette.LargeTextBrush;
             // Room specific fill brush (White shows global color)
-            if (RoomLargeText != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomLargeText); }
+            if (RoomLargeText != ColorTranslator.FromHtml("White") && RoomLargeText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomLargeText); }
 
             Rect textBounds = InnerBounds;
             textBounds.Inflate(-5, -5);

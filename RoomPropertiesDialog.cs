@@ -128,6 +128,55 @@ namespace Trizbort
         }
 
         // Added for Room specific colors
+        public Color SecondFillColor
+        {
+            get { return m_secondFillTextBox.BackColor; }
+            set { m_secondFillTextBox.BackColor = value; }
+        }
+
+        // Added for Room specific colors
+        public String SecondFillLocation
+        {
+            get
+            {
+                switch (comboBox1.SelectedIndex)
+                {
+                    case 0:
+                        return "Bottom";
+                    case 1:
+                        return "BottomRight";
+                    case 2:
+                        return "Right";
+                    case 3:
+                        return "TopRight";
+                    default:
+                        return "Bottom";
+                }
+            }
+            set 
+            {
+                switch (value)
+                {
+                    case "Bottom":
+                        comboBox1.SelectedIndex = 0;
+                        break;
+                    case "BottomRight":
+                        comboBox1.SelectedIndex = 1;
+                        break;
+                    case "Right":
+                        comboBox1.SelectedIndex = 2;
+                        break;
+                    case "TopRight":
+                        comboBox1.SelectedIndex = 3;
+                        break;
+                    default:
+                        comboBox1.SelectedIndex = 0;
+                        break;
+                }
+            }
+        }
+
+        // Added for Room specific colors
         public Color RoomBorderColor
         {
             get { return m_roomBorderTextBox.BackColor; }
@@ -213,22 +262,33 @@ namespace Trizbort
             RoomFillColor = ShowColorDialog(RoomFillColor);
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        // Added for Room specific colors
+        private void m_changeSecondFillButton_Click(object sender, EventArgs e)
+        {
+            SecondFillColor = ShowColorDialog(SecondFillColor);
+        }
+
         // Added for Room specific colors
         private void button1_Click(object sender, EventArgs e)
         {
-            RoomBorderColor = ShowColorDialog(RoomFillColor);
+            RoomBorderColor = ShowColorDialog(RoomBorderColor);
         }
 
         // Added for Room specific colors
         private void button2_Click(object sender, EventArgs e)
         {
-            RoomTextColor = ShowColorDialog(RoomFillColor);
+            RoomTextColor = ShowColorDialog(RoomTextColor);
         }
 
         // Added for Room specific colors
         private void button3_Click(object sender, EventArgs e)
         {
-            ObjectTextColor = ShowColorDialog(RoomFillColor);
+            ObjectTextColor = ShowColorDialog(ObjectTextColor);
         }
 
         // Added for Room specific colors
@@ -245,5 +305,9 @@ namespace Trizbort
             return color;
         }
 
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

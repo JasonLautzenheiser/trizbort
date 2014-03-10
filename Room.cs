@@ -276,10 +276,26 @@ namespace Trizbort
             var bottomLeft = InnerBounds.GetCorner(CompassPoint.SouthWest);
             var bottomRight = InnerBounds.GetCorner(CompassPoint.SouthEast);
 
+            var topCenter = InnerBounds.GetCorner(CompassPoint.North);
+            var rightCenter = InnerBounds.GetCorner(CompassPoint.East);
+            var bottomCenter = InnerBounds.GetCorner(CompassPoint.South);
+            var leftCenter = InnerBounds.GetCorner(CompassPoint.West);
+
             var top = new LineSegment(topLeft, topRight);
             var right = new LineSegment(topRight, bottomRight);
             var bottom = new LineSegment(bottomRight, bottomLeft);
             var left = new LineSegment(bottomLeft, topLeft);
+
+            var halfTopRight = new LineSegment(topCenter, topRight);
+            var halfBottomRight = new LineSegment(bottomRight, bottomCenter);
+            var centerVertical = new LineSegment(bottomCenter, topCenter);
+
+            var centerHorizontal = new LineSegment(leftCenter, rightCenter);
+            var halfRightBottom = new LineSegment(rightCenter, bottomRight);
+            var halfLeftBottom = new LineSegment(bottomLeft, leftCenter);
+
+            var slantUp = new LineSegment(bottomLeft, topRight);
+            var slantDown = new LineSegment(bottomRight, topLeft);
 
             context.LinesDrawn.Add(top);
             context.LinesDrawn.Add(right);
@@ -296,10 +312,26 @@ namespace Trizbort
             var bottomLeft = InnerBounds.GetCorner(CompassPoint.SouthWest);
             var bottomRight = InnerBounds.GetCorner(CompassPoint.SouthEast);
 
+            var topCenter = InnerBounds.GetCorner(CompassPoint.North);
+            var rightCenter = InnerBounds.GetCorner(CompassPoint.East);
+            var bottomCenter = InnerBounds.GetCorner(CompassPoint.South);
+            var leftCenter = InnerBounds.GetCorner(CompassPoint.West);
+
             var top = new LineSegment(topLeft, topRight);
             var right = new LineSegment(topRight, bottomRight);
             var bottom = new LineSegment(bottomRight, bottomLeft);
             var left = new LineSegment(bottomLeft, topLeft);
+
+            var halfTopRight = new LineSegment(topCenter, topRight);
+            var halfBottomRight = new LineSegment(bottomRight, bottomCenter);
+            var centerVertical = new LineSegment(bottomCenter, topCenter);
+
+            var centerHorizontal = new LineSegment(leftCenter, rightCenter);
+            var halfRightBottom = new LineSegment(rightCenter, bottomRight);
+            var halfLeftBottom = new LineSegment(bottomLeft, leftCenter);
+
+            var slantUp = new LineSegment(bottomLeft, topRight);
+            var slantDown = new LineSegment(bottomRight, topLeft);
 
             context.LinesDrawn.Add(top);
             context.LinesDrawn.Add(right);
@@ -312,12 +344,52 @@ namespace Trizbort
 
             if (!Settings.DebugDisableLineRendering)
             {
+
                 var path = palette.Path();
                 Drawing.AddLine(path, top, random);
                 Drawing.AddLine(path, right, random);
                 Drawing.AddLine(path, bottom, random);
                 Drawing.AddLine(path, left, random);
                 graphics.DrawPath(brush, path);
+
+                // Second fill for room specific colors with a split option
+                if (SecondFill != ColorTranslator.FromHtml("White") && SecondFill != ColorTranslator.FromHtml("#FFFFFF"))
+                {
+                    // Set the second fill color
+                    brush = new SolidBrush(SecondFill);
+
+                    // Define the second path based on the second fill location
+                    var secondPath = palette.Path();
+                    switch (SecondFillLocation)
+                    {
+                        case "Bottom":
+                            Drawing.AddLine(secondPath, centerHorizontal, random);
+                            Drawing.AddLine(secondPath, halfRightBottom, random);
+                            Drawing.AddLine(secondPath, bottom, random);
+                            Drawing.AddLine(secondPath, halfLeftBottom, random);
+                            break;
+                        case "BottomRight":
+                            Drawing.AddLine(secondPath, slantUp, random);
+                            Drawing.AddLine(secondPath, right, random);
+                            Drawing.AddLine(secondPath, bottom, random);
+                            break;
+                        case "Right":
+                            Drawing.AddLine(secondPath, halfTopRight, random);
+                            Drawing.AddLine(secondPath, right, random);
+                            Drawing.AddLine(secondPath, halfBottomRight, random);
+                            Drawing.AddLine(secondPath, centerVertical, random);
+                            break;
+                        case "TopRight":
+                            Drawing.AddLine(secondPath, top, random);
+                            Drawing.AddLine(secondPath, right, random);
+                            Drawing.AddLine(secondPath, slantDown, random);
+                            break;
+                        default:
+                            break;
+                    }
+                    // Draw the second fill over the first
+                    graphics.DrawPath(brush, secondPath);
+                }
 
                 if (IsDark)
                 {
@@ -424,6 +496,10 @@ namespace Trizbort
                 // Added for Room specific colors
                 dialog.RoomFillColor = RoomFill;
                 // Added for Room specific colors
+                dialog.SecondFillColor = SecondFill;
+                // Added for Room specific colors
+                dialog.SecondFillLocation = SecondFillLocation;
+                // Added for Room specific colors
                 dialog.RoomBorderColor = RoomBorder;
                 // Added for Room specific colors
                 dialog.RoomTextColor = RoomLargeText;
@@ -443,6 +519,10 @@ namespace Trizbort
                     ObjectsPosition = dialog.ObjectsPosition;
                     // Added for Room specific colors
                     RoomFill = dialog.RoomFillColor;
+                    // Added for Room specific colors
+                    SecondFill = dialog.SecondFillColor;
+                    // Added for Room specific colors
+                    SecondFillLocation = dialog.SecondFillLocation;
                     // Added for Room specific colors
                     RoomBorder = dialog.RoomBorderColor;
                     // Added for Room specific colors
@@ -484,6 +564,23 @@ namespace Trizbort
 
             string colorValue = "#" + rValue + "" + gValue + "" + bValue;
             scribe.Attribute("roomFill", colorValue);
+
+            if (SecondFill.R < 16)
+            { rValue = "0" + SecondFill.R.ToString("X"); }
+            else
+            { rValue = SecondFill.R.ToString("X"); }
+            if (SecondFill.G < 16)
+            { gValue = "0" + SecondFill.G.ToString("X"); }
+            else
+            { gValue = SecondFill.G.ToString("X"); }
+            if (SecondFill.B < 16)
+            { bValue = "0" + SecondFill.B.ToString("X"); }
+            else
+            { bValue = SecondFill.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            scribe.Attribute("secondFill", colorValue);
+            scribe.Attribute("secondFillLocation", SecondFillLocation);
 
             if (RoomBorder.R < 16)
             { rValue = "0" + RoomBorder.R.ToString("X"); }
@@ -558,6 +655,8 @@ namespace Trizbort
             Size = new Vector(element.Attribute("w").ToFloat(), element.Attribute("h").ToFloat());
             IsDark = element.Attribute("isDark").ToBool();
             if (element.Attribute("roomFill").Text != "") { RoomFill = ColorTranslator.FromHtml(element.Attribute("roomFill").Text); }
+            if (element.Attribute("secondFill").Text != "") { SecondFill = ColorTranslator.FromHtml(element.Attribute("secondFill").Text); }
+            if (element.Attribute("secondFillLocation").Text != "") { SecondFillLocation = element.Attribute("secondFillLocation").Text; }
             if (element.Attribute("roomBorder").Text != "") { RoomBorder = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text); }
             if (element.Attribute("roomLargeText").Text != "") { RoomLargeText = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text); }
             if (element.Attribute("roomSmallText").Text != "") { RoomSmallText = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text); }
@@ -745,6 +844,34 @@ namespace Trizbort
         }
 
         // Added for Room specific colors
+        public Color SecondFill
+        {
+            get { return m_secondfill; }
+            set
+            {
+                if (m_secondfill != value)
+                {
+                    m_secondfill = value;
+                    RaiseChanged();
+                }
+            }
+        }
+
+        // Added for Room specific colors
+        public String SecondFillLocation
+        {
+            get { return m_secondfilllocation; }
+            set
+            {
+                if (m_secondfilllocation != value)
+                {
+                    m_secondfilllocation = value;
+                    RaiseChanged();
+                }
+            }
+        }
+
+        // Added for Room specific colors
         public Color RoomBorder
         {
             get { return m_roomborder; }
@@ -796,6 +923,8 @@ namespace Trizbort
         private List<string> m_descriptions = new List<string>();
         // Added for Room specific colors (White shows global color)
         private Color m_roomfill = ColorTranslator.FromHtml("White");
+        private Color m_secondfill = ColorTranslator.FromHtml("White");
+        private String m_secondfilllocation = "Bottom";
         private Color m_roomborder = ColorTranslator.FromHtml("White");
         private Color m_roomlargetext = ColorTranslator.FromHtml("White");
         private Color m_roomsmalltext = ColorTranslator.FromHtml("White");

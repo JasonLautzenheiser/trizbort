@@ -820,6 +820,65 @@ namespace Trizbort
             return null;
         }
 
+        public String ClipboardPrint()
+        {
+            String clipboardText = "";
+            
+            switch (Style)
+            {
+                case ConnectionStyle.Solid:
+                    clipboardText += "solid" + ":";
+                    break;
+                case ConnectionStyle.Dashed:
+                    clipboardText += "dashed" + ":";
+                    break;
+                default:
+                    clipboardText += "default" + ":";
+                    break;
+            }
+
+            switch (Flow)
+            {
+                case ConnectionFlow.OneWay:
+                    clipboardText += "oneWay" + ":";
+                    break;
+                case ConnectionFlow.TwoWay:
+                    clipboardText += "twoWay" + ":";
+                    break;
+                default:
+                    clipboardText += "default" + ":";
+                    break;
+            }
+
+            clipboardText += StartText + ":";
+            clipboardText += MidText + ":";
+            clipboardText += EndText;
+
+            int index = 0;
+            foreach (var vertex in VertexList)
+            {
+                clipboardText += ":";
+                if (vertex.Port != null)
+                {
+                    clipboardText += "dock" + ":";
+                    clipboardText += index + ":";
+                    clipboardText += vertex.Port.Owner.ID + ":";
+                    clipboardText += vertex.Port.ID;
+                }
+                else
+                {
+                    clipboardText += "point" + ":";
+                    clipboardText += index + ":";
+                    clipboardText += vertex.Position.X + ":";
+                    clipboardText += vertex.Position.Y;
+                }
+                ++index;
+            }
+
+            clipboardText += "";
+            return clipboardText;
+        }
+
         private static readonly ConnectionStyle DefaultStyle = ConnectionStyle.Solid;
         private static readonly ConnectionFlow DefaultFlow = ConnectionFlow.TwoWay;
 

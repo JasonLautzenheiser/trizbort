@@ -829,6 +829,204 @@ namespace Trizbort
             return false;
         }
 
+        public String ClipboardPrint()
+        {
+            String clipboardText = "";
+            clipboardText += Name + ":";
+            clipboardText += Position.X + ":";
+            clipboardText += Position.Y + ":";
+            clipboardText += Size.X + ":";
+            clipboardText += Size.Y + ":";
+            clipboardText += IsDark + ":";
+            clipboardText += PrimaryDescription + ":";
+
+            string rValue = "";
+            string bValue = "";
+            string gValue = "";
+            if (RoomFill.R < 16)
+            { rValue = "0" + RoomFill.R.ToString("X"); }
+            else
+            { rValue = RoomFill.R.ToString("X"); }
+            if (RoomFill.G < 16)
+            { gValue = "0" + RoomFill.G.ToString("X"); }
+            else
+            { gValue = RoomFill.G.ToString("X"); }
+            if (RoomFill.B < 16)
+            { bValue = "0" + RoomFill.B.ToString("X"); }
+            else
+            { bValue = RoomFill.B.ToString("X"); }
+
+            string colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            clipboardText += colorValue + ":";
+
+            if (SecondFill.R < 16)
+            { rValue = "0" + SecondFill.R.ToString("X"); }
+            else
+            { rValue = SecondFill.R.ToString("X"); }
+            if (SecondFill.G < 16)
+            { gValue = "0" + SecondFill.G.ToString("X"); }
+            else
+            { gValue = SecondFill.G.ToString("X"); }
+            if (SecondFill.B < 16)
+            { bValue = "0" + SecondFill.B.ToString("X"); }
+            else
+            { bValue = SecondFill.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            clipboardText += colorValue + ":";
+            clipboardText += SecondFillLocation + ":";
+
+            if (RoomBorder.R < 16)
+            { rValue = "0" + RoomBorder.R.ToString("X"); }
+            else
+            { rValue = RoomBorder.R.ToString("X"); }
+            if (RoomBorder.G < 16)
+            { gValue = "0" + RoomBorder.G.ToString("X"); }
+            else
+            { gValue = RoomBorder.G.ToString("X"); }
+            if (RoomBorder.B < 16)
+            { bValue = "0" + RoomBorder.B.ToString("X"); }
+            else
+            { bValue = RoomBorder.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            clipboardText += colorValue + ":";
+
+            if (RoomLargeText.R < 16)
+            { rValue = "0" + RoomLargeText.R.ToString("X"); }
+            else
+            { rValue = RoomLargeText.R.ToString("X"); }
+            if (RoomLargeText.G < 16)
+            { gValue = "0" + RoomLargeText.G.ToString("X"); }
+            else
+            { gValue = RoomLargeText.G.ToString("X"); }
+            if (RoomLargeText.B < 16)
+            { bValue = "0" + RoomLargeText.B.ToString("X"); }
+            else
+            { bValue = RoomLargeText.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            clipboardText += colorValue + ":";
+
+            if (RoomSmallText.R < 16)
+            { rValue = "0" + RoomSmallText.R.ToString("X"); }
+            else
+            { rValue = RoomSmallText.R.ToString("X"); }
+            if (RoomSmallText.G < 16)
+            { gValue = "0" + RoomSmallText.G.ToString("X"); }
+            else
+            { gValue = RoomSmallText.G.ToString("X"); }
+            if (RoomSmallText.B < 16)
+            { bValue = "0" + RoomSmallText.B.ToString("X"); }
+            else
+            { bValue = RoomSmallText.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            clipboardText += colorValue;
+
+            if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DefaultObjectsPosition)
+            {
+                clipboardText += ":" + ObjectsPosition + ":";
+                if (!string.IsNullOrEmpty(Objects))
+                {
+                    clipboardText += (Objects.Replace("\r\n", ":"));
+                }
+            }
+
+            return clipboardText;
+        }
+
+        public String ClipboardColorPrint()
+        {
+            String clipboardText = "";
+
+            string rValue = "";
+            string bValue = "";
+            string gValue = "";
+            if (RoomFill.R < 16)
+            { rValue = "0" + RoomFill.R.ToString("X"); }
+            else
+            { rValue = RoomFill.R.ToString("X"); }
+            if (RoomFill.G < 16)
+            { gValue = "0" + RoomFill.G.ToString("X"); }
+            else
+            { gValue = RoomFill.G.ToString("X"); }
+            if (RoomFill.B < 16)
+            { bValue = "0" + RoomFill.B.ToString("X"); }
+            else
+            { bValue = RoomFill.B.ToString("X"); }
+
+            string colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            clipboardText += colorValue + ":";
+
+            if (SecondFill.R < 16)
+            { rValue = "0" + SecondFill.R.ToString("X"); }
+            else
+            { rValue = SecondFill.R.ToString("X"); }
+            if (SecondFill.G < 16)
+            { gValue = "0" + SecondFill.G.ToString("X"); }
+            else
+            { gValue = SecondFill.G.ToString("X"); }
+            if (SecondFill.B < 16)
+            { bValue = "0" + SecondFill.B.ToString("X"); }
+            else
+            { bValue = SecondFill.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            clipboardText += colorValue + ":";
+            clipboardText += SecondFillLocation + ":";
+
+            if (RoomBorder.R < 16)
+            { rValue = "0" + RoomBorder.R.ToString("X"); }
+            else
+            { rValue = RoomBorder.R.ToString("X"); }
+            if (RoomBorder.G < 16)
+            { gValue = "0" + RoomBorder.G.ToString("X"); }
+            else
+            { gValue = RoomBorder.G.ToString("X"); }
+            if (RoomBorder.B < 16)
+            { bValue = "0" + RoomBorder.B.ToString("X"); }
+            else
+            { bValue = RoomBorder.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            clipboardText += colorValue + ":";
+
+            if (RoomLargeText.R < 16)
+            { rValue = "0" + RoomLargeText.R.ToString("X"); }
+            else
+            { rValue = RoomLargeText.R.ToString("X"); }
+            if (RoomLargeText.G < 16)
+            { gValue = "0" + RoomLargeText.G.ToString("X"); }
+            else
+            { gValue = RoomLargeText.G.ToString("X"); }
+            if (RoomLargeText.B < 16)
+            { bValue = "0" + RoomLargeText.B.ToString("X"); }
+            else
+            { bValue = RoomLargeText.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            clipboardText += colorValue + ":";
+
+            if (RoomSmallText.R < 16)
+            { rValue = "0" + RoomSmallText.R.ToString("X"); }
+            else
+            { rValue = RoomSmallText.R.ToString("X"); }
+            if (RoomSmallText.G < 16)
+            { gValue = "0" + RoomSmallText.G.ToString("X"); }
+            else
+            { gValue = RoomSmallText.G.ToString("X"); }
+            if (RoomSmallText.B < 16)
+            { bValue = "0" + RoomSmallText.B.ToString("X"); }
+            else
+            { bValue = RoomSmallText.B.ToString("X"); }
+
+            colorValue = "#" + rValue + "" + gValue + "" + bValue;
+            clipboardText += colorValue;
+
+            return clipboardText;
+        }
+
         // Added for Room specific colors
         public Color RoomFill
         {

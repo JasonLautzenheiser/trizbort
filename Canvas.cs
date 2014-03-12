@@ -2250,6 +2250,81 @@ namespace Trizbort
             StopAutomapping();
         }
 
+        public void CopySelectedElements()
+        {
+            String clipboardText = "Elements";
+            foreach (var element in m_selectedElements)
+            {
+                clipboardText += "\r\n";
+                if (element is Room)
+                {
+                    clipboardText += "room:";
+                    clipboardText += element.ID + ":";
+                    clipboardText += ((Room)element).ClipboardPrint();
+                }
+                else if (element is Connection)
+                {
+                    clipboardText += "line:";
+                    clipboardText += element.ID + ":";
+                    clipboardText += ((Connection)element).ClipboardPrint();
+                }
+            }
+
+            Clipboard.SetText(clipboardText);
+        }
+
+        public void CopySelectedColor()
+        {
+            String clipboardText = "Colors";
+
+            if (SelectedElement is Room)
+            {
+                clipboardText += "\r\n";
+                clipboardText += ((Room)SelectedElement).ClipboardColorPrint();
+            }
+
+            Clipboard.SetText(clipboardText);
+        }
+
+        public void Paste()
+        {
+            String clipboardText = Clipboard.GetText();
+
+            if (!string.IsNullOrEmpty(clipboardText))
+            {
+                String[] elements = clipboardText.Replace("\r\n", "|").Split('|');
+
+                if (elements[0] == "Elements")
+                {
+                    // Fill in this, Should be nice and complicated :)
+                }
+                
+                if (elements[0] == "Colors")
+                {
+                    String[] pasteColors = elements[1].Split(':');
+                    String fillColor = pasteColors[0];
+                    String secondFillColor = pasteColors[1];
+                    String secondFillLocation = pasteColors[2];
+                    String borderColor = pasteColors[3];
+                    String largeTextColor = pasteColors[4];
+                    String smallTextColor = pasteColors[5];
+
+                    foreach (var element in SelectedElements)
+                    {
+                        if (element is Room)
+                        {
+                            ((Room)element).RoomFill = ColorTranslator.FromHtml(fillColor);
+                            ((Room)element).SecondFill = ColorTranslator.FromHtml(secondFillColor);
+                            ((Room)element).SecondFillLocation = secondFillLocation;
+                            ((Room)element).RoomBorder = ColorTranslator.FromHtml(borderColor);
+                            ((Room)element).RoomLargeText = ColorTranslator.FromHtml(largeTextColor);
+                            ((Room)element).RoomSmallText = ColorTranslator.FromHtml(smallTextColor);
+                        }
+                    }
+                }                
+            }
+        }
+
         private float m_zoomFactor;
         private Vector m_origin;
 

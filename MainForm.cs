@@ -795,5 +795,20 @@ namespace Trizbort
         private string m_caption;
         private DateTime m_lastUpdateUITime;
         private static readonly TimeSpan IdleProcessingEveryNSeconds = TimeSpan.FromSeconds(0.2);
+
+        private void m_editCopyMenuItem_Click(object sender, EventArgs e)
+        {
+            m_canvas.CopySelectedElements();
+        }
+
+        private void m_editCopyColorToolMenuItem_Click(object sender, EventArgs e)
+        {
+            m_canvas.CopySelectedColor();
+        }
+
+        private void m_editPasteMenuItem_Click(object sender, EventArgs e)
+        {
+            m_canvas.Paste();
+        }
     }
 }

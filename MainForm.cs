@@ -808,7 +808,7 @@ namespace Trizbort
 
         private void m_editPasteMenuItem_Click(object sender, EventArgs e)
         {
-            m_canvas.Paste();
+            m_canvas.Paste(false);
         }
     }
 }

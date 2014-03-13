@@ -95,6 +95,10 @@ namespace Trizbort
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.m_editSelectAllMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_editSelectNoneMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.m_editCopyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_editCopyColorToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_editPasteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
             this.m_editDeleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -129,10 +133,6 @@ namespace Trizbort
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.m_automapBar = new Trizbort.AutomapBar();
             this.m_canvas = new Trizbort.Canvas();
-            this.m_editCopyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.m_editPasteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.m_editCopyColorToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_menuStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -477,6 +477,38 @@ namespace Trizbort
             this.m_editSelectNoneMenuItem.Text = "Select None";
             this.m_editSelectNoneMenuItem.Click += new System.EventHandler(this.EditSelectNoneMenuItem_Click);
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(208, 6);
+            // 
+            // m_editCopyMenuItem
+            // 
+            this.m_editCopyMenuItem.Name = "m_editCopyMenuItem";
+            this.m_editCopyMenuItem.ShortcutKeyDisplayString = "Ctrl + C";
+            this.m_editCopyMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.m_editCopyMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.m_editCopyMenuItem.Text = "Copy";
+            this.m_editCopyMenuItem.Click += new System.EventHandler(this.m_editCopyMenuItem_Click);
+            // 
+            // m_editCopyColorToolMenuItem
+            // 
+            this.m_editCopyColorToolMenuItem.Name = "m_editCopyColorToolMenuItem";
+            this.m_editCopyColorToolMenuItem.ShortcutKeyDisplayString = "Ctrl + Alt + C";
+            this.m_editCopyColorToolMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.C)));
+            this.m_editCopyColorToolMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.m_editCopyColorToolMenuItem.Text = "Copy Color";
+            this.m_editCopyColorToolMenuItem.Click += new System.EventHandler(this.m_editCopyColorToolMenuItem_Click);
+            // 
+            // m_editPasteMenuItem
+            // 
+            this.m_editPasteMenuItem.Name = "m_editPasteMenuItem";
+            this.m_editPasteMenuItem.ShortcutKeyDisplayString = "Ctrl + V";
+            this.m_editPasteMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.m_editPasteMenuItem.Text = "Paste";
+            this.m_editPasteMenuItem.Click += new System.EventHandler(this.m_editPasteMenuItem_Click);
+            // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
@@ -757,39 +789,6 @@ namespace Trizbort
             this.m_canvas.Name = "m_canvas";
             this.m_canvas.Size = new System.Drawing.Size(586, 420);
             this.m_canvas.TabIndex = 3;
-            // 
-            // m_editCopyMenuItem
-            // 
-            this.m_editCopyMenuItem.Name = "m_editCopyMenuItem";
-            this.m_editCopyMenuItem.ShortcutKeyDisplayString = "Ctrl + C";
-            this.m_editCopyMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.m_editCopyMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.m_editCopyMenuItem.Text = "Copy";
-            this.m_editCopyMenuItem.Click += new System.EventHandler(this.m_editCopyMenuItem_Click);
-            // 
-            // m_editPasteMenuItem
-            // 
-            this.m_editPasteMenuItem.Name = "m_editPasteMenuItem";
-            this.m_editPasteMenuItem.ShortcutKeyDisplayString = "Ctrl + V";
-            this.m_editPasteMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.m_editPasteMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.m_editPasteMenuItem.Text = "Paste";
-            this.m_editPasteMenuItem.Click += new System.EventHandler(this.m_editPasteMenuItem_Click);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(208, 6);
-            // 
-            // m_editCopyColorToolMenuItem
-            // 
-            this.m_editCopyColorToolMenuItem.Name = "m_editCopyColorToolMenuItem";
-            this.m_editCopyColorToolMenuItem.ShortcutKeyDisplayString = "Ctrl + Alt + C";
-            this.m_editCopyColorToolMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.C)));
-            this.m_editCopyColorToolMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.m_editCopyColorToolMenuItem.Text = "Copy Color";
-            this.m_editCopyColorToolMenuItem.Click += new System.EventHandler(this.m_editCopyColorToolMenuItem_Click);
             // 
             // MainForm
             // 

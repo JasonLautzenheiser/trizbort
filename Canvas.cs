@@ -877,6 +877,10 @@ namespace Trizbort
                 NewConnectionLabel = ConnectionLabel.Out;
                 ApplyConnectionLabel(NewConnectionLabel);
             }
+            else if (e.KeyCode == Keys.V && Control.ModifierKeys == Keys.Control)
+            {
+                Paste(true);
+            }
             else if (e.KeyCode == Keys.V)
             {
                 ReverseLineDirection();
@@ -2286,7 +2290,7 @@ namespace Trizbort
             Clipboard.SetText(clipboardText);
         }
 
-        public void Paste()
+        public void Paste(bool atCursor)
         {
             String clipboardText = Clipboard.GetText();
 
@@ -2296,29 +2300,122 @@ namespace Trizbort
 
                 if (elements[0] == "Elements")
                 {
-                    // Fill in this, Should be nice and complicated :)
+                    int index = 1;
+
+                    List<Element> newElements = new List<Element>();
+
+                    bool firstElement = true;
+                    float firstX = 0;
+                    float firstY = 0;
+                    float newFirstX = 0;
+                    float newFirstY = 0;
+
+                    newElements.Clear();
+
+                    while (index < elements.Length)
+                    {
+                        String[] elementProperties = elements[index].Split(':');
+
+                        if (elementProperties.Length > 14)
+                        {
+                            if (elementProperties[0] == "room")
+                            {
+                                AddRoom(atCursor);
+
+                                Room currentRoom = (Room)Project.Current.Elements[Project.Current.Elements.Count-1];
+
+                                currentRoom.Name = elementProperties[2];
+
+                                if (firstElement)
+                                {
+                                    firstX = Convert.ToSingle(elementProperties[3]);
+                                    firstY = Convert.ToSingle(elementProperties[4]);
+                                    newFirstX = currentRoom.X;
+                                    newFirstY = currentRoom.Y;
+                                    firstElement = false;
+                                }
+                                else
+                                {
+                                    currentRoom.Position = new Vector(newFirstX + (Convert.ToSingle(elementProperties[3]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[4]) - firstY));
+                                }
+
+                                currentRoom.Size = new Vector(Convert.ToSingle(elementProperties[5]), Convert.ToSingle(elementProperties[6]));
+                                currentRoom.IsDark = Convert.ToBoolean(elementProperties[7]);
+                                currentRoom.AddDescription(elementProperties[8]);
+                                currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[9]);
+                                currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[10]);
+                                currentRoom.SecondFillLocation = elementProperties[11];
+                                currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[12]);
+                                currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[13]);
+                                currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[14]);
+
+                                int index2 = 15;
+                                String newObjects = "";
+
+                                while (index2 < elementProperties.Length)
+                                {
+                                    if (index2 == 15)
+                                    {
+                                        CompassPoint point;
+                                        CompassPointHelper.FromName(elementProperties[15], out point);
+                                        currentRoom.ObjectsPosition = point;
+                                    }
+                                    else if (index2 == elementProperties.Length-1)
+                                    {
+                                        newObjects += elementProperties[index2];
+                                    }
+                                    else
+                                    {
+                                        newObjects += elementProperties[index2] + "\r\n";
+                                    }
+                                    ++index2;
+                                }
+                                currentRoom.Objects = newObjects;
+                                newElements.Add(currentRoom);
+                            }
+                            else if (elementProperties[0] == "line")
+                            {
+
+                                if (firstElement)
+                                {
+                                    firstElement = false;
+                                }
+                            }
+                        }
+
+                        ++index;
+                    }
+
+                    m_selectedElements = newElements;
                 }
                 
                 if (elements[0] == "Colors")
                 {
-                    String[] pasteColors = elements[1].Split(':');
-                    String fillColor = pasteColors[0];
-                    String secondFillColor = pasteColors[1];
-                    String secondFillLocation = pasteColors[2];
-                    String borderColor = pasteColors[3];
-                    String largeTextColor = pasteColors[4];
-                    String smallTextColor = pasteColors[5];
-
-                    foreach (var element in SelectedElements)
+                    if (elements.Length > 1)
                     {
-                        if (element is Room)
+                        String[] pasteColors = elements[1].Split(':');
+
+                        if (pasteColors.Length > 5)
                         {
-                            ((Room)element).RoomFill = ColorTranslator.FromHtml(fillColor);
-                            ((Room)element).SecondFill = ColorTranslator.FromHtml(secondFillColor);
-                            ((Room)element).SecondFillLocation = secondFillLocation;
-                            ((Room)element).RoomBorder = ColorTranslator.FromHtml(borderColor);
-                            ((Room)element).RoomLargeText = ColorTranslator.FromHtml(largeTextColor);
-                            ((Room)element).RoomSmallText = ColorTranslator.FromHtml(smallTextColor);
+                            String fillColor = pasteColors[0];
+                            String secondFillColor = pasteColors[1];
+                            String secondFillLocation = pasteColors[2];
+                            String borderColor = pasteColors[3];
+                            String largeTextColor = pasteColors[4];
+                            String smallTextColor = pasteColors[5];
+
+                            foreach (var element in SelectedElements)
+                            {
+                                if (element is Room)
+                                {
+                                    ((Room)element).RoomFill = ColorTranslator.FromHtml(fillColor);
+                                    ((Room)element).SecondFill = ColorTranslator.FromHtml(secondFillColor);
+                                    ((Room)element).SecondFillLocation = secondFillLocation;
+                                    ((Room)element).RoomBorder = ColorTranslator.FromHtml(borderColor);
+                                    ((Room)element).RoomLargeText = ColorTranslator.FromHtml(largeTextColor);
+                                    ((Room)element).RoomSmallText = ColorTranslator.FromHtml(smallTextColor);
+                                }
+                            }
                         }
                     }
                 }                

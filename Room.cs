@@ -926,7 +926,9 @@ namespace Trizbort
 
             if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DefaultObjectsPosition)
             {
-                clipboardText += ":" + ObjectsPosition + ":";
+                String objectsDirection = "";
+                CompassPointHelper.ToName(ObjectsPosition, out objectsDirection);
+                clipboardText += ":" + objectsDirection + ":";
                 if (!string.IsNullOrEmpty(Objects))
                 {
                     clipboardText += (Objects.Replace("\r\n", ":"));

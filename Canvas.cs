@@ -2298,122 +2298,338 @@ namespace Trizbort
             {
                 String[] elements = clipboardText.Replace("\r\n", "|").Split('|');
 
-                if (elements[0] == "Elements")
+                if (elements.Length > 0)
                 {
-                    int index = 1;
-
-                    List<Element> newElements = new List<Element>();
-
-                    bool firstElement = true;
-                    float firstX = 0;
-                    float firstY = 0;
-                    float newFirstX = 0;
-                    float newFirstY = 0;
-
-                    newElements.Clear();
-
-                    while (index < elements.Length)
+                    if (elements[0] == "Elements")
                     {
-                        String[] elementProperties = elements[index].Split(':');
+                        int index = 1;
 
-                        if (elementProperties.Length > 14)
+                        List<Element> newElements = new List<Element>();
+
+                        bool firstElement = true;
+                        float firstX = 0;
+                        float firstY = 0;
+                        float newFirstX = 0;
+                        float newFirstY = 0;
+                        bool removeElement = false;
+
+                        newElements.Clear();
+
+                        while (index < elements.Length)
                         {
-                            if (elementProperties[0] == "room")
+                            String[] elementProperties = elements[index].Split(':');
+
+                            // Rooms and Lines both copy 15 items for their base attributes
+                            if (elementProperties.Length > 14)
                             {
-                                AddRoom(atCursor);
-
-                                Room currentRoom = (Room)Project.Current.Elements[Project.Current.Elements.Count-1];
-
-                                currentRoom.Name = elementProperties[2];
-
-                                if (firstElement)
+                                // Only load rooms on the first pass
+                                if (elementProperties[0] == "room")
                                 {
-                                    firstX = Convert.ToSingle(elementProperties[3]);
-                                    firstY = Convert.ToSingle(elementProperties[4]);
-                                    newFirstX = currentRoom.X;
-                                    newFirstY = currentRoom.Y;
-                                    firstElement = false;
-                                }
-                                else
-                                {
-                                    currentRoom.Position = new Vector(newFirstX + (Convert.ToSingle(elementProperties[3]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[4]) - firstY));
-                                }
+                                    AddRoom(atCursor); // Create the room
 
-                                currentRoom.Size = new Vector(Convert.ToSingle(elementProperties[5]), Convert.ToSingle(elementProperties[6]));
-                                currentRoom.IsDark = Convert.ToBoolean(elementProperties[7]);
-                                currentRoom.AddDescription(elementProperties[8]);
-                                currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[9]);
-                                currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[10]);
-                                currentRoom.SecondFillLocation = elementProperties[11];
-                                currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[12]);
-                                currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[13]);
-                                currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[14]);
+                                    Room currentRoom = (Room)Project.Current.Elements[Project.Current.Elements.Count - 1]; // Link to the new room
 
-                                int index2 = 15;
-                                String newObjects = "";
+                                    currentRoom.OldID = Convert.ToInt32(elementProperties[1]); // Keep a record of the old ID
+                                    currentRoom.Name = elementProperties[2]; // Set the room's name
 
-                                while (index2 < elementProperties.Length)
-                                {
-                                    if (index2 == 15)
+                                    // Check if it's the first element in the paste and record the old and new locations for reference
+                                    if (firstElement)
                                     {
-                                        CompassPoint point;
-                                        CompassPointHelper.FromName(elementProperties[15], out point);
-                                        currentRoom.ObjectsPosition = point;
+                                        firstX = Convert.ToSingle(elementProperties[3]);
+                                        firstY = Convert.ToSingle(elementProperties[4]);
+                                        newFirstX = currentRoom.X;
+                                        newFirstY = currentRoom.Y;
+                                        firstElement = false;
                                     }
-                                    else if (index2 == elementProperties.Length-1)
+                                    else // If it's not the first element then paste it relative to the new element
                                     {
-                                        newObjects += elementProperties[index2];
+                                        currentRoom.Position = new Vector(newFirstX + (Convert.ToSingle(elementProperties[3]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[4]) - firstY));
                                     }
-                                    else
+
+                                    // Set the remaining attributes in the order they were copied
+                                    currentRoom.Size = new Vector(Convert.ToSingle(elementProperties[5]), Convert.ToSingle(elementProperties[6]));
+                                    currentRoom.IsDark = Convert.ToBoolean(elementProperties[7]);
+                                    currentRoom.AddDescription(elementProperties[8]);
+                                    currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[9]);
+                                    currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[10]);
+                                    currentRoom.SecondFillLocation = elementProperties[11];
+                                    currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[12]);
+                                    currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[13]);
+                                    currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[14]);
+
+                                    // Get ready to check for objects in the room (small text)
+                                    int index2 = 15;
+                                    String newObjects = "";
+
+                                    // Cycle through all the objects
+                                    while (index2 < elementProperties.Length)
                                     {
-                                        newObjects += elementProperties[index2] + "\r\n";
+                                        // First attribute will be which direction the objects are written
+                                        if (index2 == 15)
+                                        {
+                                            CompassPoint point;
+                                            CompassPointHelper.FromName(elementProperties[15], out point);
+                                            currentRoom.ObjectsPosition = point;
+                                        }
+                                        // It's it's the last object then don't add \r\n on the end
+                                        else if (index2 == elementProperties.Length - 1)
+                                        {
+                                            newObjects += elementProperties[index2];
+                                        }
+                                        // Add all other objects with \r\n
+                                        else
+                                        {
+                                            newObjects += elementProperties[index2] + "\r\n";
+                                        }
+                                        ++index2;
                                     }
-                                    ++index2;
+                                    // Ass the objects to the room
+                                    currentRoom.Objects = newObjects;
+                                    // Keep a record of the elements that are pasted
+                                    newElements.Add(currentRoom);
                                 }
-                                currentRoom.Objects = newObjects;
-                                newElements.Add(currentRoom);
                             }
-                            else if (elementProperties[0] == "line")
-                            {
 
-                                if (firstElement)
-                                {
-                                    firstElement = false;
-                                }
-                            }
+                            ++index;
                         }
 
-                        ++index;
+                        // Reset the index for a second pass
+                        index = 1;
+
+                        while (index < elements.Length)
+                        {
+                            String[] elementProperties = elements[index].Split(':');
+
+                            // Rooms and Lines both copy 15 items for their base attributes
+                            if (elementProperties.Length > 14)
+                            {
+                                // Only load line on the second pass
+                                if (elementProperties[0] == "line")
+                                {
+                                    // Create the new connection
+                                    var currentConnection = new Connection(Project.Current, Project.Current.Elements.Count + 1);
+                                    Project.Current.Elements.Add(currentConnection);
+
+                                    // Set the connection style
+                                    switch (elementProperties[2])
+                                    {
+                                        case "solid":
+                                            currentConnection.Style = ConnectionStyle.Solid;
+                                            break;
+                                        case "dashed":
+                                            currentConnection.Style = ConnectionStyle.Dashed;
+                                            break;
+                                        default:
+                                            currentConnection.Style = ConnectionStyle.Solid;
+                                            break;
+                                    }
+
+                                    // Set the connection Flow
+                                    switch (elementProperties[3])
+                                    {
+                                        case "oneWay":
+                                            currentConnection.Flow = ConnectionFlow.OneWay;
+                                            break;
+                                        case "twoWay":
+                                            currentConnection.Flow = ConnectionFlow.TwoWay;
+                                            break;
+                                        default:
+                                            currentConnection.Flow = ConnectionFlow.OneWay;
+                                            break;
+                                    }
+
+                                    // Set the texts on the connection
+                                    currentConnection.StartText = elementProperties[4];
+                                    currentConnection.MidText = elementProperties[5];
+                                    currentConnection.EndText = elementProperties[6];
+
+                                    // Used to determine if the first vertex needs to be redone
+                                    bool firstVertexFound = true;
+
+                                    // Check if the first vertex is a dock or a point
+                                    if (elementProperties[7] == "dock")
+                                    {
+                                        // If this is the first element to be pasted
+                                        if (firstElement)
+                                        {
+                                            // Check if the other vertex is a point
+                                            if (elementProperties[11] == "point")
+                                            {
+                                                // record the location of the line both old and new
+                                                firstX = Convert.ToSingle(elementProperties[13]);
+                                                firstY = Convert.ToSingle(elementProperties[14]);
+                                                newFirstX = 0;
+                                                newFirstY = 0;
+                                                firstElement = false;
+                                            }
+                                            else if (elementProperties[11] == "dock")
+                                            {
+                                                // The first element can not be a line with 2 docked ends. Mark this for removal
+                                                removeElement = true;
+                                            }
+                                        }
+
+                                        // Make sure that co-ordinates were able to be pasted
+                                        if (!firstElement)
+                                        {
+                                            bool foundDock = false;
+
+                                            // Check all the previous elements that have been pasted
+                                            foreach (var element in newElements)
+                                            {
+                                                // Check for rooms
+                                                if (element is Room)
+                                                {
+                                                    // See if it was the room that this used to be docked to
+                                                    if (((Room)element).OldID == Convert.ToInt32(elementProperties[9]))
+                                                    {
+                                                        // Determine the compass point for the dock
+                                                        CompassPoint point;
+                                                        CompassPointHelper.FromName(elementProperties[10], out point);
+
+                                                        // Add the first Vertex
+                                                        Vertex vertexOne = new Vertex(((Room)element).PortAt(point));
+                                                        currentConnection.VertexList.Add(vertexOne);
+
+                                                        foundDock = true;
+                                                    }
+                                                }
+                                            }
+
+                                            if (!foundDock)
+                                            {
+                                                firstVertexFound = false;
+                                            }
+                                        }
+                                    }
+                                    else if (elementProperties[7] == "point")
+                                    {
+                                        // If this is the first element then record the location of the line both old and new
+                                        if (firstElement)
+                                        {
+                                            firstX = Convert.ToSingle(elementProperties[9]);
+                                            firstY = Convert.ToSingle(elementProperties[10]);
+                                            newFirstX = 0;
+                                            newFirstY = 0;
+                                            firstElement = false;
+                                        }
+
+                                        // Add the first Vertex
+                                        Vector vectorOne = new Vector(newFirstX + (Convert.ToSingle(elementProperties[9]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[10]) - firstY));
+                                        Vertex vertexOne = new Vertex(vectorOne);
+                                        currentConnection.VertexList.Add(vertexOne);
+                                    }
+
+                                    // Check if the second vertex is a dock or a point
+                                    if (elementProperties[11] == "dock")
+                                    {
+                                        // If this is the first element to be pasted
+                                        if (firstElement)
+                                        {
+                                            removeElement = true;
+                                        }
+
+                                        // Make sure that co-ordinates were able to be pasted
+                                        if (!firstElement)
+                                        {
+                                            bool foundDock = false;
+
+                                            // Check all the previous elements that have been pasted
+                                            foreach (var element in newElements)
+                                            {
+                                                // Check for rooms
+                                                if (element is Room)
+                                                {
+                                                    // See if it was the room that this used to be docked to
+                                                    if (((Room)element).OldID == Convert.ToInt32(elementProperties[13]))
+                                                    {
+                                                        // Determine the compass point for the dock
+                                                        CompassPoint point;
+                                                        CompassPointHelper.FromName(elementProperties[14], out point);
+
+                                                        // Add the first Vertex
+                                                        Vertex vertexOne = new Vertex(((Room)element).PortAt(point));
+                                                        currentConnection.VertexList.Add(vertexOne);
+
+                                                        foundDock = true;
+                                                    }
+                                                }
+                                            }
+
+                                            if (!foundDock)
+                                            {
+                                                Vector vectorOne = new Vector(currentConnection.VertexList[0].Position.X + 1, currentConnection.VertexList[0].Position.Y + 1);
+                                                Vertex vertexOne = new Vertex(vectorOne);
+                                                currentConnection.VertexList.Add(vertexOne);
+                                            }
+                                        }
+                                    }
+                                    else if (elementProperties[11] == "point")
+                                    {
+                                        // If this is the first element then record the location of the line both old and new
+                                        if (firstElement)
+                                        {
+                                            removeElement = true;
+                                        }
+
+                                        // Add the first Vertex
+                                        Vector vectorOne = new Vector(newFirstX + (Convert.ToSingle(elementProperties[13]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[14]) - firstY));
+                                        Vertex vertexOne = new Vertex(vectorOne);
+                                        currentConnection.VertexList.Add(vertexOne);
+                                    }
+
+                                    if (!firstVertexFound)
+                                    {
+                                        Vector vectorOne = new Vector(currentConnection.VertexList[0].Position.X + 1, currentConnection.VertexList[0].Position.Y + 1);
+                                        Vertex vertexOne = new Vertex(vectorOne);
+                                        currentConnection.VertexList.Add(vertexOne);
+                                    }
+
+                                    // Add the new connection to the list of pasted elements
+                                    newElements.Add(currentConnection);
+                                }
+                            }
+
+                            // If the connection was not pastable it will get flagged and removed
+                            if (removeElement)
+                            {
+                                Project.Current.Elements.Remove(Project.Current.Elements[Project.Current.Elements.Count - 1]);
+                                removeElement = false;
+                            }
+
+
+                            ++index;
+                        }
+
+                        m_selectedElements = newElements;
                     }
 
-                    m_selectedElements = newElements;
-                }
-                
-                if (elements[0] == "Colors")
-                {
-                    if (elements.Length > 1)
+                    if (elements[0] == "Colors")
                     {
-                        String[] pasteColors = elements[1].Split(':');
-
-                        if (pasteColors.Length > 5)
+                        if (elements.Length > 1)
                         {
-                            String fillColor = pasteColors[0];
-                            String secondFillColor = pasteColors[1];
-                            String secondFillLocation = pasteColors[2];
-                            String borderColor = pasteColors[3];
-                            String largeTextColor = pasteColors[4];
-                            String smallTextColor = pasteColors[5];
+                            String[] pasteColors = elements[1].Split(':');
 
-                            foreach (var element in SelectedElements)
+                            if (pasteColors.Length > 5)
                             {
-                                if (element is Room)
+                                String fillColor = pasteColors[0];
+                                String secondFillColor = pasteColors[1];
+                                String secondFillLocation = pasteColors[2];
+                                String borderColor = pasteColors[3];
+                                String largeTextColor = pasteColors[4];
+                                String smallTextColor = pasteColors[5];
+
+                                foreach (var element in SelectedElements)
                                 {
-                                    ((Room)element).RoomFill = ColorTranslator.FromHtml(fillColor);
-                                    ((Room)element).SecondFill = ColorTranslator.FromHtml(secondFillColor);
-                                    ((Room)element).SecondFillLocation = secondFillLocation;
-                                    ((Room)element).RoomBorder = ColorTranslator.FromHtml(borderColor);
-                                    ((Room)element).RoomLargeText = ColorTranslator.FromHtml(largeTextColor);
-                                    ((Room)element).RoomSmallText = ColorTranslator.FromHtml(smallTextColor);
+                                    if (element is Room)
+                                    {
+                                        ((Room)element).RoomFill = ColorTranslator.FromHtml(fillColor);
+                                        ((Room)element).SecondFill = ColorTranslator.FromHtml(secondFillColor);
+                                        ((Room)element).SecondFillLocation = secondFillLocation;
+                                        ((Room)element).RoomBorder = ColorTranslator.FromHtml(borderColor);
+                                        ((Room)element).RoomLargeText = ColorTranslator.FromHtml(largeTextColor);
+                                        ((Room)element).RoomSmallText = ColorTranslator.FromHtml(smallTextColor);
+                                    }
                                 }
                             }
                         }

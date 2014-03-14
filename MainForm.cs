@@ -588,6 +588,9 @@ namespace Trizbort
             m_editIsDarkMenuItem.Enabled = hasSelectedElement;
             m_editSelectNoneMenuItem.Enabled = hasSelectedElement;
             m_editSelectAllMenuItem.Enabled = m_canvas.SelectedElementCount < Project.Current.Elements.Count;
+            m_editCopyMenuItem.Enabled = m_canvas.SelectedElement != null;
+            m_editCopyColorToolMenuItem.Enabled = m_canvas.HasSingleSelectedElement && (m_canvas.SelectedElement is Room);
+            m_editPasteMenuItem.Enabled = (!String.IsNullOrEmpty(Clipboard.GetText())) && ((Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Elements") || (Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Colors"));
             m_editRenameMenuItem.Enabled = m_canvas.HasSingleSelectedElement && (m_canvas.SelectedElement is Room);
             m_editIsDarkMenuItem.Checked = m_canvas.HasSingleSelectedElement && (m_canvas.SelectedElement is Room) && ((Room)m_canvas.SelectedElement).IsDark;
             m_reverseLineMenuItem.Enabled = m_canvas.HasSelectedElement<Connection>();

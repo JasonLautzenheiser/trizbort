@@ -1113,6 +1113,19 @@ namespace Trizbort
             }
         }
 
+        // Added for linking connections when pasting
+        public Int32 OldID
+        {
+            get { return m_oldID; }
+            set
+            {
+                if (m_oldID != value)
+                {
+                    m_oldID = value;
+                }
+            }
+        }
+
         private Vector m_position;
         private Vector m_size;
         private TextBlock m_name = new TextBlock();
@@ -1128,5 +1141,7 @@ namespace Trizbort
         private Color m_roomborder = ColorTranslator.FromHtml("White");
         private Color m_roomlargetext = ColorTranslator.FromHtml("White");
         private Color m_roomsmalltext = ColorTranslator.FromHtml("White");
+        // Added for linking connections when pasting
+        private Int32 m_oldID = 0;
     }
 }

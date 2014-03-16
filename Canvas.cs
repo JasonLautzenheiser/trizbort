@@ -1075,7 +1075,7 @@ namespace Trizbort
         {
             var vertexOne = new Vertex(roomOne.PortAt(compassPointOne));
             var vertexTwo = new Vertex(roomTwo.PortAt(compassPointTwo));
-            var connection = new Connection(Project.Current, vertexOne, vertexTwo, Project.Current.Elements.Count + 1);
+            var connection = new Connection(Project.Current, vertexOne, vertexTwo);
             Project.Current.Elements.Add(connection);
             return connection;
         }
@@ -1274,12 +1274,12 @@ namespace Trizbort
                 // Only from non-moveable ports, until we fix docking.
                 // See also DoDragMovePort().
                 // Updated to ignore ID gaps. ID gaps are resolved on load
-                connection = new Connection(Project.Current, new Vertex(HoverPort), new Vertex(HoverPort), Project.Current.Elements.Count + 1);
+                connection = new Connection(Project.Current, new Vertex(HoverPort), new Vertex(HoverPort));
             }
             else
             {
                 var pos = Settings.Snap(canvasPos);
-                connection = new Connection(Project.Current, new Vertex(pos), new Vertex(pos), Project.Current.Elements.Count + 1);
+                connection = new Connection(Project.Current, new Vertex(pos), new Vertex(pos));
             }
             connection.Style = NewConnectionStyle;
             connection.Flow = NewConnectionFlow;
@@ -1296,7 +1296,7 @@ namespace Trizbort
         public void AddRoom(bool atCursor)
         {
             // Changed this to ignore ID gaps. ID gaps are resolved on load
-            var room = new Room(Project.Current, Project.Current.Elements.Count + 1);
+            var room = new Room(Project.Current);
             Vector pos;
             if (atCursor && ClientRectangle.Contains(PointToClient(Control.MousePosition)))
             {
@@ -2407,7 +2407,7 @@ namespace Trizbort
                                 if (elementProperties[0] == "line")
                                 {
                                     // Create the new connection
-                                    var currentConnection = new Connection(Project.Current, Project.Current.Elements.Count + 1);
+                                    var currentConnection = new Connection(Project.Current);
                                     Project.Current.Elements.Add(currentConnection);
 
                                     // Set the connection style

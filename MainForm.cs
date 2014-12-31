@@ -685,7 +685,7 @@ namespace Trizbort
 
         private void ProjectSettingsMenuItem_Click(object sender, EventArgs e)
         {
-            Settings.ShowDialog();
+            Settings.ShowMapDialog();
         }
 
         private void ProjectResetToDefaultSettingsMenuItem_Click(object sender, EventArgs e)
@@ -812,6 +812,11 @@ namespace Trizbort
         private void m_editPasteMenuItem_Click(object sender, EventArgs e)
         {
             m_canvas.Paste(false);
+        }
+
+        private void appSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings.ShowAppDialog();
         }
     }
 }

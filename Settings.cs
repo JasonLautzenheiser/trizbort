@@ -476,7 +476,7 @@ namespace Trizbort
             }
         }
 
-        public static void ShowDialog()
+        public static void ShowMapDialog()
         {
             using (var dialog = new SettingsDialog())
             {
@@ -825,6 +825,18 @@ namespace Trizbort
             set;
         }
 
+        public static int MouseDragButton
+        {
+            get { return s_dragButton; }
+            set { s_dragButton = value; }
+        }
+
+        public static bool InvertMouseWheel
+        {
+            get { return s_invertMouseWheel; }
+            set { s_invertMouseWheel = value; }
+        }
+        
         public static Version DontCareAboutVersion
         {
             get { return s_dontCareAboutVersion; }
@@ -914,6 +926,8 @@ namespace Trizbort
         // application settings, saved for the user
         private static Version s_dontCareAboutVersion;
         private static AutomapSettings s_automap;
+        private static int s_dragButton;
+        private static bool s_invertMouseWheel;
         private static bool s_infiniteScrollBounds;
         private static bool s_showMinimap;
         private static string s_lastProjectFileName;
@@ -922,5 +936,19 @@ namespace Trizbort
         private static string s_lastExportInform6FileName;
         private static string s_lastExportTadsFileName;
         private static MruList s_recentProjects = new MruList();
+
+        public static void ShowAppDialog()
+        {
+            using (var dialog = new AppSettingsDialog())
+            {
+                dialog.InvertMouseWheel = InvertMouseWheel;
+                dialog.MouseDragButton = MouseDragButton;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    InvertMouseWheel = dialog.InvertMouseWheel;
+                    MouseDragButton = dialog.MouseDragButton;
+                }
+            }
+        }
     }
 }

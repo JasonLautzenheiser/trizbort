@@ -133,6 +133,7 @@ namespace Trizbort
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.m_automapBar = new Trizbort.AutomapBar();
             this.m_canvas = new Trizbort.Canvas();
+            this.appSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_menuStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -657,6 +658,7 @@ namespace Trizbort
             // 
             this.m_projectMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.m_projectSettingsMenuItem,
+            this.appSettingsToolStripMenuItem,
             this.toolStripSeparator11,
             this.m_projectResetToDefaultSettingsMenuItem});
             this.m_projectMenu.Name = "m_projectMenu";
@@ -667,7 +669,7 @@ namespace Trizbort
             // 
             this.m_projectSettingsMenuItem.Name = "m_projectSettingsMenuItem";
             this.m_projectSettingsMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.m_projectSettingsMenuItem.Text = "&Settings...";
+            this.m_projectSettingsMenuItem.Text = "Map &Settings...";
             this.m_projectSettingsMenuItem.Click += new System.EventHandler(this.ProjectSettingsMenuItem_Click);
             // 
             // toolStripSeparator11
@@ -790,6 +792,13 @@ namespace Trizbort
             this.m_canvas.Size = new System.Drawing.Size(586, 420);
             this.m_canvas.TabIndex = 3;
             // 
+            // appSettingsToolStripMenuItem
+            // 
+            this.appSettingsToolStripMenuItem.Name = "appSettingsToolStripMenuItem";
+            this.appSettingsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.appSettingsToolStripMenuItem.Text = "&App Settings...";
+            this.appSettingsToolStripMenuItem.Click += new System.EventHandler(this.appSettingsToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -896,6 +905,7 @@ namespace Trizbort
         private System.Windows.Forms.ToolStripMenuItem m_editCopyMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_editPasteMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_editCopyColorToolMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem appSettingsToolStripMenuItem;
     }
 }
 

@@ -610,6 +610,16 @@ namespace Trizbort
             return s;
         }
 
+        private bool IsZoomIn(int delta)
+        {
+            return (!Settings.InvertMouseWheel && delta < 0) || (Settings.InvertMouseWheel && delta > 0);
+        }
+
+        private bool IsZoomOut(int delta)
+        {
+            return (!Settings.InvertMouseWheel && delta > 0) || (Settings.InvertMouseWheel && delta < 0);
+        }
+
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             if (e.X < 0 || e.X > Width || e.Y < 0 || e.Y > Width)
@@ -617,11 +627,11 @@ namespace Trizbort
 
             var pos = ClientToCanvas(new PointF(e.X, e.Y));
 
-            if (e.Delta < 0)
+            if (IsZoomIn(e.Delta))
             {
                 ZoomIn();
             }
-            else if (e.Delta > 0 && ZoomFactor > 1/100.0f)
+            else if (IsZoomOut(e.Delta)  && ZoomFactor > 1/100.0f)
             {
                 ZoomOut();
             }
@@ -635,9 +645,13 @@ namespace Trizbort
             base.OnMouseWheel(e);
         }
 
-        private bool IsMiddleButton(MouseEventArgs e)
+
+        private bool IsDragButton(MouseEventArgs e)
         {
-            return e.Button == MouseButtons.Middle || (e.Button == MouseButtons.Right && Control.ModifierKeys == Keys.Shift);
+            return
+                (Settings.MouseDragButton == 0 && (e.Button == MouseButtons.Middle || (e.Button == MouseButtons.Right && Control.ModifierKeys == Keys.Shift)))
+                ||
+                (Settings.MouseDragButton == 1 && (e.Button == MouseButtons.Right));
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -649,7 +663,7 @@ namespace Trizbort
             if (DragMode != DragModes.None)
                 return;
 
-            if (IsMiddleButton(e))
+            if (IsDragButton(e))
             {
                 BeginDragPan(clientPos, canvasPos);
             }

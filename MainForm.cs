@@ -50,7 +50,12 @@ namespace Trizbort
             Application.Idle += OnIdle;
             m_lastUpdateUITime = DateTime.MinValue;
 
-            m_automapBar.StopClick += delegate(object sender, EventArgs e) { m_canvas.StopAutomapping(); };
+            m_automapBar.StopClick += onMAutomapBarOnStopClick;
+        }
+
+        private void onMAutomapBarOnStopClick(object sender, EventArgs e)
+        {
+            m_canvas.StopAutomapping();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -258,6 +263,61 @@ namespace Trizbort
             SaveAsProject();
         }
 
+        private void smartSaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            smartSave();
+        }
+
+        private void smartSave()
+        {
+            if (!Project.Current.HasFileName || Project.Current.IsDirty)
+            {
+                SaveProject();
+            }
+            exportPDF();
+            exportImage();
+            MessageBox.Show(string.Format("Image and PDF saved to {0}",PathHelper.SafeGetDirectoryName(Settings.LastProjectFileName)), "Smart Save",MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+        private void appSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings.ShowAppDialog();
+        }
+
+
+        private void exportImage()
+        {
+            string folder = PathHelper.SafeGetDirectoryName(Settings.LastProjectFileName);
+            string fileName = PathHelper.SafeGetFilenameWithoutExtension(Settings.LastProjectFileName);
+
+            string extension = string.Empty;
+            switch (Settings.DefaultImageType)
+            {
+                case 0:
+                    extension = ".png";
+                    break;
+                case 1:
+                    extension = ".jpg";
+                    break;
+                case 2: 
+                    extension = ".bmp";
+                    break;
+                case 3:
+                    extension = ".emf";
+                    break;
+            }
+
+            saveImage(Path.Combine(folder, fileName + extension));
+        }
+
+        private void exportPDF()
+        {
+            string folder = PathHelper.SafeGetDirectoryName(Settings.LastProjectFileName);
+            string fileName = PathHelper.SafeGetFilenameWithoutExtension(Settings.LastProjectFileName);
+            savePDF(Path.Combine(folder, fileName + ".pdf" ));
+        }
+
         private void FileExportPDFMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog())
@@ -269,24 +329,7 @@ namespace Trizbort
                 {
                     try
                     {
-                        Settings.LastExportImageFileName = dialog.FileName;
-
-                        var doc = new PdfDocument();
-                        doc.Info.Title = Project.Current.Title;
-                        doc.Info.Author = Project.Current.Author;
-                        doc.Info.Creator = Application.ProductName;
-                        doc.Info.CreationDate = DateTime.Now;
-                        doc.Info.Subject = Project.Current.Description;
-                        var page = doc.AddPage();
-
-                        var size = m_canvas.ComputeCanvasBounds(true).Size;
-                        page.Width = new XUnit(size.X);
-                        page.Height = new XUnit(size.Y);
-                        using (var graphics = XGraphics.FromPdfPage(page))
-                        {
-                            m_canvas.Draw(graphics, true, size.X, size.Y);
-                        }
-                        doc.Save(dialog.FileName);
+                        savePDF(dialog.FileName);
                     }
                     catch (Exception ex)
                     {
@@ -294,6 +337,29 @@ namespace Trizbort
                     }
                 }
             }            
+        }
+
+        private void savePDF(string fileName)
+        {
+            Settings.LastExportImageFileName = fileName;
+
+            var doc = new PdfDocument();
+            doc.Info.Title = Project.Current.Title;
+            doc.Info.Author = Project.Current.Author;
+            doc.Info.Creator = Application.ProductName;
+            doc.Info.CreationDate = DateTime.Now;
+            doc.Info.Subject = Project.Current.Description;
+            var page = doc.AddPage();
+
+            var size = m_canvas.ComputeCanvasBounds(true).Size;
+            page.Width = new XUnit(size.X);
+            page.Height = new XUnit(size.Y);
+            using (var graphics = XGraphics.FromPdfPage(page))
+            {
+                m_canvas.Draw(graphics, true, size.X, size.Y);
+            }
+            
+            doc.Save(fileName);
         }
 
         private void FileExportImageMenuItem_Click(object sender, EventArgs e)
@@ -306,81 +372,86 @@ namespace Trizbort
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     Settings.LastExportImageFileName = dialog.InitialDirectory;
+                    saveImage(dialog.FileName);
+                }
+            }
+        }
 
-                    var format = ImageFormat.Png;
-                    var ext = Path.GetExtension(dialog.FileName);
-                    if (StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".jpg") == 0
-                        || StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".jpeg") == 0)
-                    {
-                        format = ImageFormat.Jpeg;
-                    }
-                    else if (StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".bmp") == 0)
-                    {
-                        format = ImageFormat.Bmp;
-                    }
-                    else if (StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".emf") == 0)
-                    {
-                        format = ImageFormat.Emf;
-                    }
+        private void saveImage(string fileName)
+        {
+            var format = ImageFormat.Png;
+            var ext = Path.GetExtension(fileName);
+            if (StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".jpg") == 0
+                || StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".jpeg") == 0)
+            {
+                format = ImageFormat.Jpeg;
+            }
+            else if (StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".bmp") == 0)
+            {
+                format = ImageFormat.Bmp;
+            }
+            else if (StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".emf") == 0)
+            {
+                format = ImageFormat.Emf;
+            }
 
-                    var size = m_canvas.ComputeCanvasBounds(true).Size * m_canvas.ZoomFactor;
-                    size.X = Numeric.Clamp(size.X, 16, 8192);
-                    size.Y = Numeric.Clamp(size.Y, 16, 8192);
-                    
-                    try
+            var size = m_canvas.ComputeCanvasBounds(true).Size*m_canvas.ZoomFactor;
+            size.X = Numeric.Clamp(size.X, 16, 8192);
+            size.Y = Numeric.Clamp(size.Y, 16, 8192);
+
+            try
+            {
+                if (format == ImageFormat.Emf)
+                {
+                    // export as a metafile
+                    using (var nativeGraphics = Graphics.FromHwnd(m_canvas.Handle))
                     {
-                        if (format == ImageFormat.Emf)
+                        using (var stream = new MemoryStream())
                         {
-                            // export as a metafile
-                            using (var nativeGraphics = Graphics.FromHwnd(m_canvas.Handle))
+                            try
                             {
-                                using (var stream = new MemoryStream())
+                                var dc = nativeGraphics.GetHdc();
+                                using (var metafile = new Metafile(stream, dc))
                                 {
-                                    try
+                                    using (var imageGraphics = Graphics.FromImage(metafile))
                                     {
-                                        var dc = nativeGraphics.GetHdc();
-                                        using (var metafile = new Metafile(stream, dc))
+                                        using (var graphics = XGraphics.FromGraphics(imageGraphics, new XSize(size.X, size.Y)))
                                         {
-                                            using (var imageGraphics = Graphics.FromImage(metafile))
-                                            {
-                                                using (var graphics = XGraphics.FromGraphics(imageGraphics, new XSize(size.X, size.Y)))
-                                                {
-                                                    m_canvas.Draw(graphics, true, size.X, size.Y);
-                                                }
-                                            }
-                                            var handle = metafile.GetHenhmetafile();
-                                            var copy = CopyEnhMetaFile(handle, dialog.FileName);
-                                            DeleteEnhMetaFile(copy);
+                                            m_canvas.Draw(graphics, true, size.X, size.Y);
                                         }
                                     }
-                                    finally
-                                    {
-                                        nativeGraphics.ReleaseHdc();
-                                    }
+                                    var handle = metafile.GetHenhmetafile();
+                                    var copy = CopyEnhMetaFile(handle, fileName);
+                                    DeleteEnhMetaFile(copy);
                                 }
                             }
-                        }
-                        else
-                        {
-                            // export as an image
-                            using (var bitmap = new Bitmap((int)Math.Ceiling(size.X), (int)Math.Ceiling(size.Y)))
+                            finally
                             {
-                                using (var imageGraphics = Graphics.FromImage(bitmap))
-                                {
-                                    using (var graphics = XGraphics.FromGraphics(imageGraphics, new XSize(size.X, size.Y)))
-                                    {
-                                        m_canvas.Draw(graphics, true, size.X, size.Y);
-                                    }
-                                }
-                                bitmap.Save(dialog.FileName, format);
+                                nativeGraphics.ReleaseHdc();
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(Program.MainForm, string.Format("There was a problem exporting the map:\n\n{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+                else
+                {
+                    // export as an image
+                    using (var bitmap = new Bitmap((int) Math.Ceiling(size.X), (int) Math.Ceiling(size.Y)))
+                    {
+                        using (var imageGraphics = Graphics.FromImage(bitmap))
+                        {
+                            using (var graphics = XGraphics.FromGraphics(imageGraphics, new XSize(size.X, size.Y)))
+                            {
+                                m_canvas.Draw(graphics, true, size.X, size.Y);
+                            }
+                        }
+                        bitmap.Save(fileName, format);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.MainForm, string.Format("There was a problem exporting the map:\n\n{0}", ex.Message),
+                    Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -814,9 +885,6 @@ namespace Trizbort
             m_canvas.Paste(false);
         }
 
-        private void appSettingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Settings.ShowAppDialog();
-        }
+
     }
 }

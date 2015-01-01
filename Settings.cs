@@ -37,6 +37,7 @@ namespace Trizbort
     {
         static Settings()
         {
+            RecentProjects = new MruList();
             Reset();
             ResetApplicationSettings();
             LoadApplicationSettings();
@@ -44,11 +45,11 @@ namespace Trizbort
 
         static void ResetApplicationSettings()
         {
-            s_dontCareAboutVersion = new Version(0, 0, 0, 0);
+            DontCareAboutVersion = new Version(0, 0, 0, 0);
             s_automap = AutomapSettings.Default;
-            s_infiniteScrollBounds = false;
-            s_showMinimap = true;
-            s_recentProjects.Clear();
+            InfiniteScrollBounds = false;
+            ShowMiniMap = true;
+            RecentProjects.Clear();
             // TODO: add other application settings here
         }
 
@@ -66,16 +67,20 @@ namespace Trizbort
                         var versionText = root["dontCareAboutVersion"].Text;
                         if (!string.IsNullOrEmpty(versionText))
                         {
-                            s_dontCareAboutVersion = new Version(versionText);
+                            DontCareAboutVersion = new Version(versionText);
                         }
-                        s_infiniteScrollBounds = root["infiniteScrollBounds"].ToBool(s_infiniteScrollBounds);
-                        s_showMinimap = root["showMiniMap"].ToBool(s_showMinimap);
+                        InfiniteScrollBounds = root["infiniteScrollBounds"].ToBool(InfiniteScrollBounds);
+                        ShowMiniMap = root["showMiniMap"].ToBool(ShowMiniMap);
 
-                        s_lastProjectFileName = root["lastProjectFileName"].Text;
-                        s_lastExportImageFileName = root["lastExportedImageFileName"].Text;
-                        s_lastExportInform7FileName = root["lastExportedInform7FileName"].Text;
-                        s_lastExportInform6FileName = root["lastExportedInform6FileName"].Text;
-                        s_lastExportTadsFileName = root["lastExportedTadsFileName"].Text;
+                        LastProjectFileName = root["lastProjectFileName"].Text;
+                        LastExportImageFileName = root["lastExportedImageFileName"].Text;
+                        LastExportInform7FileName = root["lastExportedInform7FileName"].Text;
+                        LastExportInform6FileName = root["lastExportedInform6FileName"].Text;
+                        LastExportTadsFileName = root["lastExportedTadsFileName"].Text;
+
+                        InvertMouseWheel = root["invertMouseWheel"].ToBool(InvertMouseWheel);
+                        MouseDragButton = root["dragButton"].ToInt(MouseDragButton);
+                        DefaultImageType = root["defaultImageType"].ToInt(DefaultImageType);
 
                         var recentProjects = root["recentProjects"];
                         var fileName = string.Empty;
@@ -85,7 +90,7 @@ namespace Trizbort
                             fileName = recentProjects[string.Format("fileName{0}", index++)].Text;
                             if (!string.IsNullOrEmpty(fileName))
                             {
-                                s_recentProjects.Append(fileName);
+                                RecentProjects.Append(fileName);
                             }
                         } while (!string.IsNullOrEmpty(fileName));
 
@@ -119,19 +124,22 @@ namespace Trizbort
                 using (var scribe = XmlScribe.Create(ApplicationSettingsPath))
                 {
                     scribe.StartElement("settings");
-                    scribe.Element("dontCareAboutVersion", s_dontCareAboutVersion.ToString());
-                    scribe.Element("infiniteScrollBounds", s_infiniteScrollBounds);
-                    scribe.Element("showMiniMap", s_showMinimap);
+                    scribe.Element("dontCareAboutVersion", DontCareAboutVersion.ToString());
+                    scribe.Element("infiniteScrollBounds", InfiniteScrollBounds);
+                    scribe.Element("showMiniMap", ShowMiniMap);
+                    scribe.Element("dragButton", MouseDragButton);
+                    scribe.Element("invertMouseWheel",InvertMouseWheel);
+                    scribe.Element("defaultImageType", DefaultImageType);
 
-                    scribe.Element("lastProjectFileName", s_lastProjectFileName);
-                    scribe.Element("lastExportedImageFileName", s_lastExportImageFileName);
-                    scribe.Element("lastExportedInform7FileName", s_lastExportInform7FileName);
-                    scribe.Element("lastExportedInform6FileName", s_lastExportInform6FileName);
-                    scribe.Element("lastExportedTadsFileName", s_lastExportTadsFileName);
+                    scribe.Element("lastProjectFileName", LastProjectFileName);
+                    scribe.Element("lastExportedImageFileName", LastExportImageFileName);
+                    scribe.Element("lastExportedInform7FileName", LastExportInform7FileName);
+                    scribe.Element("lastExportedInform6FileName", LastExportInform6FileName);
+                    scribe.Element("lastExportedTadsFileName", LastExportTadsFileName);
 
                     scribe.StartElement("recentProjects");
                     var index = 0;
-                    foreach (var fileName in s_recentProjects)
+                    foreach (var fileName in RecentProjects)
                     {
                         scribe.Element(string.Format("fileName{0}", index++), fileName);
                     }
@@ -795,53 +803,17 @@ namespace Trizbort
             }
         }
 
-        public static bool DebugShowFPS
-        {
-            get;
-            set;
-        }
+        public static bool DebugShowFPS {get; set;}
+        public static bool DebugDisableTextRendering { get; set; }
+        public static bool DebugDisableLineRendering { get; set; }
+        public static bool DebugDisableElementRendering { get; set; }
+        public static bool DebugDisableGridPolyline { get; set; }
 
-        public static bool DebugDisableTextRendering
-        {
-            get;
-            set;
-        }
+        public static int MouseDragButton { get; set; }
+        public static int DefaultImageType { get; set; }
+        public static bool InvertMouseWheel { get; set; }
 
-        public static bool DebugDisableLineRendering
-        {
-            get;
-            set;
-        }
-
-        public static bool DebugDisableElementRendering
-        {
-            get;
-            set;
-        }
-
-        public static bool DebugDisableGridPolyline
-        {
-            get;
-            set;
-        }
-
-        public static int MouseDragButton
-        {
-            get { return s_dragButton; }
-            set { s_dragButton = value; }
-        }
-
-        public static bool InvertMouseWheel
-        {
-            get { return s_invertMouseWheel; }
-            set { s_invertMouseWheel = value; }
-        }
-        
-        public static Version DontCareAboutVersion
-        {
-            get { return s_dontCareAboutVersion; }
-            set { s_dontCareAboutVersion = value; }
-        }
+        public static Version DontCareAboutVersion { get; set; }
 
         public static AutomapSettings Automap
         {
@@ -849,52 +821,14 @@ namespace Trizbort
             set { s_automap = value; }
         }
 
-        public static bool InfiniteScrollBounds
-        {
-            get { return s_infiniteScrollBounds; }
-            set { s_infiniteScrollBounds = value; }
-        }
-
-        public static bool ShowMiniMap
-        {
-            get { return s_showMinimap; }
-            set { s_showMinimap = value; }
-        }
-
-        public static string LastProjectFileName
-        {
-            get { return s_lastProjectFileName; }
-            set { s_lastProjectFileName = value; }
-        }
-
-        public static string LastExportImageFileName
-        {
-            get { return s_lastExportImageFileName; }
-            set { s_lastExportImageFileName = value; }
-        }
-
-        public static string LastExportInform7FileName
-        {
-            get { return s_lastExportInform7FileName; }
-            set { s_lastExportInform7FileName = value; }
-        }
-
-        public static string LastExportInform6FileName
-        {
-            get { return s_lastExportInform6FileName; }
-            set { s_lastExportInform6FileName = value; }
-        }
-
-        public static string LastExportTadsFileName
-        {
-            get { return s_lastExportTadsFileName; }
-            set { s_lastExportTadsFileName = value; }
-        }
-
-        public static MruList RecentProjects
-        {
-            get { return s_recentProjects; }
-        }
+        public static bool InfiniteScrollBounds { get; set; }
+        public static bool ShowMiniMap { get; set; }
+        public static string LastProjectFileName { get; set; }
+        public static string LastExportImageFileName { get; set; }
+        public static string LastExportInform7FileName { get; set; }
+        public static string LastExportInform6FileName { get; set; }
+        public static string LastExportTadsFileName { get; set; }
+        public static MruList RecentProjects { get; private set; }
 
         private static readonly float MinFontSize = 2;
         private static readonly float MaxFontSize = 256;
@@ -924,18 +858,7 @@ namespace Trizbort
         private static Keys s_keypadNavigationUnexploredModifier;
 
         // application settings, saved for the user
-        private static Version s_dontCareAboutVersion;
         private static AutomapSettings s_automap;
-        private static int s_dragButton;
-        private static bool s_invertMouseWheel;
-        private static bool s_infiniteScrollBounds;
-        private static bool s_showMinimap;
-        private static string s_lastProjectFileName;
-        private static string s_lastExportImageFileName;
-        private static string s_lastExportInform7FileName;
-        private static string s_lastExportInform6FileName;
-        private static string s_lastExportTadsFileName;
-        private static MruList s_recentProjects = new MruList();
 
         public static void ShowAppDialog()
         {
@@ -943,10 +866,13 @@ namespace Trizbort
             {
                 dialog.InvertMouseWheel = InvertMouseWheel;
                 dialog.MouseDragButton = MouseDragButton;
+                dialog.DefaultImageType = DefaultImageType;
+
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     InvertMouseWheel = dialog.InvertMouseWheel;
                     MouseDragButton = dialog.MouseDragButton;
+                    DefaultImageType = dialog.DefaultImageType;
                 }
             }
         }

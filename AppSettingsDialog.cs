@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Trizbort
 {
@@ -26,5 +20,11 @@ namespace Trizbort
 			get { return m_dragButtonComboBox.SelectedIndex; }
 			set { m_dragButtonComboBox.SelectedIndex = value; }
 		}
+
+	    public int DefaultImageType
+	    {
+            get { return cboImageSaveType.SelectedIndex; }
+            set { cboImageSaveType.SelectedIndex = value; }
+	    }
 	}
 }

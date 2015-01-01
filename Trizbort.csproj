@@ -71,9 +71,9 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PdfSharp, Version=1.31.1789.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\PdfSharp.dll</HintPath>
+      <HintPath>packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -244,6 +244,7 @@
     <Compile Include="XmlAttributeReader.cs" />
     <Compile Include="XmlElementReader.cs" />
     <Compile Include="XmlScribe.cs" />
+    <None Include="packages.config" />
     <None Include="Trizbort_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

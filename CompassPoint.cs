@@ -31,7 +31,7 @@ namespace Trizbort
     /// <summary>
     /// A abstract point on the compass rose.
     /// </summary>
-    internal enum CompassPoint
+    public enum CompassPoint
     {
         North,
         NorthNorthEast,

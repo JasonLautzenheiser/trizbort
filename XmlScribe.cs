@@ -30,7 +30,7 @@ using System.Drawing;
 
 namespace Trizbort
 {
-    internal class XmlScribe : IDisposable
+    public class XmlScribe : IDisposable
     {
         private XmlScribe(XmlWriter writer)
         {

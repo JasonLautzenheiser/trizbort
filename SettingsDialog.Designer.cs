@@ -59,6 +59,8 @@ namespace Trizbort
             this.m_lineWidthUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.m_linesGroupBox = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.m_preferredDistanceBetweenRoomsUpDown = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.m_textOffsetFromLineUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -107,6 +109,11 @@ namespace Trizbort
             this.m_changeLargeFontButton = new System.Windows.Forms.Button();
             this.m_largeFontNameTextBox = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.btnDeleteRegion = new System.Windows.Forms.Button();
+            this.btnAddRegion = new System.Windows.Forms.Button();
+            this.btnChange = new System.Windows.Forms.Button();
+            this.m_RegionListing = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -114,10 +121,10 @@ namespace Trizbort
             this.m_snapToElementDistanceUpDown = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.m_handleSizeUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label18 = new System.Windows.Forms.Label();
-            this.m_preferredDistanceBetweenRoomsUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.m_lineWidthUpDown)).BeginInit();
             this.m_linesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_preferredDistanceBetweenRoomsUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_textOffsetFromLineUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_connectionStalkLengthUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_arrowSizeUpDown)).BeginInit();
@@ -134,11 +141,11 @@ namespace Trizbort
             this.m_colorsGroupBox.SuspendLayout();
             this.m_fontsGroupBox.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_snapToElementDistanceUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_handleSizeUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_preferredDistanceBetweenRoomsUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // m_okButton
@@ -205,8 +212,8 @@ namespace Trizbort
             // 
             // m_linesGroupBox
             // 
-            this.m_linesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_linesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_linesGroupBox.Controls.Add(this.label18);
             this.m_linesGroupBox.Controls.Add(this.m_preferredDistanceBetweenRoomsUpDown);
             this.m_linesGroupBox.Controls.Add(this.label8);
@@ -224,6 +231,36 @@ namespace Trizbort
             this.m_linesGroupBox.TabIndex = 0;
             this.m_linesGroupBox.TabStop = false;
             this.m_linesGroupBox.Text = "&Lines";
+            // 
+            // label18
+            // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(62, 100);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(177, 13);
+            this.label18.TabIndex = 7;
+            this.label18.Text = "&Preferred Distance Between Rooms";
+            // 
+            // m_preferredDistanceBetweenRoomsUpDown
+            // 
+            this.m_preferredDistanceBetweenRoomsUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_preferredDistanceBetweenRoomsUpDown.DecimalPlaces = 1;
+            this.m_preferredDistanceBetweenRoomsUpDown.Location = new System.Drawing.Point(242, 98);
+            this.m_preferredDistanceBetweenRoomsUpDown.Maximum = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            0});
+            this.m_preferredDistanceBetweenRoomsUpDown.Name = "m_preferredDistanceBetweenRoomsUpDown";
+            this.m_preferredDistanceBetweenRoomsUpDown.Size = new System.Drawing.Size(95, 21);
+            this.m_preferredDistanceBetweenRoomsUpDown.TabIndex = 8;
+            this.m_preferredDistanceBetweenRoomsUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.m_preferredDistanceBetweenRoomsUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label8
             // 
@@ -317,8 +354,8 @@ namespace Trizbort
             // 
             // m_gridGroupBox
             // 
-            this.m_gridGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_gridGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_gridGroupBox.Controls.Add(this.m_showOriginCheckBox);
             this.m_gridGroupBox.Controls.Add(this.m_showGridCheckBox);
             this.m_gridGroupBox.Controls.Add(this.m_snapToGridCheckBox);
@@ -346,7 +383,7 @@ namespace Trizbort
             this.m_showGridCheckBox.AutoSize = true;
             this.m_showGridCheckBox.Location = new System.Drawing.Point(45, 20);
             this.m_showGridCheckBox.Name = "m_showGridCheckBox";
-            this.m_showGridCheckBox.Size = new System.Drawing.Size(56, 17);
+            this.m_showGridCheckBox.Size = new System.Drawing.Size(55, 17);
             this.m_showGridCheckBox.TabIndex = 0;
             this.m_showGridCheckBox.Text = "&Visible";
             this.m_showGridCheckBox.UseVisualStyleBackColor = true;
@@ -356,7 +393,7 @@ namespace Trizbort
             this.m_snapToGridCheckBox.AutoSize = true;
             this.m_snapToGridCheckBox.Location = new System.Drawing.Point(45, 43);
             this.m_snapToGridCheckBox.Name = "m_snapToGridCheckBox";
-            this.m_snapToGridCheckBox.Size = new System.Drawing.Size(67, 17);
+            this.m_snapToGridCheckBox.Size = new System.Drawing.Size(65, 17);
             this.m_snapToGridCheckBox.TabIndex = 1;
             this.m_snapToGridCheckBox.Text = "S&nap To";
             this.m_snapToGridCheckBox.UseVisualStyleBackColor = true;
@@ -398,8 +435,8 @@ namespace Trizbort
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label34);
             this.groupBox1.Controls.Add(this.m_objectListOffsetFromRoomNumericUpDown);
             this.groupBox1.Controls.Add(this.label13);
@@ -486,6 +523,7 @@ namespace Trizbort
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(10, 10);
@@ -544,8 +582,8 @@ namespace Trizbort
             // m_historyTextBox
             // 
             this.m_historyTextBox.AcceptsReturn = true;
-            this.m_historyTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_historyTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_historyTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_historyTextBox.Location = new System.Drawing.Point(69, 183);
             this.m_historyTextBox.Multiline = true;
@@ -574,8 +612,8 @@ namespace Trizbort
             // m_descriptionTextBox
             // 
             this.m_descriptionTextBox.AcceptsReturn = true;
-            this.m_descriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_descriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_descriptionTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_descriptionTextBox.Location = new System.Drawing.Point(69, 95);
             this.m_descriptionTextBox.Multiline = true;
@@ -594,8 +632,8 @@ namespace Trizbort
             // 
             // m_authorTextBox
             // 
-            this.m_authorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_authorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_authorTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_authorTextBox.Location = new System.Drawing.Point(69, 69);
             this.m_authorTextBox.Name = "m_authorTextBox";
@@ -604,8 +642,8 @@ namespace Trizbort
             // 
             // m_titleTextBox
             // 
-            this.m_titleTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_titleTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_titleTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_titleTextBox.Location = new System.Drawing.Point(69, 43);
             this.m_titleTextBox.Name = "m_titleTextBox";
@@ -626,8 +664,8 @@ namespace Trizbort
             // 
             // m_colorsGroupBox
             // 
-            this.m_colorsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_colorsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_colorsGroupBox.Controls.Add(this.m_colorListBox);
             this.m_colorsGroupBox.Controls.Add(this.m_changeColorButton);
             this.m_colorsGroupBox.Location = new System.Drawing.Point(5, 6);
@@ -639,8 +677,8 @@ namespace Trizbort
             // 
             // m_colorListBox
             // 
-            this.m_colorListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_colorListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_colorListBox.FormattingEnabled = true;
             this.m_colorListBox.Items.AddRange(new object[] {
             "Canvas",
@@ -657,7 +695,7 @@ namespace Trizbort
             this.m_colorListBox.Name = "m_colorListBox";
             this.m_colorListBox.Size = new System.Drawing.Size(174, 134);
             this.m_colorListBox.TabIndex = 0;
-            this.m_colorListBox.DoubleClick += new System.EventHandler(this.OnChangeColor);
+            this.m_colorListBox.DoubleClick += new System.EventHandler(this.onChangeColor);
             // 
             // m_changeColorButton
             // 
@@ -668,12 +706,12 @@ namespace Trizbort
             this.m_changeColorButton.TabIndex = 1;
             this.m_changeColorButton.Text = "C&hange...";
             this.m_changeColorButton.UseVisualStyleBackColor = true;
-            this.m_changeColorButton.Click += new System.EventHandler(this.OnChangeColor);
+            this.m_changeColorButton.Click += new System.EventHandler(this.onChangeColor);
             // 
             // m_fontsGroupBox
             // 
-            this.m_fontsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_fontsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_fontsGroupBox.Controls.Add(this.label9);
             this.m_fontsGroupBox.Controls.Add(this.m_lineFontSizeTextBox);
             this.m_fontsGroupBox.Controls.Add(this.m_changeLineFontButton);
@@ -725,8 +763,8 @@ namespace Trizbort
             // 
             // m_lineFontNameTextBox
             // 
-            this.m_lineFontNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_lineFontNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_lineFontNameTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_lineFontNameTextBox.Location = new System.Drawing.Point(82, 70);
             this.m_lineFontNameTextBox.Name = "m_lineFontNameTextBox";
@@ -766,8 +804,8 @@ namespace Trizbort
             // 
             // m_smallFontNameTextBox
             // 
-            this.m_smallFontNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_smallFontNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_smallFontNameTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_smallFontNameTextBox.Location = new System.Drawing.Point(82, 44);
             this.m_smallFontNameTextBox.Name = "m_smallFontNameTextBox";
@@ -807,8 +845,8 @@ namespace Trizbort
             // 
             // m_largeFontNameTextBox
             // 
-            this.m_largeFontNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_largeFontNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_largeFontNameTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_largeFontNameTextBox.Location = new System.Drawing.Point(82, 18);
             this.m_largeFontNameTextBox.Name = "m_largeFontNameTextBox";
@@ -827,6 +865,67 @@ namespace Trizbort
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Lines and Grid";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.label19);
+            this.tabPage5.Controls.Add(this.btnDeleteRegion);
+            this.tabPage5.Controls.Add(this.btnAddRegion);
+            this.tabPage5.Controls.Add(this.btnChange);
+            this.tabPage5.Controls.Add(this.m_RegionListing);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(355, 291);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Regions";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteRegion
+            // 
+            this.btnDeleteRegion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteRegion.Location = new System.Drawing.Point(186, 117);
+            this.btnDeleteRegion.Name = "btnDeleteRegion";
+            this.btnDeleteRegion.Size = new System.Drawing.Size(92, 23);
+            this.btnDeleteRegion.TabIndex = 4;
+            this.btnDeleteRegion.Text = "Delete Region";
+            this.btnDeleteRegion.UseVisualStyleBackColor = true;
+            this.btnDeleteRegion.Click += new System.EventHandler(this.btnDeleteRegion_Click);
+            // 
+            // btnAddRegion
+            // 
+            this.btnAddRegion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddRegion.Location = new System.Drawing.Point(186, 6);
+            this.btnAddRegion.Name = "btnAddRegion";
+            this.btnAddRegion.Size = new System.Drawing.Size(92, 23);
+            this.btnAddRegion.TabIndex = 3;
+            this.btnAddRegion.Text = "Add Region";
+            this.btnAddRegion.UseVisualStyleBackColor = true;
+            this.btnAddRegion.Click += new System.EventHandler(this.btnAddRegion_Click);
+            // 
+            // btnChange
+            // 
+            this.btnChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChange.Location = new System.Drawing.Point(186, 34);
+            this.btnChange.Name = "btnChange";
+            this.btnChange.Size = new System.Drawing.Size(92, 23);
+            this.btnChange.TabIndex = 2;
+            this.btnChange.Text = "C&hange...";
+            this.btnChange.UseVisualStyleBackColor = true;
+            this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
+            // 
+            // m_RegionListing
+            // 
+            this.m_RegionListing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_RegionListing.FormattingEnabled = true;
+            this.m_RegionListing.Location = new System.Drawing.Point(6, 6);
+            this.m_RegionListing.Name = "m_RegionListing";
+            this.m_RegionListing.Size = new System.Drawing.Size(174, 134);
+            this.m_RegionListing.TabIndex = 1;
+            this.m_RegionListing.DoubleClick += new System.EventHandler(this.onChangeRegionColor);
+            this.m_RegionListing.KeyDown += new System.Windows.Forms.KeyEventHandler(this.m_RegionListing_KeyDown);
+            this.m_RegionListing.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.m_RegionListing_KeyPress);
             // 
             // tabPage3
             // 
@@ -923,35 +1022,15 @@ namespace Trizbort
             0,
             0});
             // 
-            // label18
+            // label19
             // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(62, 100);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(177, 13);
-            this.label18.TabIndex = 7;
-            this.label18.Text = "&Preferred Distance Between Rooms";
-            // 
-            // m_preferredDistanceBetweenRoomsUpDown
-            // 
-            this.m_preferredDistanceBetweenRoomsUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_preferredDistanceBetweenRoomsUpDown.DecimalPlaces = 1;
-            this.m_preferredDistanceBetweenRoomsUpDown.Location = new System.Drawing.Point(242, 98);
-            this.m_preferredDistanceBetweenRoomsUpDown.Maximum = new decimal(new int[] {
-            4096,
-            0,
-            0,
-            0});
-            this.m_preferredDistanceBetweenRoomsUpDown.Name = "m_preferredDistanceBetweenRoomsUpDown";
-            this.m_preferredDistanceBetweenRoomsUpDown.Size = new System.Drawing.Size(95, 21);
-            this.m_preferredDistanceBetweenRoomsUpDown.TabIndex = 8;
-            this.m_preferredDistanceBetweenRoomsUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.m_preferredDistanceBetweenRoomsUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.label19.AutoSize = true;
+            this.label19.ForeColor = System.Drawing.Color.Blue;
+            this.label19.Location = new System.Drawing.Point(7, 147);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(151, 13);
+            this.label19.TabIndex = 5;
+            this.label19.Text = "Note:  F2 to edit Region name";
             // 
             // SettingsDialog
             // 
@@ -976,6 +1055,7 @@ namespace Trizbort
             ((System.ComponentModel.ISupportInitialize)(this.m_lineWidthUpDown)).EndInit();
             this.m_linesGroupBox.ResumeLayout(false);
             this.m_linesGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_preferredDistanceBetweenRoomsUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_textOffsetFromLineUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_connectionStalkLengthUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_arrowSizeUpDown)).EndInit();
@@ -996,12 +1076,13 @@ namespace Trizbort
             this.m_fontsGroupBox.ResumeLayout(false);
             this.m_fontsGroupBox.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_snapToElementDistanceUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_handleSizeUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_preferredDistanceBetweenRoomsUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1071,5 +1152,11 @@ namespace Trizbort
         private System.Windows.Forms.CheckBox m_showOriginCheckBox;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.NumericUpDown m_preferredDistanceBetweenRoomsUpDown;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.ListBox m_RegionListing;
+        private System.Windows.Forms.Button btnAddRegion;
+        private System.Windows.Forms.Button btnChange;
+        private System.Windows.Forms.Button btnDeleteRegion;
+        private System.Windows.Forms.Label label19;
     }
 }

@@ -27,11 +27,11 @@ using System.Drawing;
 
 namespace Trizbort
 {
-    internal struct Rect
+    public struct Rect
     {
         public Rect(float x, float y, float width, float height)
         {
-            X = x;
+            X = x; 
             Y = y;
             Width = width;
             Height = height;

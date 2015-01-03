@@ -29,7 +29,7 @@ using System.Text;
 
 namespace Trizbort
 {
-    class MruList : IEnumerable<string>
+    public class MruList : IEnumerable<string>
     {
         public const int MaxItems = 5;
 

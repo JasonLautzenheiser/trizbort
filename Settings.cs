@@ -33,10 +33,15 @@ using System.Xml;
 
 namespace Trizbort
 {
-    internal static class Settings
+    public static class Settings
     {
         static Settings()
         {
+            Color = new ColorSettings();
+            Regions = new List<Region>
+            {
+                new Region() {RegionName = Region.DefaultRegion, RColor = System.Drawing.Color.White}
+            };
             RecentProjects = new MruList();
             Reset();
             ResetApplicationSettings();
@@ -159,10 +164,8 @@ namespace Trizbort
             }
         }
 
-        public static ColorSettings Color
-        {
-            get { return s_colorSettings; }
-        }
+        public static ColorSettings Color { get; private set; }
+        public static List<Region> Regions { get; private set; }
 
         public static Font LargeFont
         {
@@ -599,6 +602,13 @@ namespace Trizbort
             }
             scribe.EndElement();
 
+            scribe.StartElement("regions");
+            foreach (var region in Regions)
+            {
+                scribe.Element(region.RegionName,region.RColor);
+            }
+            scribe.EndElement();
+
             // save fonts
             scribe.StartElement("fonts");
             SaveFont(scribe, s_largeFont, "room");
@@ -731,6 +741,22 @@ namespace Trizbort
                 }
             }
 
+            var regions = element["regions"];
+            Regions = new List<Region>();
+
+            if (regions.Children.Count <= 0)
+                Regions.Add(new Region(){RColor = System.Drawing.Color.White, RegionName = Region.DefaultRegion});
+            else
+            {
+                foreach (var region in regions.Children)
+                {
+                    var tRegion = new Region();
+                    tRegion.RegionName = region.Name;
+                    tRegion.RColor = region.ToColor(System.Drawing.Color.White);
+
+                    Regions.Add(tRegion);
+                }
+            }
             var fonts = element["fonts"];
             foreach (var font in fonts.Children)
             {
@@ -787,6 +813,7 @@ namespace Trizbort
             KeypadNavigationUnexploredModifier = StringToModifierKeys(element["keypadNavigation"]["unexploredModifier"].Text, s_keypadNavigationUnexploredModifier);
         }
 
+        
         public class ColorSettings
         {
             public Color this[int index]
@@ -803,6 +830,15 @@ namespace Trizbort
             }
         }
 
+
+        public class Region
+        {
+            public string RegionName { get; set; }
+            public Color RColor { get; set; }
+            public static string DefaultRegion {get { return "NoRegion"; }}
+
+        }
+        
         public static bool DebugShowFPS {get; set;}
         public static bool DebugDisableTextRendering { get; set; }
         public static bool DebugDisableLineRendering { get; set; }
@@ -835,7 +871,7 @@ namespace Trizbort
 
         // per-map settings, saved with the map
         private static Color[] s_color = new Color[Colors.Count];
-        private static ColorSettings s_colorSettings = new ColorSettings();
+        private static List<Region> s_regionColor = new List<Region>();
         private static Font s_largeFont;
         private static Font s_smallFont;
         private static Font s_lineFont;

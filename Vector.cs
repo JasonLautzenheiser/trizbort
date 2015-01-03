@@ -27,7 +27,7 @@ using System.Drawing;
 
 namespace Trizbort
 {
-    internal struct Vector
+    public struct Vector
     {
         public Vector(float scalar)
         {

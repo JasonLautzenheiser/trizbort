@@ -639,7 +639,7 @@ namespace Trizbort
         private void UpdateCommandUI()
         {
             // caption
-            Text = string.Format("{0}{1} - {2}", Project.Current.Name, Project.Current.IsDirty ? "*" : string.Empty, m_caption);
+            Text = string.Format("{0}{1} - {2} - {3}", Project.Current.Name, Project.Current.IsDirty ? "*" : string.Empty, m_caption, Application.ProductVersion);
 
             // line drawing options
             m_toggleDottedLinesButton.Checked = m_canvas.NewConnectionStyle == ConnectionStyle.Dashed;

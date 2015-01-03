@@ -1,0 +1,28 @@
+Change Log
+
+1.5.0.0
+-------------
+This initial build is based off the last build from Genstein.  It also pulls in a few other forks that had some useful features.  
+
+Features pulled from the Tymian branch
+++ Allowed rooms to have their own colors, this overrides the global default room color.  [Room Properties Dialog]
+++ Adds the ability to split a rooms color 50/50.  [Room Properties Dialog]
+++ Ability to copy / paste of elements.
+
+Bugs fixed in Tymian Branch
+== Issue with large maps locking up or slow loading when opening.
+
+This also pulls from the tustin2121 fork which adds a few small features.
+
+++ App settings dialog
+++ Added invert mouse wheel setting
+++ added canvas drag mouse button setting.
+
+Then this adds some of my own changes.
+
+++ Added Smart Save feature which will save PDF and image file in one click to the project folder.
+++ Added a default image type in app settings that Smart Save uses for saving the image.
+++ Now you can add regions.  Regions can be setup in the map settings dialog, named and a color assigned to it.
+++ In the room properties, you can now assign a room to a region.  This will show the room in the region color assigned to the region.
+++ some minor bug fixes.
+

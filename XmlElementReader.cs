@@ -33,7 +33,7 @@ namespace Trizbort
     /// <summary>
     /// Wrapper around an XmlElement for ease of access.
     /// </summary>
-    internal class XmlElementReader
+    public class XmlElementReader
     {
         public XmlElementReader()
         {

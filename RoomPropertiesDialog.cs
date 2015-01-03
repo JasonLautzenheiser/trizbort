@@ -23,18 +23,35 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Trizbort
 {
     internal partial class RoomPropertiesDialog : Form
     {
+        private const int HORIZONTAL_MARGIN = 2;
+        private const int VERTICAL_MARGIN = 2;
+        private const int WIDTH = 24;
+        private static Tab m_lastViewedTab = Tab.Objects;
+        private bool m_adjustingPosition;
+
         public RoomPropertiesDialog()
         {
             InitializeComponent();
+
+            // load regions control
+            cboRegion.Items.Clear();
+            foreach (var region in Settings.Regions)
+            {
+                cboRegion.Items.Add(region.RegionName);
+            }
+
+            cboRegion.DrawMode = DrawMode.OwnerDrawFixed;
+            cboRegion.DrawItem += RegionListBox_DrawItem;
+            if (Settings.Regions.Count > 0)
+                cboRegion.SelectedIndex = 0;
 
             switch (m_lastViewedTab)
             {
@@ -43,6 +60,12 @@ namespace Trizbort
                     break;
                 case Tab.Description:
                     m_tabControl.SelectedIndex = 1;
+                    break;
+                case Tab.Colors:
+                    m_tabControl.SelectedIndex = 2;
+                    break;
+                case Tab.Regions:
+                    m_tabControl.SelectedIndex = 3;
                     break;
             }
         }
@@ -71,19 +94,28 @@ namespace Trizbort
             set { m_objectsTextBox.Text = value; }
         }
 
+        public string RoomRegion
+        {
+            get
+            {
+                return cboRegion.SelectedItem != null ? cboRegion.SelectedItem.ToString() : string.Empty;
+            }
+            set { cboRegion.SelectedItem = value; }
+        }
+
         public CompassPoint ObjectsPosition
         {
             get
             {
                 if (m_nCheckBox.Checked) return CompassPoint.North;
-                else if (m_sCheckBox.Checked) return CompassPoint.South;
-                else if (m_eCheckBox.Checked) return CompassPoint.East;
-                else if (m_wCheckBox.Checked) return CompassPoint.West;
-                else if (m_neCheckBox.Checked) return CompassPoint.NorthEast;
-                else if (m_nwCheckBox.Checked) return CompassPoint.NorthWest;
-                else if (m_seCheckBox.Checked) return CompassPoint.SouthEast;
-                else if (m_swCheckBox.Checked) return CompassPoint.SouthWest;
-                else return CompassPoint.WestSouthWest;
+                if (m_sCheckBox.Checked) return CompassPoint.South;
+                if (m_eCheckBox.Checked) return CompassPoint.East;
+                if (m_wCheckBox.Checked) return CompassPoint.West;
+                if (m_neCheckBox.Checked) return CompassPoint.NorthEast;
+                if (m_nwCheckBox.Checked) return CompassPoint.NorthWest;
+                if (m_seCheckBox.Checked) return CompassPoint.SouthEast;
+                if (m_swCheckBox.Checked) return CompassPoint.SouthWest;
+                return CompassPoint.WestSouthWest;
             }
             set
             {
@@ -153,7 +185,7 @@ namespace Trizbort
                         return "Bottom";
                 }
             }
-            set 
+            set
             {
                 switch (value)
                 {
@@ -197,16 +229,35 @@ namespace Trizbort
             set { m_objectTextTextBox.BackColor = value; }
         }
 
+        private void RegionListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            using (var palette = new Palette())
+            {
+                e.DrawBackground();
+
+                var colorBounds = new Rectangle(e.Bounds.Left + HORIZONTAL_MARGIN, e.Bounds.Top + VERTICAL_MARGIN, WIDTH, e.Bounds.Height - VERTICAL_MARGIN*2);
+                var textBounds = new Rectangle(colorBounds.Right + HORIZONTAL_MARGIN, e.Bounds.Top, e.Bounds.Width - colorBounds.Width - HORIZONTAL_MARGIN*2, e.Bounds.Height);
+                e.Graphics.FillRectangle(palette.Brush(Settings.Regions.FirstOrDefault(p => p.RegionName == cboRegion.Items[e.Index].ToString()).RColor), colorBounds);
+                e.Graphics.DrawRectangle(palette.Pen(e.ForeColor, 0), colorBounds);
+                e.Graphics.DrawString(cboRegion.Items[e.Index].ToString(), e.Font, palette.Brush(e.ForeColor), textBounds, StringFormats.Left);
+            }
+        }
+
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (m_tabControl.SelectedIndex)
             {
-                case 0:
                 default:
                     m_lastViewedTab = Tab.Objects;
                     break;
                 case 1:
                     m_lastViewedTab = Tab.Description;
+                    break;
+                case 2:
+                    m_lastViewedTab = Tab.Colors;
+                    break;
+                case 3:
+                    m_lastViewedTab = Tab.Regions;
                     break;
             }
         }
@@ -219,14 +270,15 @@ namespace Trizbort
             m_adjustingPosition = true;
             try
             {
-                var checkBox = (CheckBox)sender;
+                var checkBox = (CheckBox) sender;
                 if (checkBox.Checked)
                 {
                     foreach (Control other in checkBox.Parent.Controls)
                     {
-                        if (other is CheckBox && other != checkBox)
+                        var box = other as CheckBox;
+                        if (box != null && other != checkBox)
                         {
-                            ((CheckBox)other).Checked = false;
+                            box.Checked = false;
                         }
                     }
                 }
@@ -241,58 +293,46 @@ namespace Trizbort
             }
         }
 
-        private bool m_adjustingPosition = false;
-
-        enum Tab
-        {
-            Objects,
-            Description
-        }
-
-        private static Tab m_lastViewedTab = Tab.Objects;
-
         private void m_roomFillTextBox_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         // Added for Room specific colors
         private void m_changeLargeFontButton_Click(object sender, EventArgs e)
         {
-            RoomFillColor = ShowColorDialog(RoomFillColor);
+            RoomFillColor = showColorDialog(RoomFillColor);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         // Added for Room specific colors
         private void m_changeSecondFillButton_Click(object sender, EventArgs e)
         {
-            SecondFillColor = ShowColorDialog(SecondFillColor);
+            SecondFillColor = showColorDialog(SecondFillColor);
         }
 
         // Added for Room specific colors
         private void button1_Click(object sender, EventArgs e)
         {
-            RoomBorderColor = ShowColorDialog(RoomBorderColor);
+            RoomBorderColor = showColorDialog(RoomBorderColor);
         }
 
         // Added for Room specific colors
         private void button2_Click(object sender, EventArgs e)
         {
-            RoomTextColor = ShowColorDialog(RoomTextColor);
+            RoomTextColor = showColorDialog(RoomTextColor);
         }
 
         // Added for Room specific colors
         private void button3_Click(object sender, EventArgs e)
         {
-            ObjectTextColor = ShowColorDialog(ObjectTextColor);
+            ObjectTextColor = showColorDialog(ObjectTextColor);
         }
 
         // Added for Room specific colors
-        private Color ShowColorDialog(Color color)
+        private Color showColorDialog(Color color)
         {
             using (var dialog = new ColorDialog())
             {
@@ -307,7 +347,14 @@ namespace Trizbort
 
         private void label5_Click(object sender, EventArgs e)
         {
+        }
 
+        private enum Tab
+        {
+            Objects,
+            Description,
+            Colors,
+            Regions
         }
     }
 }

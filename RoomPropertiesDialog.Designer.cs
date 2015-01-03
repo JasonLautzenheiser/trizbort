@@ -90,18 +90,22 @@ namespace Trizbort
             this.label11 = new System.Windows.Forms.Label();
             this.m_changeRoomFillButton = new System.Windows.Forms.Button();
             this.m_roomFillTextBox = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cboRegion = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.m_tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.m_objectsPositionGroupBox.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_okButton
             // 
             this.m_okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.m_okButton.Location = new System.Drawing.Point(267, 282);
+            this.m_okButton.Location = new System.Drawing.Point(267, 317);
             this.m_okButton.Name = "m_okButton";
             this.m_okButton.Size = new System.Drawing.Size(75, 23);
             this.m_okButton.TabIndex = 4;
@@ -112,7 +116,7 @@ namespace Trizbort
             // 
             this.m_cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_cancelButton.Location = new System.Drawing.Point(348, 282);
+            this.m_cancelButton.Location = new System.Drawing.Point(348, 317);
             this.m_cancelButton.Name = "m_cancelButton";
             this.m_cancelButton.Size = new System.Drawing.Size(75, 23);
             this.m_cancelButton.TabIndex = 5;
@@ -156,10 +160,11 @@ namespace Trizbort
             this.m_tabControl.Controls.Add(this.tabPage1);
             this.m_tabControl.Controls.Add(this.tabPage2);
             this.m_tabControl.Controls.Add(this.tabPage3);
-            this.m_tabControl.Location = new System.Drawing.Point(15, 81);
+            this.m_tabControl.Controls.Add(this.tabPage4);
+            this.m_tabControl.Location = new System.Drawing.Point(15, 83);
             this.m_tabControl.Name = "m_tabControl";
             this.m_tabControl.SelectedIndex = 0;
-            this.m_tabControl.Size = new System.Drawing.Size(408, 195);
+            this.m_tabControl.Size = new System.Drawing.Size(408, 228);
             this.m_tabControl.TabIndex = 3;
             this.m_tabControl.SelectedIndexChanged += new System.EventHandler(this.TabControl_SelectedIndexChanged);
             // 
@@ -170,7 +175,7 @@ namespace Trizbort
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(400, 169);
+            this.tabPage1.Size = new System.Drawing.Size(400, 202);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Objects";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -184,7 +189,7 @@ namespace Trizbort
             this.m_objectsTextBox.Location = new System.Drawing.Point(2, 6);
             this.m_objectsTextBox.Multiline = true;
             this.m_objectsTextBox.Name = "m_objectsTextBox";
-            this.m_objectsTextBox.Size = new System.Drawing.Size(288, 160);
+            this.m_objectsTextBox.Size = new System.Drawing.Size(288, 193);
             this.m_objectsTextBox.TabIndex = 0;
             // 
             // m_objectsPositionGroupBox
@@ -338,7 +343,7 @@ namespace Trizbort
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(400, 169);
+            this.tabPage2.Size = new System.Drawing.Size(400, 202);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Description";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -352,7 +357,7 @@ namespace Trizbort
             this.m_descriptionTextBox.Location = new System.Drawing.Point(2, 6);
             this.m_descriptionTextBox.Multiline = true;
             this.m_descriptionTextBox.Name = "m_descriptionTextBox";
-            this.m_descriptionTextBox.Size = new System.Drawing.Size(395, 160);
+            this.m_descriptionTextBox.Size = new System.Drawing.Size(395, 193);
             this.m_descriptionTextBox.TabIndex = 3;
             // 
             // tabPage3
@@ -376,7 +381,7 @@ namespace Trizbort
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(400, 169);
+            this.tabPage3.Size = new System.Drawing.Size(400, 202);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Colors";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -557,13 +562,47 @@ namespace Trizbort
             this.m_roomFillTextBox.TabIndex = 6;
             this.m_roomFillTextBox.TextChanged += new System.EventHandler(this.m_roomFillTextBox_TextChanged);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.cboRegion);
+            this.tabPage4.Controls.Add(this.label6);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(400, 202);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Regions";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // cboRegion
+            // 
+            this.cboRegion.FormattingEnabled = true;
+            this.cboRegion.Items.AddRange(new object[] {
+            "Bottom",
+            "BottomRight",
+            "Right",
+            "TopRight"});
+            this.cboRegion.Location = new System.Drawing.Point(69, 11);
+            this.cboRegion.Name = "cboRegion";
+            this.cboRegion.Size = new System.Drawing.Size(186, 21);
+            this.cboRegion.TabIndex = 22;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(16, 14);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Region: ";
+            // 
             // RoomPropertiesDialog
             // 
             this.AcceptButton = this.m_okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.m_cancelButton;
-            this.ClientSize = new System.Drawing.Size(435, 317);
+            this.ClientSize = new System.Drawing.Size(435, 352);
             this.Controls.Add(this.m_tabControl);
             this.Controls.Add(this.m_isDarkCheckBox);
             this.Controls.Add(this.label1);
@@ -588,6 +627,8 @@ namespace Trizbort
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -632,5 +673,8 @@ namespace Trizbort
         private System.Windows.Forms.Button m_changeSecondFillButton;
         private System.Windows.Forms.TextBox m_secondFillTextBox;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.ComboBox cboRegion;
+        private System.Windows.Forms.Label label6;
     }
 }

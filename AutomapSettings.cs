@@ -28,7 +28,7 @@ using System.Text;
 
 namespace Trizbort
 {
-    internal struct AutomapSettings
+    public struct AutomapSettings
     {
         public static AutomapSettings Default
         {

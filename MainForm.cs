@@ -274,9 +274,13 @@ namespace Trizbort
             {
                 SaveProject();
             }
-            exportPDF();
-            exportImage();
-            MessageBox.Show(string.Format("Image and PDF saved to {0}",PathHelper.SafeGetDirectoryName(Settings.LastProjectFileName)), "Smart Save",MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (Project.Current.HasFileName)
+            {
+                string sPDFFile = exportPDF();
+                string sImageFile = exportImage();
+                MessageBox.Show(string.Format("Image file has been saved to {0}{1}PDF file has been saved to {2}", sImageFile, Environment.NewLine, sPDFFile), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
 
@@ -286,10 +290,10 @@ namespace Trizbort
         }
 
 
-        private void exportImage()
+        private string exportImage()
         {
-            string folder = PathHelper.SafeGetDirectoryName(Settings.LastProjectFileName);
-            string fileName = PathHelper.SafeGetFilenameWithoutExtension(Settings.LastProjectFileName);
+            string folder = PathHelper.SafeGetDirectoryName(Project.Current.FileName);
+            string fileName = PathHelper.SafeGetFilenameWithoutExtension(Project.Current.FileName);
 
             string extension = string.Empty;
             switch (Settings.DefaultImageType)
@@ -308,14 +312,18 @@ namespace Trizbort
                     break;
             }
 
-            saveImage(Path.Combine(folder, fileName + extension));
+            var imageFile = Path.Combine(folder, fileName + extension);
+            saveImage(imageFile);
+            return imageFile;
         }
 
-        private void exportPDF()
+        private string exportPDF()
         {
-            string folder = PathHelper.SafeGetDirectoryName(Settings.LastProjectFileName);
-            string fileName = PathHelper.SafeGetFilenameWithoutExtension(Settings.LastProjectFileName);
-            savePDF(Path.Combine(folder, fileName + ".pdf" ));
+            string folder = PathHelper.SafeGetDirectoryName(Project.Current.FileName);
+            string fileName = PathHelper.SafeGetFilenameWithoutExtension(Project.Current.FileName);
+            var pdfFile = Path.Combine(folder, fileName + ".pdf");
+            savePDF(pdfFile);
+            return pdfFile;
         }
 
         private void FileExportPDFMenuItem_Click(object sender, EventArgs e)

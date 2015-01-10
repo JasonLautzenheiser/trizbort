@@ -62,6 +62,8 @@ namespace Trizbort
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,7 +80,7 @@ namespace Trizbort
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(188, 34);
+            this.label2.Location = new System.Drawing.Point(188, 25);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(133, 13);
             this.label2.TabIndex = 2;
@@ -87,7 +89,7 @@ namespace Trizbort
             // m_versionLabel
             // 
             this.m_versionLabel.AutoSize = true;
-            this.m_versionLabel.Location = new System.Drawing.Point(188, 60);
+            this.m_versionLabel.Location = new System.Drawing.Point(188, 53);
             this.m_versionLabel.Name = "m_versionLabel";
             this.m_versionLabel.Size = new System.Drawing.Size(89, 13);
             this.m_versionLabel.TabIndex = 3;
@@ -97,7 +99,7 @@ namespace Trizbort
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(188, 86);
+            this.label4.Location = new System.Drawing.Point(188, 75);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 4;
@@ -113,14 +115,14 @@ namespace Trizbort
             this.linkLabel1.TabIndex = 6;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Uses PDFsharp, copyright (c) 2005-2007 empira Software GmbH, Cologne (Germany), w" +
-                "ww.pdfsharp.com\r\n";
+    "ww.pdfsharp.com\r\n";
             this.linkLabel1.UseCompatibleTextRendering = true;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
             // 
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(188, 112);
+            this.linkLabel2.Location = new System.Drawing.Point(188, 145);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(107, 13);
             this.linkLabel2.TabIndex = 8;
@@ -140,7 +142,7 @@ namespace Trizbort
             // linkLabel4
             // 
             this.linkLabel4.AutoSize = true;
-            this.linkLabel4.Location = new System.Drawing.Point(188, 129);
+            this.linkLabel4.Location = new System.Drawing.Point(188, 88);
             this.linkLabel4.Name = "linkLabel4";
             this.linkLabel4.Size = new System.Drawing.Size(144, 13);
             this.linkLabel4.TabIndex = 10;
@@ -159,11 +161,34 @@ namespace Trizbort
             this.textBox1.TabIndex = 11;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(188, 108);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(190, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Enhancements by Lautzenheiser";
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(188, 121);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(198, 13);
+            this.linkLabel3.TabIndex = 13;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "github.com/JasonLautzenheiser/trizbort";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
+            // 
             // AboutDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(512, 314);
+            this.Controls.Add(this.linkLabel3);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.linkLabel4);
             this.Controls.Add(this.linkLabel2);
@@ -200,5 +225,7 @@ namespace Trizbort
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel4;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel linkLabel3;
     }
 }

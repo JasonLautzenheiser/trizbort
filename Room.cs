@@ -37,7 +37,7 @@ namespace Trizbort
     /// </summary>
     internal class Room : Element, ISizeable
     {
-        private static readonly CompassPoint DefaultObjectsPosition = CompassPoint.South;
+        private const CompassPoint DefaultObjectsPosition = CompassPoint.South;
         private readonly List<string> m_descriptions = new List<string>();
         private readonly TextBlock m_name = new TextBlock();
         private readonly TextBlock m_objects = new TextBlock();
@@ -60,6 +60,7 @@ namespace Trizbort
             : base(project)
         {
             Name = "Cave";
+            Region = Trizbort.Region.DefaultRegion;
             Size = new Vector(3*Settings.GridSize, 2*Settings.GridSize);
             Position = new Vector(-Size.X/2, -Size.Y/2);
 
@@ -88,6 +89,7 @@ namespace Trizbort
             : base(project, TotalIDs)
         {
             Name = "Cave";
+            Region = Trizbort.Region.DefaultRegion;
             Size = new Vector(3*Settings.GridSize, 2*Settings.GridSize);
             Position = new Vector(-Size.X/2, -Size.Y/2);
 
@@ -439,14 +441,7 @@ namespace Trizbort
 
         public Port PortAt(CompassPoint compassPoint)
         {
-            foreach (CompassPort port in PortList)
-            {
-                if (port.CompassPoint == compassPoint)
-                {
-                    return port;
-                }
-            }
-            return null;
+            return PortList.Cast<CompassPort>().FirstOrDefault(port => port.CompassPoint == compassPoint);
         }
 
         public override void PreDraw(DrawingContext context)
@@ -521,11 +516,8 @@ namespace Trizbort
             var brush = context.Selected ? palette.BorderBrush : palette.FillBrush;
 
             // get region color
-            var regionColor = Settings.Regions.FirstOrDefault(p => p.RegionName == Region && p.RegionName != Settings.Region.DefaultRegion);
-            if (regionColor != null)
-            {
-                brush = new SolidBrush(regionColor.RColor);
-            }
+            var regionColor = Settings.Regions.FirstOrDefault(p => p.RegionName == Region ) ?? Settings.Regions.FirstOrDefault(p => p.RegionName == Trizbort.Region.DefaultRegion);
+            brush = new SolidBrush(regionColor.RColor);
 
             // Room specific fill brush (White shows global color)
             if (RoomFill != ColorTranslator.FromHtml("White") && RoomFill != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomFill); }
@@ -595,15 +587,14 @@ namespace Trizbort
                 }
                 else
                 {
-                    var RoomBorderPen = new Pen(RoomBorder, Settings.LineWidth);
-                    RoomBorderPen.StartCap = LineCap.Round;
-                    RoomBorderPen.EndCap = LineCap.Round;
-                    graphics.DrawPath(RoomBorderPen, path);
+                    var roomBorderPen = new Pen(RoomBorder, Settings.LineWidth) {StartCap = LineCap.Round, EndCap = LineCap.Round};
+                    graphics.DrawPath(roomBorderPen, path);
                 }
             }
 
             var font = Settings.LargeFont;
-            brush = context.Selected ? palette.FillBrush : palette.LargeTextBrush;
+            brush = new SolidBrush(regionColor.TextColor);
+//            brush = context.Selected ? palette.FillBrush : palette.LargeTextBrush;
             // Room specific fill brush (White shows global color)
             if (RoomLargeText != ColorTranslator.FromHtml("White") && RoomLargeText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomLargeText); }
 
@@ -950,13 +941,8 @@ namespace Trizbort
                 return;
             }
 
-            foreach (var existing in m_descriptions)
-            {
-                if (existing == description)
-                {
-                    // we already have this description
-                    return;
-                }
+            if (m_descriptions.Any(existing => existing == description)) {
+                return;
             }
 
             // we don't have this (non-empty) description already; add it
@@ -972,17 +958,9 @@ namespace Trizbort
                 return m_descriptions.Count == 0;
             }
 
-            foreach (var existing in m_descriptions)
-            {
-                if (existing == description)
-                {
-                    // match a description if we have it
-                    return true;
-                }
-            }
+            return m_descriptions.Any(existing => existing == description);
 
             // no match
-            return false;
         }
 
         public String ClipboardPrint()

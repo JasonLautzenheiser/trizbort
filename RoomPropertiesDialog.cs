@@ -300,7 +300,7 @@ namespace Trizbort
         // Added for Room specific colors
         private void m_changeLargeFontButton_Click(object sender, EventArgs e)
         {
-            RoomFillColor = showColorDialog(RoomFillColor);
+            RoomFillColor = Colors.ShowColorDialog(RoomFillColor,this);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -310,40 +310,28 @@ namespace Trizbort
         // Added for Room specific colors
         private void m_changeSecondFillButton_Click(object sender, EventArgs e)
         {
-            SecondFillColor = showColorDialog(SecondFillColor);
+            SecondFillColor = Colors.ShowColorDialog(SecondFillColor,this);
         }
 
         // Added for Room specific colors
         private void button1_Click(object sender, EventArgs e)
         {
-            RoomBorderColor = showColorDialog(RoomBorderColor);
+            RoomBorderColor = Colors.ShowColorDialog(RoomBorderColor,this);
         }
 
         // Added for Room specific colors
         private void button2_Click(object sender, EventArgs e)
         {
-            RoomTextColor = showColorDialog(RoomTextColor);
+            RoomTextColor = Colors.ShowColorDialog(RoomTextColor,this);
         }
 
         // Added for Room specific colors
         private void button3_Click(object sender, EventArgs e)
         {
-            ObjectTextColor = showColorDialog(ObjectTextColor);
+            ObjectTextColor = Colors.ShowColorDialog(ObjectTextColor,this);
         }
 
-        // Added for Room specific colors
-        private Color showColorDialog(Color color)
-        {
-            using (var dialog = new ColorDialog())
-            {
-                dialog.Color = color;
-                if (dialog.ShowDialog(this) == DialogResult.OK)
-                {
-                    return dialog.Color;
-                }
-            }
-            return color;
-        }
+
 
         private void label5_Click(object sender, EventArgs e)
         {

@@ -1,5 +1,14 @@
 Change Log
 
+1.5.2.0
+-------------
+++ Allow user to change the region text color.
+
+1.5.1.0
+-------------
+++ show filenames that are saved during the SmartSave
+++ more reliable way to choose filenames for SmartSave, should fix the occasional issue where if two instances of Trizbort open, the filenames could get confused.
+
 1.5.0.0
 -------------
 This initial build is based off the last build from Genstein.  It also pulls in a few other forks that had some useful features.  

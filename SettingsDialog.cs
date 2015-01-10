@@ -28,6 +28,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using PdfSharp.Pdf.Annotations;
 
 namespace Trizbort
 {
@@ -98,7 +99,7 @@ namespace Trizbort
         }
 
         public Color[] Color { get; private set; }
-        public List<Settings.Region> Regions { get; private set; }
+        public List<Region> Regions { get; private set; }
 
         public Font LargeFont
         {
@@ -240,15 +241,22 @@ namespace Trizbort
 
         private void RegionListBox_DrawItem(object sender, DrawItemEventArgs e)
         {
+            if (e.Index < 0) return;
+            Font txtColorFont = new Font("Arial", 6);
             using (var palette = new Palette())
             {
                 e.DrawBackground();
 
                 var colorBounds = new Rectangle(e.Bounds.Left + HORIZONTAL_MARGIN, e.Bounds.Top + VERTICAL_MARGIN, WIDTH, e.Bounds.Height - VERTICAL_MARGIN*2);
                 var textBounds = new Rectangle(colorBounds.Right + HORIZONTAL_MARGIN, e.Bounds.Top, e.Bounds.Width - colorBounds.Width - HORIZONTAL_MARGIN*2, e.Bounds.Height);
-                e.Graphics.FillRectangle(palette.Brush(Regions.FirstOrDefault(p => p.RegionName == m_RegionListing.Items[e.Index].ToString()).RColor), colorBounds);
-                e.Graphics.DrawRectangle(palette.Pen(e.ForeColor, 0), colorBounds);
-                e.Graphics.DrawString(m_RegionListing.Items[e.Index].ToString(), e.Font, palette.Brush(e.ForeColor), textBounds, StringFormats.Left);
+                var foundRegion = Regions.FirstOrDefault(p => p.RegionName == m_RegionListing.Items[e.Index].ToString());
+                if (foundRegion != null)
+                {
+                    e.Graphics.FillRectangle(palette.Brush(foundRegion.RColor), colorBounds);
+                    e.Graphics.DrawRectangle(palette.Pen(e.ForeColor, 0), colorBounds);
+                    e.Graphics.DrawString(m_RegionListing.Items[e.Index].ToString(), e.Font, palette.Brush(e.ForeColor), textBounds, StringFormats.Left);
+                    e.Graphics.DrawString("123", txtColorFont, palette.Brush(foundRegion.TextColor), colorBounds,StringFormats.Center);
+                }
             }
         }
 
@@ -271,7 +279,7 @@ namespace Trizbort
 
         private void onChangeColor(object sender, EventArgs e)
         {
-            Color[m_colorListBox.SelectedIndex] = showColorDialog(Color[m_colorListBox.SelectedIndex]);
+            Color[m_colorListBox.SelectedIndex] = Colors.ShowColorDialog(Color[m_colorListBox.SelectedIndex],this);
             m_colorListBox.Invalidate();
         }
 
@@ -282,11 +290,24 @@ namespace Trizbort
 
         private void changeRegionColor()
         {
-            var region =
-                Regions.FirstOrDefault(
-                    p => p.RegionName == m_RegionListing.Items[m_RegionListing.SelectedIndex].ToString());
-            if (region != null) region.RColor = showColorDialog(region.RColor);
-            m_RegionListing.Invalidate();
+            string originalRegionName;
+            var selectedIndex = m_RegionListing.SelectedIndex;
+            var region = Regions.FirstOrDefault(p => p.RegionName == m_RegionListing.Items[selectedIndex].ToString());
+            originalRegionName = region.RegionName;
+            RegionSettings frm = new RegionSettings(region,Regions);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                if (region != null)
+                {
+                    region.RColor = frm.RegionToChange.RColor;
+                    region.TextColor = frm.RegionToChange.TextColor;
+                    region.RegionName = frm.RegionToChange.RegionName;
+                    updateExistingRoomRegions(frm.RegionToChange.RegionName, originalRegionName);
+                }
+                addRegionsToListbox();
+                m_RegionListing.Invalidate();
+                m_RegionListing.SelectedIndex = selectedIndex;
+            }
         }
 
         private void btnChange_Click(object sender, EventArgs e)
@@ -296,12 +317,11 @@ namespace Trizbort
 
         private void btnAddRegion_Click(object sender, EventArgs e)
         {
-            var region = new Settings.Region {RegionName = nextAvailableRegionName(), RColor = System.Drawing.Color.White};
+            var region = new Region {RegionName = nextAvailableRegionName(), RColor = System.Drawing.Color.White};
             Regions.Add(region);
             addRegionsToListbox();
             m_colorListBox.Invalidate();
             m_RegionListing.SelectedIndex = m_RegionListing.Items.Count - 1;
-//            createEditBox(m_colorListBox);
         }
 
         private string nextAvailableRegionName()
@@ -335,19 +355,6 @@ namespace Trizbort
             LineFont = showFontDialog(LineFont);
         }
 
-        private Color showColorDialog(Color color)
-        {
-            using (var dialog = new ColorDialog())
-            {
-                dialog.Color = color;
-                if (dialog.ShowDialog(this) == DialogResult.OK)
-                {
-                    return dialog.Color;
-                }
-            }
-            return color;
-        }
-
         private Font showFontDialog(Font font)
         {
             using (var dialog = new FontDialog())
@@ -378,7 +385,7 @@ namespace Trizbort
             listBox = (ListBox) sender;
             itemSelected = m_RegionListing.SelectedIndex;
 
-            if (m_RegionListing.Items[itemSelected].ToString() == Settings.Region.DefaultRegion) return;
+            if (m_RegionListing.Items[itemSelected].ToString() == Trizbort.Region.DefaultRegion) return;
 
             var r = m_RegionListing.GetItemRectangle(itemSelected);
             var itemText = m_RegionListing.Items[itemSelected].ToString();
@@ -408,7 +415,7 @@ namespace Trizbort
             if (!bUpdatingRegionText)
             {
                 bUpdatingRegionText = true;
-                if (updateRegionName())
+                if (updateRegionName(editBox.Text, m_RegionListing.Items[itemSelected].ToString()))
                     editBox.Hide();
                 else
                 {
@@ -419,24 +426,36 @@ namespace Trizbort
             }
         }
 
-        private bool updateRegionName()
+        private bool updateRegionName(string pNew, string pOld)
         {
-            if (Regions.Any(p => p.RegionName == editBox.Text))
-            {
-                MessageBox.Show(string.Format("A Region already exists with the name '{0}'", editBox.Text));
-                return false;
-            }
-            
-            var original = m_RegionListing.Items[itemSelected].ToString();
-            var newname = editBox.Text;
+            if (regionAlreadyExists(pNew)) return false;
 
-            foreach (var tRoom in Project.Current.Elements.OfType<Room>().Where(tRoom => tRoom.Region == original)) {
+            updateExistingRoomRegions(pNew, pOld);
+
+            Regions.First(p => p.RegionName == m_RegionListing.Items[itemSelected].ToString()).RegionName = pNew;
+            m_RegionListing.Items[itemSelected] = pNew;
+            return true;
+        }
+
+        private bool regionAlreadyExists(string pNew)
+        {
+            if (Regions.Any(p => p.RegionName == pNew))
+            {
+                MessageBox.Show(string.Format("A Region already exists with the name '{0}'", pNew));
+                return true;
+            }
+            return false;
+        }
+
+        private void updateExistingRoomRegions(string pNew, string pOld)
+        {
+            var original = pOld;
+            var newname = pNew;
+
+            foreach (var tRoom in Project.Current.Elements.OfType<Room>().Where(tRoom => tRoom.Region == original))
+            {
                 tRoom.Region = newname;
             }
-
-            Regions.First(p => p.RegionName == m_RegionListing.Items[itemSelected].ToString()).RegionName = editBox.Text;
-            m_RegionListing.Items[itemSelected] = editBox.Text;
-            return true;
         }
 
         private void editBoxKeyPress(object sender, KeyPressEventArgs e)
@@ -457,7 +476,7 @@ namespace Trizbort
         private void btnDeleteRegion_Click(object sender, EventArgs e)
         {
             itemSelected = m_RegionListing.SelectedIndex;
-            if (m_RegionListing.Items[itemSelected].ToString() == Settings.Region.DefaultRegion) return;
+            if (m_RegionListing.Items[itemSelected].ToString() == Trizbort.Region.DefaultRegion) return;
             Regions.RemoveAll(p => p.RegionName == m_RegionListing.Items[itemSelected].ToString());
             addRegionsToListbox();
 

@@ -605,7 +605,10 @@ namespace Trizbort
             scribe.StartElement("regions");
             foreach (var region in Regions)
             {
-                scribe.Element(region.RegionName,region.RColor);
+                scribe.StartElement(region.FixupRegionNameForSave());
+                scribe.Attribute("TextColor", region.TextColor);
+                scribe.Value(region.RColor);
+                scribe.EndElement();
             }
             scribe.EndElement();
 
@@ -745,15 +748,16 @@ namespace Trizbort
             Regions = new List<Region>();
 
             if (regions.Children.Count <= 0)
-                Regions.Add(new Region(){RColor = System.Drawing.Color.White, RegionName = Region.DefaultRegion});
+                Regions.Add(new Region(){RColor = System.Drawing.Color.White, TextColor = System.Drawing.Color.Blue, RegionName = Region.DefaultRegion});
             else
             {
                 foreach (var region in regions.Children)
                 {
                     var tRegion = new Region();
+                    tRegion.TextColor = region.Attribute("TextColor").Text == string.Empty ? System.Drawing.Color.Blue : ColorTranslator.FromHtml(region.Attribute("TextColor").Text);
                     tRegion.RegionName = region.Name;
+                    tRegion.RegionName = tRegion.ClearRegionNameObfuscation();
                     tRegion.RColor = region.ToColor(System.Drawing.Color.White);
-
                     Regions.Add(tRegion);
                 }
             }
@@ -831,14 +835,6 @@ namespace Trizbort
         }
 
 
-        public class Region
-        {
-            public string RegionName { get; set; }
-            public Color RColor { get; set; }
-            public static string DefaultRegion {get { return "NoRegion"; }}
-
-        }
-        
         public static bool DebugShowFPS {get; set;}
         public static bool DebugDisableTextRendering { get; set; }
         public static bool DebugDisableLineRendering { get; set; }

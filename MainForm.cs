@@ -765,6 +765,7 @@ namespace Trizbort
         private void ProjectSettingsMenuItem_Click(object sender, EventArgs e)
         {
             Settings.ShowMapDialog();
+            Canvas.Refresh();
         }
 
         private void ProjectResetToDefaultSettingsMenuItem_Click(object sender, EventArgs e)

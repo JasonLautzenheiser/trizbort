@@ -1346,6 +1346,7 @@ namespace Trizbort
             room.Position = pos;
             Project.Current.Elements.Add(room);
             SelectedElement = room;
+            Refresh();
         }
 
         private void DoDragPan(PointF clientPos, Vector canvasPos)

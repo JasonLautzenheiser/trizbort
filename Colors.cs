@@ -24,7 +24,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Trizbort
 {
@@ -79,6 +81,19 @@ namespace Trizbort
             }
             color = -1;
             return false;
+        }
+
+        public static Color ShowColorDialog(Color color, Form parent)
+        {
+            using (var dialog = new ColorDialog())
+            {
+                dialog.Color = color;
+                if (dialog.ShowDialog(parent) == DialogResult.OK)
+                {
+                    return dialog.Color;
+                }
+            }
+            return color;
         }
     }
 }

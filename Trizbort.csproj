@@ -161,6 +161,13 @@
     <Compile Include="PathHelper.cs" />
     <Compile Include="Port.cs" />
     <Compile Include="Rect.cs" />
+    <Compile Include="Region.cs" />
+    <Compile Include="RegionSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegionSettings.Designer.cs">
+      <DependentUpon>RegionSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Smoothing.cs" />
     <Compile Include="TextBlock.cs" />
     <Compile Include="Vector.cs" />
@@ -210,6 +217,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegionSettings.resx">
+      <DependentUpon>RegionSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RoomPropertiesDialog.resx">
       <DependentUpon>RoomPropertiesDialog.cs</DependentUpon>

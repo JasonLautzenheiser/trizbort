@@ -39,16 +39,21 @@ namespace Trizbort
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.m_vScrollBar = new System.Windows.Forms.VScrollBar();
             this.m_hScrollBar = new System.Windows.Forms.HScrollBar();
             this.m_cornerPanel = new System.Windows.Forms.Panel();
+            this.ctxCanvasMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.regionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_minimap = new Trizbort.Minimap();
+            this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctxCanvasMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_vScrollBar
             // 
-            this.m_vScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_vScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_vScrollBar.Location = new System.Drawing.Point(403, 128);
             this.m_vScrollBar.Name = "m_vScrollBar";
             this.m_vScrollBar.Size = new System.Drawing.Size(16, 191);
@@ -57,8 +62,8 @@ namespace Trizbort
             // 
             // m_hScrollBar
             // 
-            this.m_hScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_hScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_hScrollBar.Location = new System.Drawing.Point(0, 319);
             this.m_hScrollBar.Name = "m_hScrollBar";
             this.m_hScrollBar.Size = new System.Drawing.Size(403, 16);
@@ -73,6 +78,21 @@ namespace Trizbort
             this.m_cornerPanel.Size = new System.Drawing.Size(16, 16);
             this.m_cornerPanel.TabIndex = 2;
             // 
+            // ctxCanvasMenu
+            // 
+            this.ctxCanvasMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.regionToolStripMenuItem,
+            this.darkToolStripMenuItem});
+            this.ctxCanvasMenu.Name = "ctxCanvasMenu";
+            this.ctxCanvasMenu.Size = new System.Drawing.Size(153, 70);
+            this.ctxCanvasMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxCanvasMenu_Opening);
+            // 
+            // regionToolStripMenuItem
+            // 
+            this.regionToolStripMenuItem.Name = "regionToolStripMenuItem";
+            this.regionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.regionToolStripMenuItem.Text = "Set Region";
+            // 
             // m_minimap
             // 
             this.m_minimap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -84,16 +104,24 @@ namespace Trizbort
             this.m_minimap.TabIndex = 6;
             this.m_minimap.TabStop = false;
             // 
+            // darkToolStripMenuItem
+            // 
+            this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
+            this.darkToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.darkToolStripMenuItem.Text = "Dark";
+            // 
             // Canvas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ContextMenuStrip = this.ctxCanvasMenu;
             this.Controls.Add(this.m_minimap);
             this.Controls.Add(this.m_cornerPanel);
             this.Controls.Add(this.m_hScrollBar);
             this.Controls.Add(this.m_vScrollBar);
             this.Name = "Canvas";
             this.Size = new System.Drawing.Size(419, 335);
+            this.ctxCanvasMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -104,5 +132,8 @@ namespace Trizbort
         private System.Windows.Forms.HScrollBar m_hScrollBar;
         private System.Windows.Forms.Panel m_cornerPanel;
         private Minimap m_minimap;
+        private System.Windows.Forms.ContextMenuStrip ctxCanvasMenu;
+        private System.Windows.Forms.ToolStripMenuItem regionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;
     }
 }

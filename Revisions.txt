@@ -1,5 +1,11 @@
 Change Log
 
+1.5.3.0
+-------------
+-- fixed issue where going to a new file didn't clear out the prior maps regions
+-- fixed issue where selecting multiple rooms wasn't being visually indicated.  It used to indicate by changing the fill color of the room, but I now just change the border color to the select line color in the settings.
+++ Added a right-click context menu.  Currently can change region of room and can change the dark status (works on multiple selected rooms)
+
 1.5.2.0
 -------------
 ++ Allow user to change the region text color.

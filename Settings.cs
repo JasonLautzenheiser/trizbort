@@ -586,6 +586,11 @@ namespace Trizbort
 
             KeypadNavigationCreationModifier = Keys.Control;
             KeypadNavigationUnexploredModifier = Keys.Alt;
+
+            Regions = new List<Region>
+            {
+                new Region() {RegionName = Region.DefaultRegion, RColor = System.Drawing.Color.White}
+            };
         }
 
         public static void Save(XmlScribe scribe)

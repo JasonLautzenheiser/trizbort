@@ -162,6 +162,7 @@ namespace Trizbort
                 m_draggingViewport = true;
                 Invalidate();
             }
+
             base.OnMouseDown(e);
         }
 
@@ -175,6 +176,11 @@ namespace Trizbort
             m_lastMousePosition = e.Location;
 
             base.OnMouseMove(e);
+        }
+
+        public bool IsMouseOverMe()
+        {
+            return ClientRectangle.Contains(PointToClient(Control.MousePosition));
         }
 
         void SetCanvasOrigin(Point clientPosition)
@@ -226,12 +232,14 @@ namespace Trizbort
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
+           
             if (m_draggingViewport)
             {
                 m_draggingViewport = false;
                 Capture = false;
                 Invalidate();
             }
+
 
             base.OnMouseUp(e);
         }

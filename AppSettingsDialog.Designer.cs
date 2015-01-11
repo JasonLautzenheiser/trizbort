@@ -28,11 +28,11 @@
             this.m_okButton = new System.Windows.Forms.Button();
             this.m_cancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cboImageSaveType = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.m_dragButtonComboBox = new System.Windows.Forms.ComboBox();
             this.m_invertWheelCheckBox = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cboImageSaveType = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -84,45 +84,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Preferences";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(159, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Mouse Button for Canvas Drag:";
-            // 
-            // m_dragButtonComboBox
-            // 
-            this.m_dragButtonComboBox.FormattingEnabled = true;
-            this.m_dragButtonComboBox.Items.AddRange(new object[] {
-            "Middle Button",
-            "Right Button"});
-            this.m_dragButtonComboBox.Location = new System.Drawing.Point(181, 25);
-            this.m_dragButtonComboBox.Name = "m_dragButtonComboBox";
-            this.m_dragButtonComboBox.Size = new System.Drawing.Size(118, 21);
-            this.m_dragButtonComboBox.TabIndex = 1;
-            // 
-            // m_invertWheelCheckBox
-            // 
-            this.m_invertWheelCheckBox.AutoSize = true;
-            this.m_invertWheelCheckBox.Location = new System.Drawing.Point(23, 61);
-            this.m_invertWheelCheckBox.Name = "m_invertWheelCheckBox";
-            this.m_invertWheelCheckBox.Size = new System.Drawing.Size(152, 17);
-            this.m_invertWheelCheckBox.TabIndex = 0;
-            this.m_invertWheelCheckBox.Text = "Invert Mouse Wheel Zoom";
-            this.m_invertWheelCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 107);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Default Image Save Type:";
-            // 
             // cboImageSaveType
             // 
             this.cboImageSaveType.FormattingEnabled = true;
@@ -135,6 +96,47 @@
             this.cboImageSaveType.Name = "cboImageSaveType";
             this.cboImageSaveType.Size = new System.Drawing.Size(138, 21);
             this.cboImageSaveType.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(22, 107);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(133, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Default Image Save Type:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(16, 28);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(159, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Mouse Button for Canvas Drag:";
+            this.label1.Visible = false;
+            // 
+            // m_dragButtonComboBox
+            // 
+            this.m_dragButtonComboBox.FormattingEnabled = true;
+            this.m_dragButtonComboBox.Items.AddRange(new object[] {
+            "Middle Button",
+            "Right Button"});
+            this.m_dragButtonComboBox.Location = new System.Drawing.Point(181, 25);
+            this.m_dragButtonComboBox.Name = "m_dragButtonComboBox";
+            this.m_dragButtonComboBox.Size = new System.Drawing.Size(118, 21);
+            this.m_dragButtonComboBox.TabIndex = 1;
+            this.m_dragButtonComboBox.Visible = false;
+            // 
+            // m_invertWheelCheckBox
+            // 
+            this.m_invertWheelCheckBox.AutoSize = true;
+            this.m_invertWheelCheckBox.Location = new System.Drawing.Point(23, 61);
+            this.m_invertWheelCheckBox.Name = "m_invertWheelCheckBox";
+            this.m_invertWheelCheckBox.Size = new System.Drawing.Size(152, 17);
+            this.m_invertWheelCheckBox.TabIndex = 0;
+            this.m_invertWheelCheckBox.Text = "Invert Mouse Wheel Zoom";
+            this.m_invertWheelCheckBox.UseVisualStyleBackColor = true;
             // 
             // AppSettingsDialog
             // 

@@ -326,7 +326,7 @@ namespace Trizbort
             }
 
             var sourceCompassPoint = CompassPointHelper.GetCompassDirection(direction);
-            var connection = AddConnection(room, sourceCompassPoint, room, sourceCompassPoint);
+            var connection = addConnection(room, sourceCompassPoint, room, sourceCompassPoint);
             switch (direction)
             {
                 case AutomapDirection.Up:
@@ -401,7 +401,7 @@ namespace Trizbort
                 TryMoveRoomsForTidyConnection(source, sourceCompassPoint, target, targetCompassPoint);
 
                 // add a new connection
-                connection = AddConnection(source, sourceCompassPoint, target, targetCompassPoint);
+                connection = addConnection(source, sourceCompassPoint, target, targetCompassPoint);
                 connection.Style = ConnectionStyle.Solid;
                 connection.Flow = ConnectionFlow.OneWay;
             }

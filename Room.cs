@@ -517,7 +517,7 @@ namespace Trizbort
 
             // get region color
             var regionColor = Settings.Regions.FirstOrDefault(p => p.RegionName == Region ) ?? Settings.Regions.FirstOrDefault(p => p.RegionName == Trizbort.Region.DefaultRegion);
-            brush = new SolidBrush(regionColor.RColor);
+            brush =  new SolidBrush(regionColor.RColor);
 
             // Room specific fill brush (White shows global color)
             if (RoomFill != ColorTranslator.FromHtml("White") && RoomFill != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomFill); }
@@ -583,7 +583,7 @@ namespace Trizbort
 
                 if (RoomBorder == ColorTranslator.FromHtml("White") || RoomBorder == ColorTranslator.FromHtml("#FFFFFF"))
                 {
-                    graphics.DrawPath(palette.BorderPen, path);
+                    graphics.DrawPath(context.Selected ? palette.SelectedLinePen : palette.BorderPen, path);
                 }
                 else
                 {
@@ -595,6 +595,7 @@ namespace Trizbort
             var font = Settings.LargeFont;
             brush = new SolidBrush(regionColor.TextColor);
 //            brush = context.Selected ? palette.FillBrush : palette.LargeTextBrush;
+//            brush = context.Selected ? palette.FillBrush : new SolidBrush(regionColor.TextColor);
             // Room specific fill brush (White shows global color)
             if (RoomLargeText != ColorTranslator.FromHtml("White") && RoomLargeText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomLargeText); }
 

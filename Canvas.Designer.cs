@@ -45,8 +45,9 @@ namespace Trizbort
             this.m_cornerPanel = new System.Windows.Forms.Panel();
             this.ctxCanvasMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.regionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.m_minimap = new Trizbort.Minimap();
             this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_minimap = new Trizbort.Minimap();
+            this.lblZoom = new System.Windows.Forms.Label();
             this.ctxCanvasMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,14 +85,20 @@ namespace Trizbort
             this.regionToolStripMenuItem,
             this.darkToolStripMenuItem});
             this.ctxCanvasMenu.Name = "ctxCanvasMenu";
-            this.ctxCanvasMenu.Size = new System.Drawing.Size(153, 70);
+            this.ctxCanvasMenu.Size = new System.Drawing.Size(131, 48);
             this.ctxCanvasMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxCanvasMenu_Opening);
             // 
             // regionToolStripMenuItem
             // 
             this.regionToolStripMenuItem.Name = "regionToolStripMenuItem";
-            this.regionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.regionToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.regionToolStripMenuItem.Text = "Set Region";
+            // 
+            // darkToolStripMenuItem
+            // 
+            this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
+            this.darkToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.darkToolStripMenuItem.Text = "Dark";
             // 
             // m_minimap
             // 
@@ -104,17 +111,24 @@ namespace Trizbort
             this.m_minimap.TabIndex = 6;
             this.m_minimap.TabStop = false;
             // 
-            // darkToolStripMenuItem
+            // lblZoom
             // 
-            this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
-            this.darkToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.darkToolStripMenuItem.Text = "Dark";
+            this.lblZoom.AutoSize = true;
+            this.lblZoom.BackColor = System.Drawing.Color.Transparent;
+            this.lblZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblZoom.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lblZoom.Location = new System.Drawing.Point(4, 4);
+            this.lblZoom.Name = "lblZoom";
+            this.lblZoom.Size = new System.Drawing.Size(50, 20);
+            this.lblZoom.TabIndex = 7;
+            this.lblZoom.Text = "Zoom";
             // 
             // Canvas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ContextMenuStrip = this.ctxCanvasMenu;
+            this.Controls.Add(this.lblZoom);
             this.Controls.Add(this.m_minimap);
             this.Controls.Add(this.m_cornerPanel);
             this.Controls.Add(this.m_hScrollBar);
@@ -123,6 +137,7 @@ namespace Trizbort
             this.Size = new System.Drawing.Size(419, 335);
             this.ctxCanvasMenu.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -135,5 +150,6 @@ namespace Trizbort
         private System.Windows.Forms.ContextMenuStrip ctxCanvasMenu;
         private System.Windows.Forms.ToolStripMenuItem regionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;
+        private System.Windows.Forms.Label lblZoom;
     }
 }

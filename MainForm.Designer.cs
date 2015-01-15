@@ -134,7 +134,7 @@ namespace Trizbort
             this.m_toggleDirectionalLinesButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.m_automapBar = new Trizbort.AutomapBar();
-            this.m_canvas = new Trizbort.Canvas();
+            this.Canvas = new Trizbort.Canvas();
             this.m_menuStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -806,13 +806,13 @@ namespace Trizbort
             // 
             // m_canvas
             // 
-            this.m_canvas.BackColor = System.Drawing.Color.White;
-            this.m_canvas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_canvas.Location = new System.Drawing.Point(38, 24);
-            this.m_canvas.MinimapVisible = true;
-            this.m_canvas.Name = "m_canvas";
-            this.m_canvas.Size = new System.Drawing.Size(586, 420);
-            this.m_canvas.TabIndex = 3;
+            this.Canvas.BackColor = System.Drawing.Color.White;
+            this.Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Canvas.Location = new System.Drawing.Point(38, 24);
+            this.Canvas.MinimapVisible = true;
+            this.Canvas.Name = "Canvas";
+            this.Canvas.Size = new System.Drawing.Size(586, 420);
+            this.Canvas.TabIndex = 3;
             // 
             // MainForm
             // 
@@ -820,7 +820,7 @@ namespace Trizbort
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 444);
             this.Controls.Add(this.m_automapBar);
-            this.Controls.Add(this.m_canvas);
+            this.Controls.Add(this.Canvas);
             this.Controls.Add(this.m_toolStrip);
             this.Controls.Add(this.m_menuStrip);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -859,7 +859,6 @@ namespace Trizbort
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem m_lineStylesMenuItem;
-        private Canvas m_canvas;
         private System.Windows.Forms.ToolStripMenuItem m_viewMenu;
         private System.Windows.Forms.ToolStripMenuItem m_viewZoomMenu;
         private System.Windows.Forms.ToolStripMenuItem m_viewZoomInMenuItem;

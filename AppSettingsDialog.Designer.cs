@@ -23,6 +23,7 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppSettingsDialog));
             this.panel1 = new System.Windows.Forms.Panel();
             this.m_okButton = new System.Windows.Forms.Button();
@@ -30,9 +31,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cboImageSaveType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.m_dragButtonComboBox = new System.Windows.Forms.ComboBox();
             this.m_invertWheelCheckBox = new System.Windows.Forms.CheckBox();
+            this.chkSaveAtZoom = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -71,10 +72,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkSaveAtZoom);
             this.groupBox1.Controls.Add(this.cboImageSaveType);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.m_dragButtonComboBox);
             this.groupBox1.Controls.Add(this.m_invertWheelCheckBox);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
@@ -92,7 +92,7 @@
             "JPEG ",
             "BMP ",
             "Enhanced Metafiles (EMF)"});
-            this.cboImageSaveType.Location = new System.Drawing.Point(161, 104);
+            this.cboImageSaveType.Location = new System.Drawing.Point(161, 73);
             this.cboImageSaveType.Name = "cboImageSaveType";
             this.cboImageSaveType.Size = new System.Drawing.Size(138, 21);
             this.cboImageSaveType.TabIndex = 4;
@@ -100,43 +100,32 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 107);
+            this.label2.Location = new System.Drawing.Point(22, 76);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(133, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Default Image Save Type:";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(159, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Mouse Button for Canvas Drag:";
-            this.label1.Visible = false;
-            // 
-            // m_dragButtonComboBox
-            // 
-            this.m_dragButtonComboBox.FormattingEnabled = true;
-            this.m_dragButtonComboBox.Items.AddRange(new object[] {
-            "Middle Button",
-            "Right Button"});
-            this.m_dragButtonComboBox.Location = new System.Drawing.Point(181, 25);
-            this.m_dragButtonComboBox.Name = "m_dragButtonComboBox";
-            this.m_dragButtonComboBox.Size = new System.Drawing.Size(118, 21);
-            this.m_dragButtonComboBox.TabIndex = 1;
-            this.m_dragButtonComboBox.Visible = false;
-            // 
             // m_invertWheelCheckBox
             // 
             this.m_invertWheelCheckBox.AutoSize = true;
-            this.m_invertWheelCheckBox.Location = new System.Drawing.Point(23, 61);
+            this.m_invertWheelCheckBox.Location = new System.Drawing.Point(23, 43);
             this.m_invertWheelCheckBox.Name = "m_invertWheelCheckBox";
             this.m_invertWheelCheckBox.Size = new System.Drawing.Size(152, 17);
             this.m_invertWheelCheckBox.TabIndex = 0;
             this.m_invertWheelCheckBox.Text = "Invert Mouse Wheel Zoom";
             this.m_invertWheelCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // chkSaveAtZoom
+            // 
+            this.chkSaveAtZoom.AutoSize = true;
+            this.chkSaveAtZoom.Location = new System.Drawing.Point(23, 20);
+            this.chkSaveAtZoom.Name = "chkSaveAtZoom";
+            this.chkSaveAtZoom.Size = new System.Drawing.Size(131, 17);
+            this.chkSaveAtZoom.TabIndex = 5;
+            this.chkSaveAtZoom.Text = "Save images at 100%";
+            this.toolTip1.SetToolTip(this.chkSaveAtZoom, "If this is unchecked, images will be saved at their current zoom %\r\n");
+            this.chkSaveAtZoom.UseVisualStyleBackColor = true;
             // 
             // AppSettingsDialog
             // 
@@ -171,10 +160,10 @@
 		private System.Windows.Forms.Button m_okButton;
 		private System.Windows.Forms.Button m_cancelButton;
 		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.CheckBox m_invertWheelCheckBox;
-		private System.Windows.Forms.ComboBox m_dragButtonComboBox;
-		private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox m_invertWheelCheckBox;
         private System.Windows.Forms.ComboBox cboImageSaveType;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox chkSaveAtZoom;
+        private System.Windows.Forms.ToolTip toolTip1;
 	}
 }

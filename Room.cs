@@ -974,6 +974,7 @@ namespace Trizbort
             clipboardText += Size.Y + ":";
             clipboardText += IsDark + ":";
             clipboardText += PrimaryDescription + ":";
+            clipboardText += Region + ":";
 
             var rValue = "";
             var bValue = "";

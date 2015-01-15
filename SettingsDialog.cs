@@ -317,7 +317,7 @@ namespace Trizbort
 
         private void btnAddRegion_Click(object sender, EventArgs e)
         {
-            var region = new Region {RegionName = nextAvailableRegionName(), RColor = System.Drawing.Color.White};
+            var region = new Region {RegionName = nextAvailableRegionName(), RColor = System.Drawing.Color.White, TextColor = Settings.Color[Colors.LargeText]};
             Regions.Add(region);
             addRegionsToListbox();
             m_colorListBox.Invalidate();

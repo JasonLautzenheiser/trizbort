@@ -29,6 +29,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using PdfSharp.Drawing;
 
@@ -207,6 +208,7 @@ namespace Trizbort
                 if (mZoomFactor != value)
                 {
                     mZoomFactor = value;
+                    lblZoom.Text = mZoomFactor.ToString("p0");
                     Invalidate();
                 }
             }
@@ -645,7 +647,7 @@ namespace Trizbort
 
         private bool isDragButton(MouseEventArgs e)
         {
-            return (Settings.MouseDragButton == 0 && (e.Button == MouseButtons.Middle || (e.Button == MouseButtons.Right && ModifierKeys == Keys.Shift)));
+            return (e.Button == MouseButtons.Middle || (e.Button == MouseButtons.Right && ModifierKeys == Keys.Shift));
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -2351,25 +2353,26 @@ namespace Trizbort
                                     currentRoom.Size = new Vector(Convert.ToSingle(elementProperties[5]), Convert.ToSingle(elementProperties[6]));
                                     currentRoom.IsDark = Convert.ToBoolean(elementProperties[7]);
                                     currentRoom.AddDescription(elementProperties[8]);
-                                    currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[9]);
-                                    currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[10]);
-                                    currentRoom.SecondFillLocation = elementProperties[11];
-                                    currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[12]);
-                                    currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[13]);
-                                    currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[14]);
+                                    currentRoom.Region = elementProperties[9];
+                                    currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[10]);
+                                    currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[11]);
+                                    currentRoom.SecondFillLocation = elementProperties[12];
+                                    currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[13]);
+                                    currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[14]);
+                                    currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[15]);
 
                                     // Get ready to check for objects in the room (small text)
-                                    int index2 = 15;
+                                    int index2 = 16;
                                     String newObjects = "";
 
                                     // Cycle through all the objects
                                     while (index2 < elementProperties.Length)
                                     {
                                         // First attribute will be which direction the objects are written
-                                        if (index2 == 15)
+                                        if (index2 == 16)
                                         {
                                             CompassPoint point;
-                                            CompassPointHelper.FromName(elementProperties[15], out point);
+                                            CompassPointHelper.FromName(elementProperties[16], out point);
                                             currentRoom.ObjectsPosition = point;
                                         }
                                         // It's it's the last object then don't add \r\n on the end

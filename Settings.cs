@@ -54,6 +54,7 @@ namespace Trizbort
             s_automap = AutomapSettings.Default;
             InfiniteScrollBounds = false;
             ShowMiniMap = true;
+            SaveAt100 = true;
             RecentProjects.Clear();
             // TODO: add other application settings here
         }
@@ -84,8 +85,8 @@ namespace Trizbort
                         LastExportTadsFileName = root["lastExportedTadsFileName"].Text;
 
                         InvertMouseWheel = root["invertMouseWheel"].ToBool(InvertMouseWheel);
-                        MouseDragButton = root["dragButton"].ToInt(MouseDragButton);
                         DefaultImageType = root["defaultImageType"].ToInt(DefaultImageType);
+                        SaveAt100 = root["saveAt100"].ToBool(SaveAt100);
 
                         var recentProjects = root["recentProjects"];
                         var fileName = string.Empty;
@@ -132,9 +133,9 @@ namespace Trizbort
                     scribe.Element("dontCareAboutVersion", DontCareAboutVersion.ToString());
                     scribe.Element("infiniteScrollBounds", InfiniteScrollBounds);
                     scribe.Element("showMiniMap", ShowMiniMap);
-                    scribe.Element("dragButton", MouseDragButton);
                     scribe.Element("invertMouseWheel",InvertMouseWheel);
                     scribe.Element("defaultImageType", DefaultImageType);
+                    scribe.Element("saveAt100",SaveAt100);
 
                     scribe.Element("lastProjectFileName", LastProjectFileName);
                     scribe.Element("lastExportedImageFileName", LastExportImageFileName);
@@ -846,6 +847,7 @@ namespace Trizbort
         public static bool DebugDisableElementRendering { get; set; }
         public static bool DebugDisableGridPolyline { get; set; }
 
+        public static bool SaveAt100 { get; set; }
         public static int MouseDragButton { get; set; }
         public static int DefaultImageType { get; set; }
         public static bool InvertMouseWheel { get; set; }
@@ -902,14 +904,14 @@ namespace Trizbort
             using (var dialog = new AppSettingsDialog())
             {
                 dialog.InvertMouseWheel = InvertMouseWheel;
-                dialog.MouseDragButton = MouseDragButton;
                 dialog.DefaultImageType = DefaultImageType;
+                dialog.SaveAt100 = SaveAt100;
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     InvertMouseWheel = dialog.InvertMouseWheel;
-                    MouseDragButton = dialog.MouseDragButton;
                     DefaultImageType = dialog.DefaultImageType;
+                    SaveAt100 = dialog.SaveAt100;
                 }
             }
         }

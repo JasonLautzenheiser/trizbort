@@ -65,6 +65,9 @@ namespace Trizbort
             this.m_guessExitsCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.m_addRegionCommandTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.m_addObjectCommandTextBox = new System.Windows.Forms.TextBox();
@@ -80,7 +83,7 @@ namespace Trizbort
             this.label1.Size = new System.Drawing.Size(372, 35);
             this.label1.TabIndex = 0;
             this.label1.Text = "Trizbort can automatically generate a map from a transcript of a game, even while" +
-                " the game is in progress.";
+    " the game is in progress.";
             // 
             // label2
             // 
@@ -93,8 +96,8 @@ namespace Trizbort
             // 
             // m_textBox
             // 
-            this.m_textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_textBox.Location = new System.Drawing.Point(16, 69);
             this.m_textBox.Name = "m_textBox";
             this.m_textBox.Size = new System.Drawing.Size(323, 21);
@@ -115,7 +118,7 @@ namespace Trizbort
             // 
             this.m_startButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_startButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.m_startButton.Location = new System.Drawing.Point(227, 297);
+            this.m_startButton.Location = new System.Drawing.Point(227, 328);
             this.m_startButton.Name = "m_startButton";
             this.m_startButton.Size = new System.Drawing.Size(116, 23);
             this.m_startButton.TabIndex = 7;
@@ -126,7 +129,7 @@ namespace Trizbort
             // 
             this.m_cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_cancelButton.Location = new System.Drawing.Point(349, 297);
+            this.m_cancelButton.Location = new System.Drawing.Point(349, 328);
             this.m_cancelButton.Name = "m_cancelButton";
             this.m_cancelButton.Size = new System.Drawing.Size(75, 23);
             this.m_cancelButton.TabIndex = 8;
@@ -137,7 +140,7 @@ namespace Trizbort
             // 
             this.m_singleStepCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.m_singleStepCheckBox.AutoSize = true;
-            this.m_singleStepCheckBox.Location = new System.Drawing.Point(12, 301);
+            this.m_singleStepCheckBox.Location = new System.Drawing.Point(12, 332);
             this.m_singleStepCheckBox.Name = "m_singleStepCheckBox";
             this.m_singleStepCheckBox.Size = new System.Drawing.Size(134, 17);
             this.m_singleStepCheckBox.TabIndex = 6;
@@ -146,8 +149,8 @@ namespace Trizbort
             // 
             // m_roomsWithSameNameAreSameRoomCheckBox
             // 
-            this.m_roomsWithSameNameAreSameRoomCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_roomsWithSameNameAreSameRoomCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_roomsWithSameNameAreSameRoomCheckBox.AutoSize = true;
             this.m_roomsWithSameNameAreSameRoomCheckBox.Location = new System.Drawing.Point(13, 45);
             this.m_roomsWithSameNameAreSameRoomCheckBox.Name = "m_roomsWithSameNameAreSameRoomCheckBox";
@@ -169,8 +172,8 @@ namespace Trizbort
             // 
             // m_guessExitsCheckBox
             // 
-            this.m_guessExitsCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_guessExitsCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_guessExitsCheckBox.AutoSize = true;
             this.m_guessExitsCheckBox.Location = new System.Drawing.Point(13, 68);
             this.m_guessExitsCheckBox.Name = "m_guessExitsCheckBox";
@@ -181,8 +184,8 @@ namespace Trizbort
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.m_roomsWithSameNameAreSameRoomCheckBox);
             this.groupBox1.Controls.Add(this.m_verboseTranscriptCheckBox);
             this.groupBox1.Controls.Add(this.m_guessExitsCheckBox);
@@ -195,18 +198,47 @@ namespace Trizbort
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.m_addRegionCommandTextBox);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.m_addObjectCommandTextBox);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(16, 204);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(408, 74);
+            this.groupBox2.Size = new System.Drawing.Size(408, 99);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "&Commands";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(170, 75);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(235, 13);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "followed by region name to add room to region.";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(48, 75);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(15, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = ">";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // m_addRegionCommandTextBox
+            // 
+            this.m_addRegionCommandTextBox.Location = new System.Drawing.Point(65, 72);
+            this.m_addRegionCommandTextBox.Name = "m_addRegionCommandTextBox";
+            this.m_addRegionCommandTextBox.Size = new System.Drawing.Size(100, 21);
+            this.m_addRegionCommandTextBox.TabIndex = 5;
             // 
             // label5
             // 
@@ -249,7 +281,7 @@ namespace Trizbort
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.m_cancelButton;
-            this.ClientSize = new System.Drawing.Size(436, 332);
+            this.ClientSize = new System.Drawing.Size(436, 363);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.m_singleStepCheckBox);
@@ -295,5 +327,8 @@ namespace Trizbort
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox m_addObjectCommandTextBox;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox m_addRegionCommandTextBox;
     }
 }

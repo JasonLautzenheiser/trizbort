@@ -729,6 +729,30 @@ namespace Trizbort
             // if the command starts with a word meaning "go", remove it.
             if (words.Count > 0)
             {
+                // the user wants to add the room to a region
+                if (!string.IsNullOrEmpty(m_settings.AddRegionCommand) && StringComparer.InvariantCultureIgnoreCase.Compare(words[0], m_settings.AddRegionCommand) == 0)
+                {
+                    string regionName = string.Empty;
+
+                    for (var index = 1; index < words.Count; ++index)
+                    {
+                        if (regionName.Length > 0)
+                        {
+                            regionName += " ";
+                        }
+                        regionName += words[index];
+                    }
+                    if (!string.IsNullOrEmpty(regionName) && m_lastKnownRoom != null)
+                    {
+                        // region already exists, just set the room to it
+                        if (Settings.Regions.Find(p => p.RegionName.Equals(regionName,StringComparison.OrdinalIgnoreCase)) == null)
+                        {
+                            Settings.Regions.Add(new Region {RegionName = regionName, TextColor = Settings.Color[Colors.LargeText], RColor = Settings.Color[Colors.Fill]});
+                        }
+                        m_lastKnownRoom.Region = regionName;
+                    }
+                }
+                
                 if (!string.IsNullOrEmpty(m_settings.AddObjectCommand) && StringComparer.InvariantCultureIgnoreCase.Compare(words[0],m_settings.AddObjectCommand) == 0)
                 {
                     // the user wants to add an object to the map

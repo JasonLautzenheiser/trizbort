@@ -1,5 +1,21 @@
 Change Log
 
+1.5.5.0
+-------------
+++ Ctrl-Arrow keys will create room in that cardinal direction from the current room.  This just seemed natural.  Numpad Ctrl-Arrow keys still work (and only way to do diagonals)
+++ Regions are now supported in the export to Inform 7
+++ Automap feature now has a special "region" command to add a region from a transcript.
+++ Select two rooms, hit 'J' and they are combined in a sensible way based on positioning.
+++ Tooltips added when hovering over objects on the canvas.
+
+1.5.4.0
+-------------
+-- fixed bug that the copy feature was not copying the region.
+-- fixed bug that would crash Trizbort if the PDF was opened when trying to export to PDF (or SmartSave)
+-- a new region text color now defaulted to text color in settings.
+-- when saving a map to an image, there is a app setting that will ignore the zoom level and save at 100%
+++ added a small zoom indicator to the map.
+
 1.5.3.0
 -------------
 -- fixed issue where going to a new file didn't clear out the prior maps regions

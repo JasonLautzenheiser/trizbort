@@ -28,6 +28,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Linq;
+using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
 
 namespace Trizbort
@@ -434,11 +436,7 @@ namespace Trizbort
 
             if (!string.IsNullOrEmpty(MidText))
             {
-                float totalLength = 0;
-                foreach (var lineSegment in lineSegments)
-                {
-                    totalLength += lineSegment.Length;
-                }
+                float totalLength = lineSegments.Sum(lineSegment => lineSegment.Length);
                 float middle = totalLength / 2;
                 foreach (var lineSegment in lineSegments)
                 {
@@ -552,6 +550,31 @@ namespace Trizbort
             return GetPortPosition(port);
         }
 
+        public override string GetToolTipText()
+        {
+            return "Connection ToolTip Text";
+        }
+
+        public override eTooltipColor GetToolTipColor()
+        {
+            return eTooltipColor.Apple;
+        }
+
+        public override string GetToolTipFooter()
+        {
+            return string.Empty;
+        }
+
+        public override string GetToolTipHeader()
+        {
+            return string.Empty;
+        }
+
+        public override bool HasTooltip()
+        {
+            return false;
+        }
+
         public override float Distance(Vector pos, bool includeMargins)
         {
             float distance = float.MaxValue;
@@ -593,6 +616,8 @@ namespace Trizbort
                 Vertex.Position = pos;
                 Connection.RaiseChanged();
             }
+
+
 
             public override void DockAt(Port port)
             {

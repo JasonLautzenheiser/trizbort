@@ -25,7 +25,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Drawing;
+using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
 
 namespace Trizbort
@@ -37,7 +39,7 @@ namespace Trizbort
     /// Elements have a position and size and may be drawn.
     /// Elements have zero or more ports to which connections may be made.
     /// </remarks>
-    internal abstract class Element : IComparable<Element>
+    internal abstract class Element : IComparable<Element>, IComponent
     {
         public Element(Project project)
         {
@@ -258,5 +260,26 @@ namespace Trizbort
         private List<Port> m_portList = new List<Port>();
         private ReadOnlyCollection<Port> m_ports;
         private int m_id;
+
+        public abstract string GetToolTipText();
+        public abstract eTooltipColor GetToolTipColor();
+        public virtual Vector Position { get; set; }
+
+        public void Dispose()
+        {
+            
+        }
+
+        public ISite Site
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
+        public event EventHandler Disposed;
+        public abstract string GetToolTipFooter();
+        public abstract string GetToolTipHeader();
+        public abstract bool HasTooltip();
+
     }
 }

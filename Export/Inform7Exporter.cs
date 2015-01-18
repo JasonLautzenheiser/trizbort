@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Trizbort.Export
 {
@@ -76,6 +77,13 @@ namespace Trizbort.Export
 
         protected override void ExportContent(StreamWriter writer)
         {
+
+            // export regions
+            foreach (var region in Settings.Regions.Where(region => !region.RegionName.Equals(Region.DefaultRegion, StringComparison.OrdinalIgnoreCase))) {
+                writer.WriteLine("{0} is a region.",region.RegionName);
+                writer.WriteLine();
+            }
+
             // export each location
             foreach (var location in LocationsInExportOrder)
             {
@@ -98,6 +106,10 @@ namespace Trizbort.Export
                 {
                     writer.Write(" It is dark.");
                 }
+
+                if (!string.IsNullOrEmpty(location.Room.Region) && !location.Room.Region.Equals(Region.DefaultRegion) )
+                    writer.Write(" It is in {0}.",location.Room.Region);
+
                 writer.WriteLine(); // end the previous line
                 writer.WriteLine(); // blank line
             }

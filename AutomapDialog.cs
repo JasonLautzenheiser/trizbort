@@ -56,6 +56,7 @@ namespace Trizbort
                 settings.AssumeRoomsWithSameNameAreSameRoom = !m_verboseTranscriptCheckBox.Checked || m_roomsWithSameNameAreSameRoomCheckBox.Checked;
                 settings.GuessExits = m_guessExitsCheckBox.Checked;
                 settings.AddObjectCommand = m_addObjectCommandTextBox.Text;
+                settings.AddRegionCommand = m_addRegionCommandTextBox.Text;
                 return settings;
             }
             set
@@ -67,6 +68,7 @@ namespace Trizbort
                 m_roomsWithSameNameAreSameRoomCheckBox.Checked = m_roomsWithSameNameAreSameRoomCheckBox.Enabled && value.AssumeRoomsWithSameNameAreSameRoom;
                 m_guessExitsCheckBox.Checked = value.GuessExits;
                 m_addObjectCommandTextBox.Text = value.AddObjectCommand;
+                m_addRegionCommandTextBox.Text = value.AddRegionCommand;
             }
         }
 
@@ -99,5 +101,6 @@ namespace Trizbort
             m_roomsWithSameNameAreSameRoomCheckBox.Enabled = m_verboseTranscriptCheckBox.Checked;
             m_roomsWithSameNameAreSameRoomCheckBox.Checked = !m_verboseTranscriptCheckBox.Checked;
         }
+
     }
 }

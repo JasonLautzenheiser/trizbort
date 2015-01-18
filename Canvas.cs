@@ -31,6 +31,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
 
 namespace Trizbort
@@ -352,7 +353,18 @@ namespace Trizbort
                 {
                     var fps = 1.0f / (float)(stopwatch.Elapsed.TotalSeconds);
                     graphics.Graphics.Transform = new Matrix();
-                    graphics.DrawString(string.Format("{0} ms ({1} fps) {2} rebuilds", stopwatch.Elapsed.TotalMilliseconds, fps, TextBlock.RebuildCount), Settings.LargeFont, Brushes.Red, new PointF(10, 10 + Settings.LargeFont.GetHeight()));
+                    graphics.DrawString(string.Format("{0} ms ({1} fps) {2} rebuilds", stopwatch.Elapsed.TotalMilliseconds, fps, TextBlock.RebuildCount), Settings.LargeFont, Brushes.Red, new PointF(10, 20 + Settings.LargeFont.GetHeight()));
+                }
+                if (Settings.DebugShowMouseCoordinates && !finalRender)
+                {
+                    var mouseCoord = MousePosition;
+                    graphics.Graphics.Transform = new Matrix();
+                    graphics.DrawString(string.Format("X:{0}  Y:{1}", mouseCoord.X, mouseCoord.Y), Settings.LargeFont, Brushes.Green, new PointF(10, 40 + Settings.LargeFont.GetHeight()));
+                    if (HoverElement == null)
+                        graphics.DrawString(new Point(0, 0).ToString(), Settings.LargeFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.LargeFont.GetHeight()));
+                    else
+                        graphics.DrawString(PointToScreen(HoverElement.Position.ToPoint()).ToString(), Settings.LargeFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.LargeFont.GetHeight()));
+
                 }
             }
 
@@ -736,7 +748,25 @@ namespace Trizbort
                 case DragModes.None:
                     hoverHandle = hitTestHandle(canvasPos); // set first; it will RecreatePorts() if the value changes
                     hoverPort = hitTestPort(canvasPos);
-                    HoverElement = hitTestElement(canvasPos, false);
+                    var hoverElement = hitTestElement(canvasPos, false);
+                    bool sameElement = HoverElement == hoverElement;
+                    HoverElement = hoverElement;
+
+                        if (HoverElement == null)
+                            roomTooltip.HideTooltip();
+                        else
+                            if (HoverElement.HasTooltip())
+                            {
+                                {
+                                    if ((roomTooltip.IsTooltipVisible) && (sameElement)) return;
+
+                                    var toolTip = new SuperTooltipInfo(HoverElement.GetToolTipHeader(), HoverElement.GetToolTipFooter(), HoverElement.GetToolTipText(), null, null, HoverElement.GetToolTipColor());
+                                    roomTooltip.SetSuperTooltip(this, toolTip);
+                                    var tPoint = MousePosition;
+                                    tPoint.Offset(20, 20);
+                                    roomTooltip.ShowTooltip(this, tPoint);
+                                }
+                            }
                     break;
                 case DragModes.DrawLine:
                     if (new Vector(mLastMouseDownPosition).Distance(new Vector(mousePosition)) > Settings.DragDistanceToInitiateNewConnection)
@@ -754,6 +784,8 @@ namespace Trizbort
                     break;
             }
         }
+
+
 
         protected override void OnMouseDoubleClick(MouseEventArgs e)
         {
@@ -837,6 +869,22 @@ namespace Trizbort
                     ResetZoomOrigin();
                 }
             }
+            else if (e.KeyCode == Keys.Up && ModifierKeys == Keys.Control)
+            {
+                if (!selectRoomRelativeToSelectedRoom(CompassPoint.North)) addOrConnectRoomRelativeToSelectedRoom(CompassPoint.North);
+            }
+            else if (e.KeyCode == Keys.Down && ModifierKeys == Keys.Control)
+            {
+                if (!selectRoomRelativeToSelectedRoom(CompassPoint.South)) addOrConnectRoomRelativeToSelectedRoom(CompassPoint.South);
+            }
+            else if (e.KeyCode == Keys.Left && ModifierKeys == Keys.Control)
+            {
+                if (!selectRoomRelativeToSelectedRoom(CompassPoint.West)) addOrConnectRoomRelativeToSelectedRoom(CompassPoint.West);
+            }
+            else if (e.KeyCode == Keys.Right && ModifierKeys == Keys.Control)
+            {
+                if (!selectRoomRelativeToSelectedRoom(CompassPoint.East)) addOrConnectRoomRelativeToSelectedRoom(CompassPoint.East);
+            }
             else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
                 Origin += new Vector(0, (e.KeyCode == Keys.Down ? 1 : -1) * Viewport.Height / (e.Shift ? 5 : 10));
@@ -887,6 +935,14 @@ namespace Trizbort
             {
                 Paste(true);
             }
+            else if (e.KeyCode == Keys.J)
+            {
+                var selectedRooms = mSelectedElements.Where(p=>p.GetType() == typeof(Room)).ToList();
+                if (selectedRooms.Count() == 2)
+                {
+                    joinSelectedRooms((Room)selectedRooms[0], (Room)selectedRooms[1]);
+                }
+            }
             else if (e.KeyCode == Keys.V)
             {
                 ReverseLineDirection();
@@ -906,6 +962,11 @@ namespace Trizbort
             else if (e.KeyCode == Keys.F1 && ModifierKeys == Keys.Control)
             {
                 Settings.DebugShowFPS = !Settings.DebugShowFPS;
+                Invalidate();
+            }
+            else if (e.KeyCode == Keys.F1 && ModifierKeys == Keys.Shift)
+            {
+                Settings.DebugShowMouseCoordinates = !Settings.DebugShowMouseCoordinates;
                 Invalidate();
             }
             else if (e.KeyCode == Keys.F2 && ModifierKeys == Keys.Control)
@@ -991,6 +1052,7 @@ namespace Trizbort
             base.OnKeyDown(e);
         }
 
+
         /// <summary>
         /// Select the room in the given direction from the selected room;
         /// </summary>
@@ -1011,6 +1073,46 @@ namespace Trizbort
                 }
             }
             return false;
+        }
+
+        private void joinSelectedRooms(Room room1, Room room2)
+        {
+            var rect1 = room1.InnerBounds;
+            var rect2 = room2.InnerBounds;
+
+            var dx = rect1.X - rect2.X;
+            var dy = rect1.Y - rect2.Y;
+
+            if (dy == 0 && dx != 0)
+            {
+                if (dx > 0)
+                    addConnection(room1, CompassPoint.West, room2, CompassPoint.East);
+                else
+                    addConnection(room1, CompassPoint.East, room2, CompassPoint.West);
+            }
+
+            else if (dy != 0 && dx == 0)
+            {
+                if (dy > 0)
+                    addConnection(room1, CompassPoint.North, room2, CompassPoint.South);
+                else
+                    addConnection(room1, CompassPoint.South, room2, CompassPoint.North);
+            }
+
+            else
+            {
+                if (Math.Abs(dy) >= Math.Abs(dx))
+                    if (dy > 0)
+                        addConnection(room1, CompassPoint.North, room2, CompassPoint.South);
+                    else
+                        addConnection(room1, CompassPoint.South, room2, CompassPoint.North);
+                else
+                    if (dx > 0)
+                        addConnection(room1, CompassPoint.West, room2, CompassPoint.East);
+                    else
+                        addConnection(room1, CompassPoint.East, room2, CompassPoint.West);
+                    
+            }
         }
 
         /// <summary>

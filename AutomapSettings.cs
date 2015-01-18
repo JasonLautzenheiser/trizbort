@@ -22,10 +22,6 @@
     THE SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Trizbort
 {
     public struct AutomapSettings
@@ -41,6 +37,7 @@ namespace Trizbort
                 settings.AssumeRoomsWithSameNameAreSameRoom = false;
                 settings.GuessExits = true;
                 settings.AddObjectCommand = "see";
+                settings.AddRegionCommand = "region";
                 return settings;
             }
         }
@@ -51,5 +48,6 @@ namespace Trizbort
         public bool AssumeRoomsWithSameNameAreSameRoom;
         public bool GuessExits;
         public string AddObjectCommand;
+        public string AddRegionCommand;
     }
 }

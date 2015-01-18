@@ -28,6 +28,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
+using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
 
 namespace Trizbort
@@ -37,6 +38,11 @@ namespace Trizbort
     /// </summary>
     internal class Room : Element, ISizeable
     {
+        public override string ToString()
+        {
+            return string.Format("Room: {0}", Name);
+        }
+
         private const CompassPoint DefaultObjectsPosition = CompassPoint.South;
         private readonly List<string> m_descriptions = new List<string>();
         private readonly TextBlock m_name = new TextBlock();
@@ -345,7 +351,7 @@ namespace Trizbort
             }
         }
 
-        public Vector Position
+        public override Vector Position
         {
             get { return m_position; }
             set
@@ -357,6 +363,32 @@ namespace Trizbort
                     RaiseChanged();
                 }
             }
+        }
+
+        public override string GetToolTipFooter()
+        {
+            
+            return Objects;
+        }
+
+        private bool isDefaultRegion()
+        {
+            return Region == Trizbort.Region.DefaultRegion || string.IsNullOrEmpty(Region);
+        }
+
+        public override string GetToolTipHeader()
+        {
+            return string.Format("{0}{1}", Name, (!isDefaultRegion() ? string.Format(" ({0})", Region) : string.Empty));
+        }
+
+        public override bool HasTooltip()
+        {
+            return true;
+        }
+
+        public override eTooltipColor GetToolTipColor()
+        {
+            return eTooltipColor.BlueMist;
         }
 
         public float X
@@ -439,6 +471,13 @@ namespace Trizbort
             }
         }
 
+        public override string GetToolTipText()
+        {
+            var sText = string.Format("{0}",  PrimaryDescription);
+
+            return sText;
+        }
+
         public Port PortAt(CompassPoint compassPoint)
         {
             return PortList.Cast<CompassPort>().FirstOrDefault(port => port.CompassPoint == compassPoint);
@@ -516,7 +555,7 @@ namespace Trizbort
             var brush = context.Selected ? palette.BorderBrush : palette.FillBrush;
 
             // get region color
-            var regionColor = Settings.Regions.FirstOrDefault(p => p.RegionName == Region ) ?? Settings.Regions.FirstOrDefault(p => p.RegionName == Trizbort.Region.DefaultRegion);
+            var regionColor = Settings.Regions.FirstOrDefault(p => p.RegionName.Equals(Region, StringComparison.OrdinalIgnoreCase)) ?? Settings.Regions.FirstOrDefault(p => p.RegionName.Equals(Trizbort.Region.DefaultRegion,StringComparison.OrdinalIgnoreCase));
             brush =  new SolidBrush(regionColor.RColor);
 
             // Room specific fill brush (White shows global color)

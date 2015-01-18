@@ -842,6 +842,7 @@ namespace Trizbort
 
 
         public static bool DebugShowFPS {get; set;}
+        public static bool DebugShowMouseCoordinates { get; set; }
         public static bool DebugDisableTextRendering { get; set; }
         public static bool DebugDisableLineRendering { get; set; }
         public static bool DebugDisableElementRendering { get; set; }

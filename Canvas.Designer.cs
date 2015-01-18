@@ -48,6 +48,7 @@ namespace Trizbort
             this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_minimap = new Trizbort.Minimap();
             this.lblZoom = new System.Windows.Forms.Label();
+            this.roomTooltip = new DevComponents.DotNetBar.SuperTooltip();
             this.ctxCanvasMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -123,6 +124,12 @@ namespace Trizbort
             this.lblZoom.TabIndex = 7;
             this.lblZoom.Text = "Zoom";
             // 
+            // roomTooltip
+            // 
+            this.roomTooltip.CheckTooltipPosition = false;
+            this.roomTooltip.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
+            this.roomTooltip.PositionBelowControl = false;
+            // 
             // Canvas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -151,5 +158,6 @@ namespace Trizbort
         private System.Windows.Forms.ToolStripMenuItem regionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;
         private System.Windows.Forms.Label lblZoom;
+        private DevComponents.DotNetBar.SuperTooltip roomTooltip;
     }
 }

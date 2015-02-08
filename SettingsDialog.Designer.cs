@@ -110,6 +110,7 @@ namespace Trizbort
             this.m_largeFontNameTextBox = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label19 = new System.Windows.Forms.Label();
             this.btnDeleteRegion = new System.Windows.Forms.Button();
             this.btnAddRegion = new System.Windows.Forms.Button();
             this.btnChange = new System.Windows.Forms.Button();
@@ -121,7 +122,6 @@ namespace Trizbort
             this.m_snapToElementDistanceUpDown = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.m_handleSizeUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.m_lineWidthUpDown)).BeginInit();
             this.m_linesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_preferredDistanceBetweenRoomsUpDown)).BeginInit();
@@ -670,7 +670,7 @@ namespace Trizbort
             this.m_colorsGroupBox.Controls.Add(this.m_changeColorButton);
             this.m_colorsGroupBox.Location = new System.Drawing.Point(5, 6);
             this.m_colorsGroupBox.Name = "m_colorsGroupBox";
-            this.m_colorsGroupBox.Size = new System.Drawing.Size(343, 162);
+            this.m_colorsGroupBox.Size = new System.Drawing.Size(343, 172);
             this.m_colorsGroupBox.TabIndex = 0;
             this.m_colorsGroupBox.TabStop = false;
             this.m_colorsGroupBox.Text = "&Colors";
@@ -693,7 +693,7 @@ namespace Trizbort
             "Grid"});
             this.m_colorListBox.Location = new System.Drawing.Point(82, 19);
             this.m_colorListBox.Name = "m_colorListBox";
-            this.m_colorListBox.Size = new System.Drawing.Size(174, 134);
+            this.m_colorListBox.Size = new System.Drawing.Size(174, 147);
             this.m_colorListBox.TabIndex = 0;
             this.m_colorListBox.DoubleClick += new System.EventHandler(this.onChangeColor);
             // 
@@ -724,7 +724,7 @@ namespace Trizbort
             this.m_fontsGroupBox.Controls.Add(this.m_largeFontSizeTextBox);
             this.m_fontsGroupBox.Controls.Add(this.m_changeLargeFontButton);
             this.m_fontsGroupBox.Controls.Add(this.m_largeFontNameTextBox);
-            this.m_fontsGroupBox.Location = new System.Drawing.Point(5, 174);
+            this.m_fontsGroupBox.Location = new System.Drawing.Point(5, 184);
             this.m_fontsGroupBox.Name = "m_fontsGroupBox";
             this.m_fontsGroupBox.Size = new System.Drawing.Size(343, 99);
             this.m_fontsGroupBox.TabIndex = 1;
@@ -881,6 +881,16 @@ namespace Trizbort
             this.tabPage5.Text = "Regions";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.ForeColor = System.Drawing.Color.Blue;
+            this.label19.Location = new System.Drawing.Point(7, 147);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(151, 13);
+            this.label19.TabIndex = 5;
+            this.label19.Text = "Note:  F2 to edit Region name";
+            // 
             // btnDeleteRegion
             // 
             this.btnDeleteRegion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1021,16 +1031,6 @@ namespace Trizbort
             0,
             0,
             0});
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.ForeColor = System.Drawing.Color.Blue;
-            this.label19.Location = new System.Drawing.Point(7, 147);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(151, 13);
-            this.label19.TabIndex = 5;
-            this.label19.Text = "Note:  F2 to edit Region name";
             // 
             // SettingsDialog
             // 

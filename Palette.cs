@@ -55,9 +55,7 @@ namespace Trizbort
 
         public Pen Pen(Color color, float width)
         {
-            var pen = new Pen(color, width);
-            pen.StartCap = LineCap.Round;
-            pen.EndCap = LineCap.Round;
+            var pen = new Pen(color, width) {StartCap = LineCap.Round, EndCap = LineCap.Round};
             m_items.Add(pen);
             return pen;
         }
@@ -72,7 +70,6 @@ namespace Trizbort
         public XBrush Gradient(Rect rect, Color color1, Color color2)
         {
             var brush = new XLinearGradientBrush(rect.ToRectangleF(), color1, color2, XLinearGradientMode.ForwardDiagonal);
-            //m_items.Add(brush);
             return brush;
         }
 
@@ -99,14 +96,7 @@ namespace Trizbort
 
         public Pen LinePen
         {
-            get
-            {
-                if (m_linePen == null)
-                {
-                    m_linePen = Pen(Settings.Color[Colors.Line]);
-                }
-                return m_linePen;
-            }
+            get { return m_linePen ?? (m_linePen = Pen(Settings.Color[Colors.Line])); }
         }
 
         public Pen DashedLinePen
@@ -149,14 +139,7 @@ namespace Trizbort
 
         public Pen HoverLinePen
         {
-            get
-            {
-                if (m_hoverLinePen == null)
-                {
-                    m_hoverLinePen = Pen(Settings.Color[Colors.HoverLine]);
-                }
-                return m_hoverLinePen;
-            }
+            get { return m_hoverLinePen ?? (m_hoverLinePen = Pen(Settings.Color[Colors.HoverLine])); }
         }
 
         public Pen HoverDashedLinePen
@@ -200,147 +183,64 @@ namespace Trizbort
 
         public Brush LineBrush
         {
-            get
-            {
-                if (m_lineBrush == null)
-                {
-                    m_lineBrush = Brush(Settings.Color[Colors.Line]);
-                }
-                return m_lineBrush;
-            }
+            get { return m_lineBrush ?? (m_lineBrush = Brush(Settings.Color[Colors.Line])); }
         }
 
         public Brush SelectedLineBrush
         {
-            get
-            {
-                if (m_selectedLineBrush == null)
-                {
-                    m_selectedLineBrush = Brush(Settings.Color[Colors.SelectedLine]);
-                }
-                return m_selectedLineBrush;
-            }
+            get { return m_selectedLineBrush ?? (m_selectedLineBrush = Brush(Settings.Color[Colors.SelectedLine])); }
         }
 
         public Brush HoverLineBrush
         {
-            get
-            {
-                if (m_hoverLineBrush == null)
-                {
-                    m_hoverLineBrush = Brush(Settings.Color[Colors.HoverLine]);
-                }
-                return m_hoverLineBrush;
-            }
+            get { return m_hoverLineBrush ?? (m_hoverLineBrush = Brush(Settings.Color[Colors.HoverLine])); }
         }
 
         public Pen BorderPen
         {
-            get
-            {
-                if (m_borderPen == null)
-                {
-                    m_borderPen = Pen(Settings.Color[Colors.Border]);
-                }
-                return m_borderPen;
-            }
+            get { return m_borderPen ?? (m_borderPen = Pen(Settings.Color[Colors.Border])); }
         }
 
         public Pen LargeTextPen
         {
-            get
-            {
-                if (m_largeTextPen == null)
-                {
-                    m_largeTextPen = Pen(Settings.Color[Colors.LargeText]);
-                }
-                return m_largeTextPen;
-            }
+            get { return m_largeTextPen ?? (m_largeTextPen = Pen(Settings.Color[Colors.LargeText])); }
         }
 
         public Pen FillPen
         {
-            get
-            {
-                if (m_fillPen == null)
-                {
-                    m_fillPen = Pen(Settings.Color[Colors.Fill]);
-                }
-                return m_fillPen;
-            }
+            get { return m_fillPen ?? (m_fillPen = Pen(Settings.Color[Colors.Fill])); }
         }
 
         public Pen GridPen
         {
-            get
-            {
-                if (m_gridPen == null)
-                {
-                    m_gridPen = Pen(Settings.Color[Colors.Grid], 0);
-                }
-                return m_gridPen;
-            }
+            get { return m_gridPen ?? (m_gridPen = Pen(Settings.Color[Colors.Grid], 0)); }
         }
 
         public Brush CanvasBrush
         {
-            get
-            {
-                if (m_canvasBrush == null)
-                {
-                    m_canvasBrush = Brush(Settings.Color[Colors.Canvas]);
-                }
-                return m_canvasBrush;
-            }
+            get { return m_canvasBrush ?? (m_canvasBrush = Brush(Settings.Color[Colors.Canvas])); }
         }
 
         public Brush BorderBrush
         {
-            get
-            {
-                if (m_borderBrush == null)
-                {
-                    m_borderBrush = Brush(Settings.Color[Colors.Border]);
-                }
-                return m_borderBrush;
-            }
+            get { return m_borderBrush ?? (m_borderBrush = Brush(Settings.Color[Colors.Border])); }
         }
 
         public Brush FillBrush
         {
-            get
-            {
-                if (m_fillBrush == null)
-                {
-                    m_fillBrush = Brush(Settings.Color[Colors.Fill]);
-                }
-                return m_fillBrush;
-            }
+            get { return m_fillBrush ?? (m_fillBrush = Brush(Settings.Color[Colors.Fill])); }
         }
 
         public Brush LargeTextBrush
         {
-            get
-            {
-                if (m_largeTextBrush == null)
-                {
-                    m_largeTextBrush = Brush(Settings.Color[Colors.LargeText]);
-                }
-                return m_largeTextBrush;
-            }
+            get { return m_largeTextBrush ?? (m_largeTextBrush = Brush(Settings.Color[Colors.LargeText])); }
         }
 
         public Brush SmallTextBrush
         {
-            get
-            {
-                if (m_smallTextBrush == null)
-                {
-                    m_smallTextBrush = Brush(Settings.Color[Colors.SmallText]);
-                }
-                return m_smallTextBrush;
-            }
-        }
+            get { return m_smallTextBrush ?? (m_smallTextBrush = Brush(Settings.Color[Colors.SmallText])); }
+        }  
+        
 
         public Brush LineTextBrush
         {

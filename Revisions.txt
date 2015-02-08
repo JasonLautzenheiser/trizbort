@@ -1,5 +1,9 @@
 Change Log
 
+1.5.6.0
+-------------
+++ item text inside a colored region uses the room text color.
+
 1.5.5.0
 -------------
 ++ Ctrl-Arrow keys will create room in that cardinal direction from the current room.  This just seemed natural.  Numpad Ctrl-Arrow keys still work (and only way to do diagonals)

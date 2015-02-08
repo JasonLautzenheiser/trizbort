@@ -632,18 +632,18 @@ namespace Trizbort
             }
 
             var font = Settings.LargeFont;
-            brush = new SolidBrush(regionColor.TextColor);
+            var roombrush = new SolidBrush(regionColor.TextColor);
 //            brush = context.Selected ? palette.FillBrush : palette.LargeTextBrush;
 //            brush = context.Selected ? palette.FillBrush : new SolidBrush(regionColor.TextColor);
             // Room specific fill brush (White shows global color)
-            if (RoomLargeText != ColorTranslator.FromHtml("White") && RoomLargeText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomLargeText); }
+            if (RoomLargeText != ColorTranslator.FromHtml("White") && RoomLargeText != ColorTranslator.FromHtml("#FFFFFF")) { roombrush = new SolidBrush(RoomLargeText); }
 
             var textBounds = InnerBounds;
             textBounds.Inflate(-5, -5);
 
             if (textBounds.Width > 0 && textBounds.Height > 0)
             {
-                m_name.Draw(graphics, font, brush, textBounds.Position, textBounds.Size, XStringFormats.Center);
+                m_name.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
             }
 
             var expandedBounds = InnerBounds;
@@ -653,7 +653,12 @@ namespace Trizbort
             font = Settings.SmallFont;
             brush = palette.SmallTextBrush;
             // Room specific fill brush (White shows global color)
-            if (RoomSmallText != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomSmallText); }
+            bool bUseObjectRoomBrush=false;
+            if (RoomSmallText != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF"))
+            {
+                bUseObjectRoomBrush = true;
+                brush = new SolidBrush(RoomSmallText);
+            }
 
             if (!string.IsNullOrEmpty(Objects))
             {
@@ -664,11 +669,9 @@ namespace Trizbort
                     // object list appears inside the room below its name
                     format.LineAlignment = XLineAlignment.Far;
                     format.Alignment = XStringAlignment.Near;
-                    //format.Trimming = StringTrimming.EllipsisCharacter;
-                    //format.FormatFlags = StringFormatFlags.LineLimit;
                     var height = InnerBounds.Height/2 - font.Height/2;
                     var bounds = new Rect(InnerBounds.Left + Settings.ObjectListOffsetFromRoom, InnerBounds.Bottom - height, InnerBounds.Width - Settings.ObjectListOffsetFromRoom, height - Settings.ObjectListOffsetFromRoom);
-                    brush = context.Selected ? palette.FillBrush : brush;
+                    brush = context.Selected ? palette.FillBrush : (bUseObjectRoomBrush ? new SolidBrush(RoomSmallText) : roombrush);
                     if (bounds.Width > 0 && bounds.Height > 0)
                     {
                         m_objects.Draw(graphics, font, brush, bounds.Position, bounds.Size, format);

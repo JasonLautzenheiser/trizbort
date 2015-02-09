@@ -1,5 +1,11 @@
 Change Log
 
+1.5.6.1
+-------------
+TRIZ-43 — Should we be allowed to change NoRegion "region" name?
+TRIZ-44 — Changing region name with "change" button allows duplicate region names
+TRIZ-45 — Should we grey out "delete region" for no region?
+
 1.5.6.0
 -------------
 ++ item text inside a colored region uses the room text color.

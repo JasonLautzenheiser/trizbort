@@ -482,5 +482,14 @@ namespace Trizbort
 
             m_RegionListing.SelectedIndex = itemSelected == 0 ? 0 : itemSelected - 1;
         }
+
+        private void m_RegionListing_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          if (m_RegionListing.SelectedItem == Trizbort.Region.DefaultRegion)
+            btnDeleteRegion.Enabled = false;
+          else
+            btnDeleteRegion.Enabled = true;
+
+        }
     }
 }

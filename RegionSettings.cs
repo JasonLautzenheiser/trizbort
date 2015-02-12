@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -25,7 +26,7 @@ namespace Trizbort
       lblTextColor.ForeColor = RegionToChange.TextColor;
     }
 
-    private void btnRegionColor_Click(object sender, System.EventArgs e)
+    private void btnRegionColor_Click(object sender, EventArgs e)
     {
       RegionToChange.RColor = Colors.ShowColorDialog(RegionToChange.RColor, this);
       refreshColorPanel();
@@ -37,15 +38,15 @@ namespace Trizbort
       lblTextColor.ForeColor = RegionToChange.TextColor;
     }
 
-    private void btnRegionTextColor_Click(object sender, System.EventArgs e)
+    private void btnRegionTextColor_Click(object sender, EventArgs e)
     {
       RegionToChange.TextColor = Colors.ShowColorDialog(RegionToChange.TextColor, this);
       refreshColorPanel();
     }
 
-    private void m_okButton_Click(object sender, System.EventArgs e)
+    private void m_okButton_Click(object sender, EventArgs e)
     {
-      if (txtRegionName.Text != originalName && regions.Any(p => p.RegionName == txtRegionName.Text))
+      if (!txtRegionName.Text.Equals(originalName,StringComparison.OrdinalIgnoreCase) && regions.Any(p =>p.RegionName.Equals(txtRegionName.Text,StringComparison.OrdinalIgnoreCase)))
       {
         MessageBox.Show(string.Format("A Region already exists with the name '{0}'", txtRegionName.Text));
       }

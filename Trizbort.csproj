@@ -276,6 +276,9 @@
     <Content Include="Images\ToolStripBackground.png" />
     <Content Include="Images\ToolStripBackground2.png" />
     <Content Include="Map.ico" />
+    <Content Include="Revisions.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Setup\Wizard4.bmp" />
   </ItemGroup>
   <ItemGroup>

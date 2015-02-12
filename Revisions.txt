@@ -1,5 +1,21 @@
 Change Log
 
+1.5.6.2
+-------------
+++ Ctrl-Arrow when creating new room, now keeps the starting rooms region.  (TRIZ-46)
+-- Auto naming issue when large number of regions (TRIZ-51)
+-- Map Settings / Region tab, UI is friendlier (TRIZ-52, TRIZ-53)
+-- Dark room toggle in menu is no longer enabled when a line has the focus.  (TRIZ-60)
+++ exporting an image without an extension and "All Files" selected will now use the default image type. (TRIZ-70)
+-- fixed a few issues with the save dialog not remembering directories (TRIZ-72)
+-- odd issue where disabling the Delete Region button was not working for certain files is fixed (TRIZ-73)
+-- The Recent Maps menu item handles moved / deleted maps better. (TRIZ-75)
+-- Export to Inform 7
+---- Regions now handle the case insensitivty of Inform7 better. (TRIZ-50)  
+---- Changes the syntax of the I7 output to handle regions that start with "The" (TRIZ-56)
+---- Blank room names are handled more consistantly (includes I6 and TADS) (TRIZ-61)
+---- Objects that have the same name as a room are now handled (TRIZ-62)
+
 1.5.6.1
 -------------
 TRIZ-43 — Should we be allowed to change NoRegion "region" name?

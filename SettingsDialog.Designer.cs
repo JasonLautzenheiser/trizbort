@@ -109,7 +109,7 @@ namespace Trizbort
       this.m_changeLargeFontButton = new System.Windows.Forms.Button();
       this.m_largeFontNameTextBox = new System.Windows.Forms.TextBox();
       this.tabPage2 = new System.Windows.Forms.TabPage();
-      this.tabPage5 = new System.Windows.Forms.TabPage();
+      this.tabRegions = new System.Windows.Forms.TabPage();
       this.label19 = new System.Windows.Forms.Label();
       this.btnDeleteRegion = new System.Windows.Forms.Button();
       this.btnAddRegion = new System.Windows.Forms.Button();
@@ -141,7 +141,7 @@ namespace Trizbort
       this.m_colorsGroupBox.SuspendLayout();
       this.m_fontsGroupBox.SuspendLayout();
       this.tabPage2.SuspendLayout();
-      this.tabPage5.SuspendLayout();
+      this.tabRegions.SuspendLayout();
       this.tabPage3.SuspendLayout();
       this.groupBox2.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.m_snapToElementDistanceUpDown)).BeginInit();
@@ -523,7 +523,7 @@ namespace Trizbort
       this.tabControl1.Controls.Add(this.tabPage4);
       this.tabControl1.Controls.Add(this.tabPage1);
       this.tabControl1.Controls.Add(this.tabPage2);
-      this.tabControl1.Controls.Add(this.tabPage5);
+      this.tabControl1.Controls.Add(this.tabRegions);
       this.tabControl1.Controls.Add(this.tabPage3);
       this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
       this.tabControl1.Location = new System.Drawing.Point(10, 10);
@@ -531,6 +531,7 @@ namespace Trizbort
       this.tabControl1.SelectedIndex = 0;
       this.tabControl1.Size = new System.Drawing.Size(363, 317);
       this.tabControl1.TabIndex = 0;
+      this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
       // 
       // tabPage4
       // 
@@ -866,20 +867,20 @@ namespace Trizbort
       this.tabPage2.Text = "Lines and Grid";
       this.tabPage2.UseVisualStyleBackColor = true;
       // 
-      // tabPage5
+      // tabRegions
       // 
-      this.tabPage5.Controls.Add(this.label19);
-      this.tabPage5.Controls.Add(this.btnDeleteRegion);
-      this.tabPage5.Controls.Add(this.btnAddRegion);
-      this.tabPage5.Controls.Add(this.btnChange);
-      this.tabPage5.Controls.Add(this.m_RegionListing);
-      this.tabPage5.Location = new System.Drawing.Point(4, 22);
-      this.tabPage5.Name = "tabPage5";
-      this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage5.Size = new System.Drawing.Size(355, 291);
-      this.tabPage5.TabIndex = 4;
-      this.tabPage5.Text = "Regions";
-      this.tabPage5.UseVisualStyleBackColor = true;
+      this.tabRegions.Controls.Add(this.label19);
+      this.tabRegions.Controls.Add(this.btnDeleteRegion);
+      this.tabRegions.Controls.Add(this.btnAddRegion);
+      this.tabRegions.Controls.Add(this.btnChange);
+      this.tabRegions.Controls.Add(this.m_RegionListing);
+      this.tabRegions.Location = new System.Drawing.Point(4, 22);
+      this.tabRegions.Name = "tabRegions";
+      this.tabRegions.Padding = new System.Windows.Forms.Padding(3);
+      this.tabRegions.Size = new System.Drawing.Size(355, 291);
+      this.tabRegions.TabIndex = 4;
+      this.tabRegions.Text = "Regions";
+      this.tabRegions.UseVisualStyleBackColor = true;
       // 
       // label19
       // 
@@ -898,7 +899,7 @@ namespace Trizbort
       this.btnDeleteRegion.Name = "btnDeleteRegion";
       this.btnDeleteRegion.Size = new System.Drawing.Size(92, 23);
       this.btnDeleteRegion.TabIndex = 4;
-      this.btnDeleteRegion.Text = "Delete Region";
+      this.btnDeleteRegion.Text = "&Delete Region";
       this.btnDeleteRegion.UseVisualStyleBackColor = true;
       this.btnDeleteRegion.Click += new System.EventHandler(this.btnDeleteRegion_Click);
       // 
@@ -908,8 +909,8 @@ namespace Trizbort
       this.btnAddRegion.Location = new System.Drawing.Point(186, 6);
       this.btnAddRegion.Name = "btnAddRegion";
       this.btnAddRegion.Size = new System.Drawing.Size(92, 23);
-      this.btnAddRegion.TabIndex = 3;
-      this.btnAddRegion.Text = "Add Region";
+      this.btnAddRegion.TabIndex = 2;
+      this.btnAddRegion.Text = "&Add Region";
       this.btnAddRegion.UseVisualStyleBackColor = true;
       this.btnAddRegion.Click += new System.EventHandler(this.btnAddRegion_Click);
       // 
@@ -919,7 +920,7 @@ namespace Trizbort
       this.btnChange.Location = new System.Drawing.Point(186, 34);
       this.btnChange.Name = "btnChange";
       this.btnChange.Size = new System.Drawing.Size(92, 23);
-      this.btnChange.TabIndex = 2;
+      this.btnChange.TabIndex = 3;
       this.btnChange.Text = "C&hange...";
       this.btnChange.UseVisualStyleBackColor = true;
       this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
@@ -937,6 +938,7 @@ namespace Trizbort
       this.m_RegionListing.DoubleClick += new System.EventHandler(this.onChangeRegionColor);
       this.m_RegionListing.KeyDown += new System.Windows.Forms.KeyEventHandler(this.m_RegionListing_KeyDown);
       this.m_RegionListing.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.m_RegionListing_KeyPress);
+      this.m_RegionListing.KeyUp += new System.Windows.Forms.KeyEventHandler(this.m_RegionListing_KeyUp);
       // 
       // tabPage3
       // 
@@ -1077,8 +1079,8 @@ namespace Trizbort
       this.m_fontsGroupBox.ResumeLayout(false);
       this.m_fontsGroupBox.PerformLayout();
       this.tabPage2.ResumeLayout(false);
-      this.tabPage5.ResumeLayout(false);
-      this.tabPage5.PerformLayout();
+      this.tabRegions.ResumeLayout(false);
+      this.tabRegions.PerformLayout();
       this.tabPage3.ResumeLayout(false);
       this.groupBox2.ResumeLayout(false);
       this.groupBox2.PerformLayout();
@@ -1153,7 +1155,7 @@ namespace Trizbort
         private System.Windows.Forms.CheckBox m_showOriginCheckBox;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.NumericUpDown m_preferredDistanceBetweenRoomsUpDown;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tabRegions;
         private System.Windows.Forms.ListBox m_RegionListing;
         private System.Windows.Forms.Button btnAddRegion;
         private System.Windows.Forms.Button btnChange;

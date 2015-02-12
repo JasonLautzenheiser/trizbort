@@ -1143,7 +1143,7 @@ namespace Trizbort
                 else
                 {
                     // new room entirely
-                    var newRoom = new Room(Project.Current) {Position = new Vector(centerOfNewRoom.X - room.Width/2, centerOfNewRoom.Y - room.Height/2)};
+                    var newRoom = new Room(Project.Current) {Position = new Vector(centerOfNewRoom.X - room.Width/2, centerOfNewRoom.Y - room.Height/2),Region = room.Region};
 
                     newRoom.Size = room.Size;
 

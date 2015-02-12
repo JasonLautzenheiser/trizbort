@@ -80,7 +80,7 @@ namespace Trizbort.Export
 
             // export regions
             foreach (var region in Settings.Regions.Where(region => !region.RegionName.Equals(Region.DefaultRegion, StringComparison.OrdinalIgnoreCase))) {
-                writer.WriteLine("{0} is a region.",region.RegionName);
+                writer.WriteLine("There is a region called {0}.",region.RegionName);
                 writer.WriteLine();
             }
 

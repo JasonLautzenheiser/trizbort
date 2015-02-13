@@ -234,7 +234,7 @@ namespace Trizbort
     private void addRegionsToListbox()
     {
       m_RegionListing.Items.Clear();
-      foreach (var region in Regions)
+      foreach (var region in Regions.OrderBy(p => p.RegionName != Trizbort.Region.DefaultRegion).ThenBy(p => p.RegionName))
       {
         m_RegionListing.Items.Add(region.RegionName);
       }
@@ -332,7 +332,7 @@ namespace Trizbort
       int num = 1;
       string newRegionName = "Region1";
 
-      while (Regions.Exists(p=>p.RegionName == newRegionName))
+      while (Regions.Exists(p=>p.RegionName.Equals(newRegionName,StringComparison.OrdinalIgnoreCase)))
       {
         num++;
         newRegionName = string.Format("Region{0}", num);

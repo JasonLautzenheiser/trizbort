@@ -262,12 +262,9 @@ namespace Trizbort
 
         public bool Save()
         {
-            var settings = new XmlWriterSettings();
-            settings.Encoding = Encoding.UTF8;
-            settings.Indent = true;
-            settings.IndentChars = "\t";
+          var settings = new XmlWriterSettings {Encoding = Encoding.UTF8, Indent = true, IndentChars = "\t"};
 
-            try
+          try
             {
                 using (var scribe = XmlScribe.Create(FileName))
                 {

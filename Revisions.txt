@@ -1,5 +1,11 @@
 Change Log
 
+1.5.6.3
+-------------
+-- fixed issue with region names and certain characters that would throw error when saving...now works like room names (TRIZ-80)
+++ Regions are now alphabetized (TRIZ-78)
+-- another small issue with case sensitivity and adding regions names.  (TRIZ-77)
+
 1.5.6.2
 -------------
 ++ Ctrl-Arrow when creating new room, now keeps the starting rooms region.  (TRIZ-46)

@@ -2800,7 +2800,8 @@ namespace Trizbort
 
                     regionMenu.DropDownItems.Clear();
 
-                    foreach (var region in Settings.Regions)
+                    //OrderBy(i => i != "first").ThenBy(i => i)
+                  foreach (var region in Settings.Regions.OrderBy(p => p.RegionName != Trizbort.Region.DefaultRegion).ThenBy(p=>p.RegionName))
                     {
                         var item = regionMenu.DropDownItems.Add(region.RegionName, null, regionContextClick);
                         item.Image = generateRegionImage(region);

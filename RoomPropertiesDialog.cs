@@ -43,7 +43,7 @@ namespace Trizbort
 
             // load regions control
             cboRegion.Items.Clear();
-            foreach (var region in Settings.Regions)
+            foreach (var region in Settings.Regions.OrderBy(p=>p.RegionName != Trizbort.Region.DefaultRegion).ThenBy(p=>p.RegionName))
             {
                 cboRegion.Items.Add(region.RegionName);
             }

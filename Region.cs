@@ -1,5 +1,7 @@
 using System;
 using System.Drawing;
+using System.Linq;
+using System.Xml;
 
 namespace Trizbort
 {
@@ -30,7 +32,9 @@ namespace Trizbort
 
     public string FixupRegionNameForSave()
     {
-      return RegionName.Replace(" ", "____");
+      var s = RegionName.Replace(" ", "____");
+      var validXmlChars =XmlConvert.EncodeName(s);
+      return validXmlChars; 
     }
   }
 }

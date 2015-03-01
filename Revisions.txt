@@ -1,5 +1,34 @@
 Change Log
 
+1.5.7.0
+-------------
+Bug
+-- double quotes are converted to single quotes in region names to fix I7 export issue (TRIZ-84)
+-- Colons are disallowed in region names (TRIZ-85)
+-- Line is left selected after it is drawn (TRIZ-88)
+-- blank region name is disallowed (TRIZ-98)
+-- in region setup, the focus is handled more intuitively when creating regions (TRIZ-103)
+-- Ctrl-Arrow for new room / passage preserves the current line style (TRIZ-104)
+-- Can't export an empty map to code. (TRIZ-115)
+-- fixed a null reference exception that sometimes occurred when changing a regions properties (TRIZ-113)
+-- user could leave the default graphic format blank which caused issues when smartsaving (TRIZ-98)
+-- region names now default properly on older files (TRIZ-116)
+-- underscores not allowed in region names (TRIZ-117)
+
+Cosmetics
+== the UI to indicated selected rooms is much more noticable now. (TRIZ-126)
+== renamed Tools: Restore default settings to make more sense now (TRIZ-109)
+== F2/Rename has been moved in menu to be grouped better (TRIZ-57)
+== Better handles the saving of the trizbort file during smartsave (TRIZ-95)
+
+Feature
+++ Ctrl-Shift-A will now select all rooms with the same region as the currently selected rooms (TRIZ-91)
+++ Ctrl-Alt-Arrow to resize rooms (TRIZ-114)
+++ Menu Shortcut keys to export maps to source (TRIZ-125)
+++ Properties is now on the context menu (TRIZ-127)
+++ When room(s) are selected, the arrow keys move the rooms and not the map (TRIZ-128)
+
+
 1.5.6.3
 -------------
 -- fixed issue with region names and certain characters that would throw error when saving...now works like room names (TRIZ-80)

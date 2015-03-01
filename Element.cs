@@ -217,6 +217,7 @@ namespace Trizbort
         {            
         }
 
+
         /// <summary>
         /// Get the collection of ports on the element.
         /// </summary>

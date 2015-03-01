@@ -69,8 +69,8 @@ namespace Trizbort
       this.m_fileExportImageMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
       this.m_fileExportInform7MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.inform6ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.tADSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_fileExportInform6MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_fileExportTADSMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
       this.m_fileRecentMapsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
@@ -78,7 +78,6 @@ namespace Trizbort
       this.m_editMenu = new System.Windows.Forms.ToolStripMenuItem();
       this.m_editAddRoomMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-      this.m_editRenameMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_editIsDarkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
       this.m_lineStylesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,6 +103,8 @@ namespace Trizbort
       this.m_editDeleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
       this.m_editPropertiesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_editRenameMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_editChangeRegionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewMenu = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewZoomMenu = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewZoomInMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -239,8 +240,8 @@ namespace Trizbort
             this.m_fileExportImageMenuItem,
             this.toolStripMenuItem9,
             this.m_fileExportInform7MenuItem,
-            this.inform6ToolStripMenuItem,
-            this.tADSToolStripMenuItem});
+            this.m_fileExportInform6MenuItem,
+            this.m_fileExportTADSMenuItem});
       this.m_fileExportMenu.Name = "m_fileExportMenu";
       this.m_fileExportMenu.Size = new System.Drawing.Size(213, 22);
       this.m_fileExportMenu.Text = "&Export";
@@ -248,42 +249,48 @@ namespace Trizbort
       // m_fileExportPDFMenuItem
       // 
       this.m_fileExportPDFMenuItem.Name = "m_fileExportPDFMenuItem";
-      this.m_fileExportPDFMenuItem.Size = new System.Drawing.Size(128, 22);
+      this.m_fileExportPDFMenuItem.Size = new System.Drawing.Size(200, 22);
       this.m_fileExportPDFMenuItem.Text = "&PDF...";
       this.m_fileExportPDFMenuItem.Click += new System.EventHandler(this.FileExportPDFMenuItem_Click);
       // 
       // m_fileExportImageMenuItem
       // 
       this.m_fileExportImageMenuItem.Name = "m_fileExportImageMenuItem";
-      this.m_fileExportImageMenuItem.Size = new System.Drawing.Size(128, 22);
+      this.m_fileExportImageMenuItem.Size = new System.Drawing.Size(200, 22);
       this.m_fileExportImageMenuItem.Text = "&Image...";
       this.m_fileExportImageMenuItem.Click += new System.EventHandler(this.FileExportImageMenuItem_Click);
       // 
       // toolStripMenuItem9
       // 
       this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-      this.toolStripMenuItem9.Size = new System.Drawing.Size(125, 6);
+      this.toolStripMenuItem9.Size = new System.Drawing.Size(197, 6);
       // 
       // m_fileExportInform7MenuItem
       // 
       this.m_fileExportInform7MenuItem.Name = "m_fileExportInform7MenuItem";
-      this.m_fileExportInform7MenuItem.Size = new System.Drawing.Size(128, 22);
+      this.m_fileExportInform7MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.D7)));
+      this.m_fileExportInform7MenuItem.Size = new System.Drawing.Size(200, 22);
       this.m_fileExportInform7MenuItem.Text = "Inform &7...";
       this.m_fileExportInform7MenuItem.Click += new System.EventHandler(this.FileExportInform7MenuItem_Click);
       // 
-      // inform6ToolStripMenuItem
+      // m_fileExportInform6MenuItem
       // 
-      this.inform6ToolStripMenuItem.Name = "inform6ToolStripMenuItem";
-      this.inform6ToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-      this.inform6ToolStripMenuItem.Text = "Inform &6...";
-      this.inform6ToolStripMenuItem.Click += new System.EventHandler(this.FileExportInform6MenuItem_Click);
+      this.m_fileExportInform6MenuItem.Name = "m_fileExportInform6MenuItem";
+      this.m_fileExportInform6MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.D6)));
+      this.m_fileExportInform6MenuItem.Size = new System.Drawing.Size(200, 22);
+      this.m_fileExportInform6MenuItem.Text = "Inform &6...";
+      this.m_fileExportInform6MenuItem.Click += new System.EventHandler(this.FileExportInform6MenuItem_Click);
       // 
-      // tADSToolStripMenuItem
+      // m_fileExportTADSMenuItem
       // 
-      this.tADSToolStripMenuItem.Name = "tADSToolStripMenuItem";
-      this.tADSToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-      this.tADSToolStripMenuItem.Text = "&TADS...";
-      this.tADSToolStripMenuItem.Click += new System.EventHandler(this.FileExportTadsMenuItem_Click);
+      this.m_fileExportTADSMenuItem.Name = "m_fileExportTADSMenuItem";
+      this.m_fileExportTADSMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.T)));
+      this.m_fileExportTADSMenuItem.Size = new System.Drawing.Size(200, 22);
+      this.m_fileExportTADSMenuItem.Text = "&TADS...";
+      this.m_fileExportTADSMenuItem.Click += new System.EventHandler(this.FileExportTadsMenuItem_Click);
       // 
       // toolStripSeparator12
       // 
@@ -313,7 +320,6 @@ namespace Trizbort
       this.m_editMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.m_editAddRoomMenuItem,
             this.toolStripSeparator6,
-            this.m_editRenameMenuItem,
             this.m_editIsDarkMenuItem,
             this.toolStripSeparator2,
             this.m_lineStylesMenuItem,
@@ -328,7 +334,9 @@ namespace Trizbort
             this.toolStripMenuItem8,
             this.m_editDeleteMenuItem,
             this.toolStripSeparator3,
-            this.m_editPropertiesMenuItem});
+            this.m_editPropertiesMenuItem,
+            this.m_editRenameMenuItem,
+            this.m_editChangeRegionMenuItem});
       this.m_editMenu.Name = "m_editMenu";
       this.m_editMenu.Size = new System.Drawing.Size(39, 20);
       this.m_editMenu.Text = "&Edit";
@@ -345,15 +353,6 @@ namespace Trizbort
       // 
       this.toolStripSeparator6.Name = "toolStripSeparator6";
       this.toolStripSeparator6.Size = new System.Drawing.Size(208, 6);
-      // 
-      // m_editRenameMenuItem
-      // 
-      this.m_editRenameMenuItem.Name = "m_editRenameMenuItem";
-      this.m_editRenameMenuItem.ShortcutKeyDisplayString = "";
-      this.m_editRenameMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-      this.m_editRenameMenuItem.Size = new System.Drawing.Size(211, 22);
-      this.m_editRenameMenuItem.Text = "Re&name";
-      this.m_editRenameMenuItem.Click += new System.EventHandler(this.EditRenameMenuItem_Click);
       // 
       // m_editIsDarkMenuItem
       // 
@@ -544,6 +543,23 @@ namespace Trizbort
       this.m_editPropertiesMenuItem.Text = "P&roperties";
       this.m_editPropertiesMenuItem.Click += new System.EventHandler(this.EditPropertiesMenuItem_Click);
       // 
+      // m_editRenameMenuItem
+      // 
+      this.m_editRenameMenuItem.Name = "m_editRenameMenuItem";
+      this.m_editRenameMenuItem.ShortcutKeyDisplayString = "";
+      this.m_editRenameMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
+      this.m_editRenameMenuItem.Size = new System.Drawing.Size(211, 22);
+      this.m_editRenameMenuItem.Text = "Re&name";
+      this.m_editRenameMenuItem.Click += new System.EventHandler(this.EditRenameMenuItem_Click);
+      // 
+      // m_editChangeRegionMenuItem
+      // 
+      this.m_editChangeRegionMenuItem.Name = "m_editChangeRegionMenuItem";
+      this.m_editChangeRegionMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F2)));
+      this.m_editChangeRegionMenuItem.Size = new System.Drawing.Size(211, 22);
+      this.m_editChangeRegionMenuItem.Text = "Change Region";
+      this.m_editChangeRegionMenuItem.Click += new System.EventHandler(this.m_editChangeRegionMenuItem_Click);
+      // 
       // m_viewMenu
       // 
       this.m_viewMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -651,14 +667,14 @@ namespace Trizbort
       // m_automapStartMenuItem
       // 
       this.m_automapStartMenuItem.Name = "m_automapStartMenuItem";
-      this.m_automapStartMenuItem.Size = new System.Drawing.Size(107, 22);
+      this.m_automapStartMenuItem.Size = new System.Drawing.Size(152, 22);
       this.m_automapStartMenuItem.Text = "&Start...";
       this.m_automapStartMenuItem.Click += new System.EventHandler(this.AutomapStartMenuItem_Click);
       // 
       // m_automapStopMenuItem
       // 
       this.m_automapStopMenuItem.Name = "m_automapStopMenuItem";
-      this.m_automapStopMenuItem.Size = new System.Drawing.Size(107, 22);
+      this.m_automapStopMenuItem.Size = new System.Drawing.Size(152, 22);
       this.m_automapStopMenuItem.Text = "S&top";
       this.m_automapStopMenuItem.Click += new System.EventHandler(this.AutomapStopMenuItem_Click);
       // 
@@ -676,27 +692,27 @@ namespace Trizbort
       // m_projectSettingsMenuItem
       // 
       this.m_projectSettingsMenuItem.Name = "m_projectSettingsMenuItem";
-      this.m_projectSettingsMenuItem.Size = new System.Drawing.Size(199, 22);
+      this.m_projectSettingsMenuItem.Size = new System.Drawing.Size(226, 22);
       this.m_projectSettingsMenuItem.Text = "Map &Settings...";
       this.m_projectSettingsMenuItem.Click += new System.EventHandler(this.ProjectSettingsMenuItem_Click);
       // 
       // appSettingsToolStripMenuItem
       // 
       this.appSettingsToolStripMenuItem.Name = "appSettingsToolStripMenuItem";
-      this.appSettingsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+      this.appSettingsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
       this.appSettingsToolStripMenuItem.Text = "&App Settings...";
       this.appSettingsToolStripMenuItem.Click += new System.EventHandler(this.appSettingsToolStripMenuItem_Click);
       // 
       // toolStripSeparator11
       // 
       this.toolStripSeparator11.Name = "toolStripSeparator11";
-      this.toolStripSeparator11.Size = new System.Drawing.Size(196, 6);
+      this.toolStripSeparator11.Size = new System.Drawing.Size(223, 6);
       // 
       // m_projectResetToDefaultSettingsMenuItem
       // 
       this.m_projectResetToDefaultSettingsMenuItem.Name = "m_projectResetToDefaultSettingsMenuItem";
-      this.m_projectResetToDefaultSettingsMenuItem.Size = new System.Drawing.Size(199, 22);
-      this.m_projectResetToDefaultSettingsMenuItem.Text = "&Restore Default Settings";
+      this.m_projectResetToDefaultSettingsMenuItem.Size = new System.Drawing.Size(226, 22);
+      this.m_projectResetToDefaultSettingsMenuItem.Text = "&Restore Default Map Settings";
       this.m_projectResetToDefaultSettingsMenuItem.Click += new System.EventHandler(this.ProjectResetToDefaultSettingsMenuItem_Click);
       // 
       // m_helpMenu
@@ -906,14 +922,15 @@ namespace Trizbort
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem m_viewEntireMapMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem9;
-        private System.Windows.Forms.ToolStripMenuItem tADSToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem inform6ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_fileExportTADSMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_fileExportInform6MenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem m_editCopyMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_editPasteMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_editCopyColorToolMenuItem;
         private System.Windows.Forms.ToolStripMenuItem appSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem smartSaveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_editChangeRegionMenuItem;
         
     }
 }

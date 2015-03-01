@@ -267,22 +267,39 @@ namespace Trizbort
 
     private void smartSave()
     {
+      bool mSaved = false;
       if (!Project.Current.HasFileName || Project.Current.IsDirty)
       {
-        SaveProject();
+        if (MessageBox.Show("Your project needs saved before we can do a SmartSave.  Would you like to save the project now?", "Save Project?", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+        {
+          SaveProject();
+          mSaved = true;
+        }
+      }
+      else
+      {
+        mSaved = true;
       }
 
-      if (Project.Current.HasFileName)
-      {
-        var sPDFFile = exportPDF();
-        var sImageFile = exportImage();
 
-        if (sPDFFile == string.Empty)
-          MessageBox.Show(string.Format("There was an error saving the PDF file during the SmartSave.  Please make sure the PDF is not already opened."), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-        else if (sImageFile == string.Empty)
-          MessageBox.Show(string.Format("There was an error saving the Image file during the SmartSave.  Please make sure the Image is not already opened."), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-        else
-          MessageBox.Show(string.Format("Image file has been saved to {0}{1}PDF file has been saved to {2}", sImageFile, Environment.NewLine, sPDFFile), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      if (mSaved)
+      {
+        if (Project.Current.HasFileName)
+        {
+          var sPDFFile = exportPDF();
+          var sImageFile = exportImage();
+
+          if (sPDFFile == string.Empty)
+            MessageBox.Show(string.Format("There was an error saving the PDF file during the SmartSave.  Please make sure the PDF is not already opened."), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+          else if (sImageFile == string.Empty)
+            MessageBox.Show(string.Format("There was an error saving the Image file during the SmartSave.  Please make sure the Image is not already opened."), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+          else
+            MessageBox.Show(string.Format("Image file has been saved to {0}{1}PDF file has been saved to {2}", sImageFile, Environment.NewLine, sPDFFile), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+      }
+      else
+      {
+        MessageBox.Show("No files have been saved during the SmartSave.");
       }
     }
 
@@ -849,7 +866,29 @@ namespace Trizbort
 
     private void FileMenu_DropDownOpening(object sender, EventArgs e)
     {
-      // MRU list
+      setupMRUMenu();
+
+      setupExportMenu();
+    }
+
+    private void setupExportMenu()
+    {
+      if (Project.Current.Elements.OfType<Room>().Any())
+      {
+        m_fileExportInform7MenuItem.Enabled = true;
+        m_fileExportInform6MenuItem.Enabled = true;
+        m_fileExportTADSMenuItem.Enabled = true;
+      }
+      else
+      {
+        m_fileExportInform7MenuItem.Enabled = false;
+        m_fileExportInform6MenuItem.Enabled = false;
+        m_fileExportTADSMenuItem.Enabled = false;
+      }
+    }
+
+    private void setupMRUMenu()
+    {
       var existingItems = new List<ToolStripItem>();
       foreach (ToolStripItem existingItem in m_fileRecentMapsMenuItem.DropDownItems)
       {
@@ -924,6 +963,20 @@ namespace Trizbort
     private void m_editPasteMenuItem_Click(object sender, EventArgs e)
     {
       Canvas.Paste(false);
+    }
+
+    private void m_editChangeRegionMenuItem_Click(object sender, EventArgs e)
+    {
+      if (Canvas.HasSingleSelectedElement && Canvas.SelectedElement.HasDialog)
+      {
+        var element = Canvas.SelectedElement as Room;
+        if (element != null)
+        {
+          var room = element;
+          room.ShowDialog(PropertiesStartType.Region);
+          
+        }
+      }
     }
   }
 }

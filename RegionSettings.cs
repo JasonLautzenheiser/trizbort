@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Trizbort
@@ -46,15 +47,30 @@ namespace Trizbort
 
     private void m_okButton_Click(object sender, EventArgs e)
     {
-      if (!txtRegionName.Text.Equals(originalName,StringComparison.OrdinalIgnoreCase) && regions.Any(p =>p.RegionName.Equals(txtRegionName.Text,StringComparison.OrdinalIgnoreCase)))
+      txtRegionName.Text = txtRegionName.Text.Replace("\"", "'");
+      if (Trizbort.Region.ValidRegionName(txtRegionName.Text))
       {
-        MessageBox.Show(string.Format("A Region already exists with the name '{0}'", txtRegionName.Text));
+        if (!txtRegionName.Text.Equals(originalName, StringComparison.OrdinalIgnoreCase) && regions.Any(p => p.RegionName.Equals(txtRegionName.Text, StringComparison.OrdinalIgnoreCase)))
+        {
+          MessageBox.Show(string.Format("A Region already exists with the name '{0}'", txtRegionName.Text));
+        }
+        else
+        {
+          RegionToChange.RegionName = txtRegionName.Text;
+          DialogResult = DialogResult.OK;
+        }
       }
       else
       {
-        RegionToChange.RegionName = txtRegionName.Text;
-        DialogResult = DialogResult.OK;
+        MessageBox.Show("You can't have an empty region name","Empty Region Name",MessageBoxButtons.OK, MessageBoxIcon.Error);
+        txtRegionName.Focus();
       }
+    }
+
+    private void txtRegionName_KeyPress(object sender, KeyPressEventArgs e)
+    {
+      if (e.KeyChar.ToString() == "_" || e.KeyChar.ToString() == ":")
+        e.Handled = true;
     }
   }
 }

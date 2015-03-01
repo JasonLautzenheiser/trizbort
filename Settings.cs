@@ -603,7 +603,7 @@ namespace Trizbort
       Color[Colors.Border] = System.Drawing.Color.MidnightBlue;
       Color[Colors.Line] = System.Drawing.Color.MidnightBlue;
       Color[Colors.HoverLine] = System.Drawing.Color.DarkOrange;
-      Color[Colors.SelectedLine] = System.Drawing.Color.SteelBlue;
+      Color[Colors.SelectedLine] = System.Drawing.Color.Gold;
       Color[Colors.LargeText] = System.Drawing.Color.MidnightBlue;
       Color[Colors.SmallText] = System.Drawing.Color.MidnightBlue;
       Color[Colors.LineText] = System.Drawing.Color.MidnightBlue;

@@ -291,23 +291,22 @@ namespace Trizbort
 
     private void changeRegionColor()
     {
-      string originalRegionName;
       var selectedIndex = m_RegionListing.SelectedIndex;
+      if (selectedIndex == -1) return;
       var region = Regions.FirstOrDefault(p => p.RegionName == m_RegionListing.Items[selectedIndex].ToString());
-      originalRegionName = region.RegionName;
-      RegionSettings frm = new RegionSettings(region, Regions);
-      if (frm.ShowDialog() == DialogResult.OK)
-      {
-        if (region != null)
+      if (region != null) {
+        var originalRegionName = region.RegionName;
+        RegionSettings frm = new RegionSettings(region, Regions);
+        if (frm.ShowDialog() == DialogResult.OK)
         {
           region.RColor = frm.RegionToChange.RColor;
           region.TextColor = frm.RegionToChange.TextColor;
           region.RegionName = frm.RegionToChange.RegionName;
           updateExistingRoomRegions(frm.RegionToChange.RegionName, originalRegionName);
+          addRegionsToListbox();
+          m_RegionListing.Invalidate();
+          m_RegionListing.SelectedIndex = selectedIndex;
         }
-        addRegionsToListbox();
-        m_RegionListing.Invalidate();
-        m_RegionListing.SelectedIndex = selectedIndex;
       }
     }
 
@@ -323,7 +322,10 @@ namespace Trizbort
       Regions.Add(region);
       addRegionsToListbox();
       m_colorListBox.Invalidate();
-      m_RegionListing.SelectedIndex = m_RegionListing.Items.Count - 1;
+
+      int newOne = m_RegionListing.FindString(region.RegionName);
+
+      m_RegionListing.SelectedIndex = newOne;
       m_RegionListing.Focus();
     }
 
@@ -371,14 +373,14 @@ namespace Trizbort
 
     private void m_RegionListing_KeyPress(object sender, KeyPressEventArgs e)
     {
-      if (e.KeyChar == 13)
-        createEditBox(sender);
     }
 
     private void m_RegionListing_KeyDown(object sender, KeyEventArgs e)
     {
       if (e.KeyData == Keys.F2)
+      {
         createEditBox(sender);
+      }
     }
 
     private void createEditBox(object sender)
@@ -408,6 +410,7 @@ namespace Trizbort
       if (editBox.Visible)
       {
         updateHideRegionTextBox();
+        m_RegionListing.Focus();
       }
     }
 
@@ -416,12 +419,20 @@ namespace Trizbort
       if (!bUpdatingRegionText)
       {
         bUpdatingRegionText = true;
-        if (updateRegionName(editBox.Text, m_RegionListing.Items[itemSelected].ToString()))
-          editBox.Hide();
+        editBox.Text = editBox.Text.Replace("\"", "'");
+        if (Trizbort.Region.ValidRegionName(editBox.Text))
+        {
+          if (updateRegionName(editBox.Text, m_RegionListing.Items[itemSelected].ToString()))
+            editBox.Hide();
+          else
+          {
+            editBox.Focus();
+            editBox.SelectAll();
+          }
+        }
         else
         {
-          editBox.Focus();
-          editBox.SelectAll();
+          editBox.Hide();
         }
         bUpdatingRegionText = false;
       }
@@ -461,6 +472,12 @@ namespace Trizbort
 
     private void editBoxKeyPress(object sender, KeyPressEventArgs e)
     {
+      if (e.KeyChar.ToString() == "_" || e.KeyChar.ToString() == ":")
+      {
+        e.Handled = true;
+        return;
+      }
+
       if (e.KeyChar == (char)Keys.Enter || e.KeyChar == (char)Keys.Return)
       {
         updateHideRegionTextBox();

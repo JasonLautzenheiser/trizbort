@@ -25,6 +25,14 @@ namespace Trizbort
       get { return "NoRegion"; }
     }
 
+    public static bool ValidRegionName(string name)
+    {
+      if (string.IsNullOrWhiteSpace(name))
+        return false;
+
+      return true;
+    }
+
     public string ClearRegionNameObfuscation()
     {
       return RegionName.Replace("____", " ");

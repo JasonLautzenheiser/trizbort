@@ -37,7 +37,7 @@ namespace Trizbort
         private static Tab m_lastViewedTab = Tab.Objects;
         private bool m_adjustingPosition;
 
-        public RoomPropertiesDialog()
+        public RoomPropertiesDialog(PropertiesStartType start)
         {
             InitializeComponent();
 
@@ -53,6 +53,13 @@ namespace Trizbort
             if (Settings.Regions.Count > 0)
                 cboRegion.SelectedIndex = 0;
 
+          if (start == PropertiesStartType.Region)
+          {
+            m_tabControl.SelectedIndex = (int) Tab.Regions;
+            cboRegion.Select();
+          }
+          else
+          {
             switch (m_lastViewedTab)
             {
                 case Tab.Objects:
@@ -68,6 +75,10 @@ namespace Trizbort
                     m_tabControl.SelectedIndex = 3;
                     break;
             }
+
+            if (start == PropertiesStartType.RoomName)
+              m_nameTextBox.Focus();
+          }
         }
 
         public string RoomName
@@ -229,7 +240,9 @@ namespace Trizbort
             set { m_objectTextTextBox.BackColor = value; }
         }
 
-        private void RegionListBox_DrawItem(object sender, DrawItemEventArgs e)
+      
+
+      private void RegionListBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             using (var palette = new Palette())
             {

@@ -269,6 +269,7 @@ namespace Trizbort
                 using (var scribe = XmlScribe.Create(FileName))
                 {
                     scribe.StartElement("trizbort");
+                    scribe.Attribute("version", Application.ProductVersion);
                     scribe.StartElement("info");
                     if (!string.IsNullOrEmpty(Title))
                     {

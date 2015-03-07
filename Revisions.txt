@@ -1,5 +1,9 @@
 Change Log
 
+1.5.7.1
+-------------
+++ add version number to the saved trizbort files.
+
 1.5.7.0
 -------------
 Bug

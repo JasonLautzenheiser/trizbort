@@ -521,61 +521,68 @@ namespace Trizbort
     {
       var random = new Random(Name.GetHashCode());
 
-      var topLeft = InnerBounds.GetCorner(CompassPoint.NorthWest);
-      var topRight = InnerBounds.GetCorner(CompassPoint.NorthEast);
-      var bottomLeft = InnerBounds.GetCorner(CompassPoint.SouthWest);
-      var bottomRight = InnerBounds.GetCorner(CompassPoint.SouthEast);
+//      if (false)
+//      {
+//        graphics.DrawEllipse(new XPen(Color.Black), InnerBounds.ToRectangle());
+//      }
+//      else
+        var topLeft = InnerBounds.GetCorner(CompassPoint.NorthWest);
+        var topRight = InnerBounds.GetCorner(CompassPoint.NorthEast);
+        var bottomLeft = InnerBounds.GetCorner(CompassPoint.SouthWest);
+        var bottomRight = InnerBounds.GetCorner(CompassPoint.SouthEast);
 
-      var topCenter = InnerBounds.GetCorner(CompassPoint.North);
-      var rightCenter = InnerBounds.GetCorner(CompassPoint.East);
-      var bottomCenter = InnerBounds.GetCorner(CompassPoint.South);
-      var leftCenter = InnerBounds.GetCorner(CompassPoint.West);
+        var topCenter = InnerBounds.GetCorner(CompassPoint.North);
+        var rightCenter = InnerBounds.GetCorner(CompassPoint.East);
+        var bottomCenter = InnerBounds.GetCorner(CompassPoint.South);
+        var leftCenter = InnerBounds.GetCorner(CompassPoint.West);
 
-      var top = new LineSegment(topLeft, topRight);
-      var right = new LineSegment(topRight, bottomRight);
-      var bottom = new LineSegment(bottomRight, bottomLeft);
-      var left = new LineSegment(bottomLeft, topLeft);
+        var top = new LineSegment(topLeft, topRight);
+        var right = new LineSegment(topRight, bottomRight);
+        var bottom = new LineSegment(bottomRight, bottomLeft);
+        var left = new LineSegment(bottomLeft, topLeft);
 
-      var halfTopRight = new LineSegment(topCenter, topRight);
-      var halfBottomRight = new LineSegment(bottomRight, bottomCenter);
-      var centerVertical = new LineSegment(bottomCenter, topCenter);
+        var halfTopRight = new LineSegment(topCenter, topRight);
+        var halfBottomRight = new LineSegment(bottomRight, bottomCenter);
+        var centerVertical = new LineSegment(bottomCenter, topCenter);
 
-      var centerHorizontal = new LineSegment(leftCenter, rightCenter);
-      var halfRightBottom = new LineSegment(rightCenter, bottomRight);
-      var halfLeftBottom = new LineSegment(bottomLeft, leftCenter);
+        var centerHorizontal = new LineSegment(leftCenter, rightCenter);
+        var halfRightBottom = new LineSegment(rightCenter, bottomRight);
+        var halfLeftBottom = new LineSegment(bottomLeft, leftCenter);
 
-      var slantUp = new LineSegment(bottomLeft, topRight);
-      var slantDown = new LineSegment(bottomRight, topLeft);
+        var slantUp = new LineSegment(bottomLeft, topRight);
+        var slantDown = new LineSegment(bottomRight, topLeft);
 
-      context.LinesDrawn.Add(top);
-      context.LinesDrawn.Add(right);
-      context.LinesDrawn.Add(bottom);
-      context.LinesDrawn.Add(left);
+        context.LinesDrawn.Add(top);
+        context.LinesDrawn.Add(right);
+        context.LinesDrawn.Add(bottom);
+        context.LinesDrawn.Add(left);
 
 
-      if (context.Selected)
-      {
-        var tBounds = InnerBounds;
-        tBounds.Inflate(5);
+        if (context.Selected)
+        {
+          var tBounds = InnerBounds;
+          tBounds.Inflate(5);
 
-        var topLeftSelect = tBounds.GetCorner(CompassPoint.NorthWest);
-        var topRightSelect = tBounds.GetCorner(CompassPoint.NorthEast);
-        var bottomLeftSelect = tBounds.GetCorner(CompassPoint.SouthWest);
-        var bottomRightSelect = tBounds.GetCorner(CompassPoint.SouthEast);
+          var topLeftSelect = tBounds.GetCorner(CompassPoint.NorthWest);
+          var topRightSelect = tBounds.GetCorner(CompassPoint.NorthEast);
+          var bottomLeftSelect = tBounds.GetCorner(CompassPoint.SouthWest);
+          var bottomRightSelect = tBounds.GetCorner(CompassPoint.SouthEast);
 
-        var topSelect = new LineSegment(topLeftSelect, topRightSelect);
-        var rightSelect = new LineSegment(topRightSelect, bottomRightSelect);
-        var bottomSelect = new LineSegment(bottomRightSelect, bottomLeftSelect);
-        var leftSelect = new LineSegment(bottomLeftSelect, topLeftSelect);
+          var topSelect = new LineSegment(topLeftSelect, topRightSelect);
+          var rightSelect = new LineSegment(topRightSelect, bottomRightSelect);
+          var bottomSelect = new LineSegment(bottomRightSelect, bottomLeftSelect);
+          var leftSelect = new LineSegment(bottomLeftSelect, topLeftSelect);
 
-        var pathSelected = palette.Path();
-        Drawing.AddLine(pathSelected, topSelect, random);
-        Drawing.AddLine(pathSelected, rightSelect, random);
-        Drawing.AddLine(pathSelected, bottomSelect, random);
-        Drawing.AddLine(pathSelected, leftSelect, random);
-        var brushSelected = new SolidBrush(Color.Gold);
-        graphics.DrawPath(brushSelected, pathSelected);
-      }
+          var pathSelected = palette.Path();
+          Drawing.AddLine(pathSelected, topSelect, random);
+          Drawing.AddLine(pathSelected, rightSelect, random);
+          Drawing.AddLine(pathSelected, bottomSelect, random);
+          Drawing.AddLine(pathSelected, leftSelect, random);
+          var brushSelected = new SolidBrush(Color.Gold);
+          graphics.DrawPath(brushSelected, pathSelected);
+        }
+        
+
       var brush = context.Selected ? palette.BorderBrush : palette.FillBrush;
 
       // get region color

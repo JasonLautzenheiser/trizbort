@@ -270,7 +270,7 @@ namespace Trizbort
       bool mSaved = false;
       if (!Project.Current.HasFileName || Project.Current.IsDirty)
       {
-        if (MessageBox.Show("Your project needs saved before we can do a SmartSave.  Would you like to save the project now?", "Save Project?", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+        if (MessageBox.Show("Your project needs to be saved before we can do a SmartSave.  Would you like to save the project now?", "Save Project?", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
         {
           SaveProject();
           mSaved = true;

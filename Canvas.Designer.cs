@@ -48,9 +48,12 @@ namespace Trizbort
       this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.roomPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.m_minimap = new Trizbort.Minimap();
+      this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+      this.mapSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.applicationSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.lblZoom = new System.Windows.Forms.Label();
       this.roomTooltip = new DevComponents.DotNetBar.SuperTooltip();
+      this.m_minimap = new Trizbort.Minimap();
       this.ctxCanvasMenu.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -88,45 +91,59 @@ namespace Trizbort
             this.regionToolStripMenuItem,
             this.darkToolStripMenuItem,
             this.toolStripSeparator1,
-            this.roomPropertiesToolStripMenuItem});
+            this.roomPropertiesToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.mapSettingsToolStripMenuItem,
+            this.applicationSettingsToolStripMenuItem});
       this.ctxCanvasMenu.Name = "ctxCanvasMenu";
-      this.ctxCanvasMenu.Size = new System.Drawing.Size(153, 98);
+      this.ctxCanvasMenu.Size = new System.Drawing.Size(190, 148);
       this.ctxCanvasMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxCanvasMenu_Opening);
       // 
       // regionToolStripMenuItem
       // 
+      this.regionToolStripMenuItem.Enabled = false;
       this.regionToolStripMenuItem.Name = "regionToolStripMenuItem";
-      this.regionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-      this.regionToolStripMenuItem.Text = "Set Region";
+      this.regionToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.regionToolStripMenuItem.Text = "&Set Region";
       // 
       // darkToolStripMenuItem
       // 
+      this.darkToolStripMenuItem.Enabled = false;
       this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
-      this.darkToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-      this.darkToolStripMenuItem.Text = "Dark";
+      this.darkToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.darkToolStripMenuItem.Text = "&Dark";
       // 
       // toolStripSeparator1
       // 
       this.toolStripSeparator1.Name = "toolStripSeparator1";
-      this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+      this.toolStripSeparator1.Size = new System.Drawing.Size(186, 6);
       // 
       // roomPropertiesToolStripMenuItem
       // 
+      this.roomPropertiesToolStripMenuItem.Enabled = false;
       this.roomPropertiesToolStripMenuItem.Name = "roomPropertiesToolStripMenuItem";
-      this.roomPropertiesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-      this.roomPropertiesToolStripMenuItem.Text = "Properties";
+      this.roomPropertiesToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.roomPropertiesToolStripMenuItem.Text = "&Properties...";
       this.roomPropertiesToolStripMenuItem.Click += new System.EventHandler(this.roomPropertiesToolStripMenuItem_Click);
       // 
-      // m_minimap
+      // toolStripSeparator2
       // 
-      this.m_minimap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_minimap.BackColor = System.Drawing.Color.White;
-      this.m_minimap.Canvas = null;
-      this.m_minimap.Location = new System.Drawing.Point(222, 0);
-      this.m_minimap.Name = "m_minimap";
-      this.m_minimap.Size = new System.Drawing.Size(197, 128);
-      this.m_minimap.TabIndex = 6;
-      this.m_minimap.TabStop = false;
+      this.toolStripSeparator2.Name = "toolStripSeparator2";
+      this.toolStripSeparator2.Size = new System.Drawing.Size(186, 6);
+      // 
+      // mapSettingsToolStripMenuItem
+      // 
+      this.mapSettingsToolStripMenuItem.Name = "mapSettingsToolStripMenuItem";
+      this.mapSettingsToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.mapSettingsToolStripMenuItem.Text = "&Map Settings...";
+      this.mapSettingsToolStripMenuItem.Click += new System.EventHandler(this.mapSettingsToolStripMenuItem_Click);
+      // 
+      // applicationSettingsToolStripMenuItem
+      // 
+      this.applicationSettingsToolStripMenuItem.Name = "applicationSettingsToolStripMenuItem";
+      this.applicationSettingsToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.applicationSettingsToolStripMenuItem.Text = "&Application Settings...";
+      this.applicationSettingsToolStripMenuItem.Click += new System.EventHandler(this.applicationSettingsToolStripMenuItem_Click);
       // 
       // lblZoom
       // 
@@ -145,6 +162,17 @@ namespace Trizbort
       this.roomTooltip.CheckTooltipPosition = false;
       this.roomTooltip.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
       this.roomTooltip.PositionBelowControl = false;
+      // 
+      // m_minimap
+      // 
+      this.m_minimap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_minimap.BackColor = System.Drawing.Color.White;
+      this.m_minimap.Canvas = null;
+      this.m_minimap.Location = new System.Drawing.Point(222, 0);
+      this.m_minimap.Name = "m_minimap";
+      this.m_minimap.Size = new System.Drawing.Size(197, 128);
+      this.m_minimap.TabIndex = 6;
+      this.m_minimap.TabStop = false;
       // 
       // Canvas
       // 
@@ -177,5 +205,8 @@ namespace Trizbort
         private DevComponents.DotNetBar.SuperTooltip roomTooltip;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem roomPropertiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem mapSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem applicationSettingsToolStripMenuItem;
     }
 }

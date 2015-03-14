@@ -503,7 +503,7 @@ namespace Trizbort
       Regions.RemoveAll(p => p.RegionName == m_RegionListing.Items[itemSelected].ToString());
       addRegionsToListbox();
 
-      m_RegionListing.SelectedIndex = itemSelected == 0 ? 0 : itemSelected - 1;
+      m_RegionListing.SelectedIndex = itemSelected == 0 ? 0 : (itemSelected + 1) >= m_RegionListing.Items.Count ? m_RegionListing.Items.Count - 1 : (itemSelected);
       m_RegionListing.Focus();
     }
 

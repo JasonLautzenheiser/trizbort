@@ -588,7 +588,7 @@ namespace Trizbort
           if (HoverElement == null)
             graphics.DrawString(new Point(0, 0).ToString(), Settings.LargeFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.LargeFont.GetHeight()));
           else
-            graphics.DrawString(PointToScreen(HoverElement.Position.ToPoint()).ToString(), Settings.LargeFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.LargeFont.GetHeight()));
+            graphics.DrawString(PointToClient(HoverElement.Position.ToPoint()).ToString(), Settings.LargeFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.LargeFont.GetHeight()));
         }
       }
 
@@ -988,10 +988,21 @@ namespace Trizbort
               if ((roomTooltip.IsTooltipVisible) && (sameElement)) return;
 
               var toolTip = new SuperTooltipInfo(HoverElement.GetToolTipHeader(), HoverElement.GetToolTipFooter(), HoverElement.GetToolTipText(), null, null, HoverElement.GetToolTipColor());
+
               roomTooltip.SetSuperTooltip(this, toolTip);
-              var tPoint = MousePosition;
-              tPoint.Offset(20, 20);
-              roomTooltip.ShowTooltip(this, tPoint);
+              
+              Vector tPoint = new Vector();
+              Point xPoint = new Point();
+              if (hoverElement is Room)
+              {
+                var tRoom = (Room) hoverElement;
+                tPoint = tRoom.Position;
+                tPoint.Y += tRoom.Height+10;
+                tPoint.X -= 10;
+              }
+              var xxttPoint = CanvasToClient(tPoint);
+              var newPoint = PointToScreen(new Point((int) xxttPoint.X, (int) xxttPoint.Y));
+              roomTooltip.ShowTooltip(this,newPoint);
             }
           }
           break;
@@ -1105,8 +1116,7 @@ namespace Trizbort
       }
       else if (e.KeyCode == Keys.Right && ModifierKeys == (Keys.Alt | Keys.Control))
       {
-        var element = SelectedElement as Room;
-        if (element != null)
+        foreach (var element in SelectedElements.OfType<Room>())
         {
           var delta = 2.0f;
           if (Settings.SnapToGrid)
@@ -1115,10 +1125,10 @@ namespace Trizbort
           room.Size = new Vector(room.Width + delta, room.Height);
         }
       }
+
       else if (e.KeyCode == Keys.Left && ModifierKeys == (Keys.Alt | Keys.Control))
       {
-        var element = SelectedElement as Room;
-        if (element != null)
+        foreach (var element in SelectedElements.OfType<Room>())
         {
           var delta = 2.0f;
           if (Settings.SnapToGrid)
@@ -1129,10 +1139,10 @@ namespace Trizbort
             room.Size = new Vector(f, room.Height);
         }
       }
+
       else if (e.KeyCode == Keys.Down && ModifierKeys == (Keys.Alt | Keys.Control))
       {
-        var element = SelectedElement as Room;
-        if (element != null)
+        foreach (var element in SelectedElements.OfType<Room>())
         {
           var delta = 2.0f;
           if (Settings.SnapToGrid)
@@ -1143,8 +1153,7 @@ namespace Trizbort
       }
       else if (e.KeyCode == Keys.Up && ModifierKeys == (Keys.Alt | Keys.Control))
       {
-        var element = SelectedElement as Room;
-        if (element != null)
+        foreach (var element in SelectedElements.OfType<Room>())
         {
           var delta = 2.0f;
           if (Settings.SnapToGrid)
@@ -1740,6 +1749,22 @@ namespace Trizbort
       }
       room.Position = pos;
       Project.Current.Elements.Add(room);
+
+      if (SelectedElement is Connection)
+      {
+        var conn = (Connection) SelectedElement;
+
+        CompassPoint targetCompass;
+        CompassPoint sourceCompass;
+        var target = conn.GetTargetRoom(out targetCompass);
+        var source = conn.GetSourceRoom(out sourceCompass);
+
+        addConnection(source, sourceCompass, room, targetCompass);
+        addConnection(room, sourceCompass, target, targetCompass);
+
+        Project.Current.Elements.Remove(conn);
+      }
+
       SelectedElement = room;
       Refresh();
     }
@@ -2853,7 +2878,9 @@ namespace Trizbort
       var hitElement = hitTestElement(canvasPos, false);
       var regionMenu = regionToolStripMenuItem;
 
-      darkToolStripMenuItem.Visible = false;
+      darkToolStripMenuItem.Enabled=false;
+      roomPropertiesToolStripMenuItem.Enabled = false;
+      regionMenu.Enabled = false;
 
       regionMenu.Enabled = false;
       if (hitElement != null)
@@ -2873,14 +2900,17 @@ namespace Trizbort
               ((ToolStripMenuItem) item).Checked = true;
           }
 
-          darkToolStripMenuItem.Visible = true;
+          roomPropertiesToolStripMenuItem.Enabled = true;
+
+          darkToolStripMenuItem.Enabled = true;
           darkToolStripMenuItem.Click += darkToolStripMenuItem_Click;
           darkToolStripMenuItem.Checked = lastSelectedRoom.IsDark;
         }
         if (hitElement is Connection)
         {
-          regionMenu.Visible = false;
-          toolStripSeparator1.Visible = false;
+          roomPropertiesToolStripMenuItem.Enabled = true;
+          regionMenu.Enabled = false;
+          darkToolStripMenuItem.Enabled = false;
         }
       }
     }
@@ -2943,6 +2973,17 @@ namespace Trizbort
     private void roomPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
     {
       SelectedElement.ShowDialog();
+    }
+
+    private void mapSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Settings.ShowMapDialog();
+      Refresh();
+    }
+
+    private void applicationSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Settings.ShowAppDialog();
     }
   }
 }

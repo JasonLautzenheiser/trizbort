@@ -1,5 +1,15 @@
 Change Log
 
+1.5.8.0
+-------------
+++ Insert a room between two other connected rooms.
+++ updates to context menu.
+++ made the focus after deleting a region make more sense.
+++ ability to resize multiple rooms at once with keyboard
+-- Fixed tooltip positions based on room so they don't overlap.
+-- fixed tab ordering of app settings.
+
+
 1.5.7.1
 -------------
 ++ add version number to the saved trizbort files.

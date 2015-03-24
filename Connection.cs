@@ -535,7 +535,8 @@ namespace Trizbort
         format.Alignment = XStringAlignment.Center;
         format.LineAlignment = XLineAlignment.Near;
       }
-      text.Draw(graphics, Settings.LineFont, palette.LineBrush, pos, Vector.Zero, format);
+      if (!Settings.DebugDisableTextRendering)
+        text.Draw(graphics, Settings.LineFont, palette.LineBrush, pos, Vector.Zero, format);
     }
 
     public override Rect UnionBoundsWith(Rect rect, bool includeMargins)

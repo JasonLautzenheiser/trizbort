@@ -677,7 +677,9 @@ namespace Trizbort
 
       if (textBounds.Width > 0 && textBounds.Height > 0)
       {
-        m_name.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
+        if (!Settings.DebugDisableTextRendering)
+          m_name.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
+        
       }
 
       var expandedBounds = InnerBounds;
@@ -707,7 +709,7 @@ namespace Trizbort
           format.Alignment = XStringAlignment.Near;
           var height = InnerBounds.Height/2 - font.Height/2;
           var bounds = new Rect(InnerBounds.Left + Settings.ObjectListOffsetFromRoom, InnerBounds.Bottom - height, InnerBounds.Width - Settings.ObjectListOffsetFromRoom, height - Settings.ObjectListOffsetFromRoom);
-          brush = context.Selected ? palette.FillBrush : (bUseObjectRoomBrush ? new SolidBrush(RoomSmallText) : roombrush);
+          brush = (bUseObjectRoomBrush ? new SolidBrush(RoomSmallText) : roombrush);
           if (bounds.Width > 0 && bounds.Height > 0)
           {
             m_objects.Draw(graphics, font, brush, bounds.Position, bounds.Size, format);
@@ -721,7 +723,8 @@ namespace Trizbort
 
         if (!drawnObjectList)
         {
-          m_objects.Draw(graphics, font, brush, pos, Vector.Zero, format);
+          if (!Settings.DebugDisableTextRendering)
+            m_objects.Draw(graphics, font, brush, pos, Vector.Zero, format);
         }
       }
     }

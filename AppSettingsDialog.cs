@@ -21,6 +21,17 @@ namespace Trizbort
       set { m_invertWheelCheckBox.Checked = value; }
     }
 
+    public bool SaveToImage
+    {
+      get { return chkSaveToImage.Checked; }
+      set { chkSaveToImage.Checked=value; }
+    }
+
+    public bool SaveToPDF
+    {
+      get { return chkSaveToPDF.Checked; }
+      set { chkSaveToPDF.Checked = value; }
+    }
 
     public int DefaultImageType
     {

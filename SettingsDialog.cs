@@ -274,7 +274,8 @@ namespace Trizbort
         var textBounds = new Rectangle(colorBounds.Right + horizontalMargin, e.Bounds.Top, e.Bounds.Width - colorBounds.Width - horizontalMargin * 2, e.Bounds.Height);
         e.Graphics.FillRectangle(palette.Brush(Color[e.Index]), colorBounds);
         e.Graphics.DrawRectangle(palette.Pen(e.ForeColor, 0), colorBounds);
-        e.Graphics.DrawString(m_colorListBox.Items[e.Index].ToString(), e.Font, palette.Brush(e.ForeColor), textBounds, StringFormats.Left);
+        StringFormat format = new StringFormat {Trimming = StringTrimming.EllipsisCharacter};
+        e.Graphics.DrawString(m_colorListBox.Items[e.Index].ToString(), e.Font, palette.Brush(e.ForeColor), textBounds, format);
       }
     }
 

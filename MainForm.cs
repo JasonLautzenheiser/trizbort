@@ -267,6 +267,13 @@ namespace Trizbort
 
     private void smartSave()
     {
+
+      if (!Settings.SaveToPDF && !Settings.SaveToImage)
+      {
+        MessageBox.Show("Your settings are set to not save anything. Please check your App Settings if this is not what you want.");
+        return;
+      }
+
       bool mSaved = false;
       if (!Project.Current.HasFileName || Project.Current.IsDirty)
       {
@@ -286,15 +293,46 @@ namespace Trizbort
       {
         if (Project.Current.HasFileName)
         {
-          var sPDFFile = exportPDF();
-          var sImageFile = exportImage();
+          bool bSaveError = false;
+          string sPDFFile = string.Empty;
+          if (Settings.SaveToPDF)
+          {
+            sPDFFile = exportPDF();
+            if (sPDFFile == string.Empty)
+            {
+              MessageBox.Show(string.Format("There was an error saving the PDF file during the SmartSave.  Please make sure the PDF is not already opened."), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+              bSaveError = true;
+            }
+          }
+          string sImageFile = string.Empty;
+          if (Settings.SaveToImage)
+          {
+            sImageFile = exportImage();
+            if (sImageFile == string.Empty)
+            {
+              MessageBox.Show(string.Format("There was an error saving the Image file during the SmartSave.  Please make sure the Image is not already opened."), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+              bSaveError = true;
+            }
 
-          if (sPDFFile == string.Empty)
-            MessageBox.Show(string.Format("There was an error saving the PDF file during the SmartSave.  Please make sure the PDF is not already opened."), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-          else if (sImageFile == string.Empty)
-            MessageBox.Show(string.Format("There was an error saving the Image file during the SmartSave.  Please make sure the Image is not already opened."), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-          else
-            MessageBox.Show(string.Format("Image file has been saved to {0}{1}PDF file has been saved to {2}", sImageFile, Environment.NewLine, sPDFFile), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
+          }
+
+          if (!bSaveError)
+          {
+            string sText = string.Empty;
+            if (Settings.SaveToPDF)
+            {
+              sText += string.Format("PDF file has been saved to {0}", sPDFFile);
+            }
+
+            if (Settings.SaveToImage)
+            {
+              if (sText != string.Empty)
+                sText += Environment.NewLine;
+              sText += string.Format("Image file has been saved to {0}", sImageFile);
+            }
+
+            MessageBox.Show(sText, "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
+          }
         }
       }
       else

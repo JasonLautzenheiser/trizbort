@@ -1,5 +1,15 @@
 Change Log
 
+1.5.8.1
+-------------
+++ added some smart save options to allow selection of what to save.
+++ Fixed up keystrokes to be a little more intuitive to keyboard users in the room properties dialog.
+-- fixed old bug where if the room was a non-standard size, it didn't center on the mouse properly when adding a new room.
+-- fixed color display on selected rooms when object text was inside the room.
+-- fixed exception during copy / paste of multiple rooms and connections.
+-- F11 would crash the app if automapping was not turned on.
+-- Ctrl-F4 (debugging keystroke) will disable all text on the map.
+
 1.5.8.0
 -------------
 ++ Insert a room between two other connected rooms.

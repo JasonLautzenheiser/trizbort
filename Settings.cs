@@ -361,6 +361,9 @@ namespace Trizbort
     public static bool DebugDisableGridPolyline { get; set; }
     public static bool SaveAt100 { get; set; }
     public static int MouseDragButton { get; set; }
+
+    public static bool SaveToPDF { get; set; }
+    public static bool SaveToImage { get; set; }
     public static int DefaultImageType { get; set; }
     public static bool InvertMouseWheel { get; set; }
     public static Version DontCareAboutVersion { get; set; }
@@ -387,6 +390,8 @@ namespace Trizbort
       InfiniteScrollBounds = false;
       ShowMiniMap = true;
       SaveAt100 = true;
+      SaveToImage = true;
+      SaveToPDF = true;
       RecentProjects.Clear();
       // TODO: add other application settings here
     }
@@ -418,6 +423,8 @@ namespace Trizbort
 
             InvertMouseWheel = root["invertMouseWheel"].ToBool(InvertMouseWheel);
             DefaultImageType = root["defaultImageType"].ToInt(DefaultImageType);
+            SaveToImage = root["saveToImage"].ToBool(SaveToImage);
+            SaveToPDF = root["saveToPDF"].ToBool(SaveToPDF);
             SaveAt100 = root["saveAt100"].ToBool(SaveAt100);
 
             var recentProjects = root["recentProjects"];
@@ -460,6 +467,8 @@ namespace Trizbort
           scribe.Element("invertMouseWheel", InvertMouseWheel);
           scribe.Element("defaultImageType", DefaultImageType);
           scribe.Element("saveAt100", SaveAt100);
+          scribe.Element("saveToPDF", SaveToPDF);
+          scribe.Element("saveToImage", SaveToImage);
 
           scribe.Element("lastProjectFileName", LastProjectFileName);
           scribe.Element("lastExportedImageFileName", LastExportImageFileName);
@@ -880,6 +889,8 @@ namespace Trizbort
       {
         dialog.InvertMouseWheel = InvertMouseWheel;
         dialog.DefaultImageType = DefaultImageType;
+        dialog.SaveToImage = SaveToImage;
+        dialog.SaveToPDF = SaveToPDF;
         dialog.SaveAt100 = SaveAt100;
 
         if (dialog.ShowDialog() == DialogResult.OK)
@@ -887,6 +898,8 @@ namespace Trizbort
           InvertMouseWheel = dialog.InvertMouseWheel;
           DefaultImageType = dialog.DefaultImageType;
           SaveAt100 = dialog.SaveAt100;
+          SaveToImage = dialog.SaveToImage;
+          SaveToPDF = dialog.SaveToPDF;
         }
       }
     }

@@ -122,6 +122,7 @@ namespace Trizbort
       this.m_snapToElementDistanceUpDown = new System.Windows.Forms.NumericUpDown();
       this.label2 = new System.Windows.Forms.Label();
       this.m_handleSizeUpDown = new System.Windows.Forms.NumericUpDown();
+      this.propertySettings1 = new DevComponents.DotNetBar.PropertySettings();
       ((System.ComponentModel.ISupportInitialize)(this.m_lineWidthUpDown)).BeginInit();
       this.m_linesGroupBox.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.m_preferredDistanceBetweenRoomsUpDown)).BeginInit();
@@ -895,7 +896,7 @@ namespace Trizbort
       // btnDeleteRegion
       // 
       this.btnDeleteRegion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btnDeleteRegion.Location = new System.Drawing.Point(186, 117);
+      this.btnDeleteRegion.Location = new System.Drawing.Point(257, 117);
       this.btnDeleteRegion.Name = "btnDeleteRegion";
       this.btnDeleteRegion.Size = new System.Drawing.Size(92, 23);
       this.btnDeleteRegion.TabIndex = 4;
@@ -906,7 +907,7 @@ namespace Trizbort
       // btnAddRegion
       // 
       this.btnAddRegion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btnAddRegion.Location = new System.Drawing.Point(186, 6);
+      this.btnAddRegion.Location = new System.Drawing.Point(257, 6);
       this.btnAddRegion.Name = "btnAddRegion";
       this.btnAddRegion.Size = new System.Drawing.Size(92, 23);
       this.btnAddRegion.TabIndex = 2;
@@ -917,7 +918,7 @@ namespace Trizbort
       // btnChange
       // 
       this.btnChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.btnChange.Location = new System.Drawing.Point(186, 34);
+      this.btnChange.Location = new System.Drawing.Point(257, 34);
       this.btnChange.Name = "btnChange";
       this.btnChange.Size = new System.Drawing.Size(92, 23);
       this.btnChange.TabIndex = 3;
@@ -930,9 +931,10 @@ namespace Trizbort
       this.m_RegionListing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.m_RegionListing.FormattingEnabled = true;
+      this.m_RegionListing.HorizontalScrollbar = true;
       this.m_RegionListing.Location = new System.Drawing.Point(6, 6);
       this.m_RegionListing.Name = "m_RegionListing";
-      this.m_RegionListing.Size = new System.Drawing.Size(174, 134);
+      this.m_RegionListing.Size = new System.Drawing.Size(245, 134);
       this.m_RegionListing.TabIndex = 1;
       this.m_RegionListing.SelectedIndexChanged += new System.EventHandler(this.m_RegionListing_SelectedIndexChanged);
       this.m_RegionListing.DoubleClick += new System.EventHandler(this.onChangeRegionColor);
@@ -1034,6 +1036,11 @@ namespace Trizbort
             0,
             0,
             0});
+      // 
+      // propertySettings1
+      // 
+      this.propertySettings1.DisplayName = "Region1";
+      this.propertySettings1.PropertyName = "";
       // 
       // SettingsDialog
       // 
@@ -1161,5 +1168,6 @@ namespace Trizbort
         private System.Windows.Forms.Button btnChange;
         private System.Windows.Forms.Button btnDeleteRegion;
         private System.Windows.Forms.Label label19;
+        private DevComponents.DotNetBar.PropertySettings propertySettings1;
     }
 }

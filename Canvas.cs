@@ -1208,7 +1208,7 @@ namespace Trizbort
       }
       else if (e.KeyCode == Keys.R)
       {
-        AddRoom(true);
+        AddRoom(true, true);
       }
       else if (e.KeyCode == Keys.T)
       {
@@ -1308,7 +1308,10 @@ namespace Trizbort
       else if (e.KeyCode == Keys.F11)
       {
         // for diagnostic purposes, allow single stepping
-        m_automap.Step();
+        if (IsAutomapping)
+        {
+          m_automap.Step();
+        }
       }
       else if (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9)
       {
@@ -1711,10 +1714,12 @@ namespace Trizbort
       Capture = true;
     }
 
-    public void AddRoom(bool atCursor)
+    public void AddRoom(bool atCursor, bool insertRoom = false)
     {
       // Changed this to ignore ID gaps. ID gaps are resolved on load
       var room = new Room(Project.Current);
+
+      room.Size = mNewRoomSize;
       Vector pos;
       if (atCursor && ClientRectangle.Contains(PointToClient(MousePosition)))
       {
@@ -1724,11 +1729,11 @@ namespace Trizbort
       else
       {
         // center on the origin
-        pos = new Vector(Origin.X - room.Size.X/2, Origin.Y - room.Size.Y/2);
+        pos = new Vector(Origin.X - room.Size.X / 2, Origin.Y - room.Size.Y / 2);
       }
 
       // rooms' origins are in the top left corner
-      pos -= room.Size/2;
+      pos -= room.Size / 2;
 
       // snap to the grid, if required
       pos = Settings.Snap(pos);
@@ -1739,7 +1744,7 @@ namespace Trizbort
         clash = false;
         foreach (var element in Project.Current.Elements)
         {
-          if (element is IMoveable && ((IMoveable) element).Position == pos)
+          if (element is IMoveable && ((IMoveable)element).Position == pos)
           {
             pos.X += Math.Max(2, Settings.GridSize);
             pos.Y += Math.Max(2, Settings.GridSize);
@@ -1750,23 +1755,27 @@ namespace Trizbort
       room.Position = pos;
       Project.Current.Elements.Add(room);
 
-      if (SelectedElement is Connection)
+      if (insertRoom)
       {
-        var conn = (Connection) SelectedElement;
+        if (SelectedElement is Connection)
+        {
+          var conn = (Connection) SelectedElement;
 
-        CompassPoint targetCompass;
-        CompassPoint sourceCompass;
-        var target = conn.GetTargetRoom(out targetCompass);
-        var source = conn.GetSourceRoom(out sourceCompass);
+          CompassPoint targetCompass;
+          CompassPoint sourceCompass;
+          var target = conn.GetTargetRoom(out targetCompass);
+          var source = conn.GetSourceRoom(out sourceCompass);
 
-        addConnection(source, sourceCompass, room, targetCompass);
-        addConnection(room, sourceCompass, target, targetCompass);
+          addConnection(source, sourceCompass, room, targetCompass);
+          addConnection(room, sourceCompass, target, targetCompass);
 
-        Project.Current.Elements.Remove(conn);
+          Project.Current.Elements.Remove(conn);
+        }
       }
 
       SelectedElement = room;
       Refresh();
+      
     }
 
     private void doDragPan(PointF clientPos, Vector canvasPos)

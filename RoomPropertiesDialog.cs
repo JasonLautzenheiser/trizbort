@@ -87,6 +87,12 @@ namespace Trizbort
       set { txtName.Text = value; }
     }
 
+    public string RoomSubTitle
+    {
+      get { return txtSubTitle.Text; }
+      set { txtSubTitle.Text = value; }
+    }
+
     public string Description
     {
       get { return m_descriptionTextBox.Text; }
@@ -360,27 +366,71 @@ namespace Trizbort
         {
           case Keys.O:
             m_tabControl.SelectedTabIndex = (int) Tab.Objects;
-            txtObjects.Focus();
+            setObjectsTabFocus();
             break;
 
           case Keys.E:
             m_tabControl.SelectedTabIndex = (int) Tab.Description;
-            m_descriptionTextBox.Focus();
-            m_descriptionTextBox.SelectAll();
+            setDescriptionTabFocus();
             break;
 
           case Keys.R:
             m_tabControl.SelectedTabIndex = (int) Tab.Regions;
-            cboRegion.Focus();
+            setRegionsTabFocus();
             break;
 
           case Keys.C:
             m_tabControl.SelectedTabIndex = (int) Tab.Colors;
-            m_roomFillTextBox.Focus();
+            setColorsTabFocus();
             break;
         }
       }
     }
+
+    private void setColorsTabFocus()
+    {
+      m_roomFillTextBox.Focus();
+    }
+
+    private void setRegionsTabFocus()
+    {
+      cboRegion.Focus();
+    }
+
+    private void setDescriptionTabFocus()
+    {
+      m_descriptionTextBox.Focus();
+      m_descriptionTextBox.SelectAll();
+    }
+
+    private void setObjectsTabFocus()
+    {
+      txtObjects.Focus();
+    }
+
+    private void m_isDarkCheckBox_Leave(object sender, EventArgs e)
+    {
+    }
+
+    private void m_tabControl_Enter(object sender, EventArgs e)
+    {
+      switch (m_tabControl.SelectedTabIndex)
+      {
+        case (int)Tab.Objects:
+          setObjectsTabFocus();
+          break;
+        case (int)Tab.Description:
+          setDescriptionTabFocus();
+          break;
+        case (int)Tab.Regions:
+          setRegionsTabFocus();
+          break;
+        case (int)Tab.Colors:
+          setColorsTabFocus();
+          break;
+      }
+    }
+
 
   }
 }

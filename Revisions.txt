@@ -1,5 +1,14 @@
 Change Log
 
+1.5.8.2
+-------------
+++ dark color tab is now adjusted automatically if it is too close in color to the region color.
+++ In/Out and Up/Down should now be processed correctly when exporting to code.
+++ add room subtitles
+++ Adding a room between two rooms when connection is selected now keeps region if both rooms are the same region.
+-- minor misc bugs and UX improvements
+
+
 1.5.8.1
 -------------
 ++ added some smart save options to allow selection of what to save.
@@ -9,6 +18,7 @@ Change Log
 -- fixed exception during copy / paste of multiple rooms and connections.
 -- F11 would crash the app if automapping was not turned on.
 -- Ctrl-F4 (debugging keystroke) will disable all text on the map.
+-- widened the region listbox to workaround a bug with listbox control hiding long names for owner-drawn listbox items.
 
 1.5.8.0
 -------------

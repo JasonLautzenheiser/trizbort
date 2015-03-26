@@ -9,6 +9,14 @@ namespace Trizbort
     {
         private static Random _randomizer = new Random();
 
+        public static bool ColorsAreClose(this Color a, Color c2, int threshold = 50)
+        {
+          int r = (int)a.R - c2.R,
+              g = (int)a.G - c2.G,
+              b = (int)a.B - c2.B;
+          return (r * r + g * g + b * b) <= threshold * threshold;
+        }
+
         public static Color GetContrast(this Color Source, bool PreserveOpacity)
         {
             Color inputColor = Source;

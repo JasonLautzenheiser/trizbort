@@ -1766,6 +1766,9 @@ namespace Trizbort
           var target = conn.GetTargetRoom(out targetCompass);
           var source = conn.GetSourceRoom(out sourceCompass);
 
+          if (target.Region == source.Region)
+            room.Region = target.Region;
+
           addConnection(source, sourceCompass, room, targetCompass);
           addConnection(room, sourceCompass, target, targetCompass);
 

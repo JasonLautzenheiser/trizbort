@@ -372,8 +372,11 @@ namespace Trizbort.Export
         Conditional = connectionStyle == ConnectionStyle.Dashed;
 
         AssignPrimaryPriority();
-        AssignPrimaryDirection();
         AssignSecondaryDirection(connectionText);
+        if (SecondaryDirection != null)
+          PrimaryDirection = (AutomapDirection)SecondaryDirection;
+        else
+          AssignPrimaryDirection();
       }
 
       /// <summary>
@@ -516,7 +519,7 @@ namespace Trizbort.Export
             }
             else
             {
-              m_primaryPriority += 2;
+              m_primaryPriority -= 2;
             }
             break;
           default:
@@ -526,7 +529,7 @@ namespace Trizbort.Export
             }
             else
             {
-              m_primaryPriority += 1;
+              m_primaryPriority -= 1;
             }
             break;
         }

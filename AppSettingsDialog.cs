@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using DevComponents.DotNetBar;
 
 namespace Trizbort
 {

@@ -33,6 +33,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using Trizbort.Export;

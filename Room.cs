@@ -41,6 +41,7 @@ namespace Trizbort
     private const CompassPoint DefaultObjectsPosition = CompassPoint.South;
     private readonly List<string> m_descriptions = new List<string>();
     private readonly TextBlock m_name = new TextBlock();
+    private readonly TextBlock m_subTitle = new TextBlock();
     private readonly TextBlock m_objects = new TextBlock();
     private bool m_isDark;
     private CompassPoint m_objectsPosition = DefaultObjectsPosition;
@@ -125,6 +126,23 @@ namespace Trizbort
         if (m_name.Text != value)
         {
           m_name.Text = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    /// <summary>
+    ///   Get/set the subtitle of the room.
+    /// </summary>
+    public string SubTitle
+    {
+      get { return m_subTitle.Text; }
+      set
+      {
+        value = value ?? string.Empty;
+        if (m_subTitle.Text != value)
+        {
+          m_subTitle.Text = value;
           RaiseChanged();
         }
       }
@@ -521,11 +539,6 @@ namespace Trizbort
     {
       var random = new Random(Name.GetHashCode());
 
-//      if (false)
-//      {
-//        graphics.DrawEllipse(new XPen(Color.Black), InnerBounds.ToRectangle());
-//      }
-//      else
         var topLeft = InnerBounds.GetCorner(CompassPoint.NorthWest);
         var topRight = InnerBounds.GetCorner(CompassPoint.NorthEast);
         var bottomLeft = InnerBounds.GetCorner(CompassPoint.SouthWest);
@@ -645,10 +658,13 @@ namespace Trizbort
         {
           var state = graphics.Save();
           graphics.IntersectClip(path);
-          brush = palette.BorderBrush;
-          // Room specific fill brush (White shows global color)
-          if (RoomBorder != ColorTranslator.FromHtml("White") && RoomBorder != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomBorder); }
-          graphics.DrawPolygon(brush, new[] {topRight.ToPointF(), new PointF(topRight.X - Settings.DarknessStripeSize, topRight.Y), new PointF(topRight.X, topRight.Y + Settings.DarknessStripeSize)}, XFillMode.Alternate);
+          var solidbrush = (SolidBrush) palette.BorderBrush;
+
+          if (solidbrush.Color.ColorsAreClose(RoomFill,100))
+            solidbrush.Color = solidbrush.Color.GetContrast(true);
+
+//          if (RoomBorder != ColorTranslator.FromHtml("White") && RoomBorder != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomBorder); }
+          graphics.DrawPolygon(solidbrush, new[] { topRight.ToPointF(), new PointF(topRight.X - Settings.DarknessStripeSize, topRight.Y), new PointF(topRight.X, topRight.Y + Settings.DarknessStripeSize) }, XFillMode.Alternate);
           graphics.Restore(state);
         }
 
@@ -667,8 +683,6 @@ namespace Trizbort
 
       var font = Settings.LargeFont;
       var roombrush = new SolidBrush(regionColor.TextColor);
-//            brush = context.Selected ? palette.FillBrush : palette.LargeTextBrush;
-//            brush = context.Selected ? palette.FillBrush : new SolidBrush(regionColor.TextColor);
       // Room specific fill brush (White shows global color)
       if (RoomLargeText != ColorTranslator.FromHtml("White") && RoomLargeText != ColorTranslator.FromHtml("#FFFFFF")) { roombrush = new SolidBrush(RoomLargeText); }
 
@@ -678,8 +692,11 @@ namespace Trizbort
       if (textBounds.Width > 0 && textBounds.Height > 0)
       {
         if (!Settings.DebugDisableTextRendering)
-          m_name.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
-        
+        {
+          var actualTextRect = m_name.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
+          var subTitleBounds = new Rect(actualTextRect.X, (actualTextRect.Y + actualTextRect.Height-4 ), actualTextRect.Width, actualTextRect.Height);
+          m_subTitle.Draw(graphics, Settings.LineFont, roombrush, subTitleBounds.Position, subTitleBounds.Size, XStringFormats.Center);
+        }
       }
 
       var expandedBounds = InnerBounds;
@@ -756,6 +773,7 @@ namespace Trizbort
       {
         dialog.RoomName = Name;
         dialog.Description = PrimaryDescription;
+        dialog.RoomSubTitle = SubTitle;
         dialog.IsDark = IsDark;
         dialog.Objects = Objects;
         dialog.ObjectsPosition = ObjectsPosition;
@@ -772,6 +790,7 @@ namespace Trizbort
         if (dialog.ShowDialog() == DialogResult.OK)
         {
           Name = dialog.RoomName;
+          SubTitle = dialog.RoomSubTitle;
           if (PrimaryDescription != dialog.Description)
           {
             ClearDescriptions();
@@ -800,6 +819,7 @@ namespace Trizbort
     public void Save(XmlScribe scribe)
     {
       scribe.Attribute("name", Name);
+      scribe.Attribute("subtitle", SubTitle);
       scribe.Attribute("x", Position.X);
       scribe.Attribute("y", Position.Y);
       scribe.Attribute("w", Size.X);
@@ -974,6 +994,7 @@ namespace Trizbort
     public void Load(XmlElementReader element)
     {
       Name = element.Attribute("name").Text;
+      SubTitle = element.Attribute("subtitle").Text;
       ClearDescriptions();
       AddDescription(element.Attribute("description").Text);
       Position = new Vector(element.Attribute("x").ToFloat(), element.Attribute("y").ToFloat());

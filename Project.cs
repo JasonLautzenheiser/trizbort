@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Xml;
@@ -123,6 +124,8 @@ namespace Trizbort
             set;
         }
 
+      public Version Version { get; set; }
+
         public BoundList<Element> Elements
         {
             get { return m_elements; }
@@ -207,7 +210,11 @@ namespace Trizbort
                 if (!root.HasName("trizbort"))
                     throw new InvalidDataException(string.Format("Not a {0} map file.", Application.ProductName));
 
-                // load info
+              // file version
+               var versionNumber = root.Attribute("version").Text;
+              setVersion(versionNumber);
+  
+              // load info
                 Title = root["info"]["title"].Text;
                 Author = root["info"]["author"].Text;
                 Description = root["info"]["description"].Text;
@@ -260,7 +267,16 @@ namespace Trizbort
             }
         }
 
-        public bool Save()
+      private void setVersion(string versionNumber)
+      {
+        try { Version = Version.Parse(versionNumber); }
+        catch (Exception e)
+        {
+          Version = new Version(0,0,0,0);
+        }
+      }
+
+      public bool Save()
         {
           var settings = new XmlWriterSettings {Encoding = Encoding.UTF8, Indent = true, IndentChars = "\t"};
 

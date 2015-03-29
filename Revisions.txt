@@ -1,5 +1,20 @@
 Change Log
 
+1.5.8.5
+-------------
+-- fixed issue with zoom text box exception if value is 0.
+
+1.5.8.4
+-------------
+-- fixed bug with coloring of white rooms on files saved with older versions of trizbort.
+
+1.5.8.3
+-------------
+++ added zoom textbox for fine tuning in status bar.
+++ Changed the room color selector to default to transparent...this allows for the color white to be selected as a valid color.
+++ added additional 2nd fill color styles (BottomLeft, Left, TopLeft, Top)
+-- fixed issue with room object arrows so only one could be selected.
+
 1.5.8.2
 -------------
 ++ dark color tab is now adjusted automatically if it is too close in color to the region color.

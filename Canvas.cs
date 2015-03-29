@@ -68,6 +68,17 @@ namespace Trizbort
     private bool mUpdatingScrollBars;
     private float mZoomFactor;
 
+    public event EventHandler ZoomChanged;
+
+    protected void RaiseZoomed()
+    {
+      var zoomed = ZoomChanged;
+      if (zoomed != null)
+      {
+        zoomed(this, EventArgs.Empty);
+      }
+    }
+
     public Canvas()
     {
       InitializeComponent();
@@ -104,9 +115,17 @@ namespace Trizbort
         {
           mZoomFactor = value;
           lblZoom.Text = mZoomFactor.ToString("p0");
+          RaiseZoomed();
           Invalidate();
         }
       }
+    }
+
+    public void ChangeZoom(float mZoom)
+    {
+      lblZoom.Text = mZoom .ToString("p0");
+      mZoomFactor = mZoom;
+      Invalidate();
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -2315,7 +2334,7 @@ namespace Trizbort
 
     public void ZoomOut()
     {
-      if (ZoomFactor > 1/100.0f)
+      if (ZoomFactor > 1/10.00f)
       {
         ZoomFactor /= 1.25f;
       }
@@ -2330,7 +2349,7 @@ namespace Trizbort
         ZoomOut();
 
         // Added an escape clause in the case the map is too large to shrink to the screen
-        if (ZoomFactor <= 1/100.0f)
+        if (ZoomFactor <= 1/10.00f)
         {
           return;
         }

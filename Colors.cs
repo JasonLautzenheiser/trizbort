@@ -27,73 +27,76 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using DevComponents.DotNetBar.ColorPickers;
 
 namespace Trizbort
 {
-    internal static class Colors
+  internal static class Colors
+  {
+    public static readonly int Canvas = 0;
+    public static readonly int Fill = 1;
+    public static readonly int Border = 2;
+    public static readonly int Line = 3;
+    public static readonly int SelectedLine = 4;
+    public static readonly int HoverLine = 5;
+    public static readonly int LargeText = 6;
+    public static readonly int SmallText = 7;
+    public static readonly int LineText = 8;
+    public static readonly int Grid = 9;
+    public static readonly int Count = 10;
+
+    private static readonly string[] Names =
     {
-        public static readonly int Canvas = 0;
-        public static readonly int Fill = 1;
-        public static readonly int Border = 2;
-        public static readonly int Line = 3;
-        public static readonly int SelectedLine = 4;
-        public static readonly int HoverLine = 5;
-        public static readonly int LargeText = 6;
-        public static readonly int SmallText = 7;
-        public static readonly int LineText = 8;
-        public static readonly int Grid = 9;
-        public static readonly int Count = 10;
+      "canvas",
+      "fill",
+      "border",
+      "line",
+      "selectedLine",
+      "hoverLine",
+      "largeText",
+      "smallText",
+      "lineText",
+      "grid"
+    };
 
-        private static readonly string[] Names =
-        {
-            "canvas",
-            "fill",
-            "border",
-            "line",
-            "selectedLine",
-            "hoverLine",
-            "largeText",
-            "smallText",
-            "lineText",
-            "grid"
-        };
-
-        public static bool ToName(int color, out string name)
-        {
-            if (color >= 0 && color < Names.Length)
-            {
-                name = Names[color];
-                return true;
-            }
-            name = string.Empty;
-            return false;
-        }
-
-        public static bool FromName(string name, out int color)
-        {
-            for (int index = 0; index < Names.Length; ++index)
-            {
-                if (StringComparer.InvariantCultureIgnoreCase.Compare(name ?? string.Empty, Names[index]) == 0)
-                {
-                    color = index;
-                    return true;
-                }
-            }
-            color = -1;
-            return false;
-        }
-
-        public static Color ShowColorDialog(Color color, Form parent)
-        {
-            using (var dialog = new ColorDialog())
-            {
-                dialog.Color = color;
-                if (dialog.ShowDialog(parent) == DialogResult.OK)
-                {
-                    return dialog.Color;
-                }
-            }
-            return color;
-        }
+    public static bool ToName(int color, out string name)
+    {
+      if (color >= 0 && color < Names.Length)
+      {
+        name = Names[color];
+        return true;
+      }
+      name = string.Empty;
+      return false;
     }
+
+    public static bool FromName(string name, out int color)
+    {
+      for (int index = 0; index < Names.Length; ++index)
+      {
+        if (StringComparer.InvariantCultureIgnoreCase.Compare(name ?? string.Empty, Names[index]) == 0)
+        {
+          color = index;
+          return true;
+        }
+      }
+      color = -1;
+      return false;
+    }
+
+    public static Color ShowColorDialog(Color color, Form parent)
+    {
+
+      using (var dialog = new ColorDialog())
+      {
+        dialog.Color = color == Color.Transparent ? Color.White : color;
+
+        if (dialog.ShowDialog(parent) == DialogResult.OK)
+        {
+          return dialog.Color;
+        }
+      }
+      return color;
+    }
+  }
 }

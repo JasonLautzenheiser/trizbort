@@ -36,6 +36,7 @@ namespace Trizbort
     private const int WIDTH = 24;
     private static Tab m_lastViewedTab = Tab.Objects;
     private bool m_adjustingPosition;
+    private const string NO_COLOR_SET = "No Color Set";
 
     public RoomPropertiesDialog(PropertiesStartType start)
     {
@@ -169,15 +170,45 @@ namespace Trizbort
     // Added for Room specific colors
     public Color RoomFillColor
     {
-      get { return m_roomFillTextBox.BackColor; }
-      set { m_roomFillTextBox.BackColor = value; }
+      get
+      {
+        return m_roomFillTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_roomFillTextBox.BackColor;
+      }
+      set
+      {
+        if (value == Color.Transparent)
+        {
+          m_roomFillTextBox.BackColor = Color.White;
+          m_roomFillTextBox.WatermarkText = NO_COLOR_SET;
+        }
+        else
+        {
+          m_roomFillTextBox.BackColor = value;
+          m_roomFillTextBox.WatermarkText = string.Empty;
+        }
+      }
     }
 
     // Added for Room specific colors
     public Color SecondFillColor
     {
-      get { return m_secondFillTextBox.BackColor; }
-      set { m_secondFillTextBox.BackColor = value; }
+      get
+      {
+        return m_secondFillTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_secondFillTextBox.BackColor;
+      }
+      set
+      {
+        if (value == Color.Transparent)
+        {
+          m_secondFillTextBox.BackColor = Color.White;
+          m_secondFillTextBox.WatermarkText = NO_COLOR_SET;
+        }
+        else
+        {
+          m_secondFillTextBox.BackColor = value;
+          m_secondFillTextBox.WatermarkText = string.Empty;
+        }
+      }
     }
 
     // Added for Room specific colors
@@ -192,9 +223,17 @@ namespace Trizbort
           case 1:
             return "BottomRight";
           case 2:
-            return "Right";
+            return "BottomLeft";
           case 3:
+            return "Left";
+          case 4:
+            return "Right";
+          case 5:
             return "TopRight";
+          case 6:
+            return "TopLeft";
+          case 7:
+            return "Top";
           default:
             return "Bottom";
         }
@@ -209,11 +248,23 @@ namespace Trizbort
           case "BottomRight":
             comboBox1.SelectedIndex = 1;
             break;
-          case "Right":
+          case "BottomLeft":
             comboBox1.SelectedIndex = 2;
             break;
-          case "TopRight":
+          case "Left":
             comboBox1.SelectedIndex = 3;
+            break;
+          case "Right":
+            comboBox1.SelectedIndex = 4;
+            break;
+          case "TopRight":
+            comboBox1.SelectedIndex = 5;
+            break;
+          case "TopLeft":
+            comboBox1.SelectedIndex = 6;
+            break;
+          case "Top":
+            comboBox1.SelectedIndex = 7;
             break;
           default:
             comboBox1.SelectedIndex = 0;
@@ -225,22 +276,67 @@ namespace Trizbort
     // Added for Room specific colors
     public Color RoomBorderColor
     {
-      get { return m_roomBorderTextBox.BackColor; }
-      set { m_roomBorderTextBox.BackColor = value; }
+      get
+      {
+        return m_roomBorderTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_roomBorderTextBox.BackColor;
+      }
+      set
+      {
+        if (value == Color.Transparent)
+        {
+          m_roomBorderTextBox.BackColor = Color.White;
+          m_roomBorderTextBox.WatermarkText = NO_COLOR_SET;
+        }
+        else
+        {
+          m_roomBorderTextBox.BackColor = value;
+          m_roomBorderTextBox.WatermarkText = string.Empty;
+        }
+      }
     }
 
     // Added for Room specific colors
     public Color RoomTextColor
     {
-      get { return m_roomTextTextBox.BackColor; }
-      set { m_roomTextTextBox.BackColor = value; }
+      get
+      {
+        return m_roomTextTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_roomTextTextBox.BackColor;
+      }
+      set
+      {
+        if (value == Color.Transparent)
+        {
+          m_roomTextTextBox.BackColor = Color.White;
+          m_roomTextTextBox.WatermarkText = NO_COLOR_SET;
+        }
+        else
+        {
+          m_roomTextTextBox.BackColor = value;
+          m_roomTextTextBox.WatermarkText = string.Empty;
+        }
+      }
     }
 
     // Added for Room specific colors
     public Color ObjectTextColor
     {
-      get { return m_objectTextTextBox.BackColor; }
-      set { m_objectTextTextBox.BackColor = value; }
+      get
+      {
+        return m_objectTextTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_objectTextTextBox.BackColor;
+      }
+      set
+      {
+        if (value == Color.Transparent)
+        {
+          m_objectTextTextBox.BackColor = Color.White;
+          m_objectTextTextBox.WatermarkText = NO_COLOR_SET;
+        }
+        else
+        {
+          m_objectTextTextBox.BackColor = value;
+          m_objectTextTextBox.WatermarkText = string.Empty;
+        }
+      }
     }
 
     private void RegionListBox_DrawItem(object sender, DrawItemEventArgs e)
@@ -308,46 +404,59 @@ namespace Trizbort
       }
     }
 
-    private void m_roomFillTextBox_TextChanged(object sender, EventArgs e)
-    {
-    }
-
-    // Added for Room specific colors
-    private void m_changeLargeFontButton_Click(object sender, EventArgs e)
+    private void changeRoomFillColor()
     {
       RoomFillColor = Colors.ShowColorDialog(RoomFillColor, this);
     }
 
-    private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+    // Added for Room specific colors
+    private void changeSecondFillColor()
     {
+      SecondFillColor = Colors.ShowColorDialog(SecondFillColor, this);
+    }
+
+    private void changeRoomTextColor()
+    {
+      RoomTextColor = Colors.ShowColorDialog(RoomTextColor, this);
+    }
+
+    private void changeRoomBorderColor()
+    {
+      RoomBorderColor = Colors.ShowColorDialog(RoomBorderColor, this);
+    }
+
+    private void changeObjectTextColor()
+    {
+      ObjectTextColor = Colors.ShowColorDialog(ObjectTextColor, this);
+    }
+
+    private void m_changeLargeFontButton_Click(object sender, EventArgs e)
+    {
+      changeRoomFillColor();
     }
 
     // Added for Room specific colors
     private void m_changeSecondFillButton_Click(object sender, EventArgs e)
     {
-      SecondFillColor = Colors.ShowColorDialog(SecondFillColor, this);
+      changeSecondFillColor();
     }
 
     // Added for Room specific colors
     private void button1_Click(object sender, EventArgs e)
     {
-      RoomBorderColor = Colors.ShowColorDialog(RoomBorderColor, this);
+      changeRoomBorderColor();
     }
 
     // Added for Room specific colors
     private void button2_Click(object sender, EventArgs e)
     {
-      RoomTextColor = Colors.ShowColorDialog(RoomTextColor, this);
+      changeRoomTextColor();
     }
 
     // Added for Room specific colors
     private void button3_Click(object sender, EventArgs e)
     {
-      ObjectTextColor = Colors.ShowColorDialog(ObjectTextColor, this);
-    }
-
-    private void label5_Click(object sender, EventArgs e)
-    {
+      changeObjectTextColor();
     }
 
     private enum Tab
@@ -364,6 +473,26 @@ namespace Trizbort
       {
         switch (e.KeyCode)
         {
+          case Keys.F:
+            changeRoomFillColor();
+            break;
+
+          case Keys.S:
+            changeSecondFillColor();
+            break;
+
+          case Keys.B:
+            changeRoomBorderColor();
+            break;
+
+          case Keys.T:
+            changeRoomTextColor();
+            break;
+
+          case Keys.J:
+            changeObjectTextColor();
+            break;
+
           case Keys.O:
             m_tabControl.SelectedTabIndex = (int) Tab.Objects;
             setObjectsTabFocus();
@@ -374,7 +503,7 @@ namespace Trizbort
             setDescriptionTabFocus();
             break;
 
-          case Keys.R:
+          case Keys.G:
             m_tabControl.SelectedTabIndex = (int) Tab.Regions;
             setRegionsTabFocus();
             break;
@@ -389,7 +518,7 @@ namespace Trizbort
 
     private void setColorsTabFocus()
     {
-      m_roomFillTextBox.Focus();
+      m_changeRoomFillButton.Focus();
     }
 
     private void setRegionsTabFocus()
@@ -431,6 +560,87 @@ namespace Trizbort
       }
     }
 
+
+
+    private void m_roomFillTextBox_ButtonCustomClick(object sender, EventArgs e)
+    {
+      RoomFillColor = Color.Transparent;
+      m_changeRoomFillButton.Focus();
+    }
+
+    private void m_secondFillTextBox_ButtonCustomClick(object sender, EventArgs e)
+    {
+      SecondFillColor = Color.Transparent;
+      m_changeSecondFillButton.Focus();
+    }
+
+    private void m_roomBorderTextBox_ButtonCustomClick(object sender, EventArgs e)
+    {
+      RoomBorderColor = Color.Transparent;
+      m_changeRoomBorderButton.Focus();
+    }
+
+    private void m_roomTextTextBox_ButtonCustomClick(object sender, EventArgs e)
+    {
+      RoomTextColor = Color.Transparent;
+      m_changeRoomTextButton.Focus();
+    }
+
+    private void m_objectTextTextBox_ButtonCustomClick(object sender, EventArgs e)
+    {
+      ObjectTextColor = Color.Transparent;
+      m_changeObjectTextButton.Focus();
+    }
+
+    private void m_roomFillTextBox_DoubleClick(object sender, EventArgs e)
+    {
+      changeRoomFillColor();
+    }
+
+    private void m_secondFillTextBox_DoubleClick(object sender, EventArgs e)
+    {
+      changeSecondFillColor();
+    }
+
+    private void m_roomBorderTextBox_DoubleClick(object sender, EventArgs e)
+    {
+      changeRoomBorderColor();
+    }
+
+    private void m_roomTextTextBox_DoubleClick(object sender, EventArgs e)
+    {
+      changeRoomTextColor();
+    }
+
+    private void m_objectTextTextBox_DoubleClick(object sender, EventArgs e)
+    {
+      changeObjectTextColor();
+    }
+
+    private void m_roomFillTextBox_Enter(object sender, EventArgs e)
+    {
+      m_changeRoomFillButton.Focus();
+    }
+
+    private void m_secondFillTextBox_Enter(object sender, EventArgs e)
+    {
+      m_changeSecondFillButton.Focus();
+    }
+
+    private void m_roomTextTextBox_Enter(object sender, EventArgs e)
+    {
+      m_changeRoomTextButton.Focus();
+    }
+
+    private void m_objectTextTextBox_Enter(object sender, EventArgs e)
+    {
+      m_changeObjectTextButton.Focus();
+    }
+
+    private void m_roomBorderTextBox_Enter(object sender, EventArgs e)
+    {
+      m_changeRoomBorderButton.Focus();
+    }
 
   }
 }

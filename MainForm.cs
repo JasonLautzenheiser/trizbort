@@ -58,6 +58,12 @@ namespace Trizbort
       m_lastUpdateUITime = DateTime.MinValue;
 
       m_automapBar.StopClick += onMAutomapBarOnStopClick;
+      Canvas.ZoomChanged += adjustZoomed;
+    }
+
+    private void adjustZoomed(object sender, EventArgs e)
+    {
+      txtZoom.Value = (int)(Canvas.ZoomFactor*100.0f);
     }
 
     private void onMAutomapBarOnStopClick(object sender, EventArgs e)
@@ -1016,6 +1022,12 @@ namespace Trizbort
           
         }
       }
+    }
+
+    private void txtZoom_ValueChanged(object sender, EventArgs e)
+    {
+      if (txtZoom.Value <= 0) txtZoom.Value = 10;
+      Canvas.ChangeZoom((float)Convert.ToDouble(txtZoom.Value) / 100.0f);
     }
   }
 }

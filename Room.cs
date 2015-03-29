@@ -48,13 +48,13 @@ namespace Trizbort
     // Added for linking connections when pasting
     private Int32 m_oldID;
     private Vector m_position;
-    private Color m_roomborder = ColorTranslator.FromHtml("White");
     // Added for Room specific colors (White shows global color)
-    private Color m_roomfill = ColorTranslator.FromHtml("White");
-    private Color m_roomlargetext = ColorTranslator.FromHtml("White");
+    private Color m_roomborder = Color.Transparent;
+    private Color m_roomfill = Color.Transparent;
+    private Color m_roomlargetext = Color.Transparent;
     private string m_RoomRegion;
-    private Color m_roomsmalltext = ColorTranslator.FromHtml("White");
-    private Color m_secondfill = ColorTranslator.FromHtml("White");
+    private Color m_roomsmalltext = Color.Transparent;
+    private Color m_secondfill = Color.Transparent;
     private String m_secondfilllocation = "Bottom";
     private Vector m_size;
 
@@ -555,12 +555,16 @@ namespace Trizbort
         var left = new LineSegment(bottomLeft, topLeft);
 
         var halfTopRight = new LineSegment(topCenter, topRight);
+        var halfTopLeft = new LineSegment(topCenter, topLeft);
         var halfBottomRight = new LineSegment(bottomRight, bottomCenter);
+        var halfBottomLeft = new LineSegment(bottomLeft, bottomCenter);
         var centerVertical = new LineSegment(bottomCenter, topCenter);
 
         var centerHorizontal = new LineSegment(leftCenter, rightCenter);
         var halfRightBottom = new LineSegment(rightCenter, bottomRight);
         var halfLeftBottom = new LineSegment(bottomLeft, leftCenter);
+        var halfRightTop = new LineSegment(rightCenter, topRight);
+        var halfLeftTop = new LineSegment(topLeft, leftCenter);
 
         var slantUp = new LineSegment(bottomLeft, topRight);
         var slantDown = new LineSegment(bottomRight, topLeft);
@@ -603,7 +607,7 @@ namespace Trizbort
       brush = new SolidBrush(regionColor.RColor);
 
       // Room specific fill brush (White shows global color)
-      if (RoomFill != ColorTranslator.FromHtml("White") && RoomFill != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomFill); }
+      if (RoomFill != Color.Transparent ) { brush = new SolidBrush(RoomFill); }
 
       if (!Settings.DebugDisableLineRendering)
       {
@@ -616,7 +620,7 @@ namespace Trizbort
 
 
         // Second fill for room specific colors with a split option
-        if (SecondFill != ColorTranslator.FromHtml("White") && SecondFill != ColorTranslator.FromHtml("#FFFFFF"))
+        if (SecondFill != Color.Transparent)
         {
           // Set the second fill color
           brush = new SolidBrush(SecondFill);
@@ -636,6 +640,17 @@ namespace Trizbort
               Drawing.AddLine(secondPath, right, random);
               Drawing.AddLine(secondPath, bottom, random);
               break;
+            case "BottomLeft":
+              Drawing.AddLine(secondPath, slantDown, random);
+              Drawing.AddLine(secondPath, bottom, random);
+              Drawing.AddLine(secondPath, left, random);
+              break;
+            case "Left":
+              Drawing.AddLine(secondPath, halfTopLeft, random);
+              Drawing.AddLine(secondPath, left, random);
+              Drawing.AddLine(secondPath, halfBottomLeft, random);
+              Drawing.AddLine(secondPath, centerVertical, random);
+              break;
             case "Right":
               Drawing.AddLine(secondPath, halfTopRight, random);
               Drawing.AddLine(secondPath, right, random);
@@ -646,6 +661,17 @@ namespace Trizbort
               Drawing.AddLine(secondPath, top, random);
               Drawing.AddLine(secondPath, right, random);
               Drawing.AddLine(secondPath, slantDown, random);
+              break;
+            case "TopLeft":
+              Drawing.AddLine(secondPath, top, random);
+              Drawing.AddLine(secondPath, slantUp, random);
+              Drawing.AddLine(secondPath, left, random);
+              break;
+            case "Top":
+              Drawing.AddLine(secondPath, centerHorizontal, random);
+              Drawing.AddLine(secondPath, halfRightTop, random);
+              Drawing.AddLine(secondPath, top, random);
+              Drawing.AddLine(secondPath, halfLeftTop, random);
               break;
             default:
               break;
@@ -660,15 +686,15 @@ namespace Trizbort
           graphics.IntersectClip(path);
           var solidbrush = (SolidBrush) palette.BorderBrush;
 
-          if (solidbrush.Color.ColorsAreClose(RoomFill,100))
-            solidbrush.Color = solidbrush.Color.GetContrast(true);
+//          if (solidbrush.Color.ColorsAreClose(RoomFill,150))
+//            solidbrush.Color = solidbrush.Color.GetContrast(true);
 
 //          if (RoomBorder != ColorTranslator.FromHtml("White") && RoomBorder != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomBorder); }
           graphics.DrawPolygon(solidbrush, new[] { topRight.ToPointF(), new PointF(topRight.X - Settings.DarknessStripeSize, topRight.Y), new PointF(topRight.X, topRight.Y + Settings.DarknessStripeSize) }, XFillMode.Alternate);
           graphics.Restore(state);
         }
 
-        if (RoomBorder == ColorTranslator.FromHtml("White") || RoomBorder == ColorTranslator.FromHtml("#FFFFFF"))
+        if (RoomBorder == Color.Transparent)
         {
           graphics.DrawPath(palette.BorderPen, path);
         }
@@ -684,7 +710,7 @@ namespace Trizbort
       var font = Settings.LargeFont;
       var roombrush = new SolidBrush(regionColor.TextColor);
       // Room specific fill brush (White shows global color)
-      if (RoomLargeText != ColorTranslator.FromHtml("White") && RoomLargeText != ColorTranslator.FromHtml("#FFFFFF")) { roombrush = new SolidBrush(RoomLargeText); }
+      if (RoomLargeText != Color.Transparent) { roombrush = new SolidBrush(RoomLargeText); }
 
       var textBounds = InnerBounds;
       textBounds.Inflate(-5, -5);
@@ -707,13 +733,11 @@ namespace Trizbort
       brush = palette.SmallTextBrush;
       // Room specific fill brush (White shows global color)
       var bUseObjectRoomBrush = false;
-      if (RoomSmallText != ColorTranslator.FromHtml("White") && RoomSmallText != ColorTranslator.FromHtml("#FFFFFF"))
+      if (RoomSmallText != Color.Transparent)
       {
         bUseObjectRoomBrush = true;
         brush = new SolidBrush(RoomSmallText);
       }
-
-
 
       if (!string.IsNullOrEmpty(Objects))
       {
@@ -834,146 +858,23 @@ namespace Trizbort
       var rValue = "";
       var bValue = "";
       var gValue = "";
-      if (RoomFill.R < 16)
-      {
-        rValue = "0" + RoomFill.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomFill.R.ToString("X");
-      }
-      if (RoomFill.G < 16)
-      {
-        gValue = "0" + RoomFill.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomFill.G.ToString("X");
-      }
-      if (RoomFill.B < 16)
-      {
-        bValue = "0" + RoomFill.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomFill.B.ToString("X");
-      }
 
-      var colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      var colorValue = saveRoomColor(RoomFill);
       scribe.Attribute("roomFill", colorValue);
 
-      if (SecondFill.R < 16)
-      {
-        rValue = "0" + SecondFill.R.ToString("X");
-      }
-      else
-      {
-        rValue = SecondFill.R.ToString("X");
-      }
-      if (SecondFill.G < 16)
-      {
-        gValue = "0" + SecondFill.G.ToString("X");
-      }
-      else
-      {
-        gValue = SecondFill.G.ToString("X");
-      }
-      if (SecondFill.B < 16)
-      {
-        bValue = "0" + SecondFill.B.ToString("X");
-      }
-      else
-      {
-        bValue = SecondFill.B.ToString("X");
-      }
-
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = saveRoomColor(SecondFill);
       scribe.Attribute("secondFill", colorValue);
       scribe.Attribute("secondFillLocation", SecondFillLocation);
 
-      if (RoomBorder.R < 16)
-      {
-        rValue = "0" + RoomBorder.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomBorder.R.ToString("X");
-      }
-      if (RoomBorder.G < 16)
-      {
-        gValue = "0" + RoomBorder.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomBorder.G.ToString("X");
-      }
-      if (RoomBorder.B < 16)
-      {
-        bValue = "0" + RoomBorder.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomBorder.B.ToString("X");
-      }
-
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = saveRoomColor(RoomBorder);
       scribe.Attribute("roomBorder", colorValue);
 
-      if (RoomLargeText.R < 16)
-      {
-        rValue = "0" + RoomLargeText.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomLargeText.R.ToString("X");
-      }
-      if (RoomLargeText.G < 16)
-      {
-        gValue = "0" + RoomLargeText.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomLargeText.G.ToString("X");
-      }
-      if (RoomLargeText.B < 16)
-      {
-        bValue = "0" + RoomLargeText.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomLargeText.B.ToString("X");
-      }
-
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = saveRoomColor(RoomLargeText);
       scribe.Attribute("roomLargeText", colorValue);
 
-      if (RoomSmallText.R < 16)
-      {
-        rValue = "0" + RoomSmallText.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomSmallText.R.ToString("X");
-      }
-      if (RoomSmallText.G < 16)
-      {
-        gValue = "0" + RoomSmallText.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomSmallText.G.ToString("X");
-      }
-      if (RoomSmallText.B < 16)
-      {
-        bValue = "0" + RoomSmallText.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomSmallText.B.ToString("X");
-      }
-
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = saveRoomColor(RoomSmallText);
       scribe.Attribute("roomSmallText", colorValue);
+
       // Up to this point was added to turn colors to Hex code for xmpl saving/loading
 
       if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DefaultObjectsPosition)
@@ -991,6 +892,46 @@ namespace Trizbort
       }
     }
 
+    private string saveRoomColor(Color roomColorAttribute)
+    {
+      string rValue;
+      string gValue;
+      string bValue;
+
+      if (roomColorAttribute == Color.Transparent)
+      {
+        return String.Empty;
+      }
+
+      if (roomColorAttribute.R < 16)
+      {
+        rValue = "0" + roomColorAttribute.R.ToString("X");
+      }
+      else
+      {
+        rValue = roomColorAttribute.R.ToString("X");
+      }
+      if (roomColorAttribute.G < 16)
+      {
+        gValue = "0" + roomColorAttribute.G.ToString("X");
+      }
+      else
+      {
+        gValue = roomColorAttribute.G.ToString("X");
+      }
+      if (roomColorAttribute.B < 16)
+      {
+        bValue = "0" + roomColorAttribute.B.ToString("X");
+      }
+      else
+      {
+        bValue = roomColorAttribute.B.ToString("X");
+      }
+
+      var colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      return colorValue;
+    }
+
     public void Load(XmlElementReader element)
     {
       Name = element.Attribute("name").Text;
@@ -1001,12 +942,25 @@ namespace Trizbort
       Size = new Vector(element.Attribute("w").ToFloat(), element.Attribute("h").ToFloat());
       Region = element.Attribute("region").Text;
       IsDark = element.Attribute("isDark").ToBool();
-      if (element.Attribute("roomFill").Text != "") { RoomFill = ColorTranslator.FromHtml(element.Attribute("roomFill").Text); }
-      if (element.Attribute("secondFill").Text != "") { SecondFill = ColorTranslator.FromHtml(element.Attribute("secondFill").Text); }
-      if (element.Attribute("secondFillLocation").Text != "") { SecondFillLocation = element.Attribute("secondFillLocation").Text; }
-      if (element.Attribute("roomBorder").Text != "") { RoomBorder = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text); }
-      if (element.Attribute("roomLargeText").Text != "") { RoomLargeText = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text); }
-      if (element.Attribute("roomSmallText").Text != "") { RoomSmallText = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text); }
+
+      if (Project.Version.CompareTo(new Version(1, 5, 8, 3)) < 0)
+      {
+        if (element.Attribute("roomFill").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") { RoomFill = ColorTranslator.FromHtml(element.Attribute("roomFill").Text); }
+        if (element.Attribute("secondFill").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") { SecondFill = ColorTranslator.FromHtml(element.Attribute("secondFill").Text); }
+        if (element.Attribute("secondFillLocation").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") { SecondFillLocation = element.Attribute("secondFillLocation").Text; }
+        if (element.Attribute("roomBorder").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") { RoomBorder = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text); }
+        if (element.Attribute("roomLargeText").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") { RoomLargeText = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text); }
+        if (element.Attribute("roomSmallText").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") { RoomSmallText = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text); }
+      }
+      else
+      {
+        if (element.Attribute("roomFill").Text != "") { RoomFill = ColorTranslator.FromHtml(element.Attribute("roomFill").Text); }
+        if (element.Attribute("secondFill").Text != "") { SecondFill = ColorTranslator.FromHtml(element.Attribute("secondFill").Text); }
+        if (element.Attribute("secondFillLocation").Text != "") { SecondFillLocation = element.Attribute("secondFillLocation").Text; }
+        if (element.Attribute("roomBorder").Text != "") { RoomBorder = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text); }
+        if (element.Attribute("roomLargeText").Text != "") { RoomLargeText = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text); }
+        if (element.Attribute("roomSmallText").Text != "") { RoomSmallText = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text); }
+      }
       Objects = element["objects"].Text.Replace("|", "\r\n").Replace("\\\r\n", "|");
       ObjectsPosition = element["objects"].Attribute("at").ToCompassPoint(ObjectsPosition);
     }

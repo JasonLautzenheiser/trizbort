@@ -1,6 +1,6 @@
 Change Log
 
-1.5.8.5
+1.5.8.5 - Public Release
 -------------
 -- fixed issue with zoom text box exception if value is 0.
 
@@ -45,7 +45,7 @@ Change Log
 -- fixed tab ordering of app settings.
 
 
-1.5.7.1
+1.5.7.1 - Public Release
 -------------
 ++ add version number to the saved trizbort files.
 

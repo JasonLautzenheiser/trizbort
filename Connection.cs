@@ -56,6 +56,7 @@ namespace Trizbort
     private readonly BoundList<Vertex> m_vertexList = new BoundList<Vertex>();
     private ConnectionFlow m_flow = DefaultFlow;
     private ConnectionStyle m_style = DefaultStyle;
+    private Color m_ConnectionColor = Color.Transparent;
 
     public Connection(Project project)
       : base(project)
@@ -107,6 +108,18 @@ namespace Trizbort
       }
     }
 
+    public Color ConnectionColor
+    {
+      get { return m_ConnectionColor; }
+      set
+      {
+        if (m_ConnectionColor != value)
+        {
+          m_ConnectionColor = value;
+          RaiseChanged();
+        }
+      }
+    }
     public ConnectionStyle Style
     {
       get { return m_style; }
@@ -412,6 +425,11 @@ namespace Trizbort
       foreach (var lineSegment in lineSegments)
       {
         var pen = palette.GetLinePen(context.Selected, context.Hover, Style == ConnectionStyle.Dashed);
+        
+        if (!context.Hover)
+          if ((ConnectionColor != Color.Transparent) && !context.Selected )
+            pen.Color = ConnectionColor;
+
         if (!Settings.DebugDisableLineRendering)
         {
           graphics.DrawLine(pen, lineSegment.Start.ToPointF(), lineSegment.End.ToPointF());
@@ -419,7 +437,12 @@ namespace Trizbort
         var delta = lineSegment.Delta;
         if (Flow == ConnectionFlow.OneWay && delta.Length > Settings.ConnectionArrowSize)
         {
-          var brush = palette.GetLineBrush(context.Selected, context.Hover);
+          SolidBrush brush = (SolidBrush) palette.GetLineBrush(context.Selected, context.Hover);
+
+          if (!context.Hover)
+            if ((ConnectionColor != Color.Transparent) && !context.Selected)
+              brush.Color = ConnectionColor;
+
           Drawing.DrawChevron(graphics, lineSegment.Mid.ToPointF(), (float) (Math.Atan2(delta.Y, delta.X)/Math.PI*180), Settings.ConnectionArrowSize, brush);
         }
         context.LinesDrawn.Add(lineSegment);
@@ -616,10 +639,12 @@ namespace Trizbort
         dialog.StartText = StartText;
         dialog.MidText = MidText;
         dialog.EndText = EndText;
+        dialog.ConnectionColor = ConnectionColor;
         if (dialog.ShowDialog() == DialogResult.OK)
         {
           Style = dialog.IsDotted ? ConnectionStyle.Dashed : ConnectionStyle.Solid;
           Flow = dialog.IsDirectional ? ConnectionFlow.OneWay : ConnectionFlow.TwoWay;
+          ConnectionColor = dialog.ConnectionColor;
           StartText = dialog.StartText;
           MidText = dialog.MidText;
           EndText = dialog.EndText;
@@ -629,6 +654,9 @@ namespace Trizbort
 
     public void Save(XmlScribe scribe)
     {
+      if (ConnectionColor != Color.Transparent)
+        scribe.Attribute("color",Colors.SaveColor(ConnectionColor));
+
       if (Style != DefaultStyle)
       {
         switch (Style)
@@ -715,10 +743,11 @@ namespace Trizbort
       StartText = element.Attribute("startText").Text;
       MidText = element.Attribute("midText").Text;
       EndText = element.Attribute("endText").Text;
+      if (element.Attribute("color").Text != "") { ConnectionColor = ColorTranslator.FromHtml(element.Attribute("color").Text); }
 
       var vertexElementList = new List<XmlElementReader>();
       vertexElementList.AddRange(element.Children);
-      vertexElementList.Sort((a, b) => { return a.Attribute("index").ToInt().CompareTo(b.Attribute("index").ToInt()); });
+      vertexElementList.Sort((a, b) => a.Attribute("index").ToInt().CompareTo(b.Attribute("index").ToInt()));
 
       foreach (var vertexElement in vertexElementList)
       {

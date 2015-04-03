@@ -1,4 +1,7 @@
 Change Log
+1.5.8.6
+-------------
+++ allow for individual connection coloring.
 
 1.5.8.5 - Public Release
 -------------
@@ -78,7 +81,7 @@ Feature
 ++ When room(s) are selected, the arrow keys move the rooms and not the map (TRIZ-128)
 
 
-1.5.6.3
+1.5.6.3 - Public Release
 -------------
 -- fixed issue with region names and certain characters that would throw error when saving...now works like room names (TRIZ-80)
 ++ Regions are now alphabetized (TRIZ-78)

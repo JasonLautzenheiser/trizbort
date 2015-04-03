@@ -616,7 +616,9 @@ namespace Trizbort
         Drawing.AddLine(path, right, random);
         Drawing.AddLine(path, bottom, random);
         Drawing.AddLine(path, left, random);
-        graphics.DrawPath(brush, path);
+
+        graphics.DrawPath(  brush, path);
+        graphics.DrawPath(new XPen(((SolidBrush)brush).Color) {DashStyle = XDashStyle.Dot},  brush, path);
 
 
         // Second fill for room specific colors with a split option
@@ -859,20 +861,20 @@ namespace Trizbort
       var bValue = "";
       var gValue = "";
 
-      var colorValue = saveRoomColor(RoomFill);
+      var colorValue = Colors.SaveColor(RoomFill);
       scribe.Attribute("roomFill", colorValue);
 
-      colorValue = saveRoomColor(SecondFill);
+      colorValue = Colors.SaveColor(SecondFill);
       scribe.Attribute("secondFill", colorValue);
       scribe.Attribute("secondFillLocation", SecondFillLocation);
 
-      colorValue = saveRoomColor(RoomBorder);
+      colorValue = Colors.SaveColor(RoomBorder);
       scribe.Attribute("roomBorder", colorValue);
 
-      colorValue = saveRoomColor(RoomLargeText);
+      colorValue = Colors.SaveColor(RoomLargeText);
       scribe.Attribute("roomLargeText", colorValue);
 
-      colorValue = saveRoomColor(RoomSmallText);
+      colorValue = Colors.SaveColor(RoomSmallText);
       scribe.Attribute("roomSmallText", colorValue);
 
       // Up to this point was added to turn colors to Hex code for xmpl saving/loading
@@ -892,45 +894,7 @@ namespace Trizbort
       }
     }
 
-    private string saveRoomColor(Color roomColorAttribute)
-    {
-      string rValue;
-      string gValue;
-      string bValue;
-
-      if (roomColorAttribute == Color.Transparent)
-      {
-        return String.Empty;
-      }
-
-      if (roomColorAttribute.R < 16)
-      {
-        rValue = "0" + roomColorAttribute.R.ToString("X");
-      }
-      else
-      {
-        rValue = roomColorAttribute.R.ToString("X");
-      }
-      if (roomColorAttribute.G < 16)
-      {
-        gValue = "0" + roomColorAttribute.G.ToString("X");
-      }
-      else
-      {
-        gValue = roomColorAttribute.G.ToString("X");
-      }
-      if (roomColorAttribute.B < 16)
-      {
-        bValue = "0" + roomColorAttribute.B.ToString("X");
-      }
-      else
-      {
-        bValue = roomColorAttribute.B.ToString("X");
-      }
-
-      var colorValue = "#" + rValue + "" + gValue + "" + bValue;
-      return colorValue;
-    }
+ 
 
     public void Load(XmlElementReader element)
     {

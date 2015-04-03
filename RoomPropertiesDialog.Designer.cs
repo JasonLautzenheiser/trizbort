@@ -72,13 +72,8 @@ namespace Trizbort
       this.cboRegion = new System.Windows.Forms.ComboBox();
       this.label6 = new System.Windows.Forms.Label();
       this.m_tabControl = new DevComponents.DotNetBar.SuperTabControl();
-      this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.m_secondFillTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.m_objectTextTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.m_roomTextTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.m_roomBorderTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.m_roomFillTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.tabColors = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.tabRegions = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.txtObjects = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.m_objectsPositionGroupBox = new System.Windows.Forms.GroupBox();
@@ -92,20 +87,25 @@ namespace Trizbort
       this.m_wCheckBox = new System.Windows.Forms.CheckBox();
       this.m_eCheckBox = new System.Windows.Forms.CheckBox();
       this.tabObjects = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.m_secondFillTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
+      this.m_objectTextTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
+      this.m_roomTextTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
+      this.m_roomBorderTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
+      this.m_roomFillTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
+      this.tabColors = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.tabDescription = new DevComponents.DotNetBar.SuperTabItem();
-      this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.tabRegions = new DevComponents.DotNetBar.SuperTabItem();
       this.txtName = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.txtSubTitle = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.label7 = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).BeginInit();
       this.m_tabControl.SuspendLayout();
-      this.superTabControlPanel3.SuspendLayout();
+      this.superTabControlPanel4.SuspendLayout();
       this.superTabControlPanel1.SuspendLayout();
       this.m_objectsPositionGroupBox.SuspendLayout();
+      this.superTabControlPanel3.SuspendLayout();
       this.superTabControlPanel2.SuspendLayout();
-      this.superTabControlPanel4.SuspendLayout();
       this.SuspendLayout();
       // 
       // m_okButton
@@ -333,9 +333,9 @@ namespace Trizbort
       this.m_tabControl.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.m_tabControl.ControlBox.MenuBox,
             this.m_tabControl.ControlBox.CloseBox});
-      this.m_tabControl.Controls.Add(this.superTabControlPanel4);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel1);
       this.m_tabControl.Controls.Add(this.superTabControlPanel3);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel1);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel4);
       this.m_tabControl.Controls.Add(this.superTabControlPanel2);
       this.m_tabControl.Location = new System.Drawing.Point(19, 106);
       this.m_tabControl.Name = "m_tabControl";
@@ -354,132 +354,23 @@ namespace Trizbort
       this.m_tabControl.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.VisualStudio2008Dock;
       this.m_tabControl.Enter += new System.EventHandler(this.m_tabControl_Enter);
       // 
-      // superTabControlPanel3
+      // superTabControlPanel4
       // 
-      this.superTabControlPanel3.Controls.Add(this.m_secondFillTextBox);
-      this.superTabControlPanel3.Controls.Add(this.m_objectTextTextBox);
-      this.superTabControlPanel3.Controls.Add(this.m_roomTextTextBox);
-      this.superTabControlPanel3.Controls.Add(this.m_roomBorderTextBox);
-      this.superTabControlPanel3.Controls.Add(this.m_roomFillTextBox);
-      this.superTabControlPanel3.Controls.Add(this.comboBox1);
-      this.superTabControlPanel3.Controls.Add(this.label5);
-      this.superTabControlPanel3.Controls.Add(this.m_changeRoomFillButton);
-      this.superTabControlPanel3.Controls.Add(this.m_changeSecondFillButton);
-      this.superTabControlPanel3.Controls.Add(this.label11);
-      this.superTabControlPanel3.Controls.Add(this.label4);
-      this.superTabControlPanel3.Controls.Add(this.m_changeRoomBorderButton);
-      this.superTabControlPanel3.Controls.Add(this.m_changeObjectTextButton);
-      this.superTabControlPanel3.Controls.Add(this.label2);
-      this.superTabControlPanel3.Controls.Add(this.label3);
-      this.superTabControlPanel3.Controls.Add(this.m_changeRoomTextButton);
-      this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 0);
-      this.superTabControlPanel3.Name = "superTabControlPanel3";
-      this.superTabControlPanel3.Size = new System.Drawing.Size(472, 201);
-      this.superTabControlPanel3.TabIndex = 0;
-      this.superTabControlPanel3.TabItem = this.tabColors;
+      this.superTabControlPanel4.Controls.Add(this.cboRegion);
+      this.superTabControlPanel4.Controls.Add(this.label6);
+      this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
+      this.superTabControlPanel4.Name = "superTabControlPanel4";
+      this.superTabControlPanel4.Size = new System.Drawing.Size(472, 201);
+      this.superTabControlPanel4.TabIndex = 0;
+      this.superTabControlPanel4.TabItem = this.tabRegions;
       // 
-      // m_secondFillTextBox
+      // tabRegions
       // 
-      // 
-      // 
-      // 
-      this.m_secondFillTextBox.Border.Class = "TextBoxBorder";
-      this.m_secondFillTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.m_secondFillTextBox.ButtonCustom.Text = "Clear";
-      this.m_secondFillTextBox.ButtonCustom.Visible = true;
-      this.m_secondFillTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.m_secondFillTextBox.Location = new System.Drawing.Point(207, 41);
-      this.m_secondFillTextBox.Name = "m_secondFillTextBox";
-      this.m_secondFillTextBox.ReadOnly = true;
-      this.m_secondFillTextBox.Size = new System.Drawing.Size(177, 21);
-      this.m_secondFillTextBox.TabIndex = 25;
-      this.m_secondFillTextBox.ButtonCustomClick += new System.EventHandler(this.m_secondFillTextBox_ButtonCustomClick);
-      this.m_secondFillTextBox.DoubleClick += new System.EventHandler(this.m_secondFillTextBox_DoubleClick);
-      this.m_secondFillTextBox.Enter += new System.EventHandler(this.m_secondFillTextBox_Enter);
-      // 
-      // m_objectTextTextBox
-      // 
-      // 
-      // 
-      // 
-      this.m_objectTextTextBox.Border.Class = "TextBoxBorder";
-      this.m_objectTextTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.m_objectTextTextBox.ButtonCustom.Text = "Clear";
-      this.m_objectTextTextBox.ButtonCustom.Visible = true;
-      this.m_objectTextTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.m_objectTextTextBox.Location = new System.Drawing.Point(80, 128);
-      this.m_objectTextTextBox.Name = "m_objectTextTextBox";
-      this.m_objectTextTextBox.ReadOnly = true;
-      this.m_objectTextTextBox.Size = new System.Drawing.Size(304, 21);
-      this.m_objectTextTextBox.TabIndex = 24;
-      this.m_objectTextTextBox.ButtonCustomClick += new System.EventHandler(this.m_objectTextTextBox_ButtonCustomClick);
-      this.m_objectTextTextBox.DoubleClick += new System.EventHandler(this.m_objectTextTextBox_DoubleClick);
-      this.m_objectTextTextBox.Enter += new System.EventHandler(this.m_objectTextTextBox_Enter);
-      // 
-      // m_roomTextTextBox
-      // 
-      // 
-      // 
-      // 
-      this.m_roomTextTextBox.Border.Class = "TextBoxBorder";
-      this.m_roomTextTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.m_roomTextTextBox.ButtonCustom.Text = "Clear";
-      this.m_roomTextTextBox.ButtonCustom.Visible = true;
-      this.m_roomTextTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.m_roomTextTextBox.Location = new System.Drawing.Point(80, 99);
-      this.m_roomTextTextBox.Name = "m_roomTextTextBox";
-      this.m_roomTextTextBox.ReadOnly = true;
-      this.m_roomTextTextBox.Size = new System.Drawing.Size(304, 21);
-      this.m_roomTextTextBox.TabIndex = 23;
-      this.m_roomTextTextBox.ButtonCustomClick += new System.EventHandler(this.m_roomTextTextBox_ButtonCustomClick);
-      this.m_roomTextTextBox.DoubleClick += new System.EventHandler(this.m_roomTextTextBox_DoubleClick);
-      this.m_roomTextTextBox.Enter += new System.EventHandler(this.m_roomTextTextBox_Enter);
-      // 
-      // m_roomBorderTextBox
-      // 
-      // 
-      // 
-      // 
-      this.m_roomBorderTextBox.Border.Class = "TextBoxBorder";
-      this.m_roomBorderTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.m_roomBorderTextBox.ButtonCustom.Text = "Clear";
-      this.m_roomBorderTextBox.ButtonCustom.Visible = true;
-      this.m_roomBorderTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.m_roomBorderTextBox.Location = new System.Drawing.Point(80, 70);
-      this.m_roomBorderTextBox.Name = "m_roomBorderTextBox";
-      this.m_roomBorderTextBox.ReadOnly = true;
-      this.m_roomBorderTextBox.Size = new System.Drawing.Size(304, 21);
-      this.m_roomBorderTextBox.TabIndex = 22;
-      this.m_roomBorderTextBox.ButtonCustomClick += new System.EventHandler(this.m_roomBorderTextBox_ButtonCustomClick);
-      this.m_roomBorderTextBox.DoubleClick += new System.EventHandler(this.m_roomBorderTextBox_DoubleClick);
-      this.m_roomBorderTextBox.Enter += new System.EventHandler(this.m_roomBorderTextBox_Enter);
-      // 
-      // m_roomFillTextBox
-      // 
-      // 
-      // 
-      // 
-      this.m_roomFillTextBox.Border.Class = "TextBoxBorder";
-      this.m_roomFillTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.m_roomFillTextBox.ButtonCustom.Text = "Clear";
-      this.m_roomFillTextBox.ButtonCustom.Visible = true;
-      this.m_roomFillTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.m_roomFillTextBox.Location = new System.Drawing.Point(80, 12);
-      this.m_roomFillTextBox.Name = "m_roomFillTextBox";
-      this.m_roomFillTextBox.ReadOnly = true;
-      this.m_roomFillTextBox.Size = new System.Drawing.Size(304, 21);
-      this.m_roomFillTextBox.TabIndex = 21;
-      this.m_roomFillTextBox.ButtonCustomClick += new System.EventHandler(this.m_roomFillTextBox_ButtonCustomClick);
-      this.m_roomFillTextBox.DoubleClick += new System.EventHandler(this.m_roomFillTextBox_DoubleClick);
-      this.m_roomFillTextBox.Enter += new System.EventHandler(this.m_roomFillTextBox_Enter);
-      // 
-      // tabColors
-      // 
-      this.tabColors.AttachedControl = this.superTabControlPanel3;
-      this.tabColors.GlobalItem = false;
-      this.tabColors.Name = "tabColors";
-      this.tabColors.Text = "&Colors";
+      this.tabRegions.AttachedControl = this.superTabControlPanel4;
+      this.tabRegions.GlobalItem = false;
+      this.tabRegions.Name = "tabRegions";
+      this.tabRegions.Text = "Re&gions";
       // 
       // superTabControlPanel1
       // 
@@ -659,6 +550,133 @@ namespace Trizbort
       this.tabObjects.Name = "tabObjects";
       this.tabObjects.Text = "&Objects";
       // 
+      // superTabControlPanel3
+      // 
+      this.superTabControlPanel3.Controls.Add(this.m_secondFillTextBox);
+      this.superTabControlPanel3.Controls.Add(this.m_objectTextTextBox);
+      this.superTabControlPanel3.Controls.Add(this.m_roomTextTextBox);
+      this.superTabControlPanel3.Controls.Add(this.m_roomBorderTextBox);
+      this.superTabControlPanel3.Controls.Add(this.m_roomFillTextBox);
+      this.superTabControlPanel3.Controls.Add(this.comboBox1);
+      this.superTabControlPanel3.Controls.Add(this.label5);
+      this.superTabControlPanel3.Controls.Add(this.m_changeRoomFillButton);
+      this.superTabControlPanel3.Controls.Add(this.m_changeSecondFillButton);
+      this.superTabControlPanel3.Controls.Add(this.label11);
+      this.superTabControlPanel3.Controls.Add(this.label4);
+      this.superTabControlPanel3.Controls.Add(this.m_changeRoomBorderButton);
+      this.superTabControlPanel3.Controls.Add(this.m_changeObjectTextButton);
+      this.superTabControlPanel3.Controls.Add(this.label2);
+      this.superTabControlPanel3.Controls.Add(this.label3);
+      this.superTabControlPanel3.Controls.Add(this.m_changeRoomTextButton);
+      this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel3.Name = "superTabControlPanel3";
+      this.superTabControlPanel3.Size = new System.Drawing.Size(472, 175);
+      this.superTabControlPanel3.TabIndex = 0;
+      this.superTabControlPanel3.TabItem = this.tabColors;
+      // 
+      // m_secondFillTextBox
+      // 
+      // 
+      // 
+      // 
+      this.m_secondFillTextBox.Border.Class = "TextBoxBorder";
+      this.m_secondFillTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.m_secondFillTextBox.ButtonCustom.Text = "Clear";
+      this.m_secondFillTextBox.ButtonCustom.Visible = true;
+      this.m_secondFillTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.m_secondFillTextBox.Location = new System.Drawing.Point(207, 41);
+      this.m_secondFillTextBox.Name = "m_secondFillTextBox";
+      this.m_secondFillTextBox.ReadOnly = true;
+      this.m_secondFillTextBox.Size = new System.Drawing.Size(177, 21);
+      this.m_secondFillTextBox.TabIndex = 25;
+      this.m_secondFillTextBox.ButtonCustomClick += new System.EventHandler(this.m_secondFillTextBox_ButtonCustomClick);
+      this.m_secondFillTextBox.DoubleClick += new System.EventHandler(this.m_secondFillTextBox_DoubleClick);
+      this.m_secondFillTextBox.Enter += new System.EventHandler(this.m_secondFillTextBox_Enter);
+      // 
+      // m_objectTextTextBox
+      // 
+      // 
+      // 
+      // 
+      this.m_objectTextTextBox.Border.Class = "TextBoxBorder";
+      this.m_objectTextTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.m_objectTextTextBox.ButtonCustom.Text = "Clear";
+      this.m_objectTextTextBox.ButtonCustom.Visible = true;
+      this.m_objectTextTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.m_objectTextTextBox.Location = new System.Drawing.Point(80, 128);
+      this.m_objectTextTextBox.Name = "m_objectTextTextBox";
+      this.m_objectTextTextBox.ReadOnly = true;
+      this.m_objectTextTextBox.Size = new System.Drawing.Size(304, 21);
+      this.m_objectTextTextBox.TabIndex = 24;
+      this.m_objectTextTextBox.ButtonCustomClick += new System.EventHandler(this.m_objectTextTextBox_ButtonCustomClick);
+      this.m_objectTextTextBox.DoubleClick += new System.EventHandler(this.m_objectTextTextBox_DoubleClick);
+      this.m_objectTextTextBox.Enter += new System.EventHandler(this.m_objectTextTextBox_Enter);
+      // 
+      // m_roomTextTextBox
+      // 
+      // 
+      // 
+      // 
+      this.m_roomTextTextBox.Border.Class = "TextBoxBorder";
+      this.m_roomTextTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.m_roomTextTextBox.ButtonCustom.Text = "Clear";
+      this.m_roomTextTextBox.ButtonCustom.Visible = true;
+      this.m_roomTextTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.m_roomTextTextBox.Location = new System.Drawing.Point(80, 99);
+      this.m_roomTextTextBox.Name = "m_roomTextTextBox";
+      this.m_roomTextTextBox.ReadOnly = true;
+      this.m_roomTextTextBox.Size = new System.Drawing.Size(304, 21);
+      this.m_roomTextTextBox.TabIndex = 23;
+      this.m_roomTextTextBox.ButtonCustomClick += new System.EventHandler(this.m_roomTextTextBox_ButtonCustomClick);
+      this.m_roomTextTextBox.DoubleClick += new System.EventHandler(this.m_roomTextTextBox_DoubleClick);
+      this.m_roomTextTextBox.Enter += new System.EventHandler(this.m_roomTextTextBox_Enter);
+      // 
+      // m_roomBorderTextBox
+      // 
+      // 
+      // 
+      // 
+      this.m_roomBorderTextBox.Border.Class = "TextBoxBorder";
+      this.m_roomBorderTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.m_roomBorderTextBox.ButtonCustom.Text = "Clear";
+      this.m_roomBorderTextBox.ButtonCustom.Visible = true;
+      this.m_roomBorderTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.m_roomBorderTextBox.Location = new System.Drawing.Point(80, 70);
+      this.m_roomBorderTextBox.Name = "m_roomBorderTextBox";
+      this.m_roomBorderTextBox.ReadOnly = true;
+      this.m_roomBorderTextBox.Size = new System.Drawing.Size(304, 21);
+      this.m_roomBorderTextBox.TabIndex = 22;
+      this.m_roomBorderTextBox.ButtonCustomClick += new System.EventHandler(this.m_roomBorderTextBox_ButtonCustomClick);
+      this.m_roomBorderTextBox.DoubleClick += new System.EventHandler(this.m_roomBorderTextBox_DoubleClick);
+      this.m_roomBorderTextBox.Enter += new System.EventHandler(this.m_roomBorderTextBox_Enter);
+      // 
+      // m_roomFillTextBox
+      // 
+      // 
+      // 
+      // 
+      this.m_roomFillTextBox.Border.Class = "TextBoxBorder";
+      this.m_roomFillTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.m_roomFillTextBox.ButtonCustom.Text = "Clear";
+      this.m_roomFillTextBox.ButtonCustom.Visible = true;
+      this.m_roomFillTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.m_roomFillTextBox.Location = new System.Drawing.Point(80, 12);
+      this.m_roomFillTextBox.Name = "m_roomFillTextBox";
+      this.m_roomFillTextBox.ReadOnly = true;
+      this.m_roomFillTextBox.Size = new System.Drawing.Size(304, 21);
+      this.m_roomFillTextBox.TabIndex = 21;
+      this.m_roomFillTextBox.ButtonCustomClick += new System.EventHandler(this.m_roomFillTextBox_ButtonCustomClick);
+      this.m_roomFillTextBox.DoubleClick += new System.EventHandler(this.m_roomFillTextBox_DoubleClick);
+      this.m_roomFillTextBox.Enter += new System.EventHandler(this.m_roomFillTextBox_Enter);
+      // 
+      // tabColors
+      // 
+      this.tabColors.AttachedControl = this.superTabControlPanel3;
+      this.tabColors.GlobalItem = false;
+      this.tabColors.Name = "tabColors";
+      this.tabColors.Text = "&Colors";
+      // 
       // superTabControlPanel2
       // 
       this.superTabControlPanel2.Controls.Add(this.m_descriptionTextBox);
@@ -675,24 +693,6 @@ namespace Trizbort
       this.tabDescription.GlobalItem = false;
       this.tabDescription.Name = "tabDescription";
       this.tabDescription.Text = "D&escription";
-      // 
-      // superTabControlPanel4
-      // 
-      this.superTabControlPanel4.Controls.Add(this.cboRegion);
-      this.superTabControlPanel4.Controls.Add(this.label6);
-      this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 26);
-      this.superTabControlPanel4.Name = "superTabControlPanel4";
-      this.superTabControlPanel4.Size = new System.Drawing.Size(472, 175);
-      this.superTabControlPanel4.TabIndex = 0;
-      this.superTabControlPanel4.TabItem = this.tabRegions;
-      // 
-      // tabRegions
-      // 
-      this.tabRegions.AttachedControl = this.superTabControlPanel4;
-      this.tabRegions.GlobalItem = false;
-      this.tabRegions.Name = "tabRegions";
-      this.tabRegions.Text = "Re&gions";
       // 
       // txtName
       // 
@@ -756,14 +756,14 @@ namespace Trizbort
       this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RoomPropertiesDialog_KeyUp);
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).EndInit();
       this.m_tabControl.ResumeLayout(false);
-      this.superTabControlPanel3.ResumeLayout(false);
-      this.superTabControlPanel3.PerformLayout();
-      this.superTabControlPanel1.ResumeLayout(false);
-      this.m_objectsPositionGroupBox.ResumeLayout(false);
-      this.superTabControlPanel2.ResumeLayout(false);
-      this.superTabControlPanel2.PerformLayout();
       this.superTabControlPanel4.ResumeLayout(false);
       this.superTabControlPanel4.PerformLayout();
+      this.superTabControlPanel1.ResumeLayout(false);
+      this.m_objectsPositionGroupBox.ResumeLayout(false);
+      this.superTabControlPanel3.ResumeLayout(false);
+      this.superTabControlPanel3.PerformLayout();
+      this.superTabControlPanel2.ResumeLayout(false);
+      this.superTabControlPanel2.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 

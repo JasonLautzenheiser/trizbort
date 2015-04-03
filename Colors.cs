@@ -23,11 +23,8 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using DevComponents.DotNetBar.ColorPickers;
 
 namespace Trizbort
 {
@@ -97,6 +94,46 @@ namespace Trizbort
         }
       }
       return color;
+    }
+
+    public static string SaveColor(Color colorAttribute)
+    {
+      string rValue;
+      string gValue;
+      string bValue;
+
+      if (colorAttribute == Color.Transparent)
+      {
+        return String.Empty;
+      }
+
+      if (colorAttribute.R < 16)
+      {
+        rValue = "0" + colorAttribute.R.ToString("X");
+      }
+      else
+      {
+        rValue = colorAttribute.R.ToString("X");
+      }
+      if (colorAttribute.G < 16)
+      {
+        gValue = "0" + colorAttribute.G.ToString("X");
+      }
+      else
+      {
+        gValue = colorAttribute.G.ToString("X");
+      }
+      if (colorAttribute.B < 16)
+      {
+        bValue = "0" + colorAttribute.B.ToString("X");
+      }
+      else
+      {
+        bValue = colorAttribute.B.ToString("X");
+      }
+
+      var colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      return colorValue;
     }
   }
 }

@@ -23,121 +23,161 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Trizbort
 {
-    public partial class ConnectionPropertiesDialog : Form
+  public partial class ConnectionPropertiesDialog : Form
+  {
+    private const string NO_COLOR_SET = "No Color Set";
+    public ConnectionPropertiesDialog()
     {
-        public ConnectionPropertiesDialog()
-        {
-            InitializeComponent();
-        }
-
-        public bool IsDirectional
-        {
-            get { return m_oneWayCheckBox.Checked; }
-            set { m_oneWayCheckBox.Checked = value; }
-        }
-
-        public bool IsDotted
-        {
-            get { return m_dottedCheckBox.Checked; }
-            set { m_dottedCheckBox.Checked = value; }
-        }
-
-        public string StartText
-        {
-            get { return m_startTextBox.Text; }
-            set
-            {
-                m_startTextBox.Text = value;
-                UpdateControls();
-            }
-        }
-
-        public string MidText
-        {
-            get { return m_middleTextBox.Text; }
-            set
-            {
-                m_middleTextBox.Text = value;
-                UpdateControls();
-            }
-        }
-
-        public string EndText
-        {
-            get { return m_endTextBox.Text; }
-            set
-            {
-                m_endTextBox.Text = value;
-                UpdateControls();
-            }
-        }
-
-        private void UpdateControls()
-        {
-            if (MatchText(ConnectionLabel.Up))
-            {
-                m_udRadioButton.Checked = true;
-            }
-            else if (MatchText(ConnectionLabel.Down))
-            {
-                m_duRadioButton.Checked = true;
-            }
-            else if (MatchText(ConnectionLabel.In))
-            {
-                m_ioRadioButton.Checked = true;
-            }
-            else if (MatchText(ConnectionLabel.Out))
-            {
-                m_oiRadioButton.Checked = true;
-            }
-            else
-            {
-                m_customRadioButton.Checked = true;
-            }
-        }
-
-        private bool MatchText(ConnectionLabel label)
-        {
-            string start, end;
-            Connection.GetText(label, out start, out end);
-            return StartText == start && EndText == end && string.IsNullOrEmpty(MidText);
-        }
-
-        private void OnRadioButtonCheckedChanged(object sender, EventArgs e)
-        {
-            if (m_udRadioButton.Checked)
-            {
-                SetText(ConnectionLabel.Up);
-            }
-            else if (m_duRadioButton.Checked)
-            {
-                SetText(ConnectionLabel.Down);
-            }
-            else if (m_ioRadioButton.Checked)
-            {
-                SetText(ConnectionLabel.In);
-            }
-            else if (m_oiRadioButton.Checked)
-            {
-                SetText(ConnectionLabel.Out);
-            }
-        }
-
-        private void SetText(ConnectionLabel label)
-        {
-            string start, end;
-            Connection.GetText(label, out start, out end);
-            StartText = start;
-            EndText = end;
-        }
+      InitializeComponent();
     }
+
+    public Color ConnectionColor
+    {
+      get
+      {
+        return connectionColorBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : connectionColorBox.BackColor;
+      }
+      set
+      {
+        if (value == Color.Transparent)
+        {
+          connectionColorBox.BackColor = Color.White;
+          connectionColorBox.WatermarkText = NO_COLOR_SET;
+        }
+        else
+        {
+          connectionColorBox.BackColor = value;
+          connectionColorBox.WatermarkText = string.Empty;
+        }
+      }
+    }
+
+
+    public bool IsDirectional
+    {
+      get { return m_oneWayCheckBox.Checked; }
+      set { m_oneWayCheckBox.Checked = value; }
+    }
+
+    public bool IsDotted
+    {
+      get { return m_dottedCheckBox.Checked; }
+      set { m_dottedCheckBox.Checked = value; }
+    }
+
+    public string StartText
+    {
+      get { return m_startTextBox.Text; }
+      set
+      {
+        m_startTextBox.Text = value;
+        UpdateControls();
+      }
+    }
+
+    public string MidText
+    {
+      get { return m_middleTextBox.Text; }
+      set
+      {
+        m_middleTextBox.Text = value;
+        UpdateControls();
+      }
+    }
+
+    public string EndText
+    {
+      get { return m_endTextBox.Text; }
+      set
+      {
+        m_endTextBox.Text = value;
+        UpdateControls();
+      }
+    }
+
+    private void UpdateControls()
+    {
+      if (MatchText(ConnectionLabel.Up))
+      {
+        m_udRadioButton.Checked = true;
+      }
+      else if (MatchText(ConnectionLabel.Down))
+      {
+        m_duRadioButton.Checked = true;
+      }
+      else if (MatchText(ConnectionLabel.In))
+      {
+        m_ioRadioButton.Checked = true;
+      }
+      else if (MatchText(ConnectionLabel.Out))
+      {
+        m_oiRadioButton.Checked = true;
+      }
+      else
+      {
+        m_customRadioButton.Checked = true;
+      }
+    }
+
+    private bool MatchText(ConnectionLabel label)
+    {
+      string start, end;
+      Connection.GetText(label, out start, out end);
+      return StartText == start && EndText == end && string.IsNullOrEmpty(MidText);
+    }
+
+    private void OnRadioButtonCheckedChanged(object sender, EventArgs e)
+    {
+      if (m_udRadioButton.Checked)
+      {
+        SetText(ConnectionLabel.Up);
+      }
+      else if (m_duRadioButton.Checked)
+      {
+        SetText(ConnectionLabel.Down);
+      }
+      else if (m_ioRadioButton.Checked)
+      {
+        SetText(ConnectionLabel.In);
+      }
+      else if (m_oiRadioButton.Checked)
+      {
+        SetText(ConnectionLabel.Out);
+      }
+    }
+
+    private void SetText(ConnectionLabel label)
+    {
+      string start, end;
+      Connection.GetText(label, out start, out end);
+      StartText = start;
+      EndText = end;
+    }
+
+    private void connectionColorChange_Click(object sender, EventArgs e)
+    {
+      changeConnectionColor();
+    }
+
+    private void changeConnectionColor()
+    {
+      ConnectionColor = Colors.ShowColorDialog(ConnectionColor, this);
+    }
+
+    private void connectionColorBox_ButtonCustomClick(object sender, EventArgs e)
+    {
+      ConnectionColor = Color.Transparent;
+      connectionColorChange.Focus();
+    }
+
+    private void connectionColorBox_DoubleClick(object sender, EventArgs e)
+    {
+      changeConnectionColor();
+    }
+  }
 }

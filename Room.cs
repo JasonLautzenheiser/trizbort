@@ -56,7 +56,9 @@ namespace Trizbort
     private Color m_roomsmalltext = Color.Transparent;
     private Color m_secondfill = Color.Transparent;
     private String m_secondfilllocation = "Bottom";
+    private DashStyle m_borderStyle = DashStyle.Solid;
     private Vector m_size;
+    private const int MAX_OBJECTS=1000;
 
     public Room(Project project)
       : base(project)
@@ -193,6 +195,19 @@ namespace Trizbort
         if (m_objectsPosition != value)
         {
           m_objectsPosition = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    public DashStyle BorderStyle
+    {
+      get { return m_borderStyle; }
+      set
+      {
+        if (m_borderStyle != value)
+        {
+          m_borderStyle = value;
           RaiseChanged();
         }
       }
@@ -575,6 +590,9 @@ namespace Trizbort
         context.LinesDrawn.Add(left);
 
 
+      
+
+
         if (context.Selected)
         {
           var tBounds = InnerBounds;
@@ -598,8 +616,8 @@ namespace Trizbort
           var brushSelected = new SolidBrush(Color.Gold);
           graphics.DrawPath(brushSelected, pathSelected);
         }
-        
 
+        
       var brush = context.Selected ? palette.BorderBrush : palette.FillBrush;
 
       // get region color
@@ -617,8 +635,11 @@ namespace Trizbort
         Drawing.AddLine(path, bottom, random);
         Drawing.AddLine(path, left, random);
 
+
+        
         graphics.DrawPath(  brush, path);
-        graphics.DrawPath(new XPen(((SolidBrush)brush).Color) {DashStyle = XDashStyle.Dot},  brush, path);
+ //       graphics.DrawPath(new XPen(Color.Red) {DashStyle = XDashStyle.Dot},  brush, path);
+
 
 
         // Second fill for room specific colors with a split option
@@ -681,7 +702,6 @@ namespace Trizbort
           // Draw the second fill over the first
           graphics.DrawPath(brush, secondPath);
         }
-
         if (IsDark)
         {
           var state = graphics.Save();
@@ -698,11 +718,13 @@ namespace Trizbort
 
         if (RoomBorder == Color.Transparent)
         {
-          graphics.DrawPath(palette.BorderPen, path);
+          var pen = palette.BorderPen;
+          pen.DashStyle = BorderStyle;
+          graphics.DrawPath(pen, path);
         }
         else
         {
-          var roomBorderPen = new Pen(RoomBorder, Settings.LineWidth) {StartCap = LineCap.Round, EndCap = LineCap.Round};
+          var roomBorderPen = new Pen(RoomBorder, Settings.LineWidth) { StartCap = LineCap.Round, EndCap = LineCap.Round, DashStyle = BorderStyle };
           graphics.DrawPath(roomBorderPen, path);
         }
 
@@ -767,7 +789,14 @@ namespace Trizbort
         if (!drawnObjectList)
         {
           if (!Settings.DebugDisableTextRendering)
-            m_objects.Draw(graphics, font, brush, pos, Vector.Zero, format);
+          {
+            var aObjects = m_objects.Text.Split('\n');
+            var tString = aObjects.Take(MAX_OBJECTS).Aggregate(string.Empty, (current, aObject) => current + (aObject + "\n"));
+            var displayObjects = new TextBlock() {Text = tString};
+
+            var block = displayObjects.Draw(graphics, font, brush, pos, Vector.Zero, format);
+
+          }
         }
       }
     }
@@ -803,6 +832,7 @@ namespace Trizbort
         dialog.IsDark = IsDark;
         dialog.Objects = Objects;
         dialog.ObjectsPosition = ObjectsPosition;
+        dialog.BorderStyle = BorderStyle;
 
         dialog.RoomFillColor = RoomFill;
         dialog.SecondFillColor = SecondFill;
@@ -824,6 +854,7 @@ namespace Trizbort
           }
           IsDark = dialog.IsDark;
           Objects = dialog.Objects;
+          BorderStyle = dialog.BorderStyle;
           ObjectsPosition = dialog.ObjectsPosition;
           // Added for Room specific colors
           RoomFill = dialog.RoomFillColor;
@@ -851,6 +882,7 @@ namespace Trizbort
       scribe.Attribute("w", Size.X);
       scribe.Attribute("h", Size.Y);
       scribe.Attribute("region", string.IsNullOrEmpty(Region) ? Trizbort.Region.DefaultRegion : Region);
+      scribe.Attribute("borderstyle",BorderStyle.ToString());
       if (IsDark)
       {
         scribe.Attribute("isDark", IsDark);
@@ -906,6 +938,8 @@ namespace Trizbort
       Size = new Vector(element.Attribute("w").ToFloat(), element.Attribute("h").ToFloat());
       Region = element.Attribute("region").Text;
       IsDark = element.Attribute("isDark").ToBool();
+      if (element.Attribute("borderstyle").Text != "")
+        BorderStyle = (DashStyle) Enum.Parse(typeof (DashStyle), element.Attribute("borderstyle").Text);
 
       if (Project.Version.CompareTo(new Version(1, 5, 8, 3)) < 0)
       {

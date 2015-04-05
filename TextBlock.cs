@@ -70,6 +70,7 @@ namespace Trizbort
     /// <param name="pos">The position at which to draw.</param>
     /// <param name="size">The size to which to limit the drawn text; or Vector.Zero for no limit.</param>
     /// <param name="format">The string format to use.</param>
+    /// <param name="maxObjects"></param>
     /// <param name="text">The text to draw, which may contain line breaks.</param>
     /// <remarks>
     ///   PDFsharp cannot currently render multi-line text to PDF files; it comes out as single line.

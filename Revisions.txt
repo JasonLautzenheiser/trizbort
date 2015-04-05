@@ -2,6 +2,7 @@ Change Log
 1.5.8.6
 -------------
 ++ allow for individual connection coloring.
+++ allow for individual rooms to have different room border styles.
 
 1.5.8.5 - Public Release
 -------------

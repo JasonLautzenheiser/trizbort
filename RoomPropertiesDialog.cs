@@ -24,6 +24,7 @@
 
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -88,6 +89,11 @@ namespace Trizbort
       set { txtName.Text = value; }
     }
 
+    public DashStyle BorderStyle
+    {
+      get { return (DashStyle)Enum.Parse(typeof(DashStyle), cboBorderStyle.SelectedItem.ToString()); }
+      set { cboBorderStyle.SelectedItem = value.ToString(); }
+    }
     public string RoomSubTitle
     {
       get { return txtSubTitle.Text; }

@@ -139,6 +139,7 @@
 		</ul>
 		<li><a href="#debug_combos">Debug key combos</a>
 		<li><a href="#textedit">Manual Editing</a>
+		<li><a href="#building">Building Trizbort</a>
 	</ul>
 	<li>General Information
 	<ul>
@@ -875,7 +876,7 @@ At your service!</pre></td></tr>
 
 <p>You can just export a single text file rather than a whole project folder. To do so, in the "Export Inform 7 Source Code" dialog, go to the file type drop down list and change it from "Inform 7 Projects" to "Inform 7 Source Files" or "Text Files".
 
-<p>While Trizbort export may not be perfect handling tricky room names, it has been tested with several large maps, and the code should always compile. Trizbort can act as an unofficial tutorial on creating specially-named rooms such as "The Porch" or "A Balcony."</p>
+<p>While Trizbort export may not be perfect handling tricky room names, it has been tested with several large maps, and the code should always compile. Trizbort can act as an unofficial tutorial on creating specially-named rooms such as "The Porch," "West of the House," or "A Balcony."</p>
 
 <table>
 <tr><td><img src="export_filetype.png" alt="Choosing a different file type in the export file dialog."></td></tr>
@@ -889,7 +890,7 @@ At your service!</pre></td></tr>
 <a name="help_export_tads"></a>
 <h2>Exporting to TADS</h2>
 
-<p>To export to TADS, choose File->Export->TADS. Trizbort will prompt you for a file name. By default it will ask you for the name of a <span class="code">.t</span> file. Trizbort isn't smart enough to create a whole TADS project on export.</p>
+<p>To export to TADS, choose File->Export->TADS. Trizbort will prompt you for a file name. By default it will ask you for the name of a <span class="code">.t</span> file. Trizbort isn't (yet) smart enough to create a whole TADS project on export.</p>
 
 <a name="help_export_i6"></a>
 <h2>Exporting to Inform 6</h2>
@@ -920,6 +921,16 @@ At your service!</pre></td></tr>
 <h2>Manual Editing</h2>
 
 <p>Since .trizbort files are really just XML, you can manually edit them if certain things seem tricky. However, there is no guarantee Trizbort will be able to read them, so make a backup copy first. In some limited cases, modifying the Trizbort XML file in a text editor may be more convenient. For instance, if you wanted to change a region name, it'd be easier to do that in Trizbort, but if you wanted to search and replace game or room text quickly, a text editor might be the thing. You would not have to move a mouse around and click.</p>
+
+<a name="building"></a>
+<h2>Building Trizbort</h2>
+
+<p>You should be able to pull all the Trizbort source, open the .csproj or .sln file in Microsoft Visual Studio, and run it. The main things to watch for are:</p>
+
+<ul>
+<li>For all versions, you may have to change the directory of pdfsharp.dll as a reference. Or you may need to add pdfsharp.dll to your included paths.
+<li>For versions 1.54 and up, you will need to make sure DevComponents.DotNetBar2.dll can be seen by the project.
+</ul>
 
 <a name="accel"></a>
 <h2>Accelerators</a>

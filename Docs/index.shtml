@@ -25,8 +25,6 @@
 <!--#include virtual="../css.inc" -->
 <!--#include virtual="../header2.inc" -->
 
-<p>NOTE: <a href = "https://www.dropbox.com/s/u4mi7j39ne7jps8/index.shtml?dl=0"here</a> is the new dropbox location for the docs. If you are reading this, move there.</p>
-
 <div id="help" class="indent_without_columns">
 <h1>Using Trizbort</h1>
 
@@ -102,8 +100,9 @@
 		<ul>
 			<li><a href="#save_100">Saving Images at 100%</a>
 			<li><a href="#mouse_wheel_zoom">Invert Mouse Wheel Zoom</a>
-			<li><a href="#restore_default">Restore Default Settings</a>
+			<li><a name="#smart_save_options">Smart Save Options</a>
 		</ul>
+		<li><a href="#restore_default">Restore Default Settings</a>
 		<li><a href="#help_fu">Keyboard Fu</a>
 		<li><a href="#help_automap">Using Automapping</a>
 		<ul>
@@ -563,7 +562,13 @@
 </ul>
 
 <a name="app_settings"></a>
+
 <h1>App Settings</h1>
+
+<table>
+<tr><td><img src="app_settings.png" alt="Picture of application settings"></td></tr>
+<tr><td class="alt">Establishing application settings.</td></tr>
+</table>
 
 <p>App settings are global settings that apply to general user preferences at the moment. While there is a possibility a local document may override these preferences in the future, Trizbort currently uses and saves these options globally.</p>
 
@@ -573,11 +578,15 @@
 
 <a name="mouse_wheel_zoom"></a>
 <h2>Invert Mouse Wheel Zoom</h2>
-<p>By default, pulling the mouse wheel towards the user zooms out, and pushing it away zooms in. Checking this box will flip the two behaviors.
+<p>By default, pulling the mouse wheel towards the user zooms out, and pushing it away zooms in. Checking this box will flip the two behaviors.</p>
+
+<a name="smart_save_options"></a>
+<h2>Smart Save Options</h2>
+<p>By default, the application will save to PDF and PNG on Smart Save. You can also change the default image type to one of BMP, EMF, JPEG, and PNG here.</p>
 
 <a name="restore_default"></a>
-<h1>Restore Default Settings</h1>
-<p>This changes map settings to their default. It does not change app settings to their default.</p>
+<h1>Restore Default Map Settings</h1>
+<p>This menu option changes map settings to their default. It does not change app settings to their default. It erases all regions the player created as well.</p>
 
 <a name="help_fu"></a>
 <h1>Keyboard Fu</h1>
@@ -1001,7 +1010,8 @@ Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenhe
 
 <ul>
 <li>1.5.5: added region and color support to Trizbort. Forked to http://lautzofif.myjetbrains.com/youtrack/issues/TRIZ
-<li>1.5.7: fixed various small bugs.
+<li>1.5.7: fixed various small bugs
+<li>1.5.8: added version metatag, room borders, subtitles
 </ul>
 
 <a name="about_bugs"></a>

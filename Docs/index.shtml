@@ -440,6 +440,15 @@
 
 <p>You may choose any font which is available on your computer, but if you give the Trizbort map file to other people they will need to have the same fonts in order to view your map as you intended. Trizbort will use another font if a chosen font is not available.</p>
 
+<a name="help_settings_room_borders_and_coloring"></a>
+<h2>Room Borders and Coloring</h2>
+
+<p>You can pick room borders from anywhere in the room properties dialog.Solid is the default, but Dash, DashDot, DashDotDot, and Dot are available. While there is no official meaning for any of these, it may be useful to label a ghost room with a dotted border, or maybe have a bottleneck room--or the starting room--dashed.</p>
+
+<p>The Colors sub-tab of Room Properties allows you to determine the fill. Room Fill overrides whatever the room's region is set to. You also can specify a second color for half of the room. This can be split eight ways: top, left, bottom or down or, if you want something to go diagonally, bottom-left, bottom-right, top-left or top-right.</p>
+
+<p>All of these attributes can be cleared.</p>
+
 <a name="help_settings_linegrid"></a>
 <h2>Lines and Grid</h2>
 

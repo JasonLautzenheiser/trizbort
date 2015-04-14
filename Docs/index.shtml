@@ -55,6 +55,7 @@
 				<li><a href="#help_rooms_edit_dark">Dark Rooms</a>
 				<li><a href="#help_rooms_edit_objects">Objects in Rooms</a>
 				<li><a href="#help_rooms_edit_desc">Room Descriptions</a>
+				<li><a href="#help_rooms_edit_colors">Room Colors</a>
 			</ul>
 			<li><a href="#help_rooms_stylenew">Styling New Rooms</a>
 		</ul>
@@ -70,7 +71,7 @@
 				<li><a href="#help_conn_edit_plain">Plain Connections</a>
 				<li><a href="#help_conn_edit_props">Connection Properties and Custom Labels</a>
 			</ul>
-			<li><a href="#help_conn_stylenew">Styling New Connections</a>
+			<li><a href="#help_conn_inheritance">Connection Style Inheritance</a>
 		</ul>
 		<li><a href="#help_nav">Navigating the Map</a>
 		<ul>
@@ -118,6 +119,7 @@
 			<li><a href="#help_automap_tips">Automapping Tips</a>
 		<li><a href="#help_regions">Regions</a>
 		</ul>
+		<li><a name="help_right_clicking">Right Clicking</li>
 		<li><a href="#sample_quick">A Sample Quick Map</a>
 		<ul>
 			<li><a href="#sample_first">First Rooms and Regions</a>
@@ -234,16 +236,27 @@
 <a name="help_rooms_edit"></a>
 <h2>Editing Rooms</h2>
 
-<p>You can change more detailed characteristics of a room from its <span class="term">Properties dialog</span> (a dialog, or <span class="term">dialog box</span>, is a window which pops up so you can do certain related things). You have many ways to bring up a room's properties when it is selected: press Return/Enter or F2, or choose Edit->Properties in the pull-down menu.</p>
+<p>You can change more detailed characteristics of a room from its <span class="term">Properties dialog</span> (a dialog, or <span class="term">dialog box</span>, is a window which pops up so you can do certain related things). You have many ways to bring up a room's properties when it is selected: press Return/Enter or F2, or choose Edit->Properties in the pull-down menu. You can also right-click on any room and choose Properties.</p>
 
 <table>
 <tr><td><img src="room_properties.png" alt="The Properties dialog for a room."></td></tr>
 <tr><td class="alt">The <span class="term">Properties dialog</span> for a room.</td></tr>
 </table>
 
-<p>A room's Properties include its name, its description, whether it is dark, and an optional list of objects along with where to position that list. Since objects in a room are unique, you can only bring up the Properties dialog for rooms one at a time. You should also be able to use the keyboard or the menu bar to change these properties. Trizbort tries to be flexible this way. For instance, to toggle darkness, Edit->Is Dark Room in the menu bar or K from the keyboard will work. You can also right-click and highlight "dark" from the context menu.</p>
+<p>The opening screen for a room's properties will show the following information:</p>
 
-<p>One property that can be mass-changed is what region a group of rooms is in. This is done most easily via right-clicking. You can even highlight the rooms, create the region and add them to the region.</p>
+<ul>
+<li>The name
+<li>A subtitle
+<li>Whether the room is dark
+<li>A list of objects in the room
+<li>Where the list is oriented
+<li>Room border style
+</ul>
+
+<p>Since objects in a room are unique, you can only bring up the Properties dialog for rooms one at a time. You should also be able to use the keyboard or the menu bar to change these properties. Trizbort tries to be flexible this way. For instance, to toggle darkness, Edit->Is Dark Room in the menu bar or K from the keyboard will work. You can also right-click and highlight "dark" from the context menu.</p>
+
+<p>However, one property that can be mass-changed is what region a group of rooms is in. This is done most easily via right-clicking or by selecting a rectangular area. You can even highlight the rooms, create the region and add them to the region.</p>
 
 <a name="help_rooms_edit_name"></a>
 <h3>Naming Rooms</h3>
@@ -258,7 +271,9 @@
 <a name="help_rooms_edit_objects"></a>
 <h3>Objects in Rooms</h3>
 
-<p>Trizbort allows for a text box to write up objects in a room. Trizbort tends to assume that you'll put a single object on each line, but you don't have to. You can indicate that one object is inside (or on top of, or carried by) another by putting spaces at the start of its line. You can use blank lines where you like to space things out. You can refer to things as "a mailbox", "an horse", but Trizbort tends to assume you'll just say "mailbox" or "horse". These conventions are entirely optional, but Trizbort will assume you're using them if you later export your map to an IF development system. Currently Trizbort has no way to differentiate NPCs from supporters or containers once you export, so you will have to re-edit the created source. And since you are only allowed one text orientation, there's also no good way to allow many objects in a room without spacing rooms out.</p>
+<p>Trizbort allows for a text box to write up objects in a room. Trizbort tends to assume that you'll put a single object on each line, but you don't have to. You can indicate that one object is inside (or on top of, or carried by) another by putting spaces at the start of its line. You can use blank lines where you like to space things out. You can refer to things as "a mailbox" or "an egg," but Trizbort doesn't need the indefinite articles if you wish to export the map to an IF development system.</p>
+
+<p>Currently Trizbort has no way to differentiate NPCs from supporters or containers once you export, so you will have to re-edit the created source. Also, since you are only allowed one text orientation, there's also no good and natural way to allow many objects in a room without spacing rooms out or enlarging them.</p>
 
 <table>
 <tr><td><img src="object_list.png" alt="A typical list of objects in a room."></td></tr>
@@ -280,6 +295,33 @@
 <h3>Room Descriptions</h3>
 
 <p>If you click the "Description" tab, you can edit the description of the room. Click the "Objects" tab again to see the list of objects. Trizbort doesn't use this description itself, but if you export your map to an IF development system the description may be used to describe the room when playing the game. When automapping, Trizbort will fill out the description for you if it can.</p>
+
+<p>Descriptions will appear in tooltips if you hover over a room.</p>
+
+<a name="help_rooms_edit_colors"></a>
+<h3>Room Colors</h3>
+
+<table>
+<tr><td><img src="room_edit_colors.png" alt="Room color sub-tab"></td></tr>
+<tr><td class="alt">An example of the room coloring options interface.</td></tr>
+</table>
+
+<p>Rooms are allowed to have colorings that override or add to the default region fills. These can be reset with the appropriate "clear" button, and they include:</p>
+
+<ul>
+<li>Room fill. What the background of the room is. As stated above, this trumps the region default color. Perhaps one room in a region would be shaded lighter if it were on the edge.
+<li>Second fill. A second color, along with alignment. If this color is clear, changing the alignment has no effect. This could be used to indicate a room by water.
+<li>Room border. This changes the color of the border. This may be useful to indicate a room that's only implied by the map, a starting room, or a bottleneck room.
+<li>Room text. This changes the color of the room title and subtitle.
+<li>Object text. This changes the color of text for any objects, whether that text is inside the room box or outside.
+</ul>
+
+<p>Trizbort does not check for color-based readability. You may have to de-highlight a room to make sure of this. Below is an example of a Trizbort map that uses all of the above options.</p>
+
+<table>
+<tr><td><img src="room_fill_examples.png" alt="Room fill examples"></td></tr>
+<tr><td class="alt">A self-documenting, if impractical, example of room fills.</td></tr>
+</table>
 
 <a name="help_rooms_stylenew"></a>
 <h2>Styling New Rooms</h2>
@@ -306,13 +348,15 @@
 <tr><td class="alt">A room's ports, from which new connections may be made.</td></tr>
 </table>
 
-<p>Trizbort provides ports for each of the standard compass directions seen in a game: north, south, east, west, northeast, northwest, southeast and southwest. In addition it provides eight extra ports (NNE, ENE, ESE, SSE, SSW, WSW, WNW, NNW). These can be used for special directions such as up, down, in or out, or to indicate other jump-travel. You can use them for other things, though, such as one-way passages or alternate routes. If you export your map to an IF development system, Trizbort will take its best guess as to which of the standard directions you mean. Currently, it will not use diagonal directions unless a connecting line is on the corner of a room box. Therefore, ENE, E and ESE all map to east during source export. Detecting "in" and "out" is also currently not supported.</p>
+<p>Trizbort provides sixteen ports. These correspond to the four cardinal directions north, south, east, west,) the four diagonal directions (northeast, northwest, southeast and southwest) and eight in-between ports, which Trizbort labels, clockwise from top, NNE, ENE, ESE, SSE, SSW, WSW, WNW, NNW. Also, any port can be labeled up/down, in/out or a custom jump-travel direction. Adjacent ports can also be used to indicatte one-way passages or alternate routes.</p>
+
+<p>If you export your map to an IF development system, Trizbort will take its best guess as to which of the standard directions you mean. Currently, the in-between ports will map to the nearby cardinal direction. Therefore, ENE, E and ESE all map to east during source export. Detecting "in" and "out" is also currently not supported.</p>
 
 <a name="help_conn_create"></a>
 <h2>Creating New Connections</h2>
 
 <table>
-<tr><td><img src="new_connection.png" alt="Creating a new connection."></td></tr>
+<tr><td><img src="new_connection.gif" alt="Creating a new connection."></td></tr>
 <tr><td class="alt">Creating a new connection.</td></tr>
 </table>
 
@@ -347,7 +391,7 @@
 <a name="help_conn_edit_dir"></a>
 <h3>Changing a Connection's Direction</h3>
 
-<p>The arrow on a one way connection points in the direction in which the connection was first created: so if you created it left to right, the arrow will point to the right. You can quickly change the direction of the connection by pressing V or choosing Edit->Reverse Line. This also swaps any connection labels at either end of the line.</p>
+<p>But what if, in the example above, the up/down text or one-way arrow points the wrong way? The arrow on a one way connection points in the direction in which the connection was first created: so if you created it left to right, the arrow will point to the right. You can quickly change the direction of the connection by pressing V or choosing Edit->Reverse Line. This also swaps any connection labels at either end of the line.</p>
 
 <a name="help_conn_edit_plain"></a>
 <h3>Plain Connections</h3>
@@ -368,8 +412,13 @@
 
 <p>Trizbort doesn't mind how you label the start and end of a line, if at all; you might want to indicate up/down connections with "U" and "D" or "top" and "bottom". However, if you export your map to an IF development system, Trizbort will ignore custom labels.</p>
 
-<a name="help_conn_stylenew"></a>
-<h2>Styling New Connections</h2>
+<a name="help_conn_color"></a>
+<h3>Changing a Connection's Color</h3>
+
+<p>Once you've highlighted a connection, hit enter to bring up the Connection Properties dialog box. Color is in the upper right, and you can change it as you would room color.</p>
+
+<a name="help_conn_inheritance"></a>
+<h2>Connection Style Inheritance</h2>
 
 <p>The style and size of a new connection is, by default, taken from the last selected connection. So if you last selected a one way, conditional connection, the next one you create will be one way and conditional. However, you can use the Edit->Line Styles sub-menu, or the accelerators, to change basic styles. You should be able to see the current basic styles on the legend to the left of the map, below the File entry on the menu bar.</p>
 
@@ -392,9 +441,9 @@
 <a name="help_nav_zoom"></a>
 <h2>Zooming</h2>
 
-<p>If your mouse has a mouse wheel, you can scroll the mouse wheel forwards and backwards to zoom in and out. This scales the map on-screen making it bigger or smaller.</p>
+<p>If your mouse has a mouse wheel, you can scroll the mouse wheel forwards and backwards to zoom in and out. This scales the map on-screen making it bigger or smaller. Tools::App Settings allows you to flip the mouse wheel's scroll in/out behavior. For more granular zooms, you can hit the TAB key and type the precise zoom percentage you want. Anything from 10% to 1000% is valid.</p>
 
-<p>You can also use the '+' and '-' keys on your keyboard to zoom in and out. Both sets of '+' and '-' keys, on the main keyboard and on the numeric keypad if you have one, will do the same thing.</p>
+<p>You can also use the '+' and '-' keys on your keyboard or the numpad. The equals key works as well as the +.</p>
 
 <p>You can also choose View->Zoom->In and View->Zoom->Out from the menu bar.</p>
 
@@ -403,14 +452,14 @@
 
 <p>You can choose View->Reset or press Home to reset your view so that you're looking at the center of the map, neither zoomed in or out.</p>
 
-<p>You can choose View->Entire Map or press Control-Home to view the whole map at once. This also centers your view. It will not zoom in beyond 100% for very small maps.</p>
+<p>You can choose View->Entire Map or press Control-Home to view the whole map at once. This also centers your view. It will not zoom in beyond 100% for very small maps. The zoom factor is a power of 80%.</p>
 
 <a name="help_settings"></a>
 <h1>Map Settings</h1>
 
 <p>By selecting Tools->Map Settings you can change settings which are saved with the map. Each map has its own settings, and new maps start off with the default settings.</p>
 
-<p>You can restore the default settings for a map by choosing Tools->Restore Default Settings. This does not restore the default settings for Tools->App Settings.</p>
+<p>You can restore the default settings for a map by choosing Tools->Restore Default Map Settings. This does not restore the default settings for Tools->App Settings.</p>
 
 <div class="tip">
 <div class="heading">Tip</div>
@@ -422,7 +471,7 @@
 <a name="help_settings_about"></a>
 <h2>About the Map</h2>
 
-<p>The About tab lets you set the title, author, description and history of the map. These are all optional fields which you can use or leave blank. If you export your map to an IF development system, some of these fields may be used to describe the game.</p>
+<p>The About tab in Map Settings lets you set the title, author, description and history of the map. These are all optional fields, though some can be exported to IF Development source.</p>
 
 <ul>
 <li>Inform 6 export maps the title to the story name, while the author and description go to the headline.</li>
@@ -437,16 +486,16 @@
 
 <p>The Colors and Fonts tab lets you change the colors used by Trizbort to draw the map, both on screen and when exporting as a PDF file or as an image.</p>
 
-<p>You may choose any font which is available on your computer, but if you give the Trizbort map file to other people they will need to have the same fonts in order to view your map as you intended. Trizbort will use another font if a chosen font is not available.</p>
+<p>You may choose any font which is available on your computer, but if you give the Trizbort map file to other people, they will need to have the same fonts in order to view your map as you intended. Trizbort will use another font if a chosen font is not available.</p>
 
 <a name="help_settings_room_borders_and_coloring"></a>
 <h2>Room Borders and Coloring</h2>
 
-<p>You can pick room borders from anywhere in the room properties dialog.Solid is the default, but Dash, DashDot, DashDotDot, and Dot are available. While there is no official meaning for any of these, it may be useful to label a ghost room with a dotted border, or maybe have a bottleneck room--or the starting room--dashed.</p>
+<p>You can pick room borders from anywhere in the room properties dialog. Solid is the default, but Dash, DashDot, DashDotDot, and Dot are available. While there is no official meaning for any of these, it may be useful to label a ghost room with a dotted border, or maybe have a bottleneck room--or the starting room--dashed.</p>
 
 <p>The Colors sub-tab of Room Properties allows you to determine the fill. Room Fill overrides whatever the room's region is set to. You also can specify a second color for half of the room. This can be split eight ways: top, left, bottom or down or, if you want something to go diagonally, bottom-left, bottom-right, top-left or top-right.</p>
 
-<p>All of these attributes can be cleared.</p>
+<p>All of these attributes can be cleared. The user should note that white coloring is different from clear coloring. You can tell this by whether the text "No ColorSet" appears in a bar that would otherwise display a color.</p>
 
 <a name="help_settings_linegrid"></a>
 <h2>Lines and Grid</h2>
@@ -454,11 +503,11 @@
 <p>The Lines and Grid tab gives you control over various settings to do with connections and with aligning things on the map.</p>
 
 <p></p><table>
-<tr><td class="heading">Hand Drawn</td><td>By default Trizbort gives lines a "hand drawn" appearance. If you prefer straight lines you can uncheck this box. This applies to both connections' lines and the border of a room.</td></tr>
+<tr><td class="heading">Hand Drawn</td><td>By default Trizbort gives lines a "hand drawn" appearance. If you prefer straight lines, you can uncheck this box. This applies to connections' lines, the border of a room, and dividing fill lines.</td></tr>
 <tr><td class="altheading">Line Width</td><td class="alt">The width of lines, in pixels. This applies to both connections' lines and the border of a room.</td></tr>
-<tr><td class="heading">Arrow Size</td><td>The size of the arrow(s) which are drawn on one way connections, in terms of the width of the base of the arrow, in pixels.</td></tr>
+<tr><td class="heading">Arrow Size</td><td>The pixel size of the base of arrows drawn on one way connections.</td></tr>
 <tr><td class="altheading">Room Arrow Stalk Length</td><td class="alt">The name of this setting is misleading. For connections which are docked to a room's port, Trizbort automatically draws a line directly out from the room in the port's direction before continuing on towards the other end of the line. This is the <span class="term">stalk</span>, and its size can be controlled with this setting.</td></tr>
-<tr><td class="heading">Preferred Distance Between Rooms</td><td>In some situations Trizbort need to create a room adjacent to another room. This usually happens when automapping or when creating rooms via the numeric keypad (see <a href="#help_fu">Keyboard Fu</a>). This setting controls how far apart such rooms will be placed.</td></tr>
+<tr><td class="heading">Preferred Distance Between Rooms</td><td>In some situations Trizbort needs to create a room adjacent to another room. This usually happens when automapping or when creating rooms via the numeric keypad (see <a href="#help_fu">Keyboard Fu</a>). This setting controls how far apart such rooms will be placed.</td></tr>
 <tr><td class="altheading">Text Offset from Line</td><td class="alt">Trizbort automatically adds a gap between a connection's line and any labels on that line. This setting controls how large that gap is.</td></tr>
 <tr><td class="heading">Grid Visible</td><td>Whether Trizbort should draw a grid on the canvas.</td></tr>
 <tr><td class="altheading">Grid Size</td><td class="alt">The size of a grid square, in pixels.</td></tr>
@@ -496,7 +545,7 @@
 <p>The Other tab gives you control over miscellaneous settings which don't fit into one of the above categories.</p>
 
 <p></p><table>
-<tr><td class="heading">Darkness Stripe Size</td><td>The width and height of the darkness stripe, which is the stripe Trizbort draws in the top right corner of dark rooms.</td></tr>
+<tr><td class="heading">Darkness Stripe Size</td><td>The width and height of the stripe Trizbort draws in the top right corner of rooms the user labeled dark.</td></tr>
 <tr><td class="altheading">Object List Offset</td><td class="alt">The distance, in pixels, between a room and its object list, assuming the object list is drawn outside the room. If the object list is drawn inside the room, this is the distance of the bottom left of the object list from the bottom left corner of the room.</td></tr>
 <tr><td class="heading">Resize/Drag Handle Size</td><td>This controls the size, in pixels, of <a href="#help_rooms_select">handles</a> and <a href="#help_conn_ports">ports</a>. If you're zoomed in or out, handles and ports will be scaled accordingly.</td></tr>
 <tr><td class="altheading">Snap to Element Distance</td><td class="alt">To make it easier to select and drag rooms and connections, Trizbort allows you a small margin for error when selecting or dragging rooms and connections. You can increase this value if you have trouble selecting or dragging, or decrease it if you are very precise when selecting and dragging. Using very large or very small values may make Trizbort notably harder to use.</td></tr>
@@ -507,7 +556,7 @@
 
 <p>You can select multiple things at once in Trizbort, both rooms and connections, even at the same time. This allows you to shift a chunk of map over with one movement.</p>
 
-<p>Multiple selection is performed with both the mouse and keyboard.</p>
+<p>Multiple selection can performed with either the mouse and keyboard.</p>
 
 <a name="help_select_all"></a>
 <h2>Select All/None</h2>
@@ -547,7 +596,7 @@
 <p>A number of operations work just as well for multiple selections as for single selections, including:</p>
 
 <p></p><ul>
-<li>Moving things on the map. Click and drag anything that's selected to move it. Selected connections will only move if either they're not docked to a room's ports at one or both ends, or if their connected rooms are selected (in which case there is no need to select the connection, it will move with the rooms.)
+<li>Moving things on the map. Click and drag anything that's selected to move it. Selected connections will only move if either they're not docked to a room's ports at one or both ends, or if their connected rooms are selected. In the second case, highlighting connected rooms means you don't need to highlight the connectors, too.
 <li>Changing rooms from light to dark, or vice versa. Pressing K or choosing Edit->Dark Room will toggle whether each selected room is light or dark.
 <li>Changing connection styles. All the menu options under Edit->Line Styles, and their respective keyboard shortcuts, work on multiple selections.
 <li>Deleting things. Pressing Del or choosing Edit->Delete will delete everything that's selected.
@@ -810,6 +859,24 @@ At your service!</pre></td></tr>
 <p><span class="emphatic">If the connection really is one way, Trizbort doesn't mind which of the second room's ports it goes to.</span> So a one way connection leading N from the Kitchen to the Hall should leave the Kitchen from either the NNW, N or NNE ports, but it can arrive at any port on the Hall.</p>
 
 <p><span class="emphatic">For purely in/out or up/down connections, Trizbort doesn't mind which port is used on either room</span>, so you can freely change these around.</p>
+
+<a name="help_right_clicking"></a>
+<h1>Right Clicking</h1>
+
+<p>Trizbort also allows right-clicking for general editing.</p>
+
+<ul>
+<li>SET REGION will be available if any room is currently highlighted.
+<li>DARK will be available if any room is currently highlighted.
+<li>PROPERTIES will be available if any room or connector is currently highlighted. It will go to the last one.
+<li>MAP SETTINGS will go to Tools::Map Settings.
+<li>APPLICATION SETTINGS will go to Tools::Application Settings.
+</ul>
+
+<table>
+<tr><td><img src="right_click.png" alt="Right-clicking for the context menu."></td></tr>
+<tr><td class="alt">The current context menu.</td></tr>
+</table>
 
 <a name = "sample_quick"></a>
 <h2>A Sample Quick Map</h2>

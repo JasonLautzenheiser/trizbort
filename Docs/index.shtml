@@ -340,6 +340,8 @@
 <a name="help_rooms_tooltips"></a>
 <h2>Room Tooltips</h2>
 
+<p>A room tooltip contains information that might not fit physically on a map. It contains the room name, the room subtitle (if it exists) and then, if the room contains objects, the list of objects below a horizontal line.</p>
+
 <a name="help_connections"></a>
 <h1>Working with Connections</h1>
 

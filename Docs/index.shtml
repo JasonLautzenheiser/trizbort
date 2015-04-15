@@ -153,6 +153,7 @@
 			<li><a href="#about_authors">Authors</li>
 			<li><a href="#about_versions">Versions</li>
 		</ul>
+		<li><a href="#settings_file">Settings File</li>
 		<li><a href="#thirdparty">Third Party Software Recommendations</a>
 	</ul>
 </ul>
@@ -178,7 +179,7 @@
 <h1>Parts of the Screen, Explained</h1>
 
 <p></p><table>
-<tr><td class="heading">Menu Bar</td><td>Most of Trizbort's commands are available both from the menu bar and through keyboard shortcuts (keys you can press to achieve the same effect). Where shortcuts exist, they appear next to the relevant menu item. So if a menu item reads "View&nbsp;Entire&nbsp;Map&nbsp;&nbsp;&nbsp;&nbsp;Ctrl+Home" then you can either select the menu item or hold down the Control key and press the Home key on your keyboard to achieve the same effect.</td></tr>
+<tr><td class="heading">Menu Bar</td><td>Most of Trizbort's commands are available both from the menu bar and through keyboard shortcuts (keys you can press to achieve the same effect). Where shortcuts exist, they appear next to the relevant menu item. So if a menu item reads "View&nbsp;Entire&nbsp;Map&nbsp;&nbsp;&nbsp;&nbsp;Ctrl-Home" then you can either select the menu item or hold down the Control key and press the Home key on your keyboard to achieve the same effect.</td></tr>
 <tr><td class="altheading">Toolbar</td><td class="alt">Some of Trizbort's commands also appear here as buttons for quick access.</td></tr>
 <tr><td class="heading">mini-map</td><td>This shows an overview of the entire map, with each mapped room as a box.</td></tr>
 <tr><td class="altheading">Viewport</td><td class="alt">This shows the portion of the entire map you're currently viewing. You can click and/or drag inside the mini-map with the left mouse button to move the viewport.</td></tr>
@@ -196,7 +197,7 @@
 <div class="body">
 <p>Most things you can do in Trizbort are accessible from the menu bar or by pressing keys.</p>
 <p>Where this document says something like <span class="quote">choose&nbsp;Edit->Add&nbsp;Room</span> it means to select "Add Room" from the "Edit" menu on the menu bar.</p>
-<p>Where it says <span class="quote">press&nbsp;R</span> it means to press the "R" key on your keyboard; <span class="quote">press&nbsp;Ctrl+Home</span> means to hold down the Control key on your keyboard and press the "Home" key.</p>
+<p>Where it says <span class="quote">press&nbsp;R</span> it means to press the "R" key on your keyboard; <span class="quote">press&nbsp;Ctrl-Home</span> means to hold down the Control key on your keyboard and press the "Home" key.</p>
 </div> <!-- tip body -->
 </div> <!-- tip -->
 
@@ -570,9 +571,11 @@
 <a name="help_select_all"></a>
 <h2>Select All/None</h2>
 
-<p>To select everything on the map, choose Edit->Select All or press Ctrl+A.</p>
+<p>To select everything on the map, choose Edit->Select All or press Ctrl-A.</p>
 
 <p>To deselect everything, choose Edit->Select None or press Escape (Esc).</p>
+
+<p>You can also select everything in a region with Ctrl-Shift-A. If one room is highlighted, all rooms in that region will be highlighted. If multiple rooms from different regions are highlighted, all rooms in those regions will be highlighted.
 
 <a name="help_select_marquee"></a>
 <h2>Marquee Selection</h2>
@@ -614,7 +617,7 @@
 
 <p>Some options aren't available whilst multiple things are selected:</p>
 
-<p></p><ul>
+<ul>
 <li>Displaying room or connection Properties. These dialogs are only available when one thing is selected.
 <li>Drawing new connections. To draw new connections you need to have nothing selected.
 </ul>
@@ -632,7 +635,7 @@
 
 <a name="save_100"></a>
 <h2>Saving Images at 100%</h2>
-<p>A programmer may wish to zoom in or out to add features or inspect a Trizbort map, but they may not wish the final product to be zoomed out or in too far. Previously, Trizbort exported graphics at the current zoom percentage. Now, checking this box will always produce images at 100%. The programmer can still export larger or smaller documents if they wish.</p>
+<p>A programmer may wish to zoom in or out to add features or inspect a Trizbort map, but they may not wish the final product to be zoomed out or in too far. Previously, Trizbort exported graphics at the current zoom percentage. Now, checking this box will always produce images at 100%. This is the default. The programmer can still export larger or smaller documents if they wish.</p>
 
 <a name="mouse_wheel_zoom"></a>
 <h2>Invert Mouse Wheel Zoom</h2>
@@ -640,7 +643,7 @@
 
 <a name="smart_save_options"></a>
 <h2>Smart Save Options</h2>
-<p>By default, the application will save to PDF and PNG on Smart Save. You can also change the default image type to one of BMP, EMF, JPEG, and PNG here.</p>
+<p>By default, the application will save to PDF and PNG on Smart Save. You can specify that you want to export to only PDF or only PNG. You can also change the default image type to one of BMP, EMF, JPEG, and PNG here.</p>
 
 <a name="restore_default"></a>
 <h1>Restore Default Map Settings</h1>
@@ -1082,7 +1085,7 @@ At your service!</pre></td></tr>
 <a name="about_versions"></a>
 <h3>Authors</h3>
 
-Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenheiser picked up the project in 2015 and modified future versions.
+Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenheiser picked up the project in December 2014 and added features and merged changes from various other contributors.
 
 <a name="about_versions"></a>
 <h3>Versions</h3>
@@ -1096,9 +1099,14 @@ Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenhe
 <a name="about_bugs"></a>
 <h2>Error/bug handling</h2>
 
-<p>As of version 1.5.5, Trizbort requires the DevComponents.DotNetBar2.dll file to run. If Trizbort fails to start, this may be the culprit. You will also need to install DotNet framework 4.</p>
+<p>As of version 1.5.5, Trizbort requires the DevComponents.DotNetBar2.dll file to run. If Trizbort fails to start, this may be the culprit. Windows can be very non-descriptive about why it can't run a program. You will also need to install DotNet framework 4 if you are running an earlier version of Windows. You should be able to use "Windows Update" to upgrade this if need be.</p>
 
-<p>Bugs or feature requests can be reported anonymously at http://lautzofif.myjetbrains.com/youtrack/issues/TRIZ.</p> MyJetBrains can track similar issues as you type your new issue, so if you can check your issue is not a duplicate, that is helpful.</p>
+<p>Bugs or feature requests can be reported anonymously at https://trello.com/b/avZe0VPG/trizbort. A brief search to make sure the bug isn't already there is appreciated, but you shouldn't feel obliged to search too rigorously.</p>
+
+<a name="settings_file"></a>
+<h2>Settings File</h2>
+
+<p>You will find a settings file at C:\Users\%USERNAME%\AppData\Local\Genstein\Trizbort\settings.xml. You can erase this to restore the defaults. The XML is human-readable enough that this document won't discuss it in detail.</p>
 
 <a name="thirdparty"></a>
 <h2>Third Party Software Recommendations</h2>

@@ -38,7 +38,7 @@
 
 <div id="toc">
 <ul>
-	<li><a href="#help_ui">Getting to Know Trizbort</a>
+	<li>Getting to Know Trizbort
 	<ul>
 		<li><a href="#help_ui_screen">The Screen</a>
 		<li><a href="#help_ui_parts">Parts of the Screen</a>
@@ -159,22 +159,23 @@
 </div> <!-- toc -->
 
 <a name="help_ui"></a>
-<h1>Getting to Know Trizbort</h1>
+
+<center><font size=+4>Getting to Know Trizbort</font></center>
 
 <a name="help_ui_screen"></a>
-<h2>The Screen</h2>
+<h1>The Screen</h1>
 
 <p>Trizbort looks like this:</p>
 <p><img src="ui.png" alt="Trizbort's user interface"></p>
 
 <a name="help_ui_parts"></a>
-<h2>Parts of the Screen</h2>
+<h1>Parts of the Screen</h1>
 
 <p>Here's the same view, but with each part labelled. We'll use these terms later on, so you might want to remember them or just check back here if you see a term you're not familiar with.</p>
 <p><img src="ui_labelled.png" alt="Trizbort's user interface, labelled"></p>
 
 <a name="help_ui_terms"></a>
-<h2>Parts of the Screen, Explained</h2>
+<h1>Parts of the Screen, Explained</h1>
 
 <p></p><table>
 <tr><td class="heading">Menu Bar</td><td>Most of Trizbort's commands are available both from the menu bar and through keyboard shortcuts (keys you can press to achieve the same effect). Where shortcuts exist, they appear next to the relevant menu item. So if a menu item reads "View&nbsp;Entire&nbsp;Map&nbsp;&nbsp;&nbsp;&nbsp;Ctrl+Home" then you can either select the menu item or hold down the Control key and press the Home key on your keyboard to achieve the same effect.</td></tr>
@@ -198,6 +199,8 @@
 <p>Where it says <span class="quote">press&nbsp;R</span> it means to press the "R" key on your keyboard; <span class="quote">press&nbsp;Ctrl+Home</span> means to hold down the Control key on your keyboard and press the "Home" key.</p>
 </div> <!-- tip body -->
 </div> <!-- tip -->
+
+<center><font size=+3>BASICS</font></center>
 
 <a name="help_rooms"></a>
 <h1>Working with Rooms</h1>
@@ -457,6 +460,8 @@
 <p>You can choose View->Reset or press Home to reset your view so that you're looking at the center of the map, neither zoomed in or out.</p>
 
 <p>You can choose View->Entire Map or press Control-Home to view the whole map at once. This also centers your view. It will not zoom in beyond 100% for very small maps. The zoom factor is a power of 80%.</p>
+
+<center><font size=+4>Advanced Topics</font></center>
 
 <a name="help_settings"></a>
 <h1>Map Settings</h1>
@@ -1022,8 +1027,10 @@ At your service!</pre></td></tr>
 <li>For versions 1.54 and up, you will need to make sure DevComponents.DotNetBar2.dll can be seen by the project.
 </ul>
 
+<center><font size=+4>General Information</font></center>
+
 <a name="accel"></a>
-<h2>Accelerators</a>
+<h2>Accelerator Listing</a>
 <table border=1>
 <th>Key</th><th>plain function</th><th>ctrl/shift/alt</th>
 <tr><td>A</td><td>One-way line</td><td>ctrl-a=select all</td></tr>
@@ -1073,12 +1080,12 @@ At your service!</pre></td></tr>
 <h2>About</h2>
 
 <a name="about_versions"></a>
-<h2>Authors</h2>
+<h3>Authors</h3>
 
 Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenheiser picked up the project in 2015 and modified future versions.
 
 <a name="about_versions"></a>
-<h2>Versions</h2>
+<h3>Versions</h3>
 
 <ul>
 <li>1.5.5: added region and color support to Trizbort. Forked to http://github.com/jasonlautzenheiser/trizbort

@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trizbort>
+	<info />
+	<map>
+		<room id="1" name="W Forest" x="-448" y="-320" w="96" h="64" region="Forest" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<room id="2" name="C Forest" x="-288" y="-320" w="96" h="64" region="Forest" isDark="yes" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<line id="3">
+			<dock index="0" id="1" port="e" />
+			<dock index="1" id="2" port="w" />
+		</line>
+		<room id="4" name="E Forest" x="-128" y="-320" w="96" h="64" region="Forest" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<line id="5">
+			<dock index="0" id="2" port="e" />
+			<dock index="1" id="4" port="w" />
+		</line>
+		<room id="6" name="W Shore" x="-448" y="-192" w="96" h="64" region="Shore" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>"15" tile game (solvable)</objects>
+		</room>
+		<line id="7">
+			<dock index="0" id="1" port="s" />
+			<dock index="1" id="6" port="n" />
+		</line>
+		<room id="8" name="C Shore" x="-288" y="-192" w="96" h="64" region="Shore" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Liar|Truth Teller</objects>
+		</room>
+		<line id="9">
+			<dock index="0" id="6" port="e" />
+			<dock index="1" id="8" port="w" />
+		</line>
+		<room id="10" name="E Shore" x="-128" y="-192" w="96" h="64" region="Shore" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>"15" tile game (unsolvable)</objects>
+		</room>
+		<line id="11">
+			<dock index="0" id="8" port="e" />
+			<dock index="1" id="10" port="w" />
+		</line>
+		<line id="12">
+			<dock index="0" id="10" port="n" />
+			<dock index="1" id="4" port="s" />
+		</line>
+		<line id="13">
+			<dock index="0" id="2" port="s" />
+			<dock index="1" id="8" port="n" />
+		</line>
+		<room id="14" name="C River" x="-288" y="-64" w="96" h="64" region="River" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Wolf|Goat|Cabbage</objects>
+		</room>
+		<line id="15" style="dashed">
+			<dock index="0" id="8" port="s" />
+			<dock index="1" id="14" port="n" />
+		</line>
+		<room id="16" name="W River" x="-448" y="-64" w="96" h="64" region="River" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<line id="17">
+			<dock index="0" id="14" port="w" />
+			<dock index="1" id="16" port="e" />
+		</line>
+		<room id="18" name="E River" x="-128" y="-64" w="96" h="64" region="River" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<line id="19">
+			<dock index="0" id="14" port="e" />
+			<dock index="1" id="18" port="w" />
+		</line>
+		<room id="20" name="City Entry" x="-288" y="64" w="96" h="64" region="City" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<line id="21">
+			<dock index="0" id="14" port="s" />
+			<dock index="1" id="20" port="n" />
+		</line>
+		<room id="22" name="N City" x="-288" y="192" w="96" h="64" region="City" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Whiner #2|Trinket #6</objects>
+		</room>
+		<line id="23" style="dashed">
+			<dock index="0" id="20" port="s" />
+			<dock index="1" id="22" port="n" />
+		</line>
+		<room id="24" name="NW City" x="-448" y="192" w="96" h="64" region="City" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Whiner #1|Trinker #5</objects>
+		</room>
+		<line id="25">
+			<dock index="0" id="22" port="w" />
+			<dock index="1" id="24" port="e" />
+		</line>
+		<room id="26" name="W City" x="-448" y="320" w="96" h="64" region="City" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Whiner #4|Trinket #8</objects>
+		</room>
+		<line id="27">
+			<dock index="0" id="24" port="s" />
+			<dock index="1" id="26" port="n" />
+		</line>
+		<room id="28" name="SW City" x="-448" y="448" w="96" h="64" region="City" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Whiner #6|Trinket #2</objects>
+		</room>
+		<line id="29">
+			<dock index="0" id="26" port="s" />
+			<dock index="1" id="28" port="n" />
+		</line>
+		<room id="30" name="S City" x="-288" y="448" w="96" h="64" region="City" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Whiner #7|Trinket #3</objects>
+		</room>
+		<line id="31">
+			<dock index="0" id="28" port="e" />
+			<dock index="1" id="30" port="w" />
+		</line>
+		<room id="32" name="SE City" x="-128" y="448" w="96" h="64" region="City" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Whiner #8|Trinket #4</objects>
+		</room>
+		<line id="33">
+			<dock index="0" id="30" port="e" />
+			<dock index="1" id="32" port="w" />
+		</line>
+		<room id="34" name="E City" x="-128" y="320" w="96" h="64" region="City" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Whiner #5|Trinket #1</objects>
+		</room>
+		<line id="35">
+			<dock index="0" id="32" port="n" />
+			<dock index="1" id="34" port="s" />
+		</line>
+		<room id="36" name="NE City" x="-128" y="192" w="96" h="64" region="City" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Whiner #3|Trinket #7</objects>
+		</room>
+		<line id="37">
+			<dock index="0" id="34" port="n" />
+			<dock index="1" id="36" port="s" />
+		</line>
+		<line id="38">
+			<dock index="0" id="36" port="w" />
+			<dock index="1" id="22" port="e" />
+		</line>
+		<room id="39" name="City Center" x="-288" y="320" w="96" h="64" region="City" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Obvious|Symbolism</objects>
+		</room>
+		<line id="40">
+			<dock index="0" id="22" port="s" />
+			<dock index="1" id="39" port="n" />
+		</line>
+		<line id="41">
+			<dock index="0" id="39" port="w" />
+			<dock index="1" id="26" port="e" />
+		</line>
+		<line id="42">
+			<dock index="0" id="39" port="e" />
+			<dock index="1" id="34" port="w" />
+		</line>
+		<line id="43">
+			<dock index="0" id="39" port="s" />
+			<dock index="1" id="30" port="n" />
+		</line>
+		<line id="44" style="dashed">
+			<dock index="0" id="10" port="s" />
+			<dock index="1" id="18" port="n" />
+		</line>
+		<room id="45" name="Desert" x="-288" y="-448" w="96" h="64" region="Desert CUSTOM COLOR" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects at="wsw">    (Desert Bus)</objects>
+		</room>
+		<line id="46" flow="oneWay">
+			<dock index="0" id="2" port="n" />
+			<dock index="1" id="45" port="s" />
+		</line>
+		<line id="47" flow="oneWay">
+			<dock index="0" id="1" port="ne" />
+			<dock index="1" id="45" port="sw" />
+		</line>
+		<line id="48" flow="oneWay">
+			<dock index="0" id="4" port="nw" />
+			<dock index="1" id="45" port="se" />
+		</line>
+		<line id="49" style="dashed">
+			<dock index="0" id="6" port="s" />
+			<dock index="1" id="16" port="n" />
+		</line>
+		<room id="50" name="NW Gold Mine" x="-128" y="-448" w="96" h="64" region="Gold Mines" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Trial and Error Trap</objects>
+		</room>
+		<room id="51" name="NE Gold Mine" x="32" y="-448" w="96" h="64" region="Gold Mines" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Unfair Trap</objects>
+		</room>
+		<room id="52" name="SE Gold Mine" x="32" y="-320" w="96" h="64" region="Gold Mines" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Obvious Trap</objects>
+		</room>
+		<room id="53" name="NE Lava Pit" x="-448" y="-448" w="96" h="64" region="Lava Pit" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<room id="54" name="NW Lava Pit" x="-608" y="-448" w="96" h="64" region="Lava Pit" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<room id="55" name="SW Lava Pit" x="-608" y="-320" w="96" h="64" region="Lava Pit" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Danger Sign</objects>
+		</room>
+		<line id="56" style="dashed" flow="oneWay">
+			<dock index="0" id="55" port="e" />
+			<dock index="1" id="1" port="w" />
+		</line>
+		<line id="57">
+			<dock index="0" id="54" port="s" />
+			<dock index="1" id="55" port="n" />
+		</line>
+		<line id="58">
+			<dock index="0" id="54" port="e" />
+			<dock index="1" id="53" port="w" />
+		</line>
+		<line id="59" style="dashed" flow="oneWay">
+			<dock index="0" id="45" port="w" />
+			<dock index="1" id="53" port="e" />
+		</line>
+		<line id="60" style="dashed" flow="oneWay">
+			<dock index="0" id="45" port="e" />
+			<dock index="1" id="50" port="w" />
+		</line>
+		<line id="61">
+			<dock index="0" id="50" port="e" />
+			<dock index="1" id="51" port="w" />
+		</line>
+		<line id="62">
+			<dock index="0" id="51" port="s" />
+			<dock index="1" id="52" port="n" />
+		</line>
+		<line id="63" style="dashed" flow="oneWay">
+			<dock index="0" id="52" port="w" />
+			<dock index="1" id="4" port="e" />
+		</line>
+		<room id="64" name="Palace Gates" x="-288" y="-576" w="96" h="64" region="Palace" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects at="e">5 gallon jug|3 gallon jug|4 gallon jug</objects>
+		</room>
+		<room id="65" name="Palace Hall" x="-288" y="-704" w="96" h="64" region="Palace" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Obvious Riddler</objects>
+		</room>
+		<room id="66" name="Throne Room" x="-288" y="-832" w="96" h="64" region="Palace" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<line id="67" style="dashed" flow="oneWay">
+			<dock index="0" id="45" port="n" />
+			<dock index="1" id="64" port="s" />
+		</line>
+		<line id="68">
+			<dock index="0" id="64" port="n" />
+			<dock index="1" id="65" port="s" />
+		</line>
+		<line id="69">
+			<dock index="0" id="65" port="n" />
+			<dock index="1" id="66" port="s" />
+		</line>
+		<room id="70" name="Cave-In" x="32" y="-192" w="96" h="64" region="TRAP ROOMS" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Previous Greedy Adventurer|100 AOL CDs</objects>
+		</room>
+		<line id="71" flow="oneWay">
+			<dock index="0" id="52" port="s" />
+			<dock index="1" id="70" port="n" />
+		</line>
+		<room id="72" name="PERDITION" x="-608" y="-192" w="96" h="64" region="TRAP ROOMS" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Blood|Destruction|Lamentation|Pineapple Pizza|</objects>
+		</room>
+		<line id="73" flow="oneWay">
+			<dock index="0" id="55" port="s" />
+			<dock index="1" id="72" port="n" />
+		</line>
+		<room id="74" name="West Jail" x="-448" y="-704" w="96" h="64" region="TRAP ROOMS" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<room id="75" name="East Jail" x="-128" y="-704" w="96" h="64" region="TRAP ROOMS" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<line id="76" flow="oneWay">
+			<dock index="0" id="65" port="w" />
+			<dock index="1" id="74" port="e" />
+		</line>
+		<line id="77" flow="oneWay">
+			<dock index="0" id="65" port="e" />
+			<dock index="1" id="75" port="w" />
+		</line>
+		<room id="78" name="Balcony" x="-128" y="-832" w="96" h="64" region="Palace" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Logic-Grind Riddler</objects>
+		</room>
+		<line id="79" startText="up" endText="down">
+			<dock index="0" id="65" port="ne" />
+			<dock index="1" id="78" port="sw" />
+		</line>
+		<room id="80" name="Dank Basement" x="-448" y="-576" w="96" h="64" region="Palace" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF">
+			<objects>Illogical Riddler</objects>
+		</room>
+		<line id="81" startText="up" endText="down">
+			<dock index="0" id="65" port="sw" />
+			<dock index="1" id="80" port="ne" />
+		</line>
+		<room id="82" name="Varmints' Pub" x="32" y="320" w="96" h="64" region="TRAP ROOMS" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<line id="83" flow="oneWay">
+			<dock index="0" id="34" port="e" />
+			<dock index="1" id="82" port="w" />
+		</line>
+		<room id="84" name="Behind the Barrel" x="-608" y="320" w="96" h="64" region="TRAP ROOMS" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+		<line id="85" flow="oneWay">
+			<dock index="0" id="26" port="w" />
+			<dock index="1" id="84" port="e" />
+		</line>
+		<room id="86" name="Deep Dark Jail" x="-448" y="-832" w="96" h="64" region="TRAP ROOMS" description="" roomFill="#FFFFFF" secondFill="#FFFFFF" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="#FFFFFF" roomSmallText="#FFFFFF" />
+	</map>
+	<settings>
+		<colors>
+			<canvas>White</canvas>
+			<fill>White</fill>
+			<border>MidnightBlue</border>
+			<line>MidnightBlue</line>
+			<selectedLine>SteelBlue</selectedLine>
+			<hoverLine>DarkOrange</hoverLine>
+			<largeText>MidnightBlue</largeText>
+			<smallText>MidnightBlue</smallText>
+			<lineText>MidnightBlue</lineText>
+			<grid>#F5F5F5</grid>
+		</colors>
+		<regions>
+			<City Name="City" TextColor="MidnightBlue">Gray</City>
+			<Desert____CUSTOM____COLOR Name="Desert CUSTOM COLOR" TextColor="MidnightBlue">#C08040</Desert____CUSTOM____COLOR>
+			<Forest Name="Forest" TextColor="MidnightBlue">Green</Forest>
+			<Gold____Mines Name="Gold Mines" TextColor="MidnightBlue">Yellow</Gold____Mines>
+			<Lava____Pit Name="Lava Pit" TextColor="MidnightBlue">#FF8000</Lava____Pit>
+			<NoRegion Name="NoRegion" TextColor="Blue">White</NoRegion>
+			<Palace Name="Palace" TextColor="White">#8000FF</Palace>
+			<River Name="River" TextColor="MidnightBlue">#0080FF</River>
+			<Shore Name="Shore" TextColor="MidnightBlue">#804000</Shore>
+			<TRAP____ROOMS Name="TRAP ROOMS" TextColor="MidnightBlue">Red</TRAP____ROOMS>
+		</regions>
+		<fonts>
+			<room size="13">Comic Sans MS</room>
+			<object size="11">Comic Sans MS</object>
+			<line size="9">Comic Sans MS</line>
+		</fonts>
+		<grid>
+			<snapTo>yes</snapTo>
+			<visible>yes</visible>
+			<showOrigin>yes</showOrigin>
+			<size>32</size>
+		</grid>
+		<lines>
+			<width>2</width>
+			<handDrawn>yes</handDrawn>
+			<arrowSize>12</arrowSize>
+			<textOffset>4</textOffset>
+		</lines>
+		<rooms>
+			<darknessStripeSize>24</darknessStripeSize>
+			<objectListOffset>4</objectListOffset>
+			<connectionStalkLength>32</connectionStalkLength>
+			<preferredDistanceBetweenRooms>64</preferredDistanceBetweenRooms>
+		</rooms>
+		<ui>
+			<handleSize>12</handleSize>
+			<snapToElementSize>16</snapToElementSize>
+		</ui>
+		<keypadNavigation>
+			<creationModifier>control</creationModifier>
+			<unexploredModifier>alt</unexploredModifier>
+		</keypadNavigation>
+	</settings>
+</trizbort>

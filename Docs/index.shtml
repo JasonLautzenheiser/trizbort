@@ -342,6 +342,11 @@
 
 <p>A room tooltip contains information that might not fit physically on a map. It contains the room name, the room subtitle (if it exists) and then, if the room contains objects, the list of objects below a horizontal line.</p>
 
+<table>
+<tr><td><img src="tooltip.png" alt="Basic tooltip example"></td></tr>
+<tr><td class="alt">A basic tooltip example.</td></tr>
+</table>
+
 <a name="help_connections"></a>
 <h1>Working with Connections</h1>
 

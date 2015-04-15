@@ -30,7 +30,9 @@
 
 <p>This guide explains how to use Trizbort.</p>
 
-<p>A freely redistributable version of this guide may be found on <a href="http://github.com/genstein/trizbort/tree/master/Docs/">GitHub</a>.</p>
+<p>The original version of this guide, before extensive forking, may be found at <a href="http://github.com/genstein/trizbort/tree/master/Docs/">Genstein's trizbort repository</a>.</p>
+
+<p>The version of this guide for 1.5+ may be found at <a href="http://github.com/jasonlautzenheiser/trizbort/tree/master/Docs/">Jason Lautzenheiser's trizbort repository</a>. The bleeding-edge guide (latest small fixes) is at <a href="http://github.com/andrewschultz/trizbort/tree/master/Docs/">Andrew Schultz's trizbort repository</a>. Issues should be reported there, and they are welcome, big or small.</p>
 
 <h2>Table of Contents <span style="font-size: 10px;"><a href="javascript:void(0);" onclick="var x = document.getElementById('toc'); x.style.display = (x.style.display === 'none' ? 'block' : 'none');">show/hide</a></span></h2>
 
@@ -101,7 +103,7 @@
 		<ul>
 			<li><a href="#save_100">Saving Images at 100%</a>
 			<li><a href="#mouse_wheel_zoom">Invert Mouse Wheel Zoom</a>
-			<li><a name="#smart_save_options">Smart Save Options</a>
+			<li><a href="#smart_save_options">Smart Save Options</a>
 		</ul>
 		<li><a href="#restore_default">Restore Default Settings</a>
 		<li><a href="#help_fu">Keyboard Fu</a>
@@ -113,13 +115,14 @@
 			<li><a href="#help_automap_disambig">Disambiguating Between Rooms</a>
 			<li><a href="#help_automap_how">How It Works (or: When It Doesn't)</a>
 			<ul>
-				<li><a name="help_automap_roomname">Room Names</a>
-				<li><a name="help_automap_connect">Connecting Rooms</a>
-				<li><a name="help_automap_meta">Meta-Commands</a>
+				<li><a href="#help_automap_roomname">Room Names</a>
+				<li><a href="#help_automap_connect">Connecting Rooms</a>
+				<li><a href="#help_automap_meta">Meta-Commands</a>
+			</ul>
 			<li><a href="#help_automap_tips">Automapping Tips</a>
 		<li><a href="#help_regions">Regions</a>
 		</ul>
-		<li><a name="help_right_clicking">Right Clicking</li>
+		<li><a href="#help_right_clicking">Right Clicking</li>
 		<li><a href="#sample_quick">A Sample Quick Map</a>
 		<ul>
 			<li><a href="#sample_first">First Rooms and Regions</a>
@@ -150,6 +153,7 @@
 			<li><a href="#about_authors">Authors</li>
 			<li><a href="#about_versions">Versions</li>
 		</ul>
+		<li><a href="#thirdparty">Third Party Software Recommendations</a>
 	</ul>
 </ul>
 </div> <!-- toc -->
@@ -1001,6 +1005,7 @@ At your service!</pre></td></tr>
 <li>ctrl-F5 is supposed to disable the grid polyline, though it's currently broken.
 <li>F5 disables stops in the automap.
 <li>F11 makes a single step in the automap.
+</ul>
 
 <a name="textedit"></a>
 <h2>Manual Editing</h2>
@@ -1076,9 +1081,9 @@ Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenhe
 <h2>Versions</h2>
 
 <ul>
-<li>1.5.5: added region and color support to Trizbort. Forked to http://lautzofif.myjetbrains.com/youtrack/issues/TRIZ
+<li>1.5.5: added region and color support to Trizbort. Forked to http://github.com/jasonlautzenheiser/trizbort
 <li>1.5.7: fixed various small bugs
-<li>1.5.8: added version metatag, room borders, subtitles
+<li>1.5.8: added version metatag, room borders, subtitles. New documentation to http://github.com/andrewschultz/trizbort
 </ul>
 
 <a name="about_bugs"></a>
@@ -1087,6 +1092,23 @@ Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenhe
 <p>As of version 1.5.5, Trizbort requires the DevComponents.DotNetBar2.dll file to run. If Trizbort fails to start, this may be the culprit. You will also need to install DotNet framework 4.</p>
 
 <p>Bugs or feature requests can be reported anonymously at http://lautzofif.myjetbrains.com/youtrack/issues/TRIZ.</p> MyJetBrains can track similar issues as you type your new issue, so if you can check your issue is not a duplicate, that is helpful.</p>
+
+<a name="thirdparty"></a>
+<h2>Third Party Software Recommendations</h2>
+
+<p>Trizbort is a relatively small project, and we don't have the manpower to fulfill every feature request, much as we'd like to. However, some third-party software allows a workaround.</p>
+
+<ul>
+<li>PDFTK is recommended for gluing two PDFs together. This may be useful if your map has multiple levels.
+  <ul>
+  <li>Basic usage: <i>pdftk triz-1.pdf triz-2.pdf cat output triz-both.pdf</i>.
+  <li>Advanced usage, if you want to add the maps to a walkthrough: <i>pdftk A=c:/games/inform/uglyoafs.inform/Source/uo.pdf B=c:/games/inform/triz/uoup.pdf C=c:/games/inform/triz/uodn.pdf cat A1-6 B C A7 output ugly-oafs-guide.pdf</i>. In this case, I have page 7 as an appendix, so the maps are inserted just before. Also, the table of contents's link to the appendix is preserved.
+  </ul>
+<li>Coherent PDF will allow you to crop exported PDFs to get rid of Whitespace. Trizbort currently doesn't allow you to specify whitespace.
+  <ul>
+  <li>Basic usage: <i>cpdf -crop "25mm 25mm 212mm 250mm" standard-a4-size.pdf</i>.
+  </ul>
+</ul>
 
 </div> <!-- help -->
 

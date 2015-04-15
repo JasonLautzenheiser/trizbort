@@ -60,6 +60,7 @@
 				<li><a href="#help_rooms_edit_colors">Room Colors</a>
 			</ul>
 			<li><a href="#help_rooms_stylenew">Styling New Rooms</a>
+			<li><a href="#help_rooms_tooltips">Room Tooltips</a>
 		</ul>
 		<li><a href="#help_connections">Working with Connections</a>
 		<ul>
@@ -335,6 +336,9 @@
 <h2>Styling New Rooms</h2>
 
 <p>The style and size of a new room created with R is taken from the last selected room. So if you last selected a large, dark room, the next new room you create will be large and dark.</p>
+
+<a name="help_rooms_tooltips"></a>
+<h2>Room Tooltips</h2>
 
 <a name="help_connections"></a>
 <h1>Working with Connections</h1>

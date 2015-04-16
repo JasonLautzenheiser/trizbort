@@ -30,9 +30,9 @@
 
 <p>This guide explains how to use Trizbort.</p>
 
-<p>The original version of this guide, before extensive forking, may be found at <a href="http://github.com/genstein/trizbort/tree/master/Docs/">Genstein's trizbort repository</a>.</p>
+<p>The original version of this guide, before extensive forking, may be found at <a href="https://github.com/genstein/trizbort/tree/master/Docs/">Genstein's Trizbort repository</a>.</p>
 
-<p>The version of this guide for 1.5+ may be found at <a href="http://github.com/jasonlautzenheiser/trizbort/tree/master/Docs/">Jason Lautzenheiser's trizbort repository</a>. The bleeding-edge guide (latest small fixes) is at <a href="http://github.com/andrewschultz/trizbort/tree/master/Docs/">Andrew Schultz's trizbort repository</a>. Issues should be reported there, and they are welcome, big or small.</p>
+<p>The version of this guide for 1.5+ may be found at <a href="https://github.com/jasonlautzenheiser/trizbort/tree/master/Docs/">Jason Lautzenheiser's Trizbort repository (development)</a>. The bleeding-edge guide (latest small fixes) is at <a href="https://github.com/andrewschultz/trizbort/tree/master/Docs/">Andrew Schultz's Trizbort repository (documentation)</a>. Issues should be reported there, and they are welcome, big or small.</p>
 
 <h2>Table of Contents <span style="font-size: 10px;"><a href="javascript:void(0);" onclick="var x = document.getElementById('toc'); x.style.display = (x.style.display === 'none' ? 'block' : 'none');">show/hide</a></span></h2>
 
@@ -58,6 +58,7 @@
 				<li><a href="#help_rooms_edit_objects">Objects in Rooms</a>
 				<li><a href="#help_rooms_edit_desc">Room Descriptions</a>
 				<li><a href="#help_rooms_edit_colors">Room Colors</a>
+				<li><a href="#help_rooms_edit_region">Room Regions</a>
 			</ul>
 			<li><a href="#help_rooms_stylenew">Styling New Rooms</a>
 			<li><a href="#help_rooms_tooltips">Room Tooltips</a>
@@ -108,6 +109,10 @@
 		</ul>
 		<li><a href="#restore_default">Restore Default Settings</a>
 		<li><a href="#help_fu">Keyboard Fu</a>
+		<ul>
+			<li><a href="#help_fu_nav">Navigating the Map with the Keyboard</a>
+			<li><a href="#help_fu_connect">Creating Rooms and Connections with the Keyboard</a>
+			<li><a href="#help_fu_prop">Editing properties with the Keyboard</a>
 		<li><a href="#help_automap">Using Automapping</a>
 		<ul>
 			<li><a href="#help_automap_start">Starting Automapping</a>
@@ -332,6 +337,16 @@
 <tr><td class="alt">A self-documenting, if impractical, example of room fills.</td></tr>
 </table>
 
+<a name="help_rooms_edit_region"></a>
+<h3>Room Regions</h3>
+
+<p>Later on in the documentation, you will see how to define regions. Each region has a default fill color for its rooms. The final sub-tab in the room properties lets you change the room's region if there is more than one. It will be stuck on NoRegion if no other regions are defined.</p>
+
+<table>
+<tr><td><img src="room_change_regions.png" alt="Room region change example"></td></tr>
+<tr><td class="alt">An example of regions from a completed map.</td></tr>
+</table>
+
 <a name="help_rooms_stylenew"></a>
 <h2>Styling New Rooms</h2>
 
@@ -536,7 +551,7 @@
 <tr><td class="altheading">Show Origin</td><td class="alt">Whether Trizbort should draw faint cross-hairs on the canvas at coordinates (0,0). When a map is first created, this position is in the center of the canvas.</td></tr>
 </table>
 
-<a name="help_settings_regions">Regions</a>
+<a name="help_settings_regions"></a>
 <h2>Regions</h2>
 
 <p>Regions are used in Inform 7 to organize rooms and give them common properties. In Trizbort, regions provide similar organization. They provide default text and background style. These can be overridden individually, to help give even more color and style to a map. Unlike in Inform 7, Trizbort rooms may only belong to one region.</p>
@@ -559,6 +574,13 @@
 <p>Ctrl-shift-A highlights all the rooms in the highlighted room's region. If rooms from more than one regions are highlighted, all rooms in the highlighted rooms' regions are selected.
 
 <p>If you use control-arrows to create a new room, that room takes the previous room's region.</p>
+
+<table>
+<tr><td><img src="region_settings.png" alt="The region settings box."></td></tr>
+<tr><td class="alt">The region settings box.</td></tr>
+</table>
+
+<p>Note that you can change the color of the NoRegion region if you want, and Trizbort also doesn't restrict you from giving two regions the same color. It also does not try to resolve conflicts between room fill color and room text color. That is up to the programmer, and it can be customized.</p>
 
 <a name="help_settings_other"></a>
 <h2>Other Settings</h2>
@@ -665,6 +687,7 @@
 
 <p>For people who prefer to use the keyboard rather than the mouse, Trizbort allows for many shortcuts.</p>
 
+<a name="help_fu_nav"></a>
 <h2>Navigating the Map with the Keyboard</h2>
 
 <p>With nothing selected, you can press Return to select the room closest to the center of the canvas, and center the canvas on that room if it isn't already.</p>
@@ -676,11 +699,28 @@
 <tr><td class="alt">Using the keys on the numeric keypad to navigate the map.</td></tr>
 </table>
 
+<a name="help_fu_connect"></a>
 <h2>Creating Rooms and Connections with the Keyboard</h2>
 
 <p>If you hold the Control key when pressing one of the above keys on the numeric keypad, Trizbort will follow an exit that way, if one exists. If there isn't an exit, Trizbort checks for a room that way. If there is one, Trizbort establishes a link. If there is no room, Trizbort creates one.
 
 <p>Selection will pass to a room created this way. Its Properties dialog will appear automatically so you can name the new room. The new room will also take on the region of the old room, as opposed to creating a room with R. This can be a quick way to draw a rough map, or to transcribe a map that is about to go off the edge of your paper.</p>
+
+<a name="help_fu_prop"></a>
+<h2>Editing properties with the Keyboard</h2>
+
+<p>Trizbort offers accelerators so that the programmer can use TAB or logical shortcuts to avoid using a mouse when it would be awkward. An underlined letter indicates you can type ALT and that letter. Many of the accelerators to the menu are discussed elsewhere, and you can remember them from the menu, so let's look at the room properties again.
+
+<table>
+<tr><td><img src="room_properties.png" alt="Room properties, again."></td></tr>
+<tr><td class="alt">Room properties, again.</td></tr>
+</table>
+
+<p>Note first that you can TAB your way through from the name to the subtitle to the dark box (type space to toggle it) and all the way to the objects box, where you can type in what you want. Then if you tab some more, you get to the arrow pad. There, a space bar locks in text justification, then ENTER (or Alt-O) accepts the changes.</p>
+
+<p>Back in the room properties, you can also hit ALT-E for description, Alt-C for colors, and Alt-G for regions. In the regions tab, you can tab and use the arrow keys to choose a region. Colors is a bit more complex.  You can tab through the Change boxes to change the color you want. You need to push Alt-K to okay changes if you don't want to use the mouse. You also currently need to push Clear manually.
+
+<p>None of this may be terribly cutting-edge in terms of keyboard shortcuts or GUI theory, but if one feels right, it will probably help you save a lot of time.</p>
 
 <a name="help_regions"></a>
 <h1>Regions</h1>
@@ -776,7 +816,7 @@ At your service!</pre></td></tr>
 <li><span class="term">Trizbort cannot [open or read] the transcript, but will keep trying.</span> This can happen if the interpreter has exclusive control over the transcript file and won't let Trizbort read it, or if the transcript file doesn't exist or is otherwise inaccessible.
 </ul>
 
-<a name="help_automap_mid"></a>
+<a name="help_automap_disambig"></a>
 <h2>Disambiguating Between Rooms</h2>
 
 <p>Just as a game may sometimes ask you "which do you mean, the longsword or the short sword?", Trizbort sometimes isn't sure whether a room it's seen in the transcript is a new room or just an existing room whose description has changed.</p>
@@ -907,11 +947,11 @@ At your service!</pre></td></tr>
 <a name = "sample_first"></a>
 <h3>First Rooms and Regions</h3>
 
-<p>Here, we'll look at how to use Trizbort to make a quick, colorful map that will make a game, though not necessarily a very good one. The final map is on dropbox (?? part of this documentation). First, let's hit control-n for a new map. Then R to create a room. Hit enter to name it. Call it the City Center. Now ctrl-up arrow and create N City, then ctrl-left for NW City. You can make rooms all around the City Center in a circle.</p>
+<p>Here, we'll look at how to use Trizbort to make a quick, colorful map that will make a game, though not necessarily a very good one. It should be linked <a href="generic-game.trizbort">here</a>, and you'll probably see how to reproduce it quickly enough. First, let's open Trizbort and hit control-n for a new map. Then R to create a room. Hit enter to name it. Call it the City Center. Now ctrl-up arrow and create N City, then ctrl-left for NW City. You can make a three-by-three ring of rooms all around the City Center.</p>
 
-<p>But wait! They're not connected yet. You have to connect the city center to the others. Ctrl-left then ctrl-down. Then, from the center, you can Ctrl-left and right, down and up, and right and left.</p>
+<p>But wait! They're not connected yet. You have to connect the city center to the others. Ctrl-left then ctrl-down. Then, from the center, you can Ctrl-left and right, down and up, and right and left. This is probably easier to do than read once you get the hang of it.</p>
 
-<p>So we've got an instant map! But it would be nice to describe the city as cold and grey. We can do that with regions.  Tools->Map Settings->Regions. Add a region and call it City. Make it grey. Then ctrl-A and right click on any room. Bingo!</p>
+<p>So now we've got the start of an instant map! But it would be nice to describe the city as cold and grey. We can do that with regions.  Tools->Map Settings->Regions. Add a region and call it City. Make it grey. Then ctrl-A and right click on any room. Bingo!</p>
 
 <a name = "sample_trap"</a>
 <h3>Making a Trap Room Region</h3>
@@ -955,7 +995,7 @@ At your service!</pre></td></tr>
 </div> <!-- tip body -->
 </div> <!-- tip -->
 
-<p>You can export your finished map as a <a href="http://en.wikipedia.org/wiki/Portable_Document_Format">PDF file</a> (a scalable document format), a <a href="http://en.wikipedia.org/wiki/Portable_Network_Graphics">PNG image</a>, <a href="http://en.wikipedia.org/wiki/JPEG">JPEG image</a>,  <a href = "http://en.wikipedia.org/wiki/BMP_file_format">BMP</a> or <a href = "http://en.wikipedia.org/wiki/Windows_Metafile#Variants">Enhanced Windows Metafile(EMF)</a>, or to an <a href="http://ifwiki.org/index.php/Authoring_system">IF development system</a> such as <a href="http://inform7.com">Inform 7</a>, <a href="http://www.tads.org">TADS</a> or <a href="http://www.inform-fiction.org/inform6.html">Inform 6</a>.</p>
+<p>You can export your finished map as a <a href="http://en.wikipedia.org/wiki/Portable_Document_Format">PDF file</a> (a scalable document format), a <a href="http://en.wikipedia.org/wiki/Portable_Network_Graphics">PNG image</a>, <a href="http://en.wikipedia.org/wiki/JPEG">JPEG image</a>,  <a href = "http://en.wikipedia.org/wiki/BMP_file_format">BMP</a> or <a href = "http://en.wikipedia.org/wiki/Windows_Metafile#Variants">Enhanced Windows Metafile(EMF)</a>, or to an <a href="http://ifwiki.org/index.php/Authoring_system">IF development system</a> such as <a href="http://inform7.com">Inform 7</a>, <a href="http://www.tads.org">TADS</a> or <a href="http://inform-fiction.org/index.html">Inform 6</a>.</p>
 
 <a name="help_export_pdf"></a>
 <h2>Exporting to PDF</h2>
@@ -1093,7 +1133,7 @@ At your service!</pre></td></tr>
 <a name="about"></a>
 <h2>About</h2>
 
-<a name="about_versions"></a>
+<a name="about_authors"></a>
 <h3>Authors</h3>
 
 Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenheiser picked up the project in December 2014 and added features and merged changes from various other contributors.
@@ -1102,9 +1142,9 @@ Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenhe
 <h3>Versions</h3>
 
 <ul>
-<li>1.5.5: added region and color support to Trizbort. Forked to http://github.com/jasonlautzenheiser/trizbort
+<li>1.5.5: added region and color support to Trizbort. Forked to https://github.com/jasonlautzenheiser/trizbort
 <li>1.5.7: fixed various small bugs
-<li>1.5.8: added version metatag, room borders, subtitles. New documentation to http://github.com/andrewschultz/trizbort
+<li>1.5.8: added version metatag, room borders, subtitles. New documentation to https://github.com/andrewschultz/trizbort
 </ul>
 
 <a name="about_bugs"></a>
@@ -1113,6 +1153,8 @@ Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenhe
 <p>As of version 1.5.5, Trizbort requires the DevComponents.DotNetBar2.dll file to run. If Trizbort fails to start, this may be the culprit. Windows can be very non-descriptive about why it can't run a program. You will also need to install DotNet framework 4 if you are running an earlier version of Windows. You should be able to use "Windows Update" to upgrade this if need be.</p>
 
 <p>Bugs or feature requests can be reported anonymously at https://trello.com/b/avZe0VPG/trizbort. A brief search to make sure the bug isn't already there is appreciated, but you shouldn't feel obliged to search too rigorously.</p>
+
+<p>Documentation bugs, big or small, technical or aesthetic, can also be reported at <a href="https://github.com/andrewschultz/trizbort">the Trizbort documents GitHub site</a>.</p>
 
 <a name="settings_file"></a>
 <h2>Settings File</h2>

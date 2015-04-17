@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trizbort version="1.5.8.7">
+	<info />
+	<map>
+		<room id="1" name="Lounge" subtitle="" x="-480" y="256" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="2" name="Dining Room" subtitle="" x="-480" y="128" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="3">
+			<dock index="0" id="1" port="n" />
+			<dock index="1" id="2" port="s" />
+		</line>
+		<room id="4" name="Kitchen" subtitle="" x="-480" y="0" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="5">
+			<dock index="0" id="2" port="n" />
+			<dock index="1" id="4" port="s" />
+		</line>
+		<room id="6" name="Ballroom" subtitle="" x="-320" y="0" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="7">
+			<dock index="0" id="4" port="e" />
+			<dock index="1" id="6" port="w" />
+		</line>
+		<room id="8" name="Conservatory" subtitle="" x="-160" y="0" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="9">
+			<dock index="0" id="6" port="e" />
+			<dock index="1" id="8" port="w" />
+		</line>
+		<room id="10" name="Library/ Billiards Room" subtitle="" x="-160" y="128" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="11">
+			<dock index="0" id="8" port="s" />
+			<dock index="1" id="10" port="n" />
+		</line>
+		<room id="12" name="Study" subtitle="" x="-160" y="256" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="13">
+			<dock index="0" id="10" port="s" />
+			<dock index="1" id="12" port="n" />
+		</line>
+		<room id="14" name="Hall" subtitle="" x="-320" y="256" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="15">
+			<dock index="0" id="12" port="w" />
+			<dock index="1" id="14" port="e" />
+		</line>
+		<room id="16" name="Cellar" subtitle="" x="-320" y="128" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="17">
+			<dock index="0" id="14" port="n" />
+			<dock index="1" id="16" port="s" />
+		</line>
+		<line id="18">
+			<dock index="0" id="16" port="w" />
+			<dock index="1" id="2" port="e" />
+		</line>
+		<line id="19">
+			<dock index="0" id="1" port="e" />
+			<dock index="1" id="14" port="w" />
+		</line>
+		<line id="20">
+			<dock index="0" id="10" port="w" />
+			<dock index="1" id="16" port="e" />
+		</line>
+		<line id="21">
+			<dock index="0" id="16" port="n" />
+			<dock index="1" id="6" port="s" />
+		</line>
+		<room id="22" name="To Lounge" subtitle="" x="-32" y="-64" w="96" h="32" region="NoRegion" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="23">
+			<dock index="0" id="8" port="ne" />
+			<dock index="1" id="22" port="sw" />
+		</line>
+		<room id="24" name="To Conservatory" subtitle="" x="-640" y="352" w="128" h="32" region="NoRegion" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="25">
+			<dock index="0" id="1" port="sw" />
+			<dock index="1" id="24" port="ne" />
+		</line>
+		<room id="26" name="To Study" subtitle="" x="-608" y="-64" w="96" h="32" region="NoRegion" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="27">
+			<dock index="0" id="4" port="nw" />
+			<dock index="1" id="26" port="se" />
+		</line>
+		<room id="28" name="To Kitchen" subtitle="" x="-32" y="352" w="96" h="32" region="NoRegion" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="29">
+			<dock index="0" id="12" port="se" />
+			<dock index="1" id="28" port="nw" />
+		</line>
+	</map>
+	<settings>
+		<colors>
+			<canvas>White</canvas>
+			<fill>White</fill>
+			<border>MidnightBlue</border>
+			<line>MidnightBlue</line>
+			<selectedLine>Gold</selectedLine>
+			<hoverLine>DarkOrange</hoverLine>
+			<largeText>MidnightBlue</largeText>
+			<smallText>MidnightBlue</smallText>
+			<lineText>MidnightBlue</lineText>
+			<grid>#F5F5F5</grid>
+		</colors>
+		<regions>
+			<NoRegion Name="NoRegion" TextColor="Blue">White</NoRegion>
+		</regions>
+		<fonts>
+			<room size="13">Comic Sans MS</room>
+			<object size="11">Comic Sans MS</object>
+			<line size="9">Comic Sans MS</line>
+		</fonts>
+		<grid>
+			<snapTo>yes</snapTo>
+			<visible>yes</visible>
+			<showOrigin>yes</showOrigin>
+			<size>32</size>
+		</grid>
+		<lines>
+			<width>2</width>
+			<handDrawn>yes</handDrawn>
+			<arrowSize>12</arrowSize>
+			<textOffset>4</textOffset>
+		</lines>
+		<rooms>
+			<darknessStripeSize>24</darknessStripeSize>
+			<objectListOffset>4</objectListOffset>
+			<connectionStalkLength>32</connectionStalkLength>
+			<preferredDistanceBetweenRooms>64</preferredDistanceBetweenRooms>
+		</rooms>
+		<ui>
+			<handleSize>12</handleSize>
+			<snapToElementSize>16</snapToElementSize>
+		</ui>
+		<keypadNavigation>
+			<creationModifier>control</creationModifier>
+			<unexploredModifier>alt</unexploredModifier>
+		</keypadNavigation>
+	</settings>
+</trizbort>

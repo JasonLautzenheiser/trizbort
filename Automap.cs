@@ -461,6 +461,13 @@ namespace Trizbort
             while (lineIndex < lines.Count)
             {
                 var line = lines[lineIndex].Trim();
+                if (line == "[Previous turn undone.]")
+                {
+                    // Ignore undo reports. This will have the effect of making this room
+                    // look like a non-verbose room.
+                    ++lineIndex;
+                    continue;
+                }
                 if (line.Length == 0)
                 {
                     // we hit a blank line; give up

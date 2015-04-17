@@ -128,7 +128,8 @@
 			<li><a href="#help_automap_tips">Automapping Tips</a>
 		<li><a href="#help_regions">Regions</a>
 		</ul>
-		<li><a href="#help_right_clicking">Right Clicking</li>
+		<li><a href="#help_right_clicking">Right Clicking</a>
+		<li><a href="#help_tooltips">Tooltips</a>
 		<li><a href="#sample_quick">A Sample Quick Map</a>
 		<ul>
 			<li><a href="#sample_first">First Rooms and Regions</a>
@@ -310,7 +311,7 @@
 
 <p>If you click the "Description" tab, you can edit the description of the room. Click the "Objects" tab again to see the list of objects. Trizbort doesn't use this description itself, but if you export your map to an IF development system the description may be used to describe the room when playing the game. When automapping, Trizbort will fill out the description for you if it can.</p>
 
-<p>Descriptions will appear in tooltips if you hover over a room.</p>
+<p>Descriptions will appear in tooltips if you hover over a room. If the tooltip is rather large, it may block your room out, and you may need to use arrows to refocus and click on it.</p>
 
 <a name="help_rooms_edit_colors"></a>
 <h3>Room Colors</h3>
@@ -475,7 +476,7 @@
 <a name="help_nav_zoom"></a>
 <h2>Zooming</h2>
 
-<p>If your mouse has a mouse wheel, you can scroll the mouse wheel forwards and backwards to zoom in and out. This scales the map on-screen making it bigger or smaller. Tools::App Settings allows you to flip the mouse wheel's scroll in/out behavior. For more granular zooms, you can hit the TAB key and type the precise zoom percentage you want. Anything from 10% to 1000% is valid.</p>
+<p>If your mouse has a mouse wheel, you can scroll the mouse wheel forwards and backwards to zoom in and out. This scales the map on-screen making it bigger or smaller. Tools->App Settings allows you to flip the mouse wheel's scroll in/out behavior. For more granular zooms, you can hit the TAB key and type the precise zoom percentage you want. Anything from 10% to 1000% is valid.</p>
 
 <p>You can also use the '+' and '-' keys on your keyboard or the numpad. The equals key works as well as the +.</p>
 
@@ -527,7 +528,7 @@
 <a name="help_settings_room_borders_and_coloring"></a>
 <h2>Room Borders and Coloring</h2>
 
-<p>You can pick room borders from anywhere in the room properties dialog. Solid is the default, but Dash, DashDot, DashDotDot, and Dot are available. While there is no official meaning for any of these, it may be useful to label a ghost room with a dotted border, or maybe have a bottleneck room--or the starting room--dashed.</p>
+<p>You can pick room borders from anywhere in the room properties dialog. Solid is the default, but Dash, DashDot, DashDotDot, Dot and None are available. While there are no official conventions for when to use any of these, it may be useful to label a ghost room with a Dot or None border, or maybe have a bottleneck room--or the starting room--dashed. Another example from a real game might be <a href="clue.trizbort">this quick map of Clue</a>.</p>
 
 <p>The Colors sub-tab of Room Properties allows you to determine the fill. Room Fill overrides whatever the room's region is set to. You also can specify a second color for half of the room. This can be split eight ways: top, left, bottom or down or, if you want something to go diagonally, bottom-left, bottom-right, top-left or top-right.</p>
 
@@ -924,7 +925,7 @@ At your service!</pre></td></tr>
 <p><span class="emphatic">For purely in/out or up/down connections, Trizbort doesn't mind which port is used on either room</span>, so you can freely change these around.</p>
 
 <a name="help_right_clicking"></a>
-<h1>Right Clicking</h1>
+<h2>Right Clicking</h2>
 
 <p>Trizbort also allows right-clicking for general editing.</p>
 
@@ -932,14 +933,21 @@ At your service!</pre></td></tr>
 <li>SET REGION will be available if any room is currently highlighted.
 <li>DARK will be available if any room is currently highlighted.
 <li>PROPERTIES will be available if any room or connector is currently highlighted. It will go to the last one.
-<li>MAP SETTINGS will go to Tools::Map Settings.
-<li>APPLICATION SETTINGS will go to Tools::Application Settings.
+<li>MAP SETTINGS will go to Tools->Map Settings.
+<li>APPLICATION SETTINGS will go to Tools->Application Settings.
 </ul>
 
 <table>
 <tr><td><img src="right_click.png" alt="Right-clicking for the context menu."></td></tr>
 <tr><td class="alt">The current context menu.</td></tr>
 </table>
+
+<a name="help_tooltips"></a>
+<h2>Tooltips</h2>
+
+<p>The main information for tooltips in rooms is <a href="#help_rooms_tooltips">here</a>.</p>
+
+<p>For features that are not straightforward, Trizbort also provides some tooltips. 
 
 <a name = "sample_quick"></a>
 <h2>A Sample Quick Map</h2>
@@ -974,7 +982,7 @@ At your service!</pre></td></tr>
 
 <p>Control-right and create NW Gold Mine, then add it to the Gold Mine region. Control-right, control-down and control-down. Now we can go zapping back to create all the one-way directions: from Desert east and west, from the SW pit and SE mine. You can control-click to highlight them all and then push A, or you can highlight each and push A. Don't forget to set Cave-In and Perdition to the Trap Room regions.</p>
 
-<p>The Castle is next. You should probably be on cruise control now. Ctrl-up from the Desert for Palace Gates. It can be part of a new region called Palace. You may want to change Palace's text to white since its purple background makes the default text unreadable.</p>
+<p>Now for the final bit. You should probably be on cruise control now. Ctrl-up from the Desert for Palace Gates. This room can be part of a new region called Palace. You may want to change Palace's text to white since its purple background makes the default text unreadable. Also, for variety, let's update the subtitle to start of palace.</p>
 
 <a name = "sample_fix"</a>
 <h3>Fixing silly mistakes</h3>
@@ -1155,6 +1163,12 @@ Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenhe
 <p>Bugs or feature requests can be reported anonymously at https://trello.com/b/avZe0VPG/trizbort. A brief search to make sure the bug isn't already there is appreciated, but you shouldn't feel obliged to search too rigorously.</p>
 
 <p>Documentation bugs, big or small, technical or aesthetic, can also be reported at <a href="https://github.com/andrewschultz/trizbort">the Trizbort documents GitHub site</a>.</p>
+
+<h2>Known issues and limitations</h2>
+
+<p>While minor issues are generally listed at Trello, particularly complex ones are listed below, mostly to let the user know if anything may cause odd behavior. This was last updated with 1.5.8.7.</p>
+
+<p>As of 1.5.5, if you copy room data and then text data, the room data is lost. Pasting room data to text fields gives odd results.</p>
 
 <a name="settings_file"></a>
 <h2>Settings File</h2>

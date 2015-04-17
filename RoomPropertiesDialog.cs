@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010 by Genstein
+    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -77,7 +77,7 @@ namespace Trizbort
             m_tabControl.SelectedTabIndex = 3;
             break;
         }
-
+        
         if (start == PropertiesStartType.RoomName)
           txtName.Focus();
       }
@@ -89,9 +89,9 @@ namespace Trizbort
       set { txtName.Text = value; }
     }
 
-    public DashStyle BorderStyle
+    public BorderDashStyle BorderStyle
     {
-      get { return (DashStyle)Enum.Parse(typeof(DashStyle), cboBorderStyle.SelectedItem.ToString()); }
+      get { return (BorderDashStyle)Enum.Parse(typeof(BorderDashStyle), cboBorderStyle.SelectedItem.ToString()); }
       set { cboBorderStyle.SelectedItem = value.ToString(); }
     }
     public string RoomSubTitle
@@ -412,28 +412,28 @@ namespace Trizbort
 
     private void changeRoomFillColor()
     {
-      RoomFillColor = Colors.ShowColorDialog(RoomFillColor, this);
+      if (tabColors.IsSelected) RoomFillColor = Colors.ShowColorDialog(RoomFillColor, this);
     }
 
     // Added for Room specific colors
     private void changeSecondFillColor()
     {
-      SecondFillColor = Colors.ShowColorDialog(SecondFillColor, this);
+      if (tabColors.IsSelected) SecondFillColor = Colors.ShowColorDialog(SecondFillColor, this);
     }
 
     private void changeRoomTextColor()
     {
-      RoomTextColor = Colors.ShowColorDialog(RoomTextColor, this);
+      if (tabColors.IsSelected) RoomTextColor = Colors.ShowColorDialog(RoomTextColor, this);
     }
 
     private void changeRoomBorderColor()
     {
-      RoomBorderColor = Colors.ShowColorDialog(RoomBorderColor, this);
+      if (tabColors.IsSelected) RoomBorderColor = Colors.ShowColorDialog(RoomBorderColor, this);
     }
 
     private void changeObjectTextColor()
     {
-      ObjectTextColor = Colors.ShowColorDialog(ObjectTextColor, this);
+      if (tabColors.IsSelected) ObjectTextColor = Colors.ShowColorDialog(ObjectTextColor, this);
     }
 
     private void m_changeLargeFontButton_Click(object sender, EventArgs e)

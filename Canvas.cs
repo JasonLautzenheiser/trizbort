@@ -1,6 +1,6 @@
 /*
-    Copyright (c) 2010 by Genstein
-
+    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+   
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -2901,7 +2901,7 @@ namespace Trizbort
 
     private void ctxCanvasMenu_Opening(object sender, CancelEventArgs e)
     {
-      if (m_minimap.IsMouseOverMe())
+      if (m_minimap.Visible && m_minimap.IsMouseOverMe())
         e.Cancel = true;
 
       var clientPos = new PointF(mLastMouseDownPosition.X, mLastMouseDownPosition.Y);

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010 by Genstein
+    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -72,8 +72,6 @@ namespace Trizbort
       this.cboRegion = new System.Windows.Forms.ComboBox();
       this.label6 = new System.Windows.Forms.Label();
       this.m_tabControl = new DevComponents.DotNetBar.SuperTabControl();
-      this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.tabRegions = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.txtObjects = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.m_objectsPositionGroupBox = new System.Windows.Forms.GroupBox();
@@ -87,8 +85,6 @@ namespace Trizbort
       this.m_wCheckBox = new System.Windows.Forms.CheckBox();
       this.m_eCheckBox = new System.Windows.Forms.CheckBox();
       this.tabObjects = new DevComponents.DotNetBar.SuperTabItem();
-      this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.tabDescription = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.m_secondFillTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.m_objectTextTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -96,6 +92,10 @@ namespace Trizbort
       this.m_roomBorderTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.m_roomFillTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.tabColors = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.tabDescription = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.tabRegions = new DevComponents.DotNetBar.SuperTabItem();
       this.txtName = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.txtSubTitle = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.label7 = new System.Windows.Forms.Label();
@@ -103,11 +103,11 @@ namespace Trizbort
       this.label8 = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).BeginInit();
       this.m_tabControl.SuspendLayout();
-      this.superTabControlPanel4.SuspendLayout();
       this.superTabControlPanel1.SuspendLayout();
       this.m_objectsPositionGroupBox.SuspendLayout();
-      this.superTabControlPanel2.SuspendLayout();
       this.superTabControlPanel3.SuspendLayout();
+      this.superTabControlPanel2.SuspendLayout();
+      this.superTabControlPanel4.SuspendLayout();
       this.SuspendLayout();
       // 
       // m_okButton
@@ -182,7 +182,7 @@ namespace Trizbort
       this.comboBox1.Location = new System.Drawing.Point(80, 41);
       this.comboBox1.Name = "comboBox1";
       this.comboBox1.Size = new System.Drawing.Size(121, 21);
-      this.comboBox1.TabIndex = 7;
+      this.comboBox1.TabIndex = 15;
       // 
       // label5
       // 
@@ -200,7 +200,7 @@ namespace Trizbort
       this.m_changeSecondFillButton.Location = new System.Drawing.Point(390, 39);
       this.m_changeSecondFillButton.Name = "m_changeSecondFillButton";
       this.m_changeSecondFillButton.Size = new System.Drawing.Size(75, 23);
-      this.m_changeSecondFillButton.TabIndex = 15;
+      this.m_changeSecondFillButton.TabIndex = 16;
       this.m_changeSecondFillButton.Text = "Change...";
       this.m_changeSecondFillButton.UseVisualStyleBackColor = true;
       this.m_changeSecondFillButton.Click += new System.EventHandler(this.m_changeSecondFillButton_Click);
@@ -221,7 +221,7 @@ namespace Trizbort
       this.m_changeObjectTextButton.Location = new System.Drawing.Point(390, 126);
       this.m_changeObjectTextButton.Name = "m_changeObjectTextButton";
       this.m_changeObjectTextButton.Size = new System.Drawing.Size(75, 23);
-      this.m_changeObjectTextButton.TabIndex = 18;
+      this.m_changeObjectTextButton.TabIndex = 19;
       this.m_changeObjectTextButton.Text = "Change...";
       this.m_changeObjectTextButton.UseVisualStyleBackColor = true;
       this.m_changeObjectTextButton.Click += new System.EventHandler(this.button3_Click);
@@ -242,7 +242,7 @@ namespace Trizbort
       this.m_changeRoomTextButton.Location = new System.Drawing.Point(390, 97);
       this.m_changeRoomTextButton.Name = "m_changeRoomTextButton";
       this.m_changeRoomTextButton.Size = new System.Drawing.Size(75, 23);
-      this.m_changeRoomTextButton.TabIndex = 17;
+      this.m_changeRoomTextButton.TabIndex = 18;
       this.m_changeRoomTextButton.Text = "Change...";
       this.m_changeRoomTextButton.UseVisualStyleBackColor = true;
       this.m_changeRoomTextButton.Click += new System.EventHandler(this.button2_Click);
@@ -263,7 +263,7 @@ namespace Trizbort
       this.m_changeRoomBorderButton.Location = new System.Drawing.Point(390, 68);
       this.m_changeRoomBorderButton.Name = "m_changeRoomBorderButton";
       this.m_changeRoomBorderButton.Size = new System.Drawing.Size(75, 23);
-      this.m_changeRoomBorderButton.TabIndex = 16;
+      this.m_changeRoomBorderButton.TabIndex = 17;
       this.m_changeRoomBorderButton.Text = "Change...";
       this.m_changeRoomBorderButton.UseVisualStyleBackColor = true;
       this.m_changeRoomBorderButton.Click += new System.EventHandler(this.button1_Click);
@@ -335,10 +335,10 @@ namespace Trizbort
       this.m_tabControl.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.m_tabControl.ControlBox.MenuBox,
             this.m_tabControl.ControlBox.CloseBox});
-      this.m_tabControl.Controls.Add(this.superTabControlPanel1);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel4);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel2);
       this.m_tabControl.Controls.Add(this.superTabControlPanel3);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel1);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel2);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel4);
       this.m_tabControl.Location = new System.Drawing.Point(19, 130);
       this.m_tabControl.Name = "m_tabControl";
       this.m_tabControl.ReorderTabsEnabled = true;
@@ -355,24 +355,6 @@ namespace Trizbort
       this.m_tabControl.TabStop = false;
       this.m_tabControl.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.VisualStudio2008Dock;
       this.m_tabControl.Enter += new System.EventHandler(this.m_tabControl_Enter);
-      // 
-      // superTabControlPanel4
-      // 
-      this.superTabControlPanel4.Controls.Add(this.cboRegion);
-      this.superTabControlPanel4.Controls.Add(this.label6);
-      this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
-      this.superTabControlPanel4.Name = "superTabControlPanel4";
-      this.superTabControlPanel4.Size = new System.Drawing.Size(472, 210);
-      this.superTabControlPanel4.TabIndex = 0;
-      this.superTabControlPanel4.TabItem = this.tabRegions;
-      // 
-      // tabRegions
-      // 
-      this.tabRegions.AttachedControl = this.superTabControlPanel4;
-      this.tabRegions.GlobalItem = false;
-      this.tabRegions.Name = "tabRegions";
-      this.tabRegions.Text = "Re&gions";
       // 
       // superTabControlPanel1
       // 
@@ -553,23 +535,6 @@ namespace Trizbort
       this.tabObjects.Name = "tabObjects";
       this.tabObjects.Text = "&Objects";
       // 
-      // superTabControlPanel2
-      // 
-      this.superTabControlPanel2.Controls.Add(this.m_descriptionTextBox);
-      this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 0);
-      this.superTabControlPanel2.Name = "superTabControlPanel2";
-      this.superTabControlPanel2.Size = new System.Drawing.Size(472, 210);
-      this.superTabControlPanel2.TabIndex = 0;
-      this.superTabControlPanel2.TabItem = this.tabDescription;
-      // 
-      // tabDescription
-      // 
-      this.tabDescription.AttachedControl = this.superTabControlPanel2;
-      this.tabDescription.GlobalItem = false;
-      this.tabDescription.Name = "tabDescription";
-      this.tabDescription.Text = "D&escription";
-      // 
       // superTabControlPanel3
       // 
       this.superTabControlPanel3.Controls.Add(this.m_secondFillTextBox);
@@ -589,9 +554,9 @@ namespace Trizbort
       this.superTabControlPanel3.Controls.Add(this.label3);
       this.superTabControlPanel3.Controls.Add(this.m_changeRoomTextButton);
       this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 0);
+      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 26);
       this.superTabControlPanel3.Name = "superTabControlPanel3";
-      this.superTabControlPanel3.Size = new System.Drawing.Size(472, 210);
+      this.superTabControlPanel3.Size = new System.Drawing.Size(472, 184);
       this.superTabControlPanel3.TabIndex = 0;
       this.superTabControlPanel3.TabItem = this.tabColors;
       // 
@@ -697,6 +662,41 @@ namespace Trizbort
       this.tabColors.Name = "tabColors";
       this.tabColors.Text = "&Colors";
       // 
+      // superTabControlPanel2
+      // 
+      this.superTabControlPanel2.Controls.Add(this.m_descriptionTextBox);
+      this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 0);
+      this.superTabControlPanel2.Name = "superTabControlPanel2";
+      this.superTabControlPanel2.Size = new System.Drawing.Size(472, 210);
+      this.superTabControlPanel2.TabIndex = 0;
+      this.superTabControlPanel2.TabItem = this.tabDescription;
+      // 
+      // tabDescription
+      // 
+      this.tabDescription.AttachedControl = this.superTabControlPanel2;
+      this.tabDescription.GlobalItem = false;
+      this.tabDescription.Name = "tabDescription";
+      this.tabDescription.Text = "D&escription";
+      // 
+      // superTabControlPanel4
+      // 
+      this.superTabControlPanel4.Controls.Add(this.cboRegion);
+      this.superTabControlPanel4.Controls.Add(this.label6);
+      this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
+      this.superTabControlPanel4.Name = "superTabControlPanel4";
+      this.superTabControlPanel4.Size = new System.Drawing.Size(472, 210);
+      this.superTabControlPanel4.TabIndex = 0;
+      this.superTabControlPanel4.TabItem = this.tabRegions;
+      // 
+      // tabRegions
+      // 
+      this.tabRegions.AttachedControl = this.superTabControlPanel4;
+      this.tabRegions.GlobalItem = false;
+      this.tabRegions.Name = "tabRegions";
+      this.tabRegions.Text = "Re&gions";
+      // 
       // txtName
       // 
       // 
@@ -728,7 +728,7 @@ namespace Trizbort
       this.label7.Name = "label7";
       this.label7.Size = new System.Drawing.Size(43, 13);
       this.label7.TabIndex = 2;
-      this.label7.Text = "&Subtitle";
+      this.label7.Text = "S&ubtitle";
       // 
       // cboBorderStyle
       // 
@@ -739,7 +739,8 @@ namespace Trizbort
             "Dash",
             "DashDot",
             "DashDotDot",
-            "Dot"});
+            "Dot",
+            "None"});
       this.cboBorderStyle.Location = new System.Drawing.Point(92, 95);
       this.cboBorderStyle.Name = "cboBorderStyle";
       this.cboBorderStyle.Size = new System.Drawing.Size(186, 21);
@@ -786,14 +787,14 @@ namespace Trizbort
       this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RoomPropertiesDialog_KeyUp);
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).EndInit();
       this.m_tabControl.ResumeLayout(false);
-      this.superTabControlPanel4.ResumeLayout(false);
-      this.superTabControlPanel4.PerformLayout();
       this.superTabControlPanel1.ResumeLayout(false);
       this.m_objectsPositionGroupBox.ResumeLayout(false);
-      this.superTabControlPanel2.ResumeLayout(false);
-      this.superTabControlPanel2.PerformLayout();
       this.superTabControlPanel3.ResumeLayout(false);
       this.superTabControlPanel3.PerformLayout();
+      this.superTabControlPanel2.ResumeLayout(false);
+      this.superTabControlPanel2.PerformLayout();
+      this.superTabControlPanel4.ResumeLayout(false);
+      this.superTabControlPanel4.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 

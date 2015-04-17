@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010 by Genstein
+    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -56,7 +56,7 @@ namespace Trizbort
     private Color m_roomsmalltext = Color.Transparent;
     private Color m_secondfill = Color.Transparent;
     private String m_secondfilllocation = "Bottom";
-    private DashStyle m_borderStyle = DashStyle.Solid;
+    private BorderDashStyle m_borderStyle = BorderDashStyle.Solid;
     private Vector m_size;
     private const int MAX_OBJECTS=1000;
 
@@ -200,7 +200,7 @@ namespace Trizbort
       }
     }
 
-    public DashStyle BorderStyle
+    public BorderDashStyle BorderStyle
     {
       get { return m_borderStyle; }
       set
@@ -589,10 +589,6 @@ namespace Trizbort
         context.LinesDrawn.Add(bottom);
         context.LinesDrawn.Add(left);
 
-
-      
-
-
         if (context.Selected)
         {
           var tBounds = InnerBounds;
@@ -617,7 +613,6 @@ namespace Trizbort
           graphics.DrawPath(brushSelected, pathSelected);
         }
 
-        
       var brush = context.Selected ? palette.BorderBrush : palette.FillBrush;
 
       // get region color
@@ -627,7 +622,7 @@ namespace Trizbort
       // Room specific fill brush (White shows global color)
       if (RoomFill != Color.Transparent ) { brush = new SolidBrush(RoomFill); }
 
-      if (!Settings.DebugDisableLineRendering)
+      if (!Settings.DebugDisableLineRendering && BorderStyle != BorderDashStyle.None )
       {
         var path = palette.Path();
         Drawing.AddLine(path, top, random);
@@ -635,9 +630,7 @@ namespace Trizbort
         Drawing.AddLine(path, bottom, random);
         Drawing.AddLine(path, left, random);
 
-
-        
-        graphics.DrawPath(  brush, path);
+        graphics.DrawPath(brush, path);
  //       graphics.DrawPath(new XPen(Color.Red) {DashStyle = XDashStyle.Dot},  brush, path);
 
 
@@ -708,10 +701,6 @@ namespace Trizbort
           graphics.IntersectClip(path);
           var solidbrush = (SolidBrush) palette.BorderBrush;
 
-//          if (solidbrush.Color.ColorsAreClose(RoomFill,150))
-//            solidbrush.Color = solidbrush.Color.GetContrast(true);
-
-//          if (RoomBorder != ColorTranslator.FromHtml("White") && RoomBorder != ColorTranslator.FromHtml("#FFFFFF")) { brush = new SolidBrush(RoomBorder); }
           graphics.DrawPolygon(solidbrush, new[] { topRight.ToPointF(), new PointF(topRight.X - Settings.DarknessStripeSize, topRight.Y), new PointF(topRight.X, topRight.Y + Settings.DarknessStripeSize) }, XFillMode.Alternate);
           graphics.Restore(state);
         }
@@ -719,12 +708,12 @@ namespace Trizbort
         if (RoomBorder == Color.Transparent)
         {
           var pen = palette.BorderPen;
-          pen.DashStyle = BorderStyle;
+          pen.DashStyle = BorderStyle.ConvertToDashStyle();
           graphics.DrawPath(pen, path);
         }
         else
         {
-          var roomBorderPen = new Pen(RoomBorder, Settings.LineWidth) { StartCap = LineCap.Round, EndCap = LineCap.Round, DashStyle = BorderStyle };
+          var roomBorderPen = new Pen(RoomBorder, Settings.LineWidth) { StartCap = LineCap.Round, EndCap = LineCap.Round, DashStyle = BorderStyle.ConvertToDashStyle() };
           graphics.DrawPath(roomBorderPen, path);
         }
 
@@ -939,7 +928,7 @@ namespace Trizbort
       Region = element.Attribute("region").Text;
       IsDark = element.Attribute("isDark").ToBool();
       if (element.Attribute("borderstyle").Text != "")
-        BorderStyle = (DashStyle) Enum.Parse(typeof (DashStyle), element.Attribute("borderstyle").Text);
+        BorderStyle = (BorderDashStyle)Enum.Parse(typeof(BorderDashStyle), element.Attribute("borderstyle").Text);
 
       if (Project.Version.CompareTo(new Version(1, 5, 8, 3)) < 0)
       {

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010 by Genstein
+    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -56,5 +56,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.5.8.6")]
-[assembly: AssemblyFileVersion("1.5.8.6")]
+[assembly: AssemblyVersion("1.5.8.7")]
+[assembly: AssemblyFileVersion("1.5.8.7")]

@@ -113,6 +113,7 @@
       <DependentUpon>AutomapDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="AutomapSettings.cs" />
+    <Compile Include="BorderDashStyle.cs" />
     <Compile Include="Canvas.Automap.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -174,6 +175,7 @@
     <Compile Include="RegionSettings.Designer.cs">
       <DependentUpon>RegionSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="RoomExtensions.cs" />
     <Compile Include="Smoothing.cs" />
     <Compile Include="TextBlock.cs" />
     <Compile Include="Vector.cs" />

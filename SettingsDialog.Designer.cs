@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010 by Genstein
+    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -123,6 +123,7 @@ namespace Trizbort
       this.label2 = new System.Windows.Forms.Label();
       this.m_handleSizeUpDown = new System.Windows.Forms.NumericUpDown();
       this.propertySettings1 = new DevComponents.DotNetBar.PropertySettings();
+      this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
       ((System.ComponentModel.ISupportInitialize)(this.m_lineWidthUpDown)).BeginInit();
       this.m_linesGroupBox.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.m_preferredDistanceBetweenRoomsUpDown)).BeginInit();
@@ -297,9 +298,11 @@ namespace Trizbort
       // 
       this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.label1.AutoSize = true;
+      this.label1.Cursor = System.Windows.Forms.Cursors.Help;
       this.label1.Location = new System.Drawing.Point(111, 73);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(128, 13);
+      this.superTooltip1.SetSuperTooltip(this.label1, new DevComponents.DotNetBar.SuperTooltipInfo("Room Arrow Stalk Length", "", resources.GetString("label1.SuperTooltip"), null, null, DevComponents.DotNetBar.eTooltipColor.Orange));
       this.label1.TabIndex = 5;
       this.label1.Text = "&Room Arrow Stalk Length";
       // 
@@ -1042,6 +1045,10 @@ namespace Trizbort
       this.propertySettings1.DisplayName = "Region1";
       this.propertySettings1.PropertyName = "";
       // 
+      // superTooltip1
+      // 
+      this.superTooltip1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
+      // 
       // SettingsDialog
       // 
       this.AcceptButton = this.m_okButton;
@@ -1169,5 +1176,6 @@ namespace Trizbort
         private System.Windows.Forms.Button btnDeleteRegion;
         private System.Windows.Forms.Label label19;
         private DevComponents.DotNetBar.PropertySettings propertySettings1;
+        private DevComponents.DotNetBar.SuperTooltip superTooltip1;
     }
 }

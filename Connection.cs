@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010 by Genstein
+    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -425,14 +425,18 @@ namespace Trizbort
       foreach (var lineSegment in lineSegments)
       {
         var pen = palette.GetLinePen(context.Selected, context.Hover, Style == ConnectionStyle.Dashed);
-        
+        Pen specialPen = null;
+
         if (!context.Hover)
-          if ((ConnectionColor != Color.Transparent) && !context.Selected )
-            pen.Color = ConnectionColor;
+          if ((ConnectionColor != Color.Transparent) && !context.Selected)
+          {
+            specialPen = (Pen) pen.Clone();
+            specialPen.Color = ConnectionColor;
+          }
 
         if (!Settings.DebugDisableLineRendering)
         {
-          graphics.DrawLine(pen, lineSegment.Start.ToPointF(), lineSegment.End.ToPointF());
+          graphics.DrawLine(specialPen ?? pen, lineSegment.Start.ToPointF(), lineSegment.End.ToPointF());
         }
         var delta = lineSegment.Delta;
         if (Flow == ConnectionFlow.OneWay && delta.Length > Settings.ConnectionArrowSize)

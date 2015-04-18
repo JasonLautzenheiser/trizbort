@@ -479,6 +479,10 @@ namespace Trizbort
       {
         switch (e.KeyCode)
         {
+          case Keys.Y:
+            cboBorderStyle.Focus();
+            break;
+
           case Keys.F:
             changeRoomFillColor();
             break;
@@ -543,9 +547,6 @@ namespace Trizbort
       txtObjects.Focus();
     }
 
-    private void m_isDarkCheckBox_Leave(object sender, EventArgs e)
-    {
-    }
 
     private void m_tabControl_Enter(object sender, EventArgs e)
     {

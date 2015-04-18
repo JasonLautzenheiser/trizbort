@@ -85,6 +85,8 @@ namespace Trizbort
       this.m_wCheckBox = new System.Windows.Forms.CheckBox();
       this.m_eCheckBox = new System.Windows.Forms.CheckBox();
       this.tabObjects = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.tabRegions = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.m_secondFillTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.m_objectTextTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -94,8 +96,6 @@ namespace Trizbort
       this.tabColors = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.tabDescription = new DevComponents.DotNetBar.SuperTabItem();
-      this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.tabRegions = new DevComponents.DotNetBar.SuperTabItem();
       this.txtName = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.txtSubTitle = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.label7 = new System.Windows.Forms.Label();
@@ -105,9 +105,9 @@ namespace Trizbort
       this.m_tabControl.SuspendLayout();
       this.superTabControlPanel1.SuspendLayout();
       this.m_objectsPositionGroupBox.SuspendLayout();
+      this.superTabControlPanel4.SuspendLayout();
       this.superTabControlPanel3.SuspendLayout();
       this.superTabControlPanel2.SuspendLayout();
-      this.superTabControlPanel4.SuspendLayout();
       this.SuspendLayout();
       // 
       // m_okButton
@@ -161,7 +161,7 @@ namespace Trizbort
       this.m_descriptionTextBox.Location = new System.Drawing.Point(3, 3);
       this.m_descriptionTextBox.Multiline = true;
       this.m_descriptionTextBox.Name = "m_descriptionTextBox";
-      this.m_descriptionTextBox.Size = new System.Drawing.Size(467, 204);
+      this.m_descriptionTextBox.Size = new System.Drawing.Size(467, 178);
       this.m_descriptionTextBox.TabIndex = 13;
       // 
       // comboBox1
@@ -335,10 +335,10 @@ namespace Trizbort
       this.m_tabControl.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.m_tabControl.ControlBox.MenuBox,
             this.m_tabControl.ControlBox.CloseBox});
-      this.m_tabControl.Controls.Add(this.superTabControlPanel3);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel1);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel2);
       this.m_tabControl.Controls.Add(this.superTabControlPanel4);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel3);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel2);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel1);
       this.m_tabControl.Location = new System.Drawing.Point(19, 130);
       this.m_tabControl.Name = "m_tabControl";
       this.m_tabControl.ReorderTabsEnabled = true;
@@ -379,7 +379,7 @@ namespace Trizbort
       this.txtObjects.Multiline = true;
       this.txtObjects.Name = "txtObjects";
       this.txtObjects.Size = new System.Drawing.Size(359, 156);
-      this.txtObjects.TabIndex = 3;
+      this.txtObjects.TabIndex = 7;
       this.txtObjects.WatermarkText = "Enter objects, each on a new line.";
       // 
       // m_objectsPositionGroupBox
@@ -409,7 +409,7 @@ namespace Trizbort
       this.m_cCheckBox.Location = new System.Drawing.Point(38, 48);
       this.m_cCheckBox.Name = "m_cCheckBox";
       this.m_cCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_cCheckBox.TabIndex = 8;
+      this.m_cCheckBox.TabIndex = 12;
       this.m_cCheckBox.Tag = "Position";
       this.m_cCheckBox.Text = "o";
       this.m_cCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -423,7 +423,7 @@ namespace Trizbort
       this.m_nwCheckBox.Location = new System.Drawing.Point(6, 16);
       this.m_nwCheckBox.Name = "m_nwCheckBox";
       this.m_nwCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_nwCheckBox.TabIndex = 4;
+      this.m_nwCheckBox.TabIndex = 8;
       this.m_nwCheckBox.Tag = "Position";
       this.m_nwCheckBox.Text = "ã";
       this.m_nwCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -437,7 +437,7 @@ namespace Trizbort
       this.m_seCheckBox.Location = new System.Drawing.Point(70, 80);
       this.m_seCheckBox.Name = "m_seCheckBox";
       this.m_seCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_seCheckBox.TabIndex = 12;
+      this.m_seCheckBox.TabIndex = 16;
       this.m_seCheckBox.Tag = "Position";
       this.m_seCheckBox.Text = "æ";
       this.m_seCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -451,7 +451,7 @@ namespace Trizbort
       this.m_nCheckBox.Location = new System.Drawing.Point(38, 16);
       this.m_nCheckBox.Name = "m_nCheckBox";
       this.m_nCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_nCheckBox.TabIndex = 5;
+      this.m_nCheckBox.TabIndex = 9;
       this.m_nCheckBox.Tag = "Position";
       this.m_nCheckBox.Text = "á";
       this.m_nCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -465,7 +465,7 @@ namespace Trizbort
       this.m_sCheckBox.Location = new System.Drawing.Point(38, 80);
       this.m_sCheckBox.Name = "m_sCheckBox";
       this.m_sCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_sCheckBox.TabIndex = 11;
+      this.m_sCheckBox.TabIndex = 15;
       this.m_sCheckBox.Tag = "Position";
       this.m_sCheckBox.Text = "â";
       this.m_sCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -479,7 +479,7 @@ namespace Trizbort
       this.m_neCheckBox.Location = new System.Drawing.Point(70, 16);
       this.m_neCheckBox.Name = "m_neCheckBox";
       this.m_neCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_neCheckBox.TabIndex = 6;
+      this.m_neCheckBox.TabIndex = 10;
       this.m_neCheckBox.Tag = "Position";
       this.m_neCheckBox.Text = "ä";
       this.m_neCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -493,7 +493,7 @@ namespace Trizbort
       this.m_swCheckBox.Location = new System.Drawing.Point(6, 80);
       this.m_swCheckBox.Name = "m_swCheckBox";
       this.m_swCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_swCheckBox.TabIndex = 10;
+      this.m_swCheckBox.TabIndex = 14;
       this.m_swCheckBox.Tag = "Position";
       this.m_swCheckBox.Text = "å";
       this.m_swCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -507,7 +507,7 @@ namespace Trizbort
       this.m_wCheckBox.Location = new System.Drawing.Point(6, 48);
       this.m_wCheckBox.Name = "m_wCheckBox";
       this.m_wCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_wCheckBox.TabIndex = 7;
+      this.m_wCheckBox.TabIndex = 11;
       this.m_wCheckBox.Tag = "Position";
       this.m_wCheckBox.Text = "ß";
       this.m_wCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -521,7 +521,7 @@ namespace Trizbort
       this.m_eCheckBox.Location = new System.Drawing.Point(70, 48);
       this.m_eCheckBox.Name = "m_eCheckBox";
       this.m_eCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_eCheckBox.TabIndex = 9;
+      this.m_eCheckBox.TabIndex = 13;
       this.m_eCheckBox.Tag = "Position";
       this.m_eCheckBox.Text = "à";
       this.m_eCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -534,6 +534,24 @@ namespace Trizbort
       this.tabObjects.GlobalItem = false;
       this.tabObjects.Name = "tabObjects";
       this.tabObjects.Text = "&Objects";
+      // 
+      // superTabControlPanel4
+      // 
+      this.superTabControlPanel4.Controls.Add(this.cboRegion);
+      this.superTabControlPanel4.Controls.Add(this.label6);
+      this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel4.Name = "superTabControlPanel4";
+      this.superTabControlPanel4.Size = new System.Drawing.Size(472, 184);
+      this.superTabControlPanel4.TabIndex = 0;
+      this.superTabControlPanel4.TabItem = this.tabRegions;
+      // 
+      // tabRegions
+      // 
+      this.tabRegions.AttachedControl = this.superTabControlPanel4;
+      this.tabRegions.GlobalItem = false;
+      this.tabRegions.Name = "tabRegions";
+      this.tabRegions.Text = "Re&gions";
       // 
       // superTabControlPanel3
       // 
@@ -666,9 +684,9 @@ namespace Trizbort
       // 
       this.superTabControlPanel2.Controls.Add(this.m_descriptionTextBox);
       this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 0);
+      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 26);
       this.superTabControlPanel2.Name = "superTabControlPanel2";
-      this.superTabControlPanel2.Size = new System.Drawing.Size(472, 210);
+      this.superTabControlPanel2.Size = new System.Drawing.Size(472, 184);
       this.superTabControlPanel2.TabIndex = 0;
       this.superTabControlPanel2.TabItem = this.tabDescription;
       // 
@@ -678,24 +696,6 @@ namespace Trizbort
       this.tabDescription.GlobalItem = false;
       this.tabDescription.Name = "tabDescription";
       this.tabDescription.Text = "D&escription";
-      // 
-      // superTabControlPanel4
-      // 
-      this.superTabControlPanel4.Controls.Add(this.cboRegion);
-      this.superTabControlPanel4.Controls.Add(this.label6);
-      this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
-      this.superTabControlPanel4.Name = "superTabControlPanel4";
-      this.superTabControlPanel4.Size = new System.Drawing.Size(472, 210);
-      this.superTabControlPanel4.TabIndex = 0;
-      this.superTabControlPanel4.TabItem = this.tabRegions;
-      // 
-      // tabRegions
-      // 
-      this.tabRegions.AttachedControl = this.superTabControlPanel4;
-      this.tabRegions.GlobalItem = false;
-      this.tabRegions.Name = "tabRegions";
-      this.tabRegions.Text = "Re&gions";
       // 
       // txtName
       // 
@@ -744,7 +744,7 @@ namespace Trizbort
       this.cboBorderStyle.Location = new System.Drawing.Point(92, 95);
       this.cboBorderStyle.Name = "cboBorderStyle";
       this.cboBorderStyle.Size = new System.Drawing.Size(186, 21);
-      this.cboBorderStyle.TabIndex = 99;
+      this.cboBorderStyle.TabIndex = 6;
       // 
       // label8
       // 
@@ -753,8 +753,8 @@ namespace Trizbort
       this.label8.Location = new System.Drawing.Point(16, 98);
       this.label8.Name = "label8";
       this.label8.Size = new System.Drawing.Size(70, 13);
-      this.label8.TabIndex = 100;
-      this.label8.Text = "Border Style:";
+      this.label8.TabIndex = 5;
+      this.label8.Text = "Border St&yle:";
       // 
       // RoomPropertiesDialog
       // 
@@ -789,12 +789,12 @@ namespace Trizbort
       this.m_tabControl.ResumeLayout(false);
       this.superTabControlPanel1.ResumeLayout(false);
       this.m_objectsPositionGroupBox.ResumeLayout(false);
+      this.superTabControlPanel4.ResumeLayout(false);
+      this.superTabControlPanel4.PerformLayout();
       this.superTabControlPanel3.ResumeLayout(false);
       this.superTabControlPanel3.PerformLayout();
       this.superTabControlPanel2.ResumeLayout(false);
       this.superTabControlPanel2.PerformLayout();
-      this.superTabControlPanel4.ResumeLayout(false);
-      this.superTabControlPanel4.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 

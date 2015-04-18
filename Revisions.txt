@@ -5,6 +5,7 @@ Change Log
 ++ now allows for rooms without borders
 ++ fixed connection coloring issue
 ++ lots of bugs.
+++ handle undo with automapping (from Mr Shifty)
 
 1.5.8.6
 -------------

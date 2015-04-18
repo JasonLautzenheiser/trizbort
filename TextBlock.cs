@@ -25,6 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 using PdfSharp.Drawing;
 
 namespace Trizbort
@@ -114,6 +115,7 @@ namespace Trizbort
 
         var line = m_lines[index];
 
+        graphics.SmoothingMode=XSmoothingMode.HighQuality;
         graphics.DrawString(line, font, brush, origin.X, origin.Y, m_actualFormat);
         origin += m_delta;
         size.Y -= m_lineHeight;

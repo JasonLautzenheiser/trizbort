@@ -442,12 +442,16 @@ namespace Trizbort
         if (Flow == ConnectionFlow.OneWay && delta.Length > Settings.ConnectionArrowSize)
         {
           SolidBrush brush = (SolidBrush) palette.GetLineBrush(context.Selected, context.Hover);
+          SolidBrush specialBrush = null;
 
           if (!context.Hover)
             if ((ConnectionColor != Color.Transparent) && !context.Selected)
-              brush.Color = ConnectionColor;
+            {
+              specialBrush = (SolidBrush) brush.Clone();
+              specialBrush.Color = ConnectionColor;
+            }
 
-          Drawing.DrawChevron(graphics, lineSegment.Mid.ToPointF(), (float) (Math.Atan2(delta.Y, delta.X)/Math.PI*180), Settings.ConnectionArrowSize, brush);
+          Drawing.DrawChevron(graphics, lineSegment.Mid.ToPointF(), (float) (Math.Atan2(delta.Y, delta.X)/Math.PI*180), Settings.ConnectionArrowSize, specialBrush ?? brush);
         }
         context.LinesDrawn.Add(lineSegment);
       }

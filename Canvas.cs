@@ -741,7 +741,7 @@ namespace Trizbort
             element.Draw(graphics, palette, context);
           }
         }
-        catch (Exception)
+        catch (Exception e)
         {
           // avoid GDI+ exceptions (vast shapes, etc.) taking down the canvas
         }

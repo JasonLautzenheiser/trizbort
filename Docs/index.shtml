@@ -38,7 +38,7 @@
 
 <p>The original version of this guide, before extensive forking, may be found at <a href="https://github.com/genstein/trizbort/tree/master/Docs/">Genstein's Trizbort repository</a>.</p>
 
-<p>The version of this guide for 1.5+ may be found at <a href="https://github.com/jasonlautzenheiser/trizbort/tree/master/Docs/">Jason Lautzenheiser's Trizbort repository (development)</a>. The bleeding-edge guide (latest small fixes) is at <a href="https://github.com/andrewschultz/trizbort/tree/master/Docs/">Andrew Schultz's Trizbort repository (documentation)</a>. Issues should be reported there, and they are welcome, big or small.</p>
+<p>The version of this guide for 1.5+ may be found at <a href="https://github.com/jasonlautzenheiser/trizbort/tree/master/Docs/">Jason Lautzenheiser's Trizbort repository (development)</a>. The bleeding-edge guide (latest small fixes before commit) is at <a href="https://github.com/andrewschultz/trizbort/tree/master/Docs/">Andrew Schultz's Trizbort repository (documentation)</a>. Issues should be reported there, and they are welcome, big or small.</p>
 
 <h2>Table of Contents <span style="font-size: 10px;"><a href="javascript:void(0);" onclick="var x = document.getElementById('toc'); x.style.display = (x.style.display === 'none' ? 'block' : 'none');">show/hide</a></span></h2>
 
@@ -800,7 +800,8 @@ At your service!</pre></td></tr>
 <p>If later in the transcript it turns out that you can't go that way, Trizbort will try its best to notice and remove the stub. It will also remove the stub if it creates a real connection from the same port.</p>
 <p>Trizbort can easily make bad guesses here ("To the east is an impassable pile of rubble"); uncheck this option if you prefer.</p></td></tr>
 <tr><td class="altheading">At the game prompt, ___ followed by an object name adds it to the map.</td><td class="alt"><a name="help_automap_commands"></a><p>Trizbort does not attempt, by default, to work out which objects are in each room. However you can tell it to try by specifying a command it should look for in the transcript. This could be a command which works in game (such as <span class="code">&gt;GET&nbsp;object</span> or <span class="code">&gt;EXAMINE&nbsp;object</span>) or you can just make up a command (such as <span class="code">&gt;AHA&nbsp;object</span>); whether the game understands it or not isn't relevant to Trizbort.</p>
-<p>Again, Trizbort isn't very bright here: If your chosen command is "get" and you type <span class="code">&gt;GET&nbsp;MALBOX</span> instead of <span class="code">&gt;GET&nbsp;MAILBOX</span>, Trizbort will still add a "malbox" to the room's list of objects. The same applies if there is no mailbox in the room: Trizbort just reads the command, it doesn't try to understand the game's response.</td></tr>
+<p>Again, Trizbort isn't very bright here: If your chosen command is "get" and you type <span class="code">&gt;GET&nbsp;MALBOX</span> instead of <span class="code">&gt;GET&nbsp;MAILBOX</span>, Trizbort will still add a "malbox" to the room's list of objects. The same applies if there is no mailbox in the room. Trizbort just reads the command and doesn't try to understand the game's response. "SEE" is the default command, as players will usually use X to examine something.</td></tr>
+<tr><td class="heading">At the game prompt, ___ followed by a region name adds that room to the region.</td><td>As before, Trizbort can't parse if rooms deserve to be lumped together, but the player can add this. "REGION" is chosen as the default command, as it is not likely to be used as a standard verb.</td></tr>
 </table>
 
 <a name="help_automap_mid"></a>
@@ -874,7 +875,7 @@ At your service!</pre></td></tr>
 <a name="help_automap_meta"></a>
 <h3>Meta-commands in automap</h3>
 
-<p>If you wish to prepare a log for Trizbort to work through, there are commands the parser may not understand, but Trizbort will.</p>
+<p>If you wish to prepare a log for Trizbort to work through, there are commands the parser may not understand, but Trizbort will. You can change them from the defaults in the screen-cap <a href="help_automap_options">here</a>.</p>
 
 <p><span class="code">&gt; SEE (object)</span> notes that an object should be in the current room.</p>
 

@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document*/
+/*Define the body element's color*/
+body
+{background: #FFFFFF;
+}
+.code {
+    background-color: #FFF;
+    color: #000;
+    border: 1px solid #B0B090;
+    padding: 2px;
+    line-height: 23px;
+    font-family: Consolas,Courier New,Courier,serif;
+    font-size: 12px;
+}
+.tip {
+    float: right;
+    clear: both;
+    border: 2px solid #B0B090;
+    background-color: #E0E0D0;
+    color: #000;
+    padding: 0px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 300px;
+}
+.tip .heading {
+    background-color: #305080;
+    color: #FFF;
+    font-variant: small-caps;
+    font-weight: bold;
+    padding: 2px;
+    text-align: center;
+}
+.tip .body {
+    padding: 0px 8px 8px;
+        padding-top: 0px;
+        padding-right-value: 8px;
+        padding-bottom: 8px;
+        padding-left-value: 8px;
+        padding-left-ltr-source: physical;
+        padding-left-rtl-source: physical;
+        padding-right-ltr-source: physical;
+        padding-right-rtl-source: physical;
+}

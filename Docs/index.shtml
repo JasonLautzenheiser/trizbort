@@ -25,6 +25,12 @@
 <!--#include virtual="../css.inc" -->
 <!--#include virtual="../header2.inc" -->
 
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
 <div id="help" class="indent_without_columns">
 <h1>Using Trizbort</h1>
 
@@ -870,9 +876,9 @@ At your service!</pre></td></tr>
 
 <p>If you wish to prepare a log for Trizbort to work through, there are commands the parser may not understand, but Trizbort will.</p>
 
-<p>SEE (object) notes that an object should be in the current room.</p>
+<p><span class="code">&gt; SEE (object)</span> notes that an object should be in the current room.</p>
 
-<p>REGION (x) notes that the current room should be in region X.</p>
+<p><span class="code">&gt; REGION (x)</span> notes that the current room should be in region X.</p>
 
 <a name="help_automap_terps"></a>
 <h3>Interpreter Compatibility</h3>
@@ -1066,9 +1072,9 @@ At your service!</pre></td></tr>
 
 <ul>
 <li>ctrl-F1 toggles frames per second information in the upper left.
-<li>ctrl-F2 disables all element rendering.
-<li>ctrl-F3 disables all lines, both room connections and boundaries. Note that ctrl-F2 and ctrl-F3 are separate toggles, so ctrl-F2 then ctrl-F3 does nothing.
-<li>ctrl-F4 is supposed to disable all text, though it's currently broken.
+<li>ctrl-F2 disables all element rendering. Note that disabling ctrl-F2 trumps the two settings below. So if you are trying either of them and nothing happens, that is the reason.
+<li>ctrl-F3 disables all lines, both room connections and boundaries.
+<li>ctrl-F4 disables all text.
 <li>ctrl-F5 is supposed to disable the grid polyline, though it's currently broken.
 <li>F5 disables stops in the automap.
 <li>F11 makes a single step in the automap.
@@ -1193,5 +1199,8 @@ Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenhe
 </ul>
 
 </div> <!-- help -->
+
+</body>
+</html>
 
 <!--#include virtual="../footer.inc" -->

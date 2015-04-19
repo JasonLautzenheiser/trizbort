@@ -25,9 +25,15 @@
 <!--#include virtual="../css.inc" -->
 <!--#include virtual="../header2.inc" -->
 
+<!--
+    the include files above may change, and with it the header below and so forth. But until trizbort.com takes shape, they will be left for posterity.
+-->
+
+<!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="style.css">
+<title>Trizbort 1.5+ documentation</title>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
@@ -36,9 +42,9 @@
 
 <p>This guide explains how to use Trizbort.</p>
 
-<p>The original version of this guide, without which additional features would never have been added, may be found at <a href="https://github.com/genstein/trizbort/tree/master/Docs/">Genstein's Trizbort repository</a>. You can also visit <a href="http://trizbort.genstein.net">Genstein's Trizbort site</a> to see it. The help file is <a href="http://trizbort.genstein.net/help/">here</a>.</p>
+<p>The original version of this guide, without which additional features would never have been added, may be found at <a href="http://trizbort.genstein.net">Genstein's Trizbort site</a>. . The help file is <a href="http://trizbort.genstein.net/help/">here</a>. The HTML source can be found at <a href="https://github.com/genstein/trizbort/tree/master/Docs/">Genstein's Trizbort repository</a>.</p>
 
-<p>The version of this guide for 1.5+ may be found at <a href="https://github.com/jasonlautzenheiser/trizbort/tree/master/Docs/">Jason Lautzenheiser's Trizbort repository (development)</a>. The bleeding-edge guide (latest small fixes before commit) is at <a href="https://github.com/andrewschultz/trizbort/tree/master/Docs/">Andrew Schultz's Trizbort repository (documentation)</a>. Issues should be reported there, and they are welcome, big or small.</p>
+<p>The version of this guide for 1.5+ may be found at <a href="https://github.com/jasonlautzenheiser/trizbort/tree/master/Docs/">Jason Lautzenheiser's Trizbort repository (development)</a>. The bleeding-edge guide (latest small fixes before commit) is at <a href="https://github.com/andrewschultz/trizbort/tree/master/Docs/">Andrew Schultz's Trizbort repository (documentation)</a>. Issues can be reported there, and they are welcome, big or small, objective or subjective.</p>
 
 <h2>Table of Contents <span style="font-size: 10px;"><a href="javascript:void(0);" onclick="var x = document.getElementById('toc'); x.style.display = (x.style.display === 'none' ? 'block' : 'none');">show/hide</a></span></h2>
 
@@ -194,7 +200,7 @@
 <a name="help_ui_terms"></a>
 <h1>Parts of the Screen, Explained</h1>
 
-<p></p><table>
+<table>
 <tr><td class="heading">Menu Bar</td><td>Most of Trizbort's commands are available both from the menu bar and through keyboard shortcuts (keys you can press to achieve the same effect). Where shortcuts exist, they appear next to the relevant menu item. So if a menu item reads "View&nbsp;Entire&nbsp;Map&nbsp;&nbsp;&nbsp;&nbsp;Ctrl-Home" then you can either select the menu item or hold down the Control key and press the Home key on your keyboard to achieve the same effect.</td></tr>
 <tr><td class="altheading">Toolbar</td><td class="alt">Some of Trizbort's commands also appear here as buttons for quick access.</td></tr>
 <tr><td class="heading">mini-map</td><td>This shows an overview of the entire map, with each mapped room as a box.</td></tr>
@@ -548,7 +554,7 @@
 
 <p>The Lines and Grid tab gives you control over various settings to do with connections and with aligning things on the map.</p>
 
-<p></p><table>
+<table>
 <tr><td class="heading">Hand Drawn</td><td>By default Trizbort gives lines a "hand drawn" appearance. If you prefer straight lines, you can uncheck this box. This applies to connections' lines, the border of a room, and dividing fill lines.</td></tr>
 <tr><td class="altheading">Line Width</td><td class="alt">The width of lines, in pixels. This applies to both connections' lines and the border of a room.</td></tr>
 <tr><td class="heading">Arrow Size</td><td>The pixel size of the base of arrows drawn on one way connections.</td></tr>
@@ -597,7 +603,7 @@
 
 <p>The Other tab gives you control over miscellaneous settings which don't fit into one of the above categories.</p>
 
-<p></p><table>
+<table>
 <tr><td class="heading">Darkness Stripe Size</td><td>The width and height of the stripe Trizbort draws in the top right corner of rooms the user labeled dark.</td></tr>
 <tr><td class="altheading">Object List Offset</td><td class="alt">The distance, in pixels, between a room and its object list, assuming the object list is drawn outside the room. If the object list is drawn inside the room, this is the distance of the bottom left of the object list from the bottom left corner of the room.</td></tr>
 <tr><td class="heading">Resize/Drag Handle Size</td><td>This controls the size, in pixels, of <a href="#help_rooms_select">handles</a> and <a href="#help_conn_ports">ports</a>. If you're zoomed in or out, handles and ports will be scaled accordingly.</td></tr>
@@ -650,7 +656,7 @@
 
 <p>A number of operations work just as well for multiple selections as for single selections, including:</p>
 
-<p></p><ul>
+<ul>
 <li>Moving things on the map. Click and drag anything that's selected to move it. Selected connections will only move if either they're not docked to a room's ports at one or both ends, or if their connected rooms are selected. In the second case, highlighting connected rooms means you don't need to highlight the connectors, too.
 <li>Changing rooms from light to dark, or vice versa. Pressing K or choosing <span class="accel">Edit->Dark Room</span> will toggle whether each selected room is light or dark.
 <li>Changing connection styles. All the menu options under <span class="accel">Edit->Line Styles</span>, and their respective keyboard shortcuts, work on multiple selections.
@@ -792,7 +798,7 @@ At your service!</pre></td></tr>
 <a name="help_automap_options"></a>
 <h2>Automapping Options</h2>
 
-<p></p><table>
+<table>
 <tr><td class="heading">Treat transcript as VERBOSE; expect room descriptions.</td><td><p>By default, Trizbort assumes you will have verbose mode, or its equivalent, turned on in the interpreter before you start the transcript, so that each time you enter a room its name and description are displayed. Trizbort likes room descriptions because it can use them to differentiate between rooms with the same name, and fill out the <a href="#help_rooms_edit_desc">description</a> of each room on the map.</p></td></tr>
 <tr><td class="altheading">Assume no two rooms have the same name.</td><td class="alt"><p>Trizbort normally uses both room names and descriptions to identify a room; this allows it to cope with rooms whose descriptions change, and with rooms with the same name but different descriptions.</p><p>If you're pretty sure that the game gives every room a unique name you can check this option; otherwise it's best to leave it unchecked.<p>If you state that the transcript isn't verbose, Trizbort knows it won't be getting room descriptions all the time and so can't use them to differentiate between rooms with the same name, and so is forced to assume that every room has a unique name.</p></td></tr>
 <tr><td class="heading">Guess possible exits from a room by reading its initial description.</td><td><p>By default, Trizbort will read a room's description and take a stab at likely exits from the room by looking for phrases like "To the east..." It will then mark such possible exits with <span class="term">stub</span> connections (connections which go from a room's port back to itself) so that you can see possible unexplored exits on the map.</p>
@@ -821,7 +827,7 @@ At your service!</pre></td></tr>
 
 <p>Trizbort may say various things during automapping, including:</p>
 
-<p></p><ul>
+<ul>
 <li><span class="term">Automapping is processing the transcript.</span> Trizbort is hard at work going through the transcript. As Trizbort finds mention of rooms and directions of travel in the transcript, it will add rooms and connections to the canvas. You can still interact with the canvas, stop automapping or exit Trizbort whilst this is going on.
 <li><span class="term">Automapping is waiting for more text.</span> Trizbort has reached the end of the transcript. If the interpreter is still running and scripting is still on, then as you take actions in game the transcript will grow, and Trizbort will notice and continue automapping. Some interpreters don't update the transcript as frequently as others, in which case Trizbort may appear to be a few turns behind the game.
 <li><span class="term">Trizbort cannot [open or read] the transcript, but will keep trying.</span> This can happen if the interpreter has exclusive control over the transcript file and won't let Trizbort read it, or if the transcript file doesn't exist or is otherwise inaccessible.
@@ -834,7 +840,6 @@ At your service!</pre></td></tr>
 
 <p>When Trizbort isn't sure, it'll display the Disambiguate Rooms dialog, tell you what it's seen, and ask you to choose.</p>
 
-<p>
 <table>
 <tr><td><img src="automap_disambiguate.png" alt="Disambiguating between rooms."></td></tr>
 <tr><td class="alt">Disambiguating between rooms.</td></tr>
@@ -1102,9 +1107,10 @@ At your service!</pre></td></tr>
 <center><font size=+4>General Information</font></center>
 
 <a name="accel"></a>
-<h2>Accelerator Listing</a>
+<h2>Accelerator Listing</h2>
+
 <table border=1>
-<th>Key</th><th>plain function</th><th>ctrl/shift/alt</th>
+<tr><th>Key</th><th>plain function</th><th>ctrl/shift/alt</th>
 <tr><td>A</td><td>One-way line</td><td>ctrl-a=select all</td></tr>
 <tr><td>B</td><td></td><td></td></tr>
 <tr><td>C</td><td></td><td>ctrl-c=copy, ctrl-alt-c=copy color</td></tr>
@@ -1212,7 +1218,7 @@ Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenhe
 <a name="general_contacting"></a>
 <h2>Contacting</h2>
 
-<p>If there is an error with the documentation or a general question, contact Andrew Schultz at blurglecruncheon@gmail.com.</p>
+<p>If there is an error with or general question about the documentation, contact <a href="mailto:blurglecruncheon@gmail.com">Andrew Schultz</a>.</p>
 
 </div> <!-- help -->
 

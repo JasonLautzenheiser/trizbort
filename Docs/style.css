@@ -44,3 +44,23 @@ body
         padding-right-ltr-source: physical;
         padding-right-rtl-source: physical;
 }
+table {
+    border: 1px solid #000;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+td.heading {
+    border-bottom: 1px solid #FFF;
+    background-color: #5070A0;
+    color: #FFF;
+    text-align: center;
+}
+td.altheading {
+    border-bottom: 1px solid #FFF;
+    background-color: #305080;
+    color: #FFF;
+    text-align: center;
+}
+td.alt {
+    background-color: #E0E0D0;
+}

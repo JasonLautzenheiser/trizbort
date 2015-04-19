@@ -36,7 +36,7 @@
 
 <p>This guide explains how to use Trizbort.</p>
 
-<p>The original version of this guide, before extensive forking, may be found at <a href="https://github.com/genstein/trizbort/tree/master/Docs/">Genstein's Trizbort repository</a>.</p>
+<p>The original version of this guide, without which additional features would never have been added, may be found at <a href="https://github.com/genstein/trizbort/tree/master/Docs/">Genstein's Trizbort repository</a>. You can also visit <a href="http://trizbort.genstein.net">Genstein's Trizbort site</a> to see it. The help file is <a href="http://trizbort.genstein.net/help/">here</a>.</p>
 
 <p>The version of this guide for 1.5+ may be found at <a href="https://github.com/jasonlautzenheiser/trizbort/tree/master/Docs/">Jason Lautzenheiser's Trizbort repository (development)</a>. The bleeding-edge guide (latest small fixes before commit) is at <a href="https://github.com/andrewschultz/trizbort/tree/master/Docs/">Andrew Schultz's Trizbort repository (documentation)</a>. Issues should be reported there, and they are welcome, big or small.</p>
 
@@ -119,23 +119,24 @@
 			<li><a href="#help_fu_nav">Navigating the Map with the Keyboard</a>
 			<li><a href="#help_fu_connect">Creating Rooms and Connections with the Keyboard</a>
 			<li><a href="#help_fu_prop">Editing properties with the Keyboard</a>
-		<li><a href="#help_automap">Using Automapping</a>
-		<ul>
-			<li><a href="#help_automap_start">Starting Automapping</a>
-			<li><a href="#help_automap_options">Automapping Options</a>
-			<li><a href="#help_automap_mid">Whilst Automapping</a>
-			<li><a href="#help_automap_disambig">Disambiguating Between Rooms</a>
-			<li><a href="#help_automap_how">How It Works (or: When It Doesn't)</a>
+			<li><a href="#help_automap">Using Automapping</a>
 			<ul>
-				<li><a href="#help_automap_roomname">Room Names</a>
-				<li><a href="#help_automap_connect">Connecting Rooms</a>
-				<li><a href="#help_automap_meta">Meta-Commands</a>
+				<li><a href="#help_automap_start">Starting Automapping</a>
+				<li><a href="#help_automap_options">Automapping Options</a>
+				<li><a href="#help_automap_mid">Whilst Automapping</a>
+				<li><a href="#help_automap_disambig">Disambiguating Between Rooms</a>
+				<li><a href="#help_automap_how">How It Works (or: When It Doesn't)</a>
+				<ul>
+					<li><a href="#help_automap_roomname">Room Names</a>
+					<li><a href="#help_automap_connect">Connecting Rooms</a>
+					<li><a href="#help_automap_meta">Meta-Commands</a>
+				</ul>
+				<li><a href="#help_automap_tips">Automapping Tips</a>
+				<li><a href="#help_regions">Regions</a>
+				<li><a href="#help_right_clicking">Right Clicking</a>
+				<li><a href="#help_tooltips">Tooltips</a>
 			</ul>
-			<li><a href="#help_automap_tips">Automapping Tips</a>
-		<li><a href="#help_regions">Regions</a>
 		</ul>
-		<li><a href="#help_right_clicking">Right Clicking</a>
-		<li><a href="#help_tooltips">Tooltips</a>
 		<li><a href="#sample_quick">A Sample Quick Map</a>
 		<ul>
 			<li><a href="#sample_first">First Rooms and Regions</a>
@@ -156,18 +157,20 @@
 		</ul>
 		<li><a href="#debug_combos">Debug key combos</a>
 		<li><a href="#textedit">Manual Editing</a>
-		<li><a href="#building">Building Trizbort</a>
 	</ul>
 	<li>General Information
 	<ul>
 		<li><a href="#accel">Accelerator Listing</a>
+		<li><a href="#building">Building Trizbort</a>
 		<li><a href="#about">About</a>
 		<ul>
-			<li><a href="#about_authors">Authors</li>
-			<li><a href="#about_versions">Versions</li>
+			<li><a href="#about_authors">Authors</a>
+			<li><a href="#about_versions">Versions</a>
 		</ul>
-		<li><a href="#settings_file">Settings File</li>
-		<li><a href="#thirdparty">Third Party Software Recommendations</a>
+		<li><a href="#general_mapping_resources">Mapping Resources</a>
+		<li><a href="#general_settings_file">Settings File</a>
+		<li><a href="#general_thirdparty">Third Party Software Recommendations</a>
+		<li><a href="#general_contacting">Contacting</a>
 	</ul>
 </ul>
 </div> <!-- toc -->
@@ -229,7 +232,7 @@
 </div> <!-- tip body -->
 </div> <!-- tip -->
 
-<p>You can create a room by moving the mouse over where you'd like the room to appear on the canvas and pressing R. You can also choose Edit->Add Room to add a room in the center of the canvas. You can also create a room between two connected rooms by highlighting the line and pressing R. The room will be centered on where your mouse is hovering, but if it isn't quite right, you can move it with the arrows or resize it with ctrl-alt-arrows. <b>WARNING:</b> your graphics card may cause the screen to rotate. There are options to reset this, and you can do so manually, but it is a shock if it happens. You can Google how to disable hotkeys for your graphics card.</p>
+<p>You can create a room by moving the mouse over where you'd like the room to appear on the canvas and pressing R. You can also choose <span class="accel">Edit->Add Room</span> to add a room in the center of the canvas. You can also create a room between two connected rooms by highlighting the line and pressing R. The room will be centered on where your mouse is hovering, but if it isn't quite right, you can move it with the arrows or resize it with ctrl-alt-arrows. <b>WARNING:</b> your graphics card may cause the screen to rotate. There are options to reset this, and you can do so manually, but it is a shock if it happens. You can Google how to disable hotkeys for your graphics card.</p>
 
 <a name="help_rooms_select"></a>
 <h2>Selecting, Moving and Resizing Rooms</h2>
@@ -250,14 +253,14 @@
 <a name="help_rooms_delete"></a>
 <h2>Deleting Rooms</h2>
 
-<p>To permanently remove a room from the map, select the room and press Del or choose Edit->Delete. Currently, Trizbort has no undo command, so the room is gone unless you can reload a saved copy of the map. When you delete a room, all connections from and to it disappear. Unfortunately, there's no good way to be sure that you may want rooms it connects to reconnect themselves.</p>
+<p>To permanently remove a room from the map, select the room and press Del or choose <span class="accel">Edit->Delete</span>. Currently, Trizbort has no undo command, so the room is gone unless you can reload a saved copy of the map. When you delete a room, all connections from and to it disappear. Unfortunately, there's no good way to be sure that you may want rooms it connects to reconnect themselves.</p>
 
 <p>While Trizbort is stable enough not to lose information on its own, and it warns you before closing an unsaved document, it's still recommended to save frequently and definitely back your file up if you want to try a speculative layout.</p>
 
 <a name="help_rooms_edit"></a>
 <h2>Editing Rooms</h2>
 
-<p>You can change more detailed characteristics of a room from its <span class="term">Properties dialog</span> (a dialog, or <span class="term">dialog box</span>, is a window which pops up so you can do certain related things). You have many ways to bring up a room's properties when it is selected: press Return/Enter or F2, or choose Edit->Properties in the pull-down menu. You can also right-click on any room and choose Properties.</p>
+<p>You can change more detailed characteristics of a room from its <span class="term">Properties dialog</span> (a dialog, or <span class="term">dialog box</span>, is a window which pops up so you can do certain related things). You have many ways to bring up a room's properties when it is selected: press Return/Enter or F2, or choose <span class="accel">Edit->Properties</span> in the pull-down menu. You can also right-click on any room and choose Properties.</p>
 
 <table>
 <tr><td><img src="room_properties.png" alt="The Properties dialog for a room."></td></tr>
@@ -275,7 +278,7 @@
 <li>Room border style
 </ul>
 
-<p>Since objects in a room are unique, you can only bring up the Properties dialog for rooms one at a time. You should also be able to use the keyboard or the menu bar to change these properties. Trizbort tries to be flexible this way. For instance, to toggle darkness, Edit->Is Dark Room in the menu bar or K from the keyboard will work. You can also right-click and highlight "dark" from the context menu.</p>
+<p>Since objects in a room are unique, you can only bring up the Properties dialog for rooms one at a time. You should also be able to use the keyboard or the menu bar to change these properties. Trizbort tries to be flexible this way. For instance, to toggle darkness, <span class="accel">Edit->Is Dark Room</span> in the menu bar or K from the keyboard will work. You can also right-click and highlight "dark" from the context menu.</p>
 
 <p>However, one property that can be mass-changed is what region a group of rooms is in. This is done most easily via right-clicking or by selecting a rectangular area. You can even highlight the rooms, create the region and add them to the region.</p>
 
@@ -413,7 +416,7 @@
 <a name="help_conn_delete"></a>
 <h2>Deleting Connections</h2>
 
-<p>To permanently remove a connection from the map, select it and press Del or choose Edit->Delete. Whenever you have something selected, Del or Edit->Delete will delete it if it can be deleted.</p>
+<p>To permanently remove a connection from the map, select it and press Del or choose <span class="accel">Edit->Delete</span>. Whenever you have something selected, Del or <span class="accel">Edit->Delete</span> will delete it if it can be deleted.</p>
 
 <a name="help_conn_edit"></a>
 <h2>Editing Connections</h2>
@@ -425,24 +428,24 @@
 <tr><td class="alt">Different combinations of connection styles. From top to bottom: two way; one way; conditional; one way conditional; labelled; and the mouthful that is one way conditional labelled.</td></tr>
 </table>
 
-<p>You can change a connection's style by selecting it and then using the Edit->Line Styles menu or keyboard shortcuts.</p>
+<p>You can change a connection's style by selecting it and then using the <span class="accel">Edit->Line Styles</span> menu or keyboard shortcuts.</p>
 
-<p>Press A or choose Edit->Line Styles->One Way Arrow to toggle whether a connection is one way. Press T or choose Edit->Line Styles->Dotted to toggle whether a connection is conditional. You can quickly label a connection as up/down, down/up, out/in or in/out by pressing U, D, I or O or choosing the relevant option from Edit->Line Styles.</p>
+<p>Press A or choose <span class="accel">Edit->Line Styles->One Way Arrow</span> to toggle whether a connection is one way. Press T or choose <span class="accel">Edit->Line Styles->Dotted</span> to toggle whether a connection is conditional. You can quickly label a connection as up/down, down/up, out/in or in/out by pressing U, D, I or O or choosing the relevant option from <span class="accel">Edit->Line Styles</span>.</p>
 
 <a name="help_conn_edit_dir"></a>
 <h3>Changing a Connection's Direction</h3>
 
-<p>But what if, in the example above, the up/down text or one-way arrow points the wrong way? The arrow on a one way connection points in the direction in which the connection was first created: so if you created it left to right, the arrow will point to the right. You can quickly change the direction of the connection by pressing V or choosing Edit->Reverse Line. This also swaps any connection labels at either end of the line.</p>
+<p>But what if, in the example above, the up/down text or one-way arrow points the wrong way? The arrow on a one way connection points in the direction in which the connection was first created: so if you created it left to right, the arrow will point to the right. You can quickly change the direction of the connection by pressing V or choosing <span class="accel">Edit->Reverse Line</span>. This also swaps any connection labels at either end of the line.</p>
 
 <a name="help_conn_edit_plain"></a>
 <h3>Plain Connections</h3>
 
-<p>You can press P or choose Edit->Line Styles->Plain to reset a connection to a two way connection with no arrows or labels at either end.</p>
+<p>You can press P or choose <span class="accel">Edit->Line Styles->Plain</span> to reset a connection to a two way connection with no arrows or labels at either end.</p>
 
 <a name="help_conn_edit_props"></a>
 <h3>Connection Properties and Custom Labels</h3>
 
-<p>Connections, like rooms, also have their own Properties dialog. You can bring it up in the same way, by selecting the connection and pressing Return or choosing Edit->Properties.</p>
+<p>Connections, like rooms, also have their own Properties dialog. You can bring it up in the same way, by selecting the connection and pressing Return or choosing <span class="accel">Edit->Properties</span>.</p>
 
 <table>
 <tr><td><img src="connection_properties.png" alt="The Properties dialog for a connection."></td></tr>
@@ -461,7 +464,7 @@
 <a name="help_conn_inheritance"></a>
 <h2>Connection Style Inheritance</h2>
 
-<p>The style and size of a new connection is, by default, taken from the last selected connection. So if you last selected a one way, conditional connection, the next one you create will be one way and conditional. However, you can use the Edit->Line Styles sub-menu, or the accelerators, to change basic styles. You should be able to see the current basic styles on the legend to the left of the map, below the File entry on the menu bar.</p>
+<p>The style and size of a new connection is, by default, taken from the last selected connection. So if you last selected a one way, conditional connection, the next one you create will be one way and conditional. However, you can use the <span class="accel">Edit->Line Styles</span> sub-menu, or the accelerators, to change basic styles. You should be able to see the current basic styles on the legend to the left of the map, below the File entry on the menu bar.</p>
 
 <a name="help_nav"></a>
 <h1>Navigating the Map</h1>
@@ -482,27 +485,27 @@
 <a name="help_nav_zoom"></a>
 <h2>Zooming</h2>
 
-<p>If your mouse has a mouse wheel, you can scroll the mouse wheel forwards and backwards to zoom in and out. This scales the map on-screen making it bigger or smaller. Tools->App Settings allows you to flip the mouse wheel's scroll in/out behavior. For more granular zooms, you can hit the TAB key and type the precise zoom percentage you want. Anything from 10% to 1000% is valid.</p>
+<p>If your mouse has a mouse wheel, you can scroll the mouse wheel forwards and backwards to zoom in and out. This scales the map on-screen making it bigger or smaller. <span class="accel">Tools->Application Settings</span> allows you to flip the mouse wheel's scroll in/out behavior. For more granular zooms, you can hit the TAB key and type the precise zoom percentage you want. Anything from 10% to 1000% is valid.</p>
 
 <p>You can also use the '+' and '-' keys on your keyboard or the numpad. The equals key works as well as the +.</p>
 
-<p>You can also choose View->Zoom->In and View->Zoom->Out from the menu bar.</p>
+<p>You can also choose <span class="accel">View->Zoom->In</span> and <span class="accel">View->Zoom->Out</span> from the menu bar.</p>
 
 <a name="help_nav_other"></a>
 <h2>Other Views</h2>
 
-<p>You can choose View->Reset or press Home to reset your view so that you're looking at the center of the map, neither zoomed in or out.</p>
+<p>You can choose <span class="accel">View->Reset</span> or press Home to reset your view so that you're looking at the center of the map, neither zoomed in or out.</p>
 
-<p>You can choose View->Entire Map or press Control-Home to view the whole map at once. This also centers your view. It will not zoom in beyond 100% for very small maps. The zoom factor is a power of 80%.</p>
+<p>You can choose <span class="accel">View->Entire Map</span> or press Control-Home to view the whole map at once. This also centers your view. It will not zoom in beyond 100% for very small maps. The zoom factor is a power of 80%.</p>
 
 <center><font size=+4>Advanced Topics</font></center>
 
 <a name="help_settings"></a>
 <h1>Map Settings</h1>
 
-<p>By selecting Tools->Map Settings you can change settings which are saved with the map. Each map has its own settings, and new maps start off with the default settings.</p>
+<p>By selecting <span class="accel">Tools->Map Settings</span> you can change settings which are saved with the map. Each map has its own settings, and new maps start off with the default settings.</p>
 
-<p>You can restore the default settings for a map by choosing Tools->Restore Default Map Settings. This does not restore the default settings for Tools->App Settings.</p>
+<p>You can restore the default settings for a map by choosing <span class="accel">Tools->Restore Default Map Settings</span>. This does not restore the default settings for <span class="accel">Tools->Application Settings</span>.</p>
 
 <div class="tip">
 <div class="heading">Tip</div>
@@ -611,9 +614,9 @@
 <a name="help_select_all"></a>
 <h2>Select All/None</h2>
 
-<p>To select everything on the map, choose Edit->Select All or press Ctrl-A.</p>
+<p>To select everything on the map, choose <span class="accel">Edit->Select All</span> or press Ctrl-A.</p>
 
-<p>To deselect everything, choose Edit->Select None or press Escape (Esc).</p>
+<p>To deselect everything, choose <span class="accel">Edit->Select None</span> or press Escape (Esc).</p>
 
 <p>You can also select everything in a region with Ctrl-Shift-A. If one room is highlighted, all rooms in that region will be highlighted. If multiple rooms from different regions are highlighted, all rooms in those regions will be highlighted.
 
@@ -649,9 +652,9 @@
 
 <p></p><ul>
 <li>Moving things on the map. Click and drag anything that's selected to move it. Selected connections will only move if either they're not docked to a room's ports at one or both ends, or if their connected rooms are selected. In the second case, highlighting connected rooms means you don't need to highlight the connectors, too.
-<li>Changing rooms from light to dark, or vice versa. Pressing K or choosing Edit->Dark Room will toggle whether each selected room is light or dark.
-<li>Changing connection styles. All the menu options under Edit->Line Styles, and their respective keyboard shortcuts, work on multiple selections.
-<li>Deleting things. Pressing Del or choosing Edit->Delete will delete everything that's selected.
+<li>Changing rooms from light to dark, or vice versa. Pressing K or choosing <span class="accel">Edit->Dark Room</span> will toggle whether each selected room is light or dark.
+<li>Changing connection styles. All the menu options under <span class="accel">Edit->Line Styles</span>, and their respective keyboard shortcuts, work on multiple selections.
+<li>Deleting things. Pressing Del or choosing <span class="accel">Edit->Delete</span> will delete everything that's selected.
 <li>Changing rooms' regions. You can right-click on any room and choose a new region for your selection.
 </ul>
 
@@ -775,7 +778,7 @@ At your service!</pre></td></tr>
 <a name="help_automap_start"></a>
 <h2>Starting Automapping</h2>
 
-<p>To start automapping, choose Automap->Start from the menu bar. It's often best to start with a blank canvas, though if you have saved a map which was created with automapping you can load it and then start automapping to continue where you left off. This can be useful if you're mapping a game which you're playing over the course of several days or weeks.</p>
+<p>To start automapping, choose <span class="accel">Automap->Start</span> from the menu bar. It's often best to start with a blank canvas, though if you have saved a map which was created with automapping you can load it and then start automapping to continue where you left off. This can be useful if you're mapping a game which you're playing over the course of several days or weeks.</p>
 
 <p>When you start automapping, Trizbort will ask you for the name of the transcript, and present you with a few options.</p>
 
@@ -807,7 +810,7 @@ At your service!</pre></td></tr>
 <a name="help_automap_mid"></a>
 <h2>Whilst Automapping</h2>
 
-<p>Whilst automapping, Trizbort displays a bar beneath the canvas, telling you what automapping is currently doing and providing a "stop" button. To stop automapping, click this button or choose Automap->Stop.</p>
+<p>Whilst automapping, Trizbort displays a bar beneath the canvas, telling you what automapping is currently doing and providing a "stop" button. To stop automapping, click this button or choose <span class="accel">Automap->Stop</span>.</p>
 
 <p>You can freely interact with the canvas, and do anything else you like in Trizbort, whilst automapping.</p>
 
@@ -875,7 +878,7 @@ At your service!</pre></td></tr>
 <a name="help_automap_meta"></a>
 <h3>Meta-commands in automap</h3>
 
-<p>If you wish to prepare a log for Trizbort to work through, there are commands the parser may not understand, but Trizbort will. You can change them from the defaults in the screen-cap <a href="help_automap_options">here</a>.</p>
+<p>If you wish to prepare a log for Trizbort to work through, there are commands the parser may not understand, but Trizbort will. You can change them from the defaults in the screen-cap <a href="#help_automap_options">here</a>.</p>
 
 <p><span class="code">&gt; SEE (object)</span> notes that an object should be in the current room.</p>
 
@@ -940,8 +943,8 @@ At your service!</pre></td></tr>
 <li>SET REGION will be available if any room is currently highlighted.
 <li>DARK will be available if any room is currently highlighted.
 <li>PROPERTIES will be available if any room or connector is currently highlighted. It will go to the last one.
-<li>MAP SETTINGS will go to Tools->Map Settings.
-<li>APPLICATION SETTINGS will go to Tools->Application Settings.
+<li>MAP SETTINGS will go to <span class="accel">Tools->Map Settings</span>.
+<li>APPLICATION SETTINGS will go to <span class="accel">Tools->Application Settings</span>.
 </ul>
 
 <table>
@@ -966,21 +969,21 @@ At your service!</pre></td></tr>
 
 <p>But wait! They're not connected yet. You have to connect the city center to the others. Ctrl-left then ctrl-down. Then, from the center, you can Ctrl-left and right, down and up, and right and left. This is probably easier to do than read once you get the hang of it.</p>
 
-<p>So now we've got the start of an instant map! But it would be nice to describe the city as cold and grey. We can do that with regions.  Tools->Map Settings->Regions. Add a region and call it City. Make it grey. Then ctrl-A and right click on any room. Bingo!</p>
+<p>So now we've got the start of an instant map! But it would be nice to describe the city as cold and grey. We can do that with regions.  <span class="accel">Tools->Map Settings->Regions</span>. Add a region and call it City. Make it grey. Then ctrl-A and right click on any room. Bingo!</p>
 
-<a name = "sample_trap"</a>
+<a name = "sample_trap"></a>
 <h3>Making a Trap Room Region</h3>
 
-<p>We need a way out of the city, so let's make it north of N City. You can use the control-arrows now. Call it City Entry. Now, let's utterly disregard Graham Nelson's Player's Bill of Rights and make a couple death traps. Behind the Barrel, west of W City, where you get beaten to death by secretive philosophers, and Varmints' Pub, where you get beaten to death by secretive non-philosophers. Still, so we're not totally unfair, let's label the death traps as such. Create a new region and call it TRAP ROOMS. Make the background color red. That way, if we want to add a few later, we can. You can decide whether to control-click on the rooms, or navigate to them, push return and edit the properties. You can tab and alt-tab until "Objects" is highlighted, then use the arrows and tab again.</p>
+<p>We need a way out of the city, so let's make it north of N City. You can use the control-arrows now. Call it City Entry. Now, let's utterly disregard Graham Nelson's <a href="http://maher.filfre.net/if-book/if-10.htm">Bill of Player's Rights</a> and make a couple death traps. Behind the Barrel, west of W City, where you get beaten to death by secretive philosophers, and Varmints' Pub, where you get beaten to death by secretive non-philosophers. Still, so we're not totally unfair, let's label the death traps as such. Create a new region and call it TRAP ROOMS. Make the background color red. That way, if we want to add a few later, we can. You can decide whether to control-click on the rooms, or navigate to them, push return and edit the properties. You can tab and alt-tab until "Objects" is highlighted, then use the arrows and tab again.</p>
 
-<a name = "sample_churn"</a>
+<a name = "sample_churn"></a>
 <h3>Churning regions and rooms</h3>
 
 <p>Ctrl-up from City Entry to make C River. You may wish to define a new region here--the river. Make it blue. Then ctrl-left and ctrl-right to make W River and E River. We can deal with regions later. Let's make dotted lines first. Push T. Ctrl-north from each river room, then push T or P again. You'll notice the graphic becomes un-highlighted. (Note: this is actually a bug. New lines don't have dotted properties, etc. But we can click on the three lines, then push T, then click Escape and push P, so the next lines we draw in have plain style.)</p>
 
 <p>Now we can create W Forest, C Forest and E Forest. Again, the first one can be added to a new region, or not. You can do so with ctrl-arrows. Push K when C Forest is highlighted. You may have to push it again if you are creating E Forest next. Use control-arrows to link back to the Shore.</p>
 
-<a name = "sample_passages"</a>
+<a name = "sample_passages"></a>
 <h3>Meddling with Passages</h3>
 
 <p>You can use ctrl-7,8,9 on the numpad to create a passage to Desert. That's a new region, and one room, but it has a custom color, since the shore already used brown, and I wanted something lighter that didn't clash with the text. I went with 192 red, 96 green.</p>
@@ -991,7 +994,7 @@ At your service!</pre></td></tr>
 
 <p>Now for the final bit. You should probably be on cruise control now. Ctrl-up from the Desert for Palace Gates. This room can be part of a new region called Palace. You may want to change Palace's text to white since its purple background makes the default text unreadable. Also, for variety, let's update the subtitle to start of palace.</p>
 
-<a name = "sample_fix"</a>
+<a name = "sample_fix"></a>
 <h3>Fixing silly mistakes</h3>
 
 <p>The Castle has a few last tricks. And I'll make a few deliberate mistakes, to show you how to overcome them. Ctrl-up, then from there, ctrl-left, right, 9 and 1. Highlight the diagonal lines and push D. Oops! You want the lines to go the other way. This happens with Trizbort sometimes, because Trizbort can't totally tell where you wanted the line to start or end. To fix that, push V. You can then highlight the east/west lines and push A to make them go one-way. You can push V a couple times to watch them flip. You can control-click on the jails to put them in the Trap Room region.</p>
@@ -1015,7 +1018,7 @@ At your service!</pre></td></tr>
 <a name="help_export_pdf"></a>
 <h2>Exporting to PDF</h2>
 
-<p>To export a scalable document containing your map, choose File->Export->PDF. Trizbort will create a PDF file with a single page, large enough to display your map without scaling. <a href="http://www.foxitsoftware.com/Secure_PDF_Reader/">FoxIt Reader</a>, or a similar program, will be needed to view the PDF file.</p>
+<p>To export a scalable document containing your map, choose <span class="accel">File->Export->PDF</span>. Trizbort will create a PDF file with a single page, large enough to display your map without scaling. <a href="http://www.foxitsoftware.com/Secure_PDF_Reader/">FoxIt Reader</a>, or a similar program, will be needed to view the PDF file.</p>
 
 <p>Trizbort uses <span class="term">vector graphics</span> to draw the map in the PDF file. This means that when viewing the PDF you can zoom in and out just as you would in Trizbort without loss of quality.</p>
 
@@ -1024,18 +1027,18 @@ At your service!</pre></td></tr>
 <a name="help_export_graphic"></a>
 <h2>Exporting a Graphic</h2>
 
-<p>To export your map as a graphic, choose File->Export->Image. You can choose the file type you want. While you can also export to JPEG or BMP or EMF, PNG is recommended. BMP is not compressed, JPEG is not lossless, and EMF may not be supported well on non-Windows platforms.</p>
+<p>To export your map as a graphic, choose <span class="accel">File->Export->Image</span>. You can choose the file type you want. While you can also export to JPEG or BMP or EMF, PNG is recommended. BMP is not compressed, JPEG is not lossless, and EMF may not be supported well on non-Windows platforms.</p>
 
 <p>Trizbort will add generous margins around the edges of the map in order to avoid cutting off connections or text near the edges.</p>
 
 <a name="help_smart_export"></a>
 <h2>Smart Exporting</h2>
-<p>Navigating the menus can be a hassle if you are continuously re-saving. It's quite possible you may forget to export your most recent change. Therefore, Trizbort allows "smart export" with control-shift-s or File->Smart Save is an alternative. It exports to both PDF and the alternative graphic format you chose in the App Settings, which is PNG by default. Exported graphic files should be faithful to the Trizbort file in content, and they will be named identically to the Trizbort file except for the extension. If your project is untitled, you will be prompted to save your file first, so Trizbort has a base file name to work from.</p>
+<p>Navigating the menus can be a hassle if you are continuously re-saving. It's quite possible you may forget to export your most recent change. Therefore, Trizbort allows "smart export" with control-shift-s or <span class="accel">File->Smart Save</span> is an alternative. It exports to both PDF and the alternative graphic format you chose in the App Settings, which is PNG by default. Exported graphic files should be faithful to the Trizbort file in content, and they will be named identically to the Trizbort file except for the extension. If your project is untitled, you will be prompted to save your file first, so Trizbort has a base file name to work from.</p>
 
 <a name="help_export_i7"></a>
 <h2>Exporting to Inform 7</h2>
 
-<p>To export to Inform 7, choose File->Export->Inform 7. Trizbort will prompt you for a file name. By default it will ask you for the name of a <span class="code">.inform</span> "file", but Inform 7 uses folders to represent its projects, and it is these folders which normally end with <span class="code">.inform</span>. So if you supply a filename, Trizbort will create a new Inform 7 project with the minimum contents necessary for Inform 7 to load the project as one of its own.</p>
+<p>To export to Inform 7, choose <span class="accel">File->Export->Inform 7</span>. Trizbort will prompt you for a file name. By default it will ask you for the name of a <span class="code">.inform</span> "file", but Inform 7 uses folders to represent its projects, and it is these folders which normally end with <span class="code">.inform</span>. So if you supply a filename, Trizbort will create a new Inform 7 project with the minimum contents necessary for Inform 7 to load the project as one of its own.</p>
 
 <p>You can just export a single text file rather than a whole project folder. To do so, in the "Export Inform 7 Source Code" dialog, go to the file type drop down list and change it from "Inform 7 Projects" to "Inform 7 Source Files" or "Text Files".
 
@@ -1053,12 +1056,12 @@ At your service!</pre></td></tr>
 <a name="help_export_tads"></a>
 <h2>Exporting to TADS</h2>
 
-<p>To export to TADS, choose File->Export->TADS. Trizbort will prompt you for a file name. By default it will ask you for the name of a <span class="code">.t</span> file. Trizbort isn't (yet) smart enough to create a whole TADS project on export.</p>
+<p>To export to TADS, choose <span class="accel">File->Export->TADS</span>. Trizbort will prompt you for a file name. By default it will ask you for the name of a <span class="code">.t</span> file. Trizbort isn't (yet) smart enough to create a whole TADS project on export.</p>
 
 <a name="help_export_i6"></a>
 <h2>Exporting to Inform 6</h2>
 
-<p>To export to Inform 6, choose File->Export->Inform 6. Trizbort will prompt you for a file name. By default it will ask you for the name of an <span class="code">.inf</span> file.</p>
+<p>To export to Inform 6, choose <span class="accel">File->Export->Inform 6</span>. Trizbort will prompt you for a file name. By default it will ask you for the name of an <span class="code">.inf</span> file.</p>
 
 <a name="help_export_tips"></a>
 <h2>Export Tips</h2>
@@ -1084,7 +1087,7 @@ At your service!</pre></td></tr>
 <a name="textedit"></a>
 <h2>Manual Editing</h2>
 
-<p>Since .trizbort files are really just XML, you can manually edit them if certain things seem tricky. However, there is no guarantee Trizbort will be able to read them, so make a backup copy first. In some limited cases, modifying the Trizbort XML file in a text editor may be more convenient. For instance, if you wanted to change a region name, it'd be easier to do that in Trizbort, but if you wanted to search and replace game or room text quickly, a text editor might be the thing. You would not have to move a mouse around and click.</p>
+<p>Since .trizbort files are really just XML, you can manually edit them if certain things seem tricky. However, there is no guarantee Trizbort will be able to read them, so make a backup copy first. In some limited cases, modifying the Trizbort XML file in a text editor may be more convenient. For instance, if you wanted to change a region name, it'd be easier to do that in Trizbort, but if you wanted to search and replace game or room text quickly, or if you wanted to merge two regions, a text editor might be the thing. You would not have to move a mouse around and click.</p>
 
 <a name="building"></a>
 <h2>Building Trizbort</h2>
@@ -1177,12 +1180,19 @@ Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenhe
 
 <p>As of 1.5.5, if you copy room data and then text data, the room data is lost. Pasting room data to text fields gives odd results.</p>
 
-<a name="settings_file"></a>
+<a name="general_settings_file"></a>
 <h2>Settings File</h2>
 
 <p>You will find a settings file at C:\Users\%USERNAME%\AppData\Local\Genstein\Trizbort\settings.xml. You can erase this to restore the defaults. The XML is human-readable enough that this document won't discuss it in detail.</p>
 
-<a name="thirdparty"></a>
+<a name="general_mapping_resources"></a>
+<h2>Mapping Resources</h2>
+
+<p>The <a href="http://www.ifarchive.org">IF Archive</a> has a <a href="http://www.ifarchive.org/indexes/if-archiveXsolutionsXmaps.html">maps solution section</a> where you can submit maps of games you have written. If you're considering writing a map, you may want to look there first. Another place to look is the <a href="http://solutionarchive.com/">CASA, or Classic Adventures Solution Archive</a>.</p>
+
+<p>In addition, other mapping tools are found <a href="http://www.ifarchive.org/indexes/if-archiveXmapping-tools.html">here</a>.</p>
+
+<a name="general_thirdparty"></a>
 <h2>Third Party Software Recommendations</h2>
 
 <p>Trizbort is a relatively small project, and we don't have the manpower to fulfill every feature request, much as we'd like to. However, some third-party software allows a workaround.</p>
@@ -1198,6 +1208,11 @@ Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenhe
   <li>Basic usage: <i>cpdf -crop "25mm 25mm 212mm 250mm" standard-a4-size.pdf</i>.
   </ul>
 </ul>
+
+<a name="general_contacting"></a>
+<h2>Contacting</h2>
+
+<p>If there is an error with the documentation or a general question, contact Andrew Schultz at blurglecruncheon@gmail.com.</p>
 
 </div> <!-- help -->
 

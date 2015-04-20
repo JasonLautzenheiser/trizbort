@@ -88,6 +88,10 @@ csx
 # Windows Store app package directory
 AppPackages/
 
+# Documentation: I don't want any doc parsing scripts to get on to github
+Docs/
+*.pl
+
 # Others
 [Bb]in
 [Oo]bj

@@ -13,10 +13,19 @@ body
     font-family: Consolas,Courier New,Courier,serif;
     font-size: 12px;
 }
-.accel {
+.menufind {
     background-color: #e5e5e5;
     color: #0000c0;
     border: 1px solid #4040c0;
+    padding: 2px;
+    line-height: 23px;
+    font-family: Consolas,Courier New,Courier,serif;
+    font-size: 12px;
+}
+.accel {
+    background-color: #e5ffe5;
+    color: #008000;
+    border: 1px solid #00c000;
     padding: 2px;
     line-height: 23px;
     font-family: Consolas,Courier New,Courier,serif;
@@ -76,4 +85,13 @@ td.alt {
 .indent_without_columns {
     padding-left: 48px;
     padding-right: 25%;
+}
+.term {
+    color: #330033;
+    font-style: italic;
+}
+.emphatic {
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: underline;
 }

@@ -1177,7 +1177,9 @@ At your service!</pre></td></tr>
 <a name="about_authors"></a>
 <h3>Authors</h3>
 
-Genstein created Trizbort and maintained it until version 1.5.0. Jason Lautzenheiser picked up the project in December 2014 and added features and merged changes from various other contributors.
+<p>Genstein created Trizbort and maintained it until version 1.5.0. His webiste is <a href="http://trizbort.genstein.com">here</a>. Jason Lautzenheiser picked up the project in December 2014 and added features and merged changes from various other contributors.</p>
+
+<p>Authors involved with other changes include Tymian and Matt Watkins. If you'd like to become an author to add a feature, that's very much welcomed! Fork something off <a href="https://github.com/JasonLautzenheiser/trizbort">here</a> and create a pull request.</p>
 
 <a name="about_versions"></a>
 <h3>Versions</h3>

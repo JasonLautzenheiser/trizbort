@@ -1088,7 +1088,8 @@ namespace Trizbort
             }
           }
           SelectedElement = closestRoom;
-          EnsureVisible(SelectedElement);
+
+          if (SelectedElement != null) EnsureVisible(SelectedElement);
         }
         else if (HasSingleSelectedElement && SelectedElement.HasDialog)
         {

@@ -30,6 +30,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace Trizbort
 {
@@ -83,6 +84,68 @@ namespace Trizbort
                     Thread.Sleep(50);
                 }
                 m_stepNow = false;
+            }
+        }
+
+        async Task AutomapController()
+        {
+            string textToParse;
+            try
+            {
+                using (StreamReader reader = new StreamReader(m_settings.FileName))
+                {
+
+                    // keep track of lines we read between here and the next prompt
+                    var linesBetweenPrompts = new List<string>();
+                    Status = "Automapping is processing the transcript.";
+
+                    var promptLine = string.Empty;
+                    // while we've got text left to read in the file...
+                    while (true)
+                    {
+                        // ...read a line of text
+                        string line = await reader.ReadLineAsync();
+
+                        //Trace("[" + line + "]");
+                        string command;
+                        if (IsPrompt(line, out command))
+                        {
+                            // this is a prompt line
+
+                            // let's process everything leading up to it since the last prompt, but not necessarily this new prompt itself
+                            ProcessTranscriptText(linesBetweenPrompts);
+
+                            // we've now dealt with all lines to this point
+                            linesBetweenPrompts.Clear();
+
+                            // if prompts are at the end of the stream, don't process them yet;
+                            // they're probably not complete. wait until there's something after them.
+                            if (!reader.EndOfStream)
+                            {
+                                // process this prompt since it's not at the end of the stream
+                                ProcessPromptCommand(line);
+
+                                Trace("{0}: {1}{2}", FormatTranscriptLineForDisplay(line), m_lastMoveDirection != null ? "GO " : string.Empty, m_lastMoveDirection != null ? m_lastMoveDirection.Value.ToString().ToUpperInvariant() : string.Empty);
+                            }
+                            else
+                            {
+                                // this prompt is at the end of the stream; don't process it yet;
+                                // but we've just run out of file, so next time remember to start with this prompt
+                                m_nextLineIndexToRead = nextLineIndex - 1;
+                            }
+                        }
+                        else
+                        {
+                            // this line isn't a prompt;
+                            // hang onto it for now in case we meet a prompt shortly.
+                            linesBetweenPrompts.Add(line);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
             }
         }
 

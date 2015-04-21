@@ -266,9 +266,11 @@ namespace Trizbort
         public abstract eTooltipColor GetToolTipColor();
         public virtual Vector Position { get; set; }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
-            
+            //There is nothing to clean. 
+            if (Disposed != null)
+                Disposed(this, EventArgs.Empty);
         }
 
         public ISite Site

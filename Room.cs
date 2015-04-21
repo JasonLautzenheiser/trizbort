@@ -877,10 +877,6 @@ namespace Trizbort
         scribe.Attribute("isDark", IsDark);
       }
       scribe.Attribute("description", PrimaryDescription);
-      // Added for room specific fill color, down to the next comment
-      var rValue = "";
-      var bValue = "";
-      var gValue = "";
 
       var colorValue = Colors.SaveColor(RoomFill);
       scribe.Attribute("roomFill", colorValue);

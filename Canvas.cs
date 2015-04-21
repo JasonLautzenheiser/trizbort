@@ -741,7 +741,7 @@ namespace Trizbort
             element.Draw(graphics, palette, context);
           }
         }
-        catch (Exception e)
+        catch (Exception)
         {
           // avoid GDI+ exceptions (vast shapes, etc.) taking down the canvas
         }
@@ -1011,7 +1011,6 @@ namespace Trizbort
               roomTooltip.SetSuperTooltip(this, toolTip);
               
               Vector tPoint = new Vector();
-              Point xPoint = new Point();
               if (hoverElement is Room)
               {
                 var tRoom = (Room) hoverElement;

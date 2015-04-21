@@ -403,7 +403,7 @@ namespace Trizbort
       {
         savePDF(pdfFile);
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         return string.Empty;
       }

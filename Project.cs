@@ -270,7 +270,7 @@ namespace Trizbort
       private void setVersion(string versionNumber)
       {
         try { Version = Version.Parse(versionNumber); }
-        catch (Exception e)
+        catch (Exception)
         {
           Version = new Version(0,0,0,0);
         }

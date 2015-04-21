@@ -89,8 +89,8 @@ csx
 AppPackages/
 
 # Documentation: I don't want any doc parsing scripts to get on to github
-Docs/
-*.pl
+Docs/*.pl
+Docs/*.bmp
 
 # Others
 [Bb]in

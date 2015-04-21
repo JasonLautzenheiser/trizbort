@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>Trizbort 1.5+ trizbort file rough specs</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<p>This is a quick list of XML specs for .trizbort files that is not guaranteed to be comprehensive or terribly rigorous. It is an offshoot of <a href="index.shtml">the main file</a>. It may help you visualize all the options, or map them to what is in the GUI.</p>
+
+<p>All files start with &lt;?xml version="1.0" encoding="utf-8"&gt;. Then &lt;trizbort version="x.x.x.x"&gt; is there for a compatibility check. It should not be changed.</p>
+
+<p>The INFO tag contains several optional sub-tags: title, author, description and history. These have no parameters.</p>
+
+<p>The MAP tag looks at the actual map. It contains ROOM and LINE tags, which are numbered roughly in the order they are created. It can be risky to change any of the numbers, but changing the text values may be easier than using the GUI.</p>
+
+<p>The ROOM tag enough parameters that they'll be broken down in detail.</p>
+
+<ul>
+<li>ID(number) mostly based on when the room was created. Note that flipping the order of rooms may not display one room over another. You have to change the room numbers. This may cause a problem with lines, so it's not recommended unless you back up.
+<li>NAME is what appears on the screen
+<li>SUBTITLE is the subtitle appearing below the name
+<li>x, y define where the room starts relative to the origin.  The room start is the upper left corner, and x and y are defined as left and down from the origin.
+<li>w and h define the room's width and height.
+<li>region defines the region the room is in, which is NoRegion by default.
+<li>borderStyle defines the room's border style, which is Solid by default. This is a good thing to mass-change if you need to.
+<li>description is the text entered in the second tab in Room Properties. This is also a good thing to edit in the text editor if you want to avoid the GUI
+<li>roomFill is a color that overrides any region coloring.
+<li>secondFill is a the second color for the room fill.
+<li>secondFillLocation decides what part of the room should be filled with secondFill.
+<li>roomBorder decides the room border style.
+<li>roomLargeText is unknown.
+<li>roomSmallText is unknown.
+</ul>
+
+<p>ROOM may also have an OBJECTS sub-tag, which lists the objects in the room.</p>
+
+<p>The LINE tag has an ID (number) parameter as well as a style parameter., as well as startText, midText and endText. This determines the text written by the line. It has a sub-tag called the dock tag.</p>
+
+<p>The DOCK sub-tag has an index (number) parameter, and id (number, which room it is attached to) and a port (which port on the room).</p>
+
+<p>The SETTINGS section is next. Its first sub-tag is COLORS, which can be modified with color names or RGB values, e.g. #808080. This is a good candidate for manual editing, as the GUI is otherwise a bit complex. Sub-tags of SETTINGS are canvas, fill, border, line, selectedLine, hoverLine, largeText, smallText, lineText, and grid. LargeText maps to room text color, smallText to object color, and lineText to line color.
+
+<p>The REGIONS setting is next. It contains a region with the name and TextColor (color or RGB value) as parameters. The value inside the tags is another color, and it is the background color.</p>
+
+<p>The FONTS tag specifies the size and type of each font. The size is a parameter, while the type is text inside the tags.</p>
+
+<p>The GRID tag has subtags snapTo, visible, and showOrigin as boolean flags. The size tag is how far apart each gridline is.</p>
+
+<p>The LINES tag has subtags width (integer), handDrawn (boolean), arrowSize (integer) and textOffset (integer).
+
+<p>The ROOMS tag has subtags darknessStripeSize, objectListOffset, connectionStalkLength, and preferredDistanceBetweenRooms, all with integer values.
+
+<p>The UI tag has subtags handleSize and snapToElementSize.
+
+<p>The keypadNavigation tag has subtags creationModifier and unexploredModifier.
+
+<p>Back to <a href="index.shtml">the main file</a>.</p>
+
+</body>
+</html>

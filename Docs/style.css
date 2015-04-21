@@ -2,7 +2,9 @@
 /* CSS Document*/
 /*Define the body element's color*/
 body
-{background: #FFFFFF;
+{
+    background-image: url("trizbkgd.png");
+    background-repeat: repeat;
 }
 .code {
     background-color: #FFF;
@@ -82,6 +84,9 @@ td.altheading {
 td.alt {
     background-color: #E0E0D0;
 }
+td {
+    background-color: #FFFFFF;
+}
 .indent_without_columns {
     padding-left: 48px;
     padding-right: 25%;
@@ -95,3 +100,11 @@ td.alt {
     font-weight: bold;
     text-decoration: underline;
 }
+h1 {
+    font-size: 40px;
+    text-align: center;
+}
+h2 {
+    font-size: 30px;
+}
+

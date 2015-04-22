@@ -28,8 +28,8 @@
 <li>secondFill is a the second color for the room fill.
 <li>secondFillLocation decides what part of the room should be filled with secondFill.
 <li>roomBorder decides the room border style.
-<li>roomLargeText is unknown.
-<li>roomSmallText is unknown.
+<li>roomLargeText refers to the room name text. If it exists, it overrides the region's default room text color.
+<li>roomSmallText refers to the room object text. If it exists, it overrides the region's default object text color.
 </ul>
 
 <p>ROOM may also have an OBJECTS sub-tag, which lists the objects in the room.</p>

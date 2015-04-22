@@ -1048,7 +1048,7 @@ At your service!</pre></td></tr>
 <a name="help_export_graphic"></a>
 <h3>Exporting a Graphic</h3>
 
-<p>To export your map as a graphic, choose <span class="menufind">File->Export->Image</span>. You can choose the file type you want. While you can also export to JPEG or BMP or EMF, PNG is recommended. BMP is not compressed, JPEG is not lossless, and EMF may not be supported well on non-Windows platforms.</p>
+<p>To export your map as a graphic, choose <span class="menufind">File->Export->Image</span>. You can choose the file type you want. While you can also export to JPEG or BMP or EMF, PNG is recommended. BMP is not compressed, JPEG is not lossless, and EMF may not be supported well on non-Windows platforms. <a href="http://pnggauntlet.com/">PNGGauntlet</a> is also recommended if you wish to compress a map further. It is especially handy if your map is monochrome, as Trizbort does not aggressively compress PNGs.</p>
 
 <p>Trizbort will add generous margins around the edges of the map in order to avoid cutting off connections or text near the edges.</p>
 
@@ -1224,15 +1224,16 @@ At your service!</pre></td></tr>
 <p>Trizbort is a relatively small project, and we don't have the manpower to fulfill every feature request, much as we'd like to. However, some third-party software allows a workaround.</p>
 
 <ul>
-<li>PDFTK is recommended for gluing two PDFs together. This may be useful if your map has multiple levels.
+<li>Since Trizbort does not currently support multiple-page PDFs, <a href="https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/">PDFTK</a> is recommended for merging multiple PDFs. This may be useful if your game's map has multiple levels, or if you wish to attach your maps to a walkthrough or feelie. <a href="https://www.libreoffice.org/">LibreOffice</a> allows for command-line PDF creation.
   <ul>
   <li>Basic usage: <i>pdftk triz-1.pdf triz-2.pdf cat output triz-both.pdf</i>.
   <li>Advanced usage, if you want to add the maps to a walkthrough: <i>pdftk A=c:/games/inform/uglyoafs.inform/Source/uo.pdf B=c:/games/inform/triz/uoup.pdf C=c:/games/inform/triz/uodn.pdf cat A1-6 B C A7 output ugly-oafs-guide.pdf</i>. In this case, I have page 7 as an appendix, so the maps are inserted just before. Also, the table of contents's link to the appendix is preserved.
   </ul>
-<li>Coherent PDF will allow you to crop exported PDFs to get rid of Whitespace. Trizbort currently doesn't allow you to specify whitespace.
+<li><a href="http://www.coherentpdf.com/">Coherent PDF</a> will allow you to crop exported PDFs to get rid of Whitespace. Trizbort currently doesn't allow you to specify whitespace.
   <ul>
   <li>Basic usage: <i>cpdf -crop "25mm 25mm 212mm 250mm" standard-a4-size.pdf</i>.
   </ul>
+<li><a href="http://pnggauntlet.com/">PNGGauntlet</a> is recommended for shrinking PNGs to a minimum size. Trizbort uses a quick and dirty PNG compression and does not try to save space by reducing the number of colors, so once you have something web-postable, you may find this tool useful.
 </ul>
 
 <a name="general_contacting"></a>

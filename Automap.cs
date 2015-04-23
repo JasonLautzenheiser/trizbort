@@ -24,13 +24,14 @@
 
 using System;
 using System.IO;
-using System.Threading;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Threading.Tasks;
+using System.Threading;
+using TrizbortExtensions;
 
 namespace Trizbort
 {
@@ -41,9 +42,6 @@ namespace Trizbort
             m_canvas = canvas;
             m_settings = settings;
             Debug.Assert(m_settings.AssumeRoomsWithSameNameAreSameRoom || m_settings.VerboseTranscript, "Must assume rooms with same name are same room unless transcript is verbose.");
-
-            Status = "Automapping has started.";
-            Start();
         }
 
         public void Dispose()
@@ -56,7 +54,7 @@ namespace Trizbort
             // for diagnostic purposes, allow single stepping
             if (m_settings.SingleStep && !m_stepNow)
             {
-                Status = "Automapping is waiting for you to step through it.";
+                Status = "Automapping is waiting for you to step through it (with F11.)";
                 while (!m_stepNow)
                 {
                     await Task.Delay(50);
@@ -65,7 +63,7 @@ namespace Trizbort
             }
         }
 
-        private async Task<string> WaitForNewLines(StreamReader reader, CancellationToken token)
+        private async Task<string> WaitForNewLine(StreamReader reader, CancellationToken token)
         {
             if (reader.EndOfStream)
                 Status = "Automapping is waiting for more text.";
@@ -78,6 +76,8 @@ namespace Trizbort
 
         public async void Start()
         {
+            Status = "Automapping has started.";
+
             try
             {
                 using (var stream = File.Open(m_settings.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -88,8 +88,9 @@ namespace Trizbort
                     var linesBetweenPrompts = new List<string>();
                     Status = "Automapping is processing the transcript.";
 
-                    var promptLine = string.Empty;
+                    var promptLine = String.Empty;
                     var line = String.Empty;
+                    bool atFileEnd = false;
                     // loop until cancelled
                     while (true)
                     {
@@ -97,7 +98,8 @@ namespace Trizbort
                         // ...read a line of text
                         try
                         {
-                            line += await WaitForNewLines(reader, m_tokenSource.Token);
+                            line = await WaitForNewLine(reader, m_tokenSource.Token);
+                            atFileEnd = reader.EndOfStream; // store this now so that it's still valid when we use it below
                         }
                         catch (TaskCanceledException)
                         {
@@ -111,34 +113,44 @@ namespace Trizbort
                             // this is a prompt line
 
                             // let's process everything leading up to it since the last prompt, but not necessarily this new prompt itself
-                            ProcessTranscriptText(linesBetweenPrompts);
+                            await ProcessTranscriptText(linesBetweenPrompts);
 
                             // we've now dealt with all lines to this point
                             linesBetweenPrompts.Clear();
 
-                            // process this prompt since it's not at the end of the stream
-                            ProcessPromptCommand(line);
+                            // handle the case where we're at the end of the file, waiting for user input
+                            if (atFileEnd)
+                            {
+                                try
+                                {
+                                    // we've already read the prompt, now just read the command when the player enters it
+                                    command = (await WaitForNewLine(reader, m_tokenSource.Token)).Trim();
+                                }
+                                catch (TaskCanceledException)
+                                {
+                                    break;
+                                }
+                            }
+
+                            // process the next command
+                            ProcessPromptCommand(command);
+                            
 
                             Trace("{0}: {1}{2}", FormatTranscriptLineForDisplay(line), m_lastMoveDirection != null ? "GO " : string.Empty, m_lastMoveDirection != null ? m_lastMoveDirection.Value.ToString().ToUpperInvariant() : string.Empty);
-
-                            // this should handle the waiting-for-input case correctly.
-                            if (command != "")
-                                line = String.Empty;
                         }
                         else
                         {
                             // this line isn't a prompt;
                             // hang onto it for now in case we meet a prompt shortly.
                             linesBetweenPrompts.Add(line);
-                            line = String.Empty;
                         }
                     }
                 }
             }
-            catch // TODO: Handle file access exceptions
+            catch (Exception ex) // TODO: Handle file access exceptions
             {
                 // couldn't read from the file
-                Trace("Automap: Error reading line in file.");
+                Trace("Automap: Error reading line in file.\nError message: " + ex.Message);
             }
 
             Trace("Automap: Gentle thread exit.");
@@ -506,7 +518,7 @@ namespace Trizbort
             }
         }
 
-        async void ProcessTranscriptText(List<string> lines)
+        async Task ProcessTranscriptText(List<string> lines)
         {
             string previousLine = null;
             for (var index=0; index<lines.Count; ++index)
@@ -522,29 +534,26 @@ namespace Trizbort
                     var room = FindRoom(roomName, roomDescription);
                     if (room == null)
                     {
-                        await WaitForStep();
-
                         // new room
                         if (m_lastKnownRoom != null && m_lastMoveDirection != null)
                         {
                             // player moved to new room
                             // if not added already, add room to map; and join it up to the previous one
-                            await WaitForStep();
                             room = m_canvas.CreateRoom(m_lastKnownRoom, m_lastMoveDirection.Value, roomName);
-                            DeduceExitsFromDescription(room, roomDescription);
                             m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
-                            NowInRoom(room);
                             Trace("{0}: {1} is now {2} from {3}.", FormatTranscriptLineForDisplay(line), roomName, m_lastMoveDirection.Value.ToString().ToLower(), m_lastKnownRoom.Name);
                         }
                         else
                         {
                             // player teleported to new room;
                             // don't connect it up, as we don't know how they got there
-                            room = m_canvas.CreateRoom(m_lastKnownRoom, roomName);
-                            DeduceExitsFromDescription(room, roomDescription);
-                            NowInRoom(room);
+                            room = m_canvas.CreateRoom(m_lastKnownRoom, roomName);                          
                             Trace("{0}: teleported to new room, {1}.", FormatTranscriptLineForDisplay(line), roomName);
                         }
+
+                        DeduceExitsFromDescription(room, roomDescription);
+                        NowInRoom(room);
+                        await WaitForStep();
                     }
                     else if (room != m_lastKnownRoom)
                     {
@@ -552,7 +561,6 @@ namespace Trizbort
                         if (m_lastKnownRoom != null && m_lastMoveDirection != null)
                         {
                             // player moved sensibly; ensure rooms are connected up
-                            await WaitForStep();
                             m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
                             Trace("{0}: {1} is now {2} from {3}.", FormatTranscriptLineForDisplay(line), roomName, m_lastMoveDirection.Value.ToString().ToLower(), m_lastKnownRoom.Name);
                         }
@@ -562,6 +570,7 @@ namespace Trizbort
                         }
 
                         NowInRoom(room);
+                        await WaitForStep();
                     }
                     else
                     {
@@ -602,17 +611,15 @@ namespace Trizbort
             return "|" + displayLine;
         }
 
-        void ProcessPromptCommand(string prompt)
+        void ProcessPromptCommand(string command)
         {
             // unless we find one, this command does not involve moving in a given direction
             m_lastMoveDirection = null;
 
-            // trim the prompt down to the actual command
             // TODO: We entirely don't handle "go east. n. s then w." etc. and I don't see an easy way of doing so.
-            prompt = prompt.Trim().Trim('>').Trim();
 
             // split the command into individual words
-            var parts = prompt.Split(s_wordSeparators, StringSplitOptions.RemoveEmptyEntries);
+            var parts = command.Split(s_wordSeparators, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length == 0)
             {
                 // there's no command left over

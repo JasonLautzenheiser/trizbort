@@ -797,7 +797,7 @@ namespace Trizbort
       UpdateToolStripImages();
       Canvas.UpdateScrollBars();
 
-      Debug.WriteLine(Canvas.Focused ? "Focused!" : "NOT FOCUSED");
+      //Debug.WriteLine(Canvas.Focused ? "Focused!" : "NOT FOCUSED");
     }
 
     private void FileRecentProject_Click(object sender, EventArgs e)

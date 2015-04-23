@@ -45,6 +45,7 @@ namespace Trizbort
             }
 
             m_automap = new Automap(m_threadSafeAutomapCanvas, settings);
+            m_automap.Start();
             m_dontAskAboutAmbiguities = false;
         }
 

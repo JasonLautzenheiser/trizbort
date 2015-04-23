@@ -178,6 +178,7 @@
     <Compile Include="RoomExtensions.cs" />
     <Compile Include="Smoothing.cs" />
     <Compile Include="TextBlock.cs" />
+    <Compile Include="TrizbortExtensions.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="Vertex.cs" />
     <Compile Include="Events.cs" />

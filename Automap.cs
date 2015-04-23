@@ -24,12 +24,14 @@
 
 using System;
 using System.IO;
-using System.Threading;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.Threading.Tasks;
+using System.Threading;
+using TrizbortExtensions;
 
 namespace Trizbort
 {
@@ -40,200 +42,117 @@ namespace Trizbort
             m_canvas = canvas;
             m_settings = settings;
             Debug.Assert(m_settings.AssumeRoomsWithSameNameAreSameRoom || m_settings.VerboseTranscript, "Must assume rooms with same name are same room unless transcript is verbose.");
-
-            m_thread = new Thread(ThreadMain);
-            m_thread.Start();
-            Status = "Automapping has started.";
         }
 
         public void Dispose()
         {
-            if (m_thread != null)
-            {
-                m_quit = true;
-                Trace("Automap: Set quit and wait.");
-
-                // Thread.Join(), except without the deadlock (sigh).
-                var startTime = DateTime.Now;
-                do
-                {
-                    Application.DoEvents();
-                    Thread.Sleep(0);
-                } while (m_thread.IsAlive && DateTime.Now - startTime < TimeSpan.FromSeconds(10));
-                if (m_thread.IsAlive)
-                {
-                    Trace("Automap: Aborting thread.");
-                    m_thread.Abort();
-                    m_thread.Join();
-                    Status = "Automapping has been aborted.";
-                }
-
-                m_thread = null;
-            }
+            m_tokenSource.Cancel();
         }
 
-        void WaitForStep()
+        private async Task WaitForStep()
         {
             // for diagnostic purposes, allow single stepping
             if (m_settings.SingleStep && !m_stepNow)
             {
-                Status = "Automapping is waiting for you to step through it.";
-                while (!m_stepNow && !m_quit)
+                Status = "Automapping is waiting for you to step through it (with F11.)";
+                while (!m_stepNow)
                 {
-                    Thread.Sleep(50);
+                    await Task.Delay(50);
                 }
                 m_stepNow = false;
             }
         }
 
-        void ThreadMain()
+        private async Task<string> WaitForNewLine(StreamReader reader, CancellationToken token)
         {
-            bool sleep = false;
-            while (!m_quit)
+            if (reader.EndOfStream)
+                Status = "Automapping is waiting for more text.";
+            while (reader.EndOfStream)
             {
-                if (sleep)
+                await Task.Delay(500, token);
+            }
+            return await reader.ReadLineAsync();
+        }
+
+        public async void Start()
+        {
+            Status = "Automapping has started.";
+
+            try
+            {
+                using (var stream = File.Open(m_settings.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (StreamReader reader = new StreamReader(stream))
                 {
-                    Trace("Automap: Zzz.");
-                    Thread.Sleep(1000);
-                    sleep = false;
 
-                    if (m_quit)
+                    // keep track of lines we read between here and the next prompt
+                    var linesBetweenPrompts = new List<string>();
+                    Status = "Automapping is processing the transcript.";
+
+                    var promptLine = String.Empty;
+                    var line = String.Empty;
+                    bool atFileEnd = false;
+                    // loop until cancelled
+                    while (true)
                     {
-                        break;
-                    }
-                }
-
-                Stream stream;
-                try
-                {
-                    stream = File.Open(m_settings.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                }
-                catch (Exception)
-                {
-                    // couldn't open the file; try again momentarily
-                    // TODO: alert the user as well in case they want to stop automapping
-                    Trace("Automap: Error opening file.");
-                    Status = "Automapping cannot open the transcript but will keep trying.";
-                    sleep = true;
-                    continue;
-                }
-
-                using (stream)
-                {
-                    StreamReader reader;
-                    try
-                    {
-                        reader = new StreamReader(stream);
-                    }
-                    catch (Exception)
-                    {
-                        // couldn't read from the file; try again momentarily
-                        // TODO: alert the user as well in case they want to stop automapping
-                        Trace("Automap: Error reading from file.");
-                        Status = "Automapping cannot read the transcript but will keep trying.";
-                        sleep = true;
-                        continue;
-                    }
-
-                    using (reader)
-                    {
-                        // keep track of lines we read between here and the next prompt
-                        var linesBetweenPrompts = new List<string>();
-                        var nextLineIndex = 0;
-
+                        
+                        // ...read a line of text
                         try
                         {
-                            // skip by line to where we want to be next
-                            // (We could do this with file pointers, but they don't sit well with StreamReader;
-                            // We can't safely read by byte since we want to treat the file as properly encoded text.
-                            // There may be much better way of doing this. Whatever it is, we don't use it.)
-                            while (nextLineIndex < m_nextLineIndexToRead && !reader.EndOfStream)
-                            {
-                                reader.ReadLine();
-                                ++nextLineIndex;
-                            }
+                            line = await WaitForNewLine(reader, m_tokenSource.Token);
+                            atFileEnd = reader.EndOfStream; // store this now so that it's still valid when we use it below
                         }
-                        catch (Exception)
+                        catch (TaskCanceledException)
                         {
-                            // couldn't read from the file; try again momentarily
-                            // TODO: alert the user as well in case they want to stop automapping
-                            Trace("Automap: Error skipping already ready lines in file.");
-                            Status = "Automapping could not skip already read lines, but will keep trying.";
-                            sleep = true;
-                            continue;
+                            break;
                         }
 
-                        Status = "Automapping is processing the transcript.";
+                        //Trace("[" + line + "]");
+                        string command;
+                        if (IsPrompt(line, out command))
+                        { 
+                            // this is a prompt line
 
-                        var promptLine = string.Empty;
-                        // while we've got text left to read in the file...
-                        while (!reader.EndOfStream)
+                            // let's process everything leading up to it since the last prompt, but not necessarily this new prompt itself
+                            await ProcessTranscriptText(linesBetweenPrompts);
+
+                            // we've now dealt with all lines to this point
+                            linesBetweenPrompts.Clear();
+
+                            // handle the case where we're at the end of the file, waiting for user input
+                            if (atFileEnd)
+                            {
+                                try
+                                {
+                                    // we've already read the prompt, now just read the command when the player enters it
+                                    command = (await WaitForNewLine(reader, m_tokenSource.Token)).Trim();
+                                }
+                                catch (TaskCanceledException)
+                                {
+                                    break;
+                                }
+                            }
+
+                            // process the next command
+                            ProcessPromptCommand(command);
+                            
+
+                            Trace("{0}: {1}{2}", FormatTranscriptLineForDisplay(line), m_lastMoveDirection != null ? "GO " : string.Empty, m_lastMoveDirection != null ? m_lastMoveDirection.Value.ToString().ToUpperInvariant() : string.Empty);
+                        }
+                        else
                         {
-                            // ...read a line of text
-                            string line;
-                            try
-                            {
-                                line = reader.ReadLine();
-                            }
-                            catch (Exception)
-                            {
-                                // couldn't read from the file; try again momentarily
-                                // TODO: alert the user as well in case they want to stop automapping
-                                Trace("Automap: Error reading line in file.");
-                                Status = "Automapping could read lines from the transcript, but will keep trying.";
-                                sleep = true;
-                                break;
-                            }
-                            ++nextLineIndex;
-
-                            //Trace("[" + line + "]");
-                            string command;
-                            if (IsPrompt(line, out command))
-                            {
-                                // this is a prompt line
-
-                                // let's process everything leading up to it since the last prompt, but not necessarily this new prompt itself
-                                ProcessTranscriptText(linesBetweenPrompts);
-
-                                // we've now dealt with all lines to this point
-                                linesBetweenPrompts.Clear();
-
-                                // if prompts are at the end of the stream, don't process them yet;
-                                // they're probably not complete. wait until there's something after them.
-                                if (!reader.EndOfStream)
-                                {
-                                    // process this prompt since it's not at the end of the stream
-                                    ProcessPromptCommand(line);
-
-                                    Trace("{0}: {1}{2}", FormatTranscriptLineForDisplay(line), m_lastMoveDirection != null ? "GO " : string.Empty, m_lastMoveDirection != null ? m_lastMoveDirection.Value.ToString().ToUpperInvariant() : string.Empty);
-
-                                    // if we run out of file before hitting the next prompt, we start again after this processed prompt
-                                    m_nextLineIndexToRead = nextLineIndex;
-                                }
-                                else
-                                {
-                                    // this prompt is at the end of the stream; don't process it yet;
-                                    // but we've just run out of file, so next time remember to start with this prompt
-                                    m_nextLineIndexToRead = nextLineIndex - 1;
-                                }
-
-                                // yield back to our top level loop, mainly in order that we can be shut down gracefully mid-transcript.
-                                break;
-                            }
-                            else
-                            {
-                                // this line isn't a prompt;
-                                // hang onto it for now in case we meet a prompt shortly.
-                                linesBetweenPrompts.Add(line);
-                            }
+                            // this line isn't a prompt;
+                            // hang onto it for now in case we meet a prompt shortly.
+                            linesBetweenPrompts.Add(line);
                         }
-
-                        // if we hit the end of the stream, we'll sleep momentarily
-                        sleep = reader.EndOfStream;
-                        Status = "Automapping is waiting for more text.";
                     }
                 }
             }
+            catch (Exception ex) // TODO: Handle file access exceptions
+            {
+                // couldn't read from the file
+                Trace("Automap: Error reading line in file.\nError message: " + ex.Message);
+            }
+
             Trace("Automap: Gentle thread exit.");
             Status = "Automapping has completed.";
         }
@@ -599,7 +518,7 @@ namespace Trizbort
             }
         }
 
-        void ProcessTranscriptText(List<string> lines)
+        async Task ProcessTranscriptText(List<string> lines)
         {
             string previousLine = null;
             for (var index=0; index<lines.Count; ++index)
@@ -615,29 +534,26 @@ namespace Trizbort
                     var room = FindRoom(roomName, roomDescription);
                     if (room == null)
                     {
-                        WaitForStep();
-
                         // new room
                         if (m_lastKnownRoom != null && m_lastMoveDirection != null)
                         {
                             // player moved to new room
                             // if not added already, add room to map; and join it up to the previous one
-                            WaitForStep();
                             room = m_canvas.CreateRoom(m_lastKnownRoom, m_lastMoveDirection.Value, roomName);
-                            DeduceExitsFromDescription(room, roomDescription);
                             m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
-                            NowInRoom(room);
                             Trace("{0}: {1} is now {2} from {3}.", FormatTranscriptLineForDisplay(line), roomName, m_lastMoveDirection.Value.ToString().ToLower(), m_lastKnownRoom.Name);
                         }
                         else
                         {
                             // player teleported to new room;
                             // don't connect it up, as we don't know how they got there
-                            room = m_canvas.CreateRoom(m_lastKnownRoom, roomName);
-                            DeduceExitsFromDescription(room, roomDescription);
-                            NowInRoom(room);
+                            room = m_canvas.CreateRoom(m_lastKnownRoom, roomName);                          
                             Trace("{0}: teleported to new room, {1}.", FormatTranscriptLineForDisplay(line), roomName);
                         }
+
+                        DeduceExitsFromDescription(room, roomDescription);
+                        NowInRoom(room);
+                        await WaitForStep();
                     }
                     else if (room != m_lastKnownRoom)
                     {
@@ -645,7 +561,6 @@ namespace Trizbort
                         if (m_lastKnownRoom != null && m_lastMoveDirection != null)
                         {
                             // player moved sensibly; ensure rooms are connected up
-                            WaitForStep();
                             m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
                             Trace("{0}: {1} is now {2} from {3}.", FormatTranscriptLineForDisplay(line), roomName, m_lastMoveDirection.Value.ToString().ToLower(), m_lastKnownRoom.Name);
                         }
@@ -655,6 +570,7 @@ namespace Trizbort
                         }
 
                         NowInRoom(room);
+                        await WaitForStep();
                     }
                     else
                     {
@@ -695,17 +611,15 @@ namespace Trizbort
             return "|" + displayLine;
         }
 
-        void ProcessPromptCommand(string prompt)
+        void ProcessPromptCommand(string command)
         {
             // unless we find one, this command does not involve moving in a given direction
             m_lastMoveDirection = null;
 
-            // trim the prompt down to the actual command
             // TODO: We entirely don't handle "go east. n. s then w." etc. and I don't see an easy way of doing so.
-            prompt = prompt.Trim().Trim('>').Trim();
 
             // split the command into individual words
-            var parts = prompt.Split(s_wordSeparators, StringSplitOptions.RemoveEmptyEntries);
+            var parts = command.Split(s_wordSeparators, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length == 0)
             {
                 // there's no command left over
@@ -893,14 +807,12 @@ namespace Trizbort
 
         AutomapDirection? m_lastMoveDirection = null;
 
-        private Thread m_thread;
-        private volatile bool m_quit;
-        private long m_nextLineIndexToRead;
-
         private IAutomapCanvas m_canvas;
 
         private AutomapSettings m_settings;
         private volatile bool m_stepNow;
+
+        private CancellationTokenSource m_tokenSource = new CancellationTokenSource();
 
         static readonly char[] s_wordSeparators = new char[] { ' ' };
         static readonly string[] s_roomDecorativeSuffixMarkers = new string[] { ",", "(", "[", "{", " - " };

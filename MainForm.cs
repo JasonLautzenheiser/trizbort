@@ -557,6 +557,12 @@ namespace Trizbort
       }
     }
 
+    private void inform7ToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      ExportCode<Inform7Exporter>();
+    }
+
+
     private void FileExportInform6MenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportInform6FileName;
@@ -566,12 +572,31 @@ namespace Trizbort
       }
     }
 
+    private void inform6ToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      ExportCode<Inform6Exporter>();
+    }
+
     private void FileExportTadsMenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportTadsFileName;
       if (ExportCode<TadsExporter>(ref fileName))
       {
         Settings.LastExportTadsFileName = fileName;
+      }
+    }
+
+    private void tADSToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      ExportCode<TadsExporter>();
+    }
+
+    private void ExportCode<T>() where T: CodeExporter, new()
+    {
+      using (var exporter = new T())
+      {
+        string s = exporter.Export();
+        Clipboard.SetText(s,TextDataFormat.Text);
       }
     }
 

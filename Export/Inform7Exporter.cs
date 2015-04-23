@@ -63,7 +63,8 @@ namespace Trizbort.Export
             return base.Create(fileName);
         }
 
-        protected override void ExportHeader(StreamWriter writer, string title, string author, string description)
+
+      protected override void ExportHeader(TextWriter writer, string title, string author, string description)
         {
             writer.WriteLine("\"{0}\" by {1}", title, author);
             writer.WriteLine();
@@ -75,7 +76,8 @@ namespace Trizbort.Export
             }
         }
 
-        protected override void ExportContent(StreamWriter writer)
+
+      protected override void ExportContent(TextWriter writer)
         {
 
             // export regions

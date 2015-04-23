@@ -1,5 +1,9 @@
 Change Log
 
+1.5.8.8
+-------------
+++ Added ability to export source (I7, I6, and TADS) to the clipboard.  Menu items under export as well as keystrokes (Ctrl-Alt-7, Ctrl-Alt-6, Ctrl-Alt-T)
+
 1.5.8.7
 -------------
 ++ now allows for rooms without borders

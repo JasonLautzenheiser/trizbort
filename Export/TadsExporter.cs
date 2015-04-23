@@ -62,7 +62,9 @@ namespace Trizbort.Export
             get { return Encoding.ASCII; }
         }
 
-        protected override void ExportHeader(StreamWriter writer, string title, string author, string description)
+
+
+      protected override void ExportHeader(TextWriter writer, string title, string author, string description)
         {
             writer.WriteLine("#charset \"us-ascii\"");
             writer.WriteLine();
@@ -78,7 +80,9 @@ namespace Trizbort.Export
             writer.WriteLine();
         }
 
-        protected override void ExportContent(StreamWriter writer)
+
+
+      protected override void ExportContent(TextWriter writer)
         {
             foreach (var location in LocationsInExportOrder)
             {
@@ -125,7 +129,7 @@ namespace Trizbort.Export
             writer.WriteLine();
         }
 
-        private void ExportThings(StreamWriter writer, List<Thing> things, Thing container, int indent)
+        private void ExportThings(TextWriter writer, List<Thing> things, Thing container, int indent)
         {
             foreach (var thing in things)
             {

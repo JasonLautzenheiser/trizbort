@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Xml;
 
 namespace Trizbort.Export
 {
@@ -77,6 +78,37 @@ namespace Trizbort.Export
     {
     }
 
+    public string Export()
+    {
+      string ss;
+      using (var writer = new StringWriter())
+      {
+        var title = Project.Current.Title;
+        if (string.IsNullOrEmpty(title))
+        {
+          title = PathHelper.SafeGetFilenameWithoutExtension(Project.Current.FileName);
+          if (string.IsNullOrEmpty(title))
+          {
+            title = "A Trizbort Map";
+          }
+        }
+        var author = Project.Current.Author;
+        if (string.IsNullOrEmpty(author))
+        {
+          author = "A Trizbort User";
+        }
+
+        ExportHeader(writer, title, author, Project.Current.Description ?? string.Empty);
+        PrepareContent();
+        ExportContent(writer);
+
+        ss = writer.ToString();
+      }
+      return ss;
+    }
+
+
+
     public void Export(string fileName)
     {
       using (var writer = Create(fileName))
@@ -107,8 +139,8 @@ namespace Trizbort.Export
       return new StreamWriter(fileName, false, Encoding, 2 ^ 16);
     }
 
-    protected abstract void ExportHeader(StreamWriter writer, string title, string author, string description);
-    protected abstract void ExportContent(StreamWriter writer);
+    protected abstract void ExportHeader(TextWriter writer, string title, string author, string description);
+    protected abstract void ExportContent(TextWriter writer);
     protected abstract string GetExportName(Room room, int? suffix);
     protected abstract string GetExportNameForObject(string displayName, int? suffix);
 

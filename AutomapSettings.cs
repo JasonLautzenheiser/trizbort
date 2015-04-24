@@ -36,8 +36,9 @@ namespace Trizbort
                 settings.VerboseTranscript = true;
                 settings.AssumeRoomsWithSameNameAreSameRoom = false;
                 settings.GuessExits = true;
-                settings.AddObjectCommand = "see";
-                settings.AddRegionCommand = "region";
+                settings.AddObjectCommand = "tb see";
+                settings.AddRegionCommand = "tb region";
+                settings.ContinueTranscript = false;
                 return settings;
             }
         }
@@ -49,5 +50,6 @@ namespace Trizbort
         public bool GuessExits;
         public string AddObjectCommand;
         public string AddRegionCommand;
+        public bool ContinueTranscript;
     }
 }

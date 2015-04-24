@@ -149,7 +149,16 @@ namespace Trizbort
         public void Stop()
         {
             if (m_tokenSource != null)
-                m_tokenSource.Cancel();
+            {
+                try
+                {
+                    m_tokenSource.Cancel();
+                }
+                catch (ObjectDisposedException)
+                {
+                    m_tokenSource = null;
+                }
+            }
 
             Status = "Automap is not running.";
         }
@@ -158,10 +167,9 @@ namespace Trizbort
         {
             if (this.Running)
             {
-                Stop();
+                this.Stop();
             }
 
-            m_tokenSource = new CancellationTokenSource();
             m_canvas = canvas;
             m_settings = settings;
             Debug.Assert(m_settings.AssumeRoomsWithSameNameAreSameRoom || m_settings.VerboseTranscript, "Must assume rooms with same name are same room unless transcript is verbose.");
@@ -171,6 +179,7 @@ namespace Trizbort
             {
                 using (var stream = File.Open(m_settings.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 using (StreamReader reader = new StreamReader(stream))
+                using (m_tokenSource = new CancellationTokenSource())
                 {
                     string lastline = "";
 
@@ -205,9 +214,6 @@ namespace Trizbort
                             }
                             catch (TaskCanceledException)
                             {
-                                if (m_tokenSource != null)
-                                    m_tokenSource.Dispose();
-                                m_tokenSource = null;
                                 break;
                             }
                         }                      
@@ -234,9 +240,6 @@ namespace Trizbort
                                 }
                                 catch (TaskCanceledException)
                                 {
-                                    if (m_tokenSource != null)
-                                        m_tokenSource.Dispose();
-                                    m_tokenSource = null;
                                     break;
                                 }
                             }
@@ -256,10 +259,16 @@ namespace Trizbort
                     }
                 }
             }
-            catch (Exception ex) // TODO: Handle file access exceptions
+            catch (IOException ex)
             {
                 // couldn't read from the file
                 Trace("Automap: Error reading line in file.\nError message: " + ex.Message);
+                MessageBox.Show("Error opening transcript file:\n" + ex.Message + "\n\nAutomapping halted.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);   
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Could not gain access to the transcript file. Your interpreter may be restricting access to it. Try again in a few minutes " +
+                    "or with scripting off in your interpreter.\n\nAutomapping halted.", "Access Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             Trace("Automap: Gentle thread exit.");

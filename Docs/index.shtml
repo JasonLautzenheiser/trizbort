@@ -820,9 +820,11 @@ At your service!</pre></td></tr>
 </table>
 <p>If later in the transcript it turns out that you can't go that way, Trizbort will try its best to notice and remove the stub. It will also remove the stub if it creates a real connection from the same port.</p>
 <p>Trizbort can easily make bad guesses here ("To the east is an impassable pile of rubble"); uncheck this option if you prefer.</p></td></tr>
-<tr><td class="altheading">At the game prompt, ___ followed by an object name adds it to the map.</td><td class="alt"><a name="help_automap_commands"></a><p>Trizbort does not attempt, by default, to work out which objects are in each room. However you can tell it to try by specifying a command it should look for in the transcript. This could be a command which works in game (such as <span class="code">&gt;GET&nbsp;object</span> or <span class="code">&gt;EXAMINE&nbsp;object</span>) or you can just make up a command (such as <span class="code">&gt;AHA&nbsp;object</span>); whether the game understands it or not isn't relevant to Trizbort.</p>
+<tr><td class="altheading">Start processing from the end of the transcript file.</td><td class="alt"><p>If this item is unchecked, Trizbort will process your whole transcript file, mapping as it goes. If you're automapping onto an existing map, Trizbort will overwrite connections, descriptions, and room names.</p>
+<p>Checking this option will cause Trizbort to ignore the beginning of the transcript file, preserving the map as is, and start mapping from this point on. This may be useful if you want to continue from a previous mapping session.</p></td></tr>
+<tr><td class="heading">At the game prompt, ___ followed by an object name adds it to the map.</td><td><a name="help_automap_commands"></a><p>Trizbort does not attempt, by default, to work out which objects are in each room. However you can tell it to try by specifying a command it should look for in the transcript. This could be a command which works in game (such as <span class="code">&gt;GET&nbsp;object</span> or <span class="code">&gt;EXAMINE&nbsp;object</span>) or you can just make up a command (such as <span class="code">&gt;AHA&nbsp;object</span>); whether the game understands it or not isn't relevant to Trizbort.</p>
 <p>Again, Trizbort isn't very bright here: If your chosen command is "get" and you type <span class="code">&gt;GET&nbsp;MALBOX</span> instead of <span class="code">&gt;GET&nbsp;MAILBOX</span>, Trizbort will still add a "malbox" to the room's list of objects. The same applies if there is no mailbox in the room. Trizbort just reads the command and doesn't try to understand the game's response. "SEE" is the default command, as players will usually use X to examine something.</td></tr>
-<tr><td class="heading">At the game prompt, ___ followed by a region name adds that room to the region.</td><td>As before, Trizbort can't parse if rooms deserve to be lumped together, but the player can add this. "REGION" is chosen as the default command, as it is not likely to be used as a standard verb.</td></tr>
+<tr><td class="altheading">At the game prompt, ___ followed by a region name adds that room to the region.</td><td class="alt">As before, Trizbort can't parse if rooms deserve to be lumped together, but the player can add this. "REGION" is chosen as the default command, as it is not likely to be used as a standard verb.</td></tr>
 </table>
 
 <a name="help_automap_mid"></a>
@@ -842,7 +844,6 @@ At your service!</pre></td></tr>
 <ul>
 <li><span class="term">Automapping is processing the transcript.</span> Trizbort is hard at work going through the transcript. As Trizbort finds mention of rooms and directions of travel in the transcript, it will add rooms and connections to the canvas. You can still interact with the canvas, stop automapping or exit Trizbort whilst this is going on.
 <li><span class="term">Automapping is waiting for more text.</span> Trizbort has reached the end of the transcript. If the interpreter is still running and scripting is still on, then as you take actions in game the transcript will grow, and Trizbort will notice and continue automapping. Some interpreters don't update the transcript as frequently as others, in which case Trizbort may appear to be a few turns behind the game.
-<li><span class="term">Trizbort cannot [open or read] the transcript, but will keep trying.</span> This can happen if the interpreter has exclusive control over the transcript file and won't let Trizbort read it, or if the transcript file doesn't exist or is otherwise inaccessible.
 </ul>
 
 <a name="help_automap_disambig"></a>
@@ -978,7 +979,7 @@ At your service!</pre></td></tr>
 
 <p>The main information for tooltips in rooms is <a href="#help_rooms_tooltips">here</a>.</p>
 
-<p>For features that are not straightforward, Trizbort also provides some tooltips. 
+<p>For features that are not straightforward, Trizbort also provides some tooltips.
 
 <a name = "sample_quick"></a>
 <h2>A Sample Quick Map</h2>

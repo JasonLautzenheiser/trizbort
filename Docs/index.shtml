@@ -306,10 +306,21 @@
 
 <p>You can name the room whatever you like. If you're planning on exporting your map to an IF development system such as Inform 7 or TADS, Trizbort should handle basic tricky cases like names beginning with A or The, or rooms with a direction in them, though we can't guarantee we've found all the cases.</p>
 
+<p>The Room Properties' tab should default to the room name, but if not, you can hit <span class="accel">Alt-N</span> to go there. The subtitle is text that appears below the room but is not exported to code. <span class="accel">Alt-S</span> can take you there.</p>
+
 <a name="help_rooms_edit_dark"></a>
 <h4>Dark Rooms</h4>
 
 <p>You can check or uncheck the "Dark" box to mark the room as dark, or lit. Lit is default. Dark rooms are drawn with a black stripe in their top right corner, and Trizbort is able to export a room's darkness to either TADS or Inform source. The keyboard shortcut <span class="accel">K</span> also works.</p>
+
+<h4>Room Borders</h4>
+
+<table>
+<tr><td><img src="border_types.png" alt="The border types for a room."></td></tr>
+<tr><td class="alt">All border types for a room.</td></tr>
+</table>
+
+<p>There are six types of room borders. Solid is the default, but you can also choose Dash, Dot, DashDot, DashDotDot, or None, which look as above. None blocks out any fill as well.
 
 <a name="help_rooms_edit_objects"></a>
 <h4>Objects in Rooms</h4>

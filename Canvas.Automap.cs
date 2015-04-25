@@ -34,40 +34,26 @@ namespace Trizbort
     {
         public bool IsAutomapping
         {
-            get { return m_automap != null; }
+            get { return m_automap.Running; }
         }
 
         public void StartAutomapping(AutomapSettings settings)
         {
-            if (m_automap != null)
-            {
-                StopAutomapping();
-            }
+            StopAutomapping();
 
-            m_automap = new Automap(m_threadSafeAutomapCanvas, settings);
-            m_automap.Start();
+            m_automap.Start(m_threadSafeAutomapCanvas, settings);
             m_dontAskAboutAmbiguities = false;
         }
 
         public void StopAutomapping()
         {
-            if (m_automap != null)
-            {
-                m_automap.Dispose();
-                m_automap = null;
-            }
+            m_automap.Stop();
         }
 
         public string AutomappingStatus
         {
             get
-            {
-                if (m_automap != null)
-                {
-                    return m_automap.Status;
-                }
-                return "Automapping is not running.";
-            }
+            { return m_automap.Status; }
         }
         
         Room IAutomapCanvas.FindRoom(string roomName, string roomDescription, RoomMatcher matcher)
@@ -556,7 +542,7 @@ namespace Trizbort
         }
 
         private MultithreadedAutomapCanvas m_threadSafeAutomapCanvas;
-        private Automap m_automap;
+        private Automap m_automap = Automap.Instance;
         private bool m_dontAskAboutAmbiguities = false;
     }
 }

@@ -445,6 +445,7 @@ namespace Trizbort
             s_automap.AssumeRoomsWithSameNameAreSameRoom = automap["assumeRoomsWithSameNameAreSameRoom"].ToBool(s_automap.AssumeRoomsWithSameNameAreSameRoom);
             s_automap.GuessExits = automap["guessExits"].ToBool(s_automap.GuessExits);
             s_automap.AddObjectCommand = automap["addObjectCommand"].ToText(s_automap.AddObjectCommand);
+            s_automap.AddRegionCommand = automap["addRegionCommand"].ToText(s_automap.AddRegionCommand);
           }
         }
       }
@@ -490,6 +491,7 @@ namespace Trizbort
           scribe.Element("assumeRoomsWithSameNameAreSameRoom", s_automap.AssumeRoomsWithSameNameAreSameRoom);
           scribe.Element("guessExits", s_automap.GuessExits);
           scribe.Element("addObjectCommand", s_automap.AddObjectCommand);
+          scribe.Element("addRegionCommand", s_automap.AddRegionCommand);
           scribe.EndElement();
         }
       }

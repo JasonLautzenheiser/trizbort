@@ -92,6 +92,9 @@ AppPackages/
 Docs/*.pl
 Docs/*.bmp
 
+#Testing: there would be too many .trizbort files if they were all listed one by one
+Testing/*.trizbort
+
 # Others
 [Bb]in
 [Oo]bj

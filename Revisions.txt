@@ -3,6 +3,10 @@ Change Log
 1.5.8.8
 -------------
 ++ Added ability to export source (I7, I6, and TADS) to the clipboard.  Menu items under export as well as keystrokes (Ctrl-Alt-7, Ctrl-Alt-6, Ctrl-Alt-T)
+++ Added feature for swapping objects in two selected rooms. (Select two rooms, hit 'W')
+++ checkbox in automap settings to start processing from end of transcript.  This gives the ability to restart an existing transcript / map where you left off last time (from Matt Watkins)
+++ automap can now process multiword special commands (default to 'tb see' and 'tb region').  gives better flexibilty and should better help some keyword collisions with certian games (from Matt Watkins)
+++ cleaning up automap code, providing better error messages for certain situations. (from Matt Watkins)
 
 1.5.8.7
 -------------

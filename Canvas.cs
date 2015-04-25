@@ -1269,7 +1269,7 @@ namespace Trizbort
       }
       else if (e.KeyCode == Keys.J)
       {
-        var selectedRooms = mSelectedElements.Where(p => p.GetType() == typeof (Room)).ToList();
+        var selectedRooms = SelectedRooms;
         if (selectedRooms.Count() == 2)
         {
           joinSelectedRooms((Room) selectedRooms[0], (Room) selectedRooms[1]);
@@ -1278,6 +1278,10 @@ namespace Trizbort
       else if (e.KeyCode == Keys.V)
       {
         ReverseLineDirection();
+      }
+      else if (e.KeyCode == Keys.W)
+      {
+        SwapRooms();
       }
       else if (e.KeyCode == Keys.K)
       {
@@ -1380,6 +1384,24 @@ namespace Trizbort
       }
 
       base.OnKeyDown(e);
+    }
+
+    private void SwapRooms()
+    {
+      var selectedRooms = SelectedRooms;
+      if (selectedRooms.Count() == 2)
+      {
+        var room1 = selectedRooms.First();
+        var room2 = selectedRooms.Last();
+        var objects = room1.Objects;
+        room1.Objects = room2.Objects;
+        room2.Objects = objects;
+      }
+    }
+
+    public List<Room> SelectedRooms
+    {
+      get { return mSelectedElements.Where(p => p.GetType() == typeof (Room)).ToList().Cast<Room>().ToList(); }
     }
 
     private RectangleF calcViewportBounds()
@@ -2936,6 +2958,7 @@ namespace Trizbort
           darkToolStripMenuItem.Enabled = true;
           darkToolStripMenuItem.Click += darkToolStripMenuItem_Click;
           darkToolStripMenuItem.Checked = lastSelectedRoom.IsDark;
+
         }
         if (hitElement is Connection)
         {
@@ -2944,6 +2967,8 @@ namespace Trizbort
           darkToolStripMenuItem.Enabled = false;
         }
       }
+      swapObjectsToolStripMenuItem.Enabled = SelectedRooms.Count == 2;
+      joinRoomsToolStripMenuItem.Enabled = SelectedRooms.Count == 2;
     }
 
     private Image generateRegionImage(Region region)
@@ -3015,6 +3040,16 @@ namespace Trizbort
     private void applicationSettingsToolStripMenuItem_Click(object sender, EventArgs e)
     {
       Settings.ShowAppDialog();
+    }
+
+    private void joinRoomsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      joinSelectedRooms(SelectedRooms.First(), SelectedRooms.Last());
+    }
+
+    private void swapObjectsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      SwapRooms();
     }
   }
 }

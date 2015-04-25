@@ -46,6 +46,8 @@ namespace Trizbort
       this.ctxCanvasMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
       this.regionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.joinRoomsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.swapObjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.roomPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -90,13 +92,15 @@ namespace Trizbort
       this.ctxCanvasMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.regionToolStripMenuItem,
             this.darkToolStripMenuItem,
+            this.joinRoomsToolStripMenuItem,
+            this.swapObjectsToolStripMenuItem,
             this.toolStripSeparator1,
             this.roomPropertiesToolStripMenuItem,
             this.toolStripSeparator2,
             this.mapSettingsToolStripMenuItem,
             this.applicationSettingsToolStripMenuItem});
       this.ctxCanvasMenu.Name = "ctxCanvasMenu";
-      this.ctxCanvasMenu.Size = new System.Drawing.Size(190, 148);
+      this.ctxCanvasMenu.Size = new System.Drawing.Size(190, 170);
       this.ctxCanvasMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxCanvasMenu_Opening);
       // 
       // regionToolStripMenuItem
@@ -112,6 +116,22 @@ namespace Trizbort
       this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
       this.darkToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
       this.darkToolStripMenuItem.Text = "&Dark";
+      // 
+      // joinRoomsToolStripMenuItem
+      // 
+      this.joinRoomsToolStripMenuItem.Enabled = false;
+      this.joinRoomsToolStripMenuItem.Name = "joinRoomsToolStripMenuItem";
+      this.joinRoomsToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.joinRoomsToolStripMenuItem.Text = "&Join Rooms";
+      this.joinRoomsToolStripMenuItem.Click += new System.EventHandler(this.joinRoomsToolStripMenuItem_Click);
+      // 
+      // swapObjectsToolStripMenuItem
+      // 
+      this.swapObjectsToolStripMenuItem.Enabled = false;
+      this.swapObjectsToolStripMenuItem.Name = "swapObjectsToolStripMenuItem";
+      this.swapObjectsToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.swapObjectsToolStripMenuItem.Text = "S&wap Objects";
+      this.swapObjectsToolStripMenuItem.Click += new System.EventHandler(this.swapObjectsToolStripMenuItem_Click);
       // 
       // toolStripSeparator1
       // 
@@ -208,5 +228,7 @@ namespace Trizbort
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem mapSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem applicationSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem joinRoomsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem swapObjectsToolStripMenuItem;
     }
 }

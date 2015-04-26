@@ -67,6 +67,7 @@
 			<ul>
 				<li><a href="#help_rooms_edit_name">Naming Rooms</a>
 				<li><a href="#help_rooms_edit_dark">Dark Rooms</a>
+				<li><a href="#help_rooms_edit_borders">Room Borders</a>
 				<li><a href="#help_rooms_edit_objects">Objects in Rooms</a>
 				<li><a href="#help_rooms_edit_desc">Room Descriptions</a>
 				<li><a href="#help_rooms_edit_colors">Room Colors</a>
@@ -122,34 +123,35 @@
 			<li><a href="#mouse_wheel_zoom">Invert Mouse Wheel Zoom</a>
 			<li><a href="#smart_save_options">Smart Save Options</a>
 		</ul>
+		<li><a href="#help_automap">Using Automapping</a>
+		<ul>
+			<li><a href="#help_transcripts">Transcripts</a>
+			<li><a href="#help_automap_start">Starting Automapping</a>
+			<li><a href="#help_automap_options">Automapping Options</a>
+			<li><a href="#help_automap_mid">Whilst Automapping</a>
+			<li><a href="#help_automap_disambig">Disambiguating Between Rooms</a>
+			<li><a href="#help_automap_how">How It Works (or: When It Doesn't)</a>
+			<ul>
+				<li><a href="#help_automap_roomname">Room Names</a>
+				<li><a href="#help_automap_connect">Connecting Rooms</a>
+				<li><a href="#help_automap_meta">Meta-Commands</a>
+				<li><a href="#help_automap_terps">Interpreter Compatibility</a>
+			</ul>
+			<li><a href="#help_automap_tips">Automapping Tips</a>
+			<ul>
+				<li><a href="#help_automap_tips_general">General Tips for Automapping</a>
+				<li><a href="#help_automap_tips_moving">Moving Around whilst Automapping</a>
+				<li><a href="#help_automap_tips_modifying">Modifying the Map whilst Automapping</a>
+				<li><a href="#help_automap_tips_rearranging">Rearranging Connections whilst Automapping</a>
+			</ul>
+		</ul>
 		<li><a href="#help_fu">Keyboard Fu</a>
 		<ul>
 			<li><a href="#help_fu_nav">Navigating the Map with the Keyboard</a>
 			<li><a href="#help_fu_connect">Creating Rooms and Connections with the Keyboard</a>
 			<li><a href="#help_fu_prop">Editing properties with the Keyboard</a>
-			<li><a href="#help_automap">Using Automapping</a>
-			<ul>
-				<li><a href="#help_automap_start">Starting Automapping</a>
-				<li><a href="#help_automap_options">Automapping Options</a>
-				<li><a href="#help_automap_mid">Whilst Automapping</a>
-				<li><a href="#help_automap_disambig">Disambiguating Between Rooms</a>
-				<li><a href="#help_automap_how">How It Works (or: When It Doesn't)</a>
-				<ul>
-					<li><a href="#help_automap_roomname">Room Names</a>
-					<li><a href="#help_automap_connect">Connecting Rooms</a>
-					<li><a href="#help_automap_meta">Meta-Commands</a>
-					<li><a href="#help_automap_terps">Interpreter Compatibility</a>
-				</ul>
-				<li><a href="#help_automap_tips">Automapping Tips</a>
-				<ul>
-					<li><a href="#help_automap_tips_general">General Tips for Automapping</a>
-					<li><a href="#help_automap_tips_moving">Moving Around whilst Automapping</a>
-					<li><a href="#help_automap_tips_modifying">Modifying the Map whilst Automapping</a>
-					<li><a href="#help_automap_tips_rearranging">Rearranging Connections whilst Automapping</a>
-				</ul>
-				<li><a href="#help_right_clicking">Right Clicking</a>
-				<li><a href="#help_tooltips">Tooltips</a>
-			</ul>
+			<li><a href="#help_right_clicking">Right Clicking</a>
+			<li><a href="#help_tooltips">Tooltips</a>
 		</ul>
 		<li><a href="#sample_quick">A Sample Quick Map</a>
 		<ul>
@@ -313,6 +315,7 @@
 
 <p>You can check or uncheck the "Dark" box to mark the room as dark, or lit. Lit is default. Dark rooms are drawn with a black stripe in their top right corner, and Trizbort is able to export a room's darkness to either TADS or Inform source. The keyboard shortcut <span class="accel">K</span> also works.</p>
 
+<a name="help_rooms_edit_borders"></a>
 <h4>Room Borders</h4>
 
 <table>
@@ -455,7 +458,7 @@
 
 <table>
 <tr><td><img src="connection_styles.png" alt="Different connection styles."></td></tr>
-<tr><td class="alt">Different combinations of connection styles. From top to bottom: two way; one way; conditional; one way conditional; labelled; and the mouthful that is one way conditional labelled.</td></tr>
+<tr><td class="alt">Different connection styles on display. From top: in/out toggled both ways with a color change, a dotted line with custom start, end and middle text, a one-way passage east, a colored up/down passage, and a one-way dotted in/out passage.</td></tr>
 </table>
 
 <p>You can change a connection's style by selecting it and then using the <span class="menufind">Edit->Line Styles</span> menu or keyboard shortcuts.</p>
@@ -722,6 +725,210 @@
 <h3>Smart Save Options</h3>
 <p>By default, the application will save to PDF and PNG on Smart Save. You can specify that you want to export to only PDF or only PNG. You can also change the default image type to one of BMP, EMF, JPEG, and PNG here.</p>
 
+<a name="help_automap"></a>
+<h2>Using Automapping</h2>
+
+<p><span class="term">Automapping</span> allows you to automatically generate a map given the <span class="term">transcript</span> from a game. In many cases, Trizbort can do this live, whilst you're playing the game, and you can edit and adjust the map whilst it does so.</p>
+
+<a name="help_transcripts"></a>
+<h3>Transcripts</h3>
+
+<p>Most interactive fiction <a href="http://en.wikipedia.org/wiki/Interactive_fiction">interpreters</a> support the creation of transcripts. A transcript is a text file which contains everything you typed whilst playing the game along with all of the game's responses.</p>
+
+<table>
+<tr><td><pre>&gt;SCRIPT
+Here begins a transcript of interaction with
+
+ZORK I: The Great Underground Empire
+Copyright (c) 1981, 1982, 1983 Infocom, Inc. All rights reserved.
+ZORK is a registered trademark of Infocom, Inc.
+Revision 88 / Serial number 840726
+
+&gt;LOOK
+West of House
+You are standing in an open field west of a white house, with a boarded front
+door.
+There is a small mailbox here.
+
+&gt;GO NORTHEAST
+North of House
+You are facing the north side of a white house. There is no door here, and all
+the windows are boarded up. To the north a narrow path winds through the trees.
+
+&gt;ZORK
+At your service!</pre></td></tr>
+<tr><td class="alt">The start of a transcript from Zork I by Infocom.</td></tr>
+</table>
+
+<p>In many interpreters it is sufficient to type <span class="code">&gt;SCRIPT</span> or <span class="code">&gt;SCRIPT&nbsp;ON</span>, and then choose a file name, though some interpreters require you to take other steps.</p>
+
+<p>Interpreters vary in their default naming of transcript files. Some give them the extension <span class="code">.scr</span> or <span class="code">.log</span>. In any case, they are usually just text files under the covers.</p>
+
+<p><a href="#help_automap_terps">Some interpreters</a> are not compatible with live automapping, though their transcripts can still be used for automapping once the game session has ended.</p>
+
+<a name="help_automap_start"></a>
+<h3>Starting Automapping</h3>
+
+<p>To start automapping, choose <span class="menufind">Automap->Start</span> from the menu bar. It's often best to start with a blank canvas, though if you have saved a map which was created with automapping you can load it and then start automapping to continue where you left off. This can be useful if you're mapping a game which you're playing over the course of several days or weeks.</p>
+
+<p>When you start automapping, Trizbort will ask you for the name of the transcript, and present you with a few options.</p>
+
+<p>If you don't have a transcript already, you'll want to start one in your interpreter. While you're doing so you may want to turn on the game's <span class="code">&gt;VERBOSE</span> mode, or its equivalent, so that each time you enter a room its name and description are displayed; and <span class="code">&gt;LOOK</span> around after starting the transcript so that Trizbort can see where you are. You'll get the most out of automapping by doing so, but you don't have to.</p>
+
+<table>
+<tr><td><img src="automapping.png" alt="The dialog displayed by Trizbort when you start automapping."></td></tr>
+<tr><td class="alt">The options presented by Trizbort when you start automapping.</td></tr>
+</table>
+
+<a name="help_automap_options"></a>
+<h3>Automapping Options</h3>
+
+<table>
+<tr><td class="heading">Treat transcript as VERBOSE; expect room descriptions.</td><td><p>By default, Trizbort assumes you will have verbose mode, or its equivalent, turned on in the interpreter before you start the transcript, so that each time you enter a room its name and description are displayed. Trizbort likes room descriptions because it can use them to differentiate between rooms with the same name, and fill out the <a href="#help_rooms_edit_desc">description</a> of each room on the map.</p></td></tr>
+<tr><td class="altheading">Assume no two rooms have the same name.</td><td class="alt"><p>Trizbort normally uses both room names and descriptions to identify a room; this allows it to cope with rooms whose descriptions change, and with rooms with the same name but different descriptions.</p><p>If you're pretty sure that the game gives every room a unique name you can check this option; otherwise it's best to leave it unchecked.<p>If you state that the transcript isn't verbose, Trizbort knows it won't be getting room descriptions all the time and so can't use them to differentiate between rooms with the same name, and so is forced to assume that every room has a unique name.</p></td></tr>
+<tr><td class="heading">Guess possible exits from a room by reading its initial description.</td><td><p>By default, Trizbort will read a room's description and take a stab at likely exits from the room by looking for phrases like "To the east..." It will then mark such possible exits with <span class="term">stub</span> connections (connections which go from a room's port back to itself) so that you can see possible unexplored exits on the map.</p>
+<table>
+<tr><td><img src="stub_connection.png" alt="A stub connection marking a possible unexplored exit."></td></tr>
+<tr><td class="alt">A stub connection marking a possible unexplored exit.</td></tr>
+</table>
+<p>If later in the transcript it turns out that you can't go that way, Trizbort will try its best to notice and remove the stub. It will also remove the stub if it creates a real connection from the same port.</p>
+<p>Trizbort can easily make bad guesses here ("To the east is an impassable pile of rubble"); uncheck this option if you prefer.</p></td></tr>
+<tr><td class="altheading">Start processing from the end of the transcript file.</td><td class="alt"><p>If this item is unchecked, Trizbort will process your whole transcript file, mapping as it goes. If you're automapping onto an existing map, Trizbort will overwrite connections, descriptions, and room names.</p>
+<p>Checking this option will cause Trizbort to ignore the beginning of the transcript file, preserving the map as is, and start mapping from this point on. This may be useful if you want to continue from a previous mapping session.</p></td></tr>
+<tr><td class="heading">At the game prompt, ___ followed by an object name adds it to the map.</td><td><a name="help_automap_commands"></a><p>Trizbort does not attempt, by default, to work out which objects are in each room. However you can tell it to try by specifying a command it should look for in the transcript. This could be a command which works in game (such as <span class="code">&gt;GET&nbsp;object</span> or <span class="code">&gt;EXAMINE&nbsp;object</span>) or you can just make up a command (such as <span class="code">&gt;AHA&nbsp;object</span>); whether the game understands it or not isn't relevant to Trizbort.</p>
+<p>Again, Trizbort isn't very bright here: If your chosen command is "get" and you type <span class="code">&gt;GET&nbsp;MALBOX</span> instead of <span class="code">&gt;GET&nbsp;MAILBOX</span>, Trizbort will still add a "malbox" to the room's list of objects. The same applies if there is no mailbox in the room. Trizbort just reads the command and doesn't try to understand the game's response. "SEE" is the default command, as players will usually use X to examine something.</td></tr>
+<tr><td class="altheading">At the game prompt, ___ followed by a region name adds that room to the region.</td><td class="alt">As before, Trizbort can't parse if rooms deserve to be lumped together, but the player can add this. "REGION" is chosen as the default command, as it is not likely to be used as a standard verb.</td></tr>
+</table>
+
+<a name="help_automap_mid"></a>
+<h3>Whilst Automapping</h3>
+
+<p>Whilst automapping, Trizbort displays a bar beneath the canvas, telling you what automapping is currently doing and providing a "stop" button. To stop automapping, click this button or choose <span class="menufind">Automap->Stop</span>.</p>
+
+<p>You can freely interact with the canvas, and do anything else you like in Trizbort, whilst automapping.</p>
+
+<table>
+<tr><td><img src="automapping_inprogress.png" alt="Trizbort's appearance whilst automapping is in progress."></td></tr>
+<tr><td class="alt">Trizbort's appearance whilst automapping is in progress.</td></tr>
+</table>
+
+<p>Trizbort may say various things during automapping, including:</p>
+
+<ul>
+<li><span class="term">Automapping is processing the transcript.</span> Trizbort is hard at work going through the transcript. As Trizbort finds mention of rooms and directions of travel in the transcript, it will add rooms and connections to the canvas. You can still interact with the canvas, stop automapping or exit Trizbort whilst this is going on.
+<li><span class="term">Automapping is waiting for more text.</span> Trizbort has reached the end of the transcript. If the interpreter is still running and scripting is still on, then as you take actions in game the transcript will grow, and Trizbort will notice and continue automapping. Some interpreters don't update the transcript as frequently as others, in which case Trizbort may appear to be a few turns behind the game.
+</ul>
+
+<a name="help_automap_disambig"></a>
+<h3>Disambiguating Between Rooms</h3>
+
+<p>Just as a game may sometimes ask you "which do you mean, the longsword or the short sword?", Trizbort sometimes isn't sure whether a room it's seen in the transcript is a new room or just an existing room whose description has changed.</p>
+
+<p>When Trizbort isn't sure, it'll display the Disambiguate Rooms dialog, tell you what it's seen, and ask you to choose.</p>
+
+<table>
+<tr><td><img src="automap_disambiguate.png" alt="Disambiguating between rooms."></td></tr>
+<tr><td class="alt">Disambiguating between rooms.</td></tr>
+</table>
+
+<p>The room Trizbort is talking about is described at the top. All the rooms Trizbort has seen with this same name are listed in the bottom left. If you click one of these, their description is shown in the bottom right. (Note that if you're not running the game in <span class="code">&gt;VERBOSE</span> mode, there may be missing descriptions.)</p>
+
+<p>If you click a room in the bottom left and then choose <span class="code">This&nbsp;Room</span>, Trizbort will assume that these two rooms are the same and that its description has just changed. It will remember both versions of the description during this automapping session (though only the first description Trizbort sees is saved with the map.)</p>
+
+<p>If you choose <span class="code">A&nbsp;New&nbsp;Room</span>, Trizbort will assume that these two rooms have the same name but are different, and that it hasn't seen the latest one before. It will create a new room.</p>
+
+<p>If you choose <span class="code">I&nbsp;Don't&nbsp;Care&nbsp;Any&nbsp;More</span>, Trizbort will make its own choice arbitrarily and not ask you again during this automapping session.</p>
+
+<a name="help_automap_how"></a>
+<h3>How It Works (or: When It Doesn't)</h3>
+
+<p>The  automapping process is based on applying a series of heuristics to the text in the transcript (also known as blind guesswork). Don't be surprised if Trizbort gets things wrong from time to time. If you think it's got something wrong which it should easily have been able to figure out, do let me know.</p>
+
+<a name="help_automap_roomname"></a>
+<h4>Room Names in the Transcript</h4>
+
+<p>Trizbort recognises room names in the transcript by applying a series of rules when reading each line of the transcript. Primarily it expects words in room names to be proper names with an initial capital letter (but not all caps), though very short words are exempt from this rule. It also understands that room names in the transcript may be followed by suffixes such as " (on the bed)" or ", under the table" and will attempt to strip those out when determining the room name. There are numerous other rules it applies as it makes a best guess as to what is a room name and what is just text; but it may get things wrong.</p>
+
+<p>Since Trizbort identifies rooms purely by name (and, if possible, description), geography which is intentionally confusing to the player (such as mazes where each room is called "Maze" with the description "A room in a maze") will not be mapped well by Trizbort. Likewise for games which have multiple locations called "Alley", "Cupboard", etc.</p>
+
+<p>Some games do not use room names and/or descriptions or navigation commands in the usual way, or indeed at all. These games cannot be mapped by Trizbort.</p>
+
+<a name="help_automap_connect"></a>
+<h4>Connecting Rooms Together</h4>
+
+<p>Trizbort understands when you move around the map in game using phrases such as <span class="code">&gt;&nbsp;GO&nbsp;NORTH</span>, <span class="code">&gt;&nbsp;WALK&nbsp;EAST</span>, <span class="code">&gt; STARBOARD</span>, <span class="code">&gt; SW</span>, etc. It will look for room name in the resulting text, and if it finds one it will connect the room it thinks you were just in to the next room. If the next room is new it will be placed on the map next to the room you were just in. If there is an existing room in the way, Trizbort will shift existing rooms on the map to make space for the new room.</p>
+
+<p>Some games do not use <span class="code">&gt;&nbsp;</span> or <span class="code">&gt;&gt;&nbsp;</span> or similar as the game prompt. At the present time these are also not likely to be mappable by Trizbort.</p>
+
+<P>Trizbort assumes all connections are one way until it sees you move back the other way.</p>
+
+<p>When you move up, down, in or out, Trizbort will label the relevant connection accordingly. It will not relabel a connection during automapping if it has any labels already.</p>
+
+<p>If Trizbort sees what it thinks is a room name in the transcript, but it wasn't preceded by a navigation command which it could understand, then it will assume you have "teleported" to the room. It will place the room on the map in an unoccupied position, but won't connect it to the previous room.</p>
+
+<a name="help_automap_meta"></a>
+<h4>Meta-commands in automap</h4>
+
+<p>If you wish to prepare a log for Trizbort to work through, there are commands the parser may not understand, but Trizbort will. You can change them from the defaults in the screen-cap <a href="#help_automap_options">here</a>.</p>
+
+<p><span class="code">&gt; SEE (object)</span> notes that an object should be in the current room.</p>
+
+<p><span class="code">&gt; REGION (x)</span> notes that the current room should be in region X.</p>
+
+<a name="help_automap_terps"></a>
+<h4>Interpreter Compatibility</h4>
+
+<p>Windows Frotz, Gargoyle, Glulxe and Git are all fully compatible with live automapping. Nitfol is compatible though new rooms and objects may not appear on the map for a few turns. Filfre is not currently compatible with live automapping, though its transcripts can still be used for automapping once the game session is over.</p>
+
+<a name="help_automap_tips"></a>
+<h3>Automapping Tips</h3>
+
+<a name="help_automap_tips_general"></a>
+<h4>General Tips for Automapping</h4>
+
+<p><span class="emphatic">Avoid using multiple in-game commands at one prompt while automapping</span>, such as <span class="code">&gt;GO&nbsp;NORTH.&nbsp;E&nbsp;THEN&nbsp;S.&nbsp;GET&nbsp;ALL.&nbsp;WEST.</span> Trizbort does not understand such commands; in fact it's not really the commands that are the problem, but relating each command to the relevant game text afterwards. So whilst Trizbort will be able to follow where you've gone if you're moving between rooms it knows about, it won't be able to connect new rooms to existing ones this way, and will assume you have teleported instead. It also won't pick up <a href="#help_automap_commands">special commands</a> unless they're alone at a prompt.</p>
+
+<p>Since it's not very bright, Trizbort sometimes thinks the name of the game you're playing is the name of a room. Feel free to delete these rooms; Trizbort won't mind.</p>
+
+<a name="help_automap_tips_moving"></a>
+<h4>Moving Around whilst Automapping</h4>
+
+<p><span class="emphatic">Avoid using unusual movement commands whilst automapping.</span> Trizbort only understands a limited set of movement commands, so even if the game accepts <span class="code">&gt;SASHAY&nbsp;EAST</span> or <span class="code">&gt;SLIDE&nbsp;DOWN</span>, you may want to stick to <span class="code">&gt;E</span>, <span class="code">&gt;GO&nbsp;DOWN</span> and the like during automapping. For games which use them, Trizbort does understand <span class="code">&gt;PORT</span>, <span class="code">&gt;STARBOARD</span>, <span class="code">&gt;FORE</span> and <span class="code">&gt;AFT</span> so you're free to use those and their usual abbreviations.</p>
+
+<p><span class="emphatic">If they exist, use compass directions when first moving to a room</span> so it's placed correctly on the map. For example if a doorway to the north leads into a house, move using <span class="code">&gt;NORTH</span> rather than <span class="code">&gt;IN</span>.</p>
+
+<p><span class="emphatic">Move in both directions between rooms to confirm that the connection is two way</span>, since Trizbort assumes all connections are one way until it sees otherwise.</p>
+
+<a name="help_automap_tips_modifying"></a>
+<h4>Modifying the Map whilst Automapping</h4>
+
+<p><span class="emphatic">You can freely delete rooms and connections</span> whilst automapping is in progress. Trizbort will put them back, and reconnect them, as and when it needs to.</p>
+
+<p>Some maps can look too complicated because of extraneous connections (for example, outside the house in Zork I). <span class="emphatic">Feel free to delete extraneous connections</span>, even whilst the automapping is in progress. If you don't use them again in the transcript, Trizbort won't put them back.</p>
+
+<p>After moving into a new room on a complicated map, <span class="emphatic">check back and see where Trizbort has put it</span>. If you don't like the positioning, move it straight away, ideally to a more open area of the map; this will help Trizbort place new rooms and connections in sensible places. Some games are more devious in this regard than others; especially in early games, mapping the game was considered to be part of the challenge, and an automapper stands little chance next to a human brain. But a little manual intervention as you go along will go a long (sic) way.</p>
+
+<p><span class="emphatic">Trizbort doesn't mind where rooms are positioned on the map</span> during automapping: it will connect them up regardless. So you can freely move rooms around if you keep their connections intact.</p>
+
+<a name="help_automap_tips_rearranging"></a>
+<h4>Rearranging Connections whilst Automapping</h4>
+
+<p><span class="emphatic">You can rearrange connections between rooms during automapping</span> to tidy things up, but whenever you move between rooms Trizbort will make a new connection if it can't find a "suitable" one already. If you've radically rearranged connections, this may clutter your map.</p>
+
+<p>Here's how Trizbort decides what sort of connection is "suitable"; you may want to bear this in mind when rearranging connections.</p>
+
+<p>If you've made any connections between rooms in Trizbort by hand, you'll have seen that there are <a href="#help_conn_ports">16 ports</a> on a room at which you can make a connection.</p>
+
+<p>If during automapping you go east from the Pantry to the Kitchen, Trizbort adds a connection leading from the E port on the Pantry to the W port on the Kitchen.</p>
+
+<p>If you then go west from the Kitchen to the Pantry, Trizbort looks for a connection leading "westish" from the Kitchen to the Pantry. It considers all connections on the "west side" of the Pantry as "westish" including WNW, W and WSW, but not NW or SW. It doesn't care which side of the Pantry they arrive at. If it finds such a connection it will use it, marking it as two way if it was previously one way in the other direction. If it doesn't find one (say if you've moved or deleted the connection) it will make a new one leading from the W port on the Kitchen to the E port on the Pantry.</p>
+
+<p>So <span class="emphatic">you can move the start point of a connection without Trizbort making a new one, provided you keep it docked to a port on the same side of the room</span>. So you can move a south exit's start to SSE or SSW, but not to SW or SE; a north exit's start to NNE or NNW but not NE or NW; and so on.</p>
+
+<p><span class="emphatic">If the connection really is one way, Trizbort doesn't mind which of the second room's ports it goes to.</span> So a one way connection leading N from the Kitchen to the Hall should leave the Kitchen from either the NNW, N or NNE ports, but it can arrive at any port on the Hall.</p>
+
+<p><span class="emphatic">For purely in/out or up/down connections, Trizbort doesn't mind which port is used on either room</span>, so you can freely change these around.</p>
+
 <a name="help_fu"></a>
 <h2>Keyboard Fu</h2>
 
@@ -764,211 +971,8 @@
 
 <p>None of this may be terribly cutting-edge in terms of keyboard shortcuts or GUI theory, but if one feels right, it will probably help you save a lot of time.</p>
 
-<a name="help_automap"></a>
-<h2>Using Automapping</h2>
-
-<p><span class="term">Automapping</span> allows you to automatically generate a map given the <span class="term">transcript</span> from a game. In many cases, Trizbort can do this live, whilst you're playing the game, and you can edit and adjust the map whilst it does so.</p>
-
-<h3>Transcripts</h3>
-
-<p>Most interactive fiction <a href="http://en.wikipedia.org/wiki/Interactive_fiction">interpreters</a> support the creation of transcripts. A transcript is a text file which contains everything you typed whilst playing the game along with all of the game's responses.</p>
-
-<table>
-<tr><td><pre>&gt;SCRIPT
-Here begins a transcript of interaction with
-
-ZORK I: The Great Underground Empire
-Copyright (c) 1981, 1982, 1983 Infocom, Inc. All rights reserved.
-ZORK is a registered trademark of Infocom, Inc.
-Revision 88 / Serial number 840726
-
-&gt;LOOK
-West of House
-You are standing in an open field west of a white house, with a boarded front
-door.
-There is a small mailbox here.
-
-&gt;GO NORTHEAST
-North of House
-You are facing the north side of a white house. There is no door here, and all
-the windows are boarded up. To the north a narrow path winds through the trees.
-
-&gt;ZORK
-At your service!</pre></td></tr>
-<tr><td class="alt">The start of a transcript from Zork I by Infocom.</td></tr>
-</table>
-
-<p>In many interpreters it is sufficient to type <span class="code">&gt;SCRIPT</span> or <span class="code">&gt;SCRIPT&nbsp;ON</span>, and then choose a file name, though some interpreters require you to take other steps.</p>
-
-<p>Interpreters vary in their default naming of transcript files. Some give them the extension <span class="code">.scr</span> or <span class="code">.log</span>. In any case, they are usually just text files under the covers.</p>
-
-<p><a href="#help_automap_terps">Some interpreters</a> are not compatible with live automapping, though their transcripts can still be used for automapping once the game session has ended.</p>
-
-<a name="help_automap_start"></a>
-<h4>Starting Automapping</h4>
-
-<p>To start automapping, choose <span class="menufind">Automap->Start</span> from the menu bar. It's often best to start with a blank canvas, though if you have saved a map which was created with automapping you can load it and then start automapping to continue where you left off. This can be useful if you're mapping a game which you're playing over the course of several days or weeks.</p>
-
-<p>When you start automapping, Trizbort will ask you for the name of the transcript, and present you with a few options.</p>
-
-<p>If you don't have a transcript already, you'll want to start one in your interpreter. While you're doing so you may want to turn on the game's <span class="code">&gt;VERBOSE</span> mode, or its equivalent, so that each time you enter a room its name and description are displayed; and <span class="code">&gt;LOOK</span> around after starting the transcript so that Trizbort can see where you are. You'll get the most out of automapping by doing so, but you don't have to.</p>
-
-<table>
-<tr><td><img src="automapping.png" alt="The dialog displayed by Trizbort when you start automapping."></td></tr>
-<tr><td class="alt">The options presented by Trizbort when you start automapping.</td></tr>
-</table>
-
-<a name="help_automap_options"></a>
-<h4>Automapping Options</h4>
-
-<table>
-<tr><td class="heading">Treat transcript as VERBOSE; expect room descriptions.</td><td><p>By default, Trizbort assumes you will have verbose mode, or its equivalent, turned on in the interpreter before you start the transcript, so that each time you enter a room its name and description are displayed. Trizbort likes room descriptions because it can use them to differentiate between rooms with the same name, and fill out the <a href="#help_rooms_edit_desc">description</a> of each room on the map.</p></td></tr>
-<tr><td class="altheading">Assume no two rooms have the same name.</td><td class="alt"><p>Trizbort normally uses both room names and descriptions to identify a room; this allows it to cope with rooms whose descriptions change, and with rooms with the same name but different descriptions.</p><p>If you're pretty sure that the game gives every room a unique name you can check this option; otherwise it's best to leave it unchecked.<p>If you state that the transcript isn't verbose, Trizbort knows it won't be getting room descriptions all the time and so can't use them to differentiate between rooms with the same name, and so is forced to assume that every room has a unique name.</p></td></tr>
-<tr><td class="heading">Guess possible exits from a room by reading its initial description.</td><td><p>By default, Trizbort will read a room's description and take a stab at likely exits from the room by looking for phrases like "To the east..." It will then mark such possible exits with <span class="term">stub</span> connections (connections which go from a room's port back to itself) so that you can see possible unexplored exits on the map.</p>
-<table>
-<tr><td><img src="stub_connection.png" alt="A stub connection marking a possible unexplored exit."></td></tr>
-<tr><td class="alt">A stub connection marking a possible unexplored exit.</td></tr>
-</table>
-<p>If later in the transcript it turns out that you can't go that way, Trizbort will try its best to notice and remove the stub. It will also remove the stub if it creates a real connection from the same port.</p>
-<p>Trizbort can easily make bad guesses here ("To the east is an impassable pile of rubble"); uncheck this option if you prefer.</p></td></tr>
-<tr><td class="altheading">Start processing from the end of the transcript file.</td><td class="alt"><p>If this item is unchecked, Trizbort will process your whole transcript file, mapping as it goes. If you're automapping onto an existing map, Trizbort will overwrite connections, descriptions, and room names.</p>
-<p>Checking this option will cause Trizbort to ignore the beginning of the transcript file, preserving the map as is, and start mapping from this point on. This may be useful if you want to continue from a previous mapping session.</p></td></tr>
-<tr><td class="heading">At the game prompt, ___ followed by an object name adds it to the map.</td><td><a name="help_automap_commands"></a><p>Trizbort does not attempt, by default, to work out which objects are in each room. However you can tell it to try by specifying a command it should look for in the transcript. This could be a command which works in game (such as <span class="code">&gt;GET&nbsp;object</span> or <span class="code">&gt;EXAMINE&nbsp;object</span>) or you can just make up a command (such as <span class="code">&gt;AHA&nbsp;object</span>); whether the game understands it or not isn't relevant to Trizbort.</p>
-<p>Again, Trizbort isn't very bright here: If your chosen command is "get" and you type <span class="code">&gt;GET&nbsp;MALBOX</span> instead of <span class="code">&gt;GET&nbsp;MAILBOX</span>, Trizbort will still add a "malbox" to the room's list of objects. The same applies if there is no mailbox in the room. Trizbort just reads the command and doesn't try to understand the game's response. "SEE" is the default command, as players will usually use X to examine something.</td></tr>
-<tr><td class="altheading">At the game prompt, ___ followed by a region name adds that room to the region.</td><td class="alt">As before, Trizbort can't parse if rooms deserve to be lumped together, but the player can add this. "REGION" is chosen as the default command, as it is not likely to be used as a standard verb.</td></tr>
-</table>
-
-<a name="help_automap_mid"></a>
-<h4>Whilst Automapping</h4>
-
-<p>Whilst automapping, Trizbort displays a bar beneath the canvas, telling you what automapping is currently doing and providing a "stop" button. To stop automapping, click this button or choose <span class="menufind">Automap->Stop</span>.</p>
-
-<p>You can freely interact with the canvas, and do anything else you like in Trizbort, whilst automapping.</p>
-
-<table>
-<tr><td><img src="automapping_inprogress.png" alt="Trizbort's appearance whilst automapping is in progress."></td></tr>
-<tr><td class="alt">Trizbort's appearance whilst automapping is in progress.</td></tr>
-</table>
-
-<p>Trizbort may say various things during automapping, including:</p>
-
-<ul>
-<li><span class="term">Automapping is processing the transcript.</span> Trizbort is hard at work going through the transcript. As Trizbort finds mention of rooms and directions of travel in the transcript, it will add rooms and connections to the canvas. You can still interact with the canvas, stop automapping or exit Trizbort whilst this is going on.
-<li><span class="term">Automapping is waiting for more text.</span> Trizbort has reached the end of the transcript. If the interpreter is still running and scripting is still on, then as you take actions in game the transcript will grow, and Trizbort will notice and continue automapping. Some interpreters don't update the transcript as frequently as others, in which case Trizbort may appear to be a few turns behind the game.
-</ul>
-
-<a name="help_automap_disambig"></a>
-<h4>Disambiguating Between Rooms</h4>
-
-<p>Just as a game may sometimes ask you "which do you mean, the longsword or the short sword?", Trizbort sometimes isn't sure whether a room it's seen in the transcript is a new room or just an existing room whose description has changed.</p>
-
-<p>When Trizbort isn't sure, it'll display the Disambiguate Rooms dialog, tell you what it's seen, and ask you to choose.</p>
-
-<table>
-<tr><td><img src="automap_disambiguate.png" alt="Disambiguating between rooms."></td></tr>
-<tr><td class="alt">Disambiguating between rooms.</td></tr>
-</table>
-
-<p>The room Trizbort is talking about is described at the top. All the rooms Trizbort has seen with this same name are listed in the bottom left. If you click one of these, their description is shown in the bottom right. (Note that if you're not running the game in <span class="code">&gt;VERBOSE</span> mode, there may be missing descriptions.)</p>
-
-<p>If you click a room in the bottom left and then choose <span class="code">This&nbsp;Room</span>, Trizbort will assume that these two rooms are the same and that its description has just changed. It will remember both versions of the description during this automapping session (though only the first description Trizbort sees is saved with the map.)</p>
-
-<p>If you choose <span class="code">A&nbsp;New&nbsp;Room</span>, Trizbort will assume that these two rooms have the same name but are different, and that it hasn't seen the latest one before. It will create a new room.</p>
-
-<p>If you choose <span class="code">I&nbsp;Don't&nbsp;Care&nbsp;Any&nbsp;More</span>, Trizbort will make its own choice arbitrarily and not ask you again during this automapping session.</p>
-
-<a name="help_automap_how"></a>
-<h4>How It Works (or: When It Doesn't)</h4>
-
-<p>The  automapping process is based on applying a series of heuristics to the text in the transcript (also known as blind guesswork). Don't be surprised if Trizbort gets things wrong from time to time. If you think it's got something wrong which it should easily have been able to figure out, do let me know.</p>
-
-<a name="help_automap_roomname"></a>
-<h5>Room Names in the Transcript</h5>
-
-<p>Trizbort recognises room names in the transcript by applying a series of rules when reading each line of the transcript. Primarily it expects words in room names to be proper names with an initial capital letter (but not all caps), though very short words are exempt from this rule. It also understands that room names in the transcript may be followed by suffixes such as " (on the bed)" or ", under the table" and will attempt to strip those out when determining the room name. There are numerous other rules it applies as it makes a best guess as to what is a room name and what is just text; but it may get things wrong.</p>
-
-<p>Since Trizbort identifies rooms purely by name (and, if possible, description), geography which is intentionally confusing to the player (such as mazes where each room is called "Maze" with the description "A room in a maze") will not be mapped well by Trizbort. Likewise for games which have multiple locations called "Alley", "Cupboard", etc.</p>
-
-<p>Some games do not use room names and/or descriptions or navigation commands in the usual way, or indeed at all. These games cannot be mapped by Trizbort.</p>
-
-<a name="help_automap_connect"></a>
-<h5>Connecting Rooms Together</h5>
-
-<p>Trizbort understands when you move around the map in game using phrases such as <span class="code">&gt;&nbsp;GO&nbsp;NORTH</span>, <span class="code">&gt;&nbsp;WALK&nbsp;EAST</span>, <span class="code">&gt; STARBOARD</span>, <span class="code">&gt; SW</span>, etc. It will look for room name in the resulting text, and if it finds one it will connect the room it thinks you were just in to the next room. If the next room is new it will be placed on the map next to the room you were just in. If there is an existing room in the way, Trizbort will shift existing rooms on the map to make space for the new room.</p>
-
-<p>Some games do not use <span class="code">&gt;&nbsp;</span> or <span class="code">&gt;&gt;&nbsp;</span> or similar as the game prompt. At the present time these are also not likely to be mappable by Trizbort.</p>
-
-<P>Trizbort assumes all connections are one way until it sees you move back the other way.</p>
-
-<p>When you move up, down, in or out, Trizbort will label the relevant connection accordingly. It will not relabel a connection during automapping if it has any labels already.</p>
-
-<p>If Trizbort sees what it thinks is a room name in the transcript, but it wasn't preceded by a navigation command which it could understand, then it will assume you have "teleported" to the room. It will place the room on the map in an unoccupied position, but won't connect it to the previous room.</p>
-
-<a name="help_automap_meta"></a>
-<h5>Meta-commands in automap</h5>
-
-<p>If you wish to prepare a log for Trizbort to work through, there are commands the parser may not understand, but Trizbort will. You can change them from the defaults in the screen-cap <a href="#help_automap_options">here</a>.</p>
-
-<p><span class="code">&gt; SEE (object)</span> notes that an object should be in the current room.</p>
-
-<p><span class="code">&gt; REGION (x)</span> notes that the current room should be in region X.</p>
-
-<a name="help_automap_terps"></a>
-<h5>Interpreter Compatibility</h5>
-
-<p>Windows Frotz, Gargoyle, Glulxe and Git are all fully compatible with live automapping. Nitfol is compatible though new rooms and objects may not appear on the map for a few turns. Filfre is not currently compatible with live automapping, though its transcripts can still be used for automapping once the game session is over.</p>
-
-<a name="help_automap_tips"></a>
-<h4>Automapping Tips</h4>
-
-<a name="help_automap_tips_general"></a>
-<h5>General Tips for Automapping</h5>
-
-<p><span class="emphatic">Avoid using multiple in-game commands at one prompt while automapping</span>, such as <span class="code">&gt;GO&nbsp;NORTH.&nbsp;E&nbsp;THEN&nbsp;S.&nbsp;GET&nbsp;ALL.&nbsp;WEST.</span> Trizbort does not understand such commands; in fact it's not really the commands that are the problem, but relating each command to the relevant game text afterwards. So whilst Trizbort will be able to follow where you've gone if you're moving between rooms it knows about, it won't be able to connect new rooms to existing ones this way, and will assume you have teleported instead. It also won't pick up <a href="#help_automap_commands">special commands</a> unless they're alone at a prompt.</p>
-
-<p>Since it's not very bright, Trizbort sometimes thinks the name of the game you're playing is the name of a room. Feel free to delete these rooms; Trizbort won't mind.</p>
-
-<a name="help_automap_tips_moving"></a>
-<h5>Moving Around whilst Automapping</h5>
-
-<p><span class="emphatic">Avoid using unusual movement commands whilst automapping.</span> Trizbort only understands a limited set of movement commands, so even if the game accepts <span class="code">&gt;SASHAY&nbsp;EAST</span> or <span class="code">&gt;SLIDE&nbsp;DOWN</span>, you may want to stick to <span class="code">&gt;E</span>, <span class="code">&gt;GO&nbsp;DOWN</span> and the like during automapping. For games which use them, Trizbort does understand <span class="code">&gt;PORT</span>, <span class="code">&gt;STARBOARD</span>, <span class="code">&gt;FORE</span> and <span class="code">&gt;AFT</span> so you're free to use those and their usual abbreviations.</p>
-
-<p><span class="emphatic">If they exist, use compass directions when first moving to a room</span> so it's placed correctly on the map. For example if a doorway to the north leads into a house, move using <span class="code">&gt;NORTH</span> rather than <span class="code">&gt;IN</span>.</p>
-
-<p><span class="emphatic">Move in both directions between rooms to confirm that the connection is two way</span>, since Trizbort assumes all connections are one way until it sees otherwise.</p>
-
-<a name="help_automap_tips_modifying"></a>
-<h5>Modifying the Map whilst Automapping</h5>
-
-<p><span class="emphatic">You can freely delete rooms and connections</span> whilst automapping is in progress. Trizbort will put them back, and reconnect them, as and when it needs to.</p>
-
-<p>Some maps can look too complicated because of extraneous connections (for example, outside the house in Zork I). <span class="emphatic">Feel free to delete extraneous connections</span>, even whilst the automapping is in progress. If you don't use them again in the transcript, Trizbort won't put them back.</p>
-
-<p>After moving into a new room on a complicated map, <span class="emphatic">check back and see where Trizbort has put it</span>. If you don't like the positioning, move it straight away, ideally to a more open area of the map; this will help Trizbort place new rooms and connections in sensible places. Some games are more devious in this regard than others; especially in early games, mapping the game was considered to be part of the challenge, and an automapper stands little chance next to a human brain. But a little manual intervention as you go along will go a long (sic) way.</p>
-
-<p><span class="emphatic">Trizbort doesn't mind where rooms are positioned on the map</span> during automapping: it will connect them up regardless. So you can freely move rooms around if you keep their connections intact.</p>
-
-<a name="help_automap_tips_rearranging"></a>
-<h5>Rearranging Connections whilst Automapping</h5>
-
-<p><span class="emphatic">You can rearrange connections between rooms during automapping</span> to tidy things up, but whenever you move between rooms Trizbort will make a new connection if it can't find a "suitable" one already. If you've radically rearranged connections, this may clutter your map.</p>
-
-<p>Here's how Trizbort decides what sort of connection is "suitable"; you may want to bear this in mind when rearranging connections.</p>
-
-<p>If you've made any connections between rooms in Trizbort by hand, you'll have seen that there are <a href="#help_conn_ports">16 ports</a> on a room at which you can make a connection.</p>
-
-<p>If during automapping you go east from the Pantry to the Kitchen, Trizbort adds a connection leading from the E port on the Pantry to the W port on the Kitchen.</p>
-
-<p>If you then go west from the Kitchen to the Pantry, Trizbort looks for a connection leading "westish" from the Kitchen to the Pantry. It considers all connections on the "west side" of the Pantry as "westish" including WNW, W and WSW, but not NW or SW. It doesn't care which side of the Pantry they arrive at. If it finds such a connection it will use it, marking it as two way if it was previously one way in the other direction. If it doesn't find one (say if you've moved or deleted the connection) it will make a new one leading from the W port on the Kitchen to the E port on the Pantry.</p>
-
-<p>So <span class="emphatic">you can move the start point of a connection without Trizbort making a new one, provided you keep it docked to a port on the same side of the room</span>. So you can move a south exit's start to SSE or SSW, but not to SW or SE; a north exit's start to NNE or NNW but not NE or NW; and so on.</p>
-
-<p><span class="emphatic">If the connection really is one way, Trizbort doesn't mind which of the second room's ports it goes to.</span> So a one way connection leading N from the Kitchen to the Hall should leave the Kitchen from either the NNW, N or NNE ports, but it can arrive at any port on the Hall.</p>
-
-<p><span class="emphatic">For purely in/out or up/down connections, Trizbort doesn't mind which port is used on either room</span>, so you can freely change these around.</p>
-
 <a name="help_right_clicking"></a>
-<h4>Right Clicking</h4>
+<h3>Right Clicking</h3>
 
 <p>Trizbort also allows right-clicking for general editing.</p>
 
@@ -986,7 +990,7 @@ At your service!</pre></td></tr>
 </table>
 
 <a name="help_tooltips"></a>
-<h4>Tooltips</h4>
+<h3>Tooltips</h3>
 
 <p>The main information for tooltips in rooms is <a href="#help_rooms_tooltips">here</a>.</p>
 
@@ -1243,7 +1247,7 @@ At your service!</pre></td></tr>
   <li>Basic usage: <i>pdftk triz-1.pdf triz-2.pdf cat output triz-both.pdf</i>.
   <li>Advanced usage, if you want to add the maps to a walkthrough: <i>pdftk A=c:/games/inform/uglyoafs.inform/Source/uo.pdf B=c:/games/inform/triz/uoup.pdf C=c:/games/inform/triz/uodn.pdf cat A1-6 B C A7 output ugly-oafs-guide.pdf</i>. In this case, I have page 7 as an appendix, so the maps are inserted just before. Also, the table of contents's link to the appendix is preserved.
   </ul>
-<li><a href="http://www.coherentpdf.com/">Coherent PDF</a> will allow you to crop exported PDFs to get rid of Whitespace. Trizbort currently doesn't allow you to specify whitespace.
+  <li><a href="http://www.coherentpdf.com/">Coherent PDF</a> will allow you to crop exported PDFs to get rid of Whitespace. Trizbort currently doesn't allow you to specify whitespace.
   <ul>
   <li>Basic usage: <i>cpdf -crop "25mm 25mm 212mm 250mm" standard-a4-size.pdf</i>.
   </ul>

@@ -1,5 +1,8 @@
 @echo off
 
+::to rebuild
+::7z a all-test-files.zip *.trizbort *.bat
+
 echo Version testing here. All the files should look the same except if I explicitly mention new features are added.
 echo The files aren't perfectly identical. Their trizbort versions are different.
 
@@ -29,6 +32,18 @@ echo Stalk lengths are tested: 16, 32, 48
 %TESTBASE%\stalk-length-32.trizbort
 echo Stalk lengths are tested: 16, 32, 48
 %TESTBASE%\stalk-length-48.trizbort
+echo Line sizes tested: 1, 2, 4
+%TESTBASE%\line-size-1.trizbort
+echo Line sizes tested: 1, 2, 4
+%TESTBASE%\line-size-2.trizbort
+echo Line sizes tested: 1, 2, 4
+%TESTBASE%\line-size-4.trizbort
+echo Text offsets of line annotations: 4, 20, 50
+%TESTBASE%\text-offset-4.trizbort
+echo Text offsets of line annotations: 4, 20, 50
+%TESTBASE%\text-offset-20.trizbort
+echo Text offsets of line annotations: 4, 20, 50
+%TESTBASE%\text-offset-50.trizbort
 echo Arrow sizes tested: 6, 12, 24
 %TESTBASE%\arrow-size-6.trizbort
 echo Arrow sizes tested: 6, 12, 24
@@ -37,3 +52,8 @@ echo Arrow sizes tested: 6, 12, 24
 %TESTBASE%\arrow-size-24.trizbort
 echo Make sure all text is copied reliably
 %TESTBASE%\text-cut-paste.trizbort
+echo make sure unavailable font doesn't cause problems
+%TESTBASE%\unavailable-font.trizbort
+echo hover over line, click line, create new region (should have orange text)
+%TESTBASE%\map-settings-colors.trizbort
+

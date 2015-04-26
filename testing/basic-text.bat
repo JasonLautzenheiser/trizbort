@@ -29,6 +29,12 @@ echo Stalk lengths are tested: 16, 32, 48
 %TESTBASE%\stalk-length-32.trizbort
 echo Stalk lengths are tested: 16, 32, 48
 %TESTBASE%\stalk-length-48.trizbort
+echo Line sizes tested: 1, 2, 4
+%TESTBASE%\line-size-1.trizbort
+echo Line sizes tested: 1, 2, 4
+%TESTBASE%\line-size-2.trizbort
+echo Line sizes tested: 1, 2, 4
+%TESTBASE%\line-size-4.trizbort
 echo Arrow sizes tested: 6, 12, 24
 %TESTBASE%\arrow-size-6.trizbort
 echo Arrow sizes tested: 6, 12, 24

@@ -52,3 +52,8 @@ echo Arrow sizes tested: 6, 12, 24
 %TESTBASE%\arrow-size-24.trizbort
 echo Make sure all text is copied reliably
 %TESTBASE%\text-cut-paste.trizbort
+echo make sure unavailable font doesn't cause problems
+%TESTBASE%\unavailable-font.trizbort
+echo hover over line, click line, create new region (should have orange text)
+%TESTBASE%\map-settings-colors.trizbort
+

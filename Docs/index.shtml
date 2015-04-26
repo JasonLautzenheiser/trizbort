@@ -150,8 +150,8 @@
 			<li><a href="#help_fu_nav">Navigating the Map with the Keyboard</a>
 			<li><a href="#help_fu_connect">Creating Rooms and Connections with the Keyboard</a>
 			<li><a href="#help_fu_prop">Editing properties with the Keyboard</a>
-			<li><a href="#help_right_clicking">Right Clicking</a>
-			<li><a href="#help_tooltips">Tooltips</a>
+		<li><a href="#help_right_clicking">Right Clicking</a>
+		<li><a href="#help_tooltips">Tooltips</a>
 		</ul>
 		<li><a href="#sample_quick">A Sample Quick Map</a>
 		<ul>
@@ -932,7 +932,7 @@ At your service!</pre></td></tr>
 <a name="help_fu"></a>
 <h2>Keyboard Fu</h2>
 
-<p>For people who prefer to use the keyboard rather than the mouse, Trizbort allows for many shortcuts. Some have already been described, but this is an attempt to concentrate them.</p>
+<p>For people who prefer to use the keyboard rather than the mouse, Trizbort allows for many shortcuts. Some have already been described, but this is an attempt to concentrate them. And some will be described shortly ahead, such as <a href="#help_right_clicking">right clicking</a>. Most Windows keyboards should have a right-click menu button between the right Windows key and the right control key, where the context menu allows shortcuts to many commonly used menus and dialog.</p>
 
 <a name="help_fu_nav"></a>
 <h3>Navigating the Map with the Keyboard</h3>
@@ -960,7 +960,7 @@ At your service!</pre></td></tr>
 <a name="help_fu_prop"></a>
 <h3>Editing properties with the Keyboard</h3>
 
-<p>Trizbort offers accelerators so that the programmer can use <span class="accel">TAB</span> or logical shortcuts to avoid using a mouse when it would be awkward. An underlined letter indicates you can type <span class="accel">ALT</span> and that letter. Many of the accelerators to the menu are discussed elsewhere, and you can search ALT in capital letters to find them. However, it's worth it here to put the most commonly used ones in one place. Room Properties has several shortcuts.
+<p>Trizbort offers accelerators so that the programmer can use <span class="accel">TAB</span> or logical shortcuts to avoid using a mouse when it would be awkward. An underlined letter indicates you can type <span class="accel">ALT</span> and that letter. Many of the accelerators to the menu are discussed elsewhere, and you can search ALT in capital letters to find them. However, it's worth it here to put the most commonly used ones in one place. Room Properties has several shortcuts.</p>
 
 <table>
 <tr><td><img src="room_properties.png" alt="Room properties, again."></td></tr>
@@ -974,7 +974,7 @@ At your service!</pre></td></tr>
 <p>None of this may be terribly cutting-edge in terms of keyboard shortcuts or GUI theory, but if one feels right, it will probably help you save a lot of time.</p>
 
 <a name="help_right_clicking"></a>
-<h3>Right Clicking</h3>
+<h2>Right Clicking</h2>
 
 <p>Trizbort also allows right-clicking for general editing.</p>
 
@@ -992,7 +992,7 @@ At your service!</pre></td></tr>
 </table>
 
 <a name="help_tooltips"></a>
-<h3>Tooltips</h3>
+<h2>Tooltips</h2>
 
 <p>The main information for tooltips in rooms is <a href="#help_rooms_tooltips">here</a>.</p>
 

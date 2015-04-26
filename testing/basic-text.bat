@@ -29,5 +29,11 @@ echo Stalk lengths are tested: 16, 32, 48
 %TESTBASE%\stalk-length-32.trizbort
 echo Stalk lengths are tested: 16, 32, 48
 %TESTBASE%\stalk-length-48.trizbort
+echo Arrow sizes tested: 6, 12, 24
+%TESTBASE%\arrow-size-6.trizbort
+echo Arrow sizes tested: 6, 12, 24
+%TESTBASE%\arrow-size-12.trizbort
+echo Arrow sizes tested: 6, 12, 24
+%TESTBASE%\arrow-size-24.trizbort
 echo Make sure all text is copied reliably
 %TESTBASE%\text-cut-paste.trizbort

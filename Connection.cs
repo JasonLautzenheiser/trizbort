@@ -567,7 +567,7 @@ namespace Trizbort
         format.LineAlignment = XLineAlignment.Near;
       }
       if (!Settings.DebugDisableTextRendering)
-        text.Draw(graphics, Settings.LineFont, palette.LineBrush, pos, Vector.Zero, format);
+        text.Draw(graphics, Settings.LineFont, palette.LineTextBrush, pos, Vector.Zero, format);
     }
 
     public override Rect UnionBoundsWith(Rect rect, bool includeMargins)

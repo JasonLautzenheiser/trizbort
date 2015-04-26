@@ -1,7 +1,7 @@
 echo Version testing here. All the files should look the same except if I explicitly mention new features are added.
 echo The files aren't perfectly identical. Their trizbort versions are different.
 
-::You should be able to run this batch file from Trizbort with no problem, but if not, you can change the variable below.
+::You should be able to run this batch file from Trizbort with no problem, but if not, you can change the variable below to where all the trizbort files are.
 set TESTBASE=.
 
 %TESTBASE%\basics-1570.trizbort
@@ -27,4 +27,5 @@ echo Stalk lengths are tested: 16, 32, 48
 %TESTBASE%\stalk-length-32.trizbort
 echo Stalk lengths are tested: 16, 32, 48
 %TESTBASE%\stalk-length-48.trizbort
-
+echo Make sure all text is copied reliably
+%TESTBASE%\text-cut-paste.trizbort

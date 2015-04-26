@@ -1,3 +1,5 @@
+@echo off
+
 echo Version testing here. All the files should look the same except if I explicitly mention new features are added.
 echo The files aren't perfectly identical. Their trizbort versions are different.
 

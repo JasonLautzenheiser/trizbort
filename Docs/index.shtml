@@ -306,7 +306,7 @@
 <a name="help_rooms_edit_name"></a>
 <h4>Naming Rooms</h4>
 
-<p>You can name the room whatever you like. If you're planning on exporting your map to an IF development system such as Inform 7 or TADS, Trizbort should handle basic tricky cases like names beginning with A or The, or rooms with a direction in them, though we can't guarantee we've found all the cases.</p>
+<p>There is no restriction on naming rooms. If you're planning on exporting your map to an IF development system such as Inform 7 or TADS, Trizbort should handle basic tricky cases like names beginning with A or The, or rooms with a direction in them, or even rooms with double-byte characters, though we can't guarantee we've found all the cases.</p>
 
 <p>The Room Properties tab should default to the room name, but if not, you can hit <span class="accel">Alt-N</span> to go there. The subtitle is text that appears below the room but is not exported to code. <span class="accel">Alt-S</span> can take you there.</p>
 
@@ -463,17 +463,17 @@
 
 <p>You can change a connection's style by selecting it and then using the <span class="menufind">Edit->Line Styles</span> menu or keyboard shortcuts.</p>
 
-<p>Press A or choose <span class="menufind">Edit->Line Styles->One Way Arrow</span> to toggle whether a connection is one way. Press T or choose <span class="menufind">Edit->Line Styles->Dotted</span> to toggle whether a connection is conditional. You can quickly label a connection as up/down, down/up, out/in or in/out by pressing U, D, I or O or choosing the relevant option from <span class="menufind">Edit->Line Styles</span>.</p>
+<p>Press <span class="accel">A</span> or choose <span class="menufind">Edit->Line Styles->One Way Arrow</span> to toggle whether a connection is one way. Press T or choose <span class="menufind">Edit->Line Styles->Dotted</span> to toggle whether a connection is conditional. You can quickly label a connection as up/down, down/up, out/in or in/out by pressing <span class="accel">U</span>, <span class="accel">D</span>, <span class="accel">I</span> or <span class="accel">O</span> or choosing the relevant option from <span class="menufind">Edit->Line Styles</span>.</p>
 
 <a name="help_conn_edit_dir"></a>
 <h4>Changing a Connection's Direction</h4>
 
-<p>But what if, in the example above, the up/down text or one-way arrow points the wrong way? The arrow on a one way connection points in the direction in which the connection was first created: so if you created it left to right, the arrow will point to the right. You can quickly change the direction of the connection by pressing V or choosing <span class="menufind">Edit->Reverse Line</span>. This also swaps any connection labels at either end of the line.</p>
+<p>But what if, in the example above, the up/down text or one-way arrow points the wrong way? The arrow on a one way connection points in the direction in which the connection was first created: so if you created it left to right, the arrow will point to the right. You can quickly change the direction of the connection by pressing <span class="accel">V</span> or choosing <span class="menufind">Edit->Reverse Line</span>. This also swaps any connection labels at either end of the line.</p>
 
 <a name="help_conn_edit_plain"></a>
 <h4>Plain Connections</h4>
 
-<p>You can press P or choose <span class="menufind">Edit->Line Styles->Plain</span> to reset a connection to a two way connection with no arrows or labels at either end.</p>
+<p>You can press <span class="accel">P</span> or choose <span class="menufind">Edit->Line Styles->Plain</span> to remove all formatting from a connection. (Issue 33 currently discusses whether we should remove color.)</p>
 
 <a name="help_conn_edit_props"></a>
 <h4>Connection Properties and Custom Labels</h4>
@@ -939,7 +939,7 @@ At your service!</pre></td></tr>
 
 <p>With nothing selected, you can press Return to select the room closest to the center of the canvas, and center the canvas on that room if it isn't already.</p>
 
-<p>If you have a numeric keypad, and have a room selected, you can use the numeric keypad like a compass rose to navigate around the map. With a room selected press  <span class="accel">8</span>, <span class="accel">2</span>, <span class="accel">6</span> or <span class="accel">4</span> on the numeric keypad to select the room to the north, south, east or west of the currently selected room. Press <span class="accel">9</span>, <span class="accel">3</span>, <span class="accel">1</span> or <span class="accel">7</span> to select the room to the northeast, northwest, southeast or southwest.</p>
+<p>If you have a numeric keypad, and have a room selected, you can use the numeric keypad like a compass rose to navigate around the map. With a room selected, press  <span class="accel">8</span>, <span class="accel">2</span>, <span class="accel">6</span> or <span class="accel">4</span> on the numeric keypad to select the room to the north, south, east or west of the currently selected room. Press <span class="accel">9</span>, <span class="accel">3</span>, <span class="accel">1</span> or <span class="accel">7</span> to select the room to the northeast, northwest, southeast or southwest.</p>
 
 <p>Note that these movements follow connections between rooms (and only connections between rooms); if there's no exit in that direction, Trizbort will look for an exit that's roughly in that direction. If it doesn't find any suitable exit, the selection won't change. Using arrows to navigate also works. Trizbort will currently have to guess if you have two ports in the same direction, though. For instance, if Room A's north exit is one-way to Room B, and Room C's south exit is one-way to room A, Trizbort will be stuck. But this is a fringe case.</p>
 
@@ -951,14 +951,16 @@ At your service!</pre></td></tr>
 <a name="help_fu_connect"></a>
 <h3>Creating Rooms and Connections with the Keyboard</h3>
 
-<p>If you hold the Control key when pressing one of the above keys on the numeric keypad, Trizbort will follow an exit that way, if one exists. If there isn't an exit, Trizbort checks for a room that way. If there is one, Trizbort establishes a link. If there is no room, Trizbort creates one.
+<p>If you hold the <span class="accel">Control</span> key when pressing one of the above keys on the numeric keypad, Trizbort will follow an exit that way, if one exists. If there isn't an exit, Trizbort checks for a room that way. If there is one, Trizbort establishes a link. If there is no room, Trizbort creates one.
 
 <p>Selection will pass to a room created this way. Its Properties dialog will appear automatically so you can name the new room. The new room will also take on the region of the old room, as opposed to creating a room with <span class="accel">R</span>. This can be a quick way to draw a rough map, or to transcribe a map that is about to go off the edge of your paper.</p>
+
+<p>Creating an open-ended connection is not possible with the keyboard alone. However, you can create a reflexive connector. To do so, type <span class="accel">ALT-(numpad/arrow)</span> and you will see a small stub. This currently links a port back to itself, and you can then move one of the ports away to that same room or to another.</p>
 
 <a name="help_fu_prop"></a>
 <h3>Editing properties with the Keyboard</h3>
 
-<p>Trizbort offers accelerators so that the programmer can use <span class="accel">TAB</span> or logical shortcuts to avoid using a mouse when it would be awkward. An underlined letter indicates you can type <span class="accel">ALT</span> and that letter. Many of the accelerators to the menu are discussed elsewhere, and you can remember them from the menu, so let's look at the room properties again.
+<p>Trizbort offers accelerators so that the programmer can use <span class="accel">TAB</span> or logical shortcuts to avoid using a mouse when it would be awkward. An underlined letter indicates you can type <span class="accel">ALT</span> and that letter. Many of the accelerators to the menu are discussed elsewhere, and you can search ALT in capital letters to find them. However, it's worth it here to put the most commonly used ones in one place. Room Properties has several shortcuts.
 
 <table>
 <tr><td><img src="room_properties.png" alt="Room properties, again."></td></tr>
@@ -977,11 +979,11 @@ At your service!</pre></td></tr>
 <p>Trizbort also allows right-clicking for general editing.</p>
 
 <ul>
-<li>SET REGION will be available if any room is currently highlighted.
-<li>DARK will be available if any room is currently highlighted.
-<li>PROPERTIES will be available if any room or connector is currently highlighted. It will go to the last one.
-<li>MAP SETTINGS will go to <span class="menufind">Tools->Map Settings</span>.
-<li>APPLICATION SETTINGS will go to <span class="menufind">Tools->Application Settings</span>.
+<li>SET REGION will be available if any room is currently highlighted. It has a sub-menu, which can be accessed with the right arrow or by typing <span class="accel">S</span>. You can use the up/down arrows to choose a region.
+<li>DARK will be available if any room is currently highlighted. <span class="accel">D</span> will toggle it.
+<li>PROPERTIES will be available if any room or connector is currently highlighted. It will go to the last one. Typing <span class="accel">P</span> will open the resulting properties dialogue. If more than one room is highlighted, the last room highlighted will be shown. If no rooms are highlighted, you will get the last connector.
+<li>MAP SETTINGS will go to <span class="menufind">Tools->Map Settings</span>. You can also type <span class="accel">M</span>.
+<li>APPLICATION SETTINGS will go to <span class="menufind">Tools->Application Settings</span>. You can also type <span class="accel">A</span>.
 </ul>
 
 <table>
@@ -1055,22 +1057,22 @@ At your service!</pre></td></tr>
 <a name="help_export_pdf"></a>
 <h3>Exporting to PDF</h3>
 
-<p>To export a scalable document containing your map, choose <span class="menufind">File->Export->PDF</span>. Trizbort will create a PDF file with a single page, large enough to display your map without scaling. <a href="http://www.foxitsoftware.com/Secure_PDF_Reader/">FoxIt Reader</a>, or a similar program, will be needed to view the PDF file.</p>
+<p>To export a scalable document containing your map, choose <span class="menufind">File->Export->PDF</span>. Trizbort will create a PDF file with a single page, large enough to display your map without scaling. <a href="http://www.foxitsoftware.com/Secure_PDF_Reader/">FoxIt Reader</a>, or a similar program, will be needed to view the PDF file. Trizbort compresses the PDF when you save it, so the file size should be relatively small.</p>
 
-<p>Trizbort uses <span class="term">vector graphics</span> to draw the map in the PDF file. This means that when viewing the PDF you can zoom in and out just as you would in Trizbort without loss of quality.</p>
+<p>Because PDF is a <span class="term">vector graphics</span> format, the information from Trizbort's XML is preserved in an alternate form, and your PDF reader should be able to zoom in and out of the exported file, unlike with raster images where only pixels are preserved.</p>
 
-<p>Trizbort will add generous margins around the edges of the map in order to avoid cutting off connections or text near the edges.</p>
+<p>Trizbort will add generous margins around the edges of the map in order to avoid cutting off connections or text near the edges. This may be a detriment for very small maps, but <a href="#general_thirdparty">Coherent PDF</a> is an example of a tool that can crop a PDF document's edges.</p>
 
 <a name="help_export_graphic"></a>
 <h3>Exporting a Graphic</h3>
 
-<p>To export your map as a graphic, choose <span class="menufind">File->Export->Image</span>. You can choose the file type you want. While you can also export to JPEG or BMP or EMF, PNG is recommended. BMP is not compressed, JPEG is not lossless, and EMF may not be supported well on non-Windows platforms. <a href="http://pnggauntlet.com/">PNGGauntlet</a> is also recommended if you wish to compress a map further. It is especially handy if your map is monochrome, as Trizbort does not aggressively compress PNGs.</p>
+<p>To export your map as a graphic, choose <span class="menufind">File->Export->Image</span>. You can choose the file type you want. While you can also export to JPEG or BMP or EMF, PNG is recommended. BMP is true color (4 bits per pixel) and so an image can be 4 megabytes. JPEG is not lossless, and EMF may not be supported well on non-Windows platforms. <a href="http://pnggauntlet.com/">PNGGauntlet</a> is also recommended if you wish to compress a map further. It is especially handy if your map is monochrome, as Trizbort does not aggressively compress PNGs.</p>
 
-<p>Trizbort will add generous margins around the edges of the map in order to avoid cutting off connections or text near the edges.</p>
+<p>As with PDFs, Trizbort will add generous margins around the edges of an exported raster file in order to avoid cutting off connections or text near the edges.</p>
 
 <a name="help_smart_export"></a>
 <h3>Smart Exporting</h3>
-<p>Navigating the menus can be a hassle if you are continuously re-saving. It's quite possible you may forget to export your most recent change. Therefore, Trizbort allows "smart export" with <span class="accel">control-shift-s</span> or <span class="menufind">File->Smart Save</span> is an alternative. It exports to both PDF and the alternative graphic format you chose in the App Settings, which is PNG by default. Exported graphic files should be faithful to the Trizbort file in content, and they will be named identically to the Trizbort file except for the extension. If your project is untitled, you will be prompted to save your file first, so Trizbort has a base file name to work from.</p>
+<p>Navigating the menus can be a hassle if you are continuously re-saving. It's quite possible you may forget to export your most recent change. Therefore, Trizbort allows "smart export" with <span class="accel">control-shift-s</span> or <span class="menufind">File->Smart Save</span> as a convenience. You can toggle which of PDF and your preferred raster format Trizbort will save to. The default raster format is PNG. Exported graphic files should be faithful to the Trizbort file in content, and they will be named identically to the Trizbort file except for the extension, with standard suffixes (JPEG becomes jpeg.) If your project is untitled, you will be prompted to save your file first, so Trizbort has a base file name to work from. Without a base name, Trizbort will fail.</p>
 
 <a name="help_export_i7"></a>
 <h3>Exporting to Inform 7</h3>
@@ -1107,6 +1109,8 @@ At your service!</pre></td></tr>
 
 <p>The Inform 7 exporter has been much more heavily tested than the TADS or Inform 6 exporter.  However, error reports for specific cases can definitely be filed for any language.</p>
 
+<p>Trizbort will generally err on the side of caution when exporting. For instance, if you have a stray connector that does not touch two rooms, it will not show up in the exported source.</p>
+
 <a name="debug_combos"></a>
 <h2>Debug Key Combos</h2>
 <p>These aren't necessary to proficiency in Trizbort, but if you trip one by accident, it may help you to know what you did. Many of these toggle a certain settings. This is extracted from the information in the source file canvas.cs.</p>
@@ -1124,9 +1128,9 @@ At your service!</pre></td></tr>
 <a name="textedit"></a>
 <h2>Manual Editing</h2>
 
-<p>Since .trizbort files are really just XML, you can manually edit them if certain things seem tricky. However, there is no guarantee Trizbort will be able to read them, so make a backup copy first. In some limited cases, modifying the Trizbort XML file in a text editor may be more convenient. For instance, if you wanted to change a region name, it'd be easier to do that in Trizbort, but if you wanted to search and replace game or room text quickly, or if you wanted to merge two regions, a text editor might be the thing. You would not have to move a mouse around and click.</p>
+<p>Since .trizbort files are really just XML, you can manually edit them if certain things seem tricky. However, there is no guarantee Trizbort will be able to read them, so make a backup copy first. In some limited cases, modifying the Trizbort XML file in a text editor may be more convenient. For instance, if you wanted to change a region name, it'd be easier to do that in Trizbort, but if you wanted to search and replace game or room text quickly, or if you wanted to merge two oddly shaped regions, a text editor might be the thing. You would not have to move a mouse around and click.</p>
 
-<p>Another use for manual replacement in a text editor is changing Midnight Blue to Black.</p>
+<p>Another use for manual replacement in a text editor is changing RGB or labeled colors. For instance, Midnight Blue to Black in a recently created file. Or you could change some of the more obscure options like stalk length all at once, instead of poking through a menu.</p>
 
 <a name="general_info"></a>
 <h1>General Information</h1>

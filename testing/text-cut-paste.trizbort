@@ -5,7 +5,7 @@
 		<room id="1" name="Name" subtitle="Subtitle" x="0" y="0" w="128" h="96" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
 			<objects at="wsw">Objects</objects>
 		</room>
-		<room id="2" name="Cave" subtitle="" x="0" y="224" w="128" h="96" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="2" name="Ctrl-a, ctrl-c, ctrl-v" subtitle="" x="0" y="224" w="128" h="96" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
 		<line id="3" startText="start" midText="middle" endText="end">
 			<dock index="0" id="1" port="s" />
 			<dock index="1" id="2" port="n" />

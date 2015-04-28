@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trizbort version="1.5.8.7">
+	<info>
+		<title>Leadlight Gamma Map</title>
+		<author>Andrew Schultz</author>
+		<description>Map of Wade Clarke's 2010 game Leadlight (and its Inform port Leadlight Gamma). Orange=dorm grey=library purple=indoor yellow=inner sanctum red=inner inner sanctum</description>
+	</info>
+	<map>
+		<room id="1" name="Linville Student Library" subtitle="" x="32" y="32" w="96" h="64" region="Library" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Charlotte Jeffs</objects>
+		</room>
+		<room id="2" name="Library Toilet" subtitle="" x="-96" y="32" w="96" h="64" region="Library" borderstyle="Solid" description="" roomFill="" secondFill="#00FFFF" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="3" name="Amongst the Library Stacks" subtitle="" x="32" y="128" w="96" h="64" region="Library" borderstyle="Solid" description="" roomFill="" secondFill="#FFFF00" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="4">
+			<dock index="0" id="1" port="s" />
+			<dock index="1" id="3" port="n" />
+		</line>
+		<line id="5">
+			<dock index="0" id="2" port="e" />
+			<dock index="1" id="1" port="w" />
+		</line>
+		<room id="6" name="In the Library Foyer" subtitle="" x="160" y="32" w="96" h="64" region="Library" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Narelle Parker</objects>
+		</room>
+		<line id="7">
+			<dock index="0" id="1" port="e" />
+			<dock index="1" id="6" port="w" />
+		</line>
+		<room id="8" name="In the Quadrangle" subtitle="" x="288" y="32" w="96" h="64" region="Outside" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="9" style="dashed">
+			<dock index="0" id="8" port="w" />
+			<dock index="1" id="6" port="e" />
+		</line>
+		<room id="10" name="On the Rose Garden Lawn" subtitle="" x="288" y="128" w="96" h="64" region="Outside" borderstyle="Dash" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Alexis Karpa</objects>
+		</room>
+		<line id="11">
+			<dock index="0" id="8" port="s" />
+			<dock index="1" id="10" port="n" />
+		</line>
+		<room id="12" name="In the Dormitory Courtyard" subtitle="" x="416" y="32" w="96" h="64" region="Outside" borderstyle="Solid" description="" roomFill="" secondFill="#FF0000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="13">
+			<dock index="0" id="8" port="e" />
+			<dock index="1" id="12" port="w" />
+		</line>
+		<room id="14" name="In the Gym Entry" subtitle="" x="416" y="128" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="15">
+			<dock index="0" id="12" port="s" />
+			<dock index="1" id="14" port="n" />
+		</line>
+		<room id="16" name="On the Gym Court, North" subtitle="" x="416" y="224" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="#FF0000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="17">
+			<dock index="0" id="14" port="s" />
+			<dock index="1" id="16" port="n" />
+		</line>
+		<room id="18" name="On the Gym Court, South" subtitle="" x="416" y="320" w="96" h="64" region="School" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="19" style="dashed">
+			<dock index="0" id="16" port="s" />
+			<dock index="1" id="18" port="n" />
+		</line>
+		<room id="20" name="In the Dormitory Entryway" subtitle="" x="544" y="32" w="96" h="64" region="Dorms" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Ms Palmer/Diane Fallon</objects>
+		</room>
+		<line id="21">
+			<dock index="0" id="12" port="e" />
+			<dock index="1" id="20" port="w" />
+		</line>
+		<room id="22" name="Room 106" subtitle="" x="544" y="-64" w="96" h="64" region="Dorms" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="23">
+			<dock index="0" id="20" port="n" />
+			<dock index="1" id="22" port="s" />
+		</line>
+		<room id="24" name="Room 101" subtitle="" x="544" y="128" w="96" h="64" region="Dorms" borderstyle="Dash" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Sheryl Bourke</objects>
+		</room>
+		<line id="25">
+			<dock index="0" id="20" port="s" />
+			<dock index="1" id="24" port="n" />
+		</line>
+		<room id="26" name="Halfway Along the Dorm Hall" subtitle="" x="672" y="32" w="96" h="64" region="Dorms" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="27" style="dashed">
+			<dock index="0" id="20" port="e" />
+			<dock index="1" id="26" port="w" />
+		</line>
+		<room id="28" name="Room 105" subtitle="" x="672" y="-64" w="96" h="64" region="Dorms" borderstyle="Solid" description="" roomFill="" secondFill="#00FFFF" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="29" style="dashed">
+			<dock index="0" id="26" port="n" />
+			<dock index="1" id="28" port="s" />
+		</line>
+		<room id="30" name="Room 102" subtitle="" x="672" y="128" w="96" h="64" region="Dorms" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Louise</objects>
+		</room>
+		<line id="31">
+			<dock index="0" id="26" port="s" />
+			<dock index="1" id="30" port="n" />
+		</line>
+		<room id="32" name="At the Dorm Hall's East End" subtitle="" x="800" y="32" w="96" h="64" region="Dorms" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="33">
+			<dock index="0" id="26" port="e" />
+			<dock index="1" id="32" port="w" />
+		</line>
+		<room id="34" name="Room 104" subtitle="" x="800" y="-64" w="96" h="64" region="Dorms" borderstyle="Solid" description="" roomFill="" secondFill="#FF0000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="35">
+			<dock index="0" id="32" port="n" />
+			<dock index="1" id="34" port="s" />
+		</line>
+		<room id="36" name="Room 103" subtitle="" x="800" y="128" w="96" h="64" region="Dorms" borderstyle="Dot" description="" roomFill="" secondFill="#804000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="37">
+			<dock index="0" id="32" port="s" />
+			<dock index="1" id="36" port="n" />
+		</line>
+		<room id="38" name="On the School Steps" subtitle="" x="288" y="-160" w="96" h="64" region="Outside" borderstyle="Solid" description="" roomFill="" secondFill="#804000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="39">
+			<dock index="0" id="8" port="n" />
+			<dock index="1" id="38" port="s" />
+		</line>
+		<room id="40" name="In the School Foyer" subtitle="" x="288" y="-352" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="41" style="dashed">
+			<dock index="0" id="38" port="n" />
+			<dock index="1" id="40" port="s" />
+		</line>
+		<room id="42" name="On the Trellised Patio" subtitle="" x="416" y="-160" w="96" h="64" region="Outside" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Gardener</objects>
+		</room>
+		<line id="43">
+			<dock index="0" id="38" port="e" />
+			<dock index="1" id="42" port="w" />
+		</line>
+		<room id="44" name="By the School Fountain" subtitle="" x="160" y="-160" w="96" h="64" region="Outside" borderstyle="Solid" description="" roomFill="" secondFill="#00FFFF" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Mystery Girl</objects>
+		</room>
+		<line id="45">
+			<dock index="0" id="38" port="w" />
+			<dock index="1" id="44" port="e" />
+		</line>
+		<room id="46" name="In the Art Cottage" subtitle="" x="160" y="-256" w="96" h="64" region="School" borderstyle="Dot" description="" roomFill="" secondFill="#804000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Mr Rhodes</objects>
+		</room>
+		<line id="47">
+			<dock index="0" id="44" port="n" />
+			<dock index="1" id="46" port="s" />
+		</line>
+		<room id="48" name="In Staff Cottage B" subtitle="" x="160" y="-64" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="#8000FF" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>File (Miss Arden)</objects>
+		</room>
+		<line id="49">
+			<dock index="0" id="44" port="s" />
+			<dock index="1" id="48" port="n" />
+		</line>
+		<room id="50" name="In the Receptionist's Office" subtitle="" x="160" y="-352" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="#8000FF" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="51">
+			<dock index="0" id="40" port="w" />
+			<dock index="1" id="50" port="e" />
+		</line>
+		<room id="52" name="In the Sick Bay" subtitle="" x="416" y="-352" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="#FFFF00" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Unnamed Girl</objects>
+		</room>
+		<line id="53">
+			<dock index="0" id="40" port="e" />
+			<dock index="1" id="52" port="w" />
+		</line>
+		<room id="54" name="In the Marble Stateroom" subtitle="" x="288" y="-448" w="96" h="64" region="School" borderstyle="Dash" description="" roomFill="" secondFill="#8000FF" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Maureen Sallis</objects>
+		</room>
+		<line id="55">
+			<dock index="0" id="40" port="n" />
+			<dock index="1" id="54" port="s" />
+		</line>
+		<room id="56" name="In the South Hall" subtitle="" x="288" y="-544" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="57">
+			<dock index="0" id="54" port="n" />
+			<dock index="1" id="56" port="s" />
+		</line>
+		<room id="58" name="In the Sitting Room" subtitle="" x="416" y="-544" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="#804000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Lucinda Parker</objects>
+		</room>
+		<line id="59">
+			<dock index="0" id="56" port="e" />
+			<dock index="1" id="58" port="w" />
+		</line>
+		<room id="60" name="In the Eastern Hallway" subtitle="" x="416" y="-640" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Mia Fellini</objects>
+		</room>
+		<line id="61">
+			<dock index="0" id="58" port="n" />
+			<dock index="1" id="60" port="s" />
+		</line>
+		<room id="62" name="In the Dance Room" subtitle="" x="544" y="-640" w="96" h="64" region="School" borderstyle="Dash" description="" roomFill="" secondFill="#FFFF00" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>The Dancer</objects>
+		</room>
+		<line id="63">
+			<dock index="0" id="60" port="e" />
+			<dock index="1" id="62" port="w" />
+		</line>
+		<room id="64" name="In the Waiting Room" subtitle="" x="416" y="-736" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="65">
+			<dock index="0" id="60" port="n" />
+			<dock index="1" id="64" port="s" />
+		</line>
+		<room id="66" name="In Science Lab 1C" subtitle="" x="288" y="-736" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="67">
+			<dock index="0" id="64" port="w" />
+			<dock index="1" id="66" port="e" />
+		</line>
+		<room id="68" name="In the Grand Hall" subtitle="" x="288" y="-640" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Madison Jones|Kate, Seung</objects>
+		</room>
+		<line id="69">
+			<dock index="0" id="66" port="s" />
+			<dock index="1" id="68" port="n" />
+		</line>
+		<line id="70">
+			<dock index="0" id="68" port="e" />
+			<dock index="1" id="60" port="w" />
+		</line>
+		<line id="71">
+			<dock index="0" id="68" port="s" />
+			<dock index="1" id="56" port="n" />
+		</line>
+		<room id="72" name="In the School Chapel" subtitle="" x="160" y="-640" w="96" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="#00FFFF" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="73">
+			<dock index="0" id="68" port="w" />
+			<dock index="1" id="72" port="e" />
+		</line>
+		<room id="74" name="In the Staff Library" subtitle="" x="416" y="-832" w="96" h="64" region="Hidden" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="75" style="dashed">
+			<dock index="0" id="64" port="n" />
+			<dock index="1" id="74" port="s" />
+		</line>
+		<room id="76" name="In the Leather Study" subtitle="" x="416" y="-928" w="96" h="64" region="Hidden" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="77" style="dashed">
+			<dock index="0" id="74" port="n" />
+			<dock index="1" id="76" port="s" />
+		</line>
+		<room id="78" name="In the Strange Gallery" subtitle="" x="544" y="-928" w="96" h="64" region="Hidden" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="79">
+			<dock index="0" id="76" port="e" />
+			<dock index="1" id="78" port="w" />
+		</line>
+		<room id="80" name="On the Balcony" subtitle="" x="544" y="-1024" w="96" h="64" region="Hidden" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Witch</objects>
+		</room>
+		<line id="81" startText="up" endText="down">
+			<dock index="0" id="76" port="ne" />
+			<dock index="1" id="80" port="sw" />
+		</line>
+		<room id="82" name="In a Curtained Hallway" subtitle="" x="288" y="-928" w="96" h="64" region="Hidden" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="83">
+			<dock index="0" id="76" port="w" />
+			<dock index="1" id="82" port="e" />
+		</line>
+		<room id="84" name="In a Curtained Hallway" subtitle="" x="160" y="-928" w="96" h="64" region="Hidden" borderstyle="Solid" description="" roomFill="" secondFill="#FF0000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="85">
+			<dock index="0" id="82" port="w" />
+			<dock index="1" id="84" port="e" />
+		</line>
+		<room id="86" name="At the Opulent Corner" subtitle="" x="32" y="-928" w="96" h="64" region="Hidden" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Eve Joshi</objects>
+		</room>
+		<line id="87">
+			<dock index="0" id="84" port="w" />
+			<dock index="1" id="86" port="e" />
+		</line>
+		<room id="88" name="Before the Leadlight Door" subtitle="" x="32" y="-1024" w="96" h="64" region="Hidden" borderstyle="Solid" description="" roomFill="" secondFill="#00FFFF" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="89">
+			<dock index="0" id="86" port="n" />
+			<dock index="1" id="88" port="s" />
+		</line>
+		<room id="90" name="???" subtitle="" x="32" y="-1120" w="96" h="64" region="Endgame" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="91" style="dashed">
+			<dock index="0" id="88" port="n" />
+			<dock index="1" id="90" port="s" />
+		</line>
+		<room id="92" name="In the Founder's Room" subtitle="" x="32" y="-1216" w="96" h="64" region="Endgame" borderstyle="Solid" description="" roomFill="" secondFill="#00FFFF" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Founder</objects>
+		</room>
+		<line id="93">
+			<dock index="0" id="90" port="n" />
+			<dock index="1" id="92" port="s" />
+		</line>
+		<room id="94" name="In the Secret Place" subtitle="" x="160" y="-1216" w="96" h="64" region="Endgame" borderstyle="Dash" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Shadow|Founder</objects>
+		</room>
+		<line id="95">
+			<dock index="0" id="92" port="e" />
+			<dock index="1" id="94" port="w" />
+		</line>
+		<room id="96" name="In the Upstairs Changing Room" subtitle="" x="576" y="224" w="128" h="64" region="School" borderstyle="Solid" description="" roomFill="" secondFill="#FF8000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Isabelle Green</objects>
+		</room>
+		<line id="97" startText="up" endText="down">
+			<dock index="0" id="16" port="e" />
+			<dock index="1" id="96" port="w" />
+		</line>
+	</map>
+	<settings>
+		<colors>
+			<canvas>Gray</canvas>
+			<fill>White</fill>
+			<border>Black</border>
+			<line>Black</line>
+			<selectedLine>SteelBlue</selectedLine>
+			<hoverLine>DarkOrange</hoverLine>
+			<largeText>Black</largeText>
+			<smallText>Black</smallText>
+			<lineText>Black</lineText>
+			<grid>#F5F5F5</grid>
+		</colors>
+		<regions>
+			<Dorms Name="Dorms" TextColor="Black">#FFC080</Dorms>
+			<Endgame Name="Endgame" TextColor="Black">#FF8080</Endgame>
+			<Hidden Name="Hidden" TextColor="Black">#FFFF80</Hidden>
+			<Library Name="Library" TextColor="Black">Silver</Library>
+			<NoRegion Name="NoRegion" TextColor="Black">White</NoRegion>
+			<Outside Name="Outside" TextColor="Black">#80FF80</Outside>
+			<School Name="School" TextColor="Black">#C080FF</School>
+		</regions>
+		<fonts>
+			<room size="12">Comic Sans MS</room>
+			<object size="11">Comic Sans MS</object>
+			<line size="9">Comic Sans MS</line>
+		</fonts>
+		<grid>
+			<snapTo>yes</snapTo>
+			<visible>yes</visible>
+			<showOrigin>yes</showOrigin>
+			<size>32</size>
+		</grid>
+		<lines>
+			<width>2</width>
+			<handDrawn>no</handDrawn>
+			<arrowSize>32</arrowSize>
+			<textOffset>4</textOffset>
+		</lines>
+		<rooms>
+			<darknessStripeSize>24</darknessStripeSize>
+			<objectListOffset>4</objectListOffset>
+			<connectionStalkLength>16</connectionStalkLength>
+			<preferredDistanceBetweenRooms>32</preferredDistanceBetweenRooms>
+		</rooms>
+		<ui>
+			<handleSize>12</handleSize>
+			<snapToElementSize>16</snapToElementSize>
+		</ui>
+		<keypadNavigation>
+			<creationModifier>control</creationModifier>
+			<unexploredModifier>alt</unexploredModifier>
+		</keypadNavigation>
+	</settings>
+</trizbort>

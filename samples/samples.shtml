@@ -40,13 +40,17 @@
 
 <table border=1>
 <tr>
-<td class="alt"><a href="slash-swamp.pdf">Slasher Swamp</a></td>
-<td>IFComp 2014</td>
-<td>Non-reciprocal exits, various regions, and several one-way exits to a certain room. One feature of the game was the necessity to search various objects, and those rooms are dashed. Numbers in the object space indicate the order to search.</td>
-</tr>
+<td><a href="leadlight.pdf">Leadlight (Gamma)</a></td>
+<td>IFComp 2010</td>
+<td>A medium to large size game created with EAMON for an Apple II emulator, then ported to Inform 7 to use graphing capabilities. Along with region color, the map uses fills to show the existence of three types of things to find in the game: deathtraps (red), weapons (yellow) and secrets (blue). Some rooms have more than one type of thing, so colors are combined. Unfortunately, there's no good way to allow for having, say, two secrets. So the map can't do everything. But it captures where to look. Dashed borders indicate "powerball" rooms where an action can gain or lose more than one point. Dotted borders indicate rooms where you may gain two or more of a certain type of point.
 <tr>
 <td><a href="luster.pdf">Luster</a></td>
 <td>IFComp 2011</td>
 <td>A small non-reciprocal maze as well as quest areas that give themselves naturally to regions. Two rooms are tagged to indicate a puzzle in one room helps with another. A one-way and dotted passage show the entrance/exit in a jail. Other formatting includes the color of gems that need to go on various pedestals near the end.</td>
+</tr>
+<tr>
+<td class="alt"><a href="slash-swamp.pdf">Slasher Swamp</a></td>
+<td>IFComp 2014</td>
+<td>Non-reciprocal exits, various regions, and several one-way exits to a certain room. One feature of the game was the necessity to search various objects, and those rooms are dashed. Numbers in the object space indicate the order to search.</td>
 </tr>
 </table>

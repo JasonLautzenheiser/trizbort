@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trizbort version="1.5.8.7">
+	<info />
+	<map>
+		<room id="1" name="Fork" subtitle="" x="192" y="-32" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Return from plain to here</objects>
+		</room>
+		<room id="2" name="Train Crossing" subtitle="" x="192" y="-128" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="#FF8000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="3">
+			<dock index="0" id="1" port="n" />
+			<dock index="1" id="2" port="s" />
+		</line>
+		<room id="4" name="Dirt Path" subtitle="" x="-192" y="-32" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="6" name="Sheriff Station Entrance" subtitle="" x="-192" y="64" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="7">
+			<dock index="0" id="4" port="s" />
+			<dock index="1" id="6" port="n" />
+		</line>
+		<room id="8" name="Lake Shore" subtitle="" x="-320" y="-128" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="9">
+			<dock index="0" id="4" port="nw" />
+			<dock index="1" id="8" port="se" />
+		</line>
+		<line id="5">
+			<dock index="0" id="1" port="w" />
+			<dock index="1" id="4" port="e" />
+		</line>
+		<room id="10" name="Lake Shore" subtitle="" x="-320" y="-32" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="11">
+			<dock index="0" id="8" port="s" />
+			<dock index="1" id="10" port="n" />
+		</line>
+		<room id="12" name="Dock" subtitle="" x="-448" y="-32" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Raft</objects>
+		</room>
+		<line id="13">
+			<dock index="0" id="12" port="e" />
+			<dock index="1" id="10" port="w" />
+		</line>
+		<room id="14" name="Lake (on raft)" subtitle="" x="-576" y="-32" w="96" h="64" region="NoRegion" borderstyle="Dash" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Blue gem (fall into lake)</objects>
+		</room>
+		<line id="15" style="dashed">
+			<dock index="0" id="12" port="w" />
+			<dock index="1" id="14" port="e" />
+		</line>
+		<room id="16" name="Temple Entrance" subtitle="" x="-320" y="-224" w="96" h="64" region="Water" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>(Back to dock once you get gem)</objects>
+		</room>
+		<room id="17" name="Statue Room (becomes plain)" subtitle="" x="-448" y="-224" w="96" h="64" region="Water" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="18" name="Arena Room" subtitle="" x="-576" y="-224" w="96" h="64" region="Water" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Swordsman</objects>
+		</room>
+		<room id="19" name="Spectator Box" subtitle="" x="-448" y="-320" w="96" h="64" region="Water" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Ballpoint pen</objects>
+		</room>
+		<line id="21">
+			<dock index="0" id="16" port="w" />
+			<dock index="1" id="17" port="e" />
+		</line>
+		<line id="20">
+			<dock index="0" id="17" port="n" />
+			<dock index="1" id="19" port="s" />
+		</line>
+		<line id="22">
+			<dock index="0" id="17" port="w" />
+			<dock index="1" id="18" port="e" />
+		</line>
+		<room id="23" name="Armory" subtitle="" x="-448" y="-128" w="96" h="64" region="Water" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="24">
+			<dock index="0" id="17" port="s" />
+			<dock index="1" id="23" port="n" />
+		</line>
+		<room id="25" name="Gated Path" subtitle="" x="-64" y="-128" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="26" name="Blank Room" subtitle="" x="-64" y="-224" w="96" h="64" region="Lever Building" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Lever (switch it)</objects>
+		</room>
+		<line id="27">
+			<dock index="0" id="26" port="s" />
+			<dock index="1" id="25" port="n" />
+		</line>
+		<line id="28">
+			<dock index="0" id="25" port="sw" />
+			<dock index="1" id="4" port="ne" />
+		</line>
+		<room id="29" name="Ocean Room" subtitle="" x="-64" y="-320" w="96" h="64" region="Lever Building" borderstyle="Solid" description="" roomFill="" secondFill="#0000FF" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>pedestal1|(Blue gem)</objects>
+		</room>
+		<room id="30" name="Rain-Forest Room" subtitle="" x="-192" y="-320" w="96" h="64" region="Lever Building" borderstyle="Solid" description="" roomFill="" secondFill="#008000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>pedestal3|(Green gem)</objects>
+		</room>
+		<line id="31">
+			<dock index="0" id="29" port="s" />
+			<dock index="1" id="26" port="n" />
+		</line>
+		<line id="32">
+			<dock index="0" id="30" port="se" />
+			<dock index="1" id="26" port="nw" />
+		</line>
+		<room id="33" name="Space Room" subtitle="" x="64" y="-320" w="96" h="64" region="Lever Building" borderstyle="Solid" description="" roomFill="" secondFill="#000000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>pedestal2|(Midnight gem)</objects>
+		</room>
+		<room id="34" name="Metallic Room" subtitle="" x="64" y="-224" w="96" h="64" region="Lever Building" borderstyle="Solid" description="" roomFill="" secondFill="#808080" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>pedestal4|(Silver gem)</objects>
+		</room>
+		<line id="35">
+			<dock index="0" id="26" port="e" />
+			<dock index="1" id="34" port="w" />
+		</line>
+		<line id="36">
+			<dock index="0" id="26" port="ne" />
+			<dock index="1" id="33" port="sw" />
+		</line>
+		<room id="37" name="Meandering Path" subtitle="" x="192" y="192" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="38">
+			<dock index="0" id="1" port="s" />
+			<dock index="1" id="37" port="n" />
+		</line>
+		<room id="39" name="Aband. Store Front Myers Entrance" subtitle="" x="64" y="64" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Mat (steel key)|Myers Entrance</objects>
+		</room>
+		<line id="40">
+			<dock index="0" id="37" port="nw" />
+			<dock index="1" id="39" port="se" />
+		</line>
+		<room id="41" name="Abandoned Shop" subtitle="" x="-64" y="64" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Cash Register/Dime</objects>
+		</room>
+		<line id="42" style="dashed">
+			<dock index="0" id="41" port="e" />
+			<dock index="1" id="39" port="w" />
+		</line>
+		<room id="43" name="Rosario Entrance" subtitle="" x="64" y="192" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="44">
+			<dock index="0" id="37" port="w" />
+			<dock index="1" id="43" port="e" />
+		</line>
+		<room id="45" name="Dead End" subtitle="" x="192" y="288" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Rectangle (put mat)</objects>
+		</room>
+		<line id="46">
+			<dock index="0" id="37" port="s" />
+			<dock index="1" id="45" port="n" />
+		</line>
+		<room id="47" name="Ramen Booth" subtitle="" x="448" y="288" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="48">
+			<dock index="0" id="47" port="nw" />
+			<dock index="1" id="37" port="se" />
+		</line>
+		<room id="49" name="Inside Ramen Booth" subtitle="" x="320" y="288" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Bulb (untie from rope)|Need steel key</objects>
+		</room>
+		<line id="50" style="dashed">
+			<dock index="0" id="49" port="e" />
+			<dock index="1" id="47" port="w" />
+		</line>
+		<room id="51" name="Timber Path" subtitle="" x="192" y="384" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="e">Note:|* forest room names are random.|* Light green indicates wrapping maze.|* Diagonal directions are possible but ignored.|  We just want a way through.</objects>
+		</room>
+		<line id="52" style="dashed">
+			<dock index="0" id="45" port="s" />
+			<dock index="1" id="51" port="n" />
+		</line>
+		<room id="53" name="Forest Maze" subtitle="" x="192" y="480" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="54" name="Forest Maze" subtitle="" x="192" y="576" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="55" name="Forest Center" subtitle="" x="192" y="672" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="56" name="Forest Maze" subtitle="" x="64" y="672" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="57" name="Forest Maze" subtitle="" x="-64" y="672" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="58" name="(Forest Center)" subtitle="" x="-192" y="672" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="#00FF00" secondFill="" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="" roomSmallText="" />
+		<line id="59">
+			<dock index="0" id="58" port="e" />
+			<dock index="1" id="57" port="w" />
+		</line>
+		<line id="60">
+			<dock index="0" id="57" port="e" />
+			<dock index="1" id="56" port="w" />
+		</line>
+		<line id="61">
+			<dock index="0" id="56" port="e" />
+			<dock index="1" id="55" port="w" />
+		</line>
+		<room id="62" name="Forest Maze" subtitle="" x="64" y="768" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="63">
+			<dock index="0" id="56" port="s" />
+			<dock index="1" id="62" port="n" />
+		</line>
+		<room id="64" name="Forest Maze" subtitle="" x="192" y="768" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="65">
+			<dock index="0" id="55" port="s" />
+			<dock index="1" id="64" port="n" />
+		</line>
+		<room id="66" name="Clearing" subtitle="" x="320" y="768" w="96" h="64" region="Forest" borderstyle="Dash" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Green Gem</objects>
+		</room>
+		<line id="67">
+			<dock index="0" id="64" port="e" />
+			<dock index="1" id="66" port="w" />
+		</line>
+		<room id="68" name="Forest Maze" subtitle="" x="64" y="864" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="69" name="End of Cave" subtitle="" x="64" y="960" w="96" h="64" region="Forest" borderstyle="Dash" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Midnight Gem (need bulb)</objects>
+		</room>
+		<line id="70">
+			<dock index="0" id="62" port="s" />
+			<dock index="1" id="68" port="n" />
+		</line>
+		<line id="71">
+			<dock index="0" id="68" port="s" />
+			<dock index="1" id="69" port="n" />
+		</line>
+		<line id="72">
+			<dock index="0" id="54" port="s" />
+			<dock index="1" id="55" port="n" />
+		</line>
+		<line id="73">
+			<dock index="0" id="53" port="s" />
+			<dock index="1" id="54" port="n" />
+		</line>
+		<line id="74">
+			<dock index="0" id="51" port="s" />
+			<dock index="1" id="53" port="n" />
+		</line>
+		<room id="76" name="(Forest Maze)" subtitle="" x="320" y="672" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="#00FF00" secondFill="" secondFillLocation="Bottom" roomBorder="#FFFFFF" roomLargeText="" roomSmallText="" />
+		<line id="75">
+			<dock index="0" id="55" port="e" />
+			<dock index="1" id="76" port="w" />
+		</line>
+		<room id="77" name="Sheriff Station" subtitle="" x="-192" y="192" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Need copper key to exit</objects>
+		</room>
+		<line id="78" flow="oneWay" startText="in" endText="out">
+			<dock index="0" id="6" port="ssw" />
+			<dock index="1" id="77" port="nnw" />
+		</line>
+		<room id="79" name="Cramped Bathroom" subtitle="" x="-320" y="192" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>soap (wash soap)</objects>
+		</room>
+		<line id="80">
+			<dock index="0" id="77" port="w" />
+			<dock index="1" id="79" port="e" />
+		</line>
+		<room id="81" name="Field" subtitle="" x="192" y="-224" w="96" h="64" region="NoRegion" borderstyle="Dash" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Cube (put coin in slot)|Makes silver gem</objects>
+		</room>
+		<room id="82" name="Power Room" subtitle="" x="-320" y="64" w="96" h="64" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="#FF8000" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>(switch buttons RBI)</objects>
+		</room>
+		<line id="83">
+			<dock index="0" id="82" port="e" />
+			<dock index="1" id="6" port="w" />
+		</line>
+		<line id="84" style="dashed">
+			<dock index="0" id="2" port="n" />
+			<dock index="1" id="81" port="s" />
+		</line>
+		<room id="85" name="Forest Maze" subtitle="" x="-64" y="768" w="96" h="64" region="Forest" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="88">
+			<dock index="0" id="57" port="s" />
+			<dock index="1" id="85" port="n" />
+		</line>
+		<line id="89" flow="oneWay">
+			<dock index="0" id="85" port="e" />
+			<dock index="1" id="57" port="se" />
+		</line>
+		<line id="86" flow="oneWay">
+			<dock index="0" id="56" port="n" />
+			<dock index="1" id="57" port="n" />
+		</line>
+		<room id="87" name="Tree Canopy" subtitle="" x="320" y="864" w="96" h="64" region="Forest" borderstyle="Dash" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>From/to clearing</objects>
+		</room>
+		<line id="90" style="dashed">
+			<dock index="0" id="77" port="nne" />
+			<dock index="1" id="6" port="sse" />
+		</line>
+	</map>
+	<settings>
+		<colors>
+			<canvas>White</canvas>
+			<fill>White</fill>
+			<border>Black</border>
+			<line>Black</line>
+			<selectedLine>Gold</selectedLine>
+			<hoverLine>DarkOrange</hoverLine>
+			<largeText>Black</largeText>
+			<smallText>Black</smallText>
+			<lineText>Black</lineText>
+			<grid>#F5F5F5</grid>
+		</colors>
+		<regions>
+			<Forest Name="Forest" TextColor="Black">Green</Forest>
+			<Lever____Building Name="Lever Building" TextColor="White">Silver</Lever____Building>
+			<Main____Area Name="Main Area" TextColor="Black">White</Main____Area>
+			<NoRegion Name="NoRegion" TextColor="Black">White</NoRegion>
+			<Water Name="Water" TextColor="Black">Aqua</Water>
+		</regions>
+		<fonts>
+			<room size="11.25">Comic Sans MS</room>
+			<object size="9">Comic Sans MS</object>
+			<line size="8.25">Comic Sans MS</line>
+		</fonts>
+		<grid>
+			<snapTo>yes</snapTo>
+			<visible>yes</visible>
+			<showOrigin>yes</showOrigin>
+			<size>32</size>
+		</grid>
+		<lines>
+			<width>2</width>
+			<handDrawn>no</handDrawn>
+			<arrowSize>8</arrowSize>
+			<textOffset>4</textOffset>
+		</lines>
+		<rooms>
+			<darknessStripeSize>24</darknessStripeSize>
+			<objectListOffset>4</objectListOffset>
+			<connectionStalkLength>16</connectionStalkLength>
+			<preferredDistanceBetweenRooms>64</preferredDistanceBetweenRooms>
+		</rooms>
+		<ui>
+			<handleSize>12</handleSize>
+			<snapToElementSize>16</snapToElementSize>
+		</ui>
+		<keypadNavigation>
+			<creationModifier>control</creationModifier>
+			<unexploredModifier>alt</unexploredModifier>
+		</keypadNavigation>
+	</settings>
+</trizbort>

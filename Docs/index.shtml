@@ -185,6 +185,7 @@
 			<li><a href="#about_bugs">Error/bug handling</a>
 			<li><a href="#about_known_issues">Known issues and limitations</a>
 		</ul>
+		<li><a href="#general_sample_test_suites">Trizbort sample and test suites</a>
 		<li><a href="#general_mapping_resources">Mapping Resources</a>
 		<li><a href="#general_settings_file">Settings File</a>
 		<li><a href="#general_thirdparty">Third Party Software Recommendations</a>
@@ -1061,18 +1062,18 @@ At your service!</pre></td></tr>
 
 <p>Because PDF is a <span class="term">vector graphics</span> format, the information from Trizbort's XML is preserved in an alternate form, and your PDF reader should be able to zoom in and out of the exported file, unlike with raster images where only pixels are preserved.</p>
 
-<p>Trizbort will add generous margins around the edges of the map in order to avoid cutting off connections or text near the edges. This may be a detriment for very small maps, but <a href="#general_thirdparty">Coherent PDF</a> is an example of a tool that can crop a PDF document's edges.</p>
+<p>Trizbort adds margins of 400 pixels (5.56 inches at 72 DPI) around the edges of the map in order to avoid cutting off connections or text near the edges. This may be a detriment for very small maps, but <a href="#general_thirdparty">Coherent PDF</a> is an example of a tool that can crop a PDF document's edges.</p>
 
 <a name="help_export_graphic"></a>
 <h3>Exporting a Graphic</h3>
 
 <p>To export your map as a graphic, choose <span class="menufind">File->Export->Image</span>. You can choose the file type you want. While you can also export to JPEG or BMP or EMF, PNG is recommended. BMP is true color (4 bits per pixel) and so an image can be 4 megabytes. JPEG is not lossless, and EMF may not be supported well on non-Windows platforms. <a href="http://pnggauntlet.com/">PNGGauntlet</a> is also recommended if you wish to compress a map further. It is especially handy if your map is monochrome, as Trizbort does not aggressively compress PNGs.</p>
 
-<p>As with PDFs, Trizbort will add generous margins around the edges of an exported raster file in order to avoid cutting off connections or text near the edges.</p>
+<p>As with PDFs, Trizbort will add 400 pixels around the edges of an exported raster file in order to avoid cutting off connections or text near the edges.</p>
 
 <a name="help_smart_export"></a>
 <h3>Smart Exporting</h3>
-<p>Navigating the menus can be a hassle if you are continuously re-saving. It's quite possible you may forget to export your most recent change. Therefore, Trizbort allows "smart export" with <span class="accel">control-shift-s</span> or <span class="menufind">File->Smart Save</span> as a convenience. You can toggle which of PDF and your preferred raster format Trizbort will save to. The default raster format is PNG. Exported graphic files should be faithful to the Trizbort file in content, and they will be named identically to the Trizbort file except for the extension, with standard suffixes (JPEG becomes jpeg.) If your project is untitled, you will be prompted to save your file first, so Trizbort has a base file name to work from. Without a base name, Trizbort will fail.</p>
+<p>Navigating the menus can be a hassle if you are continuously re-saving. It's quite possible you may forget to export your most recent change. Therefore, Trizbort allows "smart export" with <span class="accel">control-shift-s</span> or <span class="menufind">File->Smart Save</span> as a convenience. You can toggle which of PDF and your preferred raster format Trizbort will save to. The default is to save to both formats, and the default raster format is PNG. Exported graphic files should be faithful to the Trizbort file in content, and they will be named identically to the Trizbort file except for the extension, with standard suffixes (JPEG becomes jpg.) If your project is untitled, you will be prompted to save your file first, so Trizbort has a base file name to work from. Without a base name, Trizbort will fail.</p>
 
 <a name="help_export_i7"></a>
 <h3>Exporting to Inform 7</h3>
@@ -1139,48 +1140,58 @@ At your service!</pre></td></tr>
 <h2>Accelerator Listing</h2>
 
 <table border=1>
-<tr><th>Key</th><th>plain function</th><th>ctrl/shift/alt</th>
-<tr><td>A</td><td>One-way line</td><td>ctrl-a=select all</td></tr>
-<tr><td>B</td><td></td><td></td></tr>
-<tr><td>C</td><td></td><td>ctrl-c=copy, ctrl-alt-c=copy color</td></tr>
-<tr><td>D</td><td>down/up line</td><td></td></tr>
-<tr><td>E</td><td></td><td></td></tr>
-<tr><td>F</td><td></td><td></td></tr>
-<tr><td>G</td><td></td><td></td></tr>
-<tr><td>H</td><td></td><td></td></tr>
-<tr><td>I</td><td>In/out line</td><td></td></tr>
-<tr><td>J</td><td></td><td></td></tr>
-<tr><td>K</td><td>toggle darkness</td><td></td></tr>
-<tr><td>L</td><td></td><td></td></tr>
-<tr><td>M</td><td></td><td></td></tr>
-<tr><td>N</td><td></td><td>ctrl-n = new map</td></tr>
-<tr><td>O</td><td>Out/in line</td><td>ctrl-o = open trizbort file</td></tr>
-<tr><td>P</td><td>Plain styling</td><td></td></tr>
-<tr><td>Q</td><td></td><td></td></tr>
-<tr><td>R</td><td>Add a room</td><td></td></tr>
-<tr><td>S</td><td></td><td>ctrl-S=save, ctrl-alt-S=save as, ctrl-shift-S=smart save</td></tr>
-<tr><td>T</td><td>dotted line</td><td></td></tr>
-<tr><td>U</td><td>up/down line</td><td></td></tr>
-<tr><td>V</td><td>reverse line</td><td>ctrl-v=paste</td></tr>
-<tr><td>W</td><td></td><td></td></tr>
-<tr><td>X</td><td></td><td></td></tr>
-<tr><td>Y</td><td></td><td></td></tr>
-<tr><td>Z</td><td></td><td></td></tr>
+<tr><th>Key</th><th>plain function</th><th><span class="ctrls">ctrl</span>/<span class="shifts">shift</span>/<span class="alts">alt</span> or any combo</th>
+<tr><td class="heading">A</td><td>One-way line</td><td><span class="ctrls">ctrl-a</span>=select all</td></tr>
+<tr><td class="altheading">B</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="heading">C</td><td class="blank"></td><td><span class="ctrls">ctrl-c</span>=copy, <span class="ctrlalts">ctrl-alt-c</span>=copy color</td></tr>
+<tr><td class="altheading">D</td><td>down/up line</td><td class="blank"></td></tr>
+<tr><td class="heading">E</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="altheading">F</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="heading">G</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="altheading">H</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="heading">I</td><td>In/out line</td><td class="blank"></td></tr>
+<tr><td class="altheading">J</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="heading">K</td><td>toggle darkness</td><td class="blank"></td></tr>
+<tr><td class="altheading">L</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="heading">M</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="altheading">N</td><td class="blank"></td><td><span class="ctrls">ctrl-n</span> = new map</td></tr>
+<tr><td class="heading">O</td><td>Out/in line</td><td><span class="ctrls">ctrl-o</span> = open trizbort file</td></tr>
+<tr><td class="altheading">P</td><td>Plain styling</td><td class="blank"></td></tr>
+<tr><td class="heading">Q</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="altheading">R</td><td>Add a room</td><td class="blank"></td></tr>
+<tr><td class="heading">S</td><td class="blank"></td><td><span class="ctrls">ctrl</span>-S=save, ctrl-alt-S=save as, <span class="ctrlshifts">ctrl-shift-S</span>=smart save</td></tr>
+<tr><td class="altheading">T</td><td>dotted line</td><td><span class="ctrlshifts">ctrl-shift-T</span>=export to TADS file, <span class="ctrlalts">ctrl-alt-T</span>=export TADS 3 to clipboard</td></tr>
+<tr><td class="heading">U</td><td>up/down line</td><td class="blank"></td></tr>
+<tr><td class="altheading">V</td><td>reverse line</td><td><span class="ctrls">ctrl-v</span>=paste</span></td></tr>
+<tr><td class="heading">W</td><td>Swaps room properties if two are highlighted</td><td class="blank"></td></tr>
+<tr><td class="altheading">X</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="heading">Y</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="altheading">Z</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="heading">0</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="altheading">1</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="heading">2</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="altheading">3</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="heading">4</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="altheading">5</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="heading">6</td><td class="blank"></td><td><span class="ctrlshifts">ctrl-shift-6</span>=export to Inform 6 file, <span class="ctrlalts">ctrl-alt-6</span>=export I6 to clipboard</td></tr>
+<tr><td class="altheading">7</td><td class="blank"></td><td><span class="ctrlshifts">ctrl-shift-7</span>=export to Inform 7 file, <span class="ctrlalts">ctrl-alt-7</span>=export I7 to clipboard</td></tr>
+<tr><td class="heading">8</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="altheading">9</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td colspan=3><center>Non-alphanumeric</center></td></tr>
-<tr><td>Delete</td><td>Delete all selected</td><td></td></tr>
-<tr><td>Enter</td><td>Edit selected room properties<br />Select center room</td><td></td></tr>
-<tr><td>ESC</td><td>Select none</td><td></td></tr>
-<tr><td>F1</td><td></td><td>ctrl-F1 = toggle upper left frame rate info</td></tr>
-<tr><td>F2</td><td>Rename (seems to duplicate Enter)</td><td>ctrl-F2 = toggle all elements</td></tr>
-<tr><td>F3</td><td></td><td>ctrl-F3 = toggle all room borders and connectors</td></tr>
-<tr><td>F4</td><td></td><td>ctrl-F4 = toggle all text (currently broken)</td></tr>
-<tr><td>F5</td><td>Disable stops in automap</td><td></td></tr>
-<tr><td>F11</td><td>Single step in automap</td><td></td></tr>
-<tr><td>+</td><td>zoom in</td><td></td></tr>
-<tr><td>-</td><td>zoom out</td><td></td></tr>
-<tr><td>(arrow keys)</td><td>moves around the map</td><td>ctrl-arrow=move to or create new room</td></tr>
-<tr><td>(home)</td><td>Centers the map</td><td>ctrl-home=centers the map, see it all</td></tr>
-<tr><td>(numlock keys)</td><td>moves around the map</td><td>ctrl-numlock=move to or create new room</td></tr>
+<tr><td>Delete</td><td>Delete all selected</td><td class="blank"></td></tr>
+<tr><td>Enter</td><td>Edit selected room properties<br />Select center room</td><td class="blank"></td></tr>
+<tr><td>ESC</td><td>Select none</td><td class="blank"></td></tr>
+<tr><td>F1</td><td class="blank"></td><td><span class="ctrls">ctrl-F1</span>=toggle upper left frame rate info</td></tr>
+<tr><td>F2</td><td>Rename (seems to duplicate Enter)</td><td><span class="ctrls">ctrl-F2</span>=toggle all elements, <span class="shifts">shift-F2</span>=change region</td></tr>
+<tr><td>F3</td><td class="blank"></td><td><span class="ctrls">ctrl-F3</span>=toggle all room borders and connectors</td></tr>
+<tr><td>F4</td><td class="blank"></td><td><span class="ctrls">ctrl-F4</span>=toggle all text</td></tr>
+<tr><td>F5</td><td>Disable stops in automap</td><td class="blank"></td></tr>
+<tr><td>F11</td><td>Single step in automap</td><td class="blank"></td></tr>
+<tr><td>+/=</td><td>zoom in</td><td class="blank"></td></tr>
+<tr><td>-</td><td>zoom out</td><td class="blank"></td></tr>
+<tr><td>(arrow keys)</td><td>moves around the map</td><td><span class="ctrls">ctrl-arrow</span>=move to or create new room</td></tr>
+<tr><td>(home)</td><td>Centers the map</td><td><span class="ctrls">ctrl-home</span>=centers the map, see it all</td></tr>
+<tr><td>(numlock keys)</td><td>moves around the map</td><td><span class="ctrls">ctrl-numlock</span>=move to or create new room</td></tr>
 </table>
 
 <a name="building"></a>
@@ -1199,7 +1210,7 @@ At your service!</pre></td></tr>
 <a name="about_authors"></a>
 <h3>Authors</h3>
 
-<p>Genstein created Trizbort and maintained it until version 1.5.0. His webiste is <a href="http://trizbort.genstein.com">here</a>. Jason Lautzenheiser picked up the project in December 2014 and added features and merged changes from various other contributors.</p>
+<p>Genstein created Trizbort and maintained it until version 1.5.0. His website is <a href="http://trizbort.genstein.com">here</a>. Jason Lautzenheiser picked up the project in December 2014 and added features and merged changes from various other contributors.</p>
 
 <p>Authors involved with other changes include Tymian and Matt Watkins. If you'd like to become an author to add a feature, that's very much welcomed! Fork something off <a href="https://github.com/JasonLautzenheiser/trizbort">here</a> and create a pull request.</p>
 
@@ -1209,7 +1220,7 @@ At your service!</pre></td></tr>
 <ul>
 <li>1.5.5: added region and color support to Trizbort. Forked to https://github.com/jasonlautzenheiser/trizbort
 <li>1.5.7: fixed various small bugs
-<li>1.5.8: added version metatag, room borders, subtitles. New documentation to https://github.com/andrewschultz/trizbort
+<li>1.5.8: added version metatag, room borders, subtitles. New documentation forked to https://github.com/andrewschultz/trizbort
 </ul>
 
 <a name="about_bugs"></a>
@@ -1219,7 +1230,7 @@ At your service!</pre></td></tr>
 
 <p>Bugs or feature requests can be reported anonymously at https://trello.com/b/avZe0VPG/trizbort. A brief search to make sure the bug isn't already there is appreciated, but you shouldn't feel obliged to search too rigorously.</p>
 
-<p>Documentation bugs, big or small, technical or aesthetic, can also be reported at <a href="https://github.com/andrewschultz/trizbort">the Trizbort documents GitHub site</a>.</p>
+<p>Documentation bugs, big or small, technical or aesthetic, can also be reported at <a href="https://github.com/JasonLautzenheiser/trizbort">the main branch</a> or <a href="https://github.com/andrewschultz/trizbort">the document-focused sub-branch</a>.</p>
 
 <a name="about_known_issues"></a>
 <h3>Known issues and limitations</h3>
@@ -1234,6 +1245,9 @@ At your service!</pre></td></tr>
 <p>The <a href="http://www.ifarchive.org">IF Archive</a> has a <a href="http://www.ifarchive.org/indexes/if-archiveXsolutionsXmaps.html">maps solution section</a> where you can submit maps of games you have written. If you're considering writing a map, you may want to look there first. Another place to look is the <a href="http://solutionarchive.com/">CASA, or Classic Adventures Solution Archive</a>.</p>
 
 <p>In addition, other mapping tools are found <a href="http://www.ifarchive.org/indexes/if-archiveXmapping-tools.html">here</a>.</p>
+
+<a name="general_sample_test_suites"></a>
+<h2>Trizbort sample and test suites</h2>
 
 <a name="general_settings_file"></a>
 <h2>Settings File</h2>

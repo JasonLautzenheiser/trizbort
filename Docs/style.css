@@ -84,6 +84,9 @@ td.altheading {
 td.alt {
     background-color: #E0E0D0;
 }
+td.blank {
+    background-color:#b0b0b0;
+}
 td {
     background-color: #FFFFFF;
 }
@@ -107,4 +110,49 @@ h1 {
 h2 {
     font-size: 30px;
 }
-
+/* ctrl = red shift = yellow alt = blue combos = color combos */
+.ctrls {
+    background-color: #000000;
+    color: #ff0000;
+    border: 1px solid #ff0000;
+    padding: 2px;
+    line-height: 23px;
+    font-family: Consolas,Courier New,Courier,serif;
+    font-size: 12px;
+}
+.shifts {
+    background-color: #000000;
+    color: #ffff00;
+    border: 1px solid #ffff00;
+    padding: 2px;
+    line-height: 23px;
+    font-family: Consolas,Courier New,Courier,serif;
+    font-size: 12px;
+}
+.ctrlshifts {
+    background-color: #000000;
+    color: #ff8000;
+    border: 1px solid #ff8000;
+    padding: 2px;
+    line-height: 23px;
+    font-family: Consolas,Courier New,Courier,serif;
+    font-size: 12px;
+}
+.alts {
+    background-color: #000000;
+    color: #6060ff;
+    border: 1px solid #6060ff;
+    padding: 2px;
+    line-height: 23px;
+    font-family: Consolas,Courier New,Courier,serif;
+    font-size: 12px;
+}
+.ctrlalts {
+    background-color: #000000;
+    color: #c000c0;
+    border: 1px solid #c000c0;
+    padding: 2px;
+    line-height: 23px;
+    font-family: Consolas,Courier New,Courier,serif;
+    font-size: 12px;
+}

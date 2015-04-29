@@ -32,7 +32,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Trizbort 1.5+ documentation</title>
+<title>Trizbort 1.5.8+ documentation</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -69,7 +69,7 @@
 				<li><a href="#help_rooms_edit_dark">Dark Rooms</a>
 				<li><a href="#help_rooms_edit_borders">Room Borders</a>
 				<li><a href="#help_rooms_edit_objects">Objects in Rooms</a>
-				<li><a href="#help_rooms_edit_desc">Room Descriptions</a>
+				<li><a href="#help_rooms_edit_desc">Room Description</a>
 				<li><a href="#help_rooms_edit_colors">Room Colors</a>
 				<li><a href="#help_rooms_edit_region">Room Regions</a>
 			</ul>
@@ -231,7 +231,7 @@
 <div class="heading">Tip</div>
 <div class="body">
 <p>Most things you can do in Trizbort are accessible from the menu bar or by pressing keys.</p>
-<p>Where this document says something like <span class="quote">choose&nbsp;Edit->Add&nbsp;Room</span> it means to select "Add Room" from the "Edit" menu on the menu bar.</p>
+<p>Where this document says something like <span class="quote">choose&nbsp;Edit->Add&nbsp;Room</span> it means to select "Add Room" from the "Edit" menu on the menu bar. Menu bar paths are highlighted like <span class="menufind">this</span> and will usually contain an arrow, so you can see them quickly.</p>
 <p>Where it says <span class="quote">press&nbsp;R</span> it means to press the "R" key on your keyboard; <span class="quote">press&nbsp;Ctrl-Home</span> means to hold down the Control key on your keyboard and press the "Home" key. Keyboard combinations are highlighted like <span class="accel">this</span> so you can see them quickly.</p>
 </div> <!-- tip body -->
 </div> <!-- tip -->
@@ -275,7 +275,7 @@
 <a name="help_rooms_delete"></a>
 <h3>Deleting Rooms</h3>
 
-<p>To permanently remove a room from the map, select the room and press Del or choose <span class="menufind">Edit->Delete</span>. Currently, Trizbort has no undo command, so the room is gone unless you can reload a saved copy of the map. When you delete a room, all connections from and to it disappear. Unfortunately, there's no good way to be sure that you may want rooms it connects to reconnect themselves.</p>
+<p>To permanently remove a room from the map, select the room and press <span class="accel">Del</span> or choose <span class="menufind">Edit->Delete</span>. Currently, Trizbort has no undo command, so the room is gone unless you can reload a saved copy of the map. When you delete a room, all connections from and to it disappear. Unfortunately, there's no good way to be sure that you may want rooms it connects to reconnect themselves.</p>
 
 <p>While Trizbort is stable enough not to lose information on its own, and it warns you before closing an unsaved document, it's still recommended to save frequently and definitely back your file up if you want to try a speculative layout.</p>
 
@@ -326,6 +326,8 @@
 
 <p>There are six types of room borders. Solid is the default, but you can also choose Dash, Dot, DashDot, DashDotDot, or None, which look as above. None blocks out any fill as well.
 
+<p>While there are no official conventions for when to use any of these, it may be useful to label a ghost room with a Dot or None border, or maybe have a bottleneck room--or the starting room--dashed. Another example from a real game might be <a href="clue.trizbort">this quick map of Clue</a>.</p>
+
 <a name="help_rooms_edit_objects"></a>
 <h4>Objects in Rooms</h4>
 
@@ -350,7 +352,7 @@
 </div> <!-- tip -->
 
 <a name="help_rooms_edit_desc"></a>
-<h4>Room Descriptions</h4>
+<h4>Room Description</h4>
 
 <p>If you click the "Description" tab, you can edit the description of the room. Click the "Objects" tab again to see the list of objects. Trizbort doesn't use this description itself, but if you export your map to an IF development system, the description may be used to describe the room when playing the game. When automapping, Trizbort will fill out the description for you if it can.</p>
 
@@ -368,13 +370,15 @@
 
 <ul>
 <li>Room fill (<span class="accel">Alt-F</span>). What the background of the room is. As stated above, this trumps the region default color. Perhaps one room in a region would be shaded lighter if it were on the edge.
-<li>Second fill (<span class="accel">Alt-S</span>). A second color, along with alignment. If this color is clear, changing the alignment has no effect. This could be used to indicate a room by water.
+<li>Second fill (<span class="accel">Alt-S</span>). A second color, along with alignment. If this color is clear, changing the alignment has no effect. This could be used to indicate a room by water. There are nine types of alignment for the second color: none, top, left, bottom or down or, if you want something to go diagonally, bottom-left, bottom-right, top-left or top-right.
 <li>Room border (<span class="accel">Alt-B</span>). This changes the color of the border. This may be useful to indicate a room that's only implied by the map, a starting room, or a bottleneck room.
 <li>Room text (<span class="accel">Alt-T</span>). This changes the color of the room title and subtitle.
 <li>Object text (<span class="accel">Alt-J</span>). This changes the color of text for any objects, whether that text is inside the room box or outside.
 </ul>
 
 <p>Trizbort does not check for color-based readability. You may have to de-highlight a room to make sure of this. Below is an example of a Trizbort map that uses all of the above options.</p>
+
+<p>All of these attributes can be cleared. The user should note that white coloring is different from clear coloring. You can tell this by whether the text "No ColorSet" appears in a bar that would otherwise display a color.</p>
 
 <table>
 <tr><td><img src="room_fill_examples.png" alt="Room fill examples"></td></tr>
@@ -464,7 +468,7 @@
 
 <p>You can change a connection's style by selecting it and then using the <span class="menufind">Edit->Line Styles</span> menu or keyboard shortcuts.</p>
 
-<p>Press <span class="accel">A</span> or choose <span class="menufind">Edit->Line Styles->One Way Arrow</span> to toggle whether a connection is one way. Press T or choose <span class="menufind">Edit->Line Styles->Dotted</span> to toggle whether a connection is conditional. You can quickly label a connection as up/down, down/up, out/in or in/out by pressing <span class="accel">U</span>, <span class="accel">D</span>, <span class="accel">I</span> or <span class="accel">O</span> or choosing the relevant option from <span class="menufind">Edit->Line Styles</span>.</p>
+<p>Press <span class="accel">A</span> or choose <span class="menufind">Edit->Line Styles->One Way Arrow</span> to toggle whether a connection is one way. Press <span class="accel">T</span> or choose <span class="menufind">Edit->Line Styles->Dotted</span> to toggle whether a connection is conditional. You can quickly label a connection as up/down, down/up, out/in or in/out by pressing <span class="accel">U</span>, <span class="accel">D</span>, <span class="accel">I</span> or <span class="accel">O</span> or choosing the relevant option from <span class="menufind">Edit->Line Styles</span>.</p>
 
 <a name="help_conn_edit_dir"></a>
 <h4>Changing a Connection's Direction</h4>
@@ -479,7 +483,7 @@
 <a name="help_conn_edit_props"></a>
 <h4>Connection Properties and Custom Labels</h4>
 
-<p>Connections, like rooms, also have their own Properties dialog. You can bring it up in the same way, by selecting the connection and pressing Return or choosing <span class="menufind">Edit->Properties</span>.</p>
+<p>Connections, like rooms, also have their own Properties dialog. You can bring it up in the same way, by selecting the connection and pressing <span class="accel">Return</span> or choosing <span class="menufind">Edit->Properties</span>.</p>
 
 <table>
 <tr><td><img src="connection_properties.png" alt="The Properties dialog for a connection."></td></tr>
@@ -488,12 +492,12 @@
 
 <p>The Properties dialog shows all the ways you can customize a connection. The most popular ones have radio buttons, but you can also specify labels for the start, middle and/or end of the line. The middle label has no technical use, but it's handy to indicate any special actions which have to be taken in game in order to travel along this route, such as "pull lever" or "feed iguana". Of course, you can do this with the start or end labels as well.</p>
 
-<p>Trizbort doesn't mind how you label the start and end of a line, if at all; you might want to indicate up/down connections with "U" and "D" or "top" and "bottom". However, if you export your map to an IF development system, Trizbort will ignore custom labels.</p>
+<p>Trizbort doesn't mind how you label the start and end of a line, if at all; you might prefer to indicate up/down connections with "U" and "D" or "top" and "bottom". However, if you export your map to an IF development system, Trizbort will ignore custom labels.</p>
 
 <a name="help_conn_color"></a>
 <h4>Changing a Connection's Color</h4>
 
-<p>Once you've highlighted a connection, hit enter to bring up the Connection Properties dialog box. Color is in the upper right, and you can change it as you would room color.</p>
+<p>Once you've highlighted a connection, hit enter to bring up the Connection Properties dialog box. Color is in the upper right, and you can change it as you would room color. Remember that "No ColorSet" is different from white.</p>
 
 <a name="help_conn_inheritance"></a>
 <h3>Connection Style Inheritance</h3>
@@ -514,7 +518,7 @@
 
 <p>The scroll bars at the bottom and right of the canvas show you how much of the map you can currently see. You can click and/or drag the scroll bars in the usual way to change your view.</p>
 
-<p>You can also use the Up, Down, Left and Right cursor keys to scroll the map in any direction.</p>
+<p>You can also use the <span class="accel">Up</span>, <span class="accel">Down</span>, <span class="accel">Left</span> and <span class="accel">Right</span> cursor keys to scroll the map in any direction.</p>
 
 <a name="help_nav_zoom"></a>
 <h3>Zooming</h3>
@@ -528,9 +532,9 @@
 <a name="help_nav_other"></a>
 <h3>Other Views</h3>
 
-<p>You can choose <span class="menufind">View->Reset</span> or press Home to reset your view so that you're looking at the center of the map, neither zoomed in or out.</p>
+<p>You can choose <span class="menufind">View->Reset</span> or press <span class="accel">Home</span> to reset your view so that you're looking at the center of the map, neither zoomed in or out.</p>
 
-<p>You can choose <span class="menufind">View->Entire Map</span> or press Control-Home to view the whole map at once. This also centers your view. It will not zoom in beyond 100% for very small maps.</p>
+<p>You can choose <span class="menufind">View->Entire Map</span> or press <span class="accel">Control-Home</span> to view the whole map at once. This also centers your view. It will not zoom in beyond 100% for very small maps.</p>
 
 <a name="advanced_topics"></a>
 <h1>Advanced Topics</h1>
@@ -552,6 +556,11 @@
 <a name="help_settings_about"></a>
 <h3>About the Map</h3>
 
+<table>
+<tr><td><img src="map_settings_about.png" alt="The ABOUT tab in Map Settings."></td></tr>
+<tr><td class="alt">The ABOUT tab in Map Settings.</td></tr>
+</table>
+
 <p>The About tab in Map Settings lets you set the title, author, description and history of the map. These are all optional fields, though some can be exported to IF Development source.</p>
 
 <ul>
@@ -565,21 +574,35 @@
 <a name="help_settings_colorfont"></a>
 <h3>Colors and Fonts</h3>
 
+<table>
+<tr><td><img src="map_settings_colors_and_fonts.png" alt="The Colors and Fonts tab in Map Settings."></td></tr>
+<tr><td class="alt">The Colors and Fonts tab in Map Settings.</td></tr>
+</table>
+
 <p>The Colors and Fonts tab lets you change the colors used by Trizbort to draw the map, both on screen and when exporting as a PDF file or as an image.</p>
+
+<ul>
+<li>CANVAS changes the background color. This background color persists to an exported graphic.
+<li>FILL is rendered largely obsolete by the new region fill options.
+<li>BORDER is also rendered largely obsolete. However, a new region created will default to this color.
+<li>LINE gives the default color for a connecting line. However, you can override individual color connections.
+<li>SELECTED LINE determines the color of a selected line. This includes room borders. This does not affect colors in an exported graphic.
+<li>HOVER LINE determines the color of a line you hover the mouse over, so you know if you can click it. This does not affect colors in an exported graphic.
+<li>ROOM TEXT determines the default room text color of any new regions.
+<li>LINE TEXT is rendered largely obsolete by newer options.
+<li>OBJECT TEXT determines, across regions, the default color of object descriptions. Individual rooms can override this.
+<li>GRID gives the color of the grid, if you have enabled it in the LINES and GRID tab. This does not affect colors in an exported graphic.
+</ul>
 
 <p>You may choose any font which is available on your computer, but if you give the Trizbort map file to other people, they will need to have the same fonts in order to view your map as you intended. Trizbort will use another font if a chosen font is not available.</p>
 
-<a name="help_settings_room_borders_and_coloring"></a>
-<h3>Room Borders and Coloring</h3>
-
-<p>You can pick room borders from anywhere in the room properties dialog. Solid is the default, but Dash, DashDot, DashDotDot, Dot and None are available. While there are no official conventions for when to use any of these, it may be useful to label a ghost room with a Dot or None border, or maybe have a bottleneck room--or the starting room--dashed. Another example from a real game might be <a href="clue.trizbort">this quick map of Clue</a>.</p>
-
-<p>The Colors sub-tab of Room Properties allows you to determine the fill. Room Fill overrides whatever the room's region is set to. You also can specify a second color for half of the room. This can be split eight ways: top, left, bottom or down or, if you want something to go diagonally, bottom-left, bottom-right, top-left or top-right.</p>
-
-<p>All of these attributes can be cleared. The user should note that white coloring is different from clear coloring. You can tell this by whether the text "No ColorSet" appears in a bar that would otherwise display a color.</p>
-
 <a name="help_settings_linegrid"></a>
 <h3>Lines and Grid</h3>
+
+<table>
+<tr><td><img src="map_settings_lines_and_grid.png" alt="The Lines and Grid tab in Map Settings."></td></tr>
+<tr><td class="alt">The Lines and Grid tab in Map Settings.</td></tr>
+</table>
 
 <p>The Lines and Grid tab gives you control over various settings to do with connections and with aligning things on the map.</p>
 
@@ -630,11 +653,12 @@
 <a name="help_settings_other"></a>
 <h3>Other Settings</h3>
 
-<p>The Other tab gives you control over miscellaneous settings which don't fit into one of the above categories.</p>
+<table>
+<tr><td><img src="map_settings_other.png" alt="The Other tab in Map Settings."></td></tr>
+<tr><td class="alt">The Other tab in Map Settings.</td></tr>
+</table>
 
-<a name="restore_default"></a>
-<h3>Restore Default Map Settings</h3>
-<p>This menu option changes map settings to their default. It does not change app settings to their default. It erases all regions the player created as well.</p>
+<p>The Other tab gives you control over miscellaneous settings which don't fit into one of the above categories.</p>
 
 <table>
 <tr><td class="heading">Darkness Stripe Size</td><td>The width and height of the stripe Trizbort draws in the top right corner of rooms the user labeled dark.</td></tr>
@@ -643,12 +667,16 @@
 <tr><td class="altheading">Snap to Element Distance</td><td class="alt">To make it easier to select and drag rooms and connections, Trizbort allows you a small margin for error when selecting or dragging rooms and connections. You can increase this value if you have trouble selecting or dragging, or decrease it if you are very precise when selecting and dragging. Using very large or very small values may make Trizbort notably harder to use.</td></tr>
 </table>
 
+<a name="restore_default"></a>
+<h3>Restore Default Map Settings</h3>
+<p>This menu option changes map settings to their default. It does not change app settings to their default. It erases all regions the player created as well.</p>
+
 <a name="help_select"></a>
 <h2>Multiple Selection</h2>
 
 <p>You can select multiple things at once in Trizbort, both rooms and connections, even at the same time. This allows you to shift a chunk of map over with one movement.</p>
 
-<p>Multiple selection can performed with either the mouse and keyboard.</p>
+<p>Multiple selection can performed with either the mouse or the keyboard. It may be performed by highlighting a rectangle or by control-clicking, or a combination of both.</p>
 
 <a name="help_select_all"></a>
 <h3>Select All/None</h3>
@@ -938,7 +966,7 @@ At your service!</pre></td></tr>
 <a name="help_fu_nav"></a>
 <h3>Navigating the Map with the Keyboard</h3>
 
-<p>With nothing selected, you can press Return to select the room closest to the center of the canvas, and center the canvas on that room if it isn't already.</p>
+<p>With nothing selected, you can press <span class="accel">Return</span> to select the room closest to the center of the canvas, and center the canvas on that room if it isn't already.</p>
 
 <p>If you have a numeric keypad, and have a room selected, you can use the numeric keypad like a compass rose to navigate around the map. With a room selected, press  <span class="accel">8</span>, <span class="accel">2</span>, <span class="accel">6</span> or <span class="accel">4</span> on the numeric keypad to select the room to the north, south, east or west of the currently selected room. Press <span class="accel">9</span>, <span class="accel">3</span>, <span class="accel">1</span> or <span class="accel">7</span> to select the room to the northeast, northwest, southeast or southwest.</p>
 
@@ -1014,7 +1042,7 @@ At your service!</pre></td></tr>
 <a name = "sample_trap"></a>
 <h3>Making a Trap Room Region</h3>
 
-<p>We need a way out of the city, so let's make it north of N City. You can use the <span class="accel">control-arrows</span> now. Call it City Entry. Now, let's utterly disregard Graham Nelson's <a href="http://maher.filfre.net/if-book/if-10.htm">Bill of Player's Rights</a> and make a couple death traps. Behind the Barrel, west of W City, where you get beaten to death by secretive philosophers, and Varmints' Pub, where you get beaten to death by secretive non-philosophers. Still, so we're not totally unfair, let's label the death traps as such. Create a new region and call it TRAP ROOMS. Make the background color red. That way, if we want to add a few later, we can. You can decide whether to <span class="accel">control-click</span> on the rooms, or navigate to them, push return and edit the properties. You can <span class="accel">tab</span> and <span class="accel">alt-tab</span> until "Objects" is highlighted, then use the <span class="accel">arrows</span> and <span class="accel">tab</span> again.</p>
+<p>We need a way out of the city, so let's make it north of N City. You can use the <span class="accel">control-arrows</span> now. Call it City Entry. Now, let's utterly disregard Graham Nelson's <a href="http://maher.filfre.net/if-book/if-10.htm">Bill of Player's Rights</a> and make a couple death traps. Behind the Barrel, west of W City, where you get beaten to death by secretive philosophers, and Varmints' Pub, where you get beaten to death by secretive non-philosophers. Still, so we're not totally unfair, let's label the death traps as such. Create a new region and call it TRAP ROOMS. Make the background color red. That way, if we want to add a few later, we can. You can decide whether to <span class="accel">control-click</span> on the rooms, or navigate to them, push <span class="accel">return</span> and edit the properties. You can <span class="accel">tab</span> and <span class="accel">alt-tab</span> until "Objects" is highlighted, then use the <span class="accel">arrows</span> and <span class="accel">tab</span> again.</p>
 
 <a name = "sample_churn"></a>
 <h3>Churning regions and rooms</h3>
@@ -1246,6 +1274,13 @@ At your service!</pre></td></tr>
 
 <p>In addition, other mapping tools are found <a href="http://www.ifarchive.org/indexes/if-archiveXmapping-tools.html">here</a>.</p>
 
+<p>Sites with lots of maps include:</p>
+
+<ul>
+  <li>The <a href="http://www.solutionarchive.com">Classic Adventure Solution Archive</a>
+  <li>David Welbourn's <a href="http://www.plover.net/~davidw/ifindex.html">Key and Compass</a>
+</ul>
+
 <a name="general_sample_test_suites"></a>
 <h2>Trizbort sample and test suites</h2>
 
@@ -1257,7 +1292,7 @@ At your service!</pre></td></tr>
 <a name="general_thirdparty"></a>
 <h2>Third Party Software Recommendations</h2>
 
-<p>Trizbort is a relatively small project, and we don't have the manpower to fulfill every feature request, much as we'd like to. However, some third-party software allows a workaround.</p>
+<p>Trizbort is a relatively small project, and we don't have the manpower to fulfill every feature request, much as we'd like to. However, some third-party software allows a workaround and may be useful in other ways, so a list seems appropriate.</p>
 
 <ul>
 <li>Since Trizbort does not currently support multiple-page PDFs, <a href="https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/">PDFTK</a> is recommended for merging multiple PDFs. This may be useful if your game's map has multiple levels, or if you wish to attach your maps to a walkthrough or feelie. <a href="https://www.libreoffice.org/">LibreOffice</a> allows for command-line PDF creation.

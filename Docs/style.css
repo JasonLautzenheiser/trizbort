@@ -64,6 +64,13 @@ body
         padding-right-ltr-source: physical;
         padding-right-rtl-source: physical;
 }
+.tip .quote {
+    background-color: #FFF;
+    color: #000;
+    border: 1px solid #B0B090;
+    padding: 2px;
+    line-height: 23px;
+}
 table {
     border: 1px solid #000;
     border-collapse: collapse;

@@ -68,3 +68,17 @@ echo Placing objects
 %TESTBASE%\object-placement.trizbort
 echo One-room lines
 %TESTBASE%\one-room-lines.trizbort
+echo Fills in different shaped rooms
+%TESTBASE%\fill-different-room-shapes.trizbort
+echo Fills in dark rooms
+%TESTBASE%\fills-orange-region-dark.trizbort
+echo Fills in light rooms
+%TESTBASE%\fills-orange-region.trizbort
+echo Line colors
+%TESTBASE%\line-colors.trizbort
+echo odd room links to itself
+%TESTBASE%\room-link-to-itself.trizbort
+echo use ctrl arrows to autolink
+%TESTBASE%\small-room-ctrl-arrow-test.trizbort
+echo stray line
+%TESTBASE%\stray-line.trizbort

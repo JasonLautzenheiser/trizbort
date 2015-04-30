@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trizbort version="1.5.8.7">
+	<info />
+	<map>
+		<room id="1" name="Mountainside" subtitle="" x="0" y="0" w="96" h="64" region="Helen" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="2" name="Foot of the Mountain S" subtitle="" x="0" y="128" w="96" h="64" region="Helen" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Pole</objects>
+		</room>
+		<line id="3">
+			<dock index="0" id="1" port="s" />
+			<dock index="1" id="2" port="n" />
+		</line>
+		<room id="4" name="Foot of the Mountain W" subtitle="" x="-160" y="128" w="96" h="64" region="Helen" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="5">
+			<dock index="0" id="2" port="w" />
+			<dock index="1" id="4" port="e" />
+		</line>
+		<room id="6" name="Foot of the Mountain E" subtitle="" x="160" y="128" w="96" h="64" region="Helen" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="7">
+			<dock index="0" id="2" port="e" />
+			<dock index="1" id="6" port="w" />
+		</line>
+		<room id="8" name="On the Cloud" subtitle="" x="320" y="0" w="96" h="64" region="Helen" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="9" startText="in" endText="out">
+			<dock index="0" id="6" port="ne" />
+			<dock index="1" id="8" port="sw" />
+		</line>
+		<room id="13" name="Platform" subtitle="" x="-160" y="768" w="96" h="64" region="Ross" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="14" name="Machine Room: West" subtitle="" x="0" y="768" w="96" h="64" region="Ross" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>(put pole in recess)</objects>
+		</room>
+		<line id="15">
+			<dock index="0" id="13" port="e" />
+			<dock index="1" id="14" port="w" />
+		</line>
+		<room id="16" name="Fall to Carriage" subtitle="" x="-160" y="640" w="96" h="64" region="NoRegion" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="17" name="Fall to Carriage" subtitle="" x="-320" y="768" w="96" h="64" region="NoRegion" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="18" name="Fall to Carriage" subtitle="" x="-160" y="896" w="96" h="64" region="NoRegion" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="19" name="Machine Room: Central" subtitle="" x="160" y="768" w="96" h="64" region="Ross" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Crystal</objects>
+		</room>
+		<line id="20">
+			<dock index="0" id="14" port="e" />
+			<dock index="1" id="19" port="w" />
+		</line>
+		<room id="21" name="Machine Room: East" subtitle="" x="320" y="768" w="96" h="64" region="Ross" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="22">
+			<dock index="0" id="19" port="e" />
+			<dock index="1" id="21" port="w" />
+		</line>
+		<room id="23" name="Beneath the Pipe" subtitle="" x="160" y="640" w="96" h="64" region="Ross" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Crystal</objects>
+		</room>
+		<line id="24" startText="up" endText="down">
+			<dock index="0" id="14" port="ne" />
+			<dock index="1" id="23" port="sw" />
+		</line>
+		<room id="25" name="Church Isle" subtitle="" x="160" y="256" w="96" h="64" region="Helen" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Page</objects>
+		</room>
+		<line id="26">
+			<dock index="0" id="2" port="se" />
+			<dock index="1" id="25" port="nw" />
+		</line>
+		<room id="27" name="Fall to Carriage" subtitle="" x="320" y="512" w="96" h="64" region="NoRegion" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="28" startText="down" endText="up">
+			<dock index="0" id="27" port="sw" />
+			<dock index="1" id="23" port="ne" />
+		</line>
+		<room id="29" name="Over the Gap" subtitle="" x="0" y="640" w="96" h="64" region="Ross" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Crystal</objects>
+		</room>
+		<line id="30" style="dashed">
+			<dock index="0" id="14" port="n" />
+			<dock index="1" id="29" port="s" />
+		</line>
+		<room id="31" name="Scrap Room" subtitle="" x="0" y="512" w="96" h="64" region="Ross" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Phone/crystal</objects>
+		</room>
+		<line id="32" style="dashed">
+			<dock index="0" id="29" port="n" />
+			<dock index="1" id="31" port="s" />
+		</line>
+		<room id="33" name="Coast" subtitle="" x="-320" y="128" w="96" h="64" region="Helen" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Page</objects>
+		</room>
+		<line id="34" style="dashed">
+			<dock index="0" id="4" port="w" />
+			<dock index="1" id="33" port="e" />
+		</line>
+		<room id="35" name="Cave" subtitle="" x="-320" y="256" w="96" h="64" region="Helen" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="36" style="dashed" startText="up" endText="down">
+			<dock index="0" id="33" port="s" />
+			<dock index="1" id="35" port="n" />
+		</line>
+		<room id="37" name="Attic" subtitle="" x="-320" y="384" w="96" h="64" region="Helen" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Stuff (page)|Laptop</objects>
+		</room>
+		<line id="38">
+			<dock index="0" id="35" port="s" />
+			<dock index="1" id="37" port="n" />
+		</line>
+		<room id="39" name="Tomb" subtitle="" x="-480" y="256" w="96" h="64" region="Helen" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Coffin (page)</objects>
+		</room>
+		<line id="40" style="dashed">
+			<dock index="0" id="35" port="w" />
+			<dock index="1" id="39" port="e" />
+		</line>
+		<room id="10" name="Carriage" subtitle="" x="-160" y="448" w="96" h="64" region="Both" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="11" style="dashed" flow="oneWay" startText="sleep (Ross)">
+			<dock index="0" id="10" port="se" />
+			<dock index="1" id="14" port="nw" />
+		</line>
+		<line id="12" style="dashed" flow="oneWay" startText="sleep (Helen)">
+			<dock index="0" id="10" port="ne" />
+			<dock index="1" id="1" port="sw" />
+		</line>
+		<room id="41" name="Underground Line" subtitle="" x="-480" y="128" w="96" h="64" region="Helen" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="42" flow="oneWay">
+			<dock index="0" id="41" port="s" />
+			<dock index="1" id="39" port="n" />
+		</line>
+		<room id="43" name="Hospital Room" subtitle="" x="320" y="640" w="96" h="64" region="Ross" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="44" startText="down" endText="south">
+			<dock index="0" id="21" port="n" />
+			<dock index="1" id="43" port="s" />
+		</line>
+		<room id="45" name="Reth's Den" subtitle="" x="160" y="512" w="96" h="64" region="Ross" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Box (Soul)</objects>
+		</room>
+		<line id="46">
+			<dock index="0" id="31" port="e" />
+			<dock index="1" id="45" port="w" />
+		</line>
+		<room id="47" name="Underground Line" subtitle="" x="160" y="384" w="96" h="64" region="Both" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="48" flow="oneWay" midText="Ross only">
+			<dock index="0" id="47" port="s" />
+			<dock index="1" id="45" port="n" />
+		</line>
+		<room id="49" name="Summit" subtitle="" x="0" y="384" w="96" h="64" region="Both" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="50" startText="down" endText="west">
+			<dock index="0" id="49" port="e" />
+			<dock index="1" id="47" port="w" />
+		</line>
+		<room id="51" name="Vat" subtitle="" x="320" y="384" w="96" h="64" region="Both" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Syringe</objects>
+		</room>
+		<line id="52" flow="oneWay">
+			<dock index="0" id="47" port="e" />
+			<dock index="1" id="51" port="w" />
+		</line>
+		<room id="53" name="Train Wreck" subtitle="" x="320" y="256" w="96" h="64" region="Ross" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="54" startText="in" endText="out">
+			<dock index="0" id="47" port="ne" />
+			<dock index="1" id="53" port="sw" />
+		</line>
+	</map>
+	<settings>
+		<colors>
+			<canvas>White</canvas>
+			<fill>White</fill>
+			<border>MidnightBlue</border>
+			<line>MidnightBlue</line>
+			<selectedLine>Gold</selectedLine>
+			<hoverLine>DarkOrange</hoverLine>
+			<largeText>MidnightBlue</largeText>
+			<smallText>MidnightBlue</smallText>
+			<lineText>MidnightBlue</lineText>
+			<grid>#F5F5F5</grid>
+		</colors>
+		<regions>
+			<Both Name="Both" TextColor="MidnightBlue">Lime</Both>
+			<Helen Name="Helen" TextColor="MidnightBlue">Yellow</Helen>
+			<NoRegion Name="NoRegion" TextColor="Blue">White</NoRegion>
+			<Ross Name="Ross" TextColor="MidnightBlue">Aqua</Ross>
+		</regions>
+		<fonts>
+			<room size="12">Arial</room>
+			<object size="9.75">Arial</object>
+			<line size="8.25">Arial</line>
+		</fonts>
+		<grid>
+			<snapTo>yes</snapTo>
+			<visible>yes</visible>
+			<showOrigin>yes</showOrigin>
+			<size>32</size>
+		</grid>
+		<lines>
+			<width>2</width>
+			<handDrawn>yes</handDrawn>
+			<arrowSize>12</arrowSize>
+			<textOffset>4</textOffset>
+		</lines>
+		<rooms>
+			<darknessStripeSize>24</darknessStripeSize>
+			<objectListOffset>4</objectListOffset>
+			<connectionStalkLength>32</connectionStalkLength>
+			<preferredDistanceBetweenRooms>64</preferredDistanceBetweenRooms>
+		</rooms>
+		<ui>
+			<handleSize>12</handleSize>
+			<snapToElementSize>16</snapToElementSize>
+		</ui>
+		<keypadNavigation>
+			<creationModifier>control</creationModifier>
+			<unexploredModifier>alt</unexploredModifier>
+		</keypadNavigation>
+	</settings>
+</trizbort>

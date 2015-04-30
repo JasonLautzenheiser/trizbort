@@ -33,11 +33,11 @@ echo Stalk lengths are tested: 16, 32, 48
 echo Stalk lengths are tested: 16, 32, 48
 %TESTBASE%\stalk-length-48.trizbort
 echo Line sizes tested: 1, 2, 4
-%TESTBASE%\line-size-1.trizbort
+%TESTBASE%\line-width-1.trizbort
 echo Line sizes tested: 1, 2, 4
-%TESTBASE%\line-size-2.trizbort
+%TESTBASE%\line-width-2.trizbort
 echo Line sizes tested: 1, 2, 4
-%TESTBASE%\line-size-4.trizbort
+%TESTBASE%\line-width-4.trizbort
 echo Text offsets of line annotations: 4, 20, 50
 %TESTBASE%\text-offset-4.trizbort
 echo Text offsets of line annotations: 4, 20, 50
@@ -56,4 +56,15 @@ echo make sure unavailable font doesn't cause problems
 %TESTBASE%\unavailable-font.trizbort
 echo hover over line, click line, create new region (should have orange text)
 %TESTBASE%\map-settings-colors.trizbort
-
+echo Dark tab sizes tested: 12, 24, 48, 96
+%TESTBASE%\dark-tab-12.trizbort
+echo Dark tab sizes tested: 12, 24, 48, 96
+%TESTBASE%\dark-tab-24.trizbort
+echo Dark tab sizes tested: 12, 24, 48, 96
+%TESTBASE%\dark-tab-48.trizbort
+echo Dark tab sizes tested: 12, 24, 48, 96
+%TESTBASE%\dark-tab-96.trizbort
+echo Placing objects
+%TESTBASE%\object-placement.trizbort
+echo One-room lines
+%TESTBASE%\one-room-lines.trizbort

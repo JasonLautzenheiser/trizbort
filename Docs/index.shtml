@@ -1169,7 +1169,7 @@ At your service!</pre></td></tr>
 
 <table border=1>
 <tr><th>Key</th><th>plain function</th><th><span class="ctrls">ctrl</span>/<span class="shifts">shift</span>/<span class="alts">alt</span> or any combo</th>
-<tr><td class="heading">A</td><td>One-way line</td><td><span class="ctrls">ctrl-a</span>=select all</td></tr>
+<tr><td class="heading">A</td><td>One-way line</td><td><span class="ctrls">ctrl-a</span>=select all, <span class="ctrlshifts">ctrl-shift-a</span>=select region</td></tr>
 <tr><td class="altheading">B</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="heading">C</td><td class="blank"></td><td><span class="ctrls">ctrl-c</span>=copy, <span class="ctrlalts">ctrl-alt-c</span>=copy color</td></tr>
 <tr><td class="altheading">D</td><td>down/up line</td><td class="blank"></td></tr>
@@ -1206,20 +1206,20 @@ At your service!</pre></td></tr>
 <tr><td class="heading">8</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="altheading">9</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td colspan=3><center>Non-alphanumeric</center></td></tr>
-<tr><td>Delete</td><td>Delete all selected</td><td class="blank"></td></tr>
-<tr><td>Enter</td><td>Edit selected room properties<br />Select center room</td><td class="blank"></td></tr>
-<tr><td>ESC</td><td>Select none</td><td class="blank"></td></tr>
-<tr><td>F1</td><td class="blank"></td><td><span class="ctrls">ctrl-F1</span>=toggle upper left frame rate info</td></tr>
-<tr><td>F2</td><td>Rename (seems to duplicate Enter)</td><td><span class="ctrls">ctrl-F2</span>=toggle all elements, <span class="shifts">shift-F2</span>=change region</td></tr>
-<tr><td>F3</td><td class="blank"></td><td><span class="ctrls">ctrl-F3</span>=toggle all room borders and connectors</td></tr>
-<tr><td>F4</td><td class="blank"></td><td><span class="ctrls">ctrl-F4</span>=toggle all text</td></tr>
-<tr><td>F5</td><td>Disable stops in automap</td><td class="blank"></td></tr>
-<tr><td>F11</td><td>Single step in automap</td><td class="blank"></td></tr>
-<tr><td>+/=</td><td>zoom in</td><td class="blank"></td></tr>
-<tr><td>-</td><td>zoom out</td><td class="blank"></td></tr>
-<tr><td>(arrow keys)</td><td>moves around the map</td><td><span class="ctrls">ctrl-arrow</span>=move to or create new room</td></tr>
-<tr><td>(home)</td><td>Centers the map</td><td><span class="ctrls">ctrl-home</span>=centers the map, see it all</td></tr>
-<tr><td>(numlock keys)</td><td>moves around the map</td><td><span class="ctrls">ctrl-numlock</span>=move to or create new room</td></tr>
+<tr><td class="heading">Delete</td><td>Delete all selected</td><td class="blank"></td></tr>
+<tr><td class="altheading">Enter</td><td>Edit selected room properties<br />Select center room</td><td class="blank"></td></tr>
+<tr><td class="heading">ESC</td><td>Select none</td><td class="blank"></td></tr>
+<tr><td class="altheading">F1</td><td class="blank"></td><td><span class="ctrls">ctrl-F1</span>=toggle upper left frame rate info</td></tr>
+<tr><td class="heading">F2</td><td>Rename (seems to duplicate Enter)</td><td><span class="ctrls">ctrl-F2</span>=toggle all elements, <span class="shifts">shift-F2</span>=change region</td></tr>
+<tr><td class="altheading">F3</td><td class="blank"></td><td><span class="ctrls">ctrl-F3</span>=toggle all room borders and connectors</td></tr>
+<tr><td class="heading">F4</td><td class="blank"></td><td><span class="ctrls">ctrl-F4</span>=toggle all text</td></tr>
+<tr><td class="altheading">F5</td><td>Disable stops in automap</td><td class="blank"></td></tr>
+<tr><td class="heading">F11</td><td>Single step in automap</td><td class="blank"></td></tr>
+<tr><td class="altheading">+/=</td><td>zoom in</td><td class="blank"></td></tr>
+<tr><td class="heading">-</td><td>zoom out</td><td class="blank"></td></tr>
+<tr><td class="altheading">(arrow keys)</td><td>moves around the map</td><td><span class="ctrls">ctrl-arrow</span>=move to or create new room</td></tr>
+<tr><td class="heading">(home)</td><td>Centers the map</td><td><span class="ctrls">ctrl-home</span>=centers the map, see it all</td></tr>
+<tr><td class="altheading">(numlock keys)</td><td>moves around the map</td><td><span class="ctrls">ctrl-numlock</span>=move to or create new room</td></tr>
 </table>
 
 <a name="building"></a>

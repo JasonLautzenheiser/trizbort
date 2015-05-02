@@ -9,18 +9,43 @@
 #
 #future adds: start at certain place in alphabet
 
-$allfonts{"Arial"} = 1;
-#$allfonts{"Times New Roman"} = 1;
-#$allfonts{"Comic Sans MS"} = 1;
+$|=1;
+use Win32API::Registry qw( :ALL );
+my ($key, $uIndex, $name, $nameLength, $type, $data, $dataLength );
+my %allfonts;
+my $thisfont;
 
-for $thisfont (sort keys %allfonts)
+my $ok=RegOpenKeyEx( HKEY_LOCAL_MACHINE , "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts", 0, KEY_READ, $key );
+if($key){
+    my $uIndex=0;
+    do{
+         RegEnumValue ( $key, $uIndex, $name, $nameLength, [], $type, 
++$data, $dataLength );
+         $uIndex++;
+		 if ($name =~ /\(TrueType\)/) { $name =~ s/ +\(TrueType\)//g; }
+		 $data =~ s/[^a-z]*$//gi;
+		 $name =~ s/\\ / /g;
+		 if (!$allfonts{"name"})
+		 {
+		 $allfonts{"$name"} = "$data";
+		 }
+         print "$uIndex $name=$data.\r\n";
+	}
+     while(!regLastError());
+    }
+else { print "No key.\n"; }
+RegCloseKey( $key );
+
+for $curfont (sort keys %allfonts)
 {
-  $outStr = "fonttest-$thisfont.trizbort";
+  $data = $allfonts{"$curfont"};
+  #print "$curfont $data\n"; next;
+  my $outStr = "fonttest-$data.trizbort";
   open(A, "unavailable-font.trizbort");
   open(B, ">$outStr");
   while ($a = <A>)
   {
-    if ($a =~ /BADFONT/) { $a =~ s/BADFONT/$thisfont/g; }
+    if ($a =~ /BADFONT/) { $a =~ s/BADFONT/$curfont/g; }
     print B $a;
   }
   close(A);

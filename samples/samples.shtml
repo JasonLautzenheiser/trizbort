@@ -48,6 +48,14 @@
 <td>IFComp 2011</td>
 <td>A small non-reciprocal maze as well as quest areas that give themselves naturally to regions. Two rooms are tagged to indicate a puzzle in one room helps with another. A one-way and dotted passage show the entrance/exit in a jail. Other formatting includes the color of gems that need to go on various pedestals near the end.</td>
 </tr>
+<td><a href="escape-from-summerland.pdf">Escape from Summerland</a></td>
+<td>IFComp 2012</td>
+<td>This game involved switching among three player characters, so color coding is used to denote where only the ghost can go, where only the monkey can go, and where the monkey and robot need to cooperate. It also features different names for the locations, since each PC sees it differently.</td>
+</tr>
+<td class="alt"><a href="spiral.pdf">Spiral</a></td>
+<td>IFComp 2012</td>
+<td>Another game from the same competition that features two player characters whose lives intersect at certain points only. A major goal of the game is to collect seven soul pieces for one of the players.</td>
+</tr>
 <tr>
 <td><a href="further.pdf">Further</a></td>
 <td>IFComp 2013</td>

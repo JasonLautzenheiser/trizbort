@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trizbort version="1.5.8.7">
+	<info />
+	<map>
+		<room id="1" name="In the Caravan Park" subtitle="" x="-672" y="-352" w="128" h="96" region="Man" borderstyle="Dash" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Enter then examine person</objects>
+		</room>
+		<room id="3" name="Main Track" subtitle="" x="-672" y="-192" w="128" h="96" region="Man" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="4">
+			<dock index="0" id="1" port="s" />
+			<dock index="1" id="3" port="n" />
+		</line>
+		<room id="5" name="Beneath the Hedge" subtitle="" x="-480" y="-192" w="128" h="96" region="Man" borderstyle="Solid" description="" roomFill="" secondFill="#C0C0C0" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Jacquotte gone, go east or west</objects>
+		</room>
+		<line id="6">
+			<dock index="0" id="3" port="e" />
+			<dock index="1" id="5" port="w" />
+		</line>
+		<room id="7" name="Drizzle Court" subtitle="" x="-288" y="-192" w="128" h="96" region="Man" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="8">
+			<dock index="0" id="5" port="e" />
+			<dock index="1" id="7" port="w" />
+		</line>
+		<room id="9" name="Orbis Alius" subtitle="Stupid Place" x="-96" y="-192" w="128" h="96" region="Man and Jacquotte" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>CLIMB or PUSH robot|as Jacquotte</objects>
+		</room>
+		<line id="10">
+			<dock index="0" id="7" port="e" />
+			<dock index="1" id="9" port="w" />
+		</line>
+		<room id="11" name="Mirror Maze" subtitle="" x="-96" y="-352" w="128" h="96" region="Man" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="12" midText="no passage">
+			<dock index="0" id="9" port="n" />
+			<dock index="1" id="11" port="s" />
+		</line>
+		<room id="13" name="Up in the Stands" subtitle="" x="96" y="-192" w="128" h="96" region="Man" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="14" style="dashed">
+			<dock index="0" id="9" port="e" />
+			<dock index="1" id="13" port="w" />
+		</line>
+		<room id="15" name="Big Top West" subtitle="Unauthorized Landing Zone" x="-96" y="128" w="128" h="96" region="Shinobi" borderstyle="Dash" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Left unit falls here</objects>
+		</room>
+		<line id="16" startText="down" endText="up">
+			<dock index="0" id="13" port="s" />
+			<dock index="1" id="15" port="n" />
+		</line>
+		<room id="17" name="Big Top East" subtitle="Landing Zone" x="96" y="128" w="128" h="96" region="Cooperate" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="18">
+			<dock index="0" id="15" port="e" />
+			<dock index="1" id="17" port="w" />
+		</line>
+		<room id="19" name="Backways" subtitle="Liminal Space" x="96" y="288" w="128" h="96" region="Cooperate" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Jacquotte needs light</objects>
+		</room>
+		<line id="20">
+			<dock index="0" id="17" port="s" />
+			<dock index="1" id="19" port="n" />
+		</line>
+		<room id="21" name="The Dressing Rooms" subtitle="Sartorial Space" x="288" y="288" w="128" h="96" region="Shinobi" borderstyle="Solid" description="" roomFill="" secondFill="#C0C0C0" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="22">
+			<dock index="0" id="19" port="e" />
+			<dock index="1" id="21" port="w" />
+		</line>
+		<room id="33" name="Home Place" subtitle="Enclosure Enclosure" x="-96" y="288" w="128" h="96" region="NoRegion" borderstyle="Solid" description="" roomFill="" secondFill="#C0C0C0" secondFillLocation="BottomRight" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Right Interaction|Civilian Discouragement|</objects>
+		</room>
+		<line id="34">
+			<dock index="0" id="19" port="w" />
+			<dock index="1" id="33" port="e" />
+		</line>
+		<room id="32" name="Inside the Caravan" subtitle="" x="-480" y="-512" w="128" h="96" region="Man" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Dead Man</objects>
+		</room>
+		<line id="35" startText="in" endText="out">
+			<dock index="0" id="1" port="ne" />
+			<dock index="1" id="32" port="sw" />
+		</line>
+		<room id="23" name="Another High Place" subtitle="" x="288" y="-192" w="128" h="96" region="Jacquotte" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Shiny Thing (Left unit)</objects>
+		</room>
+		<line id="24" style="dashed" startText="Need pole">
+			<dock index="0" id="17" port="n" />
+			<dock index="1" id="23" port="s" />
+		</line>
+		<room id="2" name="Jacquotte's Cage" subtitle="" x="-288" y="288" w="128" h="96" region="Jacquotte" borderstyle="Dash" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="25" flow="oneWay" startText="out" endText="in">
+			<dock index="0" id="2" port="e" />
+			<dock index="1" id="33" port="w" />
+		</line>
+		<room id="26" name="Going Up Thing (skipped by man)" subtitle="" x="480" y="-128" w="128" h="608" region="Cooperate" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Skipped by man</objects>
+		</room>
+		<line id="27" startText="in" endText="out">
+			<dock index="0" id="21" port="e" />
+			<dock index="1" id="26" port="wsw" />
+		</line>
+		<room id="36" name="Selkie Aquarium/Aquatic Region" subtitle="Creepy Creepy Room" x="-96" y="-32" w="128" h="96" region="Shinobi" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="37" style="dashed">
+			<dock index="0" id="9" port="s" />
+			<dock index="1" id="36" port="n" />
+		</line>
+		<room id="38" name="Control Booth" subtitle="Room of ALL THE FUN" x="96" y="-32" w="128" h="96" region="Cooperate" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n">Crank</objects>
+		</room>
+		<line id="39">
+			<dock index="0" id="36" port="e" />
+			<dock index="1" id="38" port="w" />
+		</line>
+		<room id="40" name="Service Corridor" subtitle="Dusty Place" x="288" y="-32" w="128" h="96" region="Shinobi" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>search rubble for plunger|install, SUCK DOOR</objects>
+		</room>
+		<line id="41" style="dashed">
+			<dock index="0" id="38" port="e" />
+			<dock index="1" id="40" port="w" />
+		</line>
+		<line id="28" startText="in" endText="out">
+			<dock index="0" id="40" port="e" />
+			<dock index="1" id="26" port="wnw" />
+		</line>
+	</map>
+	<settings>
+		<colors>
+			<canvas>White</canvas>
+			<fill>White</fill>
+			<border>Black</border>
+			<line>Black</line>
+			<selectedLine>Gold</selectedLine>
+			<hoverLine>DarkOrange</hoverLine>
+			<largeText>MidnightBlue</largeText>
+			<smallText>Black</smallText>
+			<lineText>MidnightBlue</lineText>
+			<grid>#F5F5F5</grid>
+		</colors>
+		<regions>
+			<Cooperate Name="Cooperate" TextColor="MidnightBlue">Lime</Cooperate>
+			<Jacquotte Name="Jacquotte" TextColor="Black">Aqua</Jacquotte>
+			<Man Name="Man" TextColor="Black">Red</Man>
+			<Man____and____Jacquotte Name="Man and Jacquotte" TextColor="Black">#8080FF</Man____and____Jacquotte>
+			<Man____needs____to____show Name="Man needs to show" TextColor="MidnightBlue">Silver</Man____needs____to____show>
+			<NoRegion Name="NoRegion" TextColor="Black">White</NoRegion>
+			<Shinobi Name="Shinobi" TextColor="MidnightBlue">Yellow</Shinobi>
+		</regions>
+		<fonts>
+			<room size="12">Arial</room>
+			<object size="9.75">Arial</object>
+			<line size="8.25">Arial</line>
+		</fonts>
+		<grid>
+			<snapTo>yes</snapTo>
+			<visible>yes</visible>
+			<showOrigin>yes</showOrigin>
+			<size>32</size>
+		</grid>
+		<lines>
+			<width>2</width>
+			<handDrawn>no</handDrawn>
+			<arrowSize>12</arrowSize>
+			<textOffset>4</textOffset>
+		</lines>
+		<rooms>
+			<darknessStripeSize>24</darknessStripeSize>
+			<objectListOffset>4</objectListOffset>
+			<connectionStalkLength>32</connectionStalkLength>
+			<preferredDistanceBetweenRooms>64</preferredDistanceBetweenRooms>
+		</rooms>
+		<ui>
+			<handleSize>12</handleSize>
+			<snapToElementSize>16</snapToElementSize>
+		</ui>
+		<keypadNavigation>
+			<creationModifier>control</creationModifier>
+			<unexploredModifier>alt</unexploredModifier>
+		</keypadNavigation>
+	</settings>
+</trizbort>

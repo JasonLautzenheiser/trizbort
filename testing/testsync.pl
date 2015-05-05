@@ -20,7 +20,7 @@ for $thistriz (@triz)
 {
   if ($thistriz =~ /\.trizbort/i)
   {
-    if (!$trizfile{$thistriz}) { print "\%TESTBASE\%\\$thistriz needs to be in a batch file.\n"; }
+    if (!$trizfile{$thistriz}) { print "Orphaned trizbort file: \%TESTBASE\%\\$thistriz\n"; }
   }
 }
 

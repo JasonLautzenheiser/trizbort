@@ -25,7 +25,23 @@ echo Connection types and combinations are tested here.
 echo All 9 room type fills are tested here. The center is blank. They should form a white octagon.
 %TESTBASE%\fills.trizbort
 echo All 9 object placements are tested here. The object is listed in the room in the center.
-%TESTBASE%\fills.trizbort
+%TESTBASE%\object-placement.trizbort
+echo Arial bold italic, black and black oblique (room object line)
+%TESTBASE%\font-bolditalic-black-blackoblique.trizbort
+echo Arial narrow, narrow italic, narrow (room object line)
+%TESTBASE%\font-narrow-narrowitalic-italic.trizbort
+echo Arial narrow bold, narrow bold italic, bold (room object line)
+%TESTBASE%\font-narrowbold-narrowbolditalic-bold.trizbort
+echo Arial strikeout+underline, strikeout, underline (room object line)
+%TESTBASE%\font-strikeoutunderline-strikeout-underline.trizbort
+echo Font size: 12-10-8 (room object line)
+%TESTBASE%\font-size-12-10-8.trizbort
+echo Font size: 18-16-14 (room object line)
+%TESTBASE%\font-size-18-16-14.trizbort
+echo Font size: 40-30-20 (room object line)
+%TESTBASE%\font-size-40-30-20.trizbort
+echo Font size: 7-6-5 (room object line)
+%TESTBASE%\font-size-7-6-5.trizbort
 echo Stalk lengths are tested: 16, 32, 48
 %TESTBASE%\stalk-length-16.trizbort
 echo Stalk lengths are tested: 16, 32, 48
@@ -64,8 +80,6 @@ echo Dark tab sizes tested: 12, 24, 48, 96
 %TESTBASE%\dark-tab-48.trizbort
 echo Dark tab sizes tested: 12, 24, 48, 96
 %TESTBASE%\dark-tab-96.trizbort
-echo Placing objects
-%TESTBASE%\object-placement.trizbort
 echo One-room lines
 %TESTBASE%\one-room-lines.trizbort
 echo Fills in different shaped rooms

@@ -163,3 +163,12 @@ h2 {
     font-family: Consolas,Courier New,Courier,serif;
     font-size: 12px;
 }
+.shiftalts {
+    background-color: #000000;
+    color: #00c000;
+    border: 1px solid #00c000;
+    padding: 2px;
+    line-height: 23px;
+    font-family: Consolas,Courier New,Courier,serif;
+    font-size: 12px;
+}

@@ -214,7 +214,7 @@
 <h2>Parts of the Screen, Explained</h2>
 
 <table>
-<tr><td class="heading">Menu Bar</td><td>Most of Trizbort's commands are available both from the menu bar and through keyboard shortcuts (keys you can press to achieve the same effect). Where shortcuts exist, they appear next to the relevant menu item. So if a menu item reads "View&nbsp;Entire&nbsp;Map&nbsp;&nbsp;&nbsp;&nbsp;Ctrl-Home" then you can either select the menu item or hold down the Control key and press the Home key on your keyboard to achieve the same effect.</td></tr>
+<tr><td class="heading">Menu Bar</td><td>Most of Trizbort's commands are available both from the menu bar and through keyboard shortcuts (keys you can press to achieve the same effect). Where shortcuts exist, they appear next to the relevant menu item. So if a menu item reads "View&nbsp;Entire&nbsp;Map&nbsp;&nbsp;&nbsp;&nbsp;Control-Home" then you can either select the menu item or hold down the Control key and press the Home key on your keyboard to achieve the same effect.</td></tr>
 <tr><td class="altheading">Toolbar</td><td class="alt">Some of Trizbort's commands also appear here as buttons for quick access.</td></tr>
 <tr><td class="heading">mini-map</td><td>This shows an overview of the entire map, with each mapped room as a box.</td></tr>
 <tr><td class="altheading">Viewport</td><td class="alt">This shows the portion of the entire map you're currently viewing. You can click and/or drag inside the mini-map with the left mouse button to move the viewport.</td></tr>
@@ -232,7 +232,7 @@
 <div class="body">
 <p>Most things you can do in Trizbort are accessible from the menu bar or by pressing keys.</p>
 <p>Where this document says something like <span class="quote">choose&nbsp;Edit->Add&nbsp;Room</span> it means to select "Add Room" from the "Edit" menu on the menu bar. Menu bar paths are highlighted like <span class="menufind">this</span> and will usually contain an arrow, so you can see them quickly.</p>
-<p>Where it says <span class="quote">press&nbsp;R</span> it means to press the "R" key on your keyboard; <span class="quote">press&nbsp;Ctrl-Home</span> means to hold down the Control key on your keyboard and press the "Home" key. Keyboard combinations are highlighted like <span class="accel">this</span> so you can see them quickly.</p>
+<p>Where it says <span class="quote">press&nbsp;R</span> it means to press the "R" key on your keyboard; <span class="quote">press&nbsp;Control-Home</span> means to hold down the Control key on your keyboard and press the "Home" key. Keyboard combinations are highlighted like <span class="accel">this</span> so you can see them quickly.</p>
 </div> <!-- tip body -->
 </div> <!-- tip -->
 
@@ -252,7 +252,7 @@
 </div> <!-- tip body -->
 </div> <!-- tip -->
 
-<p>You can create a room by moving the mouse over where you'd like the room to appear on the canvas and pressing <span class="accel">R</span>. You can also choose <span class="menufind">Edit->Add Room</span> to add a room in the center of the canvas. You can also create a room between two connected rooms by highlighting the line and pressing <span class="accel">R</span>. The room will be centered on where your mouse is hovering, but if it isn't quite right, you can move it with the arrows or resize it with <span class="accel">ctrl-alt-arrows</span>.</p>
+<p>You can create a room by moving the mouse over where you'd like the room to appear on the canvas and pressing <span class="accel">R</span>. You can also choose <span class="menufind">Edit->Add Room</span> to add a room in the center of the canvas. You can also create a room between two connected rooms by highlighting the line and pressing <span class="accel">R</span>. The room will be centered on where your mouse is hovering, but if it isn't quite right, you can move it with the arrows or resize it with <span class="accel">control-alt-arrows</span>.</p>
 
 <p><b>WARNING:</b> your graphics card may cause the screen to rotate. There are options to reset this, and you can do so manually, but it is a shock if it happens. You can Google how to disable hotkeys for your graphics card.</p>
 
@@ -367,6 +367,13 @@
 </table>
 
 <p>Rooms are allowed to have colorings that override or add to the default region fills. These can be reset with the appropriate "clear" button, and they include:</p>
+
+<div class="tip">
+<div class="heading">Tip</div>
+<div class="body">
+<p>Clicking "OK" after choosing a color, even if you don't select it, may turn it white and nontransparent. You may want to cancel instead, to save having to click  the "clear" button to disable it again.</p>
+</div> <!-- tip body -->
+</div> <!-- tip -->
 
 <ul>
 <li>Room fill (<span class="accel">Alt-F</span>). What the background of the room is. As stated above, this trumps the region default color. Perhaps one room in a region would be shaded lighter if it were on the edge.
@@ -639,7 +646,7 @@
 
 <p>You can change a room's region by hitting <span class="accel">Shift-F2</span>, double-clicking on it and going to the "regions" tab, or right-clicking and using the Set Region menu. You can highlight multiple rooms to change their region as well.</p>
 
-<p><span class="accel">Ctrl-shift-A</span> highlights all the rooms in the highlighted room's region. If rooms from more than one regions are highlighted, all rooms in the highlighted rooms' regions are selected.
+<p><span class="accel">Control-shift-A</span> highlights all the rooms in the highlighted room's region. If rooms from more than one regions are highlighted, all rooms in the highlighted rooms' regions are selected.
 
 <p>If you use any <span class="accel">control-arrow</span> to create a new room, that room takes the previous room's region.</p>
 
@@ -681,11 +688,11 @@
 <a name="help_select_all"></a>
 <h3>Select All/None</h3>
 
-<p>To select everything on the map, choose <span class="menufind">Edit->Select All</span> or press <span class="accel">Ctrl-A</span>.</p>
+<p>To select everything on the map, choose <span class="menufind">Edit->Select All</span> or press <span class="accel">Control-A</span>.</p>
 
 <p>To deselect everything, choose <span class="menufind">Edit->Select None</span> or press <span class="accel">Escape</span> (Esc).</p>
 
-<p>You can also select everything in a region with <span class="accel">Ctrl-Shift-A</span>. If one room is highlighted, all rooms in that region will be highlighted. If multiple rooms from different regions are highlighted, all rooms in those regions will be highlighted.
+<p>You can also select everything in a region with <span class="accel">Control-Shift-A</span>. If one room is highlighted, all rooms in that region will be highlighted. If multiple rooms from different regions are highlighted, all rooms in those regions will be highlighted.
 
 <a name="help_select_marquee"></a>
 <h3>Marquee Selection</h3>
@@ -917,7 +924,7 @@ At your service!</pre></td></tr>
 
 <p><span class="emphatic">Avoid using multiple in-game commands at one prompt while automapping</span>, such as <span class="code">&gt;GO&nbsp;NORTH.&nbsp;E&nbsp;THEN&nbsp;S.&nbsp;GET&nbsp;ALL.&nbsp;WEST.</span> Trizbort does not understand such commands; in fact it's not really the commands that are the problem, but relating each command to the relevant game text afterwards. So whilst Trizbort will be able to follow where you've gone if you're moving between rooms it knows about, it won't be able to connect new rooms to existing ones this way, and will assume you have teleported instead. It also won't pick up <a href="#help_automap_commands">special commands</a> unless they're alone at a prompt.</p>
 
-<p>Since it's not very bright, Trizbort sometimes thinks the name of the game you're playing is the name of a room. Feel free to delete these rooms; Trizbort won't mind.</p>
+<p>Since it's not perfect at parsing, Trizbort sometimes thinks the name of the game you're playing is the name of a room. Feel free to delete these rooms; Trizbort won't mind. And if you notify the developers, maybe you can help Trizbort learn by the next release.</p>
 
 <a name="help_automap_tips_moving"></a>
 <h4>Moving Around whilst Automapping</h4>
@@ -1033,11 +1040,11 @@ At your service!</pre></td></tr>
 <a name = "sample_first"></a>
 <h3>First Rooms and Regions</h3>
 
-<p>Here, we'll look at how to use Trizbort to make a quick, colorful map that will make a game, though not necessarily a very good one. The finished file is linked <a href="generic-game.trizbort">here</a>, and this section will hopefully show how to reproduce it quickly enough. First, let's open Trizbort and hit <span class="accel">control-n</span> for a new map. Then <span class="accel">R</span> to create a room. Hit <span class="accel">enter</span> to name it. Call it the City Center. Now <span class="accel">ctrl-up arrow</span> and create N City, then <span class="accel">ctrl-left</span> for NW City. You can make a three-by-three ring of rooms all around the City Center.</p>
+<p>Here, we'll look at how to use Trizbort to make a quick, colorful map that will make a game, though not necessarily a very good one. The finished file is linked <a href="generic-game.trizbort">here</a>, and this section will hopefully show how to reproduce it quickly enough. First, let's open Trizbort and hit <span class="accel">control-n</span> for a new map. Then <span class="accel">R</span> to create a room. Hit <span class="accel">enter</span> to name it. Call it the City Center. Now <span class="accel">control-up arrow</span> and create N City, then <span class="accel">control-left</span> for NW City. You can make a three-by-three ring of rooms all around the City Center.</p>
 
-<p>But wait! They're not connected yet. You have to connect the city center to the others. <span class="accel">Ctrl-left</span> then <span class="accel">ctrl-down</span>. Then, from the center, you can <span class="accel">Ctrl-left</span> and <span class="accel">right</span>, <span class="accel">down</span> and <span class="accel">up</span>, and right and left. This is probably easier to do than read once you get the hang of it.</p>
+<p>But wait! They're not connected yet. You have to connect the city center to the others. <span class="accel">Control-left</span> then <span class="accel">control-down</span>. Then, from the center, you can <span class="accel">Control-left</span> and <span class="accel">right</span>, <span class="accel">down</span> and <span class="accel">up</span>, and right and left. This is probably easier to do than read once you get the hang of it.</p>
 
-<p>So now we've got the start of an instant map! But it would be nice to describe the city as cold and grey. We can do that with regions.  <span class="menufind">Tools->Map Settings->Regions</span>. Add a region and call it City. Make it grey. Then <span class="accel">ctrl-A</span> and right click on any room. Bingo!</p>
+<p>So now we've got the start of an instant map! But it would be nice to describe the city as cold and grey. We can do that with regions.  <span class="menufind">Tools->Map Settings->Regions</span>. Add a region and call it City. Make it grey. Then <span class="accel">control-A</span> and right click on any room. Bingo!</p>
 
 <a name = "sample_trap"></a>
 <h3>Making a Trap Room Region</h3>
@@ -1047,27 +1054,27 @@ At your service!</pre></td></tr>
 <a name = "sample_churn"></a>
 <h3>Churning regions and rooms</h3>
 
-<p><span class="accel">Ctrl-up</span> from City Entry to make C River. You may wish to define a new region here--the river. Make it blue. Then <span class="accel">ctrl-left</span> and <span class="accel">ctrl-right</span> to make W River and E River. We can deal with regions later. Let's make dotted lines first, to signify you need to do something clever to cross the river. Push <span class="accel">T</span>. Ctrl-north from each river room, then push <span class="accel">T</span> or <span class="accel">P</span> again. You'll notice the graphic becomes un-highlighted. (Note: this is actually a bug. New lines don't have dotted properties, etc. But we can click on the three lines, then push T, then click Escape and push P, so the next lines we draw in have plain style.)</p>
+<p><span class="accel">Control-up</span> from City Entry to make C River. You may wish to define a new region here--the river. Make it blue. Then <span class="accel">control-left</span> and <span class="accel">control-right</span> to make W River and E River. We can deal with regions later. Let's make dotted lines first, to signify you need to do something clever to cross the river. Push <span class="accel">T</span>. Control-north from each river room, then push <span class="accel">T</span> or <span class="accel">P</span> again. You'll notice the graphic becomes un-highlighted. (Note: this is actually a bug. New lines don't have dotted properties, etc. But we can click on the three lines, then push T, then click Escape and push P, so the next lines we draw in have plain style.)</p>
 
-<p>Now we can create W Forest, C Forest and E Forest. Again, the first one can be added to a new region, or not. You can do so with <span class="accel">ctrl-arrows</span>. Push <span class="accel">K</span> when C Forest is highlighted. You may have to push it again if you are creating E Forest next. Use <span class="accel">control-arrows</span> to link back to the Shore.</p>
+<p>Now we can create W Forest, C Forest and E Forest. Again, the first one can be added to a new region, or not. You can do so with <span class="accel">control-arrows</span>. Push <span class="accel">K</span> when C Forest is highlighted. You may have to push it again if you are creating E Forest next. Use <span class="accel">control-arrows</span> to link back to the Shore.</p>
 
 <a name = "sample_passages"></a>
 <h3>Meddling with Passages</h3>
 
-<p>You can use <span class="accel">ctrl-7,8,9</span> on the numpad to create a passage to Desert. That's a new region, and one room, but it has a custom color, since the shore already used brown, and I wanted something lighter that didn't clash with the text. I went with 192 red, 96 green.</p>
+<p>You can use <span class="accel">control-7,8,9</span> on the numpad to create a passage to Desert. That's a new region, and one room, but it has a custom color, since the shore already used brown, and I wanted something lighter that didn't clash with the text. I went with 192 red, 96 green.</p>
 
-<p>Let's do the lava pits next. Ctrl-left, NE lava pit (we can be creative later), <span class="accel">ctrl-down</span>, NW lava pit, <span class="accel">ctrl-down</span>, SW lava pit, and <span class="accel">ctrl-down</span>, PERDITION. We need to fix the regions, here, but PERDITION will be a trap. So let's use the region we had before by right-clicking on it. The lava pit will be orange, and you have the hang of regions by now. In fact, let's look ahead to the next area and make a yellow region called Gold Mines. We'll worry about the one-way directions later.</p>
+<p>Let's do the lava pits next. Control-left, NE lava pit (we can be creative later), <span class="accel">control-down</span>, NW lava pit, <span class="accel">control-down</span>, SW lava pit, and <span class="accel">control-down</span>, PERDITION. We need to fix the regions, here, but PERDITION will be a trap. So let's use the region we had before by right-clicking on it. The lava pit will be orange, and you have the hang of regions by now. In fact, let's look ahead to the next area and make a yellow region called Gold Mines. We'll worry about the one-way directions later.</p>
 
 <p><span class="accel">Control-right</span> and create NW Gold Mine, then add it to the Gold Mine region. <span class="accel">Control-right</span>, <span class="accel">control-down</span> and <span class="accel">control-down</span>. Now we can go zapping back to create all the one-way directions: from Desert east and west, from the SW pit and SE mine. You can <span class="accel">control-click</span> to highlight them all and then push <span class="accel">A</span>, or you can highlight each and push <span class="accel">A</span>. Don't forget to set Cave-In and Perdition to the Trap Room regions.</p>
 
-<p>Now for the final bit. You should probably be on cruise control now. Ctrl-up from the Desert for Palace Gates. This room can be part of a new region called Palace. You may want to change Palace's text to white since its purple background makes the default text unreadable. Also, for variety, let's update the subtitle to start of palace.</p>
+<p>Now for the final bit. You should probably be on cruise control now. Control-up from the Desert for Palace Gates. This room can be part of a new region called Palace. You may want to change Palace's text to white since its purple background makes the default text unreadable. Also, for variety, let's update the subtitle to start of palace.</p>
 
 <a name = "sample_fix"></a>
 <h3>Fixing silly mistakes</h3>
 
-<p>The Castle has a few last tricks. And I'll make a few deliberate mistakes, to show you how to overcome them. <span class="accel">Ctrl-up</span>, then from there, <span class="accel">ctrl-left</span>, <span class="accel">right</span>, <span class="accel">9</span> and <span class="accel">1</span>. Highlight the diagonal lines and push <span class="accel">D</span>. Oops! You want the lines to go the other way. This happens with Trizbort sometimes, because Trizbort can't totally tell where you wanted the line to start or end. To fix that, push <span class="accel">V</span>. You can then highlight the east/west lines and push <span class="accel">A</span> to make them go one-way. You can push <span class="accel">V</span> a couple times to watch them flip. You can <span class="accel">control-click</span> on the jails to put them in the Trap Room region.</p>
+<p>The Castle has a few last tricks. And I'll make a few deliberate mistakes, to show you how to overcome them. <span class="accel">Control-up</span>, then from there, <span class="accel">control-left</span>, <span class="accel">right</span>, <span class="accel">9</span> and <span class="accel">1</span>. Highlight the diagonal lines and push <span class="accel">D</span>. Oops! You want the lines to go the other way. This happens with Trizbort sometimes, because Trizbort can't totally tell where you wanted the line to start or end. To fix that, push <span class="accel">V</span>. You can then highlight the east/west lines and push <span class="accel">A</span> to make them go one-way. You can push <span class="accel">V</span> a couple times to watch them flip. You can <span class="accel">control-click</span> on the jails to put them in the Trap Room region.</p>
 
-<p>Finally, there are two ways to make the Deep Dark Jail. You can use <span class="accel">R</span> and adjust the region, or you can <span class="accel">ctrl-up</span> from the west jail and then delete the connector. You will find your own preferred style of using Trizbort, and your own favorite shortcuts, as you experiment. Perhaps you will even find a way to request more intuitive GUI.</p>
+<p>Finally, there are two ways to make the Deep Dark Jail. You can use <span class="accel">R</span> and adjust the region, or you can <span class="accel">control-up</span> from the west jail and then delete the connector. You will find your own preferred style of using Trizbort, and your own favorite shortcuts, as you experiment. Perhaps you will even find a way to request more intuitive GUI.</p>
 
 <p>You'll notice that I didn't describe putting objects in rooms. Generally, I like to lump tasks so that I don't get caught up. If you want, you can zoom back through and put items where they belong. You could also have put objects in rooms as you created them. In the city, you could've created one corner with objects and cut/pasted it so you only had to change it later.</p>
 
@@ -1103,12 +1110,14 @@ At your service!</pre></td></tr>
 <h3>Smart Exporting</h3>
 <p>Navigating the menus can be a hassle if you are continuously re-saving. It's quite possible you may forget to export your most recent change. Therefore, Trizbort allows "smart export" with <span class="accel">control-shift-s</span> or <span class="menufind">File->Smart Save</span> as a convenience. You can toggle which of PDF and your preferred raster format Trizbort will save to. The default is to save to both formats, and the default raster format is PNG. Exported graphic files should be faithful to the Trizbort file in content, and they will be named identically to the Trizbort file except for the extension, with standard suffixes (JPEG becomes jpg.) If your project is untitled, you will be prompted to save your file first, so Trizbort has a base file name to work from. Without a base name, Trizbort will fail.</p>
 
+<p>As of version 1.5.8.8, you may also export to the clipboard for any of the three formats, by replacing the <span class="shifts">shift</span> in the save command with the <span class="alts">alt</span> key. Replace shift with alt to achieve this.</p>
+
 <a name="help_export_i7"></a>
 <h3>Exporting to Inform 7</h3>
 
 <p>To export to Inform 7, choose <span class="menufind">File->Export->Inform 7</span> or type <span class="accel">control-shift-7</span>. Trizbort will prompt you for a file name. By default it will ask you for the name of a <span class="code">.inform</span> "file", but Inform 7 uses folders to represent its projects, and it is these folders which normally end with <span class="code">.inform</span>. So if you supply a filename, Trizbort will create a new Inform 7 project with the minimum contents necessary for Inform 7 to load the project as one of its own.</p>
 
-<p>You can just export a single text file rather than a whole project folder. To do so, in the "Export Inform 7 Source Code" dialog, go to the file type drop down list and change it from "Inform 7 Projects" to "Inform 7 Source Files" or "Text Files".
+<p>You can just export a single text file rather than a whole project folder. To do so, in the "Export Inform 7 Source Code" dialog, go to the file type drop down list and change it from "Inform 7 Projects" to "Inform 7 Source Files" or "Text Files".</p>
 
 <p>While Trizbort export may not be perfect handling tricky room names, it has been tested with several large maps, and the code should always compile. Trizbort can act as an unofficial tutorial on creating specially-named rooms such as "The Porch," "West of the House," or "A Balcony."</p>
 
@@ -1145,11 +1154,11 @@ At your service!</pre></td></tr>
 <p>These aren't necessary to proficiency in Trizbort, but if you trip one by accident, it may help you to know what you did. Many of these toggle a certain settings. This is extracted from the information in the source file canvas.cs.</p>
 
 <ul>
-<li><span class="accel">ctrl-F1</span> toggles frames per second information in the upper left.
-<li><span class="accel">ctrl-F2</span> disables all element rendering. Note that disabling ctrl-F2 trumps the two settings below. So if you are trying either of them and nothing happens, that is the likely reason.
-<li><span class="accel">ctrl-F3</span> disables all lines, both room connections and boundaries.
-<li><span class="accel">ctrl-F4</span> disables all text.
-<li><span class="accel">ctrl-F5</span> is supposed to disable the grid polyline, though it's currently broken.
+<li><span class="accel">control-F1</span> toggles frames per second information in the upper left.
+<li><span class="accel">control-F2</span> disables all element rendering. Note that disabling control-F2 trumps the two settings below. So if you are trying either of them and nothing happens, that is the likely reason.
+<li><span class="accel">control-F3</span> disables all lines, both room connections and boundaries.
+<li><span class="accel">control-F4</span> disables all text.
+<li><span class="accel">control-F5</span> is supposed to disable the grid polyline, though it's currently broken.
 <li><span class="accel">F5</span> disables stops in the automap.
 <li><span class="accel">F11</span> makes a single step in the automap.
 </ul>
@@ -1168,10 +1177,11 @@ At your service!</pre></td></tr>
 <h2>Accelerator Listing</h2>
 
 <table border=1>
-<tr><th>Key</th><th>plain function</th><th><span class="ctrls">ctrl</span>/<span class="shifts">shift</span>/<span class="alts">alt</span> or any combo</th>
-<tr><td class="heading">A</td><td>One-way line</td><td><span class="ctrls">ctrl-a</span>=select all, <span class="ctrlshifts">ctrl-shift-a</span>=select region</td></tr>
+<tr><th>Key</th><th>By itself</th><th><span class="ctrls">control</span>/<span class="shifts">shift</span>/<span class="alts">alt</span> or any combo:<br/><span class="ctrlshifts">control-shifts</span>, <span class="ctrlalts">control-alts</span> and (much rarer) <span class="shiftalts">shift-alts</span>.
+</th>
+<tr><td class="heading">A</td><td>One-way line</td><td><span class="ctrls">control-a</span>=select all, <span class="ctrlshifts">control-shift-a</span>=select region</td></tr>
 <tr><td class="altheading">B</td><td class="blank"></td><td class="blank"></td></tr>
-<tr><td class="heading">C</td><td class="blank"></td><td><span class="ctrls">ctrl-c</span>=copy, <span class="ctrlalts">ctrl-alt-c</span>=copy color</td></tr>
+<tr><td class="heading">C</td><td class="blank"></td><td><span class="ctrls">control-c</span>=copy, <span class="ctrlalts">control-alt-c</span>=copy color</td></tr>
 <tr><td class="altheading">D</td><td>down/up line</td><td class="blank"></td></tr>
 <tr><td class="heading">E</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="altheading">F</td><td class="blank"></td><td class="blank"></td></tr>
@@ -1182,16 +1192,16 @@ At your service!</pre></td></tr>
 <tr><td class="heading">K</td><td>toggle darkness</td><td class="blank"></td></tr>
 <tr><td class="altheading">L</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="heading">M</td><td class="blank"></td><td class="blank"></td></tr>
-<tr><td class="altheading">N</td><td class="blank"></td><td><span class="ctrls">ctrl-n</span> = new map</td></tr>
-<tr><td class="heading">O</td><td>Out/in line</td><td><span class="ctrls">ctrl-o</span> = open trizbort file</td></tr>
-<tr><td class="altheading">P</td><td>Plain styling</td><td class="blank"></td></tr>
+<tr><td class="altheading">N</td><td class="blank"></td><td><span class="ctrls">control-n</span> = new map</td></tr>
+<tr><td class="heading">O</td><td>Out/in line</td><td><span class="ctrls">control-o</span> = open trizbort file</td></tr>
+<tr><td class="altheading">P</td><td>Plain line styling</td><td class="blank"></td></tr>
 <tr><td class="heading">Q</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="altheading">R</td><td>Add a room</td><td class="blank"></td></tr>
-<tr><td class="heading">S</td><td class="blank"></td><td><span class="ctrls">ctrl</span>-S=save, ctrl-alt-S=save as, <span class="ctrlshifts">ctrl-shift-S</span>=smart save</td></tr>
-<tr><td class="altheading">T</td><td>dotted line</td><td><span class="ctrlshifts">ctrl-shift-T</span>=export to TADS file, <span class="ctrlalts">ctrl-alt-T</span>=export TADS 3 to clipboard</td></tr>
+<tr><td class="heading">S</td><td class="blank"></td><td><span class="ctrls">control</span>-S=save, control-alt-S=save as, <span class="ctrlshifts">control-shift-S</span>=smart save</td></tr>
+<tr><td class="altheading">T</td><td>dotted line</td><td><span class="ctrlshifts">control-shift-T</span>=export to TADS 3 file, <span class="ctrlalts">control-alt-T</span>=export TADS 3 source to clipboard</td></tr>
 <tr><td class="heading">U</td><td>up/down line</td><td class="blank"></td></tr>
-<tr><td class="altheading">V</td><td>reverse line</td><td><span class="ctrls">ctrl-v</span>=paste</span></td></tr>
-<tr><td class="heading">W</td><td>Swaps room properties if two are highlighted</td><td class="blank"></td></tr>
+<tr><td class="altheading">V</td><td>reverse line</td><td><span class="ctrls">control-v</span>=paste</span></td></tr>
+<tr><td class="heading">W</td><td>Swaps room objects if two are highlighted</td><td class="blank"></td></tr>
 <tr><td class="altheading">X</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="heading">Y</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="altheading">Z</td><td class="blank"></td><td class="blank"></td></tr>
@@ -1201,25 +1211,25 @@ At your service!</pre></td></tr>
 <tr><td class="altheading">3</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="heading">4</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="altheading">5</td><td class="blank"></td><td class="blank"></td></tr>
-<tr><td class="heading">6</td><td class="blank"></td><td><span class="ctrlshifts">ctrl-shift-6</span>=export to Inform 6 file, <span class="ctrlalts">ctrl-alt-6</span>=export I6 to clipboard</td></tr>
-<tr><td class="altheading">7</td><td class="blank"></td><td><span class="ctrlshifts">ctrl-shift-7</span>=export to Inform 7 file, <span class="ctrlalts">ctrl-alt-7</span>=export I7 to clipboard</td></tr>
+<tr><td class="heading">6</td><td class="blank"></td><td><span class="ctrlshifts">control-shift-6</span>=export to Inform 6 file, <span class="ctrlalts">control-alt-6</span>=export Inform 6 source to clipboard</td></tr>
+<tr><td class="altheading">7</td><td class="blank"></td><td><span class="ctrlshifts">control-shift-7</span>=export to Inform 7 file, <span class="ctrlalts">control-alt-7</span>=export Inform 7 source to clipboard</td></tr>
 <tr><td class="heading">8</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="altheading">9</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td colspan=3><center>Non-alphanumeric</center></td></tr>
 <tr><td class="heading">Delete</td><td>Delete all selected</td><td class="blank"></td></tr>
 <tr><td class="altheading">Enter</td><td>Edit selected room properties<br />Select center room</td><td class="blank"></td></tr>
 <tr><td class="heading">ESC</td><td>Select none</td><td class="blank"></td></tr>
-<tr><td class="altheading">F1</td><td class="blank"></td><td><span class="ctrls">ctrl-F1</span>=toggle upper left frame rate info</td></tr>
-<tr><td class="heading">F2</td><td>Rename (seems to duplicate Enter)</td><td><span class="ctrls">ctrl-F2</span>=toggle all elements, <span class="shifts">shift-F2</span>=change region</td></tr>
-<tr><td class="altheading">F3</td><td class="blank"></td><td><span class="ctrls">ctrl-F3</span>=toggle all room borders and connectors</td></tr>
-<tr><td class="heading">F4</td><td class="blank"></td><td><span class="ctrls">ctrl-F4</span>=toggle all text</td></tr>
+<tr><td class="altheading">F1</td><td class="blank"></td><td><span class="ctrls">control-F1</span>=toggle upper left frame rate info</td></tr>
+<tr><td class="heading">F2</td><td>Rename (seems to duplicate Enter)</td><td><span class="ctrls">control-F2</span>=toggle all elements, <span class="shifts">shift-F2</span>=change region</td></tr>
+<tr><td class="altheading">F3</td><td class="blank"></td><td><span class="ctrls">control-F3</span>=toggle all room borders and connectors</td></tr>
+<tr><td class="heading">F4</td><td class="blank"></td><td><span class="ctrls">control-F4</span>=toggle all text</td></tr>
 <tr><td class="altheading">F5</td><td>Disable stops in automap</td><td class="blank"></td></tr>
 <tr><td class="heading">F11</td><td>Single step in automap</td><td class="blank"></td></tr>
 <tr><td class="altheading">+/=</td><td>zoom in</td><td class="blank"></td></tr>
 <tr><td class="heading">-</td><td>zoom out</td><td class="blank"></td></tr>
-<tr><td class="altheading">(arrow keys)</td><td>moves around the map</td><td><span class="ctrls">ctrl-arrow</span>=move to or create new room</td></tr>
-<tr><td class="heading">(home)</td><td>Centers the map</td><td><span class="ctrls">ctrl-home</span>=centers the map, see it all</td></tr>
-<tr><td class="altheading">(numlock keys)</td><td>moves around the map</td><td><span class="ctrls">ctrl-numlock</span>=move to or create new room</td></tr>
+<tr><td class="altheading">(arrow keys)</td><td>moves around the map</td><td><span class="ctrls">control-arrow</span>=move to or create new room</td></tr>
+<tr><td class="heading">(home)</td><td>Centers the map</td><td><span class="ctrls">control-home</span>=centers the map, see it all</td></tr>
+<tr><td class="altheading">(numlock keys)</td><td>moves around the map</td><td><span class="ctrls">control-numlock</span>=move to or create new room</td></tr>
 </table>
 
 <a name="building"></a>
@@ -1245,10 +1255,12 @@ At your service!</pre></td></tr>
 <a name="about_versions"></a>
 <h3>Versions</h3>
 
+<p>The REVISIONS.TXT file in the latest release build, or in the <a href="https://github.com/JasonLautzenheiser/trizbort">Trizbort project</a>, should have this information. However, the big changes are listed here.</p>
+
 <ul>
 <li>1.5.5: added region and color support to Trizbort. Forked to https://github.com/jasonlautzenheiser/trizbort
-<li>1.5.7: fixed various small bugs
-<li>1.5.8: added version metatag, room borders, subtitles. New documentation forked to https://github.com/andrewschultz/trizbort
+<li>1.5.7: largely bug fixes
+<li>1.5.8: added version metatag, room borders, subtitles, improved automap support. New documentation forked to https://github.com/andrewschultz/trizbort
 </ul>
 
 <a name="about_bugs"></a>
@@ -1272,9 +1284,9 @@ At your service!</pre></td></tr>
 
 <p>The <a href="http://www.ifarchive.org">IF Archive</a> has a <a href="http://www.ifarchive.org/indexes/if-archiveXsolutionsXmaps.html">maps solution section</a> where you can submit maps of games you have written. If you're considering writing a map, you may want to look there first. Another place to look is the <a href="http://solutionarchive.com/">CASA, or Classic Adventures Solution Archive</a>.</p>
 
-<p>In addition, other mapping tools are found <a href="http://www.ifarchive.org/indexes/if-archiveXmapping-tools.html">here</a>.</p>
+<p>In addition, other mapping tools are found <a href="http://www.ifarchive.org/indexes/if-archiveXmapping-tools.html">here</a>, in case Trizbort is not quite what you are looking for.</p>
 
-<p>Sites with lots of maps include:</p>
+<p>Sites with many box-and-line style text adventure maps include:</p>
 
 <ul>
   <li>The <a href="http://www.solutionarchive.com">Classic Adventure Solution Archive</a>

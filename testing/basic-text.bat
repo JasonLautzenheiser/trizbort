@@ -18,6 +18,7 @@ set TESTBASE=.
 %TESTBASE%\basics-1585.trizbort
 %TESTBASE%\basics-1586.trizbort
 %TESTBASE%\basics-1587.trizbort
+%TESTBASE%\basics-1588.trizbort
 echo All 6 border types appear below.
 %TESTBASE%\borders.trizbort
 echo Connection types and combinations are tested here.

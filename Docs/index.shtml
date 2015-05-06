@@ -368,6 +368,13 @@
 
 <p>Rooms are allowed to have colorings that override or add to the default region fills. These can be reset with the appropriate "clear" button, and they include:</p>
 
+<div class="tip">
+<div class="heading">Tip</div>
+<div class="body">
+<p>Clicking "OK" after choosing a color, even if you don't select it, may turn it white and nontransparent. You may want to cancel instead, to save having to click  the "clear" button to disable it again.</p>
+</div> <!-- tip body -->
+</div> <!-- tip -->
+
 <ul>
 <li>Room fill (<span class="accel">Alt-F</span>). What the background of the room is. As stated above, this trumps the region default color. Perhaps one room in a region would be shaded lighter if it were on the edge.
 <li>Second fill (<span class="accel">Alt-S</span>). A second color, along with alignment. If this color is clear, changing the alignment has no effect. This could be used to indicate a room by water. There are nine types of alignment for the second color: none, top, left, bottom or down or, if you want something to go diagonally, bottom-left, bottom-right, top-left or top-right.
@@ -917,7 +924,7 @@ At your service!</pre></td></tr>
 
 <p><span class="emphatic">Avoid using multiple in-game commands at one prompt while automapping</span>, such as <span class="code">&gt;GO&nbsp;NORTH.&nbsp;E&nbsp;THEN&nbsp;S.&nbsp;GET&nbsp;ALL.&nbsp;WEST.</span> Trizbort does not understand such commands; in fact it's not really the commands that are the problem, but relating each command to the relevant game text afterwards. So whilst Trizbort will be able to follow where you've gone if you're moving between rooms it knows about, it won't be able to connect new rooms to existing ones this way, and will assume you have teleported instead. It also won't pick up <a href="#help_automap_commands">special commands</a> unless they're alone at a prompt.</p>
 
-<p>Since it's not very bright, Trizbort sometimes thinks the name of the game you're playing is the name of a room. Feel free to delete these rooms; Trizbort won't mind.</p>
+<p>Since it's not perfect at parsing, Trizbort sometimes thinks the name of the game you're playing is the name of a room. Feel free to delete these rooms; Trizbort won't mind. And if you notify the developers, maybe you can help Trizbort learn by the next release.</p>
 
 <a name="help_automap_tips_moving"></a>
 <h4>Moving Around whilst Automapping</h4>

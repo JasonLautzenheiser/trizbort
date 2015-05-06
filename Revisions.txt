@@ -7,6 +7,8 @@ Change Log
 ++ checkbox in automap settings to start processing from end of transcript.  This gives the ability to restart an existing transcript / map where you left off last time (from Matt Watkins)
 ++ automap can now process multiword special commands (default to 'tb see' and 'tb region').  gives better flexibilty and should better help some keyword collisions with certian games (from Matt Watkins)
 ++ cleaning up automap code, providing better error messages for certain situations. (from Matt Watkins)
+++ Samples folder now contain many maps of real games
+++ documentation updated.
 
 1.5.8.7
 -------------

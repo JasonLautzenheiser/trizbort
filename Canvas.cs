@@ -306,7 +306,7 @@ namespace Trizbort
           return Drawing.DrawLineCursor;
         }
 
-        if (hoverPort != null && hoverPort is MoveablePort)
+        if (hoverPort is MoveablePort)
         {
           return Drawing.MoveLineCursor;
         }
@@ -320,7 +320,7 @@ namespace Trizbort
           }
         }
 
-        if (HoverElement != null && HoverElement is IMoveable && mSelectedElements.Contains(HoverElement))
+        if (HoverElement is IMoveable && mSelectedElements.Contains(HoverElement))
         {
           return Cursors.SizeAll;
         }
@@ -516,11 +516,7 @@ namespace Trizbort
 
     public Rect ComputeCanvasBounds(bool includePadding)
     {
-      var bounds = Rect.Empty;
-      foreach (var element in Project.Current.Elements)
-      {
-        bounds = element.UnionBoundsWith(bounds, true);
-      }
+      var bounds = Project.Current.Elements.Aggregate(Rect.Empty, (current, element) => element.UnionBoundsWith(current, true));
 
       if (includePadding)
       {
@@ -604,10 +600,7 @@ namespace Trizbort
           var mouseCoord = MousePosition;
           graphics.Graphics.Transform = new Matrix();
           graphics.DrawString(string.Format("X:{0}  Y:{1}", mouseCoord.X, mouseCoord.Y), Settings.LargeFont, Brushes.Green, new PointF(10, 40 + Settings.LargeFont.GetHeight()));
-          if (HoverElement == null)
-            graphics.DrawString(new Point(0, 0).ToString(), Settings.LargeFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.LargeFont.GetHeight()));
-          else
-            graphics.DrawString(PointToClient(HoverElement.Position.ToPoint()).ToString(), Settings.LargeFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.LargeFont.GetHeight()));
+          graphics.DrawString(HoverElement == null ? new Point(0, 0).ToString() : PointToClient(HoverElement.Position.ToPoint()).ToString(), Settings.LargeFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.LargeFont.GetHeight()));
         }
       }
 
@@ -695,8 +688,7 @@ namespace Trizbort
         Settings.HandDrawnUnchecked = false;
       }
 
-      var context = new DrawingContext(ZoomFactor);
-      context.UseSmartLineSegments = mSmartLineSegmentsUpToDate;
+      var context = new DrawingContext(ZoomFactor) {UseSmartLineSegments = mSmartLineSegmentsUpToDate};
       var elements = depthSortElements();
 
       if (!context.UseSmartLineSegments)
@@ -764,12 +756,8 @@ namespace Trizbort
 
       if (mHandles.Count > 1)
       {
-        var bounds = Rect.Empty;
+        var bounds = mHandles.Aggregate(Rect.Empty, (current, handle) => current == Rect.Empty ? new Rect(handle.Position, Vector.Zero) : current.Union(handle.Position));
 
-        foreach (var handle in mHandles)
-        {
-          bounds = bounds == Rect.Empty ? new Rect(handle.Position, Vector.Zero) : bounds.Union(handle.Position);
-        }
         bounds.X += Settings.HandleSize/2f;
         bounds.Y += Settings.HandleSize/2f;
         graphics.DrawRectangle(palette.ResizeBorderPen, bounds.ToRectangleF());
@@ -828,7 +816,7 @@ namespace Trizbort
       }
     }
 
-    private RectangleF CanvasToClient(RectangleF bounds, Rect canvasBounds, Rectangle clientArea)
+    private static RectangleF CanvasToClient(RectangleF bounds, Rect canvasBounds, Rectangle clientArea)
     {
       bounds.X = (bounds.X - canvasBounds.Left)/Math.Max(1, canvasBounds.Width)*clientArea.Width;
       bounds.Y = (bounds.Y - canvasBounds.Top)/Math.Max(1, canvasBounds.Height)*clientArea.Height;
@@ -1272,16 +1260,28 @@ namespace Trizbort
         var selectedRooms = SelectedRooms;
         if (selectedRooms.Count() == 2)
         {
-          joinSelectedRooms((Room) selectedRooms[0], (Room) selectedRooms[1]);
+          joinSelectedRooms(selectedRooms[0], selectedRooms[1]);
         }
       }
       else if (e.KeyCode == Keys.V)
       {
         ReverseLineDirection();
       }
+      else if (e.KeyCode == Keys.W && ModifierKeys == Keys.Shift)
+      {
+        swapRoomFill();
+      }
+      else if (e.KeyCode == Keys.W && ModifierKeys == Keys.Alt)
+      {
+        swapRoomRegions();
+      }
+      else if (e.KeyCode == Keys.W && ModifierKeys == Keys.Control)
+      {
+        swapRoomNames();
+      }
       else if (e.KeyCode == Keys.W)
       {
-        SwapRooms();
+        swapRooms();
       }
       else if (e.KeyCode == Keys.K)
       {
@@ -1386,17 +1386,69 @@ namespace Trizbort
       base.OnKeyDown(e);
     }
 
-    private void SwapRooms()
+    private void swapRoomRegions()
     {
       var selectedRooms = SelectedRooms;
-      if (selectedRooms.Count() == 2)
-      {
-        var room1 = selectedRooms.First();
-        var room2 = selectedRooms.Last();
-        var objects = room1.Objects;
-        room1.Objects = room2.Objects;
-        room2.Objects = objects;
-      }
+      if (selectedRooms.Count() != 2) return;
+
+      var room1 = selectedRooms.First();
+      var room2 = selectedRooms.Last();
+
+      var tRegion = room1.Region;
+      room1.Region = room2.Region;
+      room2.Region = tRegion;
+    }
+    
+    private void swapRoomFill()
+    {
+      var selectedRooms = SelectedRooms;
+      if (selectedRooms.Count() != 2) return;
+
+      var room1 = selectedRooms.First();
+      var room2 = selectedRooms.Last();
+
+      var tBS = room1.BorderStyle;
+      var tRB = room1.RoomBorder;
+      var tRF = room1.RoomFill;
+      var tSF = room1.SecondFill;
+      var tSFL = room1.SecondFillLocation;
+
+      room1.BorderStyle = room2.BorderStyle;
+      room1.RoomBorder = room2.RoomBorder;
+      room1.RoomFill = room2.RoomFill;
+      room1.SecondFillLocation = room2.SecondFillLocation;
+      room1.SecondFill = room2.SecondFill;
+
+      room2.BorderStyle = tBS;
+      room2.RoomBorder = tRB;
+      room2.RoomFill = tRF;
+      room2.SecondFillLocation = tSFL;
+      room2.SecondFill = tSF;
+    }
+
+    private void swapRoomNames()
+    {
+      var selectedRooms = SelectedRooms;
+      if (selectedRooms.Count() != 2) return;
+
+      var room1 = selectedRooms.First();
+      var room2 = selectedRooms.Last();
+
+      var tName = room1.Name;
+      room1.Name = room2.Name;
+      room2.Name = tName;
+    }
+
+    private void swapRooms()
+    {
+      var selectedRooms = SelectedRooms;
+      if (selectedRooms.Count() != 2) return;
+
+      var room1 = selectedRooms.First();
+      var room2 = selectedRooms.Last();
+      var objects = room1.Objects;
+      room1.Objects = room2.Objects;
+      room2.Objects = objects;
     }
 
     public List<Room> SelectedRooms
@@ -3049,7 +3101,7 @@ namespace Trizbort
 
     private void swapObjectsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      SwapRooms();
+      swapRooms();
     }
   }
 }

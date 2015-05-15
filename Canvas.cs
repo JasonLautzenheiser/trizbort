@@ -2367,6 +2367,14 @@ namespace Trizbort
       }
     }
 
+    public void ClearMidText()
+    {
+      foreach (var connection in mSelectedElements.OfType<Connection>().Where(element => element != null)) {
+        connection.MidText = string.Empty;
+      }
+      Invalidate();
+    }
+
     public void ApplyConnectionLabel(ConnectionLabel connectionLabel)
     {
       foreach (var element in mSelectedElements)
@@ -2478,6 +2486,8 @@ namespace Trizbort
 
       NewConnectionLabel = ConnectionLabel.None;
       ApplyConnectionLabel(NewConnectionLabel);
+
+      ClearMidText();
     }
 
     public void UpdateScrollBars()

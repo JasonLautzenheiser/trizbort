@@ -871,6 +871,8 @@ namespace Trizbort
           break;
       }
 
+      clipboardText += ConnectionColor.ToHex() + ":";
+
       clipboardText += StartText + ":";
       clipboardText += MidText + ":";
       clipboardText += EndText;

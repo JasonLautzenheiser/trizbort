@@ -2685,15 +2685,17 @@ namespace Trizbort
                   currentRoom.IsDark = Convert.ToBoolean(elementProperties[7]);
                   currentRoom.AddDescription(elementProperties[8]);
                   currentRoom.Region = elementProperties[9];
-                  currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[10]);
-                  currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[11]);
-                  currentRoom.SecondFillLocation = elementProperties[12];
-                  currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[13]);
-                  currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[14]);
-                  currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[15]);
+                  currentRoom.BorderStyle = (BorderDashStyle)Enum.Parse(typeof(BorderDashStyle), elementProperties[10]);
+                  if (elementProperties[11] != "") currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[11]);
+                  if (elementProperties[12] != "") currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[12]);
+                  if (elementProperties[13] != "") currentRoom.SecondFillLocation = elementProperties[13];
+                  if (elementProperties[14] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[14]);
+                  if (elementProperties[15] != "") currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[15]);
+                  if (elementProperties[16] != "") currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[16]);
+                  if (elementProperties[17] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[17]);
 
                   // Get ready to check for objects in the room (small text)
-                  var index2 = 16;
+                  var index2 = 18;
                   var newObjects = "";
 
                   // Cycle through all the objects
@@ -2773,31 +2775,34 @@ namespace Trizbort
                       break;
                   }
 
+                  // connection color
+                  if (elementProperties[4] != "") currentConnection.ConnectionColor = ColorTranslator.FromHtml(elementProperties[4]);
+
                   // Set the texts on the connection
-                  currentConnection.StartText = elementProperties[4];
-                  currentConnection.MidText = elementProperties[5];
-                  currentConnection.EndText = elementProperties[6];
+                  currentConnection.StartText = elementProperties[5];
+                  currentConnection.MidText = elementProperties[6];
+                  currentConnection.EndText = elementProperties[7];
 
                   // Used to determine if the first vertex needs to be redone
                   var firstVertexFound = true;
 
                   // Check if the first vertex is a dock or a point
-                  if (elementProperties[7] == "dock")
+                  if (elementProperties[8] == "dock")
                   {
                     // If this is the first element to be pasted
                     if (firstElement)
                     {
                       // Check if the other vertex is a point
-                      if (elementProperties[11] == "point")
+                      if (elementProperties[12] == "point")
                       {
                         // record the location of the line both old and new
-                        firstX = Convert.ToSingle(elementProperties[13]);
-                        firstY = Convert.ToSingle(elementProperties[14]);
+                        firstX = Convert.ToSingle(elementProperties[14]);
+                        firstY = Convert.ToSingle(elementProperties[15]);
                         newFirstX = 0;
                         newFirstY = 0;
                         firstElement = false;
                       }
-                      else if (elementProperties[11] == "dock")
+                      else if (elementProperties[12] == "dock")
                       {
                         // The first element can not be a line with 2 docked ends. Mark this for removal
                         removeElement = true;
@@ -2816,11 +2821,11 @@ namespace Trizbort
                         if (element is Room)
                         {
                           // See if it was the room that this used to be docked to
-                          if (((Room) element).OldID == Convert.ToInt32(elementProperties[9]))
+                          if (((Room) element).OldID == Convert.ToInt32(elementProperties[10]))
                           {
                             // Determine the compass point for the dock
                             CompassPoint point;
-                            CompassPointHelper.FromName(elementProperties[10], out point);
+                            CompassPointHelper.FromName(elementProperties[11], out point);
 
                             // Add the first Vertex
                             var vertexOne = new Vertex(((Room) element).PortAt(point));
@@ -2837,26 +2842,26 @@ namespace Trizbort
                       }
                     }
                   }
-                  else if (elementProperties[7] == "point")
+                  else if (elementProperties[8] == "point")
                   {
                     // If this is the first element then record the location of the line both old and new
                     if (firstElement)
                     {
-                      firstX = Convert.ToSingle(elementProperties[9]);
-                      firstY = Convert.ToSingle(elementProperties[10]);
+                      firstX = Convert.ToSingle(elementProperties[10]);
+                      firstY = Convert.ToSingle(elementProperties[11]);
                       newFirstX = 0;
                       newFirstY = 0;
                       firstElement = false;
                     }
 
                     // Add the first Vertex
-                    var vectorOne = new Vector(newFirstX + (Convert.ToSingle(elementProperties[9]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[10]) - firstY));
+                    var vectorOne = new Vector(newFirstX + (Convert.ToSingle(elementProperties[10]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[11]) - firstY));
                     var vertexOne = new Vertex(vectorOne);
                     currentConnection.VertexList.Add(vertexOne);
                   }
 
                   // Check if the second vertex is a dock or a point
-                  if (elementProperties[11] == "dock")
+                  if (elementProperties[12] == "dock")
                   {
                     // If this is the first element to be pasted
                     if (firstElement)
@@ -2876,11 +2881,11 @@ namespace Trizbort
                         if (element is Room)
                         {
                           // See if it was the room that this used to be docked to
-                          if (((Room) element).OldID == Convert.ToInt32(elementProperties[13]))
+                          if (((Room) element).OldID == Convert.ToInt32(elementProperties[14]))
                           {
                             // Determine the compass point for the dock
                             CompassPoint point;
-                            CompassPointHelper.FromName(elementProperties[14], out point);
+                            CompassPointHelper.FromName(elementProperties[15], out point);
 
                             // Add the first Vertex
                             var vertexOne = new Vertex(((Room) element).PortAt(point));
@@ -2899,7 +2904,7 @@ namespace Trizbort
                       }
                     }
                   }
-                  else if (elementProperties[11] == "point")
+                  else if (elementProperties[12] == "point")
                   {
                     // If this is the first element then record the location of the line both old and new
                     if (firstElement)
@@ -2908,7 +2913,7 @@ namespace Trizbort
                     }
 
                     // Add the first Vertex
-                    var vectorOne = new Vector(newFirstX + (Convert.ToSingle(elementProperties[13]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[14]) - firstY));
+                    var vectorOne = new Vector(newFirstX + (Convert.ToSingle(elementProperties[14]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[15]) - firstY));
                     var vertexOne = new Vertex(vectorOne);
                     currentConnection.VertexList.Add(vertexOne);
                   }

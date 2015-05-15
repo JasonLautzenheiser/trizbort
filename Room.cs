@@ -953,12 +953,9 @@ namespace Trizbort
       var connections = new List<Connection>();
 
       // TODO: This is needlessly expensive, traversing as it does the entire project's element list.
-      foreach (var element in Project.Current.Elements)
+      foreach (var element in Project.Current.Elements.OfType<Connection>())
       {
-        if (!(element is Connection))
-          continue;
-
-        var connection = (Connection) element;
+        var connection = element;
         foreach (var vertex in connection.VertexList)
         {
           var port = vertex.Port;
@@ -1027,150 +1024,28 @@ namespace Trizbort
       clipboardText += IsDark + ":";
       clipboardText += PrimaryDescription + ":";
       clipboardText += Region + ":";
+      clipboardText += BorderStyle + ":";
 
-      var rValue = "";
-      var bValue = "";
-      var gValue = "";
-      if (RoomFill.R < 16)
-      {
-        rValue = "0" + RoomFill.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomFill.R.ToString("X");
-      }
-      if (RoomFill.G < 16)
-      {
-        gValue = "0" + RoomFill.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomFill.G.ToString("X");
-      }
-      if (RoomFill.B < 16)
-      {
-        bValue = "0" + RoomFill.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomFill.B.ToString("X");
-      }
 
-      var colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      var colorValue = Colors.SaveColor(RoomFill);
       clipboardText += colorValue + ":";
 
-      if (SecondFill.R < 16)
-      {
-        rValue = "0" + SecondFill.R.ToString("X");
-      }
-      else
-      {
-        rValue = SecondFill.R.ToString("X");
-      }
-      if (SecondFill.G < 16)
-      {
-        gValue = "0" + SecondFill.G.ToString("X");
-      }
-      else
-      {
-        gValue = SecondFill.G.ToString("X");
-      }
-      if (SecondFill.B < 16)
-      {
-        bValue = "0" + SecondFill.B.ToString("X");
-      }
-      else
-      {
-        bValue = SecondFill.B.ToString("X");
-      }
-
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = Colors.SaveColor(SecondFill);
       clipboardText += colorValue + ":";
       clipboardText += SecondFillLocation + ":";
 
-      if (RoomBorder.R < 16)
-      {
-        rValue = "0" + RoomBorder.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomBorder.R.ToString("X");
-      }
-      if (RoomBorder.G < 16)
-      {
-        gValue = "0" + RoomBorder.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomBorder.G.ToString("X");
-      }
-      if (RoomBorder.B < 16)
-      {
-        bValue = "0" + RoomBorder.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomBorder.B.ToString("X");
-      }
-
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = Colors.SaveColor(RoomBorder);
       clipboardText += colorValue + ":";
 
-      if (RoomLargeText.R < 16)
-      {
-        rValue = "0" + RoomLargeText.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomLargeText.R.ToString("X");
-      }
-      if (RoomLargeText.G < 16)
-      {
-        gValue = "0" + RoomLargeText.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomLargeText.G.ToString("X");
-      }
-      if (RoomLargeText.B < 16)
-      {
-        bValue = "0" + RoomLargeText.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomLargeText.B.ToString("X");
-      }
-
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = Colors.SaveColor(RoomLargeText); 
       clipboardText += colorValue + ":";
 
-      if (RoomSmallText.R < 16)
-      {
-        rValue = "0" + RoomSmallText.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomSmallText.R.ToString("X");
-      }
-      if (RoomSmallText.G < 16)
-      {
-        gValue = "0" + RoomSmallText.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomSmallText.G.ToString("X");
-      }
-      if (RoomSmallText.B < 16)
-      {
-        bValue = "0" + RoomSmallText.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomSmallText.B.ToString("X");
-      }
+      colorValue = Colors.SaveColor(RoomSmallText);
+      clipboardText += colorValue + ":";
 
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = Colors.SaveColor(RoomBorder);
       clipboardText += colorValue;
+
 
       if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DefaultObjectsPosition)
       {
@@ -1188,150 +1063,22 @@ namespace Trizbort
 
     public String ClipboardColorPrint()
     {
-      var clipboardText = "";
+      var clipboardText = string.Empty;
 
-      var rValue = "";
-      var bValue = "";
-      var gValue = "";
-      if (RoomFill.R < 16)
-      {
-        rValue = "0" + RoomFill.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomFill.R.ToString("X");
-      }
-      if (RoomFill.G < 16)
-      {
-        gValue = "0" + RoomFill.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomFill.G.ToString("X");
-      }
-      if (RoomFill.B < 16)
-      {
-        bValue = "0" + RoomFill.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomFill.B.ToString("X");
-      }
-
-      var colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      var colorValue = Colors.SaveColor(RoomFill);
       clipboardText += colorValue + ":";
 
-      if (SecondFill.R < 16)
-      {
-        rValue = "0" + SecondFill.R.ToString("X");
-      }
-      else
-      {
-        rValue = SecondFill.R.ToString("X");
-      }
-      if (SecondFill.G < 16)
-      {
-        gValue = "0" + SecondFill.G.ToString("X");
-      }
-      else
-      {
-        gValue = SecondFill.G.ToString("X");
-      }
-      if (SecondFill.B < 16)
-      {
-        bValue = "0" + SecondFill.B.ToString("X");
-      }
-      else
-      {
-        bValue = SecondFill.B.ToString("X");
-      }
-
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = Colors.SaveColor(SecondFill); 
       clipboardText += colorValue + ":";
       clipboardText += SecondFillLocation + ":";
 
-      if (RoomBorder.R < 16)
-      {
-        rValue = "0" + RoomBorder.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomBorder.R.ToString("X");
-      }
-      if (RoomBorder.G < 16)
-      {
-        gValue = "0" + RoomBorder.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomBorder.G.ToString("X");
-      }
-      if (RoomBorder.B < 16)
-      {
-        bValue = "0" + RoomBorder.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomBorder.B.ToString("X");
-      }
-
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = Colors.SaveColor(RoomBorder);
       clipboardText += colorValue + ":";
 
-      if (RoomLargeText.R < 16)
-      {
-        rValue = "0" + RoomLargeText.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomLargeText.R.ToString("X");
-      }
-      if (RoomLargeText.G < 16)
-      {
-        gValue = "0" + RoomLargeText.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomLargeText.G.ToString("X");
-      }
-      if (RoomLargeText.B < 16)
-      {
-        bValue = "0" + RoomLargeText.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomLargeText.B.ToString("X");
-      }
-
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = Colors.SaveColor(RoomLargeText);
       clipboardText += colorValue + ":";
 
-      if (RoomSmallText.R < 16)
-      {
-        rValue = "0" + RoomSmallText.R.ToString("X");
-      }
-      else
-      {
-        rValue = RoomSmallText.R.ToString("X");
-      }
-      if (RoomSmallText.G < 16)
-      {
-        gValue = "0" + RoomSmallText.G.ToString("X");
-      }
-      else
-      {
-        gValue = RoomSmallText.G.ToString("X");
-      }
-      if (RoomSmallText.B < 16)
-      {
-        bValue = "0" + RoomSmallText.B.ToString("X");
-      }
-      else
-      {
-        bValue = RoomSmallText.B.ToString("X");
-      }
-
-      colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      colorValue = Colors.SaveColor(RoomSmallText);
       clipboardText += colorValue;
 
       return clipboardText;

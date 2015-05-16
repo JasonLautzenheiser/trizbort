@@ -2367,6 +2367,16 @@ namespace Trizbort
       }
     }
 
+    public void SetDefaultConnectionColor()
+    {
+      foreach (var connection in mSelectedElements.OfType<Connection>().Where(element => element != null))
+      {
+        connection.ConnectionColor = Color.Transparent;
+      }
+      Invalidate();
+      
+    }
+
     public void ClearMidText()
     {
       foreach (var connection in mSelectedElements.OfType<Connection>().Where(element => element != null)) {
@@ -2488,6 +2498,8 @@ namespace Trizbort
       ApplyConnectionLabel(NewConnectionLabel);
 
       ClearMidText();
+
+      SetDefaultConnectionColor();
     }
 
     public void UpdateScrollBars()

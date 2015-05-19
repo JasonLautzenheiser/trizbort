@@ -150,6 +150,7 @@
 			<li><a href="#help_fu_nav">Navigating the Map with the Keyboard</a>
 			<li><a href="#help_fu_connect">Creating Rooms and Connections with the Keyboard</a>
 			<li><a href="#help_fu_prop">Editing properties with the Keyboard</a>
+			<li><a name="help_fu_swapping_room_data">Swapping room data with the Keyboard</a>
 		<li><a href="#help_right_clicking">Right Clicking</a>
 		<li><a href="#help_tooltips">Tooltips</a>
 		</ul>
@@ -1009,6 +1010,13 @@ At your service!</pre></td></tr>
 
 <p>None of this may be terribly cutting-edge in terms of keyboard shortcuts or GUI theory, but if one feels right, it will probably help you save a lot of time.</p>
 
+<a name="help_fu_swapping_room_data"></a>
+<h3>Swapping room data with the Keyboard</h3>
+
+<p>Currently, if you highlight two rooms and push <span class="accel">W</a>, this will flip the rooms' object data.</p>
+
+<p>Highlighting more than two rooms will do nothing, because it isn't necessarily clear how the rooms should be rotated. For instance, you could highlight three rooms by marking a rectangle, or by control-clicking on them all. However, if you want to do an A->B->C rotation, you could flip A and B, then new B (old A) with C. A rotation of N rooms would take N-1 swaps.</p>
+
 <a name="help_right_clicking"></a>
 <h2>Right Clicking</h2>
 
@@ -1229,7 +1237,7 @@ At your service!</pre></td></tr>
 <tr><td class="heading">-</td><td>zoom out</td><td class="blank"></td></tr>
 <tr><td class="altheading">(arrow keys)</td><td>moves around the map</td><td><span class="ctrls">control-arrow</span>=move to or create new room</td></tr>
 <tr><td class="heading">(home)</td><td>Centers the map</td><td><span class="ctrls">control-home</span>=centers the map, see it all</td></tr>
-<tr><td class="altheading">(numlock keys)</td><td>moves around the map</td><td><span class="ctrls">control-numlock</span>=move to or create new room</td></tr>
+<tr><td class="altheading">(numpad keys)</td><td>moves around the map</td><td><span class="ctrls">control-numpad</span>=move to or create new room</td></tr>
 </table>
 
 <a name="building"></a>

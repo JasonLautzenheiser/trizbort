@@ -65,5 +65,9 @@
 <td class="alt"><a href="slash-swamp.pdf">Slasher Swamp</a></td>
 <td>IFComp 2014</td>
 <td>Non-reciprocal exits, various regions, and several one-way exits to a certain room. One feature of the game was the necessity to search various objects, and those rooms are dashed. Numbers in the object space indicate the order to search.</td>
+<tr>
+<td><a href="gemstone-warrior.pdf">Gemstone Warrior</a></td>
+<td>Old Apple II game</tD>
+<td>Gemstone Warrior is an old Apple II action/strategy game where you go through a maze, rescue the gemstone, and get out. Trizbort's region properties and multiple exits seem suited to it.
 </tr>
 </table>

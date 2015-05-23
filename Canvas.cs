@@ -1553,9 +1553,11 @@ namespace Trizbort
         else
         {
           // new room entirely
-          var newRoom = new Room(Project.Current) {Position = new Vector(centerOfNewRoom.X - room.Width/2, centerOfNewRoom.Y - room.Height/2), Region = room.Region};
-
-          newRoom.Size = room.Size;
+          var newRoom = new Room(Project.Current)
+          {
+            Position = new Vector(centerOfNewRoom.X - room.Width/2, centerOfNewRoom.Y - room.Height/2), Region = room.Region,
+            Size = room.Size
+          };
 
           Project.Current.Elements.Add(newRoom);
           addConnection(room, compassPoint, newRoom, CompassPointHelper.GetOpposite(compassPoint));
@@ -1592,9 +1594,11 @@ namespace Trizbort
     {
       var vertexOne = new Vertex(roomOne.PortAt(compassPointOne));
       var vertexTwo = new Vertex(roomTwo.PortAt(compassPointTwo));
-      var connection = new Connection(Project.Current, vertexOne, vertexTwo);
-      connection.Style = NewConnectionStyle;
-      connection.Flow = NewConnectionFlow;
+      var connection = new Connection(Project.Current, vertexOne, vertexTwo)
+      {
+        Style = NewConnectionStyle,
+        Flow = NewConnectionFlow
+      };
       connection.SetText(NewConnectionLabel);
       Project.Current.Elements.Add(connection);
 
@@ -2211,14 +2215,7 @@ namespace Trizbort
 
     public bool HasSelectedElement<T>() where T : Element
     {
-      foreach (var element in mSelectedElements)
-      {
-        if (element is T)
-        {
-          return true;
-        }
-      }
-      return false;
+      return mSelectedElements.OfType<T>().Any();
     }
 
     private void updateSelection()

@@ -631,9 +631,6 @@ namespace Trizbort
         Drawing.AddLine(path, left, random);
 
         graphics.DrawPath(brush, path);
- //       graphics.DrawPath(new XPen(Color.Red) {DashStyle = XDashStyle.Dot},  brush, path);
-
-
 
         // Second fill for room specific colors with a split option
         if (SecondFill != Color.Transparent)
@@ -716,8 +713,6 @@ namespace Trizbort
           var roomBorderPen = new Pen(RoomBorder, Settings.LineWidth) { StartCap = LineCap.Round, EndCap = LineCap.Round, DashStyle = BorderStyle.ConvertToDashStyle() };
           graphics.DrawPath(roomBorderPen, path);
         }
-
-        
       }
 
       var font = Settings.LargeFont;

@@ -42,6 +42,7 @@
       this.txtStats.Multiline = true;
       this.txtStats.Name = "txtStats";
       this.txtStats.ReadOnly = true;
+      this.txtStats.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
       this.txtStats.Size = new System.Drawing.Size(335, 308);
       this.txtStats.TabIndex = 0;
       // 
@@ -51,6 +52,9 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(360, 333);
       this.Controls.Add(this.txtStats);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+      this.MaximizeBox = false;
+      this.MinimizeBox = false;
       this.Name = "MapStatisticsView";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Map Statistics";

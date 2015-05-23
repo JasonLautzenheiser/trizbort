@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.Linq;
 
 namespace Trizbort
 {
@@ -31,8 +29,6 @@ namespace Trizbort
         return tCount;
       }
     }
-
-
 
     public static int NumberOfConnections
     {

@@ -144,6 +144,8 @@ namespace Trizbort
       this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
       this.Canvas = new Trizbort.Canvas();
       this.m_automapBar = new Trizbort.AutomapBar();
+      this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+      this.mapStatisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_menuStrip.SuspendLayout();
       this.m_toolStrip.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
@@ -731,7 +733,9 @@ namespace Trizbort
             this.m_projectSettingsMenuItem,
             this.appSettingsToolStripMenuItem,
             this.toolStripSeparator11,
-            this.m_projectResetToDefaultSettingsMenuItem});
+            this.m_projectResetToDefaultSettingsMenuItem,
+            this.toolStripSeparator14,
+            this.mapStatisticsToolStripMenuItem});
       this.m_projectMenu.Name = "m_projectMenu";
       this.m_projectMenu.Size = new System.Drawing.Size(48, 20);
       this.m_projectMenu.Text = "&Tools";
@@ -923,6 +927,18 @@ namespace Trizbort
       this.m_automapBar.Status = "(Status)";
       this.m_automapBar.TabIndex = 4;
       // 
+      // toolStripSeparator14
+      // 
+      this.toolStripSeparator14.Name = "toolStripSeparator14";
+      this.toolStripSeparator14.Size = new System.Drawing.Size(223, 6);
+      // 
+      // mapStatisticsToolStripMenuItem
+      // 
+      this.mapStatisticsToolStripMenuItem.Name = "mapStatisticsToolStripMenuItem";
+      this.mapStatisticsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+      this.mapStatisticsToolStripMenuItem.Text = "Map Statistics...";
+      this.mapStatisticsToolStripMenuItem.Click += new System.EventHandler(this.mapStatisticsToolStripMenuItem_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1042,6 +1058,8 @@ namespace Trizbort
         private System.Windows.Forms.ToolStripMenuItem inform7ToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inform6ToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tADSToTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
+        private System.Windows.Forms.ToolStripMenuItem mapStatisticsToolStripMenuItem;
         
     }
 }

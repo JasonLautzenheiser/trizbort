@@ -948,6 +948,11 @@ namespace Trizbort
       ObjectsPosition = element["objects"].Attribute("at").ToCompassPoint(ObjectsPosition);
     }
 
+    public List<Connection> GetConnections()
+    {
+      return GetConnections(CompassPoint.None);
+    }
+    
     public List<Connection> GetConnections(CompassPoint compassPoint)
     {
       var connections = new List<Connection>();
@@ -963,11 +968,15 @@ namespace Trizbort
             continue;
 
           var compassPort = (CompassPort) vertex.Port;
-          if (compassPort.CompassPoint == compassPoint)
-          {
-            // found a connection with a vertex joined to our room's port at the given compass point
+          
+          if (compassPoint == CompassPoint.None)
             connections.Add(connection);
-          }
+          else
+            if (compassPort.CompassPoint == compassPoint)
+            {
+              // found a connection with a vertex joined to our room's port at the given compass point
+              connections.Add(connection);
+            }
         }
       }
       return connections;

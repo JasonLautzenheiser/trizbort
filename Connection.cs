@@ -809,6 +809,18 @@ namespace Trizbort
       RaiseChanged();
     }
 
+    public Room GetSourceRoom()
+    {
+      CompassPoint t;
+      return GetSourceRoom(out t);
+    }
+
+    public Room GetTargetRoom()
+    {
+      CompassPoint t;
+      return GetTargetRoom(out t);
+    }
+    
     public Room GetSourceRoom(out CompassPoint sourceCompassPoint)
     {
       if (m_vertexList.Count > 0)

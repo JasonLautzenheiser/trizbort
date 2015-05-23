@@ -1054,5 +1054,11 @@ namespace Trizbort
       if (txtZoom.Value <= 0) txtZoom.Value = 10;
       Canvas.ChangeZoom((float)Convert.ToDouble(txtZoom.Value) / 100.0f);
     }
+
+    private void mapStatisticsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      var frm = new MapStatisticsView();
+      frm.ShowDialog();
+    }
   }
 }

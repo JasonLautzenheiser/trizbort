@@ -1614,7 +1614,11 @@ namespace Trizbort
     /// </remarks>
     private Room getRoomInApproximateDirectionFromRoom(Room room, CompassPoint compassPoint)
     {
-      var nextRoom = getRoomInExactDirectionFromRoom(room, compassPoint) ?? getRoomInExactDirectionFromRoom(room, CompassPointHelper.RotateAntiClockwise(compassPoint));
+      Room nextRoom;
+      if (getRoomInExactDirectionFromRoom(room, compassPoint) != null) 
+        nextRoom = getRoomInExactDirectionFromRoom(room, compassPoint);
+      else 
+        nextRoom = getRoomInExactDirectionFromRoom(room, CompassPointHelper.RotateAntiClockwise(compassPoint));
 
       return nextRoom ?? (getRoomInExactDirectionFromRoom(room, CompassPointHelper.RotateClockwise(compassPoint)));
     }

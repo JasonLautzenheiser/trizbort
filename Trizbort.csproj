@@ -150,6 +150,13 @@
     <Compile Include="Export\Inform7Exporter.cs" />
     <Compile Include="ISizeable.cs" />
     <Compile Include="LineSegment.cs" />
+    <Compile Include="MapStatistics.cs" />
+    <Compile Include="MapStatisticsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MapStatisticsView.Designer.cs">
+      <DependentUpon>MapStatisticsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Minimap.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -215,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapStatisticsView.resx">
+      <DependentUpon>MapStatisticsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Minimap.resx">
       <DependentUpon>Minimap.cs</DependentUpon>

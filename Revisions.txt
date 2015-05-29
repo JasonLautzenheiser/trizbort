@@ -7,6 +7,7 @@ Change Log
 -- setting a connection to plain (P),  now sets the color back to default and removes the middle text if any
 -- fixes broken copy/paste
 ++ automapper does a bit of a better job of ignoring the game title (still not 100%)
+++ added a Edit->Select Special with sub menu to allow for smart selection of different elements.
 
 1.5.8.8
 -------------

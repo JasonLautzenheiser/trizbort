@@ -1060,5 +1060,40 @@ namespace Trizbort
       var frm = new MapStatisticsView();
       frm.ShowDialog();
     }
+
+    private void selectAllRoomsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectAllRooms();
+    }
+
+    private void selectedUnconnectedRoomsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectAllUnconnectedRooms();
+    }
+
+    private void selectAllConnectionsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectAllConnections();
+    }
+
+    private void selectDanglingConnectionsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectDanglingConnections();
+    }
+
+    private void selectSelfLoopingConnectionsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectSelfLoopingConnections();
+    }
+
+    private void selectRoomsWObjectsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectRoomsWithObjects();
+    }
+
+    private void selectRoomsWoObjectsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectRoomsWithoutObjects();
+    }
   }
 }

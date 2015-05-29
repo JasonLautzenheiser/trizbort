@@ -3131,5 +3131,59 @@ namespace Trizbort
     {
       swapRooms();
     }
+
+    public void SelectAllRooms()
+    {
+      mSelectedElements.Clear();
+      mSelectedElements.AddRange(Project.Current.Elements.OfType<Room>());
+      updateSelection();
+    }
+
+    public void SelectAllConnections()
+    {
+      mSelectedElements.Clear();
+      mSelectedElements.AddRange(Project.Current.Elements.OfType<Connection>());
+      updateSelection();
+    }
+
+    public void SelectAllUnconnectedRooms()
+    {
+      mSelectedElements.Clear();
+      mSelectedElements.AddRange(Project.Current.Elements.OfType<Room>().Where(p => p.GetConnections().Count == 0));
+      updateSelection();
+    }
+
+    public void SelectDanglingConnections()
+    {
+      mSelectedElements.Clear();
+      mSelectedElements.AddRange(Project.Current.Elements.OfType<Connection>().Where(p => p.GetSourceRoom() == null || p.GetTargetRoom() == null));
+      updateSelection();
+    }
+
+    public void SelectSelfLoopingConnections()
+    {
+      mSelectedElements.Clear();
+      mSelectedElements.AddRange(Project.Current.Elements.OfType<Connection>().Where(p =>
+      {
+        var sourceRoom = p.GetSourceRoom();
+        var targetRoom = p.GetTargetRoom();
+        return ((sourceRoom != null && targetRoom != null) && (sourceRoom == targetRoom));
+      }));
+      updateSelection();
+    }
+
+    public void SelectRoomsWithObjects()
+    {
+      mSelectedElements.Clear();
+      mSelectedElements.AddRange(Project.Current.Elements.OfType<Room>().Where(p => p.ListOfObjects().Count > 0));
+      updateSelection();
+    }
+
+    public void SelectRoomsWithoutObjects()
+    {
+      mSelectedElements.Clear();
+      mSelectedElements.AddRange(Project.Current.Elements.OfType<Room>().Where(p => p.ListOfObjects().Count == 0));
+      updateSelection();
+    }
   }
 }

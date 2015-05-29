@@ -14,20 +14,14 @@ namespace Trizbort
       get { return Project.Current.Elements.OfType<Room>().Count(p=>p.GetConnections().Count==0); }
     }
 
+    public static int NumberOfRoomsWithObjects
+    {
+      get { return Project.Current.Elements.OfType<Room>().Count(p => p.ListOfObjects().Count > 0); }
+    }
+
     public static int NumberOfTotalObjectsInRooms
     {
-      get
-      {
-        int tCount = 0;
-
-        foreach (var room in Project.Current.Elements.OfType<Room>())
-        {
-          var tObjects = room.Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|");
-          var objects = tObjects.Split('|');
-          tCount += objects.Count(p=>p != string.Empty);
-        }
-        return tCount;
-      }
+      get { return Project.Current.Elements.OfType<Room>().ToList().Sum(p => p.ListOfObjects().Count); }
     }
 
     public static int NumberOfConnections

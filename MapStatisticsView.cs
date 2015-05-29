@@ -43,6 +43,7 @@ namespace Trizbort
 
       stats += string.Format("{0}", Environment.NewLine);
       stats += string.Format("Total # Objects in All Rooms: {0}{1}", MapStatistics.NumberOfTotalObjectsInRooms, Environment.NewLine);
+      stats += string.Format("Total # Rooms with Objects: {0}{1}", MapStatistics.NumberOfRoomsWithObjects, Environment.NewLine);
 
 
       txtStats.Text = stats;

@@ -977,6 +977,13 @@ namespace Trizbort
       return connections;
     }
 
+    public IList<string> ListOfObjects()
+    {
+      var tObjects = Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|");
+      var objects = tObjects.Split('|').Where(p => p != string.Empty).ToList();
+      return objects;
+    }
+
     public void ClearDescriptions()
     {
       if (m_descriptions.Count > 0)
@@ -1064,6 +1071,7 @@ namespace Trizbort
 
       return clipboardText;
     }
+
 
     public String ClipboardColorPrint()
     {

@@ -99,6 +99,15 @@ namespace Trizbort
       this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
       this.m_editSelectAllMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_editSelectNoneMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.selectSpecialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.selectAllRoomsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.selectedUnconnectedRoomsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.selectRoomsWObjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.selectRoomsWoObjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+      this.selectAllConnectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.selectDanglingConnectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.selectSelfLoopingConnectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
       this.m_editCopyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_editCopyColorToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -129,6 +138,8 @@ namespace Trizbort
       this.appSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
       this.m_projectResetToDefaultSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+      this.mapStatisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_helpMenu = new System.Windows.Forms.ToolStripMenuItem();
       this.m_onlineHelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_checkForUpdatesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -144,8 +155,6 @@ namespace Trizbort
       this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
       this.Canvas = new Trizbort.Canvas();
       this.m_automapBar = new Trizbort.AutomapBar();
-      this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
-      this.mapStatisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_menuStrip.SuspendLayout();
       this.m_toolStrip.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
@@ -376,6 +385,7 @@ namespace Trizbort
             this.toolStripSeparator8,
             this.m_editSelectAllMenuItem,
             this.m_editSelectNoneMenuItem,
+            this.selectSpecialToolStripMenuItem,
             this.toolStripSeparator5,
             this.m_editCopyMenuItem,
             this.m_editCopyColorToolMenuItem,
@@ -533,6 +543,75 @@ namespace Trizbort
       this.m_editSelectNoneMenuItem.Size = new System.Drawing.Size(211, 22);
       this.m_editSelectNoneMenuItem.Text = "Select None";
       this.m_editSelectNoneMenuItem.Click += new System.EventHandler(this.EditSelectNoneMenuItem_Click);
+      // 
+      // selectSpecialToolStripMenuItem
+      // 
+      this.selectSpecialToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectAllRoomsToolStripMenuItem,
+            this.selectedUnconnectedRoomsToolStripMenuItem,
+            this.selectRoomsWObjectsToolStripMenuItem,
+            this.selectRoomsWoObjectsToolStripMenuItem,
+            this.toolStripSeparator15,
+            this.selectAllConnectionsToolStripMenuItem,
+            this.selectDanglingConnectionsToolStripMenuItem,
+            this.selectSelfLoopingConnectionsToolStripMenuItem});
+      this.selectSpecialToolStripMenuItem.Name = "selectSpecialToolStripMenuItem";
+      this.selectSpecialToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+      this.selectSpecialToolStripMenuItem.Text = "Select Special";
+      // 
+      // selectAllRoomsToolStripMenuItem
+      // 
+      this.selectAllRoomsToolStripMenuItem.Name = "selectAllRoomsToolStripMenuItem";
+      this.selectAllRoomsToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+      this.selectAllRoomsToolStripMenuItem.Text = "Select All Rooms";
+      this.selectAllRoomsToolStripMenuItem.Click += new System.EventHandler(this.selectAllRoomsToolStripMenuItem_Click);
+      // 
+      // selectedUnconnectedRoomsToolStripMenuItem
+      // 
+      this.selectedUnconnectedRoomsToolStripMenuItem.Name = "selectedUnconnectedRoomsToolStripMenuItem";
+      this.selectedUnconnectedRoomsToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+      this.selectedUnconnectedRoomsToolStripMenuItem.Text = "Selected Unconnected Rooms";
+      this.selectedUnconnectedRoomsToolStripMenuItem.Click += new System.EventHandler(this.selectedUnconnectedRoomsToolStripMenuItem_Click);
+      // 
+      // selectRoomsWObjectsToolStripMenuItem
+      // 
+      this.selectRoomsWObjectsToolStripMenuItem.Name = "selectRoomsWObjectsToolStripMenuItem";
+      this.selectRoomsWObjectsToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+      this.selectRoomsWObjectsToolStripMenuItem.Text = "Select Rooms w/ Objects";
+      this.selectRoomsWObjectsToolStripMenuItem.Click += new System.EventHandler(this.selectRoomsWObjectsToolStripMenuItem_Click);
+      // 
+      // selectRoomsWoObjectsToolStripMenuItem
+      // 
+      this.selectRoomsWoObjectsToolStripMenuItem.Name = "selectRoomsWoObjectsToolStripMenuItem";
+      this.selectRoomsWoObjectsToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+      this.selectRoomsWoObjectsToolStripMenuItem.Text = "Select Rooms w/o Objects";
+      this.selectRoomsWoObjectsToolStripMenuItem.Click += new System.EventHandler(this.selectRoomsWoObjectsToolStripMenuItem_Click);
+      // 
+      // toolStripSeparator15
+      // 
+      this.toolStripSeparator15.Name = "toolStripSeparator15";
+      this.toolStripSeparator15.Size = new System.Drawing.Size(241, 6);
+      // 
+      // selectAllConnectionsToolStripMenuItem
+      // 
+      this.selectAllConnectionsToolStripMenuItem.Name = "selectAllConnectionsToolStripMenuItem";
+      this.selectAllConnectionsToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+      this.selectAllConnectionsToolStripMenuItem.Text = "Select All Connections";
+      this.selectAllConnectionsToolStripMenuItem.Click += new System.EventHandler(this.selectAllConnectionsToolStripMenuItem_Click);
+      // 
+      // selectDanglingConnectionsToolStripMenuItem
+      // 
+      this.selectDanglingConnectionsToolStripMenuItem.Name = "selectDanglingConnectionsToolStripMenuItem";
+      this.selectDanglingConnectionsToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+      this.selectDanglingConnectionsToolStripMenuItem.Text = "Select Dangling Connections";
+      this.selectDanglingConnectionsToolStripMenuItem.Click += new System.EventHandler(this.selectDanglingConnectionsToolStripMenuItem_Click);
+      // 
+      // selectSelfLoopingConnectionsToolStripMenuItem
+      // 
+      this.selectSelfLoopingConnectionsToolStripMenuItem.Name = "selectSelfLoopingConnectionsToolStripMenuItem";
+      this.selectSelfLoopingConnectionsToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+      this.selectSelfLoopingConnectionsToolStripMenuItem.Text = "Select Self Looping Connections";
+      this.selectSelfLoopingConnectionsToolStripMenuItem.Click += new System.EventHandler(this.selectSelfLoopingConnectionsToolStripMenuItem_Click);
       // 
       // toolStripSeparator5
       // 
@@ -766,6 +845,18 @@ namespace Trizbort
       this.m_projectResetToDefaultSettingsMenuItem.Text = "&Restore Default Map Settings";
       this.m_projectResetToDefaultSettingsMenuItem.Click += new System.EventHandler(this.ProjectResetToDefaultSettingsMenuItem_Click);
       // 
+      // toolStripSeparator14
+      // 
+      this.toolStripSeparator14.Name = "toolStripSeparator14";
+      this.toolStripSeparator14.Size = new System.Drawing.Size(223, 6);
+      // 
+      // mapStatisticsToolStripMenuItem
+      // 
+      this.mapStatisticsToolStripMenuItem.Name = "mapStatisticsToolStripMenuItem";
+      this.mapStatisticsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+      this.mapStatisticsToolStripMenuItem.Text = "Map Statistics...";
+      this.mapStatisticsToolStripMenuItem.Click += new System.EventHandler(this.mapStatisticsToolStripMenuItem_Click);
+      // 
       // m_helpMenu
       // 
       this.m_helpMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -927,18 +1018,6 @@ namespace Trizbort
       this.m_automapBar.Status = "(Status)";
       this.m_automapBar.TabIndex = 4;
       // 
-      // toolStripSeparator14
-      // 
-      this.toolStripSeparator14.Name = "toolStripSeparator14";
-      this.toolStripSeparator14.Size = new System.Drawing.Size(223, 6);
-      // 
-      // mapStatisticsToolStripMenuItem
-      // 
-      this.mapStatisticsToolStripMenuItem.Name = "mapStatisticsToolStripMenuItem";
-      this.mapStatisticsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-      this.mapStatisticsToolStripMenuItem.Text = "Map Statistics...";
-      this.mapStatisticsToolStripMenuItem.Click += new System.EventHandler(this.mapStatisticsToolStripMenuItem_Click);
-      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1060,7 +1139,15 @@ namespace Trizbort
         private System.Windows.Forms.ToolStripMenuItem tADSToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripMenuItem mapStatisticsToolStripMenuItem;
-        
-    }
+    private System.Windows.Forms.ToolStripMenuItem selectSpecialToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem selectAllRoomsToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem selectAllConnectionsToolStripMenuItem;
+    private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+    private System.Windows.Forms.ToolStripMenuItem selectedUnconnectedRoomsToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem selectDanglingConnectionsToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem selectSelfLoopingConnectionsToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem selectRoomsWObjectsToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem selectRoomsWoObjectsToolStripMenuItem;
+  }
 }
 

@@ -27,6 +27,7 @@ namespace Trizbort
       stats += string.Format("{0}", Environment.NewLine);
       stats += string.Format("# of Connections: {0}{1}", MapStatistics.NumberOfConnections, Environment.NewLine);
       stats += string.Format("# of Dangling Connections: {0}{1}", MapStatistics.NumberOfDanglingConnections, Environment.NewLine);
+      stats += string.Format("# of Self Looping Connections: {0}{1}", MapStatistics.NumberOfLoopingConnections, Environment.NewLine);
 
       stats += string.Format("{0}", Environment.NewLine);
       stats += string.Format("# of Regions: {0}{1}", MapStatistics.NumberOfRegions, Environment.NewLine);
@@ -44,7 +45,9 @@ namespace Trizbort
       stats += string.Format("Total # Objects in All Rooms: {0}{1}", MapStatistics.NumberOfTotalObjectsInRooms, Environment.NewLine);
 
 
-      txtStats.Text = stats; 
+      txtStats.Text = stats;
+      txtStats.SelectionStart = 1;
+      txtStats.SelectionLength = 0;
     }
   }
 }

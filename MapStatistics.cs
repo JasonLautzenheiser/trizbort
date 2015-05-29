@@ -24,7 +24,7 @@ namespace Trizbort
         {
           var tObjects = room.Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|");
           var objects = tObjects.Split('|');
-          tCount += objects.Count();
+          tCount += objects.Count(p=>p != string.Empty);
         }
         return tCount;
       }
@@ -38,6 +38,19 @@ namespace Trizbort
     public static int NumberOfDanglingConnections
     {
       get { return Project.Current.Elements.OfType<Connection>().Count(p => p.GetSourceRoom() == null || p.GetTargetRoom() == null); }
+    }
+
+    public static int NumberOfLoopingConnections
+    {
+      get
+      {
+        return Project.Current.Elements.OfType<Connection>().Count(p =>
+        {
+          var sourceRoom = p.GetSourceRoom();
+          var targetRoom = p.GetTargetRoom();
+          return ((sourceRoom != null && targetRoom != null) && (sourceRoom == targetRoom));
+        });
+      }
     }
 
     public static int NumberOfRegions

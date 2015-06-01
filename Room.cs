@@ -945,10 +945,10 @@ namespace Trizbort
 
     public List<Connection> GetConnections()
     {
-      return GetConnections(CompassPoint.None);
+      return GetConnections(null);
     }
     
-    public List<Connection> GetConnections(CompassPoint compassPoint)
+    public List<Connection> GetConnections(CompassPoint? compassPoint)
     {
       var connections = new List<Connection>();
 
@@ -964,7 +964,7 @@ namespace Trizbort
 
           var compassPort = (CompassPort) vertex.Port;
           
-          if (compassPoint == CompassPoint.None)
+          if (compassPoint == null)
             connections.Add(connection);
           else
             if (compassPort.CompassPoint == compassPoint)

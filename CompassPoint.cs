@@ -32,7 +32,6 @@ namespace Trizbort
   /// </summary>
   public enum CompassPoint
   {
-    None,
     North,
     NorthNorthEast,
     NorthEast,

@@ -41,9 +41,9 @@ namespace Trizbort
             m_thisRoomButton.Enabled = false;
         }
 
-        public void SetTranscriptContext(string roomName, string roomDescription)
+        public void SetTranscriptContext(string roomName, string roomDescription, string line)
         {
-            m_transcriptContextTextBox.Text = string.Format("{0}\n{1}", roomName, roomDescription).Replace("\r", string.Empty).Replace("\n", "\r\n");
+            m_transcriptContextTextBox.Text = string.Format("{0}\n{1}", line, roomDescription).Replace("\r", string.Empty).Replace("\n", "\r\n");
         }
 
         protected override void OnLoad(EventArgs e)

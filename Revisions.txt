@@ -4,10 +4,11 @@ Change Log
 -------------
 ++ beginning of some map statistics.
 ++ swap room names with ctrl-W, swap formats/fills with shift-W, swap regions with alt-W  #49
--- setting a connection to plain (P),  now sets the color back to default and removes the middle text if any
--- fixes broken copy/paste
 ++ automapper does a bit of a better job of ignoring the game title (still not 100%)
+++ Automap now handles rooms with () a bit better.
 ++ added a Edit->Select Special with sub menu to allow for smart selection of different elements.
+-- setting a connection to plain (P),  now sets the color back to default and removes the middle text if any
+-- copy/paste was broken
 
 1.5.8.8
 -------------

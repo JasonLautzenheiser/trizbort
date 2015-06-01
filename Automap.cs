@@ -127,12 +127,12 @@ namespace Trizbort
         return false;
       }
 
-      if (!char.IsLetterOrDigit(line[line.Length - 1]))
-      {
-        // the last character of the room name must be a number or a letter
-        SetFailureReason("the line didn't end with a letter or a number");
-        return false;
-      }
+//      if (!char.IsLetterOrDigit(line[line.Length - 1]))
+//      {
+//        // the last character of the room name must be a number or a letter
+//        SetFailureReason("the line didn't end with a letter or a number");
+//        return false;
+//      }
 
       // strip suffixes such as those in "Bedroom, on the bed" or "Bedroom (on the bed)" or "Bedroom - on the bed"
       bool strippedSuffix;
@@ -141,7 +141,7 @@ namespace Trizbort
         strippedSuffix = false;
         foreach (var decorativeSuffixMarker in s_roomDecorativeSuffixMarkers)
         {
-          var indexOfMarker = line.IndexOf(decorativeSuffixMarker);
+          var indexOfMarker = line.IndexOf(decorativeSuffixMarker, StringComparison.Ordinal);
           if (indexOfMarker >= 0)
           {
             var suffixLength = line.Length - indexOfMarker;
@@ -248,7 +248,7 @@ namespace Trizbort
         SetFailureReason("the word contains no text");
         return false;
       }
-      if (!char.IsLetterOrDigit(word[0]))
+      if (!char.IsLetterOrDigit(word[0]) && word[0] != '#')
       {
         // the first character must be a letter or a digit
         SetFailureReason("the word must begin with a letter or a digit");
@@ -325,9 +325,9 @@ namespace Trizbort
       return paragraph != null;
     }
 
-    private Room FindRoom(string roomName, string roomDescription)
+    private Room FindRoom(string roomName, string roomDescription, string line)
     {
-      return m_canvas.FindRoom(roomName, roomDescription, delegate(string n, string d, Room r) { return Match(r, n, d); });
+      return m_canvas.FindRoom(roomName, roomDescription, line, (n, d, r) => Match(r, n, d));
     }
 
     private bool? Match(Room room, string name, string description)
@@ -433,7 +433,7 @@ namespace Trizbort
           ExtractParagraph(lines, index + 1, out roomDescription);
 
           // work out which room the transcript is referring to here, asking them if necessary
-          var room = FindRoom(roomName, roomDescription);
+          var room = FindRoom(roomName, roomDescription, line);
           if (room == null)
           {
             // new room
@@ -441,7 +441,7 @@ namespace Trizbort
             {
               // player moved to new room
               // if not added already, add room to map; and join it up to the previous one
-              room = m_canvas.CreateRoom(m_lastKnownRoom, m_lastMoveDirection.Value, roomName);
+              room = m_canvas.CreateRoom(m_lastKnownRoom, m_lastMoveDirection.Value, roomName, line);
               m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
               Trace("{0}: {1} is now {2} from {3}.", FormatTranscriptLineForDisplay(line), roomName, m_lastMoveDirection.Value.ToString().ToLower(), m_lastKnownRoom.Name);
             }

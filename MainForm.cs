@@ -577,6 +577,20 @@ namespace Trizbort
       ExportCode<Inform6Exporter>();
     }
 
+    private void zILToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      var fileName = Settings.LastExportTadsFileName;
+      if (ExportCode<ZilExporter>(ref fileName))
+      {
+        Settings.LastExportTadsFileName = fileName;
+      }
+    }
+
+    private void zILToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      ExportCode<ZilExporter>();
+    }
+
     private void FileExportTadsMenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportTadsFileName;
@@ -891,7 +905,7 @@ namespace Trizbort
     {
       try
       {
-        Process.Start("http://trizbort.genstein.net/?help");
+        Process.Start("http://www.trizbort.com/Docs/index.shtml");
       }
       catch (Exception)
       {
@@ -948,22 +962,20 @@ namespace Trizbort
         m_fileExportInform7MenuItem.Enabled = true;
         m_fileExportInform6MenuItem.Enabled = true;
         m_fileExportTADSMenuItem.Enabled = true;
+        zILToolStripMenuItem.Enabled = true;
       }
       else
       {
         m_fileExportInform7MenuItem.Enabled = false;
         m_fileExportInform6MenuItem.Enabled = false;
         m_fileExportTADSMenuItem.Enabled = false;
+        zILToolStripMenuItem.Enabled = false;
       }
     }
 
     private void setupMRUMenu()
     {
-      var existingItems = new List<ToolStripItem>();
-      foreach (ToolStripItem existingItem in m_fileRecentMapsMenuItem.DropDownItems)
-      {
-        existingItems.Add(existingItem);
-      }
+      var existingItems = m_fileRecentMapsMenuItem.DropDownItems.Cast<ToolStripItem>().ToList();
       foreach (var existingItem in existingItems)
       {
         existingItem.Click -= FileRecentProject_Click;
@@ -982,8 +994,7 @@ namespace Trizbort
         {
           if (File.Exists(recentProject))
           {
-            var menuItem = new ToolStripMenuItem(string.Format("&{0} {1}", index++, recentProject));
-            menuItem.Tag = recentProject;
+            var menuItem = new ToolStripMenuItem($"&{index++} {recentProject}") {Tag = recentProject};
             menuItem.Click += FileRecentProject_Click;
             m_fileRecentMapsMenuItem.DropDownItems.Add(menuItem);
           }
@@ -1095,5 +1106,12 @@ namespace Trizbort
     {
       Canvas.SelectRoomsWithoutObjects();
     }
+
+    private void toggleTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.ToggleText();
+    }
+
+
   }
 }

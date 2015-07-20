@@ -97,9 +97,10 @@ namespace Trizbort.Export
         {
           author = "A Trizbort User";
         }
+        var history = Project.Current.History;
 
-        ExportHeader(writer, title, author, Project.Current.Description ?? string.Empty);
         PrepareContent();
+        ExportHeader(writer, title, author, Project.Current.Description ?? string.Empty, history);
         ExportContent(writer);
 
         ss = writer.ToString();
@@ -128,8 +129,9 @@ namespace Trizbort.Export
           author = "A Trizbort User";
         }
 
-        ExportHeader(writer, title, author, Project.Current.Description ?? string.Empty);
+        var history = Project.Current.History;
         PrepareContent();
+        ExportHeader(writer, title, author, Project.Current.Description ?? string.Empty, history);
         ExportContent(writer);
       }
     }
@@ -139,7 +141,7 @@ namespace Trizbort.Export
       return new StreamWriter(fileName, false, Encoding, 2 ^ 16);
     }
 
-    protected abstract void ExportHeader(TextWriter writer, string title, string author, string description);
+    protected abstract void ExportHeader(TextWriter writer, string title, string author, string description, string history);
     protected abstract void ExportContent(TextWriter writer);
     protected abstract string GetExportName(Room room, int? suffix);
     protected abstract string GetExportNameForObject(string displayName, int? suffix);

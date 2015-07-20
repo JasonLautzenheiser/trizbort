@@ -62,7 +62,7 @@ namespace Trizbort.Export
             get { return Encoding.ASCII; }
         }
 
-      protected override void ExportHeader(TextWriter writer, string title, string author, string description)
+      protected override void ExportHeader(TextWriter writer, string title, string author, string description, string history)
         {
             writer.WriteLine("Constant Story {0};", ToI6String(title, DoubleQuote));
             writer.WriteLine("Constant Headline {0};", ToI6String(string.Format("^By {0}^{1}^^", author, description), DoubleQuote));
@@ -72,7 +72,11 @@ namespace Trizbort.Export
             writer.WriteLine();
         }
 
- 
+      private static void exportHistory(TextWriter writer, string history)
+      {
+      }
+
+
       protected override void ExportContent(TextWriter writer)
         {
             foreach (var location in LocationsInExportOrder)

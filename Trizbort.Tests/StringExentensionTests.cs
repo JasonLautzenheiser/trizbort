@@ -28,7 +28,7 @@ namespace Trizbort.Tests
     [Test]
     public void StartsWithVowel_StartsWithVowel_ReturnsFalse()
     {
-      Assert.AreEqual(false, "object".StartsWithVowel());
+      Assert.AreEqual(true, "apple".StartsWithVowel());
     }
 
   }

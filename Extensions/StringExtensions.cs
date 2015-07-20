@@ -7,7 +7,10 @@ namespace Trizbort.Extensions
     public static bool StartsWithVowel(this string c )
     {
       if (string.IsNullOrWhiteSpace(c)) return false;
-      var isVowel = "aeiou".IndexOf(c, StringComparison.InvariantCultureIgnoreCase) >= 0;
+
+      var firstChar = c.Substring(0, 1);
+
+      var isVowel = "aeiou".IndexOf(firstChar, StringComparison.InvariantCultureIgnoreCase) >= 0;
       return isVowel;
     }
   }

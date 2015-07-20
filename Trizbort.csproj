@@ -145,6 +145,7 @@
     <Compile Include="Export\CodeExporter.cs" />
     <Compile Include="Export\Inform6Exporter.cs" />
     <Compile Include="Export\TadsExporter.cs" />
+    <Compile Include="Export\ZilExporter.cs" />
     <Compile Include="IAutomapCanvas.cs" />
     <Compile Include="IMoveable.cs" />
     <Compile Include="Export\Inform7Exporter.cs" />

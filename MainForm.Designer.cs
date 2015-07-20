@@ -71,6 +71,7 @@ namespace Trizbort
       this.m_fileExportInform7MenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_fileExportInform6MenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_fileExportTADSMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.zILToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
       this.inform7ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.inform6ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,6 +84,7 @@ namespace Trizbort
       this.m_editAddRoomMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
       this.m_editIsDarkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toggleTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
       this.m_lineStylesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_plainLinesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -155,6 +157,7 @@ namespace Trizbort
       this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
       this.Canvas = new Trizbort.Canvas();
       this.m_automapBar = new Trizbort.AutomapBar();
+      this.zILToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_menuStrip.SuspendLayout();
       this.m_toolStrip.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
@@ -264,10 +267,12 @@ namespace Trizbort
             this.m_fileExportInform7MenuItem,
             this.m_fileExportInform6MenuItem,
             this.m_fileExportTADSMenuItem,
+            this.zILToolStripMenuItem,
             this.toolStripSeparator13,
             this.inform7ToTextToolStripMenuItem,
             this.inform6ToTextToolStripMenuItem,
-            this.tADSToTextToolStripMenuItem});
+            this.tADSToTextToolStripMenuItem,
+            this.zILToClipboardToolStripMenuItem});
       this.m_fileExportMenu.Name = "m_fileExportMenu";
       this.m_fileExportMenu.Size = new System.Drawing.Size(213, 22);
       this.m_fileExportMenu.Text = "&Export";
@@ -317,6 +322,15 @@ namespace Trizbort
       this.m_fileExportTADSMenuItem.Size = new System.Drawing.Size(251, 22);
       this.m_fileExportTADSMenuItem.Text = "&TADS...";
       this.m_fileExportTADSMenuItem.Click += new System.EventHandler(this.FileExportTadsMenuItem_Click);
+      // 
+      // zILToolStripMenuItem
+      // 
+      this.zILToolStripMenuItem.Name = "zILToolStripMenuItem";
+      this.zILToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Z)));
+      this.zILToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.zILToolStripMenuItem.Text = "ZIL...";
+      this.zILToolStripMenuItem.Click += new System.EventHandler(this.zILToolStripMenuItem_Click);
       // 
       // toolStripSeparator13
       // 
@@ -379,6 +393,7 @@ namespace Trizbort
             this.m_editAddRoomMenuItem,
             this.toolStripSeparator6,
             this.m_editIsDarkMenuItem,
+            this.toggleTextToolStripMenuItem,
             this.toolStripSeparator2,
             this.m_lineStylesMenuItem,
             this.m_reverseLineMenuItem,
@@ -420,6 +435,14 @@ namespace Trizbort
       this.m_editIsDarkMenuItem.Size = new System.Drawing.Size(211, 22);
       this.m_editIsDarkMenuItem.Text = "Toggle Dar&kness";
       this.m_editIsDarkMenuItem.Click += new System.EventHandler(this.EditIsDarkMenuItem_Click);
+      // 
+      // toggleTextToolStripMenuItem
+      // 
+      this.toggleTextToolStripMenuItem.Name = "toggleTextToolStripMenuItem";
+      this.toggleTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
+      this.toggleTextToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+      this.toggleTextToolStripMenuItem.Text = "Toggle Text";
+      this.toggleTextToolStripMenuItem.Click += new System.EventHandler(this.toggleTextToolStripMenuItem_Click);
       // 
       // toolStripSeparator2
       // 
@@ -1018,6 +1041,15 @@ namespace Trizbort
       this.m_automapBar.Status = "(Status)";
       this.m_automapBar.TabIndex = 4;
       // 
+      // zILToClipboardToolStripMenuItem
+      // 
+      this.zILToClipboardToolStripMenuItem.Name = "zILToClipboardToolStripMenuItem";
+      this.zILToClipboardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.Z)));
+      this.zILToClipboardToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.zILToClipboardToolStripMenuItem.Text = "ZIL to Clipboard";
+      this.zILToClipboardToolStripMenuItem.Click += new System.EventHandler(this.zILToClipboardToolStripMenuItem_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1148,6 +1180,9 @@ namespace Trizbort
     private System.Windows.Forms.ToolStripMenuItem selectSelfLoopingConnectionsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem selectRoomsWObjectsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem selectRoomsWoObjectsToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem toggleTextToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem zILToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem zILToClipboardToolStripMenuItem;
   }
 }
 

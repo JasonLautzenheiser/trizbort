@@ -1310,11 +1310,10 @@ namespace Trizbort
         Settings.DebugDisableLineRendering = !Settings.DebugDisableLineRendering;
         Invalidate();
       }
-      else if (e.KeyCode == Keys.F4 && ModifierKeys == Keys.Control)
-      {
-        Settings.DebugDisableTextRendering = !Settings.DebugDisableTextRendering;
-        Invalidate();
-      }
+//      else if (e.KeyCode == Keys.F4 && ModifierKeys == Keys.Control)
+//      {
+//        ToggleText();
+//      }
       else if (e.KeyCode == Keys.F5 && ModifierKeys == Keys.Control)
       {
         Settings.DebugDisableGridPolyline = !Settings.DebugDisableGridPolyline;
@@ -1384,6 +1383,12 @@ namespace Trizbort
       }
 
       base.OnKeyDown(e);
+    }
+
+    public void ToggleText()
+    {
+      Settings.DebugDisableTextRendering = !Settings.DebugDisableTextRendering;
+      Invalidate();
     }
 
     private void swapRoomRegions()

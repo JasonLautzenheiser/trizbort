@@ -30,6 +30,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
+using Trizbort.Extensions;
 
 namespace Trizbort
 {

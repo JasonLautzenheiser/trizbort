@@ -3,7 +3,7 @@ using System.Drawing;
 
 // thanks to https://github.com/sanjayatpilcrow/SharpSnippets/blob/master/POCs/POCs/Sanjay/SharpSnippets/Drawing/ColorExtensions.cs
 
-namespace Trizbort
+namespace Trizbort.Extensions
 {
   public static class ColorExtensions
   {

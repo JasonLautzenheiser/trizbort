@@ -1,5 +1,9 @@
 Change Log
 
+1.5.8.11
+-------------
+ENH: ZIL export now handles objects and various flag settings.
+
 1.5.8.10
 -------------
 CHANGE: Now use some C# 6.0 syntax features. Potentially breaking change in code.

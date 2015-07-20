@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using Trizbort.Extensions;
+using static System.String;
 
 namespace Trizbort.Export
 {
@@ -68,11 +71,23 @@ namespace Trizbort.Export
         foreach (var direction in AllDirections)
         {
           var exit = location.GetBestExit(direction);
-          if (exit != null)
+          if (exit != null && exit.Conditional)
           {
-            writer.WriteLine($"    ({direction.ToString().ToUpper()} TO {exit.Target.ExportName})");
+            writer.WriteLine($"    ({toZILPropertyName(direction)} SORRY {DOUBLE_QUOTE}An export nymph appears on your keyboard. She says, 'You can't go that way, as that exit was marked as conditional, you know, a dotted line, in Trizbort. Obviously in your game you'll have a better rationale for this than, er, me.' She looks embarrassed. 'Bye!'{DOUBLE_QUOTE})");
+          }
+          else if (exit != null)
+          {
+            writer.WriteLine($"    ({toZILPropertyName(direction)} TO {exit.Target.ExportName})");
+            var oppositeDirection = CompassPointHelper.GetOpposite(direction);
+            if (Exit.IsReciprocated(location, direction, exit.Target))
+            {
+              var reciprocal = exit.Target.GetBestExit(oppositeDirection);
+              reciprocal.Exported = true;
+            }
           }
         }
+
+
         if (!location.Room.IsDark)
         {
           writer.WriteLine("    (FLAGS LIGHTBIT)");
@@ -83,17 +98,92 @@ namespace Trizbort.Export
       }
     }
 
+    private static string toZILPropertyName(AutomapDirection direction)
+    {
+      switch (direction)
+      {
+        case AutomapDirection.North:
+          return "NORTH";
+        case AutomapDirection.South:
+          return "SOUTH";
+        case AutomapDirection.East:
+          return "EAST";
+        case AutomapDirection.West:
+          return "WEST";
+        case AutomapDirection.NorthEast:
+          return "NE";
+        case AutomapDirection.SouthEast:
+          return "SE";
+        case AutomapDirection.SouthWest:
+          return "SW";
+        case AutomapDirection.NorthWest:
+          return "NW";
+        case AutomapDirection.Up:
+          return "UP";
+        case AutomapDirection.Down:
+          return "DOWN";
+        case AutomapDirection.In:
+          return "IN";
+        case AutomapDirection.Out:
+          return "OUT";
+        default:
+          throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+      }
+    }
+
     private static void exportThings(TextWriter writer, List<Thing> things, Thing container, int indent)
     {
-      foreach (var thing in things.Where(thing => thing.Container == container))
+      foreach (var thing in things.Where(p=>p.Container == container))
       {
         writer.WriteLine();
         writer.WriteLine($"<OBJECT {thing.ExportName}");
-        writer.WriteLine($"    (IN {thing.Location.ExportName})");
+
+        if (thing.Container == null)
+          writer.WriteLine($"    (LOC {thing.Location.ExportName})");
+        else
+          writer.WriteLine($"    (LOC {thing.Container.ExportName})");
+
         writer.WriteLine($"    (DESC {DOUBLE_QUOTE}{thing.DisplayName}{DOUBLE_QUOTE})");
+        writer.WriteLine($"    (SYNONYM {getSynonyms(thing)})");
+        writer.WriteLine($"    (FLAGS {getFlags(thing)})");
         writer.WriteLine(">");
         writer.WriteLine();
+
+        if (thing.Contents.Any())
+          exportThings(writer,thing.Contents,thing,indent++);
       }
+    }
+
+    private static string getSynonyms(Thing thing)
+    {
+      string synonyms = Empty;
+      var list = new List<string>();
+
+      var words = thing.DisplayName.Split(' ').ToList();
+
+      words.ForEach(p=>list.Add(stripOddCharacters(p)));
+
+      synonyms += Join(" ", list).ToUpper();
+      return synonyms;
+    }
+
+    private static string getFlags(Thing thing)
+    {
+      string flags = Empty;
+
+      if (thing.DisplayName.StartsWithVowel())
+      {
+        flags += "VOWELBIT ";
+      }
+
+      if (thing.Contents.Any())
+      {
+        flags += "CONTBIT ";
+      }
+
+
+      flags += "TAKEBIT ";
+      return flags;
     }
 
 
@@ -119,9 +209,9 @@ namespace Trizbort.Export
 
     private static bool containsWord(string text, string word)
     {
-      if (string.IsNullOrEmpty(text))
+      if (IsNullOrEmpty(text))
       {
-        return string.IsNullOrEmpty(word);
+        return IsNullOrEmpty(word);
       }
       var words = text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
       return words.Any(wordFound => StringComparer.InvariantCultureIgnoreCase.Compare(word, wordFound) == 0);
@@ -129,18 +219,14 @@ namespace Trizbort.Export
 
     private static bool containsOddCharacters(string text)
     {
-      foreach (var c in text)
-      {
-        if (c != ' ' && c != '-' && !char.IsLetterOrDigit(c)) return true;
-      }
-      return false;
+      return text.Any(c => c != ' ' && c != '-' && !char.IsLetterOrDigit(c));
     }
 
     private static string stripOddCharacters(string text, params char[] exceptChars)
     {
       var exceptCharsList = new List<char>(exceptChars);
-      var newText = text.Where(c => c == ' ' || c == '-' || char.IsLetterOrDigit(c) || exceptCharsList.Contains(c)).Aggregate(string.Empty, (current, c) => current + c);
-      return string.IsNullOrEmpty(newText) ? "object" : newText;
+      var newText = text.Where(c => c == ' ' || c == '-' || char.IsLetterOrDigit(c) || exceptCharsList.Contains(c)).Aggregate(Empty, (current, c) => current + c);
+      return IsNullOrEmpty(newText) ? "object" : newText;
     }
 
     protected override string GetExportNameForObject(string displayName, int? suffix)
@@ -149,7 +235,7 @@ namespace Trizbort.Export
 
       name = name.ToUpper().Replace(' ', '-');
 
-      if (string.IsNullOrEmpty(name))
+      if (IsNullOrEmpty(name))
       {
         name = "item";
       }

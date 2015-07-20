@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing.Drawing2D;
 
-namespace Trizbort
+namespace Trizbort.Extensions
 {
   public static class RoomExtensions
   {

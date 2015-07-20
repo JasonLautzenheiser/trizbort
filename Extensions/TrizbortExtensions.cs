@@ -1,7 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
-namespace TrizbortExtensions
+namespace Trizbort.Extensions
 {
     // TODO: Test this code
 

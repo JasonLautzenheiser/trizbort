@@ -123,7 +123,6 @@
     <Compile Include="Canvas.Designer.cs">
       <DependentUpon>Canvas.cs</DependentUpon>
     </Compile>
-    <Compile Include="ColorExtensions.cs" />
     <Compile Include="Colors.cs" />
     <Compile Include="CompassPoint.cs" />
     <Compile Include="Connection.cs" />
@@ -146,6 +145,10 @@
     <Compile Include="Export\Inform6Exporter.cs" />
     <Compile Include="Export\TadsExporter.cs" />
     <Compile Include="Export\ZilExporter.cs" />
+    <Compile Include="Extensions\ColorExtensions.cs" />
+    <Compile Include="Extensions\RoomExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TrizbortExtensions.cs" />
     <Compile Include="IAutomapCanvas.cs" />
     <Compile Include="IMoveable.cs" />
     <Compile Include="Export\Inform7Exporter.cs" />
@@ -183,10 +186,8 @@
     <Compile Include="RegionSettings.Designer.cs">
       <DependentUpon>RegionSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="RoomExtensions.cs" />
     <Compile Include="Smoothing.cs" />
     <Compile Include="TextBlock.cs" />
-    <Compile Include="TrizbortExtensions.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="Vertex.cs" />
     <Compile Include="Events.cs" />

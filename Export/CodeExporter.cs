@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 
@@ -36,9 +37,9 @@ namespace Trizbort.Export
     /// <summary>
     ///   The collection of locations to export, indexed by their corresponding room.
     /// </summary>
-    private readonly Dictionary<Room, Location> m_mapRoomToLocation = new Dictionary<Room, Location>();
+    private readonly Dictionary<Room, Location> mMapRoomToLocation = new Dictionary<Room, Location>();
 
-    public CodeExporter()
+    protected CodeExporter()
     {
       LocationsInExportOrder = new List<Location>();
     }
@@ -46,10 +47,7 @@ namespace Trizbort.Export
     public abstract string FileDialogTitle { get; }
     public abstract List<KeyValuePair<string, string>> FileDialogFilters { get; }
 
-    protected virtual Encoding Encoding
-    {
-      get { return Encoding.UTF8; }
-    }
+    protected virtual Encoding Encoding => Encoding.UTF8;
 
     protected abstract IEnumerable<string> ReservedWords { get; }
 
@@ -99,7 +97,7 @@ namespace Trizbort.Export
         }
         var history = Project.Current.History;
 
-        PrepareContent();
+        prepareContent();
         ExportHeader(writer, title, author, Project.Current.Description ?? string.Empty, history);
         ExportContent(writer);
 
@@ -130,7 +128,7 @@ namespace Trizbort.Export
         }
 
         var history = Project.Current.History;
-        PrepareContent();
+        prepareContent();
         ExportHeader(writer, title, author, Project.Current.Description ?? string.Empty, history);
         ExportContent(writer);
       }
@@ -146,15 +144,15 @@ namespace Trizbort.Export
     protected abstract string GetExportName(Room room, int? suffix);
     protected abstract string GetExportNameForObject(string displayName, int? suffix);
 
-    private void PrepareContent()
+    private void prepareContent()
     {
-      FindRooms();
-      FindExits();
-      PickBestExits();
-      FindThings();
+      findRooms();
+      findExits();
+      pickBestExits();
+      findThings();
     }
 
-    private void FindRooms()
+    private void findRooms()
     {
       var mapExportNameToRoom = new Dictionary<string, Room>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -164,73 +162,66 @@ namespace Trizbort.Export
         mapExportNameToRoom.Add(reservedWord, null);
       }
 
-      foreach (var element in Project.Current.Elements)
+      foreach (var element in Project.Current.Elements.OfType<Room>())
       {
-        if (element is Room)
+        var room = element;
+
+        // assign each room a unique export name.
+        var exportName = GetExportName(room, null);
+        if (exportName == string.Empty)
+          exportName = "object";
+        var index = 2;
+        while (mapExportNameToRoom.ContainsKey(exportName))
         {
-          var room = (Room) element;
-
-          // assign each room a unique export name.
-          var exportName = GetExportName(room, null);
-          if (exportName == string.Empty)
-            exportName = "object";
-          var index = 2;
-          while (mapExportNameToRoom.ContainsKey(exportName))
-          {
-            exportName = GetExportName(room, index++);
-          }
-
-          mapExportNameToRoom[exportName] = room;
-          var location = new Location(room, exportName);
-          LocationsInExportOrder.Add(location);
-          m_mapRoomToLocation[room] = location;
+          exportName = GetExportName(room, index++);
         }
+
+        mapExportNameToRoom[exportName] = room;
+        var location = new Location(room, exportName);
+        LocationsInExportOrder.Add(location);
+        mMapRoomToLocation[room] = location;
       }
     }
 
-    private void FindExits()
+    private void findExits()
     {
       // find the exits from each room,
       // file them by room, and assign them priorities.
       // don't decide yet which exit is "the" from a room in a particular direction,
       // since we need to compare all a room's exits for that.
-      foreach (var element in Project.Current.Elements)
+      foreach (var connection in Project.Current.Elements.OfType<Connection>())
       {
-        if (element is Connection)
+        CompassPoint sourceCompassPoint, targetCompassPoint;
+        var sourceRoom = connection.GetSourceRoom(out sourceCompassPoint);
+        var targetRoom = connection.GetTargetRoom(out targetCompassPoint);
+
+        if (sourceRoom == null || targetRoom == null)
         {
-          var connection = (Connection) element;
-          CompassPoint sourceCompassPoint, targetCompassPoint;
-          var sourceRoom = connection.GetSourceRoom(out sourceCompassPoint);
-          var targetRoom = connection.GetTargetRoom(out targetCompassPoint);
+          // ignore fully or partially undocked connections
+          continue;
+        }
 
-          if (sourceRoom == null || targetRoom == null)
+        if (sourceRoom == targetRoom && sourceCompassPoint == targetCompassPoint)
+        {
+          // ignore stub connections, such as from automapping
+          continue;
+        }
+
+        Location sourceLocation, targetLocation;
+        if (mMapRoomToLocation.TryGetValue(sourceRoom, out sourceLocation) &&
+            mMapRoomToLocation.TryGetValue(targetRoom, out targetLocation))
+        {
+          sourceLocation.AddExit(new Exit(sourceLocation, targetLocation, sourceCompassPoint, connection.StartText, connection.Style));
+
+          if (connection.Flow == ConnectionFlow.TwoWay)
           {
-            // ignore fully or partially undocked connections
-            continue;
-          }
-
-          if (sourceRoom == targetRoom && sourceCompassPoint == targetCompassPoint)
-          {
-            // ignore stub connections, such as from automapping
-            continue;
-          }
-
-          Location sourceLocation, targetLocation;
-          if (m_mapRoomToLocation.TryGetValue(sourceRoom, out sourceLocation) &&
-              m_mapRoomToLocation.TryGetValue(targetRoom, out targetLocation))
-          {
-            sourceLocation.AddExit(new Exit(sourceLocation, targetLocation, sourceCompassPoint, connection.StartText, connection.Style));
-
-            if (connection.Flow == ConnectionFlow.TwoWay)
-            {
-              targetLocation.AddExit(new Exit(targetLocation, sourceLocation, targetCompassPoint, connection.EndText, connection.Style));
-            }
+            targetLocation.AddExit(new Exit(targetLocation, sourceLocation, targetCompassPoint, connection.EndText, connection.Style));
           }
         }
       }
     }
 
-    private void FindThings()
+    private void findThings()
     {
       var mapExportNameToThing = new Dictionary<string, Thing>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -299,7 +290,7 @@ namespace Trizbort.Export
       }
     }
 
-    private void PickBestExits()
+    private void pickBestExits()
     {
       // for every direction from every room, if there are one or more exits
       // in said direction, pick the best one.
@@ -311,9 +302,8 @@ namespace Trizbort.Export
 
     protected class Location
     {
-      private readonly List<Exit> m_exits = new List<Exit>();
-      private readonly Dictionary<AutomapDirection, Exit> m_mapDirectionToBestExit = new Dictionary<AutomapDirection, Exit>();
-      private readonly List<Thing> m_things = new List<Thing>();
+      private readonly List<Exit> mExits = new List<Exit>();
+      private readonly Dictionary<AutomapDirection, Exit> mMapDirectionToBestExit = new Dictionary<AutomapDirection, Exit>();
 
       public Location(Room room, string exportName)
       {
@@ -325,33 +315,30 @@ namespace Trizbort.Export
       public string ExportName { get; private set; }
       public bool Exported { get; set; }
 
-      public List<Thing> Things
-      {
-        get { return m_things; }
-      }
+      public List<Thing> Things { get; } = new List<Thing>();
 
       public void AddExit(Exit exit)
       {
-        m_exits.Add(exit);
+        mExits.Add(exit);
       }
 
       public void PickBestExits()
       {
-        m_mapDirectionToBestExit.Clear();
+        mMapDirectionToBestExit.Clear();
         foreach (var direction in AllDirections)
         {
-          var exit = PickBestExit(direction);
+          var exit = pickBestExit(direction);
           if (exit != null)
           {
-            m_mapDirectionToBestExit.Add(direction, exit);
+            mMapDirectionToBestExit.Add(direction, exit);
           }
         }
       }
 
-      private Exit PickBestExit(AutomapDirection direction)
+      private Exit pickBestExit(AutomapDirection direction)
       {
         // sort exits by priority for this direction only
-        m_exits.Sort((Exit a, Exit b) =>
+        mExits.Sort((Exit a, Exit b) =>
         {
           var one = a.GetPriority(direction);
           var two = b.GetPriority(direction);
@@ -361,9 +348,9 @@ namespace Trizbort.Export
         // pick the highest priority exit if its direction matches;
         // if the highest priority exit's direction doesn't match,
         // there's no exit in this direction.
-        if (m_exits.Count > 0)
+        if (mExits.Count > 0)
         {
-          var exit = m_exits[0];
+          var exit = mExits[0];
           if (exit.PrimaryDirection == direction || exit.SecondaryDirection == direction)
           {
             return exit;
@@ -375,7 +362,7 @@ namespace Trizbort.Export
       public Exit GetBestExit(AutomapDirection direction)
       {
         Exit exit;
-        if (m_mapDirectionToBestExit.TryGetValue(direction, out exit))
+        if (mMapDirectionToBestExit.TryGetValue(direction, out exit))
         {
           return exit;
         }
@@ -396,7 +383,7 @@ namespace Trizbort.Export
       ///   does not go up, down, in or out is a higher priority than a northerly exit
       ///   docked to the NNE compass point and which also goes up.
       /// </remarks>
-      private int m_primaryPriority;
+      private int mPrimaryPriority;
 
       public Exit(Location source, Location target, CompassPoint visualCompassPoint, string connectionText, ConnectionStyle connectionStyle)
       {
@@ -405,12 +392,12 @@ namespace Trizbort.Export
         VisualCompassPoint = visualCompassPoint;
         Conditional = connectionStyle == ConnectionStyle.Dashed;
 
-        AssignPrimaryPriority();
-        AssignSecondaryDirection(connectionText);
+        assignPrimaryPriority();
+        assignSecondaryDirection(connectionText);
         if (SecondaryDirection != null)
           PrimaryDirection = (AutomapDirection)SecondaryDirection;
         else
-          AssignPrimaryDirection();
+          assignPrimaryDirection();
       }
 
       /// <summary>
@@ -461,7 +448,7 @@ namespace Trizbort.Export
       {
         if (direction == PrimaryDirection)
         {
-          return m_primaryPriority;
+          return mPrimaryPriority;
         }
         if (direction == SecondaryDirection)
         {
@@ -470,7 +457,7 @@ namespace Trizbort.Export
         return -1;
       }
 
-      private void AssignPrimaryDirection()
+      private void assignPrimaryDirection()
       {
         switch (VisualCompassPoint)
         {
@@ -511,7 +498,7 @@ namespace Trizbort.Export
         }
       }
 
-      private void AssignSecondaryDirection(string connectionText)
+      private void assignSecondaryDirection(string connectionText)
       {
         switch (connectionText)
         {
@@ -533,9 +520,9 @@ namespace Trizbort.Export
         }
       }
 
-      private void AssignPrimaryPriority()
+      private void assignPrimaryPriority()
       {
-        m_primaryPriority = 0;
+        mPrimaryPriority = 0;
 
         switch (VisualCompassPoint)
         {
@@ -549,21 +536,21 @@ namespace Trizbort.Export
           case CompassPoint.NorthWest:
             if (SecondaryDirection == null)
             {
-              m_primaryPriority += 4;
+              mPrimaryPriority += 4;
             }
             else
             {
-              m_primaryPriority -= 2;
+              mPrimaryPriority -= 2;
             }
             break;
           default:
             if (SecondaryDirection == null)
             {
-              m_primaryPriority += 3;
+              mPrimaryPriority += 3;
             }
             else
             {
-              m_primaryPriority -= 1;
+              mPrimaryPriority -= 1;
             }
             break;
         }
@@ -597,10 +584,7 @@ namespace Trizbort.Export
         Location = location;
         Container = container;
         Debug.Assert(container == null || container.Location == location, "Thing's container is not located in the same room as the thing.");
-        if (container != null)
-        {
-          container.Contents.Add(this);
-        }
+        container?.Contents.Add(this);
         Indent = indent;
         Contents = new List<Thing>();
       }

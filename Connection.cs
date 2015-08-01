@@ -57,7 +57,7 @@ namespace Trizbort
     private readonly BoundList<Vertex> m_vertexList = new BoundList<Vertex>();
     private ConnectionFlow m_flow = DefaultFlow;
     private ConnectionStyle m_style = DefaultStyle;
-    private Color m_ConnectionColor = Color.Transparent;
+    private Color m_ConnectionColor = Color.Blue;
 
     public Connection(Project project)
       : base(project)
@@ -616,6 +616,7 @@ namespace Trizbort
     {
       return false;
     }
+
 
     public override float Distance(Vector pos, bool includeMargins)
     {

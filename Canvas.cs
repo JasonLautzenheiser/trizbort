@@ -390,10 +390,10 @@ namespace Trizbort
       var context = new DrawingContext(ZoomFactor);
       var elements = depthSortElements();
 
-      foreach (var element in elements)
-      {
-        element.PreDraw(context);
-      }
+//      foreach (var element in elements)
+//      {
+//        element.PreDraw(context);
+//      }
 
       foreach (var element in elements)
       {
@@ -760,7 +760,7 @@ namespace Trizbort
 
         bounds.X += Settings.HandleSize/2f;
         bounds.Y += Settings.HandleSize/2f;
-        graphics.DrawRectangle(palette.ResizeBorderPen, bounds.ToRectangleF());
+//        graphics.DrawRectangle(palette.ResizeBorderPen, bounds.ToRectangleF());
       }
 
 
@@ -1213,9 +1213,43 @@ namespace Trizbort
           }
         }
       }
+      else if (e.KeyCode == Keys.H)
+      {
+        if (ModifierKeys == Keys.Control)
+        {
+          foreach (var room in SelectedElements.OfType<Room>())
+          {
+            room.Shape = RoomShape.SquareCorners;
+            Invalidate();
+          }
+        }
+      }
+
+      else if (e.KeyCode == Keys.E)
+      {
+        if (ModifierKeys == Keys.Control)
+        {
+          foreach (var room in SelectedElements.OfType<Room>())
+          {
+            room.Shape = RoomShape.Ellipse;
+            Invalidate();
+          }
+        }
+      }
       else if (e.KeyCode == Keys.R)
       {
-        AddRoom(true, true);
+        if (ModifierKeys == Keys.Control)
+        {
+          foreach (var room in SelectedElements.OfType<Room>())
+          {
+            room.Shape = RoomShape.RoundedCorners;
+            Invalidate();
+          }
+        }
+        else
+        {
+          AddRoom(true, true);
+        }
       }
       else if (e.KeyCode == Keys.T)
       {
@@ -1260,7 +1294,7 @@ namespace Trizbort
         var selectedRooms = SelectedRooms;
         if (selectedRooms.Count() == 2)
         {
-          joinSelectedRooms(selectedRooms[0], selectedRooms[1]);
+          JoinSelectedRooms(selectedRooms[0], selectedRooms[1]);
         }
       }
       else if (e.KeyCode == Keys.V)
@@ -1269,19 +1303,19 @@ namespace Trizbort
       }
       else if (e.KeyCode == Keys.W && ModifierKeys == Keys.Shift)
       {
-        swapRoomFill();
+        SwapRoomFill();
       }
       else if (e.KeyCode == Keys.W && ModifierKeys == Keys.Alt)
       {
-        swapRoomRegions();
+        SwapRoomRegions();
       }
       else if (e.KeyCode == Keys.W && ModifierKeys == Keys.Control)
       {
-        swapRoomNames();
+        SwapRoomNames();
       }
       else if (e.KeyCode == Keys.W)
       {
-        swapRooms();
+        SwapRooms();
       }
       else if (e.KeyCode == Keys.K)
       {
@@ -1310,10 +1344,6 @@ namespace Trizbort
         Settings.DebugDisableLineRendering = !Settings.DebugDisableLineRendering;
         Invalidate();
       }
-//      else if (e.KeyCode == Keys.F4 && ModifierKeys == Keys.Control)
-//      {
-//        ToggleText();
-//      }
       else if (e.KeyCode == Keys.F5 && ModifierKeys == Keys.Control)
       {
         Settings.DebugDisableGridPolyline = !Settings.DebugDisableGridPolyline;
@@ -1391,7 +1421,7 @@ namespace Trizbort
       Invalidate();
     }
 
-    private void swapRoomRegions()
+    public void SwapRoomRegions()
     {
       var selectedRooms = SelectedRooms;
       if (selectedRooms.Count() != 2) return;
@@ -1403,8 +1433,8 @@ namespace Trizbort
       room1.Region = room2.Region;
       room2.Region = tRegion;
     }
-    
-    private void swapRoomFill()
+
+    public void SwapRoomFill()
     {
       var selectedRooms = SelectedRooms;
       if (selectedRooms.Count() != 2) return;
@@ -1431,7 +1461,7 @@ namespace Trizbort
       room2.SecondFill = tSF;
     }
 
-    private void swapRoomNames()
+    public void SwapRoomNames()
     {
       var selectedRooms = SelectedRooms;
       if (selectedRooms.Count() != 2) return;
@@ -1444,7 +1474,7 @@ namespace Trizbort
       room2.Name = tName;
     }
 
-    private void swapRooms()
+    public void SwapRooms()
     {
       var selectedRooms = SelectedRooms;
       if (selectedRooms.Count() != 2) return;
@@ -1492,7 +1522,7 @@ namespace Trizbort
       return false;
     }
 
-    private void joinSelectedRooms(Room room1, Room room2)
+    public void JoinSelectedRooms(Room room1, Room room2)
     {
       var rect1 = room1.InnerBounds;
       var rect2 = room2.InnerBounds;
@@ -2714,26 +2744,35 @@ namespace Trizbort
                   currentRoom.AddDescription(elementProperties[8]);
                   currentRoom.Region = elementProperties[9];
                   currentRoom.BorderStyle = (BorderDashStyle)Enum.Parse(typeof(BorderDashStyle), elementProperties[10]);
-                  if (elementProperties[11] != "") currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[11]);
-                  if (elementProperties[12] != "") currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[12]);
-                  if (elementProperties[13] != "") currentRoom.SecondFillLocation = elementProperties[13];
-                  if (elementProperties[14] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[14]);
-                  if (elementProperties[15] != "") currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[15]);
-                  if (elementProperties[16] != "") currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[16]);
-                  if (elementProperties[17] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[17]);
+
+                  currentRoom.StraightEdges = Convert.ToBoolean(elementProperties[11]);
+                  currentRoom.Ellipse = Convert.ToBoolean(elementProperties[12]);
+                  currentRoom.RoundedCorners = Convert.ToBoolean(elementProperties[13]);
+                  currentRoom.corners.TopRight = Convert.ToDouble(elementProperties[14]);
+                  currentRoom.corners.TopLeft = Convert.ToDouble(elementProperties[15]);
+                  currentRoom.corners.BottomRight = Convert.ToDouble(elementProperties[16]);
+                  currentRoom.corners.BottomLeft = Convert.ToDouble(elementProperties[17]);
+
+                  if (elementProperties[18] != "") currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[18]);
+                  if (elementProperties[19] != "") currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[19]);
+                  if (elementProperties[20] != "") currentRoom.SecondFillLocation = elementProperties[20];
+                  if (elementProperties[21] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[21]);
+                  if (elementProperties[22] != "") currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[22]);
+                  if (elementProperties[23] != "") currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[23]);
+                  if (elementProperties[24] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[24]);
 
                   // Get ready to check for objects in the room (small text)
-                  var index2 = 18;
+                  var index2 = 25;
                   var newObjects = "";
 
                   // Cycle through all the objects
                   while (index2 < elementProperties.Length)
                   {
                     // First attribute will be which direction the objects are written
-                    if (index2 == 16)
+                    if (index2 == 25)
                     {
                       CompassPoint point;
-                      CompassPointHelper.FromName(elementProperties[16], out point);
+                      CompassPointHelper.FromName(elementProperties[25], out point);
                       currentRoom.ObjectsPosition = point;
                     }
                     // It's it's the last object then don't add \r\n on the end
@@ -3016,16 +3055,11 @@ namespace Trizbort
       var hitElement = hitTestElement(canvasPos, false);
       var regionMenu = regionToolStripMenuItem;
 
-      darkToolStripMenuItem.Enabled=false;
-      roomPropertiesToolStripMenuItem.Enabled = false;
-      regionMenu.Enabled = false;
-
-      regionMenu.Enabled = false;
       if (hitElement != null)
       {
         if (hitElement.GetType() == typeof (Room))
         {
-          regionMenu.Enabled = true;
+
           lastSelectedRoom = (Room) hitElement;
 
           regionMenu.DropDownItems.Clear();
@@ -3038,22 +3072,69 @@ namespace Trizbort
               ((ToolStripMenuItem) item).Checked = true;
           }
 
-          roomPropertiesToolStripMenuItem.Enabled = true;
+          addRoomToolStripMenuItem.Visible = true;
+          renameToolStripMenuItem.Visible = true;
+          darkToolStripMenuItem.Visible = true;
+          regionToolStripMenuItem.Visible = true;
+          roomShapeToolStripMenuItem.Visible = true;
+          joinRoomsToolStripMenuItem.Visible = true;
+          swapObjectsToolStripMenuItem.Visible = true;
+          roomPropertiesToolStripMenuItem.Visible = true;
 
-          darkToolStripMenuItem.Enabled = true;
-          darkToolStripMenuItem.Click += darkToolStripMenuItem_Click;
+          toolStripMenuItem1.Visible = true;
+          toolStripMenuItem2.Visible = true;
+          toolStripSeparator1.Visible = true;
+          toolStripSeparator2.Visible = true;
+
+          swapObjectsToolStripMenuItem.Enabled = SelectedRooms.Count == 2;
+          joinRoomsToolStripMenuItem.Enabled = SelectedRooms.Count == 2;
+
           darkToolStripMenuItem.Checked = lastSelectedRoom.IsDark;
 
         }
         if (hitElement is Connection)
         {
+          addRoomToolStripMenuItem.Visible = true;
+
+          renameToolStripMenuItem.Visible = false;
+          darkToolStripMenuItem.Visible = false;
+          regionToolStripMenuItem.Visible = false;
+          roomShapeToolStripMenuItem.Visible = false;
+          joinRoomsToolStripMenuItem.Visible = false;
+          swapObjectsToolStripMenuItem.Visible = false;
+          roomPropertiesToolStripMenuItem.Visible = false;
+
+          m_lineStylesMenuItem.Visible = true;
+          m_reverseLineMenuItem.Visible = true;
+
+          toolStripMenuItem1.Visible = false;
+          toolStripMenuItem2.Visible = false;
+          toolStripSeparator1.Visible = false;
+          toolStripSeparator2.Visible = true;
+
           roomPropertiesToolStripMenuItem.Enabled = true;
-          regionMenu.Enabled = false;
-          darkToolStripMenuItem.Enabled = false;
         }
       }
-      swapObjectsToolStripMenuItem.Enabled = SelectedRooms.Count == 2;
-      joinRoomsToolStripMenuItem.Enabled = SelectedRooms.Count == 2;
+      else
+      {
+        renameToolStripMenuItem.Visible = false;
+        darkToolStripMenuItem.Visible = false;
+        regionToolStripMenuItem.Visible = false;
+        roomShapeToolStripMenuItem.Visible = false;
+        joinRoomsToolStripMenuItem.Visible = false;
+        swapObjectsToolStripMenuItem.Visible = false;
+        roomPropertiesToolStripMenuItem.Visible = false;
+
+        m_lineStylesMenuItem.Visible = false;
+        m_reverseLineMenuItem.Visible = false;
+
+        addRoomToolStripMenuItem.Visible = true;
+
+        toolStripMenuItem1.Visible = false;
+        toolStripMenuItem2.Visible = false;
+        toolStripSeparator1.Visible = false;
+        toolStripSeparator2.Visible = false;
+      }
     }
 
     private Image generateRegionImage(Region region)
@@ -3129,12 +3210,12 @@ namespace Trizbort
 
     private void joinRoomsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      joinSelectedRooms(SelectedRooms.First(), SelectedRooms.Last());
+      JoinSelectedRooms(SelectedRooms.First(), SelectedRooms.Last());
     }
 
     private void swapObjectsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      swapRooms();
+      SwapRooms();
     }
 
     public void SelectAllRooms()
@@ -3189,6 +3270,136 @@ namespace Trizbort
       mSelectedElements.Clear();
       mSelectedElements.AddRange(Project.Current.Elements.OfType<Room>().Where(p => p.ListOfObjects().Count == 0));
       updateSelection();
+    }
+
+    private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      if (HasSingleSelectedElement && SelectedElement.HasDialog)
+      {
+        SelectedElement.ShowDialog();
+      }
+    }
+
+    private void darkToolStripMenuItem_Click_1(object sender, EventArgs e)
+    {
+      foreach (var room in SelectedRooms)
+      {
+        room.IsDark = !room.IsDark;
+      }
+    }
+
+    private void handDrawnToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      foreach (var room in SelectedRooms)
+      {
+        room.Shape = RoomShape.SquareCorners;
+      }
+      Invalidate();
+    }
+
+    private void ellipseToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      foreach (var room in SelectedRooms)
+      {
+        room.Shape = RoomShape.Ellipse;
+      }
+      Invalidate();
+    }
+
+    private void roundedEdgesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      foreach (var room in SelectedRooms)
+      {
+        room.Shape = RoomShape.RoundedCorners;
+      }
+      Invalidate();
+    }
+
+    private void objectsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      SwapRooms();
+    }
+
+    private void namesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      SwapRoomNames();
+    }
+
+    private void formatsFillsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      SwapRoomFill();
+    }
+
+    private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      SwapRoomRegions();
+    }
+
+    private void addRoomToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      AddRoom(true, true);
+    }
+
+    private void m_reverseLineMenuItem_Click(object sender, EventArgs e)
+    {
+      ReverseLineDirection();
+    }
+
+    private void m_plainLinesMenuItem_Click(object sender, EventArgs e)
+    {
+      ApplyNewPlainConnectionSettings();
+    }
+
+    private void m_toggleDirectionalLinesMenuItem_Click(object sender, EventArgs e)
+    {
+      switch (NewConnectionFlow)
+      {
+        case ConnectionFlow.TwoWay:
+          NewConnectionFlow = ConnectionFlow.OneWay;
+          break;
+        case ConnectionFlow.OneWay:
+          NewConnectionFlow = ConnectionFlow.TwoWay;
+          break;
+      }
+      ApplyConnectionFlow(NewConnectionFlow);
+    }
+
+    private void m_toggleDottedLinesMenuItem_Click(object sender, EventArgs e)
+    {
+      switch (NewConnectionStyle)
+      {
+        case ConnectionStyle.Solid:
+          NewConnectionStyle = ConnectionStyle.Dashed;
+          break;
+        case ConnectionStyle.Dashed:
+          NewConnectionStyle = ConnectionStyle.Solid;
+          break;
+      }
+      ApplyConnectionStyle(NewConnectionStyle);
+    }
+
+    private void m_upLinesMenuItem_Click(object sender, EventArgs e)
+    {
+      NewConnectionLabel = ConnectionLabel.Up;
+      ApplyConnectionLabel(NewConnectionLabel);
+    }
+
+    private void m_downLinesMenuItem_Click(object sender, EventArgs e)
+    {
+      NewConnectionLabel = ConnectionLabel.Down;
+      ApplyConnectionLabel(NewConnectionLabel);
+    }
+
+    private void m_inLinesMenuItem_Click(object sender, EventArgs e)
+    {
+      NewConnectionLabel = ConnectionLabel.In;
+      ApplyConnectionLabel(NewConnectionLabel);
+    }
+
+    private void m_outLinesMenuItem_Click(object sender, EventArgs e)
+    {
+      NewConnectionLabel = ConnectionLabel.Out;
+      ApplyConnectionLabel(NewConnectionLabel);
     }
   }
 }

@@ -22,26 +22,17 @@
     THE SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Trizbort
 {
-    internal abstract class MoveablePort : Port
+  internal abstract class MoveablePort : Port
+  {
+    protected MoveablePort(Element owner): base(owner)
     {
-        public MoveablePort(Element owner)
-            : base(owner)
-        {
-        }
-
-        public abstract void SetPosition(Vector pos);
-
-        public abstract void DockAt(Port port);
-
-        public abstract Port DockedAt
-        {
-            get;
-        }
     }
+
+    public abstract Port DockedAt { get; }
+
+    public abstract void SetPosition(Vector pos);
+    public abstract void DockAt(Port port);
+  }
 }

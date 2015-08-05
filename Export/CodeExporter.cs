@@ -42,6 +42,7 @@ namespace Trizbort.Export
     protected CodeExporter()
     {
       LocationsInExportOrder = new List<Location>();
+      RegionsInExportOrder = new List<ExportRegion>();
     }
 
     public abstract string FileDialogTitle { get; }
@@ -66,6 +67,7 @@ namespace Trizbort.Export
     ///   The collection of locations on the map, in the order in which they should be exported.
     /// </summary>
     protected List<Location> LocationsInExportOrder { get; private set; }
+    protected List<ExportRegion> RegionsInExportOrder { get; private set; }
 
     public void Dispose()
     {
@@ -142,14 +144,37 @@ namespace Trizbort.Export
     protected abstract void ExportHeader(TextWriter writer, string title, string author, string description, string history);
     protected abstract void ExportContent(TextWriter writer);
     protected abstract string GetExportName(Room room, int? suffix);
-    protected abstract string GetExportNameForObject(string displayName, int? suffix);
+    protected abstract string GetExportName(string displayName, int? suffix);
 
     private void prepareContent()
     {
+      findRegions();
       findRooms();
       findExits();
       pickBestExits();
       findThings();
+    }
+
+    private void findRegions()
+    {
+      var mapExportNameToRegion = new Dictionary<string, Region>(StringComparer.InvariantCultureIgnoreCase);
+
+      foreach (var reservedWord in ReservedWords)
+        mapExportNameToRegion.Add(reservedWord, null);
+
+      foreach (var region in Settings.Regions)
+      {
+        var exportName = GetExportName(region.RegionName, null);
+        if (exportName == string.Empty)
+          exportName = "region";
+
+        var index = 2;
+        while (mapExportNameToRegion.ContainsKey(exportName))
+          exportName = GetExportName(region.RegionName, index++);
+
+        mapExportNameToRegion[exportName] = region;
+        RegionsInExportOrder.Add(new ExportRegion(region, exportName));
+      }
     }
 
     private void findRooms()
@@ -160,6 +185,11 @@ namespace Trizbort.Export
       foreach (var reservedWord in ReservedWords)
       {
         mapExportNameToRoom.Add(reservedWord, null);
+      }
+
+      foreach (var region in RegionsInExportOrder)
+      {
+        mapExportNameToRoom.Add(region.ExportName, null);
       }
 
       foreach (var element in Project.Current.Elements.OfType<Room>())
@@ -236,6 +266,11 @@ namespace Trizbort.Export
         mapExportNameToThing.Add(rooms.ExportName, null);
       }
 
+      foreach (var region in RegionsInExportOrder)
+      {
+        mapExportNameToThing.Add(region.ExportName, null);
+      }
+
       foreach (var location in LocationsInExportOrder)
       {
         var objectsText = location.Room.Objects;
@@ -256,11 +291,11 @@ namespace Trizbort.Export
           }
 
           // assign each thing a unique export name.
-          var exportName = GetExportNameForObject(displayName, null);
+          var exportName = GetExportName(displayName, null);
           var index = 2;
           while (mapExportNameToThing.ContainsKey(exportName))
           {
-            exportName = GetExportNameForObject(displayName, index++);
+            exportName = GetExportName(displayName, index++);
           }
 
           // on each line, indentation denotes containment;
@@ -298,6 +333,19 @@ namespace Trizbort.Export
       {
         location.PickBestExits();
       }
+    }
+
+    protected class ExportRegion
+    {
+      public ExportRegion(Region region, string exportName)
+      {
+        Region = region;
+        ExportName = exportName;
+      }
+
+      public Region Region { get; private set; }
+      public string ExportName { get; private set; }
+      public bool Exported { get; set; }
     }
 
     protected class Location

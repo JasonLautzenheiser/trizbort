@@ -40,7 +40,7 @@ namespace Trizbort.Export
       new KeyValuePair<string, string>("Text Files", ".txt")
     };
 
-    protected override IEnumerable<string> ReservedWords => new[] {"object", "objects", "thing", "things", "door", "doors", "is", "are", "in", "on", "and"};
+    protected override IEnumerable<string> ReservedWords => new[] {"object", "objects", "thing", "things", "door", "doors", "is", "are", "in", "on", "and", "outside", "inside"};
 
     protected override StreamWriter Create(string fileName)
     {
@@ -82,9 +82,9 @@ namespace Trizbort.Export
     protected override void ExportContent(TextWriter writer)
     {
       // export regions
-      foreach (var region in Settings.Regions.Where(region => !region.RegionName.Equals(Region.DefaultRegion, StringComparison.OrdinalIgnoreCase)))
+      foreach (var region in RegionsInExportOrder)
       {
-        writer.WriteLine("There is a region called {0}.", region.RegionName);
+        writer.WriteLine("There is a region called {0}.", getExportName(region.ExportName, null));
         writer.WriteLine();
       }
 
@@ -112,7 +112,7 @@ namespace Trizbort.Export
         }
 
         if (!string.IsNullOrEmpty(location.Room.Region) && !location.Room.Region.Equals(Region.DefaultRegion))
-          writer.Write(" It is in {0}.", location.Room.Region);
+          writer.Write(" It is in {0}.",  RegionsInExportOrder.Find(p=>p.Region.RegionName == location.Room.Region).ExportName);
 
         writer.WriteLine(); // end the previous line
         writer.WriteLine(); // blank line
@@ -248,23 +248,25 @@ namespace Trizbort.Export
       return getExportName(room.Name, suffix);
     }
 
-    protected override string GetExportNameForObject(string displayName, int? suffix)
+    protected override string GetExportName(string displayName, int? suffix)
     {
       return getExportName(displayName, suffix);
     }
 
     private string getExportName(string name, int? suffix)
     {
-      var spaceless = false;
-      if (suffix != null || containsWord(name, ReservedWords) || containsOddCharacters(name))
-      {
-        name = stripOddCharacters(name.Replace(" ", string.Empty));
-        spaceless = true;
-      }
+      var spaceless = true;
+
+      if (containsOddCharacters(name))
+        name = stripOddCharacters(name);
+
+      if (containsWord(name, ReservedWords))
+        if (suffix == null)
+          suffix = 1;
+
       if (suffix != null)
-      {
         name = $"{name}{(spaceless ? string.Empty : " ")}{suffix}";
-      }
+
       return name;
     }
 

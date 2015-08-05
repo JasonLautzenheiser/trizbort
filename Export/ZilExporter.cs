@@ -229,7 +229,7 @@ namespace Trizbort.Export
       return IsNullOrEmpty(newText) ? "object" : newText;
     }
 
-    protected override string GetExportNameForObject(string displayName, int? suffix)
+    protected override string GetExportName(string displayName, int? suffix)
     {
       var name = stripOddCharacters(displayName);
 

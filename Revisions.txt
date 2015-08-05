@@ -7,6 +7,8 @@ ENH: Broke out the Rooms and Connections menu items from Edit into their own mai
 ENH: Enhanced the context menu for a room with much of the room editing items added in the last few versions.
 ENH: Cleaned up context menu for connections
 ENH: Cleaned up context menu for the map canvas.
+BUG: Regions weren't respecting reserved words when exporting to I7
+Some code refactoring
 
 1.5.8.11
 -------------

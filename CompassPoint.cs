@@ -319,6 +319,48 @@ namespace Trizbort
       return GetCompassPointFromAutomapDirectionVector(GetAutomapDirectionVector(compassPoint));
     }
 
+
+    public static double GetAngleInRadians(CompassPoint point)
+    {
+      switch (point)
+      {
+        case CompassPoint.North:
+          return Math.PI * 1.5;
+        case CompassPoint.NorthNorthEast:
+          return Math.PI * (5.0 / 3.0);
+        case CompassPoint.NorthEast:
+          return Math.PI * (7.0 / 4.0);
+        case CompassPoint.EastNorthEast:
+          return Math.PI * (11.0 / 6.0);
+        case CompassPoint.East:
+          return 2.0 * Math.PI;
+        case CompassPoint.EastSouthEast:
+          return Math.PI / 6.0;
+        case CompassPoint.SouthEast:
+          return Math.PI / 4.0;
+        case CompassPoint.SouthSouthEast:
+          return Math.PI / 3.0;
+        case CompassPoint.South:
+          return Math.PI / 2.0;
+        case CompassPoint.SouthSouthWest:
+          return Math.PI * (2.0 / 3.0);
+        case CompassPoint.SouthWest:
+          return Math.PI * 0.75;
+        case CompassPoint.WestSouthWest:
+          return Math.PI * (5.0 / 6.0);
+        case CompassPoint.West:
+          return Math.PI;
+        case CompassPoint.WestNorthWest:
+          return Math.PI * (7.0 / 6.0);
+        case CompassPoint.NorthWest:
+          return Math.PI * 1.25;
+        case CompassPoint.NorthNorthWest:
+          return Math.PI * (4.0 / 3.0);
+        default:
+          throw new ArgumentOutOfRangeException(nameof(point), point, null);
+      }
+    }
+
     /// <summary>
     ///   Get the literal opposite of any direction.
     /// </summary>

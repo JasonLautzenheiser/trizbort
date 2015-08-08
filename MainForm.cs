@@ -793,10 +793,21 @@ namespace Trizbort
       m_editSelectAllMenuItem.Enabled = Canvas.SelectedElementCount < Project.Current.Elements.Count;
       m_editCopyMenuItem.Enabled = Canvas.SelectedElement != null;
       m_editCopyColorToolMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
-      m_editPasteMenuItem.Enabled = (!String.IsNullOrEmpty(Clipboard.GetText())) && ((Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Elements") || (Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Colors"));
+      m_editPasteMenuItem.Enabled = (!string.IsNullOrEmpty(Clipboard.GetText()) && ((Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Elements") || (Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Colors")));
       m_editRenameMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
       m_editIsDarkMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
-      m_editIsDarkMenuItem.Checked = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room) && ((Room) Canvas.SelectedElement).IsDark;
+      m_editIsDarkMenuItem.Checked = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room) && ((Room)Canvas.SelectedElement).IsDark;
+      m_editRenameMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
+      joinRoomsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+      swapObjectsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+      swapNamesToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+      swapFormatsFillsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+      swapRegionsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+
+        m_editChangeRegionMenuItem.Enabled = (Canvas.SelectedRooms.Any());
+      handDrawnToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
+      ellipseToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
+      roundedEdgesToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
       m_reverseLineMenuItem.Enabled = Canvas.HasSelectedElement<Connection>();
 
       // automapping
@@ -810,8 +821,6 @@ namespace Trizbort
 
       UpdateToolStripImages();
       Canvas.UpdateScrollBars();
-
-      //Debug.WriteLine(Canvas.Focused ? "Focused!" : "NOT FOCUSED");
     }
 
     private void FileRecentProject_Click(object sender, EventArgs e)
@@ -877,13 +886,8 @@ namespace Trizbort
 
     private void EditIsDarkMenuItem_Click(object sender, EventArgs e)
     {
-      foreach (var element in Canvas.SelectedElements)
-      {
-        if (element is Room)
-        {
-          var room = (Room) element;
-          room.IsDark = !room.IsDark;
-        }
+      foreach (var room in Canvas.SelectedRooms) {
+        room.IsDark = !room.IsDark;
       }
     }
 
@@ -1112,6 +1116,56 @@ namespace Trizbort
       Canvas.ToggleText();
     }
 
+    private void handDrawnToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      foreach (var room in Canvas.SelectedRooms)
+      {
+        room.Shape = RoomShape.SquareCorners;
+      }
+      Invalidate();
+    }
 
+    private void ellipseToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      foreach (var room in Canvas.SelectedRooms)
+      {
+        room.Shape = RoomShape.Ellipse;
+      }
+      Invalidate();
+    }
+
+    private void roundedEdgesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      foreach (var room in Canvas.SelectedRooms)
+      {
+        room.Shape = RoomShape.RoundedCorners;
+      }
+      Invalidate();
+    }
+
+    private void joinRoomsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.JoinSelectedRooms(Canvas.SelectedRooms.First(), Canvas.SelectedRooms.Last());
+    }
+
+    private void swapObjectsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SwapRooms();
+    }
+
+    private void swapNamesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SwapRoomNames();
+    }
+
+    private void swapFormatsFillsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SwapRoomFill();
+    }
+
+    private void swapRegionsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SwapRoomRegions();
+    }
   }
 }

@@ -244,5 +244,7 @@ namespace Trizbort
     public abstract string GetToolTipFooter();
     public abstract string GetToolTipHeader();
     public abstract bool HasTooltip();
+
+
   }
 }

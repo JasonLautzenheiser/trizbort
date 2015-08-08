@@ -22,85 +22,44 @@
     THE SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using PdfSharp.Drawing;
 
 namespace Trizbort
 {
-    /// <summary>
-    /// A docking point at which a connection's vertex may join to an element.
-    /// </summary>
-    internal abstract class Port
+  /// <summary>
+  ///   A docking point at which a connection's vertex may join to an element.
+  /// </summary>
+  internal abstract class Port
+  {
+    protected Port(Element owner)
     {
-        public Port(Element owner)
-        {
-            Owner = owner;
-        }
-
-        public Element Owner
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Get the unique identifier for this port amongst all of the owner's ports.
-        /// </summary>
-        public abstract string ID
-        {
-            get;
-        }
-
-        public virtual Vector Position
-        {
-            get { return Owner.GetPortPosition(this); }
-        }
-
-        public virtual bool HasStalk
-        {
-            get { return StalkPosition != Position; }
-        }
-
-        public virtual Vector StalkPosition
-        {
-            get { return Owner.GetPortStalkPosition(this); }
-        }
-
-        public virtual float X
-        {
-            get { return Position.X; }
-        }
-
-        public virtual float Y
-        {
-            get { return Position.Y; }
-        }
-
-        private Vector Size
-        {
-            get { return new Vector(Settings.HandleSize); }
-        }
-
-        private Vector VisualPosition
-        {
-            get { return Position; }
-        }
-
-        private Rect VisualBounds
-        {
-            get { return new Rect(VisualPosition - Size / 2, Size); }
-        }
-
-        public virtual void Draw(Canvas canvas, XGraphics graphics, Palette palette, DrawingContext context)
-        {
-            Drawing.DrawHandle(canvas, graphics, palette, VisualBounds, context, false, true);
-        }
-
-        public float Distance(Vector pos)
-        {
-            return pos.DistanceFromRect(VisualBounds);
-        }
+      Owner = owner;
     }
+
+    public Element Owner { get; }
+
+    /// <summary>
+    ///   Get the unique identifier for this port amongst all of the owner's ports.
+    /// </summary>
+    public abstract string ID { get; }
+
+    public virtual Vector Position => Owner.GetPortPosition(this);
+    public virtual bool HasStalk => StalkPosition != Position;
+    public virtual Vector StalkPosition => Owner.GetPortStalkPosition(this);
+    public virtual float X => Position.X;
+    public virtual float Y => Position.Y;
+    private static Vector size => new Vector(Settings.HandleSize);
+    private Vector visualPosition => Position;
+    private Rect visualBounds => new Rect(visualPosition - size/2, size);
+
+    public virtual void Draw(Canvas canvas, XGraphics graphics, Palette palette, DrawingContext context)
+    {
+      Drawing.DrawHandle(canvas, graphics, palette, visualBounds, context, false, true);
+    }
+
+    public float Distance(Vector pos)
+    {
+      return pos.DistanceFromRect(visualBounds);
+    }
+  }
 }

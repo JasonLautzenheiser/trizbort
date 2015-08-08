@@ -201,7 +201,7 @@ namespace Trizbort.Export
       return name;
     }
 
-    protected override string GetExportNameForObject(string displayName, int? suffix)
+    protected override string GetExportName(string displayName, int? suffix)
     {
       var name = stripOddCharacters(displayName);
       if (string.IsNullOrEmpty(name))

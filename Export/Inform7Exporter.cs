@@ -40,7 +40,7 @@ namespace Trizbort.Export
       new KeyValuePair<string, string>("Text Files", ".txt")
     };
 
-    protected override IEnumerable<string> ReservedWords => new[] {"object", "objects", "thing", "things", "door", "doors", "is", "are", "in", "on", "and"};
+    protected override IEnumerable<string> ReservedWords => new[] {"object", "objects", "thing", "things", "door", "doors", "is", "are", "in", "on", "and", "outside", "inside"};
 
     protected override StreamWriter Create(string fileName)
     {
@@ -61,7 +61,7 @@ namespace Trizbort.Export
 
       if (!string.IsNullOrEmpty(description))
       {
-        writer.WriteLine("The story description is {0}{1}", ToInform7PrintableString(description), description.EndsWith(".") ? string.Empty : ".");
+        writer.WriteLine("The story description is {0}{1}", toInform7PrintableString(description), description.EndsWith(".") ? string.Empty : ".");
         writer.WriteLine();
       }
 
@@ -82,9 +82,9 @@ namespace Trizbort.Export
     protected override void ExportContent(TextWriter writer)
     {
       // export regions
-      foreach (var region in Settings.Regions.Where(region => !region.RegionName.Equals(Region.DefaultRegion, StringComparison.OrdinalIgnoreCase)))
+      foreach (var region in RegionsInExportOrder)
       {
-        writer.WriteLine("There is a region called {0}.", region.RegionName);
+        writer.WriteLine("There is a region called {0}.", getExportName(region.ExportName, null));
         writer.WriteLine();
       }
 
@@ -99,12 +99,12 @@ namespace Trizbort.Export
         writer.Write("There is a room called {0}.", location.ExportName);
         if (location.ExportName != location.Room.Name)
         {
-          writer.Write(" The printed name of it is {0}.", ToInform7PrintableString(location.Room.Name));
+          writer.Write(" The printed name of it is {0}.", toInform7PrintableString(location.Room.Name));
         }
         var description = location.Room.PrimaryDescription;
         if (!string.IsNullOrEmpty(description))
         {
-          writer.Write(" {0}{1}", ToInform7PrintableString(description), description.EndsWith(".") ? string.Empty : ".");
+          writer.Write(" {0}{1}", toInform7PrintableString(description), description.EndsWith(".") ? string.Empty : ".");
         }
         if (location.Room.IsDark)
         {
@@ -112,7 +112,7 @@ namespace Trizbort.Export
         }
 
         if (!string.IsNullOrEmpty(location.Room.Region) && !location.Room.Region.Equals(Region.DefaultRegion))
-          writer.Write(" It is in {0}.", location.Room.Region);
+          writer.Write(" It is in {0}.",  RegionsInExportOrder.Find(p=>p.Region.RegionName == location.Room.Region).ExportName);
 
         writer.WriteLine(); // end the previous line
         writer.WriteLine(); // blank line
@@ -130,7 +130,7 @@ namespace Trizbort.Export
             // remember we've exported this exit
             exit.Exported = true;
 
-            writer.Write("{0} of {1} is {2}.", GetInform7Name(direction), location.ExportName, exit.Target.ExportName);
+            writer.Write("{0} of {1} is {2}.", getInform7Name(direction), location.ExportName, exit.Target.ExportName);
             var oppositeDirection = CompassPointHelper.GetOpposite(direction);
             if (Exit.IsReciprocated(location, direction, exit.Target))
             {
@@ -143,7 +143,7 @@ namespace Trizbort.Export
             {
               // if we aren't laying down a contridiction which I7 will pick up,
               // then be clear about one way connections.
-              writer.Write(" {0} of {1} is nowhere.", GetInform7Name(oppositeDirection), exit.Target.ExportName);
+              writer.Write(" {0} of {1} is nowhere.", getInform7Name(oppositeDirection), exit.Target.ExportName);
             }
             writer.WriteLine();
           }
@@ -169,7 +169,7 @@ namespace Trizbort.Export
               wroteConditionalFunction = true;
             }
 
-            writer.WriteLine("Instead of going {0} from {1}, block conditional exits.", GetInform7Name(direction).ToLowerInvariant(), location.ExportName);
+            writer.WriteLine("Instead of going {0} from {1}, block conditional exits.", getInform7Name(direction).ToLowerInvariant(), location.ExportName);
           }
         }
       }
@@ -188,15 +188,15 @@ namespace Trizbort.Export
           exportedThings = true;
           if (thing.Container == null)
           {
-            writer.Write("{0}{1} {2} in {3}.", GetArticle(thing.ExportName), thing.ExportName, IsAre(thing.ExportName), thing.Location.ExportName);
+            writer.Write("{0}{1} {2} in {3}.", getArticle(thing.ExportName), thing.ExportName, isAre(thing.ExportName), thing.Location.ExportName);
           }
           else
           {
-            writer.Write("{0}{1} {2} in the {3}.", GetArticle(thing.ExportName), thing.ExportName, IsAre(thing.ExportName), thing.Container.ExportName);
+            writer.Write("{0}{1} {2} in the {3}.", getArticle(thing.ExportName), thing.ExportName, isAre(thing.ExportName), thing.Container.ExportName);
           }
           if (thing.DisplayName != thing.ExportName)
           {
-            writer.Write(" It is privately-named. The printed name of it is {0}{1} Understand {2} as {3}.", ToInform7PrintableString(thing.DisplayName), thing.DisplayName.EndsWith(".") ? string.Empty : ".", ToInform7UnderstandWords(thing.DisplayName), thing.ExportName);
+            writer.Write(" It is privately-named. The printed name of it is {0}{1} Understand {2} as {3}.", toInform7PrintableString(thing.DisplayName), thing.DisplayName.EndsWith(".") ? string.Empty : ".", toInform7UnderstandWords(thing.DisplayName), thing.ExportName);
           }
           writer.WriteLine();
         }
@@ -209,9 +209,9 @@ namespace Trizbort.Export
       }
     }
 
-    private string GetArticle(string noun)
+    private string getArticle(string noun)
     {
-      if (string.IsNullOrEmpty(noun) || IsPlural(noun))
+      if (string.IsNullOrEmpty(noun) || isPlural(noun))
       {
         if (!string.IsNullOrEmpty(noun) && char.IsUpper(noun[0]))
         {
@@ -233,107 +233,81 @@ namespace Trizbort.Export
       return "A ";
     }
 
-    private string IsAre(string noun)
+    private static string isAre(string noun)
     {
       return "is";
     }
 
-    private bool IsPlural(string noun)
+    private static bool isPlural(string noun)
     {
       return !string.IsNullOrEmpty(noun) && !char.IsUpper(noun[0]) && noun.EndsWith("s") && !noun.EndsWith("ss");
     }
 
     protected override string GetExportName(Room room, int? suffix)
     {
-      return GetExportName(room.Name, suffix);
+      return getExportName(room.Name, suffix);
     }
 
-    protected override string GetExportNameForObject(string displayName, int? suffix)
+    protected override string GetExportName(string displayName, int? suffix)
     {
-      return GetExportName(displayName, suffix);
+      return getExportName(displayName, suffix);
     }
 
-    private string GetExportName(string name, int? suffix)
+    private string getExportName(string name, int? suffix)
     {
-      var spaceless = false;
-      if (suffix != null || ContainsWord(name, ReservedWords) || ContainsOddCharacters(name))
-      {
-        name = StripOddCharacters(name.Replace(" ", string.Empty));
-        spaceless = true;
-      }
+      var spaceless = true;
+
+      if (containsOddCharacters(name))
+        name = stripOddCharacters(name);
+
+      if (containsWord(name, ReservedWords))
+        if (suffix == null)
+          suffix = 1;
+
       if (suffix != null)
-      {
         name = $"{name}{(spaceless ? string.Empty : " ")}{suffix}";
-      }
+
       return name;
     }
 
-    private static bool ContainsWord(string text, IEnumerable<string> words)
+    private static bool containsWord(string text, IEnumerable<string> words)
     {
-      foreach (var word in words)
-      {
-        if (ContainsWord(text, word))
-        {
-          return true;
-        }
-      }
-      return false;
+      return words.Any(word => containsWord(text, word));
     }
 
-    private static bool ContainsWord(string text, string word)
+    private static bool containsWord(string text, string word)
     {
       if (string.IsNullOrEmpty(text))
       {
         return string.IsNullOrEmpty(word);
       }
       var words = text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
-      foreach (var wordFound in words)
-      {
-        if (StringComparer.InvariantCultureIgnoreCase.Compare(word, wordFound) == 0)
-        {
-          return true;
-        }
-      }
-      return false;
+      return words.Any(wordFound => StringComparer.InvariantCultureIgnoreCase.Compare(word, wordFound) == 0);
     }
 
-    private static bool ContainsOddCharacters(string text)
+    private static bool containsOddCharacters(string text)
     {
-      foreach (var c in text)
-      {
-        if (c != ' ' && c != '-' && !char.IsLetterOrDigit(c))
-        {
-          return true;
-        }
-      }
-      return false;
+      return text.Any(c => c != ' ' && c != '-' && !char.IsLetterOrDigit(c));
     }
 
-    private static string StripOddCharacters(string text, params char[] exceptChars)
+    private static string stripOddCharacters(string text, params char[] exceptChars)
     {
       var exceptCharsList = new List<char>(exceptChars);
-      var newText = string.Empty;
-      foreach (var c in text)
-      {
-        if (c == ' ' || c == '-' || char.IsLetterOrDigit(c) || exceptCharsList.Contains(c))
-        {
-          newText += c;
-        }
-      }
+      var newText = text.Where(c => c == ' ' || c == '-' || char.IsLetterOrDigit(c) || exceptCharsList.Contains(c)).Aggregate(string.Empty, (current, c) => current + c);
       return string.IsNullOrEmpty(newText) ? "object" : newText;
     }
 
-    private static string ToInform7PrintableString(string text)
+    private static string toInform7PrintableString(string text)
     {
-      return string.Format("\"{0}\"", text.Replace("'", "[']").Replace("\"", "'"));
+      return $"\"{text.Replace("'", "[']").Replace("\"", "'")}\"";
     }
 
-    private static string ToInform7UnderstandString(string text)
+    private static string toInform7UnderstandString(string text)
     {
-      return string.Format("\"{0}\"", StripOddCharacters(text, '\''));
+      return $"\"{stripOddCharacters(text, '\'')}\"";
     }
 
-    private static string ToInform7UnderstandWords(string text)
+    private static string toInform7UnderstandWords(string text)
     {
       // "battery-powered brass lantern" -> { "battery-powered", "brass", "lantern" }
       var words = text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
@@ -345,7 +319,7 @@ namespace Trizbort.Export
         {
           text += " and ";
         }
-        text += ToInform7UnderstandString(word);
+        text += toInform7UnderstandString(word);
 
         //// "battery-powered" -> { "battery", "powered" }
         //var parts = word.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
@@ -364,7 +338,7 @@ namespace Trizbort.Export
       return text;
     }
 
-    private static string GetInform7Name(AutomapDirection direction)
+    private static string getInform7Name(AutomapDirection direction)
     {
       switch (direction)
       {

@@ -67,7 +67,7 @@ namespace Trizbort
       Region = Trizbort.Region.DefaultRegion;
       Size = new Vector(3*Settings.GridSize, 2*Settings.GridSize);
       Position = new Vector(-Size.X/2, -Size.Y/2);
-      corners = new CornerRadii();
+      Corners = new CornerRadii();
 
       // connections may connect to any of our "corners"
       PortList.Add(new CompassPort(CompassPoint.North, this));
@@ -96,7 +96,7 @@ namespace Trizbort
       Region = Trizbort.Region.DefaultRegion;
       Size = new Vector(3*Settings.GridSize, 2*Settings.GridSize);
       Position = new Vector(-Size.X/2, -Size.Y/2);
-      corners = new CornerRadii();
+      Corners = new CornerRadii();
 
       // connections may connect to any of our "corners"
       PortList.Add(new CompassPort(CompassPoint.North, this));
@@ -173,6 +173,8 @@ namespace Trizbort
           RoundedCorners = true;
           Ellipse = false;
           StraightEdges = false;
+          if (Corners.TopRight == 0.0 && Corners.TopLeft == 0.0 && Corners.BottomRight == 0.0  && Corners.BottomLeft == 0.0)
+            Corners = new CornerRadii();
           break;
         case RoomShape.Ellipse:
           Ellipse = true;
@@ -255,7 +257,7 @@ namespace Trizbort
     public override Depth Depth => Depth.Medium;
     public override bool HasDialog => true;
 
-    public CornerRadii corners { get; set; } 
+    public CornerRadii Corners { get; set; }
 
     public bool RoundedCorners { get; set; } = false;
     public bool Ellipse { get; set; } = false;
@@ -482,7 +484,7 @@ namespace Trizbort
         return InnerBounds.GetCorner(compass.CompassPoint,true);
 
       if (RoundedCorners)
-        return InnerBounds.GetCorner(compass.CompassPoint, false, corners);
+        return InnerBounds.GetCorner(compass.CompassPoint, false, Corners);
       
       return InnerBounds.GetCorner(compass.CompassPoint);
     }
@@ -650,6 +652,7 @@ namespace Trizbort
         else if (Ellipse)
         {
           path.AddEllipse(new RectangleF(top.Start.X, top.Start.Y, top.Length, left.Length));
+          
         }
         else
         {
@@ -723,10 +726,20 @@ namespace Trizbort
         if (IsDark)
         {
           var state = graphics.Save();
+          var solidbrush = (SolidBrush)palette.BorderBrush;
+          int darknessStripAdjustment = 0;
           graphics.IntersectClip(path);
-          var solidbrush = (SolidBrush) palette.BorderBrush;
+          if (Ellipse)
+          {
+            darknessStripAdjustment = 20;
+          }
+          else if (RoundedCorners)
+          {
+            if (Corners.TopRight > 15.0)
+              darknessStripAdjustment = 10;
+          }
 
-          graphics.DrawPolygon(solidbrush, new[] {topRight.ToPointF(), new PointF(topRight.X - Settings.DarknessStripeSize, topRight.Y), new PointF(topRight.X, topRight.Y + Settings.DarknessStripeSize)}, XFillMode.Alternate);
+          graphics.DrawPolygon(solidbrush, new[] { topRight.ToPointF(), new PointF(topRight.X - (Settings.DarknessStripeSize + darknessStripAdjustment), topRight.Y), new PointF(topRight.X, topRight.Y + Settings.DarknessStripeSize + darknessStripAdjustment) }, XFillMode.Alternate);
           graphics.Restore(state);
         }
 
@@ -815,10 +828,10 @@ namespace Trizbort
 
     private void createRoomPath(XGraphicsPath path, LineSegment top, LineSegment left)
     {
-      path.AddArc(top.Start.X + top.Length - (corners.TopRight*2), top.Start.Y, corners.TopRight*2, corners.TopRight*2, 270, 90);
-      path.AddArc(top.Start.X + top.Length - (corners.BottomRight*2), top.Start.Y + left.Length - (corners.BottomRight*2), corners.BottomRight*2, corners.BottomRight*2, 0, 90);
-      path.AddArc(top.Start.X, top.Start.Y + left.Length - (corners.BottomLeft*2), corners.BottomLeft*2, corners.BottomLeft*2, 90, 90);
-      path.AddArc(top.Start.X, top.Start.Y, corners.TopLeft*2, corners.TopLeft * 2, 180, 90);
+      path.AddArc(top.Start.X + top.Length - (Corners.TopRight*2), top.Start.Y, Corners.TopRight*2, Corners.TopRight*2, 270, 90);
+      path.AddArc(top.Start.X + top.Length - (Corners.BottomRight*2), top.Start.Y + left.Length - (Corners.BottomRight*2), Corners.BottomRight*2, Corners.BottomRight*2, 0, 90);
+      path.AddArc(top.Start.X, top.Start.Y + left.Length - (Corners.BottomLeft*2), Corners.BottomLeft*2, Corners.BottomLeft*2, 90, 90);
+      path.AddArc(top.Start.X, top.Start.Y, Corners.TopLeft*2, Corners.TopLeft * 2, 180, 90);
       path.CloseFigure();
     }
 
@@ -863,7 +876,7 @@ namespace Trizbort
         dialog.RoomTextColor = RoomLargeText;
         dialog.ObjectTextColor = RoomSmallText;
         dialog.RoomRegion = Region;
-        dialog.Corners = corners;
+        dialog.Corners = Corners;
         dialog.RoundedCorners = RoundedCorners;
         dialog.Ellipse = Ellipse;
         dialog.StraightEdges = StraightEdges;
@@ -894,7 +907,7 @@ namespace Trizbort
           // Added for Room specific colors
           RoomSmallText = dialog.ObjectTextColor;
           Region = dialog.RoomRegion;
-          corners = dialog.Corners;
+          Corners = dialog.Corners;
           RoundedCorners = dialog.RoundedCorners;
           Ellipse = dialog.Ellipse;
           StraightEdges = dialog.StraightEdges;
@@ -914,10 +927,10 @@ namespace Trizbort
       scribe.Attribute("handDrawn", StraightEdges);
       scribe.Attribute("ellipse", Ellipse);
       scribe.Attribute("roundedCorners", RoundedCorners);
-      scribe.Attribute("cornerTopLeft",(float) corners.TopLeft);
-      scribe.Attribute("cornerTopRight",(float) corners.TopRight);
-      scribe.Attribute("cornerBottomLeft",(float) corners.BottomLeft);
-      scribe.Attribute("cornerBottomRight",(float) corners.BottomRight);
+      scribe.Attribute("cornerTopLeft",(float) Corners.TopLeft);
+      scribe.Attribute("cornerTopRight",(float) Corners.TopRight);
+      scribe.Attribute("cornerBottomLeft",(float) Corners.BottomLeft);
+      scribe.Attribute("cornerBottomRight",(float) Corners.BottomRight);
 
       scribe.Attribute("borderstyle",BorderStyle.ToString());
       if (IsDark)
@@ -975,11 +988,11 @@ namespace Trizbort
       Ellipse = element.Attribute("ellipse").ToBool();
       StraightEdges = element.Attribute("handDrawn").ToBool();
 
-      corners = new CornerRadii();
-      corners.TopLeft = element.Attribute("cornerTopLeft").ToFloat();
-      corners.TopRight = element.Attribute("cornerTopRight").ToFloat();
-      corners.BottomLeft = element.Attribute("cornerBottomLeft").ToFloat();
-      corners.BottomRight = element.Attribute("cornerBottomRight").ToFloat();
+      Corners = new CornerRadii();
+      Corners.TopLeft = element.Attribute("cornerTopLeft").ToFloat();
+      Corners.TopRight = element.Attribute("cornerTopRight").ToFloat();
+      Corners.BottomLeft = element.Attribute("cornerBottomLeft").ToFloat();
+      Corners.BottomRight = element.Attribute("cornerBottomRight").ToFloat();
 
 
       if (element.Attribute("borderstyle").Text != "")
@@ -1104,10 +1117,10 @@ namespace Trizbort
       clipboardText += StraightEdges + ":";
       clipboardText += Ellipse + ":";
       clipboardText += RoundedCorners + ":";
-      clipboardText += corners.TopRight + ":";
-      clipboardText += corners.TopLeft + ":";
-      clipboardText += corners.BottomRight + ":";
-      clipboardText += corners.BottomLeft + ":";
+      clipboardText += Corners.TopRight + ":";
+      clipboardText += Corners.TopLeft + ":";
+      clipboardText += Corners.BottomRight + ":";
+      clipboardText += Corners.BottomLeft + ":";
 
       var colorValue = Colors.SaveColor(RoomFill);
       clipboardText += colorValue + ":";

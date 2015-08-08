@@ -34,6 +34,9 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
 using Timer = System.Threading.Timer;
+// ReSharper disable PossibleLossOfFraction
+// ReSharper disable CompareOfFloatsByEqualityOperator
+// ReSharper disable CanBeReplacedWithTryCastAndCheckForNull
 
 namespace Trizbort
 {
@@ -70,7 +73,7 @@ namespace Trizbort
 
     public event EventHandler ZoomChanged;
 
-    private void RaiseZoomed()
+    private void raiseZoomed()
     {
       var zoomed = ZoomChanged;
       zoomed?.Invoke(this, EventArgs.Empty);
@@ -112,7 +115,7 @@ namespace Trizbort
         {
           mZoomFactor = value;
           lblZoom.Text = mZoomFactor.ToString("p0");
-          RaiseZoomed();
+          raiseZoomed();
           Invalidate();
         }
       }
@@ -552,13 +555,13 @@ namespace Trizbort
         {
           var fps = 1.0f/(float) (stopwatch.Elapsed.TotalSeconds);
           graphics.Graphics.Transform = new Matrix();
-          graphics.DrawString(string.Format("{0} ms ({1} fps) {2} rebuilds", stopwatch.Elapsed.TotalMilliseconds, fps, TextBlock.RebuildCount), Settings.LargeFont, Brushes.Red, new PointF(10, 20 + Settings.LargeFont.GetHeight()));
+          graphics.DrawString($"{stopwatch.Elapsed.TotalMilliseconds} ms ({fps} fps) {TextBlock.RebuildCount} rebuilds", Settings.LargeFont, Brushes.Red, new PointF(10, 20 + Settings.LargeFont.GetHeight()));
         }
         if (Settings.DebugShowMouseCoordinates && !finalRender)
         {
           var mouseCoord = MousePosition;
           graphics.Graphics.Transform = new Matrix();
-          graphics.DrawString(string.Format("X:{0}  Y:{1}", mouseCoord.X, mouseCoord.Y), Settings.LargeFont, Brushes.Green, new PointF(10, 40 + Settings.LargeFont.GetHeight()));
+          graphics.DrawString($"X:{mouseCoord.X}  Y:{mouseCoord.Y}", Settings.LargeFont, Brushes.Green, new PointF(10, 40 + Settings.LargeFont.GetHeight()));
           graphics.DrawString(HoverElement == null ? new Point(0, 0).ToString() : PointToClient(HoverElement.Position.ToPoint()).ToString(), Settings.LargeFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.LargeFont.GetHeight()));
         }
       }
@@ -946,7 +949,7 @@ namespace Trizbort
               roomTooltip.SetSuperTooltip(this, toolTip);
               
               var tPoint = new Vector();
-              if (hoverElement.GetType() == typeof(Room))
+              if (hoverElement is Room)
               {
                 var tRoom = (Room) hoverElement;
                 tPoint = tRoom.Position;
@@ -1453,12 +1456,12 @@ namespace Trizbort
 
     public List<Room> SelectedRooms
     {
-      get { return mSelectedElements.Where(p => p.GetType() == typeof (Room)).ToList().Cast<Room>().ToList(); }
+      get { return mSelectedElements.Where(p => p is Room).ToList().Cast<Room>().ToList(); }
     }
 
     public List<Connection> SelectedConnections
     {
-      get { return mSelectedElements.Where(p => p.GetType() == typeof (Connection)).ToList().Cast<Connection>().ToList(); }
+      get { return mSelectedElements.Where(p => p is Connection).ToList().Cast<Connection>().ToList(); }
     }
 
     private RectangleF calcViewportBounds()
@@ -1720,7 +1723,7 @@ namespace Trizbort
       }
       else if (hoverPort != null)
       {
-        if (hoverPort.GetType() == typeof(MoveablePort))
+        if (hoverPort is MoveablePort)
         {
           mDragMovePort = (MoveablePort) hoverPort;
           mDragOffsetCanvas = Settings.Snap(canvasPos - hoverPort.Position);
@@ -2685,10 +2688,10 @@ namespace Trizbort
                   currentRoom.StraightEdges = Convert.ToBoolean(elementProperties[11]);
                   currentRoom.Ellipse = Convert.ToBoolean(elementProperties[12]);
                   currentRoom.RoundedCorners = Convert.ToBoolean(elementProperties[13]);
-                  currentRoom.corners.TopRight = Convert.ToDouble(elementProperties[14]);
-                  currentRoom.corners.TopLeft = Convert.ToDouble(elementProperties[15]);
-                  currentRoom.corners.BottomRight = Convert.ToDouble(elementProperties[16]);
-                  currentRoom.corners.BottomLeft = Convert.ToDouble(elementProperties[17]);
+                  currentRoom.Corners.TopRight = Convert.ToDouble(elementProperties[14]);
+                  currentRoom.Corners.TopLeft = Convert.ToDouble(elementProperties[15]);
+                  currentRoom.Corners.BottomRight = Convert.ToDouble(elementProperties[16]);
+                  currentRoom.Corners.BottomLeft = Convert.ToDouble(elementProperties[17]);
 
                   if (elementProperties[18] != "") currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[18]);
                   if (elementProperties[19] != "") currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[19]);
@@ -2994,7 +2997,7 @@ namespace Trizbort
 
       if (hitElement != null)
       {
-        if (hitElement.GetType() == typeof (Room))
+        if (hitElement is Room)
         {
 
           lastSelectedRoom = (Room) hitElement;
@@ -3089,7 +3092,7 @@ namespace Trizbort
 
     private void darkToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      var selectedRooms = mSelectedElements.Where(p => p.GetType() == typeof (Room)).ToList();
+      var selectedRooms = mSelectedElements.Where(p => p is Room).ToList();
 
       if (!selectedRooms.Any())
         selectedRooms.Add(lastSelectedRoom);
@@ -3105,7 +3108,7 @@ namespace Trizbort
     // context menu event to change region of room(s)
     private void regionContextClick(object sender, EventArgs e)
     {
-      var selectedRooms = mSelectedElements.Where(p => p.GetType() == typeof (Room)).ToList();
+      var selectedRooms = mSelectedElements.Where(p => p is Room).ToList();
 
       if (!selectedRooms.Any())
         selectedRooms.Add(lastSelectedRoom);

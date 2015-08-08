@@ -443,12 +443,12 @@ namespace Trizbort
       this.txtBottomRight.Increment = 0.5D;
       this.txtBottomRight.Location = new System.Drawing.Point(117, 48);
       this.txtBottomRight.MaxValue = 30D;
-      this.txtBottomRight.MinValue = 0.1D;
+      this.txtBottomRight.MinValue = 15D;
       this.txtBottomRight.Name = "txtBottomRight";
       this.txtBottomRight.ShowUpDown = true;
       this.txtBottomRight.Size = new System.Drawing.Size(80, 21);
       this.txtBottomRight.TabIndex = 3;
-      this.txtBottomRight.Value = 0.1D;
+      this.txtBottomRight.Value = 15D;
       this.txtBottomRight.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
       // 
       // txtTopLeft
@@ -462,12 +462,12 @@ namespace Trizbort
       this.txtTopLeft.Increment = 0.5D;
       this.txtTopLeft.Location = new System.Drawing.Point(3, 3);
       this.txtTopLeft.MaxValue = 30D;
-      this.txtTopLeft.MinValue = 0.1D;
+      this.txtTopLeft.MinValue = 15D;
       this.txtTopLeft.Name = "txtTopLeft";
       this.txtTopLeft.ShowUpDown = true;
       this.txtTopLeft.Size = new System.Drawing.Size(80, 21);
       this.txtTopLeft.TabIndex = 0;
-      this.txtTopLeft.Value = 0.1D;
+      this.txtTopLeft.Value = 15D;
       this.txtTopLeft.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
       // 
       // txtBottomLeft
@@ -481,12 +481,12 @@ namespace Trizbort
       this.txtBottomLeft.Increment = 0.5D;
       this.txtBottomLeft.Location = new System.Drawing.Point(3, 48);
       this.txtBottomLeft.MaxValue = 30D;
-      this.txtBottomLeft.MinValue = 0.1D;
+      this.txtBottomLeft.MinValue = 15D;
       this.txtBottomLeft.Name = "txtBottomLeft";
       this.txtBottomLeft.ShowUpDown = true;
       this.txtBottomLeft.Size = new System.Drawing.Size(80, 21);
       this.txtBottomLeft.TabIndex = 1;
-      this.txtBottomLeft.Value = 0.1D;
+      this.txtBottomLeft.Value = 15D;
       this.txtBottomLeft.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
       // 
       // txtTopRight
@@ -500,12 +500,12 @@ namespace Trizbort
       this.txtTopRight.Increment = 0.5D;
       this.txtTopRight.Location = new System.Drawing.Point(117, 3);
       this.txtTopRight.MaxValue = 30D;
-      this.txtTopRight.MinValue = 0.1D;
+      this.txtTopRight.MinValue = 15D;
       this.txtTopRight.Name = "txtTopRight";
       this.txtTopRight.ShowUpDown = true;
       this.txtTopRight.Size = new System.Drawing.Size(80, 21);
       this.txtTopRight.TabIndex = 2;
-      this.txtTopRight.Value = 0.1D;
+      this.txtTopRight.Value = 15D;
       this.txtTopRight.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
       // 
       // cboDrawType

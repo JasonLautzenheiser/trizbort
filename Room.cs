@@ -666,6 +666,9 @@ namespace Trizbort
         // Second fill for room specific colors with a split option
         if (SecondFill != Color.Transparent)
         {
+          var state = graphics.Save();
+          graphics.IntersectClip(path);
+
           // Set the second fill color
           brush = new SolidBrush(SecondFill);
 
@@ -721,7 +724,8 @@ namespace Trizbort
               break;
           }
           // Draw the second fill over the first
-//          graphics.DrawPath(brush, secondPath);
+          graphics.DrawPath(brush, secondPath);
+          graphics.Restore(state);
         }
         if (IsDark)
         {

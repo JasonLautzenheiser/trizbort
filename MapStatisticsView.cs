@@ -21,29 +21,31 @@ namespace Trizbort
     {
       string stats = string.Empty;
 
-      stats += string.Format("# of Rooms: {0}{1}", MapStatistics.NumberOfRooms, Environment.NewLine);
-      stats += string.Format("# of Unconnected Rooms: {0}{1}", MapStatistics.NumberOfFloatingRooms, Environment.NewLine);
+      stats += $"# of Rooms: {MapStatistics.NumberOfRooms}{Environment.NewLine}";
+      stats += $"# of Unconnected Rooms: {MapStatistics.NumberOfFloatingRooms}{Environment.NewLine}";
       
-      stats += string.Format("{0}", Environment.NewLine);
-      stats += string.Format("# of Connections: {0}{1}", MapStatistics.NumberOfConnections, Environment.NewLine);
-      stats += string.Format("# of Dangling Connections: {0}{1}", MapStatistics.NumberOfDanglingConnections, Environment.NewLine);
-      stats += string.Format("# of Self Looping Connections: {0}{1}", MapStatistics.NumberOfLoopingConnections, Environment.NewLine);
+      stats += $"{Environment.NewLine}";
+      stats += $"# of Connections: {MapStatistics.NumberOfConnections}{Environment.NewLine}";
+      stats += $"# of Dangling Connections: {MapStatistics.NumberOfDanglingConnections}{Environment.NewLine}";
+      stats += $"# of Self Looping Connections: {MapStatistics.NumberOfLoopingConnections}{Environment.NewLine}";
 
-      stats += string.Format("{0}", Environment.NewLine);
-      stats += string.Format("# of Regions: {0}{1}", MapStatistics.NumberOfRegions, Environment.NewLine);
+      stats += $"{Environment.NewLine}";
+      stats += $"# of Regions: {MapStatistics.NumberOfRegions}{Environment.NewLine}";
+      stats += $"# of Rooms without a region: {MapStatistics.NumberOfRoomsWithoutRegion()}{Environment.NewLine}";
 
       if (MapStatistics.NumberOfRegions > 0)
       {
-        stats += string.Format("Regions:{0}", Environment.NewLine);
+        stats += $"Regions:{Environment.NewLine}";
         foreach (var region in Settings.Regions.OrderBy(p=>p.RegionName).Where(p=>p.RegionName != Trizbort.Region.DefaultRegion))
         {
-          stats += string.Format("{2}: Rooms:{0} {1}", MapStatistics.NumberOfRoomsInRegion(region.RegionName), Environment.NewLine, region.RegionName);
+          var numberOfRoomsInRegion = MapStatistics.NumberOfRoomsInRegion(region.RegionName);
+          stats += string.Format("{2} ({0} {3}){1}", numberOfRoomsInRegion, Environment.NewLine, region.RegionName,numberOfRoomsInRegion==1 ? "room" : "rooms");
         }
       }
 
-      stats += string.Format("{0}", Environment.NewLine);
-      stats += string.Format("Total # Objects in All Rooms: {0}{1}", MapStatistics.NumberOfTotalObjectsInRooms, Environment.NewLine);
-      stats += string.Format("Total # Rooms with Objects: {0}{1}", MapStatistics.NumberOfRoomsWithObjects, Environment.NewLine);
+      stats += $"{Environment.NewLine}";
+      stats += $"Total # Objects in All Rooms: {MapStatistics.NumberOfTotalObjectsInRooms}{Environment.NewLine}";
+      stats += $"Total # Rooms with Objects: {MapStatistics.NumberOfRoomsWithObjects}{Environment.NewLine}";
 
 
       txtStats.Text = stats;

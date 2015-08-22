@@ -766,7 +766,10 @@ namespace Trizbort
       if (RoomLargeText != Color.Transparent) { roombrush = new SolidBrush(RoomLargeText); }
 
       var textBounds = InnerBounds;
-      textBounds.Inflate(-5, -5);
+      if (Ellipse)
+        textBounds.Inflate(-11.5f);
+      else
+        textBounds.Inflate(-5, -5);
 
       if (textBounds.Width > 0 && textBounds.Height > 0)
       {

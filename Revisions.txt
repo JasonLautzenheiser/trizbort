@@ -1,5 +1,18 @@
 Change Log
 
+1.5.9.2
+-------------
+BUG: Fix crash when adding a room when an unconnected connection is selected, now adds a connection onto the end.
+ENH: Enhanced the port calc code so they are more evenly spaced on ellipse and rounded rooms
+ZIL exporter tweaks (Thanks to Jesse McGrew)
+-- Update main loop so M-END doesn't run for meta verbs.
+-- Escape contents of strings.
+-- Export history (creating an ABOUT verb).
+-- Don't write empty room descriptions.
+-- Use a PER routine for conditional exits.
+-- Set object SYNONYM and ADJECTIVE separately.
+-- Fix spacing/style nits.
+
 1.5.9.1
 -------------
 BUG: Fix issue with multicolored rooms not showing more than one color.

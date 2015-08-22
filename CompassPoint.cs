@@ -49,6 +49,7 @@ namespace Trizbort
     NorthWest,
     NorthNorthWest,
 
+
     Min = North,
     Max = NorthNorthWest
   }
@@ -320,6 +321,56 @@ namespace Trizbort
     }
 
 
+    public static double CalcRadianForEllipse(CompassPoint point, Rect rect)
+    {
+      var angleIncrement = 360.0/16.0;
+      var i = getPointIntegerValue(point);
+      return (i * angleIncrement) * (Math.PI / 180);
+    }
+
+
+
+    private static int getPointIntegerValue(CompassPoint point)
+    {
+      switch (point)
+      {
+        case CompassPoint.North:
+          return 12;
+        case CompassPoint.NorthNorthEast:
+          return 13;
+        case CompassPoint.NorthEast:
+          return 14;
+        case CompassPoint.EastNorthEast:
+          return 15;
+        case CompassPoint.East:
+          return 0;
+        case CompassPoint.EastSouthEast:
+          return 1;
+        case CompassPoint.SouthEast:
+          return 2;
+        case CompassPoint.SouthSouthEast:
+          return 3;
+        case CompassPoint.South:
+          return 4;
+        case CompassPoint.SouthSouthWest:
+          return 5;
+        case CompassPoint.SouthWest:
+          return 6;
+        case CompassPoint.WestSouthWest:
+          return 7;
+        case CompassPoint.West:
+          return 8;
+        case CompassPoint.WestNorthWest:
+          return 9;
+        case CompassPoint.NorthWest:
+          return 10;
+        case CompassPoint.NorthNorthWest:
+          return 11;
+        default:
+          throw new ArgumentOutOfRangeException(nameof(point), point, null);
+      }
+    }
+
     public static double GetAngleInRadians(CompassPoint point)
     {
       switch (point)
@@ -327,27 +378,27 @@ namespace Trizbort
         case CompassPoint.North:
           return Math.PI * 1.5;
         case CompassPoint.NorthNorthEast:
-          return Math.PI * (5.0 / 3.0);
+          return Math.PI * (1.625);
         case CompassPoint.NorthEast:
           return Math.PI * (7.0 / 4.0);
         case CompassPoint.EastNorthEast:
-          return Math.PI * (11.0 / 6.0);
+          return Math.PI * (1.875);
         case CompassPoint.East:
           return 2.0 * Math.PI;
         case CompassPoint.EastSouthEast:
-          return Math.PI / 6.0;
+          return Math.PI / 7.25;
         case CompassPoint.SouthEast:
           return Math.PI / 4.0;
         case CompassPoint.SouthSouthEast:
-          return Math.PI / 3.0;
+          return Math.PI / 2.7;
         case CompassPoint.South:
           return Math.PI / 2.0;
         case CompassPoint.SouthSouthWest:
-          return Math.PI * (2.0 / 3.0);
+          return Math.PI * 0.62;
         case CompassPoint.SouthWest:
           return Math.PI * 0.75;
         case CompassPoint.WestSouthWest:
-          return Math.PI * (5.0 / 6.0);
+          return Math.PI * 0.88;
         case CompassPoint.West:
           return Math.PI;
         case CompassPoint.WestNorthWest:

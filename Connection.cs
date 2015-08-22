@@ -839,6 +839,7 @@ namespace Trizbort
       return null;
     }
 
+
     public Room GetTargetRoom(out CompassPoint targetCompassPoint)
     {
       if (m_vertexList.Count > 1)

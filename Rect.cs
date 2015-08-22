@@ -87,26 +87,42 @@ namespace Trizbort
 
     public Vector GetCorner(CompassPoint point, bool ellipse = false, CornerRadii corners = null)
     {
+      double angleInRadians;
       if (ellipse)
       {
-        return new Vector(Center.X + (float)((Width/2.0) * Math.Cos(CompassPointHelper.GetAngleInRadians(point))), Center.Y + (float)((Height / 2.0) * Math.Sin(CompassPointHelper.GetAngleInRadians(point))));
+        angleInRadians = CompassPointHelper.CalcRadianForEllipse(point, this);
+        return new Vector(Center.X + (float)((Width/2.0) * Math.Cos(angleInRadians)), Center.Y + (float)((Height / 2.0) * Math.Sin(angleInRadians)));
       }
 
       if (corners != null)
       {
-        if (point != CompassPoint.East && point != CompassPoint.West && point != CompassPoint.North && point != CompassPoint.South)
+        if (point == CompassPoint.NorthEast || point == CompassPoint.NorthWest || point == CompassPoint.SouthWest || point == CompassPoint.SouthEast)
         {
-          if (corners.TopRight > 10.0 && (point == CompassPoint.EastNorthEast || point == CompassPoint.NorthEast || point == CompassPoint.NorthNorthEast))
-            return new Vector(Center.X + (float) ((Width/2.0)*Math.Cos(CompassPointHelper.GetAngleInRadians(point))), Center.Y + (float) ((Height/2.0)*Math.Sin(CompassPointHelper.GetAngleInRadians(point))));
+          angleInRadians = CompassPointHelper.CalcRadianForEllipse(point, this);
 
-          if (corners.TopLeft > 10.0 && (point == CompassPoint.WestNorthWest || point == CompassPoint.NorthWest || point == CompassPoint.NorthNorthWest))
-            return new Vector(Center.X + (float)((Width / 2.0) * Math.Cos(CompassPointHelper.GetAngleInRadians(point))), Center.Y + (float)((Height / 2.0) * Math.Sin(CompassPointHelper.GetAngleInRadians(point))));
+          if (point == CompassPoint.NorthEast)
+          {
+            var rect = new Rect(X + Width, Y , (float) corners.TopRight, (float) corners.TopRight);
+            return new Vector((rect.Center.X - (float) (corners.TopRight/2.0)) - (float) ((corners.TopRight/2.0)*Math.Cos(angleInRadians)), (rect.Center.Y + (float)(corners.TopLeft / 4.0)) + (float) ((corners.TopRight/2.0)*Math.Sin(angleInRadians)));
+          }
 
-          if (corners.BottomLeft > 10.0 && (point == CompassPoint.WestSouthWest || point == CompassPoint.SouthWest || point == CompassPoint.SouthSouthWest))
-            return new Vector(Center.X + (float)((Width / 2.0) * Math.Cos(CompassPointHelper.GetAngleInRadians(point))), Center.Y + (float)((Height / 2.0) * Math.Sin(CompassPointHelper.GetAngleInRadians(point))));
+          if (point == CompassPoint.NorthWest)
+          {
+            var rect = new Rect(X, Y, (float) corners.TopLeft, (float) corners.TopLeft);
+            return new Vector((rect.Center.X - (float) (corners.TopLeft/2.0)) - (float) ((corners.TopLeft/2.0)*Math.Cos(angleInRadians)), (rect.Center.Y + (float)(corners.TopLeft / 4.0)) + (float) ((corners.TopLeft/2.0)*Math.Sin(angleInRadians)));
+          }
 
-          if (corners.BottomRight > 10.0 && (point == CompassPoint.SouthSouthEast || point == CompassPoint.SouthEast || point == CompassPoint.EastSouthEast))
-            return new Vector(Center.X + (float)((Width / 2.0) * Math.Cos(CompassPointHelper.GetAngleInRadians(point))), Center.Y + (float)((Height / 2.0) * Math.Sin(CompassPointHelper.GetAngleInRadians(point))));
+          if (point == CompassPoint.SouthWest)
+          {
+            var rect = new Rect(X, Y + Height, (float) corners.BottomLeft, (float) corners.BottomLeft);
+            return new Vector((rect.Center.X - (float)(corners.BottomLeft / 2.0))  - (float)((corners.BottomLeft/2.0)*Math.Cos(angleInRadians)), (rect.Center.Y - (float)(corners.BottomLeft / 2.0)) - (float) ((corners.BottomLeft/2.0)*Math.Sin(angleInRadians)));
+          }
+
+          if (point == CompassPoint.SouthEast)
+          {
+            var rect = new Rect(X + Width, Y + Height, (float) corners.BottomRight, (float) corners.BottomRight);
+            return new Vector((rect.Center.X - (float)(corners.BottomRight/2.0)) - (float) ((corners.BottomRight/2.0)*Math.Cos(angleInRadians)), (rect.Center.Y - (float)(corners.BottomRight/2.0 )) - (float) ((corners.BottomRight/2.0)*Math.Sin(angleInRadians)));
+          }
 
         }
       }

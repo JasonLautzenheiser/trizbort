@@ -98,9 +98,10 @@ namespace Trizbort
       }
 
       var state = graphics.Save();
+        var textRect = new RectangleF(pos.X, pos.Y, size.X, size.Y);
       if (size != Vector.Zero)
       {
-        graphics.IntersectClip(new RectangleF(pos.X, pos.Y, size.X, size.Y));
+        graphics.IntersectClip(textRect);
       }
 
       // disable smoothing whilst rendering text;
@@ -116,6 +117,7 @@ namespace Trizbort
         var line = t;
 
         graphics.SmoothingMode=XSmoothingMode.HighQuality;
+
 
         graphics.DrawString(line, font, brush, origin.X, origin.Y, m_actualFormat);
         origin += m_delta;

@@ -57,7 +57,7 @@ namespace Trizbort
     private readonly BoundList<Vertex> m_vertexList = new BoundList<Vertex>();
     private ConnectionFlow m_flow = DefaultFlow;
     private ConnectionStyle m_style = DefaultStyle;
-    private Color m_ConnectionColor = Color.Blue;
+    private Color m_ConnectionColor = Color.Transparent;
 
     public Connection(Project project)
       : base(project)
@@ -838,6 +838,7 @@ namespace Trizbort
       sourceCompassPoint = CompassPoint.North;
       return null;
     }
+
 
     public Room GetTargetRoom(out CompassPoint targetCompassPoint)
     {

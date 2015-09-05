@@ -1533,6 +1533,8 @@ namespace Trizbort
       }
     }
 
+
+
     /// <summary>
     ///   Find a room adjacent to the selected room in the given direction;
     ///   if found, connect the rooms. If not, create a new room in that direction.
@@ -1564,7 +1566,9 @@ namespace Trizbort
           var newRoom = new Room(Project.Current)
           {
             Position = new Vector(centerOfNewRoom.X - room.Width/2, centerOfNewRoom.Y - room.Height/2), Region = room.Region,
-            Size = room.Size
+            Size = room.Size,
+            Shape = room.Shape,
+            Corners = room.Corners
           };
 
           Project.Current.Elements.Add(newRoom);
@@ -1874,13 +1878,21 @@ namespace Trizbort
           var target = conn.GetTargetRoom(out targetCompass);
           var source = conn.GetSourceRoom(out sourceCompass);
 
-          if (target.Region == source.Region)
-            room.Region = target.Region;
+          if (target == null)
+          {
+            conn.VertexList.RemoveAt(conn.VertexList.Count-1);
+            conn.VertexList.Add(new Vertex(room.PortAt(CompassPointHelper.GetOpposite(sourceCompass))));
+          }
+          else
+          {
+            if (target.Region == source.Region)
+              room.Region = target.Region;
 
-          addConnection(source, sourceCompass, room, targetCompass);
-          addConnection(room, sourceCompass, target, targetCompass);
+            addConnection(source, sourceCompass, room, targetCompass);
+            addConnection(room, sourceCompass, target, targetCompass);
 
-          Project.Current.Elements.Remove(conn);
+            Project.Current.Elements.Remove(conn);
+          }
         }
       }
 
@@ -3042,14 +3054,14 @@ namespace Trizbort
           roomShapeToolStripMenuItem.Visible = false;
           joinRoomsToolStripMenuItem.Visible = false;
           swapObjectsToolStripMenuItem.Visible = false;
-          roomPropertiesToolStripMenuItem.Visible = false;
+          roomPropertiesToolStripMenuItem.Visible = true;
 
           m_lineStylesMenuItem.Visible = true;
           m_reverseLineMenuItem.Visible = true;
 
           toolStripMenuItem1.Visible = false;
           toolStripMenuItem2.Visible = false;
-          toolStripSeparator1.Visible = false;
+          toolStripSeparator1.Visible = true;
           toolStripSeparator2.Visible = true;
 
           roomPropertiesToolStripMenuItem.Enabled = true;

@@ -137,6 +137,7 @@ namespace Trizbort
         if (round)
         {
           graphics.DrawEllipse(brush, bounds.ToRectangleF());
+//          graphics.DrawRectangle(new XPen(Color.Red), bounds.ToRectangleF() );
           graphics.DrawEllipse(pen, bounds.ToRectangleF());
         }
         else

@@ -1,13 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Trizbort
 {
   public static class MapStatistics
   {
-    public static int NumberOfRooms
-    {
-      get { return Project.Current.Elements.OfType<Room>().Count(); }
-    }
+    public static int NumberOfRooms => Project.Current.Elements.OfType<Room>().Count();
 
     public static int NumberOfFloatingRooms
     {
@@ -24,10 +22,7 @@ namespace Trizbort
       get { return Project.Current.Elements.OfType<Room>().ToList().Sum(p => p.ListOfObjects().Count); }
     }
 
-    public static int NumberOfConnections
-    {
-      get { return Project.Current.Elements.OfType<Connection>().Count(); }
-    }
+    public static int NumberOfConnections => Project.Current.Elements.OfType<Connection>().Count();
 
     public static int NumberOfDanglingConnections
     {
@@ -51,9 +46,16 @@ namespace Trizbort
     {
       get { return Settings.Regions.Count(p=>p.RegionName != Region.DefaultRegion); }
     }
+
     public static int NumberOfRoomsInRegion(string pRegion)
     {
       return Project.Current.Elements.OfType<Room>().Count(p => p.Region == pRegion);
     }
+
+    public static int NumberOfRoomsWithoutRegion()
+    {
+      return Project.Current.Elements.OfType<Room>().Count(p => p.Region == Region.DefaultRegion);
+    }
+
   }
 }

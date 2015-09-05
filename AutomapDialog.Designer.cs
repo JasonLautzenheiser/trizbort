@@ -72,6 +72,7 @@ namespace Trizbort
             this.label4 = new System.Windows.Forms.Label();
             this.m_addObjectCommandTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.m_startFromEndCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -118,7 +119,7 @@ namespace Trizbort
             // 
             this.m_startButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_startButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.m_startButton.Location = new System.Drawing.Point(227, 328);
+            this.m_startButton.Location = new System.Drawing.Point(227, 351);
             this.m_startButton.Name = "m_startButton";
             this.m_startButton.Size = new System.Drawing.Size(116, 23);
             this.m_startButton.TabIndex = 7;
@@ -129,7 +130,7 @@ namespace Trizbort
             // 
             this.m_cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_cancelButton.Location = new System.Drawing.Point(349, 328);
+            this.m_cancelButton.Location = new System.Drawing.Point(349, 351);
             this.m_cancelButton.Name = "m_cancelButton";
             this.m_cancelButton.Size = new System.Drawing.Size(75, 23);
             this.m_cancelButton.TabIndex = 8;
@@ -140,7 +141,7 @@ namespace Trizbort
             // 
             this.m_singleStepCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.m_singleStepCheckBox.AutoSize = true;
-            this.m_singleStepCheckBox.Location = new System.Drawing.Point(12, 332);
+            this.m_singleStepCheckBox.Location = new System.Drawing.Point(12, 355);
             this.m_singleStepCheckBox.Name = "m_singleStepCheckBox";
             this.m_singleStepCheckBox.Size = new System.Drawing.Size(134, 17);
             this.m_singleStepCheckBox.TabIndex = 6;
@@ -186,19 +187,20 @@ namespace Trizbort
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.m_startFromEndCheckBox);
             this.groupBox1.Controls.Add(this.m_roomsWithSameNameAreSameRoomCheckBox);
             this.groupBox1.Controls.Add(this.m_verboseTranscriptCheckBox);
             this.groupBox1.Controls.Add(this.m_guessExitsCheckBox);
             this.groupBox1.Location = new System.Drawing.Point(16, 99);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(408, 95);
+            this.groupBox1.Size = new System.Drawing.Size(408, 116);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "&Options";
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label7);
@@ -207,7 +209,7 @@ namespace Trizbort
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.m_addObjectCommandTextBox);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(16, 204);
+            this.groupBox2.Location = new System.Drawing.Point(16, 227);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(408, 99);
             this.groupBox2.TabIndex = 5;
@@ -275,13 +277,25 @@ namespace Trizbort
             this.label3.TabIndex = 0;
             this.label3.Text = "At the in-game prompt:";
             // 
+            // m_startFromEndCheckBox
+            // 
+            this.m_startFromEndCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_startFromEndCheckBox.AutoSize = true;
+            this.m_startFromEndCheckBox.Location = new System.Drawing.Point(13, 91);
+            this.m_startFromEndCheckBox.Name = "m_startFromEndCheckBox";
+            this.m_startFromEndCheckBox.Size = new System.Drawing.Size(274, 17);
+            this.m_startFromEndCheckBox.TabIndex = 3;
+            this.m_startFromEndCheckBox.Text = "&Start processing from the end of the transcript file. ";
+            this.m_startFromEndCheckBox.UseVisualStyleBackColor = true;
+            // 
             // AutomapDialog
             // 
             this.AcceptButton = this.m_startButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.m_cancelButton;
-            this.ClientSize = new System.Drawing.Size(436, 363);
+            this.ClientSize = new System.Drawing.Size(436, 386);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.m_singleStepCheckBox);
@@ -330,5 +344,6 @@ namespace Trizbort
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox m_addRegionCommandTextBox;
+        private System.Windows.Forms.CheckBox m_startFromEndCheckBox;
     }
 }

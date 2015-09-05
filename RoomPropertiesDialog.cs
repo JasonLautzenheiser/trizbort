@@ -35,14 +35,15 @@ namespace Trizbort
     private const int HORIZONTAL_MARGIN = 2;
     private const int VERTICAL_MARGIN = 2;
     private const int WIDTH = 24;
-    private static Tab m_lastViewedTab = Tab.Objects;
-    private bool m_adjustingPosition;
+    private static Tab mLastViewedTab = Tab.Objects;
+    private bool mAdjustingPosition;
     private const string NO_COLOR_SET = "No Color Set";
 
     public RoomPropertiesDialog(PropertiesStartType start)
     {
       InitializeComponent();
 
+      
       // load regions control
       cboRegion.Items.Clear();
       foreach (var region in Settings.Regions.OrderBy(p => p.RegionName != Trizbort.Region.DefaultRegion).ThenBy(p => p.RegionName))
@@ -62,7 +63,7 @@ namespace Trizbort
       }
       else
       {
-        switch (m_lastViewedTab)
+        switch (mLastViewedTab)
         {
           case Tab.Objects:
             m_tabControl.SelectedTabIndex = 0;
@@ -80,6 +81,31 @@ namespace Trizbort
         
         if (start == PropertiesStartType.RoomName)
           txtName.Focus();
+      }
+    }
+
+    public bool RoundedCorners { get { return cboDrawType.SelectedItem == itemRoundedCorners; } set { if (value) cboDrawType.SelectedItem = itemRoundedCorners; } }
+    public bool Ellipse { get { return cboDrawType.SelectedItem == itemEllipse; } set { if (value) cboDrawType.SelectedItem = itemEllipse; } }
+    public bool StraightEdges { get { return cboDrawType.SelectedItem == itemStraightEdges; } set { if (value) cboDrawType.SelectedItem = itemStraightEdges; } }
+
+    public CornerRadii Corners
+    {
+      get
+      {
+        return new CornerRadii()
+        {
+          BottomLeft = txtBottomLeft.Value,
+          BottomRight = txtBottomRight.Value,
+          TopRight = txtTopRight.Value,
+          TopLeft = txtTopLeft.Value
+        };
+      }
+      set
+      {
+        txtBottomRight.Value = value.BottomRight;
+        txtTopLeft.Value = value.TopLeft;
+        txtBottomLeft.Value = value.BottomLeft;
+        txtTopRight.Value = value.TopRight;
       }
     }
 
@@ -120,7 +146,7 @@ namespace Trizbort
 
     public string RoomRegion
     {
-      get { return cboRegion.SelectedItem != null ? cboRegion.SelectedItem.ToString() : string.Empty; }
+      get { return cboRegion.SelectedItem?.ToString() ?? string.Empty; }
       set { cboRegion.SelectedItem = value; }
     }
 
@@ -365,26 +391,26 @@ namespace Trizbort
       switch (m_tabControl.SelectedTabIndex)
       {
         default:
-          m_lastViewedTab = Tab.Objects;
+          mLastViewedTab = Tab.Objects;
           break;
         case 1:
-          m_lastViewedTab = Tab.Description;
+          mLastViewedTab = Tab.Description;
           break;
         case 2:
-          m_lastViewedTab = Tab.Colors;
+          mLastViewedTab = Tab.Colors;
           break;
         case 3:
-          m_lastViewedTab = Tab.Regions;
+          mLastViewedTab = Tab.Regions;
           break;
       }
     }
 
     private void PositionCheckBox_CheckedChanged(object sender, EventArgs e)
     {
-      if (m_adjustingPosition)
+      if (mAdjustingPosition)
         return;
 
-      m_adjustingPosition = true;
+      mAdjustingPosition = true;
       try
       {
         var checkBox = (CheckBox) sender;
@@ -406,7 +432,7 @@ namespace Trizbort
       }
       finally
       {
-        m_adjustingPosition = false;
+        mAdjustingPosition = false;
       }
     }
 
@@ -649,5 +675,60 @@ namespace Trizbort
       m_changeRoomBorderButton.Focus();
     }
 
+    private void pnlSampleRoomShape_Paint(object sender, PaintEventArgs e)
+    {
+      var graph = pnlSampleRoomShape.CreateGraphics();
+      var path = new GraphicsPath();
+      var pen = new Pen(Color.Black,2.0f);
+
+      var rect = new RectangleF(10,10, 3 * Settings.GridSize, 2 * Settings.GridSize);
+
+      if (cboDrawType.SelectedItem == itemRoundedCorners)
+      {
+        var corners = new CornerRadii()
+        {
+          BottomLeft = txtBottomLeft.Value,
+          BottomRight = txtBottomRight.Value,
+          TopRight = txtTopRight.Value,
+          TopLeft = txtTopLeft.Value
+        };
+
+        path.AddArc(rect.X + rect.Width - ((float)corners.TopRight * 2), rect.Y, (float)corners.TopRight * 2, (float)corners.TopRight * 2, 270, 90);
+        path.AddArc(rect.X + rect.Width - ((float)corners.BottomRight * 2), rect.Y + rect.Height - ((float)corners.BottomRight * 2), (float)corners.BottomRight * 2, (float)corners.BottomRight * 2, 0, 90);
+        path.AddArc(rect.X, rect.Y + rect.Height - ((float)corners.BottomLeft * 2), (float)corners.BottomLeft * 2, (float)corners.BottomLeft * 2, 90, 90);
+        path.AddArc(rect.X, rect.Y, (float)corners.TopLeft * 2, (float)corners.TopLeft * 2, 180, 90);
+        path.CloseFigure();
+      }
+      else if (cboDrawType.SelectedItem == itemEllipse)
+      {
+        path.AddEllipse(new RectangleF(rect.X, rect.Y, rect.Width, rect.Height));
+      }
+      graph.DrawPath(pen,path);
+    }
+
+
+    private void redrawSampleOnChange(object sender, EventArgs e)
+    {
+      pnlSampleRoomShape.Invalidate();
+    }
+
+    private void cboDrawType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      if (cboDrawType.SelectedItem == itemEllipse)
+      {
+        groupRoundedCorners.Visible = false;
+      }
+      else if (cboDrawType.SelectedItem == itemRoundedCorners)
+      {
+        groupRoundedCorners.Location = new Point(8, 44);
+        groupRoundedCorners.Visible = true;
+      }
+      else
+      {
+        groupRoundedCorners.Visible = false;
+      }
+
+      pnlSampleRoomShape.Invalidate();
+    }
   }
 }

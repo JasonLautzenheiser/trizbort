@@ -25,6 +25,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Trizbort.Extensions;
 
 namespace Trizbort
 {
@@ -98,41 +99,10 @@ namespace Trizbort
 
     public static string SaveColor(Color colorAttribute)
     {
-      string rValue;
-      string gValue;
-      string bValue;
-
       if (colorAttribute == Color.Transparent)
-      {
-        return String.Empty;
-      }
+        return string.Empty;
 
-      if (colorAttribute.R < 16)
-      {
-        rValue = "0" + colorAttribute.R.ToString("X");
-      }
-      else
-      {
-        rValue = colorAttribute.R.ToString("X");
-      }
-      if (colorAttribute.G < 16)
-      {
-        gValue = "0" + colorAttribute.G.ToString("X");
-      }
-      else
-      {
-        gValue = colorAttribute.G.ToString("X");
-      }
-      if (colorAttribute.B < 16)
-      {
-        bValue = "0" + colorAttribute.B.ToString("X");
-      }
-      else
-      {
-        bValue = colorAttribute.B.ToString("X");
-      }
-
-      var colorValue = "#" + rValue + "" + gValue + "" + bValue;
+      var colorValue = colorAttribute.ToHex();
       return colorValue;
     }
   }

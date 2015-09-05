@@ -9,8 +9,12 @@ This software uses PdfSharp, copyright (c) 2005-2007 empira Software GmbH, Colog
 
 For the latest official Trizbort version:
 
-	http://github.com/genstein/trizbort
+	http://www.trizbort.com
 
 To contact the original author:
 
 	http://trizbort.genstein.net
+
+To contact the current maintainer of Trizbort:
+
+	http://lautzofif.wordpress.com

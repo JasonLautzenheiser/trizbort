@@ -83,6 +83,8 @@ namespace Trizbort
     public static ColorSettings Color { get; private set; }
     public static List<Region> Regions { get; private set; }
 
+    public static string DefaultRoomName { get; set; } = "Cave";
+
     public static Font LargeFont
     {
       get { return s_largeFont; }
@@ -445,6 +447,7 @@ namespace Trizbort
             s_automap.AssumeRoomsWithSameNameAreSameRoom = automap["assumeRoomsWithSameNameAreSameRoom"].ToBool(s_automap.AssumeRoomsWithSameNameAreSameRoom);
             s_automap.GuessExits = automap["guessExits"].ToBool(s_automap.GuessExits);
             s_automap.AddObjectCommand = automap["addObjectCommand"].ToText(s_automap.AddObjectCommand);
+            s_automap.AddRegionCommand = automap["addRegionCommand"].ToText(s_automap.AddRegionCommand);
           }
         }
       }
@@ -490,6 +493,7 @@ namespace Trizbort
           scribe.Element("assumeRoomsWithSameNameAreSameRoom", s_automap.AssumeRoomsWithSameNameAreSameRoom);
           scribe.Element("guessExits", s_automap.GuessExits);
           scribe.Element("addObjectCommand", s_automap.AddObjectCommand);
+          scribe.Element("addRegionCommand", s_automap.AddRegionCommand);
           scribe.EndElement();
         }
       }
@@ -557,6 +561,7 @@ namespace Trizbort
         dialog.Author = Project.Current.Author;
         dialog.Description = Project.Current.Description;
         dialog.History = Project.Current.History;
+        dialog.DefaultRoomName = DefaultRoomName;
         dialog.LargeFont = LargeFont;
         dialog.SmallFont = SmallFont;
         dialog.LineFont = LineFont;
@@ -584,6 +589,7 @@ namespace Trizbort
           Project.Current.Author = dialog.Author;
           Project.Current.Description = dialog.Description;
           Project.Current.History = dialog.History;
+          DefaultRoomName = dialog.DefaultRoomName;
           LargeFont = dialog.LargeFont;
           SmallFont = dialog.SmallFont;
           LineFont = dialog.LineFont;
@@ -675,6 +681,8 @@ namespace Trizbort
       }
       scribe.EndElement();
 
+
+
       // save fonts
       scribe.StartElement("fonts");
       SaveFont(scribe, s_largeFont, "room");
@@ -701,6 +709,7 @@ namespace Trizbort
       scribe.Element("objectListOffset", s_objectListOffsetFromRoom);
       scribe.Element("connectionStalkLength", s_connectionStalkLength);
       scribe.Element("preferredDistanceBetweenRooms", s_preferredDistanceBetweenRooms);
+      scribe.Element("defaultRoomName", DefaultRoomName);
       scribe.EndElement();
 
       scribe.StartElement("ui");
@@ -875,6 +884,7 @@ namespace Trizbort
       ObjectListOffsetFromRoom = element["rooms"]["objectListOffset"].ToFloat(s_objectListOffsetFromRoom);
       ConnectionStalkLength = element["rooms"]["connectionStalkLength"].ToFloat(s_connectionStalkLength);
       PreferredDistanceBetweenRooms = element["rooms"]["preferredDistanceBetweenRooms"].ToFloat(s_connectionStalkLength*2); // introduced in v1.2, hence default based on existing setting
+      DefaultRoomName = element["rooms"]["defaultRoomName"].Text;
 
       HandleSize = element["ui"]["handleSize"].ToFloat(s_handleSize);
       SnapToElementSize = element["ui"]["snapToElementSize"].ToFloat(s_snapToElementSize);

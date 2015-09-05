@@ -57,6 +57,7 @@ namespace Trizbort
                 settings.GuessExits = m_guessExitsCheckBox.Checked;
                 settings.AddObjectCommand = m_addObjectCommandTextBox.Text;
                 settings.AddRegionCommand = m_addRegionCommandTextBox.Text;
+                settings.ContinueTranscript = m_startFromEndCheckBox.Checked;
                 return settings;
             }
             set
@@ -69,6 +70,7 @@ namespace Trizbort
                 m_guessExitsCheckBox.Checked = value.GuessExits;
                 m_addObjectCommandTextBox.Text = value.AddObjectCommand;
                 m_addRegionCommandTextBox.Text = value.AddRegionCommand;
+                m_startFromEndCheckBox.Checked = value.ContinueTranscript;
             }
         }
 

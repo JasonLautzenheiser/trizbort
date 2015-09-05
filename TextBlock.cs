@@ -25,6 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using PdfSharp.Drawing;
 
@@ -97,9 +98,10 @@ namespace Trizbort
       }
 
       var state = graphics.Save();
+        var textRect = new RectangleF(pos.X, pos.Y, size.X, size.Y);
       if (size != Vector.Zero)
       {
-        graphics.IntersectClip(new RectangleF(pos.X, pos.Y, size.X, size.Y));
+        graphics.IntersectClip(textRect);
       }
 
       // disable smoothing whilst rendering text;
@@ -108,14 +110,15 @@ namespace Trizbort
       graphics.SmoothingMode = XSmoothingMode.HighSpeed;
 
       var origin = m_origin;
-      for (var index = 0; index < m_lines.Count; ++index)
-      {
+      foreach (string t in m_lines) {
         if (size.Y > 0 && size.Y < m_lineHeight)
           break; // not enough remaining vertical space for a whole line
 
-        var line = m_lines[index];
+        var line = t;
 
         graphics.SmoothingMode=XSmoothingMode.HighQuality;
+
+
         graphics.DrawString(line, font, brush, origin.X, origin.Y, m_actualFormat);
         origin += m_delta;
         size.Y -= m_lineHeight;
@@ -152,15 +155,41 @@ namespace Trizbort
 
         // measure a space, countering the APIs unwillingness to measure spaces
         var spaceLength = (float) (graphics.MeasureString("M M", font).Width - graphics.MeasureString("M", font).Width*2);
+        var hyphenLength = (float)(graphics.MeasureString("-", font).Width);
+
+        var wordsStep1 = new List<Word>();
+        foreach (var word in text.Split(new[] { " " },StringSplitOptions.RemoveEmptyEntries))
+        {
+          if (wordsStep1.Count != 0)
+          {
+            wordsStep1.Add(new Word(" ", spaceLength));
+          }
+          wordsStep1.Add(new Word(word, (float) graphics.MeasureString(word, font).Width));
+        }
 
         var words = new List<Word>();
-        foreach (var word in text.Split(' '))
-        {
-          if (words.Count != 0)
+        foreach (var splits in wordsStep1.Where(p => !string.IsNullOrWhiteSpace(p.Text)).Select(word => word.Text.Split('-'))) {
+          if (splits.Count() > 1)
           {
-            words.Add(new Word(" ", spaceLength));
+            var tWordList = new List<Word>();
+            foreach (var tWord in splits)
+            {
+              if (words.Count != 0 && tWordList.Count == 0)
+                tWordList.Add(new Word(" ", spaceLength));
+              else
+                if (tWordList.Count != 0)
+                  tWordList.Add(new Word("-", hyphenLength));
+
+              tWordList.Add(new Word(tWord, (float) graphics.MeasureString(tWord, font).Width));
+            }
+            words.AddRange(tWordList);
           }
-          words.Add(new Word(word, (float) graphics.MeasureString(word, font).Width));
+          else
+          {
+            if (words.Count != 0)
+              words.Add(new Word(" ", spaceLength));
+            words.Add(new Word(splits[0], (float)graphics.MeasureString(splits[0], font).Width));
+          }
         }
 
         var lineLength = 0.0f;

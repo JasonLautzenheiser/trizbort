@@ -403,7 +403,7 @@ namespace Trizbort
       {
         savePDF(pdfFile);
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         return string.Empty;
       }
@@ -557,6 +557,12 @@ namespace Trizbort
       }
     }
 
+    private void inform7ToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      ExportCode<Inform7Exporter>();
+    }
+
+
     private void FileExportInform6MenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportInform6FileName;
@@ -566,12 +572,45 @@ namespace Trizbort
       }
     }
 
+    private void inform6ToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      ExportCode<Inform6Exporter>();
+    }
+
+    private void zILToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      var fileName = Settings.LastExportTadsFileName;
+      if (ExportCode<ZilExporter>(ref fileName))
+      {
+        Settings.LastExportTadsFileName = fileName;
+      }
+    }
+
+    private void zILToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      ExportCode<ZilExporter>();
+    }
+
     private void FileExportTadsMenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportTadsFileName;
       if (ExportCode<TadsExporter>(ref fileName))
       {
         Settings.LastExportTadsFileName = fileName;
+      }
+    }
+
+    private void tADSToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      ExportCode<TadsExporter>();
+    }
+
+    private void ExportCode<T>() where T: CodeExporter, new()
+    {
+      using (var exporter = new T())
+      {
+        string s = exporter.Export();
+        Clipboard.SetText(s,TextDataFormat.Text);
       }
     }
 
@@ -754,10 +793,21 @@ namespace Trizbort
       m_editSelectAllMenuItem.Enabled = Canvas.SelectedElementCount < Project.Current.Elements.Count;
       m_editCopyMenuItem.Enabled = Canvas.SelectedElement != null;
       m_editCopyColorToolMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
-      m_editPasteMenuItem.Enabled = (!String.IsNullOrEmpty(Clipboard.GetText())) && ((Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Elements") || (Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Colors"));
+      m_editPasteMenuItem.Enabled = (!string.IsNullOrEmpty(Clipboard.GetText()) && ((Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Elements") || (Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Colors")));
       m_editRenameMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
       m_editIsDarkMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
-      m_editIsDarkMenuItem.Checked = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room) && ((Room) Canvas.SelectedElement).IsDark;
+      m_editIsDarkMenuItem.Checked = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room) && ((Room)Canvas.SelectedElement).IsDark;
+      m_editRenameMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
+      joinRoomsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+      swapObjectsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+      swapNamesToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+      swapFormatsFillsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+      swapRegionsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+
+        m_editChangeRegionMenuItem.Enabled = (Canvas.SelectedRooms.Any());
+      handDrawnToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
+      ellipseToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
+      roundedEdgesToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
       m_reverseLineMenuItem.Enabled = Canvas.HasSelectedElement<Connection>();
 
       // automapping
@@ -771,8 +821,6 @@ namespace Trizbort
 
       UpdateToolStripImages();
       Canvas.UpdateScrollBars();
-
-      Debug.WriteLine(Canvas.Focused ? "Focused!" : "NOT FOCUSED");
     }
 
     private void FileRecentProject_Click(object sender, EventArgs e)
@@ -838,13 +886,8 @@ namespace Trizbort
 
     private void EditIsDarkMenuItem_Click(object sender, EventArgs e)
     {
-      foreach (var element in Canvas.SelectedElements)
-      {
-        if (element is Room)
-        {
-          var room = (Room) element;
-          room.IsDark = !room.IsDark;
-        }
+      foreach (var room in Canvas.SelectedRooms) {
+        room.IsDark = !room.IsDark;
       }
     }
 
@@ -866,7 +909,7 @@ namespace Trizbort
     {
       try
       {
-        Process.Start("http://trizbort.genstein.net/?help");
+        Process.Start("http://www.trizbort.com/Docs/index.shtml");
       }
       catch (Exception)
       {
@@ -923,22 +966,20 @@ namespace Trizbort
         m_fileExportInform7MenuItem.Enabled = true;
         m_fileExportInform6MenuItem.Enabled = true;
         m_fileExportTADSMenuItem.Enabled = true;
+        zILToolStripMenuItem.Enabled = true;
       }
       else
       {
         m_fileExportInform7MenuItem.Enabled = false;
         m_fileExportInform6MenuItem.Enabled = false;
         m_fileExportTADSMenuItem.Enabled = false;
+        zILToolStripMenuItem.Enabled = false;
       }
     }
 
     private void setupMRUMenu()
     {
-      var existingItems = new List<ToolStripItem>();
-      foreach (ToolStripItem existingItem in m_fileRecentMapsMenuItem.DropDownItems)
-      {
-        existingItems.Add(existingItem);
-      }
+      var existingItems = m_fileRecentMapsMenuItem.DropDownItems.Cast<ToolStripItem>().ToList();
       foreach (var existingItem in existingItems)
       {
         existingItem.Click -= FileRecentProject_Click;
@@ -957,8 +998,7 @@ namespace Trizbort
         {
           if (File.Exists(recentProject))
           {
-            var menuItem = new ToolStripMenuItem(string.Format("&{0} {1}", index++, recentProject));
-            menuItem.Tag = recentProject;
+            var menuItem = new ToolStripMenuItem($"&{index++} {recentProject}") {Tag = recentProject};
             menuItem.Click += FileRecentProject_Click;
             m_fileRecentMapsMenuItem.DropDownItems.Add(menuItem);
           }
@@ -1028,6 +1068,104 @@ namespace Trizbort
     {
       if (txtZoom.Value <= 0) txtZoom.Value = 10;
       Canvas.ChangeZoom((float)Convert.ToDouble(txtZoom.Value) / 100.0f);
+    }
+
+    private void mapStatisticsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      var frm = new MapStatisticsView();
+      frm.ShowDialog();
+    }
+
+    private void selectAllRoomsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectAllRooms();
+    }
+
+    private void selectedUnconnectedRoomsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectAllUnconnectedRooms();
+    }
+
+    private void selectAllConnectionsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectAllConnections();
+    }
+
+    private void selectDanglingConnectionsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectDanglingConnections();
+    }
+
+    private void selectSelfLoopingConnectionsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectSelfLoopingConnections();
+    }
+
+    private void selectRoomsWObjectsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectRoomsWithObjects();
+    }
+
+    private void selectRoomsWoObjectsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SelectRoomsWithoutObjects();
+    }
+
+    private void toggleTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.ToggleText();
+    }
+
+    private void handDrawnToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      foreach (var room in Canvas.SelectedRooms)
+      {
+        room.Shape = RoomShape.SquareCorners;
+      }
+      Invalidate();
+    }
+
+    private void ellipseToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      foreach (var room in Canvas.SelectedRooms)
+      {
+        room.Shape = RoomShape.Ellipse;
+      }
+      Invalidate();
+    }
+
+    private void roundedEdgesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      foreach (var room in Canvas.SelectedRooms)
+      {
+        room.Shape = RoomShape.RoundedCorners;
+      }
+      Invalidate();
+    }
+
+    private void joinRoomsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.JoinSelectedRooms(Canvas.SelectedRooms.First(), Canvas.SelectedRooms.Last());
+    }
+
+    private void swapObjectsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SwapRooms();
+    }
+
+    private void swapNamesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SwapRoomNames();
+    }
+
+    private void swapFormatsFillsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SwapRoomFill();
+    }
+
+    private void swapRegionsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Canvas.SwapRoomRegions();
     }
   }
 }

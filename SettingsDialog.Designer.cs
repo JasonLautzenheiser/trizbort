@@ -74,6 +74,8 @@ namespace Trizbort
       this.label6 = new System.Windows.Forms.Label();
       this.m_gridSizeUpDown = new System.Windows.Forms.NumericUpDown();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.txtDefaultRoomName = new System.Windows.Forms.TextBox();
+      this.label20 = new System.Windows.Forms.Label();
       this.label34 = new System.Windows.Forms.Label();
       this.m_objectListOffsetFromRoomNumericUpDown = new System.Windows.Forms.NumericUpDown();
       this.label13 = new System.Windows.Forms.Label();
@@ -455,16 +457,38 @@ namespace Trizbort
       // 
       this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+      this.groupBox1.Controls.Add(this.txtDefaultRoomName);
+      this.groupBox1.Controls.Add(this.label20);
       this.groupBox1.Controls.Add(this.label34);
       this.groupBox1.Controls.Add(this.m_objectListOffsetFromRoomNumericUpDown);
       this.groupBox1.Controls.Add(this.label13);
       this.groupBox1.Controls.Add(this.m_darknessStripeSizeNumericUpDown);
       this.groupBox1.Location = new System.Drawing.Point(5, 6);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(343, 72);
+      this.groupBox1.Size = new System.Drawing.Size(343, 96);
       this.groupBox1.TabIndex = 0;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "&Room";
+      // 
+      // txtDefaultRoomName
+      // 
+      this.txtDefaultRoomName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtDefaultRoomName.BackColor = System.Drawing.SystemColors.Window;
+      this.txtDefaultRoomName.Location = new System.Drawing.Point(242, 64);
+      this.txtDefaultRoomName.Name = "txtDefaultRoomName";
+      this.txtDefaultRoomName.Size = new System.Drawing.Size(95, 21);
+      this.txtDefaultRoomName.TabIndex = 5;
+      // 
+      // label20
+      // 
+      this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.label20.AutoSize = true;
+      this.label20.Location = new System.Drawing.Point(143, 68);
+      this.label20.Name = "label20";
+      this.label20.Size = new System.Drawing.Size(97, 13);
+      this.label20.TabIndex = 4;
+      this.label20.Text = "Default Room &Text";
       // 
       // label34
       // 
@@ -480,7 +504,7 @@ namespace Trizbort
       // 
       this.m_objectListOffsetFromRoomNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.m_objectListOffsetFromRoomNumericUpDown.DecimalPlaces = 1;
-      this.m_objectListOffsetFromRoomNumericUpDown.Location = new System.Drawing.Point(242, 41);
+      this.m_objectListOffsetFromRoomNumericUpDown.Location = new System.Drawing.Point(242, 39);
       this.m_objectListOffsetFromRoomNumericUpDown.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -510,7 +534,7 @@ namespace Trizbort
       // 
       this.m_darknessStripeSizeNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.m_darknessStripeSizeNumericUpDown.DecimalPlaces = 1;
-      this.m_darknessStripeSizeNumericUpDown.Location = new System.Drawing.Point(242, 15);
+      this.m_darknessStripeSizeNumericUpDown.Location = new System.Drawing.Point(242, 13);
       this.m_darknessStripeSizeNumericUpDown.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -977,7 +1001,7 @@ namespace Trizbort
       this.groupBox2.Controls.Add(this.m_snapToElementDistanceUpDown);
       this.groupBox2.Controls.Add(this.label2);
       this.groupBox2.Controls.Add(this.m_handleSizeUpDown);
-      this.groupBox2.Location = new System.Drawing.Point(5, 84);
+      this.groupBox2.Location = new System.Drawing.Point(5, 108);
       this.groupBox2.Name = "groupBox2";
       this.groupBox2.Size = new System.Drawing.Size(343, 101);
       this.groupBox2.TabIndex = 1;
@@ -1191,5 +1215,7 @@ namespace Trizbort
         private System.Windows.Forms.Label label19;
         private DevComponents.DotNetBar.PropertySettings propertySettings1;
         private DevComponents.DotNetBar.SuperTooltip superTooltip1;
-    }
+    private System.Windows.Forms.TextBox txtDefaultRoomName;
+    private System.Windows.Forms.Label label20;
+  }
 }

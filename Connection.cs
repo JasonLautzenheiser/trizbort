@@ -30,6 +30,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
+using Trizbort.Extensions;
 
 namespace Trizbort
 {
@@ -567,7 +568,7 @@ namespace Trizbort
         format.LineAlignment = XLineAlignment.Near;
       }
       if (!Settings.DebugDisableTextRendering)
-        text.Draw(graphics, Settings.LineFont, palette.LineBrush, pos, Vector.Zero, format);
+        text.Draw(graphics, Settings.LineFont, palette.LineTextBrush, pos, Vector.Zero, format);
     }
 
     public override Rect UnionBoundsWith(Rect rect, bool includeMargins)
@@ -615,6 +616,7 @@ namespace Trizbort
     {
       return false;
     }
+
 
     public override float Distance(Vector pos, bool includeMargins)
     {
@@ -809,6 +811,18 @@ namespace Trizbort
       RaiseChanged();
     }
 
+    public Room GetSourceRoom()
+    {
+      CompassPoint t;
+      return GetSourceRoom(out t);
+    }
+
+    public Room GetTargetRoom()
+    {
+      CompassPoint t;
+      return GetTargetRoom(out t);
+    }
+    
     public Room GetSourceRoom(out CompassPoint sourceCompassPoint)
     {
       if (m_vertexList.Count > 0)
@@ -824,6 +838,7 @@ namespace Trizbort
       sourceCompassPoint = CompassPoint.North;
       return null;
     }
+
 
     public Room GetTargetRoom(out CompassPoint targetCompassPoint)
     {
@@ -870,6 +885,8 @@ namespace Trizbort
           clipboardText += "default" + ":";
           break;
       }
+
+      clipboardText += ConnectionColor.ToHex() + ":";
 
       clipboardText += StartText + ":";
       clipboardText += MidText + ":";

@@ -26,9 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using PdfSharp.Pdf.Annotations;
 
 namespace Trizbort
 {
@@ -39,12 +37,11 @@ namespace Trizbort
     private const int WIDTH = 24;
     private readonly TextBox editBox;
     private int itemSelected;
-    private ListBox listBox;
-    private Font m_largeFont;
-    private Font m_lineFont;
-    private Font m_smallFont;
-    private bool bUpdatingRegionText = false;
-    Region m_currentRegion;
+    private Font mLargeFont;
+    private Font mLineFont;
+    private Font mSmallFont;
+    private bool bUpdatingRegionText;
+    Region mCurrentRegion;
 
     public SettingsDialog()
     {
@@ -99,39 +96,45 @@ namespace Trizbort
       set { m_historyTextBox.Text = value; }
     }
 
-    public Color[] Color { get; private set; }
-    public List<Region> Regions { get; private set; }
+    public Color[] Color { get; }
+    public List<Region> Regions { get; }
+
+    public string DefaultRoomName
+    {
+      get { return txtDefaultRoomName.Text; }
+      set { txtDefaultRoomName.Text = value; }
+    }
 
     public Font LargeFont
     {
-      get { return m_largeFont; }
+      get { return mLargeFont; }
       set
       {
-        m_largeFont = value;
-        m_largeFontNameTextBox.Text = Drawing.FontName(m_largeFont);
-        m_largeFontSizeTextBox.Text = ((int)Math.Round(m_largeFont.Size)).ToString();
+        mLargeFont = value;
+        m_largeFontNameTextBox.Text = Drawing.FontName(mLargeFont);
+        m_largeFontSizeTextBox.Text = ((int)Math.Round(mLargeFont.Size)).ToString();
       }
     }
 
     public Font SmallFont
     {
-      get { return m_smallFont; }
+      get { return mSmallFont; }
       set
       {
-        m_smallFont = value;
-        m_smallFontNameTextBox.Text = Drawing.FontName(m_smallFont);
-        m_smallFontSizeTextBox.Text = ((int)Math.Round(m_smallFont.Size)).ToString();
+        mSmallFont = value;
+        m_smallFontNameTextBox.Text = Drawing.FontName(mSmallFont);
+        m_smallFontSizeTextBox.Text = ((int)Math.Round(mSmallFont.Size)).ToString();
       }
     }
 
     public Font LineFont
     {
-      get { return m_lineFont; }
+      get { return mLineFont; }
       set
       {
-        m_lineFont = value;
-        m_lineFontNameTextBox.Text = Drawing.FontName(m_lineFont);
-        m_lineFontSizeTextBox.Text = ((int)Math.Round(m_lineFont.Size)).ToString();
+        mLineFont = value;
+        m_lineFontNameTextBox.Text = Drawing.FontName(mLineFont);
+        m_lineFontSizeTextBox.Text = ((int)Math.Round(mLineFont.Size)).ToString();
       }
     }
 
@@ -338,7 +341,7 @@ namespace Trizbort
       while (Regions.Exists(p=>p.RegionName.Equals(newRegionName,StringComparison.OrdinalIgnoreCase)))
       {
         num++;
-        newRegionName = string.Format("Region{0}", num);
+        newRegionName = $"Region{num}";
       }
       
       return newRegionName;
@@ -386,7 +389,6 @@ namespace Trizbort
 
     private void createEditBox(object sender)
     {
-      listBox = (ListBox)sender;
       itemSelected = m_RegionListing.SelectedIndex;
 
       if (m_RegionListing.Items[itemSelected].ToString() == Trizbort.Region.DefaultRegion) return;
@@ -452,9 +454,9 @@ namespace Trizbort
 
     private bool regionAlreadyExists(string pNew)
     {
-      if (Regions.Any(p => p != m_currentRegion && p.RegionName.Equals(pNew,StringComparison.OrdinalIgnoreCase) ))
+      if (Regions.Any(p => p != mCurrentRegion && p.RegionName.Equals(pNew,StringComparison.OrdinalIgnoreCase) ))
       {
-        MessageBox.Show(string.Format("A Region already exists with the name '{0}'", pNew));
+        MessageBox.Show($"A Region already exists with the name '{pNew}'");
         return true;
       }
       return false;
@@ -510,7 +512,7 @@ namespace Trizbort
 
     private void m_RegionListing_SelectedIndexChanged(object sender, EventArgs e)
     {
-      m_currentRegion = m_RegionListing.SelectedItem == null ? null : Regions.Find(p => p.RegionName == m_RegionListing.SelectedItem.ToString());
+      mCurrentRegion = m_RegionListing.SelectedItem == null ? null : Regions.Find(p => p.RegionName == m_RegionListing.SelectedItem.ToString());
 
       if (m_RegionListing.SelectedItem == null || m_RegionListing.SelectedItem.ToString() == Trizbort.Region.DefaultRegion)
         btnDeleteRegion.Enabled = false;

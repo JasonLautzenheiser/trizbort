@@ -1,181 +1,247 @@
 Change Log
 
+1.5.9.2
+-------------
+BUG: Fix crash when adding a room when an unconnected connection is selected, now adds a connection onto the end.
+BUG: Fix issue when changing default connection color and then reload map would change connections to light blue.
+BUG: Properties menu was not available in context menu on connection.
+ENH: Enhanced the port calc code so they are more evenly spaced on ellipse and rounded rooms.
+ENH: Stats list # of rooms without a region.
+ENH: Add ability to change the default room name from "Cave"
+CHG: Minor formatting changes on stats.
+ZIL exporter tweaks (Thanks to Jesse McGrew)
+-- Update main loop so M-END doesn't run for meta verbs.
+-- Escape contents of strings.
+-- Export history (creating an ABOUT verb).
+-- Don't write empty room descriptions.
+-- Use a PER routine for conditional exits.
+-- Set object SYNONYM and ADJECTIVE separately.
+-- Fix spacing/style nits.
+
+1.5.9.1
+-------------
+BUG: Fix issue with multicolored rooms not showing more than one color.
+BUG: Fix the room dialog that would not allow rounded room radius below 15 (valid range is 1-30)
+
+1.5.9.0
+-------------
+ENH: Allow other room shapes.  Ctrl-R for rounded edges, Ctrl-E for elliptical shape, Ctrl-H to toggle hand drawn and straight lines on an individual room.
+ENH: Broke out the Rooms and Connections menu items from Edit into their own main level menus.
+ENH: Enhanced the context menu for a room with much of the room editing items added in the last few versions.
+ENH: Cleaned up context menu for connections
+ENH: Cleaned up context menu for the map canvas.
+BUG: Regions weren't respecting reserved words when exporting to I7
+Some code refactoring
+
+1.5.8.11
+-------------
+ENH: ZIL export now handles objects and various flag settings.
+
+1.5.8.10
+-------------
+CHANGE: Now use some C# 6.0 syntax features. Potentially breaking change in code.
+ENH: text now wraps on dashes as well as spaces (example room names) #73
+ENH: Add menu item to redact text (Ctrl-F4 already an option)  - #71
+COSMETIC: Change link to online help to point to new help text - #74
+ENH: History text in map settings will generate an "about" command when exporting to code. (currently only in I7 and Tads3)
+ENH: Start of ZIL Export.
+
+1.5.8.9
+-------------
+ENH: beginning of some map statistics.
+ENH: swap room names with ctrl-W, swap formats/fills with shift-W, swap regions with alt-W  #49
+ENH: automapper does a bit of a better job of ignoring the game title (still not 100%)
+ENH: Automap now handles rooms with () a bit better.
+ENH: added a Edit->Select Special with sub menu to allow for smart selection of different elements.
+FIX: setting a connection to plain (P),  now sets the color back to default and removes the middle text if any
+FIX: copy/paste was broken
+
+1.5.8.8
+-------------
+ENH: Added ability to export source (I7, I6, and TADS) to the clipboard.  Menu items under export as well as keystrokes (Ctrl-Alt-7, Ctrl-Alt-6, Ctrl-Alt-T)
+ENH: Added feature for swapping objects in two selected rooms. (Select two rooms, hit 'W')
+ENH: checkbox in automap settings to start processing from end of transcript.  This gives the ability to restart an existing transcript / map where you left off last time (from Matt Watkins)
+ENH: automap can now process multiword special commands (default to 'tb see' and 'tb region').  gives better flexibilty and should better help some keyword collisions with certian games (from Matt Watkins)
+ENH: cleaning up automap code, providing better error messages for certain situations. (from Matt Watkins)
+ENH: Samples folder now contain many maps of real games
+ENH: documentation updated.
+
 1.5.8.7
 -------------
-++ now allows for rooms without borders
-++ fixed connection coloring issue
-++ lots of bugs.
-++ handle undo with automapping (from Mr Shifty)
+ENH: now allows for rooms without borders
+ENH: fixed connection coloring issue
+ENH: lots of bugs.
+ENH: handle undo with automapping (from Mr Shifty)
 
 1.5.8.6
 -------------
-++ allow for individual connection coloring.
-++ allow for individual rooms to have different room border styles.
+ENH: allow for individual connection coloring.
+ENH: allow for individual rooms to have different room border styles.
 
 1.5.8.5 - Public Release
 -------------
--- fixed issue with zoom text box exception if value is 0.
+FIX: fixed issue with zoom text box exception if value is 0.
 
 1.5.8.4
 -------------
--- fixed bug with coloring of white rooms on files saved with older versions of trizbort.
+FIX: fixed bug with coloring of white rooms on files saved with older versions of trizbort.
 
 1.5.8.3
 -------------
-++ added zoom textbox for fine tuning in status bar.
-++ Changed the room color selector to default to transparent...this allows for the color white to be selected as a valid color.
-++ added additional 2nd fill color styles (BottomLeft, Left, TopLeft, Top)
--- fixed issue with room object arrows so only one could be selected.
+ENH: added zoom textbox for fine tuning in status bar.
+ENH: Changed the room color selector to default to transparent...this allows for the color white to be selected as a valid color.
+ENH: added additional 2nd fill color styles (BottomLeft, Left, TopLeft, Top)
+FIX: fixed issue with room object arrows so only one could be selected.
 
 1.5.8.2
 -------------
-++ dark color tab is now adjusted automatically if it is too close in color to the region color.
-++ In/Out and Up/Down should now be processed correctly when exporting to code.
-++ add room subtitles
-++ Adding a room between two rooms when connection is selected now keeps region if both rooms are the same region.
--- minor misc bugs and UX improvements
+ENH: dark color tab is now adjusted automatically if it is too close in color to the region color.
+ENH: In/Out and Up/Down should now be processed correctly when exporting to code.
+ENH: add room subtitles
+ENH: Adding a room between two rooms when connection is selected now keeps region if both rooms are the same region.
+FIX: minor misc bugs and UX improvements
 
 
 1.5.8.1
 -------------
-++ added some smart save options to allow selection of what to save.
-++ Fixed up keystrokes to be a little more intuitive to keyboard users in the room properties dialog.
--- fixed old bug where if the room was a non-standard size, it didn't center on the mouse properly when adding a new room.
--- fixed color display on selected rooms when object text was inside the room.
--- fixed exception during copy / paste of multiple rooms and connections.
--- F11 would crash the app if automapping was not turned on.
--- Ctrl-F4 (debugging keystroke) will disable all text on the map.
--- widened the region listbox to workaround a bug with listbox control hiding long names for owner-drawn listbox items.
+ENH: added some smart save options to allow selection of what to save.
+ENH: Fixed up keystrokes to be a little more intuitive to keyboard users in the room properties dialog.
+FIX: fixed old bug where if the room was a non-standard size, it didn't center on the mouse properly when adding a new room.
+FIX: fixed color display on selected rooms when object text was inside the room.
+FIX: fixed exception during copy / paste of multiple rooms and connections.
+FIX: F11 would crash the app if automapping was not turned on.
+FIX: Ctrl-F4 (debugging keystroke) will disable all text on the map.
+FIX: widened the region listbox to workaround a bug with listbox control hiding long names for owner-drawn listbox items.
 
 1.5.8.0
 -------------
-++ Insert a room between two other connected rooms.
-++ updates to context menu.
-++ made the focus after deleting a region make more sense.
-++ ability to resize multiple rooms at once with keyboard
--- Fixed tooltip positions based on room so they don't overlap.
--- fixed tab ordering of app settings.
+ENH: Insert a room between two other connected rooms.
+ENH: updates to context menu.
+ENH: made the focus after deleting a region make more sense.
+ENH: ability to resize multiple rooms at once with keyboard
+FIX: Fixed tooltip positions based on room so they don't overlap.
+FIX: fixed tab ordering of app settings.
 
 
 1.5.7.1 - Public Release
 -------------
-++ add version number to the saved trizbort files.
+ENH: add version number to the saved trizbort files.
 
 1.5.7.0
 -------------
 Bug
--- double quotes are converted to single quotes in region names to fix I7 export issue (TRIZ-84)
--- Colons are disallowed in region names (TRIZ-85)
--- Line is left selected after it is drawn (TRIZ-88)
--- blank region name is disallowed (TRIZ-98)
--- in region setup, the focus is handled more intuitively when creating regions (TRIZ-103)
--- Ctrl-Arrow for new room / passage preserves the current line style (TRIZ-104)
--- Can't export an empty map to code. (TRIZ-115)
--- fixed a null reference exception that sometimes occurred when changing a regions properties (TRIZ-113)
--- user could leave the default graphic format blank which caused issues when smartsaving (TRIZ-98)
--- region names now default properly on older files (TRIZ-116)
--- underscores not allowed in region names (TRIZ-117)
+FIX: double quotes are converted to single quotes in region names to fix I7 export issue (TRIZ-84)
+FIX: Colons are disallowed in region names (TRIZ-85)
+FIX: Line is left selected after it is drawn (TRIZ-88)
+FIX: blank region name is disallowed (TRIZ-98)
+FIX: in region setup, the focus is handled more intuitively when creating regions (TRIZ-103)
+FIX: Ctrl-Arrow for new room / passage preserves the current line style (TRIZ-104)
+FIX: Can't export an empty map to code. (TRIZ-115)
+FIX: fixed a null reference exception that sometimes occurred when changing a regions properties (TRIZ-113)
+FIX: user could leave the default graphic format blank which caused issues when smartsaving (TRIZ-98)
+FIX: region names now default properly on older files (TRIZ-116)
+FIX: underscores not allowed in region names (TRIZ-117)
+FIX: the UI to indicated selected rooms is much more noticable now. (TRIZ-126)
+FIX: Better handles the saving of the trizbort file during smartsave (TRIZ-95)
 
 Cosmetics
-== the UI to indicated selected rooms is much more noticable now. (TRIZ-126)
-== renamed Tools: Restore default settings to make more sense now (TRIZ-109)
-== F2/Rename has been moved in menu to be grouped better (TRIZ-57)
-== Better handles the saving of the trizbort file during smartsave (TRIZ-95)
+COS: renamed Tools: Restore default settings to make more sense now (TRIZ-109)
+COS: F2/Rename has been moved in menu to be grouped better (TRIZ-57)
 
 Feature
-++ Ctrl-Shift-A will now select all rooms with the same region as the currently selected rooms (TRIZ-91)
-++ Ctrl-Alt-Arrow to resize rooms (TRIZ-114)
-++ Menu Shortcut keys to export maps to source (TRIZ-125)
-++ Properties is now on the context menu (TRIZ-127)
-++ When room(s) are selected, the arrow keys move the rooms and not the map (TRIZ-128)
+ENH: Ctrl-Shift-A will now select all rooms with the same region as the currently selected rooms (TRIZ-91)
+ENH: Ctrl-Alt-Arrow to resize rooms (TRIZ-114)
+ENH: Menu Shortcut keys to export maps to source (TRIZ-125)
+ENH: Properties is now on the context menu (TRIZ-127)
+ENH: When room(s) are selected, the arrow keys move the rooms and not the map (TRIZ-128)
 
 
 1.5.6.3 - Public Release
 -------------
--- fixed issue with region names and certain characters that would throw error when saving...now works like room names (TRIZ-80)
-++ Regions are now alphabetized (TRIZ-78)
--- another small issue with case sensitivity and adding regions names.  (TRIZ-77)
+FIX: fixed issue with region names and certain characters that would throw error when saving...now works like room names (TRIZ-80)
+ENH: Regions are now alphabetized (TRIZ-78)
+FIX: another small issue with case sensitivity and adding regions names.  (TRIZ-77)
 
 1.5.6.2
 -------------
-++ Ctrl-Arrow when creating new room, now keeps the starting rooms region.  (TRIZ-46)
--- Auto naming issue when large number of regions (TRIZ-51)
--- Map Settings / Region tab, UI is friendlier (TRIZ-52, TRIZ-53)
--- Dark room toggle in menu is no longer enabled when a line has the focus.  (TRIZ-60)
-++ exporting an image without an extension and "All Files" selected will now use the default image type. (TRIZ-70)
--- fixed a few issues with the save dialog not remembering directories (TRIZ-72)
--- odd issue where disabling the Delete Region button was not working for certain files is fixed (TRIZ-73)
--- The Recent Maps menu item handles moved / deleted maps better. (TRIZ-75)
--- Export to Inform 7
----- Regions now handle the case insensitivty of Inform7 better. (TRIZ-50)  
----- Changes the syntax of the I7 output to handle regions that start with "The" (TRIZ-56)
----- Blank room names are handled more consistantly (includes I6 and TADS) (TRIZ-61)
----- Objects that have the same name as a room are now handled (TRIZ-62)
+ENH: Ctrl-Arrow when creating new room, now keeps the starting rooms region.  (TRIZ-46)
+FIX: Auto naming issue when large number of regions (TRIZ-51)
+FIX: Map Settings / Region tab, UI is friendlier (TRIZ-52, TRIZ-53)
+FIX: Dark room toggle in menu is no longer enabled when a line has the focus.  (TRIZ-60)
+ENH: exporting an image without an extension and "All Files" selected will now use the default image type. (TRIZ-70)
+FIX: fixed a few issues with the save dialog not remembering directories (TRIZ-72)
+FIX: odd issue where disabling the Delete Region button was not working for certain files is fixed (TRIZ-73)
+FIX: The Recent Maps menu item handles moved / deleted maps better. (TRIZ-75)
+FIX: Export to Inform 7
+FIX: Regions now handle the case insensitivty of Inform7 better. (TRIZ-50)  
+FIX: Changes the syntax of the I7 output to handle regions that start with "The" (TRIZ-56)
+FIX: Blank room names are handled more consistantly (includes I6 and TADS) (TRIZ-61)
+FIX: Objects that have the same name as a room are now handled (TRIZ-62)
 
 1.5.6.1
 -------------
-TRIZ-43 — Should we be allowed to change NoRegion "region" name?
-TRIZ-44 — Changing region name with "change" button allows duplicate region names
-TRIZ-45 — Should we grey out "delete region" for no region?
+FIX: TRIZ-43 — Should we be allowed to change NoRegion "region" name?
+FIX: TRIZ-44 — Changing region name with "change" button allows duplicate region names
+FIX: TRIZ-45 — Should we grey out "delete region" for no region?
 
 1.5.6.0
 -------------
-++ item text inside a colored region uses the room text color.
+ENH: item text inside a colored region uses the room text color.
 
 1.5.5.0
 -------------
-++ Ctrl-Arrow keys will create room in that cardinal direction from the current room.  This just seemed natural.  Numpad Ctrl-Arrow keys still work (and only way to do diagonals)
-++ Regions are now supported in the export to Inform 7
-++ Automap feature now has a special "region" command to add a region from a transcript.
-++ Select two rooms, hit 'J' and they are combined in a sensible way based on positioning.
-++ Tooltips added when hovering over objects on the canvas.
+ENH: Ctrl-Arrow keys will create room in that cardinal direction from the current room.  This just seemed natural.  Numpad Ctrl-Arrow keys still work (and only way to do diagonals)
+ENH: Regions are now supported in the export to Inform 7
+ENH: Automap feature now has a special "region" command to add a region from a transcript.
+ENH: Select two rooms, hit 'J' and they are combined in a sensible way based on positioning.
+ENH: Tooltips added when hovering over objects on the canvas.
 
 1.5.4.0
 -------------
--- fixed bug that the copy feature was not copying the region.
--- fixed bug that would crash Trizbort if the PDF was opened when trying to export to PDF (or SmartSave)
--- a new region text color now defaulted to text color in settings.
--- when saving a map to an image, there is a app setting that will ignore the zoom level and save at 100%
-++ added a small zoom indicator to the map.
+FIX: fixed bug that the copy feature was not copying the region.
+FIX: fixed bug that would crash Trizbort if the PDF was opened when trying to export to PDF (or SmartSave)
+FIX: a new region text color now defaulted to text color in settings.
+FIX: when saving a map to an image, there is a app setting that will ignore the zoom level and save at 100%
+ENH: added a small zoom indicator to the map.
 
 1.5.3.0
 -------------
--- fixed issue where going to a new file didn't clear out the prior maps regions
--- fixed issue where selecting multiple rooms wasn't being visually indicated.  It used to indicate by changing the fill color of the room, but I now just change the border color to the select line color in the settings.
-++ Added a right-click context menu.  Currently can change region of room and can change the dark status (works on multiple selected rooms)
+FIX: fixed issue where going to a new file didn't clear out the prior maps regions
+FIX: fixed issue where selecting multiple rooms wasn't being visually indicated.  It used to indicate by changing the fill color of the room, but I now just change the border color to the select line color in the settings.
+ENH: Added a right-click context menu.  Currently can change region of room and can change the dark status (works on multiple selected rooms)
 
 1.5.2.0
 -------------
-++ Allow user to change the region text color.
+ENH: Allow user to change the region text color.
 
 1.5.1.0
 -------------
-++ show filenames that are saved during the SmartSave
-++ more reliable way to choose filenames for SmartSave, should fix the occasional issue where if two instances of Trizbort open, the filenames could get confused.
+ENH: show filenames that are saved during the SmartSave
+ENH: more reliable way to choose filenames for SmartSave, should fix the occasional issue where if two instances of Trizbort open, the filenames could get confused.
 
 1.5.0.0
 -------------
 This initial build is based off the last build from Genstein.  It also pulls in a few other forks that had some useful features.  
 
 Features pulled from the Tymian branch
-++ Allowed rooms to have their own colors, this overrides the global default room color.  [Room Properties Dialog]
-++ Adds the ability to split a rooms color 50/50.  [Room Properties Dialog]
-++ Ability to copy / paste of elements.
+ENH: Allowed rooms to have their own colors, this overrides the global default room color.  [Room Properties Dialog]
+ENH: Adds the ability to split a rooms color 50/50.  [Room Properties Dialog]
+ENH: Ability to copy / paste of elements.
 
 Bugs fixed in Tymian Branch
-== Issue with large maps locking up or slow loading when opening.
+FIX: Issue with large maps locking up or slow loading when opening.
 
 This also pulls from the tustin2121 fork which adds a few small features.
 
-++ App settings dialog
-++ Added invert mouse wheel setting
-++ added canvas drag mouse button setting.
+ENH: App settings dialog
+ENH: Added invert mouse wheel setting
+ENH: added canvas drag mouse button setting.
 
 Then this adds some of my own changes.
 
-++ Added Smart Save feature which will save PDF and image file in one click to the project folder.
-++ Added a default image type in app settings that Smart Save uses for saving the image.
-++ Now you can add regions.  Regions can be setup in the map settings dialog, named and a color assigned to it.
-++ In the room properties, you can now assign a room to a region.  This will show the room in the region color assigned to the region.
-++ some minor bug fixes.
+ENH: Added Smart Save feature which will save PDF and image file in one click to the project folder.
+ENH: Added a default image type in app settings that Smart Save uses for saving the image.
+ENH: Now you can add regions.  Regions can be setup in the map settings dialog, named and a color assigned to it.
+ENH: In the room properties, you can now assign a room to a region.  This will show the room in the region color assigned to the region.
+ENH: some minor bug fixes.
 

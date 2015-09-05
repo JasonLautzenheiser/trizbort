@@ -123,7 +123,6 @@
     <Compile Include="Canvas.Designer.cs">
       <DependentUpon>Canvas.cs</DependentUpon>
     </Compile>
-    <Compile Include="ColorExtensions.cs" />
     <Compile Include="Colors.cs" />
     <Compile Include="CompassPoint.cs" />
     <Compile Include="Connection.cs" />
@@ -145,11 +144,23 @@
     <Compile Include="Export\CodeExporter.cs" />
     <Compile Include="Export\Inform6Exporter.cs" />
     <Compile Include="Export\TadsExporter.cs" />
+    <Compile Include="Export\ZilExporter.cs" />
+    <Compile Include="Extensions\ColorExtensions.cs" />
+    <Compile Include="Extensions\RoomExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TrizbortExtensions.cs" />
     <Compile Include="IAutomapCanvas.cs" />
     <Compile Include="IMoveable.cs" />
     <Compile Include="Export\Inform7Exporter.cs" />
     <Compile Include="ISizeable.cs" />
     <Compile Include="LineSegment.cs" />
+    <Compile Include="MapStatistics.cs" />
+    <Compile Include="MapStatisticsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MapStatisticsView.Designer.cs">
+      <DependentUpon>MapStatisticsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Minimap.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -175,7 +186,6 @@
     <Compile Include="RegionSettings.Designer.cs">
       <DependentUpon>RegionSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="RoomExtensions.cs" />
     <Compile Include="Smoothing.cs" />
     <Compile Include="TextBlock.cs" />
     <Compile Include="Vector.cs" />
@@ -214,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapStatisticsView.resx">
+      <DependentUpon>MapStatisticsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Minimap.resx">
       <DependentUpon>Minimap.cs</DependentUpon>
@@ -268,9 +281,6 @@
   <ItemGroup>
     <Content Include="Images\Arrow.png" />
     <Content Include="Images\Blank.png" />
-    <Content Include="Images\door.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\DrawLine.cur" />
     <Content Include="Images\DrawLine.png" />
     <Content Include="Images\DrawLineInverted.cur" />

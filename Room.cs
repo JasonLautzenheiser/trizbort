@@ -63,7 +63,7 @@ namespace Trizbort
 
     public Room(Project project): base(project)
     {
-      Name = "Cave";
+      Name = Settings.DefaultRoomName;
       Region = Trizbort.Region.DefaultRegion;
       Size = new Vector(3*Settings.GridSize, 2*Settings.GridSize);
       Position = new Vector(-Size.X/2, -Size.Y/2);
@@ -92,7 +92,7 @@ namespace Trizbort
     // This constructor is significantly faster as it doesn't look for gap in the element IDs
     public Room(Project project, int totalIDs) : base(project, totalIDs)
     {
-      Name = "Cave";
+      Name = Settings.DefaultRoomName;
       Region = Trizbort.Region.DefaultRegion;
       Size = new Vector(3*Settings.GridSize, 2*Settings.GridSize);
       Position = new Vector(-Size.X/2, -Size.Y/2);

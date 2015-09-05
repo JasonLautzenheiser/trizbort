@@ -3054,14 +3054,14 @@ namespace Trizbort
           roomShapeToolStripMenuItem.Visible = false;
           joinRoomsToolStripMenuItem.Visible = false;
           swapObjectsToolStripMenuItem.Visible = false;
-          roomPropertiesToolStripMenuItem.Visible = false;
+          roomPropertiesToolStripMenuItem.Visible = true;
 
           m_lineStylesMenuItem.Visible = true;
           m_reverseLineMenuItem.Visible = true;
 
           toolStripMenuItem1.Visible = false;
           toolStripMenuItem2.Visible = false;
-          toolStripSeparator1.Visible = false;
+          toolStripSeparator1.Visible = true;
           toolStripSeparator2.Visible = true;
 
           roomPropertiesToolStripMenuItem.Enabled = true;

@@ -124,10 +124,10 @@ namespace Trizbort
       this.linkLabel2.AutoSize = true;
       this.linkLabel2.Location = new System.Drawing.Point(188, 145);
       this.linkLabel2.Name = "linkLabel2";
-      this.linkLabel2.Size = new System.Drawing.Size(107, 13);
+      this.linkLabel2.Size = new System.Drawing.Size(93, 13);
       this.linkLabel2.TabIndex = 8;
       this.linkLabel2.TabStop = true;
-      this.linkLabel2.Text = "trizbort.genstein.net";
+      this.linkLabel2.Text = "www.trizbort.com";
       this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
       // 
       // pictureBox1

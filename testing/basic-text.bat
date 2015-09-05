@@ -91,6 +91,14 @@ echo Fills in light rooms
 %TESTBASE%\fills-orange-region.trizbort
 echo Line colors
 %TESTBASE%\line-colors.trizbort
+echo Rounded room labeled lines
+%TESTBASE%\rounded-to-from.trizbort
+echo Rounded room labeled lines
+%TESTBASE%\rounded-to-from-16ths.trizbort
+echo Ellipse room labeled lines
+%TESTBASE%\ellipse-to-from.trizbort
+echo Ellipse room labeled lines
+%TESTBASE%\ellipse-to-from-16ths.trizbort
 echo odd room links to itself
 %TESTBASE%\room-link-to-itself.trizbort
 echo use ctrl arrows to autolink

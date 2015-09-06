@@ -150,7 +150,7 @@
 			<li><a href="#help_fu_nav">Navigating the Map with the Keyboard</a>
 			<li><a href="#help_fu_connect">Creating Rooms and Connections with the Keyboard</a>
 			<li><a href="#help_fu_prop">Editing properties with the Keyboard</a>
-			<li><a name="help_fu_swapping_room_data">Swapping room data with the Keyboard</a>
+			<li><a href="#help_fu_swapping_room_data">Swapping room data with the Keyboard</a>
 		<li><a href="#help_right_clicking">Right Clicking</a>
 		<li><a href="#help_tooltips">Tooltips</a>
 		</ul>
@@ -255,7 +255,7 @@
 
 <p>You can create a room by moving the mouse over where you'd like the room to appear on the canvas and pressing <span class="accel">R</span>. You can also choose <span class="menufind">Edit->Add Room</span> to add a room in the center of the canvas. You can also create a room between two connected rooms by highlighting the line and pressing <span class="accel">R</span>. The room will be centered on where your mouse is hovering, but if it isn't quite right, you can move it with the arrows or resize it with <span class="accel">control-alt-arrows</span>.</p>
 
-<p><b>WARNING:</b> your graphics card may cause the screen to rotate. There are options to reset this, and you can do so manually, but it is a shock if it happens. You can Google how to disable hotkeys for your graphics card.</p>
+<p><b>WARNING:</b> your graphics card may cause the screen to rotate if you use control-alt-arrows. There are options to reset this, and you can do so manually, but it is a shock if it happens. You can Google how to disable hotkeys for your graphics card.</p>
 
 <a name="help_rooms_select"></a>
 <h3>Selecting, Moving and Resizing Rooms</h3>
@@ -1023,8 +1023,10 @@ At your service!</pre></td></tr>
 <p>Trizbort also allows right-clicking for general editing.</p>
 
 <ul>
+<li>ADD ROOM with <span class="accel">R</span> will add a room.
+<li>LINE STYLES mimics the possibilities found in 
 <li>SET REGION will be available if any room is currently highlighted. It has a sub-menu, which can be accessed with the right arrow or by typing <span class="accel">S</span>. You can use the up/down arrows to choose a region.
-<li>DARK will be available if any room is currently highlighted. <span class="accel">D</span> will toggle it.
+<li>DARK will be available if any room is currently highlighted. <span class="accel">K</span> will toggle it.
 <li>PROPERTIES will be available if any room or connector is currently highlighted. It will go to the last one. Typing <span class="accel">P</span> will open the resulting properties dialogue. If more than one room is highlighted, the last room highlighted will be shown. If no rooms are highlighted, you will get the last connector.
 <li>MAP SETTINGS will go to <span class="menufind">Tools->Map Settings</span>. You can also type <span class="accel">M</span>.
 <li>APPLICATION SETTINGS will go to <span class="menufind">Tools->Application Settings</span>. You can also type <span class="accel">A</span>.
@@ -1196,7 +1198,7 @@ At your service!</pre></td></tr>
 <tr><td class="heading">G</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="altheading">H</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="heading">I</td><td>In/out line</td><td class="blank"></td></tr>
-<tr><td class="altheading">J</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="altheading">J</td><td>join rooms</td><td class="blank"></td></tr>
 <tr><td class="heading">K</td><td>toggle darkness</td><td class="blank"></td></tr>
 <tr><td class="altheading">L</td><td class="blank"></td><td class="blank"></td></tr>
 <tr><td class="heading">M</td><td class="blank"></td><td class="blank"></td></tr>

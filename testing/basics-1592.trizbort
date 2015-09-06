@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trizbort version="1.5.9.2">
+	<info>
+		<title>Generic Title</title>
+		<author>Generic Author</author>
+		<description>Generic Description</description>
+		<history>Generic History</history>
+	</info>
+	<map>
+		<room id="1" name="2 passages down" subtitle="" x="-64" y="0" w="96" h="64" region="Diagonal" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="2" name="Edge" subtitle="" x="-64" y="-128" w="96" h="64" region="Edge" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="w">Blue bkgd|Yellow text|Left aligned</objects>
+		</room>
+		<line id="3" color="#0000FF" startText="down" endText="up">
+			<dock index="0" id="1" port="n" />
+			<dock index="1" id="2" port="s" />
+		</line>
+		<room id="4" name="1-way from S, to E" subtitle="" x="-64" y="-256" w="96" h="64" region="Diagonal" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="5" color="#0000FF" flow="oneWay">
+			<dock index="0" id="2" port="n" />
+			<dock index="1" id="4" port="s" />
+		</line>
+		<room id="6" name="Edge" subtitle="" x="96" y="-256" w="96" h="64" region="Edge" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n">Blue bkgd|Yellow text|Up aligned</objects>
+		</room>
+		<line id="7" color="#0000FF" flow="oneWay">
+			<dock index="0" id="4" port="e" />
+			<dock index="1" id="6" port="w" />
+		</line>
+		<room id="8" name="2 passages out" subtitle="" x="256" y="-256" w="96" h="64" region="Diagonal" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="9" color="#0000FF" startText="in" endText="out">
+			<dock index="0" id="6" port="e" />
+			<dock index="1" id="8" port="w" />
+		</line>
+		<room id="10" name="Edge" subtitle="" x="256" y="-128" w="96" h="64" region="Edge" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="e">Blue bkgd|Yellow text|Right aligned</objects>
+		</room>
+		<line id="11" color="#0000FF" startText="out" endText="in">
+			<dock index="0" id="8" port="s" />
+			<dock index="1" id="10" port="n" />
+		</line>
+		<room id="12" name="Dotted psgs out" subtitle="" x="256" y="0" w="96" h="64" region="Diagonal" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>All diagonals have yellow bkgd blue txt|</objects>
+		</room>
+		<line id="13" color="#0000FF" style="dashed">
+			<dock index="0" id="10" port="s" />
+			<dock index="1" id="12" port="n" />
+		</line>
+		<room id="14" name="Edge" subtitle="" x="96" y="0" w="96" h="64" region="Edge" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="15" color="#0000FF" style="dashed">
+			<dock index="0" id="12" port="w" />
+			<dock index="1" id="14" port="e" />
+		</line>
+		<line id="16" color="#0000FF" startText="up" endText="down">
+			<dock index="0" id="14" port="w" />
+			<dock index="1" id="1" port="e" />
+		</line>
+		<room id="17" name="Cave" subtitle="" x="96" y="-128" w="96" h="64" region="Central" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Red bkgd|Black txt</objects>
+		</room>
+		<line id="18" color="#0000FF">
+			<dock index="0" id="2" port="e" />
+			<dock index="1" id="17" port="w" />
+		</line>
+		<line id="19" color="#0000FF">
+			<dock index="0" id="17" port="e" />
+			<dock index="1" id="10" port="w" />
+		</line>
+		<line id="20" color="#0000FF">
+			<dock index="0" id="17" port="n" />
+			<dock index="1" id="6" port="s" />
+		</line>
+		<line id="21" color="#0000FF">
+			<dock index="0" id="17" port="s" />
+			<dock index="1" id="14" port="n" />
+		</line>
+		<room id="22" name="No-Region Room" subtitle="" x="96" y="192" w="96" h="64" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="Darkness" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="23" color="#0000FF" startText="cust start" midText="cust mid" endText="cust end">
+			<dock index="0" id="14" port="s" />
+			<dock index="1" id="22" port="n" />
+		</line>
+		<room id="24" name="Cave" subtitle="" x="256" y="192" w="96" h="64" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="#FF8000" secondFill="#8000FF" secondFillLocation="BottomRight" roomBorder="#C0C0C0" roomLargeText="#008000" roomSmallText="#FF80FF">
+			<objects>Center region but green txt orange bkgd|Purple bottom right fill|pink object text</objects>
+		</room>
+		<room id="25" name="No-Region Cave" subtitle="" x="-64" y="192" w="96" h="64" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="#FF8000" secondFill="#8000FF" secondFillLocation="BottomRight" roomBorder="#808080" roomLargeText="#008000" roomSmallText="#FF80FF">
+			<objects>Just like the room 2E|But with no region</objects>
+		</room>
+		<line id="26" color="#0000FF">
+			<dock index="0" id="25" port="e" />
+			<dock index="1" id="22" port="w" />
+		</line>
+		<line id="27" color="#0000FF">
+			<dock index="0" id="22" port="e" />
+			<dock index="1" id="24" port="w" />
+		</line>
+		<room id="28" name="Rounded" subtitle="" x="-64" y="96" w="96" h="64" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="yes" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="29" name="Ellipse" subtitle="" x="256" y="96" w="96" h="64" region="NoRegion" handDrawn="no" ellipse="yes" roundedCorners="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+	</map>
+	<settings>
+		<colors>
+			<canvas>White</canvas>
+			<fill>White</fill>
+			<border>MidnightBlue</border>
+			<line>MidnightBlue</line>
+			<selectedLine>Gold</selectedLine>
+			<hoverLine>DarkOrange</hoverLine>
+			<largeText>MidnightBlue</largeText>
+			<smallText>MidnightBlue</smallText>
+			<lineText>MidnightBlue</lineText>
+			<grid>#F5F5F5</grid>
+		</colors>
+		<regions>
+			<Central Name="Central" TextColor="Black">Red</Central>
+			<Diagonal Name="Diagonal" TextColor="#0080FF">Yellow</Diagonal>
+			<Edge Name="Edge" TextColor="Yellow">Blue</Edge>
+			<NoRegion Name="NoRegion" TextColor="Blue">White</NoRegion>
+		</regions>
+		<fonts>
+			<room size="13">Comic Sans MS</room>
+			<object size="11">Comic Sans MS</object>
+			<line size="9">Comic Sans MS</line>
+		</fonts>
+		<grid>
+			<snapTo>yes</snapTo>
+			<visible>yes</visible>
+			<showOrigin>yes</showOrigin>
+			<size>32</size>
+		</grid>
+		<lines>
+			<width>2</width>
+			<handDrawn>yes</handDrawn>
+			<arrowSize>12</arrowSize>
+			<textOffset>4</textOffset>
+		</lines>
+		<rooms>
+			<darknessStripeSize>24</darknessStripeSize>
+			<objectListOffset>4</objectListOffset>
+			<connectionStalkLength>32</connectionStalkLength>
+			<preferredDistanceBetweenRooms>64</preferredDistanceBetweenRooms>
+			<defaultRoomName />
+		</rooms>
+		<ui>
+			<handleSize>12</handleSize>
+			<snapToElementSize>16</snapToElementSize>
+		</ui>
+		<keypadNavigation>
+			<creationModifier>control</creationModifier>
+			<unexploredModifier>alt</unexploredModifier>
+		</keypadNavigation>
+	</settings>
+</trizbort>

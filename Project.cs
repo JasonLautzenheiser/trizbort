@@ -284,5 +284,33 @@ namespace Trizbort
         scribe.EndElement();
       }
     }
+
+    public bool AreRoomsConnected(List<Room> selectedRooms)
+    {
+      if (selectedRooms.Count < 2) { return false; }
+      if (selectedRooms.Count == 2)
+      {
+        var room1 = selectedRooms.First();
+        var room2 = selectedRooms.Last();
+
+        if ((room1.IsConnected) && (room2.IsConnected))
+        {
+          var con = room1.GetConnections();
+          foreach (var connection in con)
+          {
+            if (connection.GetSourceRoom() == room1)
+              if (connection.GetTargetRoom() == room2)
+                return true;
+
+            if (connection.GetTargetRoom() == room1)
+              if (connection.GetSourceRoom() == room2)
+                return true;
+          }
+        }
+
+        return false;
+      }
+      return false;
+    }
   }
 }

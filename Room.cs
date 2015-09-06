@@ -262,6 +262,7 @@ namespace Trizbort
     public bool RoundedCorners { get; set; } = false;
     public bool Ellipse { get; set; } = false;
     public bool StraightEdges { get; set; } = false;
+    public bool AllCornersEqual { get; set; } = true;
 
     public bool IsConnected
     {
@@ -887,6 +888,7 @@ namespace Trizbort
         dialog.RoundedCorners = RoundedCorners;
         dialog.Ellipse = Ellipse;
         dialog.StraightEdges = StraightEdges;
+        dialog.AllCornersEqual = AllCornersEqual;
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
@@ -918,6 +920,7 @@ namespace Trizbort
           RoundedCorners = dialog.RoundedCorners;
           Ellipse = dialog.Ellipse;
           StraightEdges = dialog.StraightEdges;
+          AllCornersEqual = dialog.AllCornersEqual;
         }
       }
     }
@@ -932,6 +935,7 @@ namespace Trizbort
       scribe.Attribute("h", Size.Y);
       scribe.Attribute("region", string.IsNullOrEmpty(Region) ? Trizbort.Region.DefaultRegion : Region);
       scribe.Attribute("handDrawn", StraightEdges);
+      scribe.Attribute("allcornersequal", AllCornersEqual);
       scribe.Attribute("ellipse", Ellipse);
       scribe.Attribute("roundedCorners", RoundedCorners);
       scribe.Attribute("cornerTopLeft",(float) Corners.TopLeft);
@@ -994,6 +998,7 @@ namespace Trizbort
       RoundedCorners = element.Attribute("roundedCorners").ToBool();
       Ellipse = element.Attribute("ellipse").ToBool();
       StraightEdges = element.Attribute("handDrawn").ToBool();
+      AllCornersEqual = element.Attribute("allcornersequal").ToBool();
 
       Corners = new CornerRadii();
       Corners.TopLeft = element.Attribute("cornerTopLeft").ToFloat();

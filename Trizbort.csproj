@@ -81,6 +81,7 @@
       <HintPath>lib\PdfSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -178,6 +179,11 @@
     <Compile Include="Numeric.cs" />
     <Compile Include="PathHelper.cs" />
     <Compile Include="Port.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Rect.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="RegionSettings.cs">
@@ -276,6 +282,10 @@
     <Compile Include="XmlElementReader.cs" />
     <Compile Include="XmlScribe.cs" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Trizbort_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

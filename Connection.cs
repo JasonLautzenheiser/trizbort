@@ -467,12 +467,12 @@ namespace Trizbort
 
       if (!string.IsNullOrEmpty(StartText))
       {
-        Annotate(graphics, palette, lineSegments[0], m_startText, StringAlignment.Near);
+        Annotate(graphics, palette, lineSegments[0], m_startText, StringAlignment.Near, GetSourceRoom()?.Shape);
       }
 
       if (!string.IsNullOrEmpty(EndText))
       {
-        Annotate(graphics, palette, lineSegments[lineSegments.Count - 1], m_endText, StringAlignment.Far);
+        Annotate(graphics, palette, lineSegments[lineSegments.Count - 1], m_endText, StringAlignment.Far, GetTargetRoom()?.Shape);
       }
 
       if (!string.IsNullOrEmpty(MidText))
@@ -498,7 +498,7 @@ namespace Trizbort
       }
     }
 
-    private static void Annotate(XGraphics graphics, Palette palette, LineSegment lineSegment, TextBlock text, StringAlignment alignment)
+    private static void Annotate(XGraphics graphics, Palette palette, LineSegment lineSegment, TextBlock text, StringAlignment alignment, RoomShape? shape = RoomShape.SquareCorners)
     {
       Vector point;
       var delta = lineSegment.Delta;
@@ -567,6 +567,8 @@ namespace Trizbort
         format.Alignment = XStringAlignment.Center;
         format.LineAlignment = XLineAlignment.Near;
       }
+
+      
       if (!Settings.DebugDisableTextRendering)
         text.Draw(graphics, Settings.LineFont, palette.LineTextBrush, pos, Vector.Zero, format);
     }
@@ -665,7 +667,7 @@ namespace Trizbort
     public void Save(XmlScribe scribe)
     {
       if (ConnectionColor != Color.Transparent)
-        scribe.Attribute("color",Colors.SaveColor(ConnectionColor));
+        scribe.Attribute("color", Colors.SaveColor(ConnectionColor));
 
       if (Style != DefaultStyle)
       {
@@ -822,7 +824,7 @@ namespace Trizbort
       CompassPoint t;
       return GetTargetRoom(out t);
     }
-    
+
     public Room GetSourceRoom(out CompassPoint sourceCompassPoint)
     {
       if (m_vertexList.Count > 0)
@@ -919,22 +921,15 @@ namespace Trizbort
 
     internal class VertexPort : MoveablePort
     {
-      public VertexPort(Vertex vertex, Connection connection)
-        : base(connection)
+      public VertexPort(Vertex vertex, Connection connection) : base(connection)
       {
         Vertex = vertex;
         Connection = connection;
       }
 
-      public override string ID
-      {
-        get { return Connection.VertexList.IndexOf(Vertex).ToString(CultureInfo.InvariantCulture); }
-      }
+      public override string ID { get { return Connection.VertexList.IndexOf(Vertex).ToString(CultureInfo.InvariantCulture); } }
 
-      public override Port DockedAt
-      {
-        get { return Vertex.Port; }
-      }
+      public override Port DockedAt { get { return Vertex.Port; } }
 
       public Vertex Vertex { get; private set; }
       public Connection Connection { get; private set; }

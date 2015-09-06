@@ -74,6 +74,7 @@ namespace Trizbort
       this.m_tabControl = new DevComponents.DotNetBar.SuperTabControl();
       this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.groupRoundedCorners = new DevComponents.DotNetBar.Controls.GroupPanel();
+      this.chkCornersSame = new System.Windows.Forms.CheckBox();
       this.txtBottomRight = new DevComponents.Editors.DoubleInput();
       this.txtTopLeft = new DevComponents.Editors.DoubleInput();
       this.txtBottomLeft = new DevComponents.Editors.DoubleInput();
@@ -392,6 +393,7 @@ namespace Trizbort
       // 
       this.groupRoundedCorners.CanvasColor = System.Drawing.SystemColors.Control;
       this.groupRoundedCorners.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
+      this.groupRoundedCorners.Controls.Add(this.chkCornersSame);
       this.groupRoundedCorners.Controls.Add(this.txtBottomRight);
       this.groupRoundedCorners.Controls.Add(this.txtTopLeft);
       this.groupRoundedCorners.Controls.Add(this.txtBottomLeft);
@@ -432,6 +434,19 @@ namespace Trizbort
       this.groupRoundedCorners.Text = "Rounded Corners";
       this.groupRoundedCorners.Visible = false;
       // 
+      // chkCornersSame
+      // 
+      this.chkCornersSame.AutoSize = true;
+      this.chkCornersSame.Checked = true;
+      this.chkCornersSame.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chkCornersSame.Location = new System.Drawing.Point(3, 8);
+      this.chkCornersSame.Name = "chkCornersSame";
+      this.chkCornersSame.Size = new System.Drawing.Size(132, 17);
+      this.chkCornersSame.TabIndex = 4;
+      this.chkCornersSame.Text = "Make all corners equal";
+      this.chkCornersSame.UseVisualStyleBackColor = true;
+      this.chkCornersSame.CheckedChanged += new System.EventHandler(this.chkCornersSame_CheckedChanged);
+      // 
       // txtBottomRight
       // 
       // 
@@ -440,8 +455,9 @@ namespace Trizbort
       this.txtBottomRight.BackgroundStyle.Class = "DateTimeInputBackground";
       this.txtBottomRight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
       this.txtBottomRight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+      this.txtBottomRight.Enabled = false;
       this.txtBottomRight.Increment = 1D;
-      this.txtBottomRight.Location = new System.Drawing.Point(117, 48);
+      this.txtBottomRight.Location = new System.Drawing.Point(117, 75);
       this.txtBottomRight.MaxValue = 30D;
       this.txtBottomRight.MinValue = 1D;
       this.txtBottomRight.Name = "txtBottomRight";
@@ -460,7 +476,7 @@ namespace Trizbort
       this.txtTopLeft.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
       this.txtTopLeft.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
       this.txtTopLeft.Increment = 1D;
-      this.txtTopLeft.Location = new System.Drawing.Point(3, 3);
+      this.txtTopLeft.Location = new System.Drawing.Point(3, 30);
       this.txtTopLeft.MaxValue = 30D;
       this.txtTopLeft.MinValue = 1D;
       this.txtTopLeft.Name = "txtTopLeft";
@@ -478,8 +494,9 @@ namespace Trizbort
       this.txtBottomLeft.BackgroundStyle.Class = "DateTimeInputBackground";
       this.txtBottomLeft.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
       this.txtBottomLeft.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+      this.txtBottomLeft.Enabled = false;
       this.txtBottomLeft.Increment = 1D;
-      this.txtBottomLeft.Location = new System.Drawing.Point(3, 48);
+      this.txtBottomLeft.Location = new System.Drawing.Point(3, 75);
       this.txtBottomLeft.MaxValue = 30D;
       this.txtBottomLeft.MinValue = 1D;
       this.txtBottomLeft.Name = "txtBottomLeft";
@@ -497,8 +514,9 @@ namespace Trizbort
       this.txtTopRight.BackgroundStyle.Class = "DateTimeInputBackground";
       this.txtTopRight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
       this.txtTopRight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+      this.txtTopRight.Enabled = false;
       this.txtTopRight.Increment = 1D;
-      this.txtTopRight.Location = new System.Drawing.Point(117, 3);
+      this.txtTopRight.Location = new System.Drawing.Point(117, 30);
       this.txtTopRight.MaxValue = 30D;
       this.txtTopRight.MinValue = 1D;
       this.txtTopRight.Name = "txtTopRight";
@@ -985,6 +1003,7 @@ namespace Trizbort
       this.m_tabControl.ResumeLayout(false);
       this.superTabControlPanel5.ResumeLayout(false);
       this.groupRoundedCorners.ResumeLayout(false);
+      this.groupRoundedCorners.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.txtBottomRight)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtTopLeft)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtBottomLeft)).EndInit();
@@ -1064,5 +1083,6 @@ namespace Trizbort
     private DevComponents.Editors.ComboItem itemRoundedCorners;
     private DevComponents.Editors.ComboItem itemEllipse;
     private DevComponents.DotNetBar.Controls.GroupPanel groupRoundedCorners;
+    private System.Windows.Forms.CheckBox chkCornersSame;
   }
 }

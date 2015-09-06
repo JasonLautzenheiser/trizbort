@@ -371,6 +371,8 @@ namespace Trizbort
       }
     }
 
+    public bool AllCornersEqual { get { return chkCornersSame.Checked; } set { chkCornersSame.Checked = value; } }
+
     private void RegionListBox_DrawItem(object sender, DrawItemEventArgs e)
     {
       using (var palette = new Palette())
@@ -703,12 +705,22 @@ namespace Trizbort
       {
         path.AddEllipse(new RectangleF(rect.X, rect.Y, rect.Width, rect.Height));
       }
+      else if (cboDrawType.SelectedItem == itemStraightEdges)
+      {
+        path.AddRectangle(rect);
+      }
       graph.DrawPath(pen,path);
     }
 
 
     private void redrawSampleOnChange(object sender, EventArgs e)
     {
+      if ((sender == txtTopLeft) && (chkCornersSame.Checked))
+      {
+        txtBottomLeft.Value = txtTopLeft.Value;
+        txtBottomRight.Value = txtTopLeft.Value;
+        txtTopRight.Value = txtTopLeft.Value;
+      }
       pnlSampleRoomShape.Invalidate();
     }
 
@@ -729,6 +741,19 @@ namespace Trizbort
       }
 
       pnlSampleRoomShape.Invalidate();
+    }
+
+    private void chkCornersSame_CheckedChanged(object sender, EventArgs e)
+    {
+      txtBottomLeft.Enabled = !chkCornersSame.Checked;
+      txtBottomRight.Enabled = !chkCornersSame.Checked;
+      txtTopRight.Enabled = !chkCornersSame.Checked;
+      if (chkCornersSame.Checked)
+      {
+        txtBottomLeft.Value = txtTopLeft.Value;
+        txtBottomRight.Value = txtTopLeft.Value;
+        txtTopRight.Value = txtTopLeft.Value;
+      }
     }
   }
 }

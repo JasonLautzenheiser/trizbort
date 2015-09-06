@@ -286,8 +286,7 @@ namespace Trizbort
       {
         if (MessageBox.Show("Your project needs to be saved before we can do a SmartSave.  Would you like to save the project now?", "Save Project?", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
         {
-          SaveProject();
-          mSaved = true;
+          mSaved = SaveProject();
         }
       }
       else
@@ -363,7 +362,8 @@ namespace Trizbort
       var imageFile = Path.Combine(folder, fileName + extension);
       try
       {
-        saveImage(imageFile);
+        if (!saveImage(imageFile))
+          return string.Empty;
       }
       catch (Exception)
       {
@@ -465,13 +465,18 @@ namespace Trizbort
         if (dialog.ShowDialog() == DialogResult.OK)
         {
           Settings.LastExportImageFileName = Path.GetDirectoryName(dialog.FileName)+@"\";
-          saveImage(dialog.FileName);
+          if (!saveImage(dialog.FileName))
+          {
+            MessageBox.Show(string.Format("There was an error saving the image file.  Please make sure the image is not already opened."), "Export Image", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+          }
         }
       }
     }
 
-    private void saveImage(string fileName)
+    private bool saveImage(string fileName)
     {
+      bool sReturn = true;
+
       var format = ImageFormat.Png;
       var ext = Path.GetExtension(fileName);
       if (StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".jpg") == 0
@@ -515,8 +520,15 @@ namespace Trizbort
                   }
                   var handle = metafile.GetHenhmetafile();
                   var copy = CopyEnhMetaFile(handle, fileName);
+                  if (copy == IntPtr.Zero)
+                    sReturn = false;
+
                   DeleteEnhMetaFile(copy);
                 }
+              }
+              catch
+              {
+                sReturn = false;
               }
               finally
               {
@@ -541,11 +553,12 @@ namespace Trizbort
           }
         }
       }
-      catch (Exception ex)
+      catch 
       {
-        MessageBox.Show(Program.MainForm, string.Format("There was a problem exporting the map:\n\n{0}", ex.Message),
-          Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        sReturn = false;
       }
+
+      return sReturn;
     }
 
     private void FileExportInform7MenuItem_Click(object sender, EventArgs e)
@@ -798,13 +811,13 @@ namespace Trizbort
       m_editIsDarkMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
       m_editIsDarkMenuItem.Checked = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room) && ((Room)Canvas.SelectedElement).IsDark;
       m_editRenameMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
-      joinRoomsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+      joinRoomsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2 && !Project.Current.AreRoomsConnected(Canvas.SelectedRooms);
       swapObjectsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
       swapNamesToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
       swapFormatsFillsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
       swapRegionsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
 
-        m_editChangeRegionMenuItem.Enabled = (Canvas.SelectedRooms.Any());
+      m_editChangeRegionMenuItem.Enabled = (Canvas.SelectedRooms.Any() && Settings.Regions.Count > 1 );
       handDrawnToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
       ellipseToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
       roundedEdgesToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());

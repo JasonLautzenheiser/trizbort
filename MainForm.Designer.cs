@@ -613,14 +613,14 @@ namespace Trizbort
             this.swapRegionsToolStripMenuItem});
       this.roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
       this.roomsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
-      this.roomsToolStripMenuItem.Text = "Rooms";
+      this.roomsToolStripMenuItem.Text = "&Rooms";
       // 
       // m_editAddRoomMenuItem
       // 
       this.m_editAddRoomMenuItem.Name = "m_editAddRoomMenuItem";
       this.m_editAddRoomMenuItem.ShortcutKeyDisplayString = "R";
       this.m_editAddRoomMenuItem.Size = new System.Drawing.Size(229, 22);
-      this.m_editAddRoomMenuItem.Text = "&Add Room";
+      this.m_editAddRoomMenuItem.Text = "Add &Room";
       this.m_editAddRoomMenuItem.Click += new System.EventHandler(this.EditAddRoomMenuItem_Click);
       // 
       // m_editRenameMenuItem
@@ -666,7 +666,7 @@ namespace Trizbort
             this.roundedEdgesToolStripMenuItem});
       this.roomShapeToolStripMenuItem.Name = "roomShapeToolStripMenuItem";
       this.roomShapeToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-      this.roomShapeToolStripMenuItem.Text = "Room Shape";
+      this.roomShapeToolStripMenuItem.Text = "Room &Shape";
       // 
       // handDrawnToolStripMenuItem
       // 
@@ -702,7 +702,7 @@ namespace Trizbort
       this.joinRoomsToolStripMenuItem.Name = "joinRoomsToolStripMenuItem";
       this.joinRoomsToolStripMenuItem.ShortcutKeyDisplayString = "J";
       this.joinRoomsToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-      this.joinRoomsToolStripMenuItem.Text = "Join Rooms";
+      this.joinRoomsToolStripMenuItem.Text = "&Join Rooms";
       this.joinRoomsToolStripMenuItem.Click += new System.EventHandler(this.joinRoomsToolStripMenuItem_Click);
       // 
       // toolStripSeparator19
@@ -715,7 +715,7 @@ namespace Trizbort
       this.swapObjectsToolStripMenuItem.Name = "swapObjectsToolStripMenuItem";
       this.swapObjectsToolStripMenuItem.ShortcutKeyDisplayString = "W";
       this.swapObjectsToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-      this.swapObjectsToolStripMenuItem.Text = "Swap Objects";
+      this.swapObjectsToolStripMenuItem.Text = "S&wap Objects";
       this.swapObjectsToolStripMenuItem.Click += new System.EventHandler(this.swapObjectsToolStripMenuItem_Click);
       // 
       // swapNamesToolStripMenuItem
@@ -749,7 +749,7 @@ namespace Trizbort
             this.m_reverseLineMenuItem});
       this.connectionsToolStripMenuItem.Name = "connectionsToolStripMenuItem";
       this.connectionsToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
-      this.connectionsToolStripMenuItem.Text = "Connections";
+      this.connectionsToolStripMenuItem.Text = "&Connections";
       // 
       // m_lineStylesMenuItem
       // 
@@ -774,7 +774,7 @@ namespace Trizbort
       this.m_plainLinesMenuItem.Name = "m_plainLinesMenuItem";
       this.m_plainLinesMenuItem.ShortcutKeyDisplayString = "P";
       this.m_plainLinesMenuItem.Size = new System.Drawing.Size(172, 22);
-      this.m_plainLinesMenuItem.Text = "Plain";
+      this.m_plainLinesMenuItem.Text = "&Plain";
       this.m_plainLinesMenuItem.Click += new System.EventHandler(this.PlainLinesMenuItem_Click);
       // 
       // toolStripMenuItem3
@@ -787,7 +787,7 @@ namespace Trizbort
       this.m_toggleDottedLinesMenuItem.Name = "m_toggleDottedLinesMenuItem";
       this.m_toggleDottedLinesMenuItem.ShortcutKeyDisplayString = "T";
       this.m_toggleDottedLinesMenuItem.Size = new System.Drawing.Size(172, 22);
-      this.m_toggleDottedLinesMenuItem.Text = "Dotted";
+      this.m_toggleDottedLinesMenuItem.Text = "Do&tted";
       this.m_toggleDottedLinesMenuItem.Click += new System.EventHandler(this.ToggleDottedLines_Click);
       // 
       // m_toggleDirectionalLinesMenuItem
@@ -795,7 +795,7 @@ namespace Trizbort
       this.m_toggleDirectionalLinesMenuItem.Name = "m_toggleDirectionalLinesMenuItem";
       this.m_toggleDirectionalLinesMenuItem.ShortcutKeyDisplayString = "A";
       this.m_toggleDirectionalLinesMenuItem.Size = new System.Drawing.Size(172, 22);
-      this.m_toggleDirectionalLinesMenuItem.Text = "One Way Arrow";
+      this.m_toggleDirectionalLinesMenuItem.Text = "One Way &Arrow";
       this.m_toggleDirectionalLinesMenuItem.Click += new System.EventHandler(this.ToggleDirectionalLines_Click);
       // 
       // toolStripMenuItem1
@@ -808,7 +808,7 @@ namespace Trizbort
       this.m_upLinesMenuItem.Name = "m_upLinesMenuItem";
       this.m_upLinesMenuItem.ShortcutKeyDisplayString = "U";
       this.m_upLinesMenuItem.Size = new System.Drawing.Size(172, 22);
-      this.m_upLinesMenuItem.Text = "Up";
+      this.m_upLinesMenuItem.Text = "&Up";
       this.m_upLinesMenuItem.Click += new System.EventHandler(this.UpLinesMenuItem_Click);
       // 
       // m_downLinesMenuItem
@@ -816,7 +816,7 @@ namespace Trizbort
       this.m_downLinesMenuItem.Name = "m_downLinesMenuItem";
       this.m_downLinesMenuItem.ShortcutKeyDisplayString = "D";
       this.m_downLinesMenuItem.Size = new System.Drawing.Size(172, 22);
-      this.m_downLinesMenuItem.Text = "Down";
+      this.m_downLinesMenuItem.Text = "&Down";
       this.m_downLinesMenuItem.Click += new System.EventHandler(this.DownLinesMenuItem_Click);
       // 
       // toolStripMenuItem2
@@ -829,7 +829,7 @@ namespace Trizbort
       this.m_inLinesMenuItem.Name = "m_inLinesMenuItem";
       this.m_inLinesMenuItem.ShortcutKeyDisplayString = "I";
       this.m_inLinesMenuItem.Size = new System.Drawing.Size(172, 22);
-      this.m_inLinesMenuItem.Text = "In";
+      this.m_inLinesMenuItem.Text = "&In";
       this.m_inLinesMenuItem.Click += new System.EventHandler(this.InLinesMenuItem_Click);
       // 
       // m_outLinesMenuItem
@@ -837,7 +837,7 @@ namespace Trizbort
       this.m_outLinesMenuItem.Name = "m_outLinesMenuItem";
       this.m_outLinesMenuItem.ShortcutKeyDisplayString = "O";
       this.m_outLinesMenuItem.Size = new System.Drawing.Size(172, 22);
-      this.m_outLinesMenuItem.Text = "Out";
+      this.m_outLinesMenuItem.Text = "&Out";
       this.m_outLinesMenuItem.Click += new System.EventHandler(this.OutLinesMenuItem_Click);
       // 
       // m_reverseLineMenuItem
@@ -845,7 +845,7 @@ namespace Trizbort
       this.m_reverseLineMenuItem.Name = "m_reverseLineMenuItem";
       this.m_reverseLineMenuItem.ShortcutKeyDisplayString = "V";
       this.m_reverseLineMenuItem.Size = new System.Drawing.Size(153, 22);
-      this.m_reverseLineMenuItem.Text = "Reverse Line";
+      this.m_reverseLineMenuItem.Text = "Re&verse Line";
       this.m_reverseLineMenuItem.Click += new System.EventHandler(this.ReverseLineMenuItem_Click);
       // 
       // m_viewMenu
@@ -976,7 +976,7 @@ namespace Trizbort
             this.toolStripSeparator14,
             this.mapStatisticsToolStripMenuItem});
       this.m_projectMenu.Name = "m_projectMenu";
-      this.m_projectMenu.Size = new System.Drawing.Size(48, 20);
+      this.m_projectMenu.Size = new System.Drawing.Size(47, 20);
       this.m_projectMenu.Text = "&Tools";
       // 
       // m_projectSettingsMenuItem
@@ -1031,6 +1031,7 @@ namespace Trizbort
       // m_onlineHelpMenuItem
       // 
       this.m_onlineHelpMenuItem.Name = "m_onlineHelpMenuItem";
+      this.m_onlineHelpMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
       this.m_onlineHelpMenuItem.Size = new System.Drawing.Size(171, 22);
       this.m_onlineHelpMenuItem.Text = "Online Help";
       this.m_onlineHelpMenuItem.Click += new System.EventHandler(this.HelpAndSupportMenuItem_Click);

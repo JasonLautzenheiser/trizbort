@@ -1,5 +1,10 @@
 Change Log
 
+1.5.9.3
+-------------
+CHG: #123 - Remove the default ("NoRegion") from the list of regions that get exported.
+
+
 1.5.9.2
 -------------
 BUG: Fix crash when adding a room when an unconnected connection is selected, now adds a connection onto the end.

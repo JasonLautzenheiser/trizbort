@@ -263,6 +263,7 @@ namespace Trizbort
     public bool Ellipse { get; set; } = false;
     public bool StraightEdges { get; set; } = false;
     public bool AllCornersEqual { get; set; } = true;
+    public bool IsStartRoom { get; set; } = false;
 
     public bool IsConnected
     {
@@ -600,6 +601,42 @@ namespace Trizbort
       context.LinesDrawn.Add(bottom);
       context.LinesDrawn.Add(left);
 
+      // if starting room
+      if (IsStartRoom)
+      {
+        var tBounds = InnerBounds;
+        tBounds.Inflate(5);
+
+        var topLeftSelect = tBounds.GetCorner(CompassPoint.NorthWest);
+        var topRightSelect = tBounds.GetCorner(CompassPoint.NorthEast);
+        var bottomLeftSelect = tBounds.GetCorner(CompassPoint.SouthWest);
+        var bottomRightSelect = tBounds.GetCorner(CompassPoint.SouthEast);
+
+        var topSelect = new LineSegment(topLeftSelect, topRightSelect);
+        var rightSelect = new LineSegment(topRightSelect, bottomRightSelect);
+        var bottomSelect = new LineSegment(bottomRightSelect, bottomLeftSelect);
+        var leftSelect = new LineSegment(bottomLeftSelect, topLeftSelect);
+
+        var pathSelected = palette.Path();
+        if (RoundedCorners)
+        {
+          createRoomPath(pathSelected, topSelect, leftSelect);
+        }
+        else if (Ellipse)
+        {
+          pathSelected.AddEllipse(new RectangleF(topSelect.Start.X, topSelect.Start.Y, topSelect.Length, leftSelect.Length));
+        }
+        else
+        {
+          Drawing.AddLine(pathSelected, topSelect, random, StraightEdges);
+          Drawing.AddLine(pathSelected, rightSelect, random, StraightEdges);
+          Drawing.AddLine(pathSelected, bottomSelect, random, StraightEdges);
+          Drawing.AddLine(pathSelected, leftSelect, random, StraightEdges);
+        }
+        var brushSelected = new SolidBrush(Color.GreenYellow);
+        graphics.DrawPath(brushSelected, pathSelected);
+      }
+
       if (context.Selected)
       {
         var tBounds = InnerBounds;
@@ -634,6 +671,8 @@ namespace Trizbort
         var brushSelected = new SolidBrush(Color.Gold);
         graphics.DrawPath(brushSelected, pathSelected);
       }
+
+      
 
       // get region color
       var regionColor = Settings.Regions.FirstOrDefault(p => p.RegionName.Equals(Region, StringComparison.OrdinalIgnoreCase)) ?? Settings.Regions.FirstOrDefault(p => p.RegionName.Equals(Trizbort.Region.DefaultRegion, StringComparison.OrdinalIgnoreCase));
@@ -867,12 +906,13 @@ namespace Trizbort
 
     private void showRoomDialog(PropertiesStartType start = PropertiesStartType.RoomName)
     {
-      using (var dialog = new RoomPropertiesDialog(start))
+      using (var dialog = new RoomPropertiesDialog(start, this.ID))
       {
         dialog.RoomName = Name;
         dialog.Description = PrimaryDescription;
         dialog.RoomSubTitle = SubTitle;
         dialog.IsDark = IsDark;
+        dialog.IsStartRoom = IsStartRoom;
         dialog.Objects = Objects;
         dialog.ObjectsPosition = ObjectsPosition;
         dialog.BorderStyle = BorderStyle;
@@ -900,6 +940,7 @@ namespace Trizbort
             AddDescription(dialog.Description);
           }
           IsDark = dialog.IsDark;
+          IsStartRoom = dialog.IsStartRoom;
           Objects = dialog.Objects;
           BorderStyle = dialog.BorderStyle;
           ObjectsPosition = dialog.ObjectsPosition;
@@ -948,6 +989,12 @@ namespace Trizbort
       {
         scribe.Attribute("isDark", IsDark);
       }
+
+      if (IsStartRoom)
+      {
+        scribe.Attribute("isStartRoom", IsStartRoom);
+      }
+
       scribe.Attribute("description", PrimaryDescription);
 
       var colorValue = Colors.SaveColor(RoomFill);
@@ -995,6 +1042,7 @@ namespace Trizbort
       Size = new Vector(element.Attribute("w").ToFloat(), element.Attribute("h").ToFloat());
       Region = element.Attribute("region").Text;
       IsDark = element.Attribute("isDark").ToBool();
+      IsStartRoom = element.Attribute("isStartRoom").ToBool();
       RoundedCorners = element.Attribute("roundedCorners").ToBool();
       Ellipse = element.Attribute("ellipse").ToBool();
       StraightEdges = element.Attribute("handDrawn").ToBool();

@@ -429,6 +429,10 @@ namespace Trizbort
     {
       itemSelected = m_RegionListing.SelectedIndex;
       if (m_RegionListing.Items[itemSelected].ToString() == Trizbort.Region.DefaultRegion) return;
+      foreach (var tRoom in Project.Current.Elements.OfType<Room>().Where(tRoom => tRoom.Region == m_RegionListing.Items[itemSelected].ToString()))
+      {
+          tRoom.Region = Trizbort.Region.DefaultRegion;
+      }
       Regions.RemoveAll(p => p.RegionName == m_RegionListing.Items[itemSelected].ToString());
       addRegionsToListbox();
 

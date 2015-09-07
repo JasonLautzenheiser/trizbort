@@ -81,9 +81,26 @@ namespace Trizbort.Export
       writer.WriteLine("[ Initialise;");
       if (LocationsInExportOrder.Count > 0)
       {
-        writer.WriteLine("    location = {0};", LocationsInExportOrder[0].ExportName);
+        bool foundStart = false;
+        foreach (var location in LocationsInExportOrder)
+        {
+          if (location.Room.IsStartRoom)
+          {
+            if (foundStart)
+            {
+               writer.WriteLine("! {0} is a second start-room according to Trizbort.", location.ExportName);
+            }
+            else
+            {
+              writer.WriteLine("    location = {0};", location.ExportName);
+              foundStart = true;
+            }
+          }
+        }
+        if (!foundStart)
+          writer.WriteLine("    location = {0};", LocationsInExportOrder[0].ExportName);
       }
-      else
+            else
       {
         writer.WriteLine("    ! location = ...;");
       }
@@ -92,6 +109,15 @@ namespace Trizbort.Export
       writer.WriteLine();
       writer.WriteLine("Include \"Grammar\";");
       writer.WriteLine();
+      if (!string.IsNullOrEmpty(Project.Current.History))
+      {
+          writer.WriteLine("Verb meta 'about' * -> About;");
+          writer.WriteLine();
+          writer.WriteLine("[ AboutSub ;");
+          writer.WriteLine("  print({0});", toI6String(Project.Current.History, DOUBLE_QUOTE));
+          writer.WriteLine("];");
+        writer.WriteLine();
+      }
     }
 
     private void ExportThings(TextWriter writer, List<Thing> things, Thing container, int indent)

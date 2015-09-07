@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trizbort version="1.5.9.2">
+	<info />
+	<map>
+		<room id="1" name="Unconnected" subtitle="" x="-256" y="-256" w="96" h="64" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="2" name="Dangling" subtitle="" x="-256" y="-96" w="128" h="128" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="3" name="Looping" subtitle="" x="224" y="-256" w="96" h="64" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="4" name="With Objects" subtitle="" x="-96" y="-256" w="96" h="64" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>1|2|3</objects>
+		</room>
+		<line id="5">
+			<dock index="0" id="3" port="n" />
+			<dock index="1" id="3" port="nne" />
+		</line>
+		<line id="6">
+			<dock index="0" id="3" port="ne" />
+			<dock index="1" id="3" port="ene" />
+		</line>
+		<line id="7">
+			<dock index="0" id="3" port="e" />
+			<dock index="1" id="3" port="ese" />
+		</line>
+		<line id="8">
+			<dock index="0" id="3" port="se" />
+			<dock index="1" id="3" port="sse" />
+		</line>
+		<line id="9">
+			<dock index="0" id="3" port="s" />
+			<dock index="1" id="3" port="ssw" />
+		</line>
+		<line id="10">
+			<dock index="0" id="3" port="sw" />
+			<dock index="1" id="3" port="wsw" />
+		</line>
+		<line id="11">
+			<dock index="0" id="3" port="w" />
+			<dock index="1" id="3" port="wnw" />
+		</line>
+		<line id="12">
+			<dock index="0" id="3" port="nw" />
+			<dock index="1" id="3" port="nnw" />
+		</line>
+		<room id="13" name="Without Objects" subtitle="" x="64" y="-256" w="96" h="64" region="NoRegion" handDrawn="yes" ellipse="no" roundedCorners="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="14">
+			<dock index="0" id="4" port="e" />
+			<dock index="1" id="13" port="w" />
+		</line>
+		<line id="15">
+			<dock index="0" id="2" port="sw" />
+			<point index="1" x="-320" y="96" />
+		</line>
+		<line id="16">
+			<point index="0" x="-256" y="96" />
+			<dock index="1" id="2" port="ssw" />
+		</line>
+		<line id="17">
+			<dock index="0" id="2" port="s" />
+			<point index="1" x="-192" y="96" />
+		</line>
+		<line id="19">
+			<dock index="0" id="2" port="se" />
+			<point index="1" x="-64" y="96" />
+		</line>
+		<line id="20">
+			<dock index="0" id="2" port="ese" />
+			<point index="1" x="-64" y="32" />
+		</line>
+		<line id="21">
+			<dock index="0" id="2" port="ene" />
+			<point index="1" x="-64" y="-96" />
+		</line>
+		<line id="23">
+			<dock index="0" id="2" port="n" />
+			<point index="1" x="-192" y="-160" />
+		</line>
+		<line id="24">
+			<dock index="0" id="2" port="nne" />
+			<point index="1" x="-128" y="-160" />
+		</line>
+		<line id="25">
+			<point index="0" x="-64" y="-160" />
+			<dock index="1" id="2" port="ne" />
+		</line>
+		<line id="26">
+			<point index="0" x="-320" y="-160" />
+			<dock index="1" id="2" port="nw" />
+		</line>
+		<line id="27">
+			<point index="0" x="-320" y="-32" />
+			<dock index="1" id="2" port="w" />
+		</line>
+		<line id="28">
+			<dock index="0" id="2" port="wnw" />
+			<point index="1" x="-320" y="-96" />
+		</line>
+		<line id="29">
+			<dock index="0" id="2" port="wsw" />
+			<point index="1" x="-320" y="32" />
+		</line>
+		<line id="30">
+			<dock index="0" id="2" port="nnw" />
+			<point index="1" x="-256" y="-160" />
+		</line>
+		<line id="22">
+			<dock index="0" id="2" port="e" />
+			<point index="1" x="-64" y="-32" />
+		</line>
+		<line id="18">
+			<dock index="0" id="2" port="sse" />
+			<point index="1" x="-128" y="96" />
+		</line>
+		<line id="33">
+			<point index="0" x="160" y="-96" />
+			<point index="1" x="160" y="32" />
+		</line>
+		<room id="31" name="Dangling connection to right" subtitle="This room is unconnected" x="-32" y="-96" w="128" h="128" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Joined 2 rooms|moved connector from each port|Deleted the 2 rooms</objects>
+		</room>
+		<room id="32" name="Manual Edit:select:special test cases" subtitle="" x="-256" y="-576" w="416" h="288" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw">Alt-E,S and use arrows.|No arrows: all rooms|Once: all unconnected|Twice: all with objects|3x: all without objects|4x: all connections|5x: all dangling connections|6x: all self-looping connections</objects>
+		</room>
+	</map>
+	<settings>
+		<colors>
+			<canvas>White</canvas>
+			<fill>White</fill>
+			<border>MidnightBlue</border>
+			<line>MidnightBlue</line>
+			<selectedLine>Gold</selectedLine>
+			<hoverLine>DarkOrange</hoverLine>
+			<largeText>MidnightBlue</largeText>
+			<smallText>MidnightBlue</smallText>
+			<lineText>MidnightBlue</lineText>
+			<grid>#F5F5F5</grid>
+		</colors>
+		<regions>
+			<NoRegion Name="NoRegion" TextColor="Blue">White</NoRegion>
+		</regions>
+		<fonts>
+			<room size="13">Comic Sans MS</room>
+			<object size="11">Comic Sans MS</object>
+			<line size="9">Comic Sans MS</line>
+		</fonts>
+		<grid>
+			<snapTo>yes</snapTo>
+			<visible>yes</visible>
+			<showOrigin>yes</showOrigin>
+			<size>32</size>
+		</grid>
+		<lines>
+			<width>2</width>
+			<handDrawn>yes</handDrawn>
+			<arrowSize>12</arrowSize>
+			<textOffset>4</textOffset>
+		</lines>
+		<rooms>
+			<darknessStripeSize>24</darknessStripeSize>
+			<objectListOffset>4</objectListOffset>
+			<connectionStalkLength>32</connectionStalkLength>
+			<preferredDistanceBetweenRooms>64</preferredDistanceBetweenRooms>
+			<defaultRoomName />
+		</rooms>
+		<ui>
+			<handleSize>12</handleSize>
+			<snapToElementSize>16</snapToElementSize>
+		</ui>
+		<keypadNavigation>
+			<creationModifier>control</creationModifier>
+			<unexploredModifier>alt</unexploredModifier>
+		</keypadNavigation>
+	</settings>
+</trizbort>

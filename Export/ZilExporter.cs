@@ -28,7 +28,8 @@ namespace Trizbort.Export
 
     protected override void ExportHeader(TextWriter writer, string title, string author, string description, string history)
     {
-      var startingRoom = LocationsInExportOrder.First();
+      var list = Project.Current.Elements.OfType<Room>().Where(p => p.IsStartRoom).ToList();
+      var startingRoom = list.Count == 0 ? LocationsInExportOrder.First() : LocationsInExportOrder.Find(p => p.Room.ID == list.First().ID);
 
       writer.WriteLine($"{DOUBLE_QUOTE}{title} main file{DOUBLE_QUOTE}");
       writer.WriteLine();

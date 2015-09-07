@@ -162,7 +162,7 @@ namespace Trizbort.Export
       foreach (var reservedWord in ReservedWords)
         mapExportNameToRegion.Add(reservedWord, null);
 
-      foreach (var region in Settings.Regions)
+      foreach (var region in Settings.Regions.Where(p=>p.RegionName != Region.DefaultRegion))
       {
         var exportName = GetExportName(region.RegionName, null);
         if (exportName == string.Empty)

@@ -1,10 +1,29 @@
 Change Log
 
+1.5.9.3
+-------------
+COS: #112 - Disable "Rooms:Change Regions" if there are 0 regions
+COS: #119 - Change language in the settings to change "lines" to "connections".
+ENH: #115 - Add graphic for straight edge room shape in room settings.
+ENH: #116 - Added checkbox to link all corners together to same value
+ENH: #118 - Save the last tab on settings dialog to app settings.
+ENH: #125 - Set a room as the starting room in room settings.  This will export to I7 and ZIL.
+CHG: #117 - Default name for new room should not be blank
+CHG: #123 - Remove the default ("NoRegion") from the list of regions that get exported.
+CHG: #126 - F1 opens up the online help.
+CHG: #129 - Better message on SmartSave if it can't save the image file
+FIX: #113 - Disable "Join rooms" in context menu/Rooms menu if rooms already joined
+FIX: #120 - hand-drawn does not persist on Ctrl-Arrow to create new room
+FIX: #121 - Error checking: request for warning box on unsuccessful smartsave
+FIX: #122 - Some shortcut keys for new menus introduced were triggering other actions.
+FIX: #128 - Failed EMF export does not generate error
+FIX: #130 - darkness does not persist on Ctrl-Arrow to create new room
+
 1.5.9.2
 -------------
-BUG: Fix crash when adding a room when an unconnected connection is selected, now adds a connection onto the end.
-BUG: Fix issue when changing default connection color and then reload map would change connections to light blue.
-BUG: Properties menu was not available in context menu on connection.
+FIX: Fix crash when adding a room when an unconnected connection is selected, now adds a connection onto the end.
+FIX: Fix issue when changing default connection color and then reload map would change connections to light blue.
+FIX: Properties menu was not available in context menu on connection.
 ENH: Enhanced the port calc code so they are more evenly spaced on ellipse and rounded rooms.
 ENH: Stats list # of rooms without a region.
 ENH: Add ability to change the default room name from "Cave"
@@ -20,8 +39,8 @@ ZIL exporter tweaks (Thanks to Jesse McGrew)
 
 1.5.9.1
 -------------
-BUG: Fix issue with multicolored rooms not showing more than one color.
-BUG: Fix the room dialog that would not allow rounded room radius below 15 (valid range is 1-30)
+FIX: Fix issue with multicolored rooms not showing more than one color.
+FIX: Fix the room dialog that would not allow rounded room radius below 15 (valid range is 1-30)
 
 1.5.9.0
 -------------
@@ -30,7 +49,7 @@ ENH: Broke out the Rooms and Connections menu items from Edit into their own mai
 ENH: Enhanced the context menu for a room with much of the room editing items added in the last few versions.
 ENH: Cleaned up context menu for connections
 ENH: Cleaned up context menu for the map canvas.
-BUG: Regions weren't respecting reserved words when exporting to I7
+FIX: Regions weren't respecting reserved words when exporting to I7
 Some code refactoring
 
 1.5.8.11

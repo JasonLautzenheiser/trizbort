@@ -191,7 +191,7 @@ namespace Trizbort
       graphics.Restore(state);
     }
 
-    public static bool SetAlignmentFromCardinalOrOrdinalDirection(XStringFormat format, CompassPoint compassPoint)
+    public static bool SetAlignmentFromCardinalOrOrdinalDirection(XStringFormat format, CompassPoint compassPoint, RoomShape? rs = null)
     {
       switch (compassPoint)
       {
@@ -212,6 +212,7 @@ namespace Trizbort
           format.Alignment = XStringAlignment.Far;
           break;
         case CompassPoint.NorthWest:
+        case CompassPoint.NorthNorthWest:
           format.LineAlignment = XLineAlignment.Far;
           format.Alignment = XStringAlignment.Far;
           break;

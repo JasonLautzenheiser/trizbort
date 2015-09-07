@@ -38,12 +38,14 @@ namespace Trizbort
     private static Tab mLastViewedTab = Tab.Objects;
     private bool mAdjustingPosition;
     private const string NO_COLOR_SET = "No Color Set";
+    private int roomID;
 
-    public RoomPropertiesDialog(PropertiesStartType start)
+    public RoomPropertiesDialog(PropertiesStartType start, int id)
     {
       InitializeComponent();
 
-      
+      roomID = id;
+        
       // load regions control
       cboRegion.Items.Clear();
       foreach (var region in Settings.Regions.OrderBy(p => p.RegionName != Trizbort.Region.DefaultRegion).ThenBy(p => p.RegionName))
@@ -130,6 +132,12 @@ namespace Trizbort
     {
       get { return m_descriptionTextBox.Text; }
       set { m_descriptionTextBox.Text = value; }
+    }
+
+    public bool IsStartRoom
+    {
+      get { return chkStartRoom.Checked; }
+      set { chkStartRoom.Checked = value; }
     }
 
     public bool IsDark
@@ -370,6 +378,8 @@ namespace Trizbort
         }
       }
     }
+
+    public bool AllCornersEqual { get { return chkCornersSame.Checked; } set { chkCornersSame.Checked = value; } }
 
     private void RegionListBox_DrawItem(object sender, DrawItemEventArgs e)
     {
@@ -703,12 +713,22 @@ namespace Trizbort
       {
         path.AddEllipse(new RectangleF(rect.X, rect.Y, rect.Width, rect.Height));
       }
+      else if (cboDrawType.SelectedItem == itemStraightEdges)
+      {
+        path.AddRectangle(rect);
+      }
       graph.DrawPath(pen,path);
     }
 
 
     private void redrawSampleOnChange(object sender, EventArgs e)
     {
+      if ((sender == txtTopLeft) && (chkCornersSame.Checked))
+      {
+        txtBottomLeft.Value = txtTopLeft.Value;
+        txtBottomRight.Value = txtTopLeft.Value;
+        txtTopRight.Value = txtTopLeft.Value;
+      }
       pnlSampleRoomShape.Invalidate();
     }
 
@@ -729,6 +749,34 @@ namespace Trizbort
       }
 
       pnlSampleRoomShape.Invalidate();
+    }
+
+    private void chkCornersSame_CheckedChanged(object sender, EventArgs e)
+    {
+      txtBottomLeft.Enabled = !chkCornersSame.Checked;
+      txtBottomRight.Enabled = !chkCornersSame.Checked;
+      txtTopRight.Enabled = !chkCornersSame.Checked;
+      if (chkCornersSame.Checked)
+      {
+        txtBottomLeft.Value = txtTopLeft.Value;
+        txtBottomRight.Value = txtTopLeft.Value;
+        txtTopRight.Value = txtTopLeft.Value;
+      }
+    }
+
+    private void chkStartRoom_CheckedChanged(object sender, EventArgs e)
+    {
+      if (chkStartRoom.Checked)
+      {
+        var list = Project.Current.Elements.OfType<Room>().Where(p => p.IsStartRoom && p.ID != roomID).ToList();
+
+        if (list.Count <= 0) return;
+
+        if (MessageBox.Show($"The room '{list.First().Name}' is set as the starting room.  Do you want to change it to this room?", "Change Starting Room", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+          Project.Current.Elements.OfType<Room>().ToList().ForEach(p => p.IsStartRoom = false);
+        else
+          chkStartRoom.Checked = false;
+      }
     }
   }
 }

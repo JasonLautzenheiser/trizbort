@@ -81,9 +81,26 @@ namespace Trizbort.Export
       writer.WriteLine("[ Initialise;");
       if (LocationsInExportOrder.Count > 0)
       {
-        writer.WriteLine("    location = {0};", LocationsInExportOrder[0].ExportName);
+        bool foundStart = false;
+        foreach (var location in LocationsInExportOrder)
+        {
+          if (location.Room.IsStartRoom)
+          {
+            if (foundStart)
+            {
+               writer.WriteLine("! {0} is a second start-room according to Trizbort.", location.ExportName);
+            }
+            else
+            {
+              writer.WriteLine("    location = {0};", location.ExportName);
+              foundStart = true;
+            }
+          }
+        }
+        if (!foundStart)
+          writer.WriteLine("    location = {0};", LocationsInExportOrder[0].ExportName);
       }
-      else
+            else
       {
         writer.WriteLine("    ! location = ...;");
       }

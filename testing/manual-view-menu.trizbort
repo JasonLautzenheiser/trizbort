@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trizbort version="1.5.9.2">
+	<info />
+	<map>
+		<room id="1" name="View Menu Test File" subtitle="" x="-256" y="416" w="512" h="224" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw">Typing + and - should zoom in and out.|We will test the mouse wheel in "tools" as there's a special option there.|ctrl-home should zoom out so you can see all 3 rooms.|home should zoom in so you are at 100%.|Alt-V-5, Alt-V-1 and Alt-V-2 should zoom to 50%, 100% and 200%.|You can hit Alt-V-M to toggle the mini-map in the upper right. Do so twice.</objects>
+		</room>
+		<room id="2" name="Room to test zoom" subtitle="" x="-256" y="0" w="512" h="352" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw" />
+		</room>
+		<room id="3" name="Room to test zoom" subtitle="" x="-256" y="704" w="512" h="352" region="NoRegion" handDrawn="no" ellipse="no" roundedCorners="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw" />
+		</room>
+	</map>
+	<settings>
+		<colors>
+			<canvas>White</canvas>
+			<fill>White</fill>
+			<border>MidnightBlue</border>
+			<line>MidnightBlue</line>
+			<selectedLine>Gold</selectedLine>
+			<hoverLine>DarkOrange</hoverLine>
+			<largeText>MidnightBlue</largeText>
+			<smallText>MidnightBlue</smallText>
+			<lineText>MidnightBlue</lineText>
+			<grid>#F5F5F5</grid>
+		</colors>
+		<regions>
+			<NoRegion Name="NoRegion" TextColor="Blue">White</NoRegion>
+		</regions>
+		<fonts>
+			<room size="13">Comic Sans MS</room>
+			<object size="11">Comic Sans MS</object>
+			<line size="9">Comic Sans MS</line>
+		</fonts>
+		<grid>
+			<snapTo>yes</snapTo>
+			<visible>yes</visible>
+			<showOrigin>yes</showOrigin>
+			<size>32</size>
+		</grid>
+		<lines>
+			<width>2</width>
+			<handDrawn>no</handDrawn>
+			<arrowSize>12</arrowSize>
+			<textOffset>4</textOffset>
+		</lines>
+		<rooms>
+			<darknessStripeSize>24</darknessStripeSize>
+			<objectListOffset>4</objectListOffset>
+			<connectionStalkLength>32</connectionStalkLength>
+			<preferredDistanceBetweenRooms>64</preferredDistanceBetweenRooms>
+			<defaultRoomName>Cave</defaultRoomName>
+		</rooms>
+		<ui>
+			<handleSize>12</handleSize>
+			<snapToElementSize>16</snapToElementSize>
+		</ui>
+		<keypadNavigation>
+			<creationModifier>control</creationModifier>
+			<unexploredModifier>alt</unexploredModifier>
+		</keypadNavigation>
+	</settings>
+</trizbort>

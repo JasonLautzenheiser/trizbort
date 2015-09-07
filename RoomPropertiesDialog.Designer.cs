@@ -114,6 +114,7 @@ namespace Trizbort
       this.label7 = new System.Windows.Forms.Label();
       this.cboBorderStyle = new System.Windows.Forms.ComboBox();
       this.label8 = new System.Windows.Forms.Label();
+      this.chkStartRoom = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).BeginInit();
       this.m_tabControl.SuspendLayout();
       this.superTabControlPanel5.SuspendLayout();
@@ -180,7 +181,7 @@ namespace Trizbort
       this.m_descriptionTextBox.Location = new System.Drawing.Point(3, 3);
       this.m_descriptionTextBox.Multiline = true;
       this.m_descriptionTextBox.Name = "m_descriptionTextBox";
-      this.m_descriptionTextBox.Size = new System.Drawing.Size(467, 204);
+      this.m_descriptionTextBox.Size = new System.Drawing.Size(467, 178);
       this.m_descriptionTextBox.TabIndex = 13;
       // 
       // comboBox1
@@ -354,11 +355,11 @@ namespace Trizbort
       this.m_tabControl.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.m_tabControl.ControlBox.MenuBox,
             this.m_tabControl.ControlBox.CloseBox});
-      this.m_tabControl.Controls.Add(this.superTabControlPanel5);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel1);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel4);
       this.m_tabControl.Controls.Add(this.superTabControlPanel3);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel4);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel5);
       this.m_tabControl.Controls.Add(this.superTabControlPanel2);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel1);
       this.m_tabControl.Location = new System.Drawing.Point(19, 130);
       this.m_tabControl.Name = "m_tabControl";
       this.m_tabControl.ReorderTabsEnabled = true;
@@ -754,9 +755,9 @@ namespace Trizbort
       this.superTabControlPanel4.Controls.Add(this.cboRegion);
       this.superTabControlPanel4.Controls.Add(this.label6);
       this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
+      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 26);
       this.superTabControlPanel4.Name = "superTabControlPanel4";
-      this.superTabControlPanel4.Size = new System.Drawing.Size(472, 210);
+      this.superTabControlPanel4.Size = new System.Drawing.Size(472, 184);
       this.superTabControlPanel4.TabIndex = 0;
       this.superTabControlPanel4.TabItem = this.tabRegions;
       // 
@@ -786,9 +787,9 @@ namespace Trizbort
       this.superTabControlPanel3.Controls.Add(this.label3);
       this.superTabControlPanel3.Controls.Add(this.m_changeRoomTextButton);
       this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 0);
+      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 26);
       this.superTabControlPanel3.Name = "superTabControlPanel3";
-      this.superTabControlPanel3.Size = new System.Drawing.Size(472, 210);
+      this.superTabControlPanel3.Size = new System.Drawing.Size(472, 184);
       this.superTabControlPanel3.TabIndex = 0;
       this.superTabControlPanel3.TabItem = this.tabColors;
       // 
@@ -898,9 +899,9 @@ namespace Trizbort
       // 
       this.superTabControlPanel2.Controls.Add(this.m_descriptionTextBox);
       this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 0);
+      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 26);
       this.superTabControlPanel2.Name = "superTabControlPanel2";
-      this.superTabControlPanel2.Size = new System.Drawing.Size(472, 210);
+      this.superTabControlPanel2.Size = new System.Drawing.Size(472, 184);
       this.superTabControlPanel2.TabIndex = 0;
       this.superTabControlPanel2.TabItem = this.tabDescription;
       // 
@@ -970,6 +971,18 @@ namespace Trizbort
       this.label8.TabIndex = 5;
       this.label8.Text = "Border St&yle:";
       // 
+      // chkStartRoom
+      // 
+      this.chkStartRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.chkStartRoom.AutoSize = true;
+      this.chkStartRoom.Location = new System.Drawing.Point(293, 97);
+      this.chkStartRoom.Name = "chkStartRoom";
+      this.chkStartRoom.Size = new System.Drawing.Size(80, 17);
+      this.chkStartRoom.TabIndex = 7;
+      this.chkStartRoom.Text = "Start Room";
+      this.chkStartRoom.UseVisualStyleBackColor = true;
+      this.chkStartRoom.CheckedChanged += new System.EventHandler(this.chkStartRoom_CheckedChanged);
+      // 
       // RoomPropertiesDialog
       // 
       this.AcceptButton = this.m_okButton;
@@ -977,6 +990,7 @@ namespace Trizbort
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.m_cancelButton;
       this.ClientSize = new System.Drawing.Size(507, 381);
+      this.Controls.Add(this.chkStartRoom);
       this.Controls.Add(this.cboBorderStyle);
       this.Controls.Add(this.label8);
       this.Controls.Add(this.txtSubTitle);
@@ -1084,5 +1098,6 @@ namespace Trizbort
     private DevComponents.Editors.ComboItem itemEllipse;
     private DevComponents.DotNetBar.Controls.GroupPanel groupRoundedCorners;
     private System.Windows.Forms.CheckBox chkCornersSame;
+    private System.Windows.Forms.CheckBox chkStartRoom;
   }
 }

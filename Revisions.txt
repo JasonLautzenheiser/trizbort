@@ -7,6 +7,7 @@ COS: #119 - Change language in the settings to change "lines" to "connections".
 ENH: #115 - Add graphic for straight edge room shape in room settings.
 ENH: #116 - Added checkbox to link all corners together to same value
 ENH: #118 - Save the last tab on settings dialog to app settings.
+ENH: #125 - Set a room as the starting room in room settings.  This will export to I7 and ZIL.
 CHG: #117 - Default name for new room should not be blank
 CHG: #123 - Remove the default ("NoRegion") from the list of regions that get exported.
 CHG: #126 - F1 opens up the online help.

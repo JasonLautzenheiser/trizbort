@@ -116,6 +116,12 @@ namespace Trizbort.Export
 
         writer.WriteLine(); // end the previous line
         writer.WriteLine(); // blank line
+
+        if (location.Room.IsStartRoom)
+        {
+          writer.Write("The player is in {0}.", location.ExportName);
+          writer.WriteLine();
+        }
       }
 
       // export the chosen exits from each location.

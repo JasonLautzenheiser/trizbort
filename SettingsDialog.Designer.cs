@@ -162,10 +162,12 @@ namespace Trizbort
       this.m_okButton.TabIndex = 0;
       this.m_okButton.Text = "OK";
       this.m_okButton.UseVisualStyleBackColor = true;
+      this.m_okButton.Click += new System.EventHandler(this.m_okButton_Click);
       // 
       // m_cancelButton
       // 
       this.m_cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_cancelButton.CausesValidation = false;
       this.m_cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
       this.m_cancelButton.Location = new System.Drawing.Point(288, 12);
       this.m_cancelButton.Name = "m_cancelButton";
@@ -475,6 +477,7 @@ namespace Trizbort
       this.txtDefaultRoomName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.txtDefaultRoomName.BackColor = System.Drawing.SystemColors.Window;
+      this.txtDefaultRoomName.CausesValidation = false;
       this.txtDefaultRoomName.Location = new System.Drawing.Point(242, 64);
       this.txtDefaultRoomName.Name = "txtDefaultRoomName";
       this.txtDefaultRoomName.Size = new System.Drawing.Size(95, 21);
@@ -727,12 +730,12 @@ namespace Trizbort
             "Canvas",
             "Fill",
             "Border",
-            "Line",
-            "Selected Line",
-            "Hover Line",
+            "Connection",
+            "Connection (selected)",
+            "Connection (hover)",
             "Room Text",
             "Object Text",
-            "Line Text",
+            "Connection Text",
             "Grid"});
       this.m_colorListBox.Location = new System.Drawing.Point(82, 19);
       this.m_colorListBox.Name = "m_colorListBox";
@@ -1107,6 +1110,8 @@ namespace Trizbort
       this.ShowInTaskbar = false;
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
       this.Text = "Map Settings";
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsDialog_FormClosing);
+      this.Load += new System.EventHandler(this.SettingsDialog_Load);
       ((System.ComponentModel.ISupportInitialize)(this.m_lineWidthUpDown)).EndInit();
       this.m_linesGroupBox.ResumeLayout(false);
       this.m_linesGroupBox.PerformLayout();

@@ -1031,7 +1031,7 @@ namespace Trizbort
               SelectAll();
             }
           }
-          else
+          else if (e.Modifiers == Keys.None)
           {
             NewConnectionFlow = NewConnectionFlow == ConnectionFlow.TwoWay ? ConnectionFlow.OneWay : ConnectionFlow.TwoWay;
             ApplyConnectionFlow(NewConnectionFlow);
@@ -1104,47 +1104,68 @@ namespace Trizbort
               Invalidate();
             }
           }
-          else
+          else if (ModifierKeys == Keys.None)
           {
             AddRoom(true, true);
           }
           break;
 
         case Keys.T:
-          NewConnectionStyle = NewConnectionStyle == ConnectionStyle.Solid ? ConnectionStyle.Dashed : ConnectionStyle.Solid;
-          ApplyConnectionStyle(NewConnectionStyle);
+          if (ModifierKeys == Keys.None)
+          {
+            NewConnectionStyle = NewConnectionStyle == ConnectionStyle.Solid ? ConnectionStyle.Dashed : ConnectionStyle.Solid;
+            ApplyConnectionStyle(NewConnectionStyle);
+          }
           break;
         case Keys.P:
-          ApplyNewPlainConnectionSettings();
+          if (ModifierKeys == Keys.None)
+          {
+            ApplyNewPlainConnectionSettings();
+          }
           break;
         case Keys.U:
-          NewConnectionLabel = ConnectionLabel.Up;
-          ApplyConnectionLabel(NewConnectionLabel);
+          if (ModifierKeys == Keys.None)
+          {
+            NewConnectionLabel = ConnectionLabel.Up;
+            ApplyConnectionLabel(NewConnectionLabel);
+          }
           break;
         case Keys.D:
-          NewConnectionLabel = ConnectionLabel.Down;
-          ApplyConnectionLabel(NewConnectionLabel);
+          if (ModifierKeys == Keys.None)
+          {
+            NewConnectionLabel = ConnectionLabel.Down;
+            ApplyConnectionLabel(NewConnectionLabel);
+          }
           break;
         case Keys.I:
-          NewConnectionLabel = ConnectionLabel.In;
-          ApplyConnectionLabel(NewConnectionLabel);
+          if (ModifierKeys == Keys.None)
+          {
+            NewConnectionLabel = ConnectionLabel.In;
+            ApplyConnectionLabel(NewConnectionLabel);
+          }
           break;
         case Keys.O:
-          NewConnectionLabel = ConnectionLabel.Out;
-          ApplyConnectionLabel(NewConnectionLabel);
+          if (ModifierKeys == Keys.None)
+          {
+            NewConnectionLabel = ConnectionLabel.Out;
+            ApplyConnectionLabel(NewConnectionLabel);
+          }
           break;
 
         case Keys.V:
           if (ModifierKeys == Keys.Control)
             Paste(true);
-          else
+          else if (ModifierKeys == Keys.None)
             ReverseLineDirection();
           break;
 
         case Keys.J:
-          var selectedRooms = SelectedRooms;
-          if (selectedRooms.Count() == 2)
-            JoinSelectedRooms(selectedRooms[0], selectedRooms[1]);
+          if (ModifierKeys == Keys.None)
+          {
+            var selectedRooms = SelectedRooms;
+            if (selectedRooms.Count == 2 && !Project.Current.AreRoomsConnected(SelectedRooms))
+              JoinSelectedRooms(selectedRooms[0], selectedRooms[1]);
+          }
           break;
 
         case Keys.W:
@@ -1162,15 +1183,18 @@ namespace Trizbort
               SwapRoomNames();
               break;
 
-            default:
+            case Keys.None:
               SwapRooms();
               break;
           }
           break;
 
         case Keys.K:
-          foreach (var room in SelectedRooms)
-            room.IsDark = !room.IsDark;
+          if (ModifierKeys == Keys.None)
+          {
+            foreach (var room in SelectedRooms)
+              room.IsDark = !room.IsDark;
+          }
           break;
 
         case Keys.F1:
@@ -1565,9 +1589,12 @@ namespace Trizbort
           // new room entirely
           var newRoom = new Room(Project.Current)
           {
-            Position = new Vector(centerOfNewRoom.X - room.Width/2, centerOfNewRoom.Y - room.Height/2), Region = room.Region,
+            Position = new Vector(centerOfNewRoom.X - room.Width/2, centerOfNewRoom.Y - room.Height/2),
+            Region = room.Region,
             Size = room.Size,
             Shape = room.Shape,
+            StraightEdges = room.StraightEdges,
+            IsDark = room.IsDark,
             Corners = room.Corners
           };
 
@@ -3039,7 +3066,7 @@ namespace Trizbort
           toolStripSeparator2.Visible = true;
 
           swapObjectsToolStripMenuItem.Enabled = SelectedRooms.Count == 2;
-          joinRoomsToolStripMenuItem.Enabled = SelectedRooms.Count == 2;
+          joinRoomsToolStripMenuItem.Enabled = SelectedRooms.Count == 2 && !Project.Current.AreRoomsConnected(SelectedRooms); ;
 
           darkToolStripMenuItem.Checked = lastSelectedRoom.IsDark;
 

@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -36,12 +37,12 @@ namespace Trizbort
     private const int VERTICAL_MARGIN = 2;
     private const int WIDTH = 24;
     private readonly TextBox editBox;
+    private bool bUpdatingRegionText;
     private int itemSelected;
+    private Region mCurrentRegion;
     private Font mLargeFont;
     private Font mLineFont;
     private Font mSmallFont;
-    private bool bUpdatingRegionText;
-    Region mCurrentRegion;
 
     public SettingsDialog()
     {
@@ -49,10 +50,10 @@ namespace Trizbort
       Regions = Settings.Regions;
       InitializeComponent();
 
-      editBox = new TextBox { Location = new Point(0, 0), Size = new Size(0, 0), Font = new Font("Tahoma", 8.25f), AcceptsReturn = true };
+      editBox = new TextBox {Location = new Point(0, 0), Size = new Size(0, 0), Font = new Font("Tahoma", 8.25f), AcceptsReturn = true};
       editBox.Hide();
 
-      m_RegionListing.Controls.AddRange(new Control[] { editBox });
+      m_RegionListing.Controls.AddRange(new Control[] {editBox});
       editBox.Text = string.Empty;
       editBox.BorderStyle = BorderStyle.FixedSingle;
 
@@ -72,38 +73,18 @@ namespace Trizbort
       m_RegionListing.SelectedIndex = 0;
     }
 
-    public string Title
-    {
-      get { return m_titleTextBox.Text; }
-      set { m_titleTextBox.Text = value; }
-    }
+    public string Title { get { return m_titleTextBox.Text; } set { m_titleTextBox.Text = value; } }
 
-    public string Author
-    {
-      get { return m_authorTextBox.Text; }
-      set { m_authorTextBox.Text = value; }
-    }
+    public string Author { get { return m_authorTextBox.Text; } set { m_authorTextBox.Text = value; } }
 
-    public string Description
-    {
-      get { return m_descriptionTextBox.Text; }
-      set { m_descriptionTextBox.Text = value; }
-    }
+    public string Description { get { return m_descriptionTextBox.Text; } set { m_descriptionTextBox.Text = value; } }
 
-    public string History
-    {
-      get { return m_historyTextBox.Text; }
-      set { m_historyTextBox.Text = value; }
-    }
+    public string History { get { return m_historyTextBox.Text; } set { m_historyTextBox.Text = value; } }
 
     public Color[] Color { get; }
     public List<Region> Regions { get; }
 
-    public string DefaultRoomName
-    {
-      get { return txtDefaultRoomName.Text; }
-      set { txtDefaultRoomName.Text = value; }
-    }
+    public string DefaultRoomName { get { return txtDefaultRoomName.Text; } set { txtDefaultRoomName.Text = value; } }
 
     public Font LargeFont
     {
@@ -112,7 +93,7 @@ namespace Trizbort
       {
         mLargeFont = value;
         m_largeFontNameTextBox.Text = Drawing.FontName(mLargeFont);
-        m_largeFontSizeTextBox.Text = ((int)Math.Round(mLargeFont.Size)).ToString();
+        m_largeFontSizeTextBox.Text = ((int) Math.Round(mLargeFont.Size)).ToString();
       }
     }
 
@@ -123,7 +104,7 @@ namespace Trizbort
       {
         mSmallFont = value;
         m_smallFontNameTextBox.Text = Drawing.FontName(mSmallFont);
-        m_smallFontSizeTextBox.Text = ((int)Math.Round(mSmallFont.Size)).ToString();
+        m_smallFontSizeTextBox.Text = ((int) Math.Round(mSmallFont.Size)).ToString();
       }
     }
 
@@ -134,93 +115,37 @@ namespace Trizbort
       {
         mLineFont = value;
         m_lineFontNameTextBox.Text = Drawing.FontName(mLineFont);
-        m_lineFontSizeTextBox.Text = ((int)Math.Round(mLineFont.Size)).ToString();
+        m_lineFontSizeTextBox.Text = ((int) Math.Round(mLineFont.Size)).ToString();
       }
     }
 
-    public bool HandDrawn
-    {
-      get { return m_handDrawnCheckBox.Checked; }
-      set { m_handDrawnCheckBox.Checked = value; }
-    }
+    public bool HandDrawn { get { return m_handDrawnCheckBox.Checked; } set { m_handDrawnCheckBox.Checked = value; } }
 
-    public float LineWidth
-    {
-      get { return (float)m_lineWidthUpDown.Value; }
-      set { m_lineWidthUpDown.Value = (decimal)value; }
-    }
+    public float LineWidth { get { return (float) m_lineWidthUpDown.Value; } set { m_lineWidthUpDown.Value = (decimal) value; } }
 
-    public bool SnapToGrid
-    {
-      get { return m_snapToGridCheckBox.Checked; }
-      set { m_snapToGridCheckBox.Checked = value; }
-    }
+    public bool SnapToGrid { get { return m_snapToGridCheckBox.Checked; } set { m_snapToGridCheckBox.Checked = value; } }
 
-    public float GridSize
-    {
-      get { return (float)m_gridSizeUpDown.Value; }
-      set { m_gridSizeUpDown.Value = (decimal)value; }
-    }
+    public float GridSize { get { return (float) m_gridSizeUpDown.Value; } set { m_gridSizeUpDown.Value = (decimal) value; } }
 
-    public bool IsGridVisible
-    {
-      get { return m_showGridCheckBox.Checked; }
-      set { m_showGridCheckBox.Checked = value; }
-    }
+    public bool IsGridVisible { get { return m_showGridCheckBox.Checked; } set { m_showGridCheckBox.Checked = value; } }
 
-    public bool ShowOrigin
-    {
-      get { return m_showOriginCheckBox.Checked; }
-      set { m_showOriginCheckBox.Checked = value; }
-    }
+    public bool ShowOrigin { get { return m_showOriginCheckBox.Checked; } set { m_showOriginCheckBox.Checked = value; } }
 
-    public float DarknessStripeSize
-    {
-      get { return (float)m_darknessStripeSizeNumericUpDown.Value; }
-      set { m_darknessStripeSizeNumericUpDown.Value = (decimal)value; }
-    }
+    public float DarknessStripeSize { get { return (float) m_darknessStripeSizeNumericUpDown.Value; } set { m_darknessStripeSizeNumericUpDown.Value = (decimal) value; } }
 
-    public float ObjectListOffsetFromRoom
-    {
-      get { return (float)m_objectListOffsetFromRoomNumericUpDown.Value; }
-      set { m_objectListOffsetFromRoomNumericUpDown.Value = (decimal)value; }
-    }
+    public float ObjectListOffsetFromRoom { get { return (float) m_objectListOffsetFromRoomNumericUpDown.Value; } set { m_objectListOffsetFromRoomNumericUpDown.Value = (decimal) value; } }
 
-    public float ConnectionStalkLength
-    {
-      get { return (float)m_connectionStalkLengthUpDown.Value; }
-      set { m_connectionStalkLengthUpDown.Value = (decimal)value; }
-    }
+    public float ConnectionStalkLength { get { return (float) m_connectionStalkLengthUpDown.Value; } set { m_connectionStalkLengthUpDown.Value = (decimal) value; } }
 
-    public float PreferredDistanceBetweenRooms
-    {
-      get { return (float)m_preferredDistanceBetweenRoomsUpDown.Value; }
-      set { m_preferredDistanceBetweenRoomsUpDown.Value = (decimal)value; }
-    }
+    public float PreferredDistanceBetweenRooms { get { return (float) m_preferredDistanceBetweenRoomsUpDown.Value; } set { m_preferredDistanceBetweenRoomsUpDown.Value = (decimal) value; } }
 
-    public float TextOffsetFromConnection
-    {
-      get { return (float)m_textOffsetFromLineUpDown.Value; }
-      set { m_textOffsetFromLineUpDown.Value = (decimal)value; }
-    }
+    public float TextOffsetFromConnection { get { return (float) m_textOffsetFromLineUpDown.Value; } set { m_textOffsetFromLineUpDown.Value = (decimal) value; } }
 
-    public float HandleSize
-    {
-      get { return (float)m_handleSizeUpDown.Value; }
-      set { m_handleSizeUpDown.Value = (decimal)value; }
-    }
+    public float HandleSize { get { return (float) m_handleSizeUpDown.Value; } set { m_handleSizeUpDown.Value = (decimal) value; } }
 
-    public float SnapToElementSize
-    {
-      get { return (float)m_snapToElementDistanceUpDown.Value; }
-      set { m_snapToElementDistanceUpDown.Value = (decimal)value; }
-    }
+    public float SnapToElementSize { get { return (float) m_snapToElementDistanceUpDown.Value; } set { m_snapToElementDistanceUpDown.Value = (decimal) value; } }
 
-    public float ConnectionArrowSize
-    {
-      get { return (float)m_arrowSizeUpDown.Value; }
-      set { m_arrowSizeUpDown.Value = (decimal)value; }
-    }
+    public float ConnectionArrowSize { get { return (float) m_arrowSizeUpDown.Value; } set { m_arrowSizeUpDown.Value = (decimal) value; } }
 
     private void editBoxLeave(object sender, EventArgs e)
     {
@@ -246,13 +171,13 @@ namespace Trizbort
     private void RegionListBox_DrawItem(object sender, DrawItemEventArgs e)
     {
       if (e.Index < 0) return;
-      Font txtColorFont = new Font("Arial", 6);
+      var txtColorFont = new Font("Arial", 6);
       using (var palette = new Palette())
       {
         e.DrawBackground();
 
-        var colorBounds = new Rectangle(e.Bounds.Left + HORIZONTAL_MARGIN, e.Bounds.Top + VERTICAL_MARGIN, WIDTH, e.Bounds.Height - VERTICAL_MARGIN * 2);
-        var textBounds = new Rectangle(colorBounds.Right + HORIZONTAL_MARGIN, e.Bounds.Top, e.Bounds.Width - colorBounds.Width - HORIZONTAL_MARGIN * 2, e.Bounds.Height);
+        var colorBounds = new Rectangle(e.Bounds.Left + HORIZONTAL_MARGIN, e.Bounds.Top + VERTICAL_MARGIN, WIDTH, e.Bounds.Height - VERTICAL_MARGIN*2);
+        var textBounds = new Rectangle(colorBounds.Right + HORIZONTAL_MARGIN, e.Bounds.Top, e.Bounds.Width - colorBounds.Width - HORIZONTAL_MARGIN*2, e.Bounds.Height);
         var foundRegion = Regions.FirstOrDefault(p => p.RegionName == m_RegionListing.Items[e.Index].ToString());
         if (foundRegion != null)
         {
@@ -273,11 +198,11 @@ namespace Trizbort
         const int horizontalMargin = 2;
         const int verticalMargin = 2;
         const int width = 24;
-        var colorBounds = new Rectangle(e.Bounds.Left + horizontalMargin, e.Bounds.Top + verticalMargin, width, e.Bounds.Height - verticalMargin * 2);
-        var textBounds = new Rectangle(colorBounds.Right + horizontalMargin, e.Bounds.Top, e.Bounds.Width - colorBounds.Width - horizontalMargin * 2, e.Bounds.Height);
+        var colorBounds = new Rectangle(e.Bounds.Left + horizontalMargin, e.Bounds.Top + verticalMargin, width, e.Bounds.Height - verticalMargin*2);
+        var textBounds = new Rectangle(colorBounds.Right + horizontalMargin, e.Bounds.Top, e.Bounds.Width - colorBounds.Width - horizontalMargin*2, e.Bounds.Height);
         e.Graphics.FillRectangle(palette.Brush(Color[e.Index]), colorBounds);
         e.Graphics.DrawRectangle(palette.Pen(e.ForeColor, 0), colorBounds);
-        StringFormat format = new StringFormat {Trimming = StringTrimming.EllipsisCharacter};
+        var format = new StringFormat {Trimming = StringTrimming.EllipsisCharacter};
         e.Graphics.DrawString(m_colorListBox.Items[e.Index].ToString(), e.Font, palette.Brush(e.ForeColor), textBounds, format);
       }
     }
@@ -298,9 +223,10 @@ namespace Trizbort
       var selectedIndex = m_RegionListing.SelectedIndex;
       if (selectedIndex == -1) return;
       var region = Regions.FirstOrDefault(p => p.RegionName == m_RegionListing.Items[selectedIndex].ToString());
-      if (region != null) {
+      if (region != null)
+      {
         var originalRegionName = region.RegionName;
-        RegionSettings frm = new RegionSettings(region, Regions);
+        var frm = new RegionSettings(region, Regions);
         if (frm.ShowDialog() == DialogResult.OK)
         {
           region.RColor = frm.RegionToChange.RColor;
@@ -322,12 +248,12 @@ namespace Trizbort
 
     private void btnAddRegion_Click(object sender, EventArgs e)
     {
-      var region = new Region { RegionName = nextAvailableRegionName(), RColor = System.Drawing.Color.White, TextColor = Settings.Color[Colors.LargeText] };
+      var region = new Region {RegionName = nextAvailableRegionName(), RColor = System.Drawing.Color.White, TextColor = Settings.Color[Colors.LargeText]};
       Regions.Add(region);
       addRegionsToListbox();
       m_colorListBox.Invalidate();
 
-      int newOne = m_RegionListing.FindString(region.RegionName);
+      var newOne = m_RegionListing.FindString(region.RegionName);
 
       m_RegionListing.SelectedIndex = newOne;
       m_RegionListing.Focus();
@@ -335,15 +261,15 @@ namespace Trizbort
 
     private string nextAvailableRegionName()
     {
-      int num = 1;
-      string newRegionName = "Region1";
+      var num = 1;
+      var newRegionName = "Region1";
 
-      while (Regions.Exists(p=>p.RegionName.Equals(newRegionName,StringComparison.OrdinalIgnoreCase)))
+      while (Regions.Exists(p => p.RegionName.Equals(newRegionName, StringComparison.OrdinalIgnoreCase)))
       {
         num++;
         newRegionName = $"Region{num}";
       }
-      
+
       return newRegionName;
     }
 
@@ -396,8 +322,8 @@ namespace Trizbort
       var r = m_RegionListing.GetItemRectangle(itemSelected);
       var itemText = m_RegionListing.Items[itemSelected].ToString();
 
-      var colorBounds = new Rectangle(r.Left + HORIZONTAL_MARGIN, r.Top + VERTICAL_MARGIN, WIDTH, r.Height - VERTICAL_MARGIN * 2);
-      var textBounds = new Rectangle(colorBounds.Right + HORIZONTAL_MARGIN, r.Top, r.Width - colorBounds.Width - HORIZONTAL_MARGIN * 2, r.Height);
+      var colorBounds = new Rectangle(r.Left + HORIZONTAL_MARGIN, r.Top + VERTICAL_MARGIN, WIDTH, r.Height - VERTICAL_MARGIN*2);
+      var textBounds = new Rectangle(colorBounds.Right + HORIZONTAL_MARGIN, r.Top, r.Width - colorBounds.Width - HORIZONTAL_MARGIN*2, r.Height);
 
       editBox.Location = new Point(textBounds.X + 1, textBounds.Y + 1);
       editBox.AutoSize = false;
@@ -454,7 +380,7 @@ namespace Trizbort
 
     private bool regionAlreadyExists(string pNew)
     {
-      if (Regions.Any(p => p != mCurrentRegion && p.RegionName.Equals(pNew,StringComparison.OrdinalIgnoreCase) ))
+      if (Regions.Any(p => p != mCurrentRegion && p.RegionName.Equals(pNew, StringComparison.OrdinalIgnoreCase)))
       {
         MessageBox.Show($"A Region already exists with the name '{pNew}'");
         return true;
@@ -481,12 +407,12 @@ namespace Trizbort
         return;
       }
 
-      if (e.KeyChar == (char)Keys.Enter || e.KeyChar == (char)Keys.Return)
+      if (e.KeyChar == (char) Keys.Enter || e.KeyChar == (char) Keys.Return)
       {
         updateHideRegionTextBox();
       }
 
-      if (e.KeyChar == (char)Keys.Escape)
+      if (e.KeyChar == (char) Keys.Escape)
       {
         bUpdatingRegionText = true;
         editBox.Hide();
@@ -529,7 +455,6 @@ namespace Trizbort
     }
 
 
-
     private void tabControl1_Selected(object sender, TabControlEventArgs e)
     {
       switch (e.TabPage.Name)
@@ -538,6 +463,37 @@ namespace Trizbort
           m_RegionListing.Focus();
           break;
       }
+    }
+
+    private void m_okButton_Click(object sender, EventArgs e)
+    {
+      if (string.IsNullOrWhiteSpace(txtDefaultRoomName.Text))
+      {
+        MessageBox.Show("The default room name can't be empty. Please put something in there.", "Empty default name", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        txtDefaultRoomName.Focus();
+        DialogResult = DialogResult.None;
+      }
+
+    }
+
+    private void SettingsDialog_Load(object sender, EventArgs e)
+    {
+      try
+      {
+        var tab = Properties.Settings.Default.SettingsLastTabIndex;
+
+        tabControl1.SelectedIndex = Convert.ToInt32(tab);
+      }
+      catch
+      {
+        // ignored
+      }
+    }
+
+    private void SettingsDialog_FormClosing(object sender, FormClosingEventArgs e)
+    {
+      Properties.Settings.Default.SettingsLastTabIndex = tabControl1.SelectedIndex;
+      Properties.Settings.Default.Save();
     }
   }
 }

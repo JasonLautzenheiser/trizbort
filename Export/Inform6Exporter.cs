@@ -92,6 +92,15 @@ namespace Trizbort.Export
       writer.WriteLine();
       writer.WriteLine("Include \"Grammar\";");
       writer.WriteLine();
+      if (!string.IsNullOrEmpty(Project.Current.History))
+      {
+          writer.WriteLine("Verb meta 'about' * -> About;");
+          writer.WriteLine();
+          writer.WriteLine("[ AboutSub ;");
+          writer.WriteLine("  print({0});", toI6String(Project.Current.History, DOUBLE_QUOTE));
+          writer.WriteLine("];");
+        writer.WriteLine();
+      }
     }
 
     private void ExportThings(TextWriter writer, List<Thing> things, Thing container, int indent)

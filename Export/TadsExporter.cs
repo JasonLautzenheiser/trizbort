@@ -69,10 +69,11 @@ namespace Trizbort.Export
 
     private void exportHistory(TextWriter writer, string history)
     {
-      writer.WriteLine("showAbout()");
-      writer.WriteLine("{");
-      writer.WriteLine($"{DOUBLE_QUOTE}{history}{DOUBLE_QUOTE};");
-      writer.WriteLine("}");
+      writer.WriteLine();
+      writer.WriteLine("    showAbout()");
+      writer.WriteLine("    {");
+      writer.WriteLine($"    {DOUBLE_QUOTE}{history}{DOUBLE_QUOTE};");
+      writer.WriteLine("    }");
     }
 
     protected override void ExportContent(TextWriter writer)
@@ -107,7 +108,21 @@ namespace Trizbort.Export
       writer.WriteLine("me: Actor");
       if (LocationsInExportOrder.Count > 0)
       {
-        writer.WriteLine("    location = {0}", LocationsInExportOrder[0].ExportName);
+         bool foundStart = false;
+         foreach (var location in LocationsInExportOrder)
+                {
+                    if (location.Room.IsStartRoom)
+                    {
+                        if (foundStart)
+                        {
+                            writer.WriteLine("/( {0} is an extra StartRoom. /*", location.ExportName);
+                        }
+                        writer.WriteLine("    location = {0}", location.ExportName);
+                        foundStart = true;
+                    }
+                }
+         if (!foundStart)
+             writer.WriteLine("    location = {0}", LocationsInExportOrder[0].ExportName);
       }
       else
       {

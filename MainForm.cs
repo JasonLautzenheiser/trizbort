@@ -604,6 +604,20 @@ namespace Trizbort
       ExportCode<ZilExporter>();
     }
 
+    private void FileExportHugoMenuItem_Click(object sender, EventArgs e)
+    {
+        var fileName = Settings.LastExportHugoFileName;
+        if (ExportCode<HugoExporter>(ref fileName))
+        {
+            Settings.LastExportHugoFileName = fileName;
+        }
+    }
+
+    private void hugoToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        ExportCode<HugoExporter>();
+    }
+
     private void FileExportTadsMenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportTadsFileName;

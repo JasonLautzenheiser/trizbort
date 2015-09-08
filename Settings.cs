@@ -561,18 +561,13 @@ namespace Trizbort
 
         //below is code for pulling the region names, text color and background color from Settings.Regions.
         //it is set up so that Trizbort can check after we click OK or Cancel, and we can see if anything changed.
-        //I don't have a more elegant way to do this, but I suspect there is. --Andrew 9/8/2015
+        //Currently Trizbort only can check for region names of individual rooms changing.
+        //After talking with Jason, We'll need to refactor code to make this run smoother, but this is the best for now.
 
         var RegCount = Settings.Regions.Count;
-        List<string> regNameList = new List<string>();
-        for (int x = 0; x < RegCount; x++)
-            regNameList.Add(Settings.Regions[x].RegionName);
-        List<Color> regTextColorList = new List<Color>();
-        for (int x = 0; x < RegCount; x++)
-            regTextColorList.Add(Settings.Regions[x].TextColor);
-        List<Color> regBkgdColorList = new List<Color>();
-        for (int x = 0; x < RegCount; x++)
-            regBkgdColorList.Add(Settings.Regions[x].RColor);
+        var regNameList = Settings.Regions.Select(p=>p.RegionName).ToList();
+        var regTextColorList = Settings.Regions.Select(p=>p.TextColor).ToList();
+        var regBkgdColorList = Settings.Regions.Select(p=>p.RColor).ToList();
 
         dialog.Title = Project.Current.Title;
         dialog.Author = Project.Current.Author;

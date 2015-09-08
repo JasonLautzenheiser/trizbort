@@ -322,7 +322,7 @@ namespace Trizbort
       this.m_fileExportHugoMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
             | System.Windows.Forms.Keys.H)));
       this.m_fileExportHugoMenuItem.Size = new System.Drawing.Size(251, 22);
-      this.m_fileExportHugoMenuItem.Text = "Inform &7...";
+      this.m_fileExportHugoMenuItem.Text = "&Hugo...";
       this.m_fileExportHugoMenuItem.Click += new System.EventHandler(this.FileExportHugoMenuItem_Click);
       // 
       // m_fileExportInform7MenuItem

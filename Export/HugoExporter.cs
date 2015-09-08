@@ -40,7 +40,7 @@ namespace Trizbort.Export
 
     public override List<KeyValuePair<string, string>> FileDialogFilters => new List<KeyValuePair<string, string>>
     {
-      new KeyValuePair<string, string>("TADS Source Files", ".t"),
+      new KeyValuePair<string, string>("Hugo Source Files", ".hug"),
       new KeyValuePair<string, string>("Text Files", ".txt")
     };
 
@@ -49,47 +49,51 @@ namespace Trizbort.Export
 
     protected override void ExportHeader(TextWriter writer, string title, string author, string description, string history)
     {
-            writer.WriteLine("# include \"verblib.g\" ! grammar must come first");
-            writer.WriteLine();
-            writer.WriteLine("# ifset PRECOMPILED_LIBRARY");
-            writer.WriteLine("# link \"hugolib.hlb\"");
-            writer.WriteLine("#else");
-            writer.WriteLine("# include \"hugolib.h\"");
-            writer.WriteLine("#endif");
-            writer.WriteLine();
-            writer.WriteLine("routine init");
+      writer.WriteLine("# include \"verblib.g\" ! grammar must come first");
+      writer.WriteLine();
+      writer.WriteLine("# ifset PRECOMPILED_LIBRARY");
+      writer.WriteLine("# link \"hugolib.hlb\"");
+      writer.WriteLine("#else");
+      writer.WriteLine("# include \"hugolib.h\"");
+      writer.WriteLine("#endif");
+      writer.WriteLine();
+      writer.WriteLine("routine init");
       writer.WriteLine("{");
-            if (!string.IsNullOrWhiteSpace(title))
-            {
-                writer.WriteLine("\tFont(BOLD_ON)");
-                writer.WriteLine("\t\"{0}\"", title);
-                writer.WriteLine("\tFont(BOLD_OFF)");
-            }
-            if (!string.IsNullOrWhiteSpace(description))
-                writer.WriteLine("\t\"{0}\"", description);
+      if (!string.IsNullOrWhiteSpace(title))
+      {
+        writer.WriteLine("\tFont(BOLD_ON)");
+        writer.WriteLine("\t\"{0}\"", title);
+        writer.WriteLine("\tFont(BOLD_OFF)");
+      }
+      if (!string.IsNullOrWhiteSpace(description) && !string.IsNullOrWhiteSpace(author))
+        writer.WriteLine("\t\"{0}, by {1}\"", description, author);
+      else if (!string.IsNullOrWhiteSpace(description))
+        writer.WriteLine("\t\"{0}\"", description);
+      else if (!string.IsNullOrWhiteSpace(author))
+        writer.WriteLine("\t\"by {0}\"", author);
 
-            if (LocationsInExportOrder.Count > 0)
+      if (LocationsInExportOrder.Count > 0)
+      {
+        bool foundStart = false;
+        foreach (var location in LocationsInExportOrder)
+        {
+          if (location.Room.IsStartRoom)
+          {
+            if (foundStart)
             {
-                bool foundStart = false;
-                foreach (var location in LocationsInExportOrder)
-                {
-                    if (location.Room.IsStartRoom)
-                    {
-                        if (foundStart)
-                        {
-                            writer.WriteLine("! {0} is an extra StartRoom. ", location.ExportName);
-                        }
-                        writer.WriteLine("\tlocation = {0}", location.ExportName);
-                        foundStart = true;
-                    }
-                }
-                if (!foundStart)
-                    writer.WriteLine("\tlocation = {0}", LocationsInExportOrder[0].ExportName);
+              writer.WriteLine("! {0} is an extra StartRoom. ", location.ExportName);
             }
-            else
-            {
-                writer.WriteLine("\t! location = ... ");
-            }
+            writer.WriteLine("\tlocation = {0}", location.ExportName);
+            foundStart = true;
+          }
+        }
+        if (!foundStart)
+            writer.WriteLine("\tlocation = {0}", LocationsInExportOrder[0].ExportName);
+      }
+      else
+      {
+        writer.WriteLine("\t! location = ... ");
+      }
 
       if (!string.IsNullOrWhiteSpace(history))
       {

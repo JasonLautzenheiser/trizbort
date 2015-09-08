@@ -68,11 +68,13 @@ namespace Trizbort
       this.m_fileExportPDFMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_fileExportImageMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
+      this.m_fileExportHugoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_fileExportInform7MenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_fileExportInform6MenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_fileExportTADSMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.zILToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+      this.hugoToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.inform7ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.inform6ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.tADSToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -280,11 +282,13 @@ namespace Trizbort
             this.m_fileExportPDFMenuItem,
             this.m_fileExportImageMenuItem,
             this.toolStripMenuItem9,
+            this.m_fileExportHugoMenuItem,
             this.m_fileExportInform7MenuItem,
             this.m_fileExportInform6MenuItem,
             this.m_fileExportTADSMenuItem,
             this.zILToolStripMenuItem,
             this.toolStripSeparator13,
+            this.hugoToTextToolStripMenuItem,
             this.inform7ToTextToolStripMenuItem,
             this.inform6ToTextToolStripMenuItem,
             this.tADSToTextToolStripMenuItem,
@@ -311,6 +315,15 @@ namespace Trizbort
       // 
       this.toolStripMenuItem9.Name = "toolStripMenuItem9";
       this.toolStripMenuItem9.Size = new System.Drawing.Size(248, 6);
+      // 
+      // m_fileExportHugoMenuItem
+      // 
+      this.m_fileExportHugoMenuItem.Name = "m_fileExportHugoMenuItem";
+      this.m_fileExportHugoMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            | System.Windows.Forms.Keys.H)));
+      this.m_fileExportHugoMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.m_fileExportHugoMenuItem.Text = "Inform &7...";
+      this.m_fileExportHugoMenuItem.Click += new System.EventHandler(this.FileExportHugoMenuItem_Click);
       // 
       // m_fileExportInform7MenuItem
       // 
@@ -352,6 +365,15 @@ namespace Trizbort
       // 
       this.toolStripSeparator13.Name = "toolStripSeparator13";
       this.toolStripSeparator13.Size = new System.Drawing.Size(248, 6);
+      // 
+      // hugoToTextToolStripMenuItem
+      // 
+      this.hugoToTextToolStripMenuItem.Name = "HugoToTextToolStripMenuItem";
+      this.hugoToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt)
+            | System.Windows.Forms.Keys.H)));
+      this.hugoToTextToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.hugoToTextToolStripMenuItem.Text = "Hugo to Clipboard";
+      this.hugoToTextToolStripMenuItem.Click += new System.EventHandler(this.hugoToTextToolStripMenuItem_Click);
       // 
       // inform7ToTextToolStripMenuItem
       // 
@@ -1270,6 +1292,7 @@ namespace Trizbort
         private AutomapBar m_automapBar;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem m_viewMinimapMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_fileExportHugoMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_fileExportInform7MenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_fileRecentMapsMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
@@ -1292,6 +1315,7 @@ namespace Trizbort
         private DevComponents.DotNetBar.ControlContainerItem controlContainerItem1;
         private DevComponents.DotNetBar.LabelItem labelItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
+        private System.Windows.Forms.ToolStripMenuItem hugoToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inform7ToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inform6ToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tADSToTextToolStripMenuItem;

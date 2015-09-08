@@ -143,6 +143,7 @@
     <Compile Include="Element.cs" />
     <Compile Include="BoundList.cs" />
     <Compile Include="Export\CodeExporter.cs" />
+    <Compile Include="Export\HugoExporter.cs" />
     <Compile Include="Export\Inform6Exporter.cs" />
     <Compile Include="Export\TadsExporter.cs" />
     <Compile Include="Export\ZilExporter.cs" />

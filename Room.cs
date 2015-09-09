@@ -168,6 +168,7 @@ namespace Trizbort
           StraightEdges = !StraightEdges;
           Ellipse = false;
           RoundedCorners = false;
+          Octagonal = false;
           break;
         case RoomShape.RoundedCorners:
           RoundedCorners = true;
@@ -175,12 +176,20 @@ namespace Trizbort
           StraightEdges = false;
           if (Corners.TopRight == 0.0 && Corners.TopLeft == 0.0 && Corners.BottomRight == 0.0  && Corners.BottomLeft == 0.0)
             Corners = new CornerRadii();
+          Octagonal = false;
           break;
         case RoomShape.Ellipse:
           Ellipse = true;
           RoundedCorners = false;
           StraightEdges = false;
+          Octagonal = false;
           break;
+        case RoomShape.Octagonal:
+          Octagonal = true;
+          Ellipse = false;
+          StraightEdges = false;
+          RoundedCorners = false;
+                    break;
         default:
           throw new ArgumentOutOfRangeException(nameof(pShape), pShape, null);
       }
@@ -260,6 +269,7 @@ namespace Trizbort
     public CornerRadii Corners { get; set; }
 
     public bool RoundedCorners { get; set; } = false;
+    public bool Octagonal { get; set; } = false;
     public bool Ellipse { get; set; } = false;
     public bool StraightEdges { get; set; } = false;
     public bool AllCornersEqual { get; set; } = true;
@@ -562,8 +572,21 @@ namespace Trizbort
       context.LinesDrawn.Add(left);
     }
 
+    public Vector quarterPoint(Vector frompoint, Vector topoint)
+    {
+            var retVector = new Vector();
+            retVector.X = (frompoint.X * 3 + topoint.X) / 4;
+            retVector.Y = (frompoint.Y * 3 + topoint.Y) / 4;
+            return retVector;
+    }
+
     public override void Draw(XGraphics graphics, Palette palette, DrawingContext context)
     {
+      //if we are drawing a new room, we need to edit the code at three points:
+      //1. if (IsStartRoom) => start room outline
+      //2. if (context.Selected) => selected room outline
+      //3. if (!Settings.DebugDisableLineRendering => main default outline
+
       var random = new Random(Name.GetHashCode());
 
       var topLeft = InnerBounds.GetCorner(CompassPoint.NorthWest);
@@ -601,11 +624,13 @@ namespace Trizbort
       context.LinesDrawn.Add(bottom);
       context.LinesDrawn.Add(left);
 
-      // if starting room
+      // if starting room: this is the code to draw a yellow-green boundary around the start room
       if (IsStartRoom)
       {
         var tBounds = InnerBounds;
         tBounds.Inflate(5);
+
+        var q = tBounds.Left;
 
         var topLeftSelect = tBounds.GetCorner(CompassPoint.NorthWest);
         var topRightSelect = tBounds.GetCorner(CompassPoint.NorthEast);
@@ -626,6 +651,25 @@ namespace Trizbort
         {
           pathSelected.AddEllipse(new RectangleF(topSelect.Start.X, topSelect.Start.Y, topSelect.Length, leftSelect.Length));
         }
+        else if (Octagonal)
+        {
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(bottomLeftSelect, topLeftSelect), quarterPoint(topLeftSelect, bottomLeftSelect)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(topLeftSelect, bottomLeft), quarterPoint(topLeftSelect, topRight)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(topLeftSelect, topRight), quarterPoint(topRightSelect, topLeft)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(topRightSelect, topLeft), quarterPoint(topRightSelect, bottomRight)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(topRightSelect, bottomRight), quarterPoint(bottomRightSelect, topRight)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(bottomRightSelect, topRight), quarterPoint(bottomRightSelect, bottomLeft)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(bottomRightSelect, bottomLeft), quarterPoint(bottomLeftSelect, bottomRight)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(bottomLeftSelect, bottomRight), quarterPoint(bottomLeftSelect, topLeft)),
+               random, StraightEdges);
+        }
         else
         {
           Drawing.AddLine(pathSelected, topSelect, random, StraightEdges);
@@ -637,6 +681,7 @@ namespace Trizbort
         graphics.DrawPath(brushSelected, pathSelected);
       }
 
+      //this is the code to draw the yellow boundary around a selected room
       if (context.Selected)
       {
         var tBounds = InnerBounds;
@@ -661,6 +706,25 @@ namespace Trizbort
         {
           pathSelected.AddEllipse(new RectangleF(topSelect.Start.X, topSelect.Start.Y, topSelect.Length, leftSelect.Length));
         }
+        else if (Octagonal)
+        {
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(bottomLeftSelect, topLeftSelect), quarterPoint(topLeftSelect, bottomLeftSelect)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(topLeftSelect, bottomLeftSelect), quarterPoint(topLeftSelect, topRightSelect)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(topLeftSelect, topRightSelect), quarterPoint(topRightSelect, topLeftSelect)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(topRightSelect, topLeftSelect), quarterPoint(topRightSelect, bottomRightSelect)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(topRightSelect, bottomRightSelect), quarterPoint(bottomRightSelect, topRightSelect)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(bottomRightSelect, topRightSelect), quarterPoint(bottomRightSelect, bottomLeftSelect)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(bottomRightSelect, bottomLeftSelect), quarterPoint(bottomLeftSelect, bottomRightSelect)),
+               random, StraightEdges);
+           Drawing.AddLine(pathSelected, new LineSegment(quarterPoint(bottomLeftSelect, bottomRightSelect), quarterPoint(bottomLeftSelect, topLeftSelect)),
+               random, StraightEdges);
+        }
         else
         {
           Drawing.AddLine(pathSelected, topSelect, random, StraightEdges);
@@ -672,8 +736,6 @@ namespace Trizbort
         graphics.DrawPath(brushSelected, pathSelected);
       }
 
-      
-
       // get region color
       var regionColor = Settings.Regions.FirstOrDefault(p => p.RegionName.Equals(Region, StringComparison.OrdinalIgnoreCase)) ?? Settings.Regions.FirstOrDefault(p => p.RegionName.Equals(Trizbort.Region.DefaultRegion, StringComparison.OrdinalIgnoreCase));
       Brush brush = new SolidBrush(regionColor.RColor);
@@ -681,6 +743,7 @@ namespace Trizbort
       // Room specific fill brush (White shows global color)
       if (RoomFill != Color.Transparent) { brush = new SolidBrush(RoomFill); }
 
+      // this is the main drawing routine for the actual room borders
       if (!Settings.DebugDisableLineRendering && BorderStyle != BorderDashStyle.None)
       {
         var path = palette.Path();
@@ -693,6 +756,25 @@ namespace Trizbort
         {
           path.AddEllipse(new RectangleF(top.Start.X, top.Start.Y, top.Length, left.Length));
           
+        }
+        else if (Octagonal)
+        {
+           Drawing.AddLine(path, new LineSegment(quarterPoint(bottomLeft, topLeft), quarterPoint(topLeft, bottomLeft)),
+               random, StraightEdges);
+           Drawing.AddLine(path, new LineSegment(quarterPoint(topLeft, bottomLeft), quarterPoint(topLeft, topRight)),
+               random, StraightEdges);
+           Drawing.AddLine(path, new LineSegment(quarterPoint(topLeft, topRight), quarterPoint(topRight, topLeft)),
+               random, StraightEdges);
+           Drawing.AddLine(path, new LineSegment(quarterPoint(topRight, topLeft), quarterPoint(topRight, bottomRight)),
+               random, StraightEdges);
+           Drawing.AddLine(path, new LineSegment(quarterPoint(topRight, bottomRight), quarterPoint(bottomRight, topRight)),
+               random, StraightEdges);
+           Drawing.AddLine(path, new LineSegment(quarterPoint(bottomRight, topRight), quarterPoint(bottomRight, bottomLeft)),
+               random, StraightEdges);
+           Drawing.AddLine(path, new LineSegment(quarterPoint(bottomRight, bottomLeft), quarterPoint(bottomLeft, bottomRight)),
+               random, StraightEdges);
+           Drawing.AddLine(path, new LineSegment(quarterPoint(bottomLeft, bottomRight), quarterPoint(bottomLeft, topLeft)),
+               random, StraightEdges);
         }
         else
         {
@@ -781,6 +863,10 @@ namespace Trizbort
           {
             if (Corners.TopRight > 15.0)
               darknessStripAdjustment = 10;
+          }
+          else if (Octagonal)
+          {
+            darknessStripAdjustment = (int)left.Length / 6; // Need some but not much to show up. Unfortunately if octagon is not square this looks ugly.
           }
 
           graphics.DrawPolygon(solidbrush, new[] { topRight.ToPointF(), new PointF(topRight.X - (Settings.DarknessStripeSize + darknessStripAdjustment), topRight.Y), new PointF(topRight.X, topRight.Y + Settings.DarknessStripeSize + darknessStripAdjustment) }, XFillMode.Alternate);
@@ -926,6 +1012,7 @@ namespace Trizbort
         dialog.RoomRegion = Region;
         dialog.Corners = Corners;
         dialog.RoundedCorners = RoundedCorners;
+        //dialog.Octagonal = Octagonal;
         dialog.Ellipse = Ellipse;
         dialog.StraightEdges = StraightEdges;
         dialog.AllCornersEqual = AllCornersEqual;
@@ -959,6 +1046,7 @@ namespace Trizbort
           Region = dialog.RoomRegion;
           Corners = dialog.Corners;
           RoundedCorners = dialog.RoundedCorners;
+          //Octagonal = dialog.Octagonal;
           Ellipse = dialog.Ellipse;
           StraightEdges = dialog.StraightEdges;
           AllCornersEqual = dialog.AllCornersEqual;
@@ -979,6 +1067,7 @@ namespace Trizbort
       scribe.Attribute("allcornersequal", AllCornersEqual);
       scribe.Attribute("ellipse", Ellipse);
       scribe.Attribute("roundedCorners", RoundedCorners);
+      scribe.Attribute("octagonal", Octagonal);
       scribe.Attribute("cornerTopLeft",(float) Corners.TopLeft);
       scribe.Attribute("cornerTopRight",(float) Corners.TopRight);
       scribe.Attribute("cornerBottomLeft",(float) Corners.BottomLeft);
@@ -1044,6 +1133,7 @@ namespace Trizbort
       IsDark = element.Attribute("isDark").ToBool();
       IsStartRoom = element.Attribute("isStartRoom").ToBool();
       RoundedCorners = element.Attribute("roundedCorners").ToBool();
+      Octagonal = element.Attribute("octagonal").ToBool();
       Ellipse = element.Attribute("ellipse").ToBool();
       StraightEdges = element.Attribute("handDrawn").ToBool();
       AllCornersEqual = element.Attribute("allcornersequal").ToBool();
@@ -1177,6 +1267,7 @@ namespace Trizbort
       clipboardText += StraightEdges + ":";
       clipboardText += Ellipse + ":";
       clipboardText += RoundedCorners + ":";
+      clipboardText += Octagonal + ":";
       clipboardText += Corners.TopRight + ":";
       clipboardText += Corners.TopLeft + ":";
       clipboardText += Corners.BottomRight + ":";
@@ -1277,7 +1368,8 @@ public enum RoomShape
 {
   SquareCorners,
   RoundedCorners,
-  Ellipse
+  Ellipse,
+  Octagonal
 }
 
 public enum PropertiesStartType

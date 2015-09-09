@@ -117,6 +117,7 @@ namespace Trizbort
       this.handDrawnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.ellipseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.roundedEdgesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.octagonalEdgesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
       this.joinRoomsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
@@ -685,7 +686,8 @@ namespace Trizbort
       this.roomShapeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.handDrawnToolStripMenuItem,
             this.ellipseToolStripMenuItem,
-            this.roundedEdgesToolStripMenuItem});
+            this.roundedEdgesToolStripMenuItem,
+            this.octagonalEdgesToolStripMenuItem});
       this.roomShapeToolStripMenuItem.Name = "roomShapeToolStripMenuItem";
       this.roomShapeToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
       this.roomShapeToolStripMenuItem.Text = "Room &Shape";
@@ -713,6 +715,14 @@ namespace Trizbort
       this.roundedEdgesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
       this.roundedEdgesToolStripMenuItem.Text = "Rounded Edges";
       this.roundedEdgesToolStripMenuItem.Click += new System.EventHandler(this.roundedEdgesToolStripMenuItem_Click);
+      // 
+      // octagonalEdgesToolStripMenuItem
+      // 
+      this.octagonalEdgesToolStripMenuItem.Name = "octagonalEdgesToolStripMenuItem";
+      this.octagonalEdgesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+      this.octagonalEdgesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+      this.octagonalEdgesToolStripMenuItem.Text = "Octagonal Edges";
+      this.octagonalEdgesToolStripMenuItem.Click += new System.EventHandler(this.octagonalEdgesToolStripMenuItem_Click);
       // 
       // toolStripSeparator18
       // 
@@ -1343,6 +1353,7 @@ namespace Trizbort
     private System.Windows.Forms.ToolStripMenuItem handDrawnToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem ellipseToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem roundedEdgesToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem octagonalEdgesToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
     private System.Windows.Forms.ToolStripMenuItem joinRoomsToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;

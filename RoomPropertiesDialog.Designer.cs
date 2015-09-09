@@ -83,6 +83,7 @@ namespace Trizbort
       this.itemStraightEdges = new DevComponents.Editors.ComboItem();
       this.itemRoundedCorners = new DevComponents.Editors.ComboItem();
       this.itemEllipse = new DevComponents.Editors.ComboItem();
+      this.itemOctagonal = new DevComponents.Editors.ComboItem();
       this.pnlSampleRoomShape = new System.Windows.Forms.Panel();
       this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
@@ -555,6 +556,10 @@ namespace Trizbort
       // itemEllipse
       // 
       this.itemEllipse.Text = "Ellipse";
+      // 
+      // itemEllipse
+      // 
+      this.itemOctagonal.Text = "Octagonal";
       // 
       // pnlSampleRoomShape
       // 
@@ -1096,6 +1101,7 @@ namespace Trizbort
     private DevComponents.Editors.ComboItem itemStraightEdges;
     private DevComponents.Editors.ComboItem itemRoundedCorners;
     private DevComponents.Editors.ComboItem itemEllipse;
+    private DevComponents.Editors.ComboItem itemOctagonal;
     private DevComponents.DotNetBar.Controls.GroupPanel groupRoundedCorners;
     private System.Windows.Forms.CheckBox chkCornersSame;
     private System.Windows.Forms.CheckBox chkStartRoom;

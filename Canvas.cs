@@ -3294,6 +3294,15 @@ namespace Trizbort
       Invalidate();
     }
 
+    private void octagonalEdgesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      foreach (var room in SelectedRooms)
+      {
+        room.Shape = RoomShape.Octagonal;
+      }
+      Invalidate();
+    }
+
     private void objectsToolStripMenuItem_Click(object sender, EventArgs e)
     {
       SwapRooms();

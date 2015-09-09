@@ -604,6 +604,20 @@ namespace Trizbort
       ExportCode<ZilExporter>();
     }
 
+    private void FileExportHugoMenuItem_Click(object sender, EventArgs e)
+    {
+        var fileName = Settings.LastExportHugoFileName;
+        if (ExportCode<HugoExporter>(ref fileName))
+        {
+            Settings.LastExportHugoFileName = fileName;
+        }
+    }
+
+    private void hugoToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        ExportCode<HugoExporter>();
+    }
+
     private void FileExportTadsMenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportTadsFileName;
@@ -801,14 +815,12 @@ namespace Trizbort
       var hasSelectedElement = Canvas.SelectedElement != null;
       m_editDeleteMenuItem.Enabled = hasSelectedElement;
       m_editPropertiesMenuItem.Enabled = Canvas.HasSingleSelectedElement;
-      m_editIsDarkMenuItem.Enabled = hasSelectedElement;
       m_editSelectNoneMenuItem.Enabled = hasSelectedElement;
       m_editSelectAllMenuItem.Enabled = Canvas.SelectedElementCount < Project.Current.Elements.Count;
       m_editCopyMenuItem.Enabled = Canvas.SelectedElement != null;
       m_editCopyColorToolMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
       m_editPasteMenuItem.Enabled = (!string.IsNullOrEmpty(Clipboard.GetText()) && ((Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Elements") || (Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Colors")));
-      m_editRenameMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
-      m_editIsDarkMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
+        m_editIsDarkMenuItem.Enabled = hasSelectedElement;
       m_editIsDarkMenuItem.Checked = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room) && ((Room)Canvas.SelectedElement).IsDark;
       m_editRenameMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
       joinRoomsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2 && !Project.Current.AreRoomsConnected(Canvas.SelectedRooms);

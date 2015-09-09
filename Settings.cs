@@ -383,6 +383,7 @@ namespace Trizbort
     public static string LastExportInform7FileName { get; set; }
     public static string LastExportInform6FileName { get; set; }
     public static string LastExportTadsFileName { get; set; }
+    public static string LastExportHugoFileName { get; set; }
     public static MruList RecentProjects { get; private set; }
 
     private static void ResetApplicationSettings()
@@ -478,6 +479,7 @@ namespace Trizbort
           scribe.Element("lastExportedInform7FileName", LastExportInform7FileName);
           scribe.Element("lastExportedInform6FileName", LastExportInform6FileName);
           scribe.Element("lastExportedTadsFileName", LastExportTadsFileName);
+          scribe.Element("lastExportedHugoFileName", LastExportHugoFileName);
 
           scribe.StartElement("recentProjects");
           var index = 0;
@@ -557,6 +559,16 @@ namespace Trizbort
           dialog.Color[index] = Color[index];
         }
 
+        //below is code for pulling the region names, text color and background color from Settings.Regions.
+        //it is set up so that Trizbort can check after we click OK or Cancel, and we can see if anything changed.
+        //Currently Trizbort only can check for region names of individual rooms changing.
+        //After talking with Jason, We'll need to refactor code to make this run smoother, but this is the best for now.
+
+        var RegCount = Settings.Regions.Count;
+        var regNameList = Settings.Regions.Select(p=>p.RegionName).ToList();
+        var regTextColorList = Settings.Regions.Select(p=>p.TextColor).ToList();
+        var regBkgdColorList = Settings.Regions.Select(p=>p.RColor).ToList();
+
         dialog.Title = Project.Current.Title;
         dialog.Author = Project.Current.Author;
         dialog.Description = Project.Current.Description;
@@ -585,29 +597,75 @@ namespace Trizbort
           {
             Color[index] = dialog.Color[index];
           }
+
+          if (Project.Current.Title != dialog.Title) { Project.Current.IsDirty = true; }
           Project.Current.Title = dialog.Title;
+          if (Project.Current.Author != dialog.Author) { Project.Current.IsDirty = true; }
           Project.Current.Author = dialog.Author;
+          if (Project.Current.Description != dialog.Description) { Project.Current.IsDirty = true; }
           Project.Current.Description = dialog.Description;
+          if (Project.Current.History != dialog.History) { Project.Current.IsDirty = true; }
           Project.Current.History = dialog.History;
+          if (DefaultRoomName != dialog.DefaultRoomName) { Project.Current.IsDirty = true; }
           DefaultRoomName = dialog.DefaultRoomName;
+          if (LargeFont != dialog.LargeFont) { Project.Current.IsDirty = true; }
           LargeFont = dialog.LargeFont;
+          if (SmallFont != dialog.SmallFont) { Project.Current.IsDirty = true; }
           SmallFont = dialog.SmallFont;
+          if (LineFont != dialog.LineFont) { Project.Current.IsDirty = true; }
           LineFont = dialog.LineFont;
+          if (HandDrawn != dialog.HandDrawn) { Project.Current.IsDirty = true; }
           HandDrawn = dialog.HandDrawn;
+          if (LineWidth != dialog.LineWidth) { Project.Current.IsDirty = true; };
           LineWidth = dialog.LineWidth;
+          if (SnapToGrid != dialog.SnapToGrid) { Project.Current.IsDirty = true; };
           SnapToGrid = dialog.SnapToGrid;
+          if (GridSize != dialog.GridSize) { Project.Current.IsDirty = true; }
           GridSize = dialog.GridSize;
+          if (IsGridVisible != dialog.IsGridVisible) { Project.Current.IsDirty = true; };
           IsGridVisible = dialog.IsGridVisible;
+          if (ShowOrigin != dialog.ShowOrigin) { Project.Current.IsDirty = true; };
           ShowOrigin = dialog.ShowOrigin;
+          if (DarknessStripeSize != dialog.DarknessStripeSize) { Project.Current.IsDirty = true; };
           DarknessStripeSize = dialog.DarknessStripeSize;
+          if (ObjectListOffsetFromRoom != dialog.ObjectListOffsetFromRoom) { Project.Current.IsDirty = true; };
           ObjectListOffsetFromRoom = dialog.ObjectListOffsetFromRoom;
+          if (ConnectionStalkLength != dialog.ConnectionStalkLength) { Project.Current.IsDirty = true; };
           ConnectionStalkLength = dialog.ConnectionStalkLength;
+          if (PreferredDistanceBetweenRooms != dialog.PreferredDistanceBetweenRooms) { Project.Current.IsDirty = true; };
           PreferredDistanceBetweenRooms = dialog.PreferredDistanceBetweenRooms;
+          if (TextOffsetFromConnection != dialog.TextOffsetFromConnection) { Project.Current.IsDirty = true; };
           TextOffsetFromConnection = dialog.TextOffsetFromConnection;
+          if (HandleSize != dialog.HandleSize) { Project.Current.IsDirty = true; };
           HandleSize = dialog.HandleSize;
+          if (SnapToElementSize != dialog.SnapToElementSize) { Project.Current.IsDirty = true; };
           SnapToElementSize = dialog.SnapToElementSize;
+          if (ConnectionArrowSize != dialog.ConnectionArrowSize) { Project.Current.IsDirty = true; };
           ConnectionArrowSize = dialog.ConnectionArrowSize;
         }
+
+        //Note this needs to be done outside of the "if OK button is clicked" loop for now.
+        //Trizbort makes changes to regions immediately. So we can change a region and hit cancel.
+        //We need to account for that.
+        var newRegCount = Settings.Regions.Count;
+        var newReg = Settings.Regions.ToArray();
+        if (newRegCount != RegCount)
+        {
+            Project.Current.IsDirty = true;
+        }
+        else
+        {
+            for (var index = 0; index < newRegCount; index++)
+            {
+                if (regBkgdColorList[index] != newReg[index].RColor)
+                    Project.Current.IsDirty = true;
+                if (regTextColorList[index] != newReg[index].TextColor)
+                    Project.Current.IsDirty = true;
+                if (regNameList[index] != newReg[index].RegionName)
+                    Project.Current.IsDirty = true;
+            }
+        }
+
       }
     }
 
@@ -885,6 +943,8 @@ namespace Trizbort
       ConnectionStalkLength = element["rooms"]["connectionStalkLength"].ToFloat(s_connectionStalkLength);
       PreferredDistanceBetweenRooms = element["rooms"]["preferredDistanceBetweenRooms"].ToFloat(s_connectionStalkLength*2); // introduced in v1.2, hence default based on existing setting
       DefaultRoomName = element["rooms"]["defaultRoomName"].Text;
+      if (string.IsNullOrEmpty(DefaultRoomName)) //Fix for Bug#132: Trizbort needs a non-empty default
+          DefaultRoomName = "Cave";
 
       HandleSize = element["ui"]["handleSize"].ToFloat(s_handleSize);
       SnapToElementSize = element["ui"]["snapToElementSize"].ToFloat(s_snapToElementSize);

@@ -89,6 +89,7 @@ namespace Trizbort
     public bool RoundedCorners { get { return cboDrawType.SelectedItem == itemRoundedCorners; } set { if (value) cboDrawType.SelectedItem = itemRoundedCorners; } }
     public bool Ellipse { get { return cboDrawType.SelectedItem == itemEllipse; } set { if (value) cboDrawType.SelectedItem = itemEllipse; } }
     public bool StraightEdges { get { return cboDrawType.SelectedItem == itemStraightEdges; } set { if (value) cboDrawType.SelectedItem = itemStraightEdges; } }
+    public bool Octagonal { get { return cboDrawType.SelectedItem == itemOctagonal; } set { if (value) cboDrawType.SelectedItem = itemOctagonal; } }
 
     public CornerRadii Corners
     {

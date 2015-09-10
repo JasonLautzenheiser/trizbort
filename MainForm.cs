@@ -820,6 +820,9 @@ namespace Trizbort
       m_editCopyMenuItem.Enabled = Canvas.SelectedElement != null;
       m_editCopyColorToolMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
       m_editPasteMenuItem.Enabled = (!string.IsNullOrEmpty(Clipboard.GetText()) && ((Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Elements") || (Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Colors")));
+      if (Canvas.HasSingleSelectedElement) //Allow flipping light in all rooms if 1+ are selected. Issue #138 flicker
+        m_editIsDarkMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
+      else
         m_editIsDarkMenuItem.Enabled = hasSelectedElement;
       m_editIsDarkMenuItem.Checked = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room) && ((Room)Canvas.SelectedElement).IsDark;
       m_editRenameMenuItem.Enabled = Canvas.HasSingleSelectedElement && (Canvas.SelectedElement is Room);
@@ -833,6 +836,7 @@ namespace Trizbort
       handDrawnToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
       ellipseToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
       roundedEdgesToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
+      octagonalEdgesToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
       m_reverseLineMenuItem.Enabled = Canvas.HasSelectedElement<Connection>();
 
       // automapping
@@ -1164,6 +1168,15 @@ namespace Trizbort
       foreach (var room in Canvas.SelectedRooms)
       {
         room.Shape = RoomShape.RoundedCorners;
+      }
+      Invalidate();
+    }
+
+    private void octagonalEdgesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      foreach (var room in Canvas.SelectedRooms)
+      {
+        room.Shape = RoomShape.Octagonal;
       }
       Invalidate();
     }

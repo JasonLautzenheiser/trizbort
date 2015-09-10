@@ -537,7 +537,9 @@ namespace Trizbort
       this.cboDrawType.Items.AddRange(new object[] {
             this.itemStraightEdges,
             this.itemRoundedCorners,
-            this.itemEllipse});
+            this.itemEllipse,
+            this.itemOctagonal
+      });
       this.cboDrawType.Location = new System.Drawing.Point(8, 17);
       this.cboDrawType.Name = "cboDrawType";
       this.cboDrawType.Size = new System.Drawing.Size(203, 21);

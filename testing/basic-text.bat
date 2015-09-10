@@ -79,6 +79,8 @@ echo Rounded room labeled lines
 %TESTBASE%\rounded-to-from.trizbort
 echo Rounded room labeled lines
 %TESTBASE%\rounded-to-from-16ths.trizbort
+echo Rounded room gradation
+%TESTBASE%\rounded-1-to-25.trizbort
 echo Ellipse room labeled lines
 %TESTBASE%\ellipse-to-from.trizbort
 echo Ellipse room labeled lines

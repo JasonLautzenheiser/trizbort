@@ -492,13 +492,17 @@ namespace Trizbort
     {
       // map the compass points onto our bounding rectangle
       var compass = (CompassPort) port;
+
       if (Ellipse)
-        return InnerBounds.GetCorner(compass.CompassPoint,true);
+        return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.Ellipse);
 
       if (RoundedCorners)
-        return InnerBounds.GetCorner(compass.CompassPoint, false, Corners);
+        return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.RoundedCorners, Corners);
       
-      return InnerBounds.GetCorner(compass.CompassPoint);
+      if (Octagonal)
+        return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.Octagonal, Corners);
+      
+      return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.SquareCorners, Corners);
     }
 
 
@@ -1132,9 +1136,12 @@ namespace Trizbort
       Region = element.Attribute("region").Text;
       IsDark = element.Attribute("isDark").ToBool();
       IsStartRoom = element.Attribute("isStartRoom").ToBool();
-      RoundedCorners = element.Attribute("roundedCorners").ToBool();
-      Octagonal = element.Attribute("octagonal").ToBool();
-      Ellipse = element.Attribute("ellipse").ToBool();
+      if (element.Attribute("roundedCorners").ToBool())
+        this.Shape = RoomShape.RoundedCorners;
+      if (element.Attribute("octagonal").ToBool())
+        this.Shape = RoomShape.Octagonal;
+      if (element.Attribute("ellipse").ToBool())
+        this.Shape = RoomShape.Ellipse;
       StraightEdges = element.Attribute("handDrawn").ToBool();
       AllCornersEqual = element.Attribute("allcornersequal").ToBool();
 

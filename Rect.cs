@@ -85,16 +85,19 @@ namespace Trizbort
       return r.X >= Left && r.Right <= Right && r.Top >= Top && r.Bottom <= Bottom;
     }
 
-    public Vector GetCorner(CompassPoint point, bool ellipse = false, CornerRadii corners = null)
+    public Vector GetCorner(CompassPoint point, RoomShape myRmShape = RoomShape.SquareCorners, CornerRadii corners = null)
     {
+      bool isOctagonal = (myRmShape == RoomShape.Octagonal);
+      bool isRounded = (myRmShape == RoomShape.RoundedCorners);
+      bool isEllipse = (myRmShape == RoomShape.Ellipse);
       double angleInRadians;
-      if (ellipse)
+      if (myRmShape == RoomShape.Ellipse)
       {
         angleInRadians = CompassPointHelper.CalcRadianForEllipse(point, this);
         return new Vector(Center.X + (float)((Width/2.0) * Math.Cos(angleInRadians)), Center.Y + (float)((Height / 2.0) * Math.Sin(angleInRadians)));
       }
 
-      if (corners != null)
+      if (myRmShape == RoomShape.Ellipse)
       {
         if (point == CompassPoint.NorthEast || point == CompassPoint.NorthWest || point == CompassPoint.SouthWest || point == CompassPoint.SouthEast)
         {
@@ -134,6 +137,10 @@ namespace Trizbort
         case CompassPoint.NorthNorthEast:
           return new Vector(X + Width*3/4, Y);
         case CompassPoint.NorthEast:
+          if (isOctagonal)
+            return new Vector (X + Width * 7/8, Y + Height * 1/8);
+          if (isRounded)
+            return new Vector((float)(X + Width - 0.25 * corners.TopLeft), (float)(Y + 0.25 * corners.TopLeft));
           return new Vector(X + Width, Y);
         case CompassPoint.EastNorthEast:
           return new Vector(X + Width, Y + Height/4);
@@ -142,6 +149,10 @@ namespace Trizbort
         case CompassPoint.EastSouthEast:
           return new Vector(X + Width, Y + Height*3/4);
         case CompassPoint.SouthEast:
+          if (isOctagonal)
+            return new Vector (X + Width * 7/8, Y + Height * 7/8);
+          if (isRounded)
+            return new Vector((float)(X + Width - 0.25 * corners.TopLeft), (float)(Y + Height - 0.25 * corners.TopLeft));
           return new Vector(X + Width, Y + Height);
         case CompassPoint.SouthSouthEast:
           return new Vector(X + Width*3/4, Y + Height);
@@ -150,6 +161,10 @@ namespace Trizbort
         case CompassPoint.SouthSouthWest:
           return new Vector(X + Width/4, Y + Height);
         case CompassPoint.SouthWest:
+          if (isOctagonal)
+            return new Vector (X + Width * 1/8, Y + Height * 7/8);
+          if (isRounded)
+            return new Vector((float)(X + 0.3 * corners.TopLeft), (float)(Y + Height - 0.3 * corners.TopLeft));
           return new Vector(X, Y + Height);
         case CompassPoint.WestSouthWest:
           return new Vector(X, Y + Height*3/4);
@@ -158,6 +173,10 @@ namespace Trizbort
         case CompassPoint.WestNorthWest:
           return new Vector(X, Y + Height/4);
         case CompassPoint.NorthWest:
+          if (isOctagonal)
+            return new Vector (X + Width * 1/8, Y + Height * 1/8);
+          if (isRounded)
+            return new Vector((float)(X + 0.3 * corners.TopLeft), (float)(Y + 0.3 * corners.TopLeft));
           return new Vector(X, Y);
         case CompassPoint.NorthNorthWest:
           return new Vector(X + Width/4, Y);

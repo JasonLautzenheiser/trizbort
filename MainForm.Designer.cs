@@ -719,7 +719,7 @@ namespace Trizbort
       // octagonalEdgesToolStripMenuItem
       // 
       this.octagonalEdgesToolStripMenuItem.Name = "octagonalEdgesToolStripMenuItem";
-      this.octagonalEdgesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+      this.octagonalEdgesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D8)));
       this.octagonalEdgesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
       this.octagonalEdgesToolStripMenuItem.Text = "Octagonal Edges";
       this.octagonalEdgesToolStripMenuItem.Click += new System.EventHandler(this.octagonalEdgesToolStripMenuItem_Click);

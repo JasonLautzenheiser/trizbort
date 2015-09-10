@@ -4,10 +4,12 @@ Change Log
 -------------
 COS: #112 - Disable "Rooms:Change Regions" if there are 0 regions
 COS: #119 - Change language in the settings to change "lines" to "connections".
+COS: #145 - There was a flicker in the 'Toggle Darkness' in the Rooms menu
 ENH: #115 - Add graphic for straight edge room shape in room settings.
 ENH: #116 - Added checkbox to link all corners together to same value
 ENH: #118 - Save the last tab on settings dialog to app settings.
 ENH: #125 - Set a room as the starting room in room settings.  This will export to I7 and ZIL.
+ENH: #131 - Added "About" to I6 exported code
 CHG: #117 - Default name for new room should not be blank
 CHG: #123 - Remove the default ("NoRegion") from the list of regions that get exported.
 CHG: #126 - F1 opens up the online help.
@@ -18,6 +20,9 @@ FIX: #121 - Error checking: request for warning box on unsuccessful smartsave
 FIX: #122 - Some shortcut keys for new menus introduced were triggering other actions.
 FIX: #128 - Failed EMF export does not generate error
 FIX: #130 - darkness does not persist on Ctrl-Arrow to create new room
+FIX: #132 - Deleting region wasn't reverting it's "ex-rooms" to NoRegion
+FIX: #137 - Changing items in the Tools:Map Settings dialog wasn't marking the project as dirty.
+
 
 1.5.9.2
 -------------

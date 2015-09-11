@@ -12,3 +12,5 @@ echo Manual test case. Help menu
 %TESTBASE%\manual-help-menu.trizbort
 echo Manual test case. View menu
 %TESTBASE%\manual-view-menu.trizbort
+echo Manual test case. Make sure handles and ports are all right.
+%TESTBASE%\manual-room-shape-ports-handles.trizbort

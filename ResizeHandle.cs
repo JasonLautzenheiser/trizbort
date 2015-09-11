@@ -46,9 +46,12 @@ namespace Trizbort
       get
       {
         var tBounds = mOwner.InnerBounds;
-        bool isEllipse = (mOwner is Room) && ((Room) mOwner).Ellipse;
-
-        var pos = tBounds.GetCorner(mCompassPoint, isEllipse);
+        
+        var pos = tBounds.GetCorner(mCompassPoint);
+        if (mOwner is Room)
+        {
+           pos = tBounds.GetCorner(mCompassPoint, ((Room)mOwner).Shape, ((Room)mOwner).Corners);
+        }
         pos.X -= size.X/2;
         pos.Y -= size.Y/2;
         return pos;

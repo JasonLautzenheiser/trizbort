@@ -37,9 +37,13 @@ if ((!$orphanedFiles) && (!$badFiles))
   print "Zip file update complete.\n";
   }
 }
-elsif ($orphanedFiles == 0) { print "There are no orphaned files in the test directory, but there are $badFiles bad files in various batch files.\n"; }
-elsif ($badFiles == 0) { print "There are no bad files, but there are $orphanedFiles orphaned files in the test directory.\n"; }
-else { print "$orphanedFiles orphaned files in the test directory, and $badFiles bad files in the batch files.\n"; } 
+else
+{
+  if ($orphanedFiles == 0) { print "There are no orphaned files in the test directory, but there are $badFiles bad files in various batch files.\n"; }
+  elsif ($badFiles == 0) { print "There are no bad files, but there are $orphanedFiles orphaned files in the test directory.\n"; }
+  else { print "$orphanedFiles orphaned files in the test directory, and $badFiles bad files in the batch files.\n"; } 
+  if ($runZipAfter) { print "Fix the orphaned file issue in order to update the ZIP file.\n"; }
+}
 
 sub getTriz
 {

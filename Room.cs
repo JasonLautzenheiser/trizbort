@@ -857,23 +857,26 @@ namespace Trizbort
         {
           var state = graphics.Save();
           var solidbrush = (SolidBrush)palette.BorderBrush;
-          int darknessStripAdjustment = 0;
+          float darknessXDistance = Settings.DarknessStripeSize;
+          float darknessYDistance = Settings.DarknessStripeSize;
           graphics.IntersectClip(path);
           if (Ellipse)
           {
-            darknessStripAdjustment = 20;
+            darknessYDistance = 2 * this.Height / 5;
+            darknessXDistance = 2 * this.Width / 5;
           }
           else if (RoundedCorners)
           {
-            if (Corners.TopRight > 15.0)
-              darknessStripAdjustment = 10;
+            if (Corners.TopRight > 2 * Settings.DarknessStripeSize)
+              darknessYDistance = darknessXDistance = (float)Corners.TopRight / 2;
           }
           else if (Octagonal)
           {
-            darknessStripAdjustment = (int)left.Length / 6; // Need some but not much to show up. Unfortunately if octagon is not square this looks ugly.
+            darknessXDistance = this.Width * 7 / 20;
+            darknessYDistance = this.Height * 7 / 20;
           }
 
-          graphics.DrawPolygon(solidbrush, new[] { topRight.ToPointF(), new PointF(topRight.X - (Settings.DarknessStripeSize + darknessStripAdjustment), topRight.Y), new PointF(topRight.X, topRight.Y + Settings.DarknessStripeSize + darknessStripAdjustment) }, XFillMode.Alternate);
+          graphics.DrawPolygon(solidbrush, new[] { topRight.ToPointF(), new PointF(topRight.X - (darknessXDistance), topRight.Y), new PointF(topRight.X, topRight.Y + darknessYDistance) }, XFillMode.Alternate);
           graphics.Restore(state);
         }
 

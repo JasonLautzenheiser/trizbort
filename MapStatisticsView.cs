@@ -29,6 +29,8 @@ namespace Trizbort
       stats += $"# of Dangling Connections: {MapStatistics.NumberOfDanglingConnections}{Environment.NewLine}";
       stats += $"# of Self Looping Connections: {MapStatistics.NumberOfLoopingConnections}{Environment.NewLine}";
 
+      stats += $"# of Dead Ends: {MapStatistics.NumberOfDeadEnds}{Environment.NewLine}";
+
       stats += $"{Environment.NewLine}";
       stats += $"# of Regions: {MapStatistics.NumberOfRegions}{Environment.NewLine}";
       stats += $"# of Rooms without a region: {MapStatistics.NumberOfRoomsWithoutRegion()}{Environment.NewLine}";

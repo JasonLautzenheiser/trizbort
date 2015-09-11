@@ -5,6 +5,7 @@ Change Log
 COS: #112 - Disable "Rooms:Change Regions" if there are 0 regions
 COS: #119 - Change language in the settings to change "lines" to "connections".
 COS: #145 - There was a flicker in the 'Toggle Darkness' in the Rooms menu
+ENH: #97  - Added stat for rooms you can't get out of.
 ENH: #115 - Add graphic for straight edge room shape in room settings.
 ENH: #116 - Added checkbox to link all corners together to same value
 ENH: #118 - Save the last tab on settings dialog to app settings.
@@ -204,9 +205,9 @@ FIX: Objects that have the same name as a room are now handled (TRIZ-62)
 
 1.5.6.1
 -------------
-FIX: TRIZ-43 — Should we be allowed to change NoRegion "region" name?
-FIX: TRIZ-44 — Changing region name with "change" button allows duplicate region names
-FIX: TRIZ-45 — Should we grey out "delete region" for no region?
+FIX: TRIZ-43 Â— Should we be allowed to change NoRegion "region" name?
+FIX: TRIZ-44 Â— Changing region name with "change" button allows duplicate region names
+FIX: TRIZ-45 Â— Should we grey out "delete region" for no region?
 
 1.5.6.0
 -------------

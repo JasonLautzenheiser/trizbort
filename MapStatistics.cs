@@ -46,13 +46,17 @@ namespace Trizbort
     {
       get
       {
+        if (Project.Current.Elements.OfType<Room>().Count() == 1)
+          return 1; // if there's only one room, it must be where you start, and so it is a dead end.
+
         return Project.Current.Elements.OfType<Room>().Count(p =>
         {
             var x = p.GetConnections();
 
-            if (x.Count == 0) // if a room is isolated, it can't be a dead end
+
+            if (x.Count == 0) // if a room is isolated, it (usually) can't be a dead end...
             {
-                if (p.isStartRoom) // the start room qualifies as a dead end since there is a way to get there
+                if (p.IsStartRoom) // unless it's the the start room, since there is a way to get there...the game puts you there.
                     return true;
                 return false;
             }

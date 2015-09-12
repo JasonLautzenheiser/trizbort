@@ -55,6 +55,8 @@ namespace Trizbort
 
             foreach (var y in x)
             {
+                if ((y.VertexList[0].Port == null) || (y.VertexList[1].Port == null))
+                    continue;
                 if (y.Flow == ConnectionFlow.TwoWay)
                     if (y.VertexList[0].Port.Owner != y.VertexList[1].Port.Owner) // make sure it doesn't loop on itself
                         return false;

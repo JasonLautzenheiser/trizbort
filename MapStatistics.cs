@@ -51,7 +51,11 @@ namespace Trizbort
             var x = p.GetConnections();
 
             if (x.Count == 0) // if a room is isolated, it can't be a dead end
+            {
+                if (p.isStartRoom) // the start room qualifies as a dead end since there is a way to get there
+                    return true;
                 return false;
+            }
 
             foreach (var y in x)
             {

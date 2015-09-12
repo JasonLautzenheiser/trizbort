@@ -2841,34 +2841,35 @@ namespace Trizbort
                   currentRoom.StraightEdges = Convert.ToBoolean(elementProperties[11]);
                   currentRoom.Ellipse = Convert.ToBoolean(elementProperties[12]);
                   currentRoom.RoundedCorners = Convert.ToBoolean(elementProperties[13]);
-                  currentRoom.Corners.TopRight = Convert.ToDouble(elementProperties[14]);
-                  currentRoom.Corners.TopLeft = Convert.ToDouble(elementProperties[15]);
-                  currentRoom.Corners.BottomRight = Convert.ToDouble(elementProperties[16]);
-                  currentRoom.Corners.BottomLeft = Convert.ToDouble(elementProperties[17]);
+                  currentRoom.Octagonal = Convert.ToBoolean(elementProperties[14]);
+                  currentRoom.Corners.TopRight = Convert.ToDouble(elementProperties[15]);
+                  currentRoom.Corners.TopLeft = Convert.ToDouble(elementProperties[16]);
+                  currentRoom.Corners.BottomRight = Convert.ToDouble(elementProperties[17]);
+                  currentRoom.Corners.BottomLeft = Convert.ToDouble(elementProperties[18]);
 
-                  if (elementProperties[18] != "") currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[18]);
-                  if (elementProperties[19] != "") currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[19]);
-                  if (elementProperties[20] != "") currentRoom.SecondFillLocation = elementProperties[20];
-                  if (elementProperties[21] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[21]);
-                  if (elementProperties[22] != "") currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[22]);
-                  if (elementProperties[23] != "") currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[23]);
-                  if (elementProperties[24] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[24]);
+                  if (elementProperties[19] != "") currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[19]);
+                  if (elementProperties[20] != "") currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[20]);
+                  if (elementProperties[21] != "") currentRoom.SecondFillLocation = elementProperties[21];
+                  if (elementProperties[22] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[22]);
+                  if (elementProperties[23] != "") currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[23]);
+                  if (elementProperties[24] != "") currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[24]);
+                  if (elementProperties[25] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[25]);
 
                   // Get ready to check for objects in the room (small text)
-                  var index2 = 25;
+                  var index2 = 26;
                   var newObjects = "";
 
                   // Cycle through all the objects
                   while (index2 < elementProperties.Length)
                   {
                     // First attribute will be which direction the objects are written
-                    if (index2 == 25)
+                    if (index2 == 26)
                     {
                       CompassPoint point;
-                      CompassPointHelper.FromName(elementProperties[25], out point);
+                      CompassPointHelper.FromName(elementProperties[26], out point);
                       currentRoom.ObjectsPosition = point;
                     }
-                    // It's it's the last object then don't add \r\n on the end
+                    // If it's the last object then don't add \r\n on the end
                     else if (index2 == elementProperties.Length - 1)
                     {
                       newObjects += elementProperties[index2];

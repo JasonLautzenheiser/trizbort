@@ -1290,6 +1290,7 @@ namespace Trizbort
         if (ModifierKeys == Settings.KeypadNavigationCreationModifier)
         {
           addOrConnectRoomRelativeToSelectedRoom(compassPoint.Value);
+          selectRoomRelativeToSelectedConnection(compassPoint.Value);
         }
         else if (ModifierKeys == Settings.KeypadNavigationUnexploredModifier)
         {
@@ -1345,7 +1346,8 @@ namespace Trizbort
           break;
       }
 
-      if (!selectRoomRelativeToSelectedRoom(direction)) addOrConnectRoomRelativeToSelectedRoom(direction);
+      if (!selectRoomRelativeToSelectedRoom(direction) && !selectRoomRelativeToSelectedConnection(direction))
+        addOrConnectRoomRelativeToSelectedRoom(direction);
     }
 
     private void resizeRoom(Keys keyCode)
@@ -1517,6 +1519,118 @@ namespace Trizbort
         }
       }
       return false;
+    }
+
+    public bool equalEnough (CompassPoint dirOne, CompassPoint dirTwo)
+        { //Genstein wrote code for GetRoomInApproximateDirectionFromRoom which may cover this. However, I couldn't find a way through it.
+            if (dirOne == dirTwo)
+              return true;
+
+            if ((dirOne == CompassPoint.EastNorthEast) || (dirOne == CompassPoint.EastSouthEast) || (dirOne == CompassPoint.East))
+                if ((dirTwo == CompassPoint.EastNorthEast) || (dirTwo == CompassPoint.EastSouthEast) || (dirTwo == CompassPoint.East))
+                    return true;
+
+            if ((dirOne == CompassPoint.WestNorthWest) || (dirOne == CompassPoint.WestSouthWest) || (dirOne == CompassPoint.West))
+                if ((dirTwo == CompassPoint.WestNorthWest) || (dirTwo == CompassPoint.WestSouthWest) || (dirTwo == CompassPoint.East))
+                    return true;
+
+            if ((dirOne == CompassPoint.NorthNorthEast) || (dirOne == CompassPoint.NorthNorthWest) || (dirOne == CompassPoint.North))
+                if ((dirTwo == CompassPoint.NorthNorthEast) || (dirTwo == CompassPoint.NorthNorthWest) || (dirTwo == CompassPoint.North))
+                    return true;
+
+            if ((dirOne == CompassPoint.SouthSouthEast) || (dirOne == CompassPoint.SouthSouthWest) || (dirOne == CompassPoint.South))
+                if ((dirTwo == CompassPoint.SouthSouthEast) || (dirTwo == CompassPoint.SouthSouthWest) || (dirTwo == CompassPoint.South))
+                    return true;
+
+            return false;
+
+        }
+
+    public CompassPoint roughOpposite(CompassPoint cp)
+    {
+            switch (cp)
+            {
+                case CompassPoint.North:
+                case CompassPoint.NorthNorthEast:
+                case CompassPoint.NorthNorthWest:
+                    return CompassPoint.South;
+
+                case CompassPoint.South:
+                case CompassPoint.SouthSouthEast:
+                case CompassPoint.SouthSouthWest:
+                    return CompassPoint.North;
+
+                case CompassPoint.East:
+                case CompassPoint.EastSouthEast:
+                case CompassPoint.EastNorthEast:
+                    return CompassPoint.West;
+
+                case CompassPoint.West:
+                case CompassPoint.WestSouthWest:
+                case CompassPoint.WestNorthWest:
+                    return CompassPoint.East;
+
+                case CompassPoint.SouthWest:
+                    return CompassPoint.NorthEast;
+
+                case CompassPoint.SouthEast:
+                    return CompassPoint.NorthWest;
+
+                case CompassPoint.NorthWest:
+                    return CompassPoint.SouthEast;
+
+                case CompassPoint.NorthEast:
+                    return CompassPoint.SouthWest;
+            }
+
+            return CompassPoint.North;
+        }
+
+    private bool selectRoomRelativeToSelectedConnection(CompassPoint compassPoint)
+    {
+      var element = SelectedElement as Connection;
+            if (element != null)
+            {
+                CompassPoint sourceDir;
+                CompassPoint targetDir;
+                var conn = element;
+                var source = conn.GetSourceRoom(out sourceDir);
+                var target = conn.GetTargetRoom(out targetDir);
+                CompassPoint sourceOpposite = roughOpposite(sourceDir);
+                CompassPoint targetOpposite = roughOpposite(targetDir);
+                if (equalEnough(compassPoint, targetDir) || equalEnough(compassPoint, sourceOpposite))
+                {
+                    foreach (var connection in target.GetConnections(targetDir))
+                    {
+                        if (connection.ID == conn.ID)
+                        {
+                            SelectedElement = conn.VertexList[0].Port.Owner;
+                            EnsureVisible(SelectedElement);
+                            HoverElement = null;
+                            Refresh();
+                            return true;
+                        }
+                    }
+                }
+
+                if (equalEnough(compassPoint, sourceDir) || equalEnough(compassPoint, targetOpposite))
+                {
+                    foreach (var connection in source.GetConnections(sourceDir))
+                    {
+                        if (connection.ID == conn.ID)
+                        {
+                            SelectedElement = conn.VertexList[1].Port.Owner;
+                            EnsureVisible(SelectedElement);
+                            HoverElement = null;
+                            Refresh();
+                            return true;
+                        }
+                    }
+                }
+
+            }
+
+            return false;
     }
 
     public void JoinSelectedRooms(Room room1, Room room2)

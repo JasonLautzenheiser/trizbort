@@ -9,7 +9,23 @@ namespace Trizbort
 
     public static int NumberOfFloatingRooms
     {
-      get { return Project.Current.Elements.OfType<Room>().Count(p=>p.GetConnections().Count==0); }
+      get { return Project.Current.Elements.OfType<Room>().Count(p =>
+        {
+            var x = p.GetConnections();
+
+            if (x.Count == 0)
+                return true;
+            foreach (var y in x)
+            {
+                if ((y.GetSourceRoom() != null) && (y.GetTargetRoom() != null)) //first, ignore dangling connections
+                {
+                    if (y.GetSourceRoom() != y.GetTargetRoom()) //next, ignore looping connections
+                        return false;
+                }
+            }
+            return true;
+        });
+      }
     }
 
     public static int NumberOfRoomsWithObjects
@@ -46,19 +62,29 @@ namespace Trizbort
     {
       get
       {
+        if (Project.Current.Elements.OfType<Room>().Count() == 1)
+          return 1; // if there's only one room, it must be where you start, and so it is a dead end.
+
         return Project.Current.Elements.OfType<Room>().Count(p =>
         {
             var x = p.GetConnections();
 
-            if (x.Count == 0) // if a room is isolated, it can't be a dead end
+
+            if (x.Count == 0) // if a room is isolated, it (usually) can't be a dead end...
+            {
+                if (p.IsStartRoom) // unless it's the the start room, since there is a way to get there...the game puts you there.
+                    return true;
                 return false;
+            }
 
             foreach (var y in x)
             {
+                if ((y.GetSourceRoom() == null) || (y.GetTargetRoom() == null))
+                    continue;
                 if (y.Flow == ConnectionFlow.TwoWay)
-                    if (y.VertexList[0].Port.Owner != y.VertexList[1].Port.Owner) // make sure it doesn't loop on itself
+                    if (y.GetSourceRoom() != y.GetTargetRoom()) // make sure it doesn't loop on itself
                         return false;
-                if (y.VertexList[0].Port.Owner == p) //if our room starts the one-way line, it's not a dead end
+                else if (y.GetSourceRoom() == p) //if our room starts the one-way line, it's not a dead end
                     return false;
             }
             return true;

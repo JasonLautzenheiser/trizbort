@@ -14,7 +14,5 @@ echo Manual test case. View menu
 %TESTBASE%\manual-view-menu.trizbort
 echo Manual test case. Make sure handles and ports are all right.
 %TESTBASE%\manual-room-shape-ports-handles.trizbort
-echo Manual test case. Make sure dead ends are counted right.
-%TESTBASE%\manual-stats-dead-ends.trizbort
 echo Manual test case. Make sure control-arrows from connections go to the right rooms.
 %TESTBASE%\manual-control-arrow-connections.trizbort

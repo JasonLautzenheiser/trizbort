@@ -861,55 +861,55 @@ namespace Trizbort
     public String ClipboardPrint()
     {
       var clipboardText = "";
-
+      
       switch (Style)
       {
         case ConnectionStyle.Solid:
-          clipboardText += "solid" + ":";
+          clipboardText += "solid" + Canvas.CopyDelimiter;
           break;
         case ConnectionStyle.Dashed:
-          clipboardText += "dashed" + ":";
+          clipboardText += "dashed" + Canvas.CopyDelimiter;
           break;
         default:
-          clipboardText += "default" + ":";
+          clipboardText += "default" + Canvas.CopyDelimiter;
           break;
       }
 
       switch (Flow)
       {
         case ConnectionFlow.OneWay:
-          clipboardText += "oneWay" + ":";
+          clipboardText += "oneWay" + Canvas.CopyDelimiter;
           break;
         case ConnectionFlow.TwoWay:
-          clipboardText += "twoWay" + ":";
+          clipboardText += "twoWay" + Canvas.CopyDelimiter;
           break;
         default:
-          clipboardText += "default" + ":";
+          clipboardText += "default" + Canvas.CopyDelimiter;
           break;
       }
 
-      clipboardText += ConnectionColor.ToHex() + ":";
+      clipboardText += Colors.SaveColor(ConnectionColor) + Canvas.CopyDelimiter;
 
-      clipboardText += StartText + ":";
-      clipboardText += MidText + ":";
+      clipboardText += StartText + Canvas.CopyDelimiter;
+      clipboardText += MidText + Canvas.CopyDelimiter;
       clipboardText += EndText;
 
       var index = 0;
       foreach (var vertex in VertexList)
       {
-        clipboardText += ":";
+        clipboardText += Canvas.CopyDelimiter;
         if (vertex.Port != null)
         {
-          clipboardText += "dock" + ":";
-          clipboardText += index + ":";
-          clipboardText += vertex.Port.Owner.ID + ":";
+          clipboardText += "dock" + Canvas.CopyDelimiter;
+          clipboardText += index + Canvas.CopyDelimiter;
+          clipboardText += vertex.Port.Owner.ID + Canvas.CopyDelimiter;
           clipboardText += vertex.Port.ID;
         }
         else
         {
-          clipboardText += "point" + ":";
-          clipboardText += index + ":";
-          clipboardText += vertex.Position.X + ":";
+          clipboardText += "point" + Canvas.CopyDelimiter;
+          clipboardText += index + Canvas.CopyDelimiter;
+          clipboardText += vertex.Position.X + Canvas.CopyDelimiter;
           clipboardText += vertex.Position.Y;
         }
         ++index;

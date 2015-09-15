@@ -71,6 +71,8 @@ namespace Trizbort
     private bool mUpdatingScrollBars;
     private float mZoomFactor;
 
+    public const string CopyDelimiter = "::=::";
+
     public event EventHandler ZoomChanged;
 
     private void raiseZoomed()
@@ -2747,14 +2749,14 @@ namespace Trizbort
         clipboardText += "\r\n";
         if (element is Room)
         {
-          clipboardText += "room:";
-          clipboardText += element.ID + ":";
+          clipboardText += "room"+ CopyDelimiter;
+          clipboardText += element.ID + CopyDelimiter;
           clipboardText += ((Room) element).ClipboardPrint();
         }
         else if (element is Connection)
         {
-          clipboardText += "line:";
-          clipboardText += element.ID + ":";
+          clipboardText += "line"+ CopyDelimiter;
+          clipboardText += element.ID + CopyDelimiter;
           clipboardText += ((Connection) element).ClipboardPrint();
         }
       }
@@ -2802,7 +2804,7 @@ namespace Trizbort
 
             while (index < elements.Length)
             {
-              var elementProperties = elements[index].Split(':');
+              var elementProperties = elements[index].Split(new[] { CopyDelimiter }, StringSplitOptions.None);
 
               // Rooms and Lines both copy 15 items for their base attributes
               if (elementProperties.Length > 14)
@@ -2896,7 +2898,7 @@ namespace Trizbort
 
             while (index < elements.Length)
             {
-              var elementProperties = elements[index].Split(':');
+              var elementProperties = elements[index].Split(new[] { CopyDelimiter }, StringSplitOptions.None);
 
               // Rooms and Lines both copy 15 items for their base attributes
               if (elementProperties.Length > 14)

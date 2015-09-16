@@ -1528,7 +1528,7 @@ namespace Trizbort
           return true;
 
       if ((dirOne == CompassPoint.WestNorthWest) || (dirOne == CompassPoint.WestSouthWest) || (dirOne == CompassPoint.West))
-        if ((dirTwo == CompassPoint.WestNorthWest) || (dirTwo == CompassPoint.WestSouthWest) || (dirTwo == CompassPoint.East))
+        if ((dirTwo == CompassPoint.WestNorthWest) || (dirTwo == CompassPoint.WestSouthWest) || (dirTwo == CompassPoint.West))
           return true;
 
       if ((dirOne == CompassPoint.NorthNorthEast) || (dirOne == CompassPoint.NorthNorthWest) || (dirOne == CompassPoint.North))

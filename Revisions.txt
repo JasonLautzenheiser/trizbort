@@ -23,6 +23,7 @@ FIX: #128 - Failed EMF export does not generate error
 FIX: #130 - darkness does not persist on Ctrl-Arrow to create new room
 FIX: #132 - Deleting region wasn't reverting it's "ex-rooms" to NoRegion
 FIX: #137 - Changing items in the Tools:Map Settings dialog wasn't marking the project as dirty.
+FIX: #153 - Arrow keys moving canvas right / left were backwards.
 FIX: #156 - Issue with copy / paste and connection color.  Also issue with a colon in the name is fixed.
 
 1.5.9.2

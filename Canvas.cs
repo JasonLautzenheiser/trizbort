@@ -1309,7 +1309,7 @@ namespace Trizbort
     private void moveArrowKeyHandler(Keys keyCode, bool shift)
     {
       var bHorizontal = (keyCode == Keys.Left || keyCode == Keys.Right);
-      var bNegative = (keyCode == Keys.Left || keyCode == Keys.Down);
+      var bNegative = (keyCode == Keys.Right || keyCode == Keys.Down);
 
       if (SelectedElementCount == 0)
       {

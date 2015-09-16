@@ -1324,7 +1324,7 @@ namespace Trizbort
         foreach (var element in SelectedElements)
         {
           if (bHorizontal)
-            element.Position += new Vector((bNegative ? -delta : delta), 0);
+            element.Position += new Vector((bNegative ? delta : -delta), 0);
           else
             element.Position += new Vector(0, (bNegative ? delta : -delta));
         }
@@ -2031,7 +2031,16 @@ namespace Trizbort
           var target = conn.GetTargetRoom(out targetCompass);
           var source = conn.GetSourceRoom(out sourceCompass);
 
-          if (target == null)
+          if ((target == null) && (source == null))
+          {
+            conn.VertexList.Add(new Vertex(room.PortAt(CompassPointHelper.GetOpposite(sourceCompass))));
+          }
+          else if (source == null)
+          {
+            conn.VertexList.RemoveAt(0);
+            conn.VertexList.Add(new Vertex(room.PortAt(CompassPointHelper.GetOpposite(targetCompass))));
+          }
+          else if (target == null)
           {
             conn.VertexList.RemoveAt(conn.VertexList.Count - 1);
             conn.VertexList.Add(new Vertex(room.PortAt(CompassPointHelper.GetOpposite(sourceCompass))));
@@ -3192,9 +3201,12 @@ namespace Trizbort
           toolStripSeparator1.Visible = true;
           toolStripSeparator2.Visible = true;
 
+          m_lineStylesMenuItem.Visible = false;
+          m_reverseLineMenuItem.Visible = false;
+
           swapObjectsToolStripMenuItem.Enabled = SelectedRooms.Count == 2;
           joinRoomsToolStripMenuItem.Enabled = SelectedRooms.Count == 2 && !Project.Current.AreRoomsConnected(SelectedRooms);
-          ;
+          
 
           darkToolStripMenuItem.Checked = lastSelectedRoom.IsDark;
         }

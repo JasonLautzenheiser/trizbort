@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Trizbort
@@ -9,9 +8,9 @@ namespace Trizbort
   public partial class RegionSettings : Form
   {
     public Region RegionToChange { get; private set; }
-    private List<Region> regions;
+    private readonly List<Region> regions;
 
-    private string originalName = string.Empty;
+    private readonly string originalName;
 
     public RegionSettings(Region region, List<Region> regions)
     {
@@ -47,12 +46,12 @@ namespace Trizbort
 
     private void m_okButton_Click(object sender, EventArgs e)
     {
-      txtRegionName.Text = txtRegionName.Text.Replace("\"", "'");
+      txtRegionName.Text = txtRegionName.Text.Trim().Replace("\"", "'");
       if (Trizbort.Region.ValidRegionName(txtRegionName.Text))
       {
         if (!txtRegionName.Text.Equals(originalName, StringComparison.OrdinalIgnoreCase) && regions.Any(p => p.RegionName.Equals(txtRegionName.Text, StringComparison.OrdinalIgnoreCase)))
         {
-          MessageBox.Show(string.Format("A Region already exists with the name '{0}'", txtRegionName.Text));
+          MessageBox.Show($"A Region already exists with the name '{txtRegionName.Text}'");
         }
         else
         {

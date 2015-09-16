@@ -34,6 +34,7 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
 using Timer = System.Threading.Timer;
+
 // ReSharper disable PossibleLossOfFraction
 // ReSharper disable CompareOfFloatsByEqualityOperator
 // ReSharper disable CanBeReplacedWithTryCastAndCheckForNull
@@ -42,6 +43,7 @@ namespace Trizbort
 {
   internal sealed partial class Canvas : UserControl, IAutomapCanvas
   {
+    public const string CopyDelimiter = "::=::";
     private static readonly int RecomputeNMillisecondsAfterChange = 500;
     private static bool mSmartLineSegmentsUpToDate;
     private readonly List<ResizeHandle> mHandles = new List<ResizeHandle>();
@@ -70,16 +72,6 @@ namespace Trizbort
     private List<Element> mSelectedElements = new List<Element>();
     private bool mUpdatingScrollBars;
     private float mZoomFactor;
-
-    public const string CopyDelimiter = "::=::";
-
-    public event EventHandler ZoomChanged;
-
-    private void raiseZoomed()
-    {
-      var zoomed = ZoomChanged;
-      zoomed?.Invoke(this, EventArgs.Empty);
-    }
 
     public Canvas()
     {
@@ -121,13 +113,6 @@ namespace Trizbort
           Invalidate();
         }
       }
-    }
-
-    public void ChangeZoom(float mZoom)
-    {
-      lblZoom.Text = mZoom .ToString("p0");
-      mZoomFactor = mZoom;
-      Invalidate();
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -313,6 +298,25 @@ namespace Trizbort
           m_vScrollBar.Height = Height - m_cornerPanel.Height - m_minimap.Height;
         }
       }
+    }
+
+    public List<Room> SelectedRooms { get { return mSelectedElements.Where(p => p is Room).ToList().Cast<Room>().ToList(); } }
+
+    public List<Connection> SelectedConnections { get { return mSelectedElements.Where(p => p is Connection).ToList().Cast<Connection>().ToList(); } }
+
+    public event EventHandler ZoomChanged;
+
+    private void raiseZoomed()
+    {
+      var zoomed = ZoomChanged;
+      zoomed?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void ChangeZoom(float mZoom)
+    {
+      lblZoom.Text = mZoom.ToString("p0");
+      mZoomFactor = mZoom;
+      Invalidate();
     }
 
     /// <summary>
@@ -740,13 +744,14 @@ namespace Trizbort
       var context = new DrawingContext(ZoomFactor);
 
       // draw all non-selected ports
-      foreach (var port in mPorts.Where(port => hoverPort != port)) {
+      foreach (var port in mPorts.Where(port => hoverPort != port))
+      {
         context.Selected = false;
         port.Draw(this, graphics, palette, context);
       }
 
       if (hoverPort == null) return;
-      
+
       // lastly, always the port under the mouse, if any
       context.Selected = true;
       hoverPort.Draw(this, graphics, palette, context);
@@ -756,7 +761,7 @@ namespace Trizbort
     {
       var marqueeRect = getMarqueeCanvasBounds();
       if (!(marqueeRect.Width > 0) || !(marqueeRect.Height > 0)) return;
-      
+
       graphics.DrawRectangle(palette.MarqueeFillBrush, marqueeRect.ToRectangleF());
       var topLeft = new PointF(marqueeRect.Left, marqueeRect.Top);
       var topRight = new PointF(marqueeRect.Right, marqueeRect.Top);
@@ -949,18 +954,18 @@ namespace Trizbort
               var toolTip = new SuperTooltipInfo(HoverElement.GetToolTipHeader(), HoverElement.GetToolTipFooter(), HoverElement.GetToolTipText(), null, null, HoverElement.GetToolTipColor());
 
               roomTooltip.SetSuperTooltip(this, toolTip);
-              
+
               var tPoint = new Vector();
               if (hoverElement is Room)
               {
                 var tRoom = (Room) hoverElement;
                 tPoint = tRoom.Position;
-                tPoint.Y += tRoom.Height+10;
+                tPoint.Y += tRoom.Height + 10;
                 tPoint.X -= 10;
               }
               var xxttPoint = CanvasToClient(tPoint);
               var newPoint = PointToScreen(new Point((int) xxttPoint.X, (int) xxttPoint.Y));
-              roomTooltip.ShowTooltip(this,newPoint);
+              roomTooltip.ShowTooltip(this, newPoint);
             }
           }
           break;
@@ -1303,8 +1308,8 @@ namespace Trizbort
 
     private void moveArrowKeyHandler(Keys keyCode, bool shift)
     {
-      bool bHorizontal = (keyCode == Keys.Left || keyCode == Keys.Right);
-      bool bNegative = (keyCode == Keys.Left || keyCode == Keys.Down);
+      var bHorizontal = (keyCode == Keys.Left || keyCode == Keys.Right);
+      var bNegative = (keyCode == Keys.Left || keyCode == Keys.Down);
 
       if (SelectedElementCount == 0)
       {
@@ -1328,7 +1333,7 @@ namespace Trizbort
 
     private void ctrlArrowHandler(Keys keyCode)
     {
-      CompassPoint direction = CompassPoint.North;
+      var direction = CompassPoint.North;
       switch (keyCode)
       {
         case Keys.Left:
@@ -1367,7 +1372,7 @@ namespace Trizbort
           case Keys.Left:
             var f = room.Width - delta;
             if (f >= Settings.GridSize)
-              room.Size = new Vector(f,room.Height);
+              room.Size = new Vector(f, room.Height);
             break;
 
           case Keys.Right:
@@ -1384,7 +1389,6 @@ namespace Trizbort
             room.Size = new Vector(room.Width, room.Height + delta);
             break;
         }
-        
       }
     }
 
@@ -1482,16 +1486,6 @@ namespace Trizbort
       room2.Objects = objects;
     }
 
-    public List<Room> SelectedRooms
-    {
-      get { return mSelectedElements.Where(p => p is Room).ToList().Cast<Room>().ToList(); }
-    }
-
-    public List<Connection> SelectedConnections
-    {
-      get { return mSelectedElements.Where(p => p is Connection).ToList().Cast<Connection>().ToList(); }
-    }
-
     private RectangleF calcViewportBounds()
     {
       var clientArea = new Rectangle(0, 0, Width, Height);
@@ -1523,116 +1517,132 @@ namespace Trizbort
       return false;
     }
 
-    public bool equalEnough (CompassPoint dirOne, CompassPoint dirTwo)
-        { //Genstein wrote code for GetRoomInApproximateDirectionFromRoom which may cover this. However, I couldn't find a way through it.
-            if (dirOne == dirTwo)
-              return true;
-
-            if ((dirOne == CompassPoint.EastNorthEast) || (dirOne == CompassPoint.EastSouthEast) || (dirOne == CompassPoint.East))
-                if ((dirTwo == CompassPoint.EastNorthEast) || (dirTwo == CompassPoint.EastSouthEast) || (dirTwo == CompassPoint.East))
-                    return true;
-
-            if ((dirOne == CompassPoint.WestNorthWest) || (dirOne == CompassPoint.WestSouthWest) || (dirOne == CompassPoint.West))
-                if ((dirTwo == CompassPoint.WestNorthWest) || (dirTwo == CompassPoint.WestSouthWest) || (dirTwo == CompassPoint.East))
-                    return true;
-
-            if ((dirOne == CompassPoint.NorthNorthEast) || (dirOne == CompassPoint.NorthNorthWest) || (dirOne == CompassPoint.North))
-                if ((dirTwo == CompassPoint.NorthNorthEast) || (dirTwo == CompassPoint.NorthNorthWest) || (dirTwo == CompassPoint.North))
-                    return true;
-
-            if ((dirOne == CompassPoint.SouthSouthEast) || (dirOne == CompassPoint.SouthSouthWest) || (dirOne == CompassPoint.South))
-                if ((dirTwo == CompassPoint.SouthSouthEast) || (dirTwo == CompassPoint.SouthSouthWest) || (dirTwo == CompassPoint.South))
-                    return true;
-
-            return false;
-
-        }
-
-    public CompassPoint roughOpposite(CompassPoint cp)
+    public bool EqualEnough(CompassPoint dirOne, CompassPoint dirTwo)
     {
-            switch (cp)
-            {
-                case CompassPoint.North:
-                case CompassPoint.NorthNorthEast:
-                case CompassPoint.NorthNorthWest:
-                    return CompassPoint.South;
+      //Genstein wrote code for GetRoomInApproximateDirectionFromRoom which may cover this. However, I couldn't find a way through it.
+      if (dirOne == dirTwo)
+        return true;
 
-                case CompassPoint.South:
-                case CompassPoint.SouthSouthEast:
-                case CompassPoint.SouthSouthWest:
-                    return CompassPoint.North;
+      if ((dirOne == CompassPoint.EastNorthEast) || (dirOne == CompassPoint.EastSouthEast) || (dirOne == CompassPoint.East))
+        if ((dirTwo == CompassPoint.EastNorthEast) || (dirTwo == CompassPoint.EastSouthEast) || (dirTwo == CompassPoint.East))
+          return true;
 
-                case CompassPoint.East:
-                case CompassPoint.EastSouthEast:
-                case CompassPoint.EastNorthEast:
-                    return CompassPoint.West;
+      if ((dirOne == CompassPoint.WestNorthWest) || (dirOne == CompassPoint.WestSouthWest) || (dirOne == CompassPoint.West))
+        if ((dirTwo == CompassPoint.WestNorthWest) || (dirTwo == CompassPoint.WestSouthWest) || (dirTwo == CompassPoint.East))
+          return true;
 
-                case CompassPoint.West:
-                case CompassPoint.WestSouthWest:
-                case CompassPoint.WestNorthWest:
-                    return CompassPoint.East;
+      if ((dirOne == CompassPoint.NorthNorthEast) || (dirOne == CompassPoint.NorthNorthWest) || (dirOne == CompassPoint.North))
+        if ((dirTwo == CompassPoint.NorthNorthEast) || (dirTwo == CompassPoint.NorthNorthWest) || (dirTwo == CompassPoint.North))
+          return true;
 
-                case CompassPoint.SouthWest:
-                    return CompassPoint.NorthEast;
+      if ((dirOne == CompassPoint.SouthSouthEast) || (dirOne == CompassPoint.SouthSouthWest) || (dirOne == CompassPoint.South))
+        if ((dirTwo == CompassPoint.SouthSouthEast) || (dirTwo == CompassPoint.SouthSouthWest) || (dirTwo == CompassPoint.South))
+          return true;
 
-                case CompassPoint.SouthEast:
-                    return CompassPoint.NorthWest;
+      return false;
+    }
 
-                case CompassPoint.NorthWest:
-                    return CompassPoint.SouthEast;
+    public CompassPoint? RoughOpposite(CompassPoint? cp)
+    {
+      if (cp == null) return null;
 
-                case CompassPoint.NorthEast:
-                    return CompassPoint.SouthWest;
-            }
+      switch (cp)
+      {
+        case CompassPoint.North:
+        case CompassPoint.NorthNorthEast:
+        case CompassPoint.NorthNorthWest:
+          return CompassPoint.South;
 
-            return CompassPoint.North;
-        }
+        case CompassPoint.South:
+        case CompassPoint.SouthSouthEast:
+        case CompassPoint.SouthSouthWest:
+          return CompassPoint.North;
+
+        case CompassPoint.East:
+        case CompassPoint.EastSouthEast:
+        case CompassPoint.EastNorthEast:
+          return CompassPoint.West;
+
+        case CompassPoint.West:
+        case CompassPoint.WestSouthWest:
+        case CompassPoint.WestNorthWest:
+          return CompassPoint.East;
+
+        case CompassPoint.SouthWest:
+          return CompassPoint.NorthEast;
+
+        case CompassPoint.SouthEast:
+          return CompassPoint.NorthWest;
+
+        case CompassPoint.NorthWest:
+          return CompassPoint.SouthEast;
+
+        case CompassPoint.NorthEast:
+          return CompassPoint.SouthWest;
+      }
+
+      return CompassPoint.North;
+    }
 
     private bool selectRoomRelativeToSelectedConnection(CompassPoint compassPoint)
     {
       var element = SelectedElement as Connection;
-            if (element != null)
-            {
-                CompassPoint sourceDir;
-                CompassPoint targetDir;
-                var conn = element;
-                var source = conn.GetSourceRoom(out sourceDir);
-                var target = conn.GetTargetRoom(out targetDir);
-                CompassPoint sourceOpposite = roughOpposite(sourceDir);
-                CompassPoint targetOpposite = roughOpposite(targetDir);
-                if (equalEnough(compassPoint, targetDir) || equalEnough(compassPoint, sourceOpposite))
-                {
-                    foreach (var connection in target.GetConnections(targetDir))
-                    {
-                        if (connection.ID == conn.ID)
-                        {
-                            SelectedElement = conn.VertexList[0].Port.Owner;
-                            EnsureVisible(SelectedElement);
-                            HoverElement = null;
-                            Refresh();
-                            return true;
-                        }
-                    }
-                }
+      if (element != null)
+      {
+        var conn = element;
 
-                if (equalEnough(compassPoint, sourceDir) || equalEnough(compassPoint, targetOpposite))
-                {
-                    foreach (var connection in source.GetConnections(sourceDir))
-                    {
-                        if (connection.ID == conn.ID)
-                        {
-                            SelectedElement = conn.VertexList[1].Port.Owner;
-                            EnsureVisible(SelectedElement);
-                            HoverElement = null;
-                            Refresh();
-                            return true;
-                        }
-                    }
-                }
+        var firstEndPoint = (Room.CompassPort)conn.VertexList[0].Port;
+        var secondEndPoint = (Room.CompassPort)conn.VertexList[1].Port;
 
-            }
+        var firstRoomConnectionDir = firstEndPoint?.CompassPoint;
+        var secondRoomConnectionDir = secondEndPoint?.CompassPoint;
 
-            return false;
+        var firstOutDirection = RoughOpposite(firstRoomConnectionDir);
+        var secondOutDirection = RoughOpposite(secondRoomConnectionDir);
+
+        bool overrideDir = 
+          firstOutDirection == CompassPoint.NorthEast && (compassPoint == CompassPoint.North || compassPoint == CompassPoint.East) || 
+          firstOutDirection == CompassPoint.NorthWest && (compassPoint == CompassPoint.North || compassPoint == CompassPoint.West) || 
+          firstOutDirection == CompassPoint.SouthEast && (compassPoint == CompassPoint.South || compassPoint == CompassPoint.East) || 
+          firstOutDirection == CompassPoint.SouthWest && (compassPoint == CompassPoint.South || compassPoint == CompassPoint.West);
+
+        if (overrideDir || (firstOutDirection != null && EqualEnough(compassPoint, (CompassPoint)firstOutDirection)))
+        {
+          var tSelectedElement = conn.VertexList[0]?.Port?.Owner;
+          if (tSelectedElement != null)
+          {
+            EnsureVisible(tSelectedElement);
+            HoverElement = null;
+            SelectedElement = tSelectedElement;
+            Refresh();
+            return true;
+          }
+          return false;
+        }
+
+        overrideDir =
+          secondOutDirection == CompassPoint.NorthEast && (compassPoint == CompassPoint.North || compassPoint == CompassPoint.East) ||
+          secondOutDirection == CompassPoint.NorthWest && (compassPoint == CompassPoint.North || compassPoint == CompassPoint.West) ||
+          secondOutDirection == CompassPoint.SouthEast && (compassPoint == CompassPoint.South || compassPoint == CompassPoint.East) ||
+          secondOutDirection == CompassPoint.SouthWest && (compassPoint == CompassPoint.South || compassPoint == CompassPoint.West);
+
+        if (overrideDir || (secondOutDirection != null && EqualEnough(compassPoint, (CompassPoint)secondOutDirection)))
+        {
+          var tSelectedElement = conn.VertexList[1]?.Port?.Owner;
+          if (tSelectedElement != null)
+          {
+            EnsureVisible(tSelectedElement);
+            HoverElement = null;
+            SelectedElement = tSelectedElement;
+            Refresh();
+            return true;
+          }
+          return false;
+        }
+
+      }
+
+      return false;
     }
 
     public void JoinSelectedRooms(Room room1, Room room2)
@@ -1672,7 +1682,6 @@ namespace Trizbort
           addConnection(room1, CompassPoint.East, room2, CompassPoint.West);
       }
     }
-
 
 
     /// <summary>
@@ -1774,9 +1783,9 @@ namespace Trizbort
     private Room getRoomInApproximateDirectionFromRoom(Room room, CompassPoint compassPoint)
     {
       Room nextRoom;
-      if (getRoomInExactDirectionFromRoom(room, compassPoint) != null) 
+      if (getRoomInExactDirectionFromRoom(room, compassPoint) != null)
         nextRoom = getRoomInExactDirectionFromRoom(room, compassPoint);
-      else 
+      else
         nextRoom = getRoomInExactDirectionFromRoom(room, CompassPointHelper.RotateAntiClockwise(compassPoint));
 
       return nextRoom ?? (getRoomInExactDirectionFromRoom(room, CompassPointHelper.RotateClockwise(compassPoint)));
@@ -1811,6 +1820,7 @@ namespace Trizbort
     /// <param name="element">The element to make visible.</param>
     private void EnsureVisible(Element element)
     {
+      if (element == null) return;
       var rect = Rect.Empty;
       rect = element.UnionBoundsWith(rect, false);
       if (rect != Rect.Empty)
@@ -1984,11 +1994,11 @@ namespace Trizbort
       else
       {
         // center on the origin
-        pos = new Vector(Origin.X - room.Size.X / 2, Origin.Y - room.Size.Y / 2);
+        pos = new Vector(Origin.X - room.Size.X/2, Origin.Y - room.Size.Y/2);
       }
 
       // rooms' origins are in the top left corner
-      pos -= room.Size / 2;
+      pos -= room.Size/2;
 
       // snap to the grid, if required
       pos = Settings.Snap(pos);
@@ -1999,7 +2009,7 @@ namespace Trizbort
         clash = false;
         foreach (var element in Project.Current.Elements)
         {
-          if (element is IMoveable && ((IMoveable)element).Position == pos)
+          if (element is IMoveable && ((IMoveable) element).Position == pos)
           {
             pos.X += Math.Max(2, Settings.GridSize);
             pos.Y += Math.Max(2, Settings.GridSize);
@@ -2023,7 +2033,7 @@ namespace Trizbort
 
           if (target == null)
           {
-            conn.VertexList.RemoveAt(conn.VertexList.Count-1);
+            conn.VertexList.RemoveAt(conn.VertexList.Count - 1);
             conn.VertexList.Add(new Vertex(room.PortAt(CompassPointHelper.GetOpposite(sourceCompass))));
           }
           else
@@ -2041,7 +2051,6 @@ namespace Trizbort
 
       SelectedElement = room;
       Refresh();
-      
     }
 
     private void doDragPan(PointF clientPos, Vector canvasPos)
@@ -2462,7 +2471,8 @@ namespace Trizbort
       if (needMovablePortsOnSelectedElement && HasSingleSelectedElement)
       {
         if (SelectedElement != null)
-          foreach (MoveablePort port in SelectedElement.Ports.OfType<MoveablePort>()) {
+          foreach (var port in SelectedElement.Ports.OfType<MoveablePort>())
+          {
             mPorts.Add(port);
           }
       }
@@ -2472,7 +2482,8 @@ namespace Trizbort
 
     public void ApplyConnectionStyle(ConnectionStyle connectionStyle)
     {
-      foreach (var connection in SelectedConnections) {
+      foreach (var connection in SelectedConnections)
+      {
         connection.Style = connectionStyle;
       }
       Invalidate();
@@ -2515,12 +2526,12 @@ namespace Trizbort
         connection.ConnectionColor = Color.Transparent;
       }
       Invalidate();
-      
     }
 
     public void ClearMidText()
     {
-      foreach (var connection in SelectedConnections.Where(element => element != null)) {
+      foreach (var connection in SelectedConnections.Where(element => element != null))
+      {
         connection.MidText = string.Empty;
       }
       Invalidate();
@@ -2749,13 +2760,13 @@ namespace Trizbort
         clipboardText += "\r\n";
         if (element is Room)
         {
-          clipboardText += "room"+ CopyDelimiter;
+          clipboardText += "room" + CopyDelimiter;
           clipboardText += element.ID + CopyDelimiter;
           clipboardText += ((Room) element).ClipboardPrint();
         }
         else if (element is Connection)
         {
-          clipboardText += "line"+ CopyDelimiter;
+          clipboardText += "line" + CopyDelimiter;
           clipboardText += element.ID + CopyDelimiter;
           clipboardText += ((Connection) element).ClipboardPrint();
         }
@@ -2804,7 +2815,7 @@ namespace Trizbort
 
             while (index < elements.Length)
             {
-              var elementProperties = elements[index].Split(new[] { CopyDelimiter }, StringSplitOptions.None);
+              var elementProperties = elements[index].Split(new[] {CopyDelimiter}, StringSplitOptions.None);
 
               // Rooms and Lines both copy 15 items for their base attributes
               if (elementProperties.Length > 14)
@@ -2838,7 +2849,7 @@ namespace Trizbort
                   currentRoom.IsDark = Convert.ToBoolean(elementProperties[7]);
                   currentRoom.AddDescription(elementProperties[8]);
                   currentRoom.Region = elementProperties[9];
-                  currentRoom.BorderStyle = (BorderDashStyle)Enum.Parse(typeof(BorderDashStyle), elementProperties[10]);
+                  currentRoom.BorderStyle = (BorderDashStyle) Enum.Parse(typeof (BorderDashStyle), elementProperties[10]);
 
                   currentRoom.StraightEdges = Convert.ToBoolean(elementProperties[11]);
                   currentRoom.Ellipse = Convert.ToBoolean(elementProperties[12]);
@@ -2898,7 +2909,7 @@ namespace Trizbort
 
             while (index < elements.Length)
             {
-              var elementProperties = elements[index].Split(new[] { CopyDelimiter }, StringSplitOptions.None);
+              var elementProperties = elements[index].Split(new[] {CopyDelimiter}, StringSplitOptions.None);
 
               // Rooms and Lines both copy 15 items for their base attributes
               if (elementProperties.Length > 14)
@@ -3155,7 +3166,6 @@ namespace Trizbort
       {
         if (hitElement is Room)
         {
-
           lastSelectedRoom = (Room) hitElement;
 
           regionMenu.DropDownItems.Clear();
@@ -3183,10 +3193,10 @@ namespace Trizbort
           toolStripSeparator2.Visible = true;
 
           swapObjectsToolStripMenuItem.Enabled = SelectedRooms.Count == 2;
-          joinRoomsToolStripMenuItem.Enabled = SelectedRooms.Count == 2 && !Project.Current.AreRoomsConnected(SelectedRooms); ;
+          joinRoomsToolStripMenuItem.Enabled = SelectedRooms.Count == 2 && !Project.Current.AreRoomsConnected(SelectedRooms);
+          ;
 
           darkToolStripMenuItem.Checked = lastSelectedRoom.IsDark;
-
         }
         if (hitElement is Connection)
         {
@@ -3275,17 +3285,6 @@ namespace Trizbort
       {
         selectedRoom.Region = regionSelected.Text;
       }
-    }
-
-    private enum DragModes
-    {
-      None,
-      Pan,
-      MoveElement,
-      MoveResizeHandle,
-      MovePort,
-      Marquee,
-      DrawLine
     }
 
     private void roomPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3505,6 +3504,17 @@ namespace Trizbort
     {
       NewConnectionLabel = ConnectionLabel.Out;
       ApplyConnectionLabel(NewConnectionLabel);
+    }
+
+    private enum DragModes
+    {
+      None,
+      Pan,
+      MoveElement,
+      MoveResizeHandle,
+      MovePort,
+      Marquee,
+      DrawLine
     }
   }
 }

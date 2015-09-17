@@ -7,6 +7,8 @@ namespace Trizbort
   {
     public static int NumberOfRooms => Project.Current.Elements.OfType<Room>().Count();
 
+    public static int NumberOfDarkRooms => Project.Current.Elements.OfType<Room>().Count(p => p.IsDark);
+
     public static int NumberOfFloatingRooms
     {
       get { return Project.Current.Elements.OfType<Room>().Count(p =>

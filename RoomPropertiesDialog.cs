@@ -114,7 +114,7 @@ namespace Trizbort
 
     public string RoomName
     {
-      get { return txtName.Text; }
+      get { return txtName.Text.Trim(); }
       set { txtName.Text = value; }
     }
 

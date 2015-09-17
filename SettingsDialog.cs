@@ -348,11 +348,16 @@ namespace Trizbort
       if (!bUpdatingRegionText)
       {
         bUpdatingRegionText = true;
-        editBox.Text = editBox.Text.Replace("\"", "'");
+        editBox.Text = editBox.Text.Trim().Replace("\"", "'");
         if (Trizbort.Region.ValidRegionName(editBox.Text))
         {
           if (updateRegionName(editBox.Text, m_RegionListing.Items[itemSelected].ToString()))
+          {
             editBox.Hide();
+            addRegionsToListbox();
+            m_RegionListing.SelectedIndex = itemSelected == 0 ? 0 : (itemSelected + 1) >= m_RegionListing.Items.Count ? m_RegionListing.Items.Count - 1 : (itemSelected);
+            m_RegionListing.Focus();
+          }
           else
           {
             editBox.Focus();
@@ -369,6 +374,8 @@ namespace Trizbort
 
     private bool updateRegionName(string pNew, string pOld)
     {
+      pNew = pNew.Trim();
+
       if (regionAlreadyExists(pNew)) return false;
 
       updateExistingRoomRegions(pNew, pOld);

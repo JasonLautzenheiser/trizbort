@@ -4,10 +4,15 @@ Change Log
 -------------
 COS: #112 - Disable "Rooms:Change Regions" if there are 0 regions
 COS: #119 - Change language in the settings to change "lines" to "connections".
+COS: #145 - There was a flicker in the 'Toggle Darkness' in the Rooms menu
+ENH: #79 -  Alpha of Hugo Exporter....not yet feature complete, please send feedback.
+ENH: #97  - Added stat for rooms you can't get out of "Dead Ends".
 ENH: #115 - Add graphic for straight edge room shape in room settings.
 ENH: #116 - Added checkbox to link all corners together to same value
 ENH: #118 - Save the last tab on settings dialog to app settings.
-ENH: #125 - Set a room as the starting room in room settings.  This will export to I7 and ZIL.
+ENH: #125 - Set a room as the starting room in room settings. Highlight it in a lime green. This will export to I7 and ZIL.
+ENH: #131 - Added "About" to I6 exported code
+ENH: #79 -  Alpha of Hugo Exporter....not yet feature complete, please send feedback.
 CHG: #117 - Default name for new room should not be blank
 CHG: #123 - Remove the default ("NoRegion") from the list of regions that get exported.
 CHG: #126 - F1 opens up the online help.
@@ -18,6 +23,13 @@ FIX: #121 - Error checking: request for warning box on unsuccessful smartsave
 FIX: #122 - Some shortcut keys for new menus introduced were triggering other actions.
 FIX: #128 - Failed EMF export does not generate error
 FIX: #130 - darkness does not persist on Ctrl-Arrow to create new room
+FIX: #132 - Deleting region wasn't reverting it's "ex-rooms" to NoRegion
+FIX: #137 - Changing items in the Tools:Map Settings dialog wasn't marking the project as dirty.
+FIX: #141 - Line styles context menu item could erronously appear on the menu for a room.
+FIX: #143 - Realphabetize region listbox in settings after renaming inline.
+FIX: #144 - disallow starting spaces in regions and room as it could cause issues with exporting to code.
+FIX: #153 - Arrow keys moving canvas right / left were backwards.
+FIX: #156 - Issue with copy / paste and connection color.  Also issue with a colon in the name is fixed.
 
 1.5.9.2
 -------------
@@ -199,9 +211,9 @@ FIX: Objects that have the same name as a room are now handled (TRIZ-62)
 
 1.5.6.1
 -------------
-FIX: TRIZ-43 — Should we be allowed to change NoRegion "region" name?
-FIX: TRIZ-44 — Changing region name with "change" button allows duplicate region names
-FIX: TRIZ-45 — Should we grey out "delete region" for no region?
+FIX: TRIZ-43 Â— Should we be allowed to change NoRegion "region" name?
+FIX: TRIZ-44 Â— Changing region name with "change" button allows duplicate region names
+FIX: TRIZ-45 Â— Should we grey out "delete region" for no region?
 
 1.5.6.0
 -------------

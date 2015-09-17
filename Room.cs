@@ -1264,40 +1264,40 @@ namespace Trizbort
     public string ClipboardPrint()
     {
       var clipboardText = "";
-      clipboardText += Name + ":";
-      clipboardText += Position.X + ":";
-      clipboardText += Position.Y + ":";
-      clipboardText += Size.X + ":";
-      clipboardText += Size.Y + ":";
-      clipboardText += IsDark + ":";
-      clipboardText += PrimaryDescription + ":";
-      clipboardText += Region + ":";
-      clipboardText += BorderStyle + ":";
+      clipboardText += Name + Canvas.CopyDelimiter;
+      clipboardText += Position.X + Canvas.CopyDelimiter;
+      clipboardText += Position.Y + Canvas.CopyDelimiter;
+      clipboardText += Size.X + Canvas.CopyDelimiter;
+      clipboardText += Size.Y + Canvas.CopyDelimiter;
+      clipboardText += IsDark + Canvas.CopyDelimiter;
+      clipboardText += PrimaryDescription + Canvas.CopyDelimiter;
+      clipboardText += Region + Canvas.CopyDelimiter;
+      clipboardText += BorderStyle + Canvas.CopyDelimiter;
 
-      clipboardText += StraightEdges + ":";
-      clipboardText += Ellipse + ":";
-      clipboardText += RoundedCorners + ":";
-      clipboardText += Octagonal + ":";
-      clipboardText += Corners.TopRight + ":";
-      clipboardText += Corners.TopLeft + ":";
-      clipboardText += Corners.BottomRight + ":";
-      clipboardText += Corners.BottomLeft + ":";
+      clipboardText += StraightEdges + Canvas.CopyDelimiter;
+      clipboardText += Ellipse + Canvas.CopyDelimiter;
+      clipboardText += RoundedCorners + Canvas.CopyDelimiter;
+      clipboardText += Octagonal + Canvas.CopyDelimiter;
+      clipboardText += Corners.TopRight + Canvas.CopyDelimiter;
+      clipboardText += Corners.TopLeft + Canvas.CopyDelimiter;
+      clipboardText += Corners.BottomRight + Canvas.CopyDelimiter;
+      clipboardText += Corners.BottomLeft + Canvas.CopyDelimiter;
 
       var colorValue = Colors.SaveColor(RoomFill);
-      clipboardText += colorValue + ":";
+      clipboardText += colorValue + Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(SecondFill);
-      clipboardText += colorValue + ":";
-      clipboardText += SecondFillLocation + ":";
+      clipboardText += colorValue + Canvas.CopyDelimiter;
+      clipboardText += SecondFillLocation + Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomBorder);
-      clipboardText += colorValue + ":";
+      clipboardText += colorValue + Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomLargeText); 
-      clipboardText += colorValue + ":";
+      clipboardText += colorValue + Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomSmallText);
-      clipboardText += colorValue + ":";
+      clipboardText += colorValue + Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomBorder);
       clipboardText += colorValue;
@@ -1307,10 +1307,10 @@ namespace Trizbort
       {
         var objectsDirection = "";
         CompassPointHelper.ToName(ObjectsPosition, out objectsDirection);
-        clipboardText += ":" + objectsDirection + ":";
+        clipboardText += Canvas.CopyDelimiter + objectsDirection + Canvas.CopyDelimiter;
         if (!string.IsNullOrEmpty(Objects))
         {
-          clipboardText += (Objects.Replace("\r\n", ":"));
+          clipboardText += (Objects.Replace("\r\n", Canvas.CopyDelimiter));
         }
       }
 
@@ -1323,17 +1323,17 @@ namespace Trizbort
       var clipboardText = string.Empty;
 
       var colorValue = Colors.SaveColor(RoomFill);
-      clipboardText += colorValue + ":";
+      clipboardText += colorValue + Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(SecondFill); 
-      clipboardText += colorValue + ":";
-      clipboardText += SecondFillLocation + ":";
+      clipboardText += colorValue + Canvas.CopyDelimiter;
+      clipboardText += SecondFillLocation + Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomBorder);
-      clipboardText += colorValue + ":";
+      clipboardText += colorValue + Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomLargeText);
-      clipboardText += colorValue + ":";
+      clipboardText += colorValue + Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomSmallText);
       clipboardText += colorValue;

@@ -6,21 +6,24 @@ COS: #112 - Disable "Rooms:Change Regions" if there are 0 regions
 COS: #119 - Change language in the settings to change "lines" to "connections".
 COS: #145 - There was a flicker in the 'Toggle Darkness' in the Rooms menu
 ENH: #79 -  Alpha of Hugo Exporter....not yet feature complete, please send feedback.
+ENH: #89	- Added octagonal room shape.  Great for Stop signs.
 ENH: #97  - Added stat for rooms you can't get out of "Dead Ends".
 ENH: #115 - Add graphic for straight edge room shape in room settings.
-ENH: #116 - Added checkbox to link all corners together to same value
+ENH: #116 - Added checkbox to link all corners together to same value for rounded corners room type.
 ENH: #118 - Save the last tab on settings dialog to app settings.
 ENH: #125 - Set a room as the starting room in room settings. Highlight it in a lime green. This will export to I7 and ZIL.
 ENH: #131 - Added "About" to I6 exported code
-ENH: #79 -  Alpha of Hugo Exporter....not yet feature complete, please send feedback.
+ENH: #167 - Added count of dark rooms to stats.
 CHG: #117 - Default name for new room should not be blank
 CHG: #123 - Remove the default ("NoRegion") from the list of regions that get exported.
 CHG: #126 - F1 opens up the online help.
 CHG: #129 - Better message on SmartSave if it can't save the image file
+FIX: #112 - Can no longer attempt to change regions if there are 0 regions.
 FIX: #113 - Disable "Join rooms" in context menu/Rooms menu if rooms already joined
 FIX: #120 - hand-drawn does not persist on Ctrl-Arrow to create new room
 FIX: #121 - Error checking: request for warning box on unsuccessful smartsave
 FIX: #122 - Some shortcut keys for new menus introduced were triggering other actions.
+FIX: #127 - Failed PNG write gives successful smart-save message.
 FIX: #128 - Failed EMF export does not generate error
 FIX: #130 - darkness does not persist on Ctrl-Arrow to create new room
 FIX: #132 - Deleting region wasn't reverting it's "ex-rooms" to NoRegion

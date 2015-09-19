@@ -22,6 +22,7 @@ namespace Trizbort
       string stats = string.Empty;
 
       stats += $"# of Rooms: {MapStatistics.NumberOfRooms}{Environment.NewLine}";
+      stats += $"# of Dark Rooms: {MapStatistics.NumberOfDarkRooms}{Environment.NewLine}";
       stats += $"# of Unconnected Rooms: {MapStatistics.NumberOfFloatingRooms}{Environment.NewLine}";
       
       stats += $"{Environment.NewLine}";

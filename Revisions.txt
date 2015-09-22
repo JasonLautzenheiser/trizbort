@@ -1,5 +1,9 @@
 Change Log
 
+1.5.9.4
+-------------
+ENH: #170 - The short cut key '0' will select the starting room.
+
 1.5.9.3
 -------------
 COS: #112 - Disable "Rooms:Change Regions" if there are 0 regions

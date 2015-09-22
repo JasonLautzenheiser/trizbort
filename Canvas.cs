@@ -1025,6 +1025,16 @@ namespace Trizbort
           SelectedElement = null;
           break;
 
+        case Keys.D0:
+        case Keys.NumPad0:
+          var startRoom = Project.Current.Elements.OfType<Room>().FirstOrDefault(p => p.IsStartRoom);
+          if (startRoom != null)
+          {
+            SelectedElement = startRoom;
+            EnsureVisible(startRoom);
+          }
+          break;
+
         case Keys.A:
           if (e.Control)
           {

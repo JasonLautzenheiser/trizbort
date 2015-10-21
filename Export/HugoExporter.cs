@@ -49,13 +49,9 @@ namespace Trizbort.Export
 
     protected override void ExportHeader(TextWriter writer, string title, string author, string description, string history)
     {
-      writer.WriteLine("# include \"verblib.g\" ! grammar must come first");
+      writer.WriteLine("#include \"verblib.g\" ! grammar must come first");
       writer.WriteLine();
-      writer.WriteLine("# ifset PRECOMPILED_LIBRARY");
-      writer.WriteLine("# link \"hugolib.hlb\"");
-      writer.WriteLine("#else");
-      writer.WriteLine("# include \"hugolib.h\"");
-      writer.WriteLine("#endif");
+      writer.WriteLine("#include \"hugolib.h\"");
       writer.WriteLine();
       writer.WriteLine("routine init");
       writer.WriteLine("{");
@@ -99,7 +95,7 @@ namespace Trizbort.Export
       {
         exportHistory(writer, history);
       }
-      writer.WriteLine(";");
+      writer.WriteLine("}");
       writer.WriteLine();
     }
 

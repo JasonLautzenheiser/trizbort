@@ -63,7 +63,7 @@ namespace Trizbort
             this.m_roomDescriptionTextBox = new System.Windows.Forms.TextBox();
             this.m_thisRoomButton = new System.Windows.Forms.Button();
             this.m_newRoomButton = new System.Windows.Forms.Button();
-            this.m_dontCareAnyMoreButton = new System.Windows.Forms.Button();
+            this.m_AutoChooseTheRestButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -174,16 +174,16 @@ namespace Trizbort
             this.m_newRoomButton.Text = "A &New Room";
             this.m_newRoomButton.UseVisualStyleBackColor = true;
             // 
-            // m_dontCareAnyMoreButton
+            // m_AutoChooseTheRestButton
             // 
-            this.m_dontCareAnyMoreButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_dontCareAnyMoreButton.DialogResult = System.Windows.Forms.DialogResult.Abort;
-            this.m_dontCareAnyMoreButton.Location = new System.Drawing.Point(355, 362);
-            this.m_dontCareAnyMoreButton.Name = "m_dontCareAnyMoreButton";
-            this.m_dontCareAnyMoreButton.Size = new System.Drawing.Size(139, 24);
-            this.m_dontCareAnyMoreButton.TabIndex = 10;
-            this.m_dontCareAnyMoreButton.Text = "I &Dont Care Any More";
-            this.m_dontCareAnyMoreButton.UseVisualStyleBackColor = true;
+            this.m_AutoChooseTheRestButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_AutoChooseTheRestButton.DialogResult = System.Windows.Forms.DialogResult.Abort;
+            this.m_AutoChooseTheRestButton.Location = new System.Drawing.Point(355, 362);
+            this.m_AutoChooseTheRestButton.Name = "m_AutoChooseTheRestButton";
+            this.m_AutoChooseTheRestButton.Size = new System.Drawing.Size(139, 24);
+            this.m_AutoChooseTheRestButton.TabIndex = 10;
+            this.m_AutoChooseTheRestButton.Text = "&Auto-Choose the Rest";
+            this.m_AutoChooseTheRestButton.UseVisualStyleBackColor = true;
             // 
             // DisambiguateRoomsDialog
             // 
@@ -191,7 +191,7 @@ namespace Trizbort
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(506, 398);
-            this.Controls.Add(this.m_dontCareAnyMoreButton);
+            this.Controls.Add(this.m_AutoChooseTheRestButton);
             this.Controls.Add(this.m_newRoomButton);
             this.Controls.Add(this.m_thisRoomButton);
             this.Controls.Add(this.m_roomDescriptionTextBox);
@@ -228,6 +228,6 @@ namespace Trizbort
         private System.Windows.Forms.TextBox m_roomDescriptionTextBox;
         private System.Windows.Forms.Button m_thisRoomButton;
         private System.Windows.Forms.Button m_newRoomButton;
-        private System.Windows.Forms.Button m_dontCareAnyMoreButton;
+        private System.Windows.Forms.Button m_AutoChooseTheRestButton;
     }
 }

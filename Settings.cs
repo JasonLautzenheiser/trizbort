@@ -366,6 +366,7 @@ namespace Trizbort
 
     public static bool SaveToPDF { get; set; }
     public static bool SaveToImage { get; set; }
+    public static bool SaveTADSToADV3Lite { get; set; }
     public static int DefaultImageType { get; set; }
     public static bool InvertMouseWheel { get; set; }
     public static Version DontCareAboutVersion { get; set; }
@@ -395,6 +396,7 @@ namespace Trizbort
       SaveAt100 = true;
       SaveToImage = true;
       SaveToPDF = true;
+      SaveTADSToADV3Lite = true;
       RecentProjects.Clear();
       // TODO: add other application settings here
     }
@@ -428,6 +430,7 @@ namespace Trizbort
             DefaultImageType = root["defaultImageType"].ToInt(DefaultImageType);
             SaveToImage = root["saveToImage"].ToBool(SaveToImage);
             SaveToPDF = root["saveToPDF"].ToBool(SaveToPDF);
+            SaveTADSToADV3Lite = root["saveTADSToADV3Lite"].ToBool(SaveTADSToADV3Lite);
             SaveAt100 = root["saveAt100"].ToBool(SaveAt100);
 
             var recentProjects = root["recentProjects"];
@@ -473,6 +476,7 @@ namespace Trizbort
           scribe.Element("saveAt100", SaveAt100);
           scribe.Element("saveToPDF", SaveToPDF);
           scribe.Element("saveToImage", SaveToImage);
+          scribe.Element("saveTADSToADV3Lite", SaveTADSToADV3Lite);
 
           scribe.Element("lastProjectFileName", LastProjectFileName);
           scribe.Element("lastExportedImageFileName", LastExportImageFileName);
@@ -961,6 +965,7 @@ namespace Trizbort
         dialog.DefaultImageType = DefaultImageType;
         dialog.SaveToImage = SaveToImage;
         dialog.SaveToPDF = SaveToPDF;
+        dialog.SaveTADSToADV3Lite = SaveTADSToADV3Lite;
         dialog.SaveAt100 = SaveAt100;
 
         if (dialog.ShowDialog() == DialogResult.OK)
@@ -970,6 +975,7 @@ namespace Trizbort
           SaveAt100 = dialog.SaveAt100;
           SaveToImage = dialog.SaveToImage;
           SaveToPDF = dialog.SaveToPDF;
+          SaveTADSToADV3Lite = dialog.SaveTADSToADV3Lite;
         }
       }
     }

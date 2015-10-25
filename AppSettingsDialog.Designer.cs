@@ -36,6 +36,7 @@
       this.groupBox2 = new System.Windows.Forms.GroupBox();
       this.chkSaveToImage = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.chkSaveToPDF = new DevComponents.DotNetBar.Controls.CheckBoxX();
+      this.chkSaveTADSToADV3Lite = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
       this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.tabInform7 = new DevComponents.DotNetBar.SuperTabItem();
@@ -77,7 +78,7 @@
       this.groupBox1.Controls.Add(this.m_invertWheelCheckBox);
       this.groupBox1.Location = new System.Drawing.Point(6, 16);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(305, 80);
+      this.groupBox1.Size = new System.Drawing.Size(360, 80);
       this.groupBox1.TabIndex = 3;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Preferences";
@@ -130,16 +131,31 @@
       // groupBox2
       // 
       this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+      this.groupBox2.Controls.Add(this.chkSaveTADSToADV3Lite);
       this.groupBox2.Controls.Add(this.chkSaveToImage);
       this.groupBox2.Controls.Add(this.chkSaveToPDF);
       this.groupBox2.Controls.Add(this.cboImageSaveType);
       this.groupBox2.Controls.Add(this.label2);
       this.groupBox2.Location = new System.Drawing.Point(3, 102);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(305, 100);
-      this.groupBox2.TabIndex = 6;
+      this.groupBox2.Size = new System.Drawing.Size(360, 100);
+      this.groupBox2.TabIndex = 7;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Smart Save";
+      // 
+      // chkSaveTADSToADV3Lite
+      // 
+      this.chkSaveTADSToADV3Lite.BackgroundStyle.Class = "";
+      this.chkSaveTADSToADV3Lite.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.chkSaveTADSToADV3Lite.Checked = true;
+      this.chkSaveTADSToADV3Lite.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chkSaveTADSToADV3Lite.CheckValue = "Y";
+      this.chkSaveTADSToADV3Lite.Location = new System.Drawing.Point(214, 21);
+      this.chkSaveTADSToADV3Lite.Name = "chkSaveTADSToADV3Lite";
+      this.chkSaveTADSToADV3Lite.Size = new System.Drawing.Size(140, 23);
+      this.chkSaveTADSToADV3Lite.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+      this.chkSaveTADSToADV3Lite.TabIndex = 6;
+      this.chkSaveTADSToADV3Lite.Text = "Save TADS to ADV3Lite";
       // 
       // chkSaveToImage
       // 
@@ -290,6 +306,7 @@
         private System.Windows.Forms.CheckBox chkSaveAtZoom;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private DevComponents.DotNetBar.Controls.CheckBoxX chkSaveTADSToADV3Lite;
         private DevComponents.DotNetBar.Controls.CheckBoxX chkSaveToImage;
         private DevComponents.DotNetBar.Controls.CheckBoxX chkSaveToPDF;
         private DevComponents.DotNetBar.SuperTabControl superTabControl1;

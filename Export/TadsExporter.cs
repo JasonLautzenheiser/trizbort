@@ -51,9 +51,17 @@ namespace Trizbort.Export
     {
       writer.WriteLine("#charset \"us-ascii\"");
       writer.WriteLine();
-      writer.WriteLine("#include <adv3.h>");
+      if (Settings.SaveTADSToADV3Lite)
+          writer.WriteLine("#include <adv3.h>");
+      else
+          writer.WriteLine("#include <tads.h>");
       writer.WriteLine("#include <en_us.h>");
       writer.WriteLine();
+      if (Settings.SaveTADSToADV3Lite)
+      {
+          writer.WriteLine("#include \"advlite.h\"");
+          writer.WriteLine();
+      }
       writer.WriteLine("versionInfo : GameID");
       writer.WriteLine("    name = {0}", toTadsString(title, SINGLE_QUOTE));
       writer.WriteLine("    byline = {0}", toTadsString($"By {author}", SINGLE_QUOTE));
@@ -84,6 +92,10 @@ namespace Trizbort.Export
         if (!string.IsNullOrEmpty(location.Room.PrimaryDescription))
         {
           writer.WriteLine("    {0}", toTadsString(location.Room.PrimaryDescription, DOUBLE_QUOTE));
+        }
+        if ((Settings.SaveTADSToADV3Lite) && (location.Room.Region != Region.DefaultRegion))
+        {
+          writer.WriteLine("    region: {0}", location.Room.Region);
         }
         var anyExits = false;
         foreach (var direction in AllDirections)

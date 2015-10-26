@@ -51,8 +51,16 @@ namespace Trizbort.Export
     {
       writer.WriteLine("#charset \"us-ascii\"");
       writer.WriteLine();
-      writer.WriteLine("#include <adv3.h>");
-      writer.WriteLine("#include <en_us.h>");
+      if (Settings.SaveTADSToADV3Lite)
+      {
+          writer.WriteLine("#include <tads.h>");
+          writer.WriteLine("#include \"advlite.h\"");
+      }
+      else
+      {
+          writer.WriteLine("#include <adv3.h>");
+          writer.WriteLine("#include <en_us.h>");
+      }
       writer.WriteLine();
       writer.WriteLine("versionInfo : GameID");
       writer.WriteLine("    name = {0}", toTadsString(title, SINGLE_QUOTE));
@@ -78,12 +86,23 @@ namespace Trizbort.Export
 
     protected override void ExportContent(TextWriter writer)
     {
+      if (Settings.SaveTADSToADV3Lite)
+      foreach (var region in RegionsInExportOrder)
+      {
+        writer.WriteLine("{0}: Region", region.ExportName);
+        writer.WriteLine(";");
+        writer.WriteLine();
+      }
       foreach (var location in LocationsInExportOrder)
       {
         writer.WriteLine("{0}: {1} {2}", location.ExportName, location.Room.IsDark ? "DarkRoom" : "Room", toTadsString(location.Room.Name, SINGLE_QUOTE));
         if (!string.IsNullOrEmpty(location.Room.PrimaryDescription))
         {
           writer.WriteLine("    {0}", toTadsString(location.Room.PrimaryDescription, DOUBLE_QUOTE));
+        }
+        if ((Settings.SaveTADSToADV3Lite) && (location.Room.Region != Region.DefaultRegion))
+        {
+          writer.WriteLine("    regions = [{0}]", location.Room.Region);
         }
         var anyExits = false;
         foreach (var direction in AllDirections)

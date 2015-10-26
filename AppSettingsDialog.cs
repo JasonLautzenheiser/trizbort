@@ -22,6 +22,12 @@ namespace Trizbort
       set { m_invertWheelCheckBox.Checked = value; }
     }
 
+    public bool SaveTADSToADV3Lite 
+    {
+      get { return chkSaveTADSToADV3Lite.Checked; }
+      set { chkSaveTADSToADV3Lite.Checked=value; }
+    }
+
     public bool SaveToImage
     {
       get { return chkSaveToImage.Checked; }

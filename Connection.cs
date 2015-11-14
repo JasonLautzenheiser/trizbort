@@ -842,6 +842,21 @@ namespace Trizbort
     }
 
 
+    public void RotateConnector(int whichRoom, int whichWay)
+    {
+      var pointToChange = (Room.CompassPort)this.VertexList[whichRoom].Port;
+      if (pointToChange == null) { return; }
+
+      var dirToChange = pointToChange?.CompassPoint + whichWay;
+      if (dirToChange < CompassPoint.Min) { dirToChange = CompassPoint.Max; }
+      if (dirToChange > CompassPoint.Max) { dirToChange = CompassPoint.Min; }
+      pointToChange.CompassPoint = (CompassPoint)dirToChange;
+
+      RaiseChanged();
+      return;
+
+    }
+
     public Room GetTargetRoom(out CompassPoint targetCompassPoint)
     {
       if (m_vertexList.Count > 1)

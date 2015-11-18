@@ -845,11 +845,23 @@ namespace Trizbort
     public void RotateConnector(int whichRoom, int whichWay)
     {
       var pointToChange = (Room.CompassPort)this.VertexList[whichRoom].Port;
+      var connRoom = (Room)pointToChange.Owner;
       if (pointToChange == null) { return; }
 
-      var dirToChange = pointToChange?.CompassPoint + whichWay;
-      if (dirToChange < CompassPoint.Min) { dirToChange = CompassPoint.Max; }
-      if (dirToChange > CompassPoint.Max) { dirToChange = CompassPoint.Min; }
+      var dirToChange = pointToChange?.CompassPoint;
+      var startDir = dirToChange;
+      do
+      {
+        dirToChange += whichWay;
+        if (dirToChange < CompassPoint.Min) { dirToChange = CompassPoint.Max; }
+        if (dirToChange > CompassPoint.Max) { dirToChange = CompassPoint.Min; }
+      }
+      while ((dirToChange != startDir) && (connRoom.GetConnections().Count > 0));
+
+      if (startDir == dirToChange)
+      {
+            MessageBox.Show("There are no free ports in room " + connRoom.Name, "Connector rotate failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      }
       pointToChange.CompassPoint = (CompassPoint)dirToChange;
 
       RaiseChanged();

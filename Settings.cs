@@ -367,6 +367,9 @@ namespace Trizbort
     public static bool SaveToPDF { get; set; }
     public static bool SaveToImage { get; set; }
     public static bool SaveTADSToADV3Lite { get; set; }
+    public static bool SpecifyMargins { get; set; }
+    public static int HorizontalMargin { get; set; }
+    public static int VerticalMargin { get; set; }
     public static int DefaultImageType { get; set; }
     public static bool InvertMouseWheel { get; set; }
     public static Version DontCareAboutVersion { get; set; }
@@ -432,6 +435,9 @@ namespace Trizbort
             SaveToPDF = root["saveToPDF"].ToBool(SaveToPDF);
             SaveTADSToADV3Lite = root["saveTADSToADV3Lite"].ToBool(SaveTADSToADV3Lite);
             SaveAt100 = root["saveAt100"].ToBool(SaveAt100);
+            SpecifyMargins = root["specifyMargins"].ToBool(SpecifyMargins);
+            HorizontalMargin = root["horizontalMargin"].ToInt(HorizontalMargin);
+            VerticalMargin = root["verticalMargin"].ToInt(VerticalMargin);
 
             var recentProjects = root["recentProjects"];
             var fileName = string.Empty;
@@ -477,6 +483,9 @@ namespace Trizbort
           scribe.Element("saveToPDF", SaveToPDF);
           scribe.Element("saveToImage", SaveToImage);
           scribe.Element("saveTADSToADV3Lite", SaveTADSToADV3Lite);
+          scribe.Element("verticalMargin", VerticalMargin);
+          scribe.Element("horizontalMargin", HorizontalMargin);
+          scribe.Element("specifyMargins", SpecifyMargins);
 
           scribe.Element("lastProjectFileName", LastProjectFileName);
           scribe.Element("lastExportedImageFileName", LastExportImageFileName);
@@ -967,6 +976,9 @@ namespace Trizbort
         dialog.SaveToPDF = SaveToPDF;
         dialog.SaveTADSToADV3Lite = SaveTADSToADV3Lite;
         dialog.SaveAt100 = SaveAt100;
+        dialog.SpecifyMargins = SpecifyMargins;
+        dialog.HorizontalMargin = HorizontalMargin;
+        dialog.VerticalMargin = VerticalMargin;
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
@@ -976,6 +988,9 @@ namespace Trizbort
           SaveToImage = dialog.SaveToImage;
           SaveToPDF = dialog.SaveToPDF;
           SaveTADSToADV3Lite = dialog.SaveTADSToADV3Lite;
+          SpecifyMargins = dialog.SpecifyMargins;
+          HorizontalMargin = (int)dialog.HorizontalMargin;
+          VerticalMargin = (int)dialog.VerticalMargin;
         }
       }
     }

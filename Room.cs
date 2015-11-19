@@ -1349,7 +1349,7 @@ namespace Trizbort
         Room = room;
       }
 
-      public CompassPoint CompassPoint { get; private set; }
+      public CompassPoint CompassPoint { get; set; }
 
       public override string ID
       {

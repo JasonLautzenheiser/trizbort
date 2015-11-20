@@ -1174,24 +1174,11 @@ namespace Trizbort
           break;
 
         case Keys.OemCloseBrackets:
-            if ((HasSingleSelectedElement) && (SelectedElement.GetType() == typeof(Connection)))
-            {
-              var x = (Connection)SelectedElement;
-              if (ModifierKeys == Keys.Control)
-                x.RotateConnector(0, 1);
-              else
-                x.RotateConnector(1, 1);
-            }
-            break;
-
         case Keys.OemOpenBrackets:
             if ((HasSingleSelectedElement) && (SelectedElement.GetType() == typeof(Connection)))
             {
-              var x = (Connection)SelectedElement;
-              if (ModifierKeys == Keys.Control)
-                x.RotateConnector(0, -1);
-              else
-                x.RotateConnector(1, -1);
+              var x = (Connection)SelectedElement; //first we see if there is a control key, then, which bracket
+              x.RotateConnector(ModifierKeys != Keys.Control, e.KeyCode == Keys.OemOpenBrackets);
             }
             break;
 

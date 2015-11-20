@@ -16,3 +16,7 @@ echo Manual test case. Make sure handles and ports are all right.
 %TESTBASE%\manual-room-shape-ports-handles.trizbort
 echo Manual test case. Make sure control-arrows from connections go to the right rooms.
 %TESTBASE%\manual-control-arrow-connections.trizbort
+echo Manual test case. Make sure connector chooses right room on (control?)-(bracket/left bracket).
+%TESTBASE%\connector-choose-right-room.trizbort
+echo Manual test case. Make sure that rotating a connector skips full ports and throws an error if there are no empty ports.
+%TESTBASE%\connector-rotate-full-ports.trizbort

@@ -841,10 +841,36 @@ namespace Trizbort
       return null;
     }
 
-
-    public void RotateConnector(int whichRoom, int whichWay)
+    public int ConnectedRoomToRotate(bool whichRoom)
     {
-      var pointToChange = (Room.CompassPort)this.VertexList[whichRoom].Port;
+    //first, let's take care of cases where the right room is forced, if there is one
+      if ((this.VertexList[0].Port == null) && (this.VertexList[0].Port == null)) return -1;
+      if (this.VertexList[1].Port == null) return 0;
+      if (this.VertexList[0].Port == null) return 1;
+
+      var firstRoom = (Room)this.VertexList[0].Port.Owner;
+      var secondRoom = (Room)this.VertexList[1].Port.Owner;
+
+      var firstCenterY = firstRoom.Y + firstRoom.Height / 2;
+      var secondCenterY = secondRoom.Y + secondRoom.Height / 2;
+
+      if (firstCenterY < secondCenterY) { return whichRoom ? 0 : 1; }
+      if (firstCenterY > secondCenterY) { return whichRoom ? 1 : 0; }
+
+      var firstCenterX = firstRoom.Position.X + firstRoom.Height / 2;
+      var secondCenterX = secondRoom.Position.X + secondRoom.Height / 2;
+
+      if (firstCenterX < secondCenterX) { return whichRoom ? 0 : 1; }
+      if (firstCenterX > secondCenterX) { return whichRoom ? 1 : 0; }
+
+      return 1;
+    }
+
+    public void RotateConnector(bool UpperRoom, bool whichWay)
+    {
+      var upEnd = (int)this.ConnectedRoomToRotate(UpperRoom);
+      if (upEnd == -1) { return; }
+      var pointToChange = (Room.CompassPort)this.VertexList[this.ConnectedRoomToRotate(UpperRoom)].Port;
       var connRoom = (Room)pointToChange.Owner;
       if (pointToChange == null) { return; }
 
@@ -852,15 +878,19 @@ namespace Trizbort
       var startDir = dirToChange;
       do
       {
-        dirToChange += whichWay;
+        if (whichWay)
+          dirToChange--;
+        else
+          dirToChange++;
         if (dirToChange < CompassPoint.Min) { dirToChange = CompassPoint.Max; }
         if (dirToChange > CompassPoint.Max) { dirToChange = CompassPoint.Min; }
       }
-      while ((dirToChange != startDir) && (connRoom.GetConnections().Count > 0));
+      while ((dirToChange != startDir) && (connRoom.GetConnections((CompassPoint)dirToChange).Count > 0));
 
       if (startDir == dirToChange)
       {
             MessageBox.Show("There are no free ports in room " + connRoom.Name, "Connector rotate failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
       }
       pointToChange.CompassPoint = (CompassPoint)dirToChange;
 

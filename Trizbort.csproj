@@ -148,6 +148,7 @@
     <Compile Include="Export\TadsExporter.cs" />
     <Compile Include="Export\ZilExporter.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
+    <Compile Include="Extensions\FileExtensions.cs" />
     <Compile Include="Extensions\RoomExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TrizbortExtensions.cs" />

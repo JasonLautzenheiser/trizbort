@@ -3,6 +3,11 @@ Change Log
 1.5.9.4
 -------------
 ENH: #170 - The short cut key '0' will select the starting room.
+ENH: #40  - An old one, but now we can adjust margins on exported images.
+ENH: #185 - TADS/Adv3Lite export now supports regions.
+CHG: #182 - Wording change on the duplicate room dialog in automapper.
+ENH: #189 - '[' and ']' as well as Ctrl-[ and Ctrl-] will move the selected connector around to available ports on the connected rooms. 
+ENH: #184 - Ctrl-B backs up your current project file.
 
 1.5.9.3
 -------------

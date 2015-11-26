@@ -866,15 +866,13 @@ namespace Trizbort
       return 1;
     }
 
-    public void RotateConnector(bool UpperRoom, bool whichWay)
+    public void RotateConnector(bool upperRoom, bool whichWay)
     {
-      var upEnd = (int)this.ConnectedRoomToRotate(UpperRoom);
+      var upEnd = ConnectedRoomToRotate(upperRoom);
       if (upEnd == -1) { return; }
-      var pointToChange = (Room.CompassPort)this.VertexList[this.ConnectedRoomToRotate(UpperRoom)].Port;
+      var pointToChange = (Room.CompassPort)VertexList[ConnectedRoomToRotate(upperRoom)].Port;
       var connRoom = (Room)pointToChange.Owner;
-      if (pointToChange == null) { return; }
-
-      var dirToChange = pointToChange?.CompassPoint;
+      var dirToChange = pointToChange.CompassPoint;
       var startDir = dirToChange;
       do
       {
@@ -889,14 +887,12 @@ namespace Trizbort
 
       if (startDir == dirToChange)
       {
-            MessageBox.Show("There are no free ports in room " + connRoom.Name, "Connector rotate failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            return;
+        MessageBox.Show($"There are no free ports in room {connRoom.Name}", "Connector rotate failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        return;
       }
-      pointToChange.CompassPoint = (CompassPoint)dirToChange;
+      pointToChange.CompassPoint = dirToChange;
 
       RaiseChanged();
-      return;
-
     }
 
     public Room GetTargetRoom(out CompassPoint targetCompassPoint)

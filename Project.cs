@@ -29,6 +29,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using Trizbort.Extensions;
 
 namespace Trizbort
 {
@@ -217,6 +218,22 @@ namespace Trizbort
       {
         Version = new Version(0, 0, 0, 0);
       }
+    }
+
+    public bool Backup()
+    {
+      if (HasFileName)
+      {
+        var nextAvailableFilename = FileName.NextAvailableFilename();
+        File.Copy(FileName, nextAvailableFilename);
+        MessageBox.Show($"You project has been backed up to {nextAvailableFilename}.", "Project backed up.",MessageBoxButtons.OK, MessageBoxIcon.Information);
+        return true;
+      }
+      else
+      {
+        MessageBox.Show("Your project has not yet been saved to a file. There is nothing to backup.", "Nothing to backup.",MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+      }
+      return false;
     }
 
     public bool Save()

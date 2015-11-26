@@ -1134,6 +1134,13 @@ namespace Trizbort
           }
           break;
 
+        case Keys.B:
+          if (ModifierKeys == Keys.Control)
+          {
+            Project.Current.Backup();
+          }
+          break;
+
         case Keys.T:
           if (ModifierKeys == Keys.None)
           {

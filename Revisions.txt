@@ -3,11 +3,18 @@ Change Log
 1.5.9.4
 -------------
 ENH: #170 - The short cut key '0' will select the starting room.
-ENH: #40  - An old one, but now we can adjust margins on exported images.
+ENH: #40  - Also #192, Now we can adjust margins on exported images.  We allow for default margins that can be adjusted and document specific margins.
 ENH: #185 - TADS/Adv3Lite export now supports regions.
 CHG: #182 - Wording change on the duplicate room dialog in automapper.
 ENH: #189 - '[' and ']' as well as Ctrl-[ and Ctrl-] will move the selected connector around to available ports on the connected rooms. 
 ENH: #184 - Ctrl-B backs up your current project file.
+ENH: #23  - Command line option to start automapping of file.  -m transcriptfile [trizbort map name]
+ENH: #27  - Saves app window dimensions on close.
+FIX: #172 - Disallow room names to be just numbers as it creates bad I7 code.
+FIX: #173 - Like #172, Blank room names are not allowed as it will create bad exported code.
+FIX: #180 - When running a test command in the I7 IDE, command numbers in brackets are created at the front of each prompt line, like '>[7] n', this confused the automapper.
+COS: #200 - File dialog for choosing transcript in automapper now filters by *.txt and *.log -- Any other extensions in common use for transcripts?
+
 
 1.5.9.3
 -------------

@@ -779,5 +779,23 @@ namespace Trizbort
           chkStartRoom.Checked = false;
       }
     }
+
+    private void m_okButton_Click(object sender, EventArgs e)
+    {
+      if (string.IsNullOrWhiteSpace(txtName.Text))
+      {
+        MessageBox.Show("The room name can't be empty. Please put something in there.", "Empty name", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        txtName.Focus();
+        DialogResult = DialogResult.None;
+      }
+      if (!txtName.Text.Any(Char.IsLetter))
+      {
+        MessageBox.Show("The room name must contain one letter.", "Non-alphabetic name", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        txtName.Focus();
+        DialogResult = DialogResult.None;
+      }
+
+    }
+
   }
 }

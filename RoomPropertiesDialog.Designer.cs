@@ -141,6 +141,7 @@ namespace Trizbort
       this.m_okButton.TabIndex = 97;
       this.m_okButton.Text = "O&K";
       this.m_okButton.UseVisualStyleBackColor = true;
+      this.m_okButton.Click += new System.EventHandler(this.m_okButton_Click);
       // 
       // m_cancelButton
       // 

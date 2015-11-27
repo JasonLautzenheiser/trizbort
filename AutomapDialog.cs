@@ -87,7 +87,7 @@ namespace Trizbort
         {
             using (var dialog = new OpenFileDialog())
             {
-                dialog.Filter = "All Files|*.*||";
+                dialog.Filter = "Text and Log Files(*.txt, *.log)|*.txt;*.log|All Files|*.*||";
                 dialog.Title = "Open Transcript";
                 dialog.FileName = m_textBox.Text;
                 dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(m_textBox.Text);

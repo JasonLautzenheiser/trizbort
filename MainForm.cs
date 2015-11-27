@@ -47,6 +47,7 @@ namespace Trizbort
     private readonly string m_caption;
     public Canvas Canvas;
     private DateTime m_lastUpdateUITime;
+    public bool fromCmdLine = false;
 
     public MainForm()
     {
@@ -86,6 +87,34 @@ namespace Trizbort
         {
         }
       }
+      else if ((args.Length >= 3) && (args[1].Equals("-m")) && (File.Exists(args[2])))
+      {
+        try
+        {
+          var cmdLineAutomap = new AutomapSettings();
+          cmdLineAutomap = Settings.Automap;
+          cmdLineAutomap.FileName = args[2];
+          BeginInvoke((MethodInvoker) delegate
+          {
+            Canvas.StartAutomapping(cmdLineAutomap);
+            Canvas.StopAutomapping();
+          }
+          );
+          if (args.Length > 3)
+          {
+          BeginInvoke((MethodInvoker) delegate
+            {
+              Canvas.StopAutomapping(); SaveAsCmdLineProject(args[3]);
+              Project.Current.IsDirty = false; Close();
+            });
+          }
+          Project.Current.IsDirty = false;
+        }
+        catch (Exception)
+        {
+        }
+        Project.Current.IsDirty = false;
+      }
       NewVersionDialog.CheckForUpdatesAsync(this, false);
     }
 
@@ -106,6 +135,8 @@ namespace Trizbort
         return;
       }
 
+      Settings.CanvasHeight = this.Height - 27;
+      Settings.CanvasWidth = this.Width - 8;
       Settings.SaveApplicationSettings();
       Canvas.StopAutomapping();
 
@@ -222,6 +253,17 @@ namespace Trizbort
         return true;
       }
       return false;
+    }
+
+    private void SaveAsCmdLineProject(string outfile)
+    {
+      Settings.LastProjectFileName = outfile;
+      Project.Current.FileName = outfile;
+      if (Project.Current.Save())
+      {
+        Settings.RecentProjects.Add(Project.Current.FileName);
+        Project.Current.IsDirty = false;
+      }
     }
 
     private bool SaveAsProject()

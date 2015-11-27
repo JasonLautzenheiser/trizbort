@@ -1215,7 +1215,7 @@ namespace Trizbort
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(624, 450);
+      this.ClientSize = new System.Drawing.Size(Settings.CanvasWidth, Settings.CanvasHeight);
       this.Controls.Add(this.Canvas);
       this.Controls.Add(this.m_automapBar);
       this.Controls.Add(this.m_toolStrip);

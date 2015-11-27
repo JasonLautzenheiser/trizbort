@@ -55,6 +55,9 @@ namespace Trizbort
     private static float s_textOffsetFromConnection;
     private static float s_handleSize;
     private static float s_snapToElementSize;
+    private static bool s_docSpecificMargins;
+    private static float s_docHorizontalMargin;
+    private static float s_docVerticalMargin;
     private static float s_dragDistanceToInitiateNewConnection;
     private static float s_connectionArrowSize;
     private static Keys s_keypadNavigationCreationModifier;
@@ -256,6 +259,45 @@ namespace Trizbort
       }
     }
 
+    public static bool DocumentSpecificMargins
+    {
+      get { return s_docSpecificMargins; }
+      set
+      {
+        if (s_docSpecificMargins != value)
+        {
+          s_docSpecificMargins = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    public static float DocHorizontalMargin
+    {
+      get { return s_docHorizontalMargin; }
+      set
+      {
+        if (s_docHorizontalMargin != value)
+        {
+          s_docHorizontalMargin = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    public static float DocVerticalMargin
+    {
+      get { return s_docVerticalMargin; }
+      set
+      {
+        if (s_docVerticalMargin != value)
+        {
+          s_docVerticalMargin = value;
+          RaiseChanged();
+        }
+      }
+    }
+
     public static float DragDistanceToInitiateNewConnection
     {
       get { return s_dragDistanceToInitiateNewConnection; }
@@ -367,9 +409,12 @@ namespace Trizbort
     public static bool SaveToPDF { get; set; }
     public static bool SaveToImage { get; set; }
     public static bool SaveTADSToADV3Lite { get; set; }
-    public static bool SpecifyMargins { get; set; }
-    public static int HorizontalMargin { get; set; }
-    public static int VerticalMargin { get; set; }
+    public static bool SpecifyDocMargins { get; set; }
+    public static bool SpecifyGenMargins { get; set; }
+    public static int GenHorizontalMargin { get; set; }
+    public static int GenVerticalMargin { get; set; }
+    public static int CanvasWidth { get; set; }
+    public static int CanvasHeight { get; set; }
     public static int DefaultImageType { get; set; }
     public static bool InvertMouseWheel { get; set; }
     public static Version DontCareAboutVersion { get; set; }
@@ -435,9 +480,14 @@ namespace Trizbort
             SaveToPDF = root["saveToPDF"].ToBool(SaveToPDF);
             SaveTADSToADV3Lite = root["saveTADSToADV3Lite"].ToBool(SaveTADSToADV3Lite);
             SaveAt100 = root["saveAt100"].ToBool(SaveAt100);
-            SpecifyMargins = root["specifyMargins"].ToBool(SpecifyMargins);
-            HorizontalMargin = root["horizontalMargin"].ToInt(HorizontalMargin);
-            VerticalMargin = root["verticalMargin"].ToInt(VerticalMargin);
+            SpecifyGenMargins = root["specifyMargins"].ToBool(SpecifyGenMargins);
+            GenHorizontalMargin = root["horizontalMargin"].ToInt(GenHorizontalMargin);
+            GenVerticalMargin = root["verticalMargin"].ToInt(GenVerticalMargin);
+
+            CanvasWidth = root["canvasWidth"].ToInt(CanvasWidth);
+            CanvasHeight = root["canvasHeight"].ToInt(CanvasHeight);
+            if (CanvasWidth == 0) { CanvasWidth = 624; }
+            if (CanvasHeight == 0) { CanvasHeight = 450; }
 
             var recentProjects = root["recentProjects"];
             var fileName = string.Empty;
@@ -483,9 +533,11 @@ namespace Trizbort
           scribe.Element("saveToPDF", SaveToPDF);
           scribe.Element("saveToImage", SaveToImage);
           scribe.Element("saveTADSToADV3Lite", SaveTADSToADV3Lite);
-          scribe.Element("verticalMargin", VerticalMargin);
-          scribe.Element("horizontalMargin", HorizontalMargin);
-          scribe.Element("specifyMargins", SpecifyMargins);
+          scribe.Element("verticalMargin", GenVerticalMargin);
+          scribe.Element("horizontalMargin", GenHorizontalMargin);
+          scribe.Element("specifyMargins", SpecifyGenMargins);
+          scribe.Element("canvasHeight", CanvasHeight);
+          scribe.Element("canvasWidth", CanvasWidth);
 
           scribe.Element("lastProjectFileName", LastProjectFileName);
           scribe.Element("lastExportedImageFileName", LastExportImageFileName);
@@ -603,6 +655,9 @@ namespace Trizbort
         dialog.TextOffsetFromConnection = TextOffsetFromConnection;
         dialog.HandleSize = HandleSize;
         dialog.SnapToElementSize = SnapToElementSize;
+        dialog.DocumentSpecificMargins = DocumentSpecificMargins;
+        dialog.DocHorizontalMargin = DocHorizontalMargin;
+        dialog.DocVerticalMargin = DocVerticalMargin;
         dialog.ConnectionArrowSize = ConnectionArrowSize;
         if (dialog.ShowDialog() == DialogResult.OK)
         {
@@ -655,6 +710,12 @@ namespace Trizbort
           SnapToElementSize = dialog.SnapToElementSize;
           if (ConnectionArrowSize != dialog.ConnectionArrowSize) { Project.Current.IsDirty = true; };
           ConnectionArrowSize = dialog.ConnectionArrowSize;
+          if (DocumentSpecificMargins != dialog.DocumentSpecificMargins) { Project.Current.IsDirty = true; };
+          DocumentSpecificMargins = dialog.DocumentSpecificMargins;
+          if (DocHorizontalMargin != dialog.DocHorizontalMargin) { Project.Current.IsDirty = true; };
+          DocHorizontalMargin = dialog.DocHorizontalMargin;
+          if (DocVerticalMargin != dialog.DocVerticalMargin) { Project.Current.IsDirty = true; };
+          DocVerticalMargin = dialog.DocVerticalMargin;
         }
 
         //Note this needs to be done outside of the "if OK button is clicked" loop for now.
@@ -786,6 +847,12 @@ namespace Trizbort
       scribe.StartElement("ui");
       scribe.Element("handleSize", s_handleSize);
       scribe.Element("snapToElementSize", s_snapToElementSize);
+      scribe.EndElement();
+
+      scribe.StartElement("margins");
+      scribe.Element("documentSpecific", s_docSpecificMargins);
+      scribe.Element("horizontal", s_docHorizontalMargin);
+      scribe.Element("vertical", s_docVerticalMargin);
       scribe.EndElement();
 
       scribe.StartElement("keypadNavigation");
@@ -955,12 +1022,17 @@ namespace Trizbort
       ObjectListOffsetFromRoom = element["rooms"]["objectListOffset"].ToFloat(s_objectListOffsetFromRoom);
       ConnectionStalkLength = element["rooms"]["connectionStalkLength"].ToFloat(s_connectionStalkLength);
       PreferredDistanceBetweenRooms = element["rooms"]["preferredDistanceBetweenRooms"].ToFloat(s_connectionStalkLength*2); // introduced in v1.2, hence default based on existing setting
+
       DefaultRoomName = element["rooms"]["defaultRoomName"].Text;
       if (string.IsNullOrEmpty(DefaultRoomName)) //Fix for Bug#132: Trizbort needs a non-empty default
           DefaultRoomName = "Cave";
 
       HandleSize = element["ui"]["handleSize"].ToFloat(s_handleSize);
       SnapToElementSize = element["ui"]["snapToElementSize"].ToFloat(s_snapToElementSize);
+
+      DocumentSpecificMargins = element["margins"]["documentSpecific"].ToBool(s_docSpecificMargins);
+      DocHorizontalMargin = element["margins"]["horizontal"].ToFloat(s_docHorizontalMargin);
+      DocVerticalMargin = element["margins"]["vertical"].ToFloat(s_docVerticalMargin);
 
       KeypadNavigationCreationModifier = StringToModifierKeys(element["keypadNavigation"]["creationModifier"].Text, s_keypadNavigationCreationModifier);
       KeypadNavigationUnexploredModifier = StringToModifierKeys(element["keypadNavigation"]["unexploredModifier"].Text, s_keypadNavigationUnexploredModifier);
@@ -976,9 +1048,9 @@ namespace Trizbort
         dialog.SaveToPDF = SaveToPDF;
         dialog.SaveTADSToADV3Lite = SaveTADSToADV3Lite;
         dialog.SaveAt100 = SaveAt100;
-        dialog.SpecifyMargins = SpecifyMargins;
-        dialog.HorizontalMargin = HorizontalMargin;
-        dialog.VerticalMargin = VerticalMargin;
+        dialog.SpecifyGenMargins = SpecifyGenMargins;
+        dialog.GenHorizontalMargin = GenHorizontalMargin;
+        dialog.GenVerticalMargin = GenVerticalMargin;
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
@@ -988,9 +1060,9 @@ namespace Trizbort
           SaveToImage = dialog.SaveToImage;
           SaveToPDF = dialog.SaveToPDF;
           SaveTADSToADV3Lite = dialog.SaveTADSToADV3Lite;
-          SpecifyMargins = dialog.SpecifyMargins;
-          HorizontalMargin = (int)dialog.HorizontalMargin;
-          VerticalMargin = (int)dialog.VerticalMargin;
+          SpecifyGenMargins = dialog.SpecifyGenMargins;
+          GenHorizontalMargin = (int)dialog.GenHorizontalMargin;
+          GenVerticalMargin = (int)dialog.GenVerticalMargin;
         }
       }
     }

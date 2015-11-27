@@ -598,6 +598,19 @@ namespace Trizbort
             break;
           }
         }
+        if (word[0] == '[')
+        {
+          for (var temp = 1; temp < word.Length; temp++)
+          {
+            if (word[temp] == ']')
+            {
+              stripWord = true;
+              break;
+            }
+            if ((word[temp] < '0') || (word[temp] > '9')) { break; }
+          }
+        }
+
         if (stripWord)
         {
           continue;

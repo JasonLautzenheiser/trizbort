@@ -488,9 +488,14 @@ namespace Trizbort
 
       if (includePadding)
       {
-        if (Settings.SpecifyMargins)
+        if (Settings.DocumentSpecificMargins)
         {
-          bounds.Inflate(Settings.HorizontalMargin, Settings.VerticalMargin);
+          bounds.Inflate(Settings.DocHorizontalMargin, Settings.DocVerticalMargin);
+          return bounds;
+        }
+        if (Settings.SpecifyGenMargins)
+        {
+          bounds.Inflate(Settings.GenHorizontalMargin, Settings.GenVerticalMargin);
           return bounds;
         }
         // HACK: fudge the canvas size to allow for overhanging line/object text

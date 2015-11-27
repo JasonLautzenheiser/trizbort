@@ -22,19 +22,19 @@ namespace Trizbort
       set { m_invertWheelCheckBox.Checked = value; }
     }
 
-    public float HorizontalMargin
+    public float GenHorizontalMargin
     {
       get { return (float)m_preferredHorizontalMargin.Value; }
       set { m_preferredHorizontalMargin.Value = (decimal)value; }
     }
 
-    public float VerticalMargin
+    public float GenVerticalMargin
     {
       get { return (float)m_preferredVerticalMargin.Value; }
       set { m_preferredVerticalMargin.Value = (decimal)value; }
     }
 
-    public bool SpecifyMargins
+    public bool SpecifyGenMargins
     {
       get { return chkSpecifyMargins.Checked; }
       set { chkSpecifyMargins.Checked=value; }

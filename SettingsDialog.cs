@@ -145,6 +145,12 @@ namespace Trizbort
 
     public float SnapToElementSize { get { return (float) m_snapToElementDistanceUpDown.Value; } set { m_snapToElementDistanceUpDown.Value = (decimal) value; } }
 
+    public bool DocumentSpecificMargins { get { return (bool) m_documentSpecificMargins.Checked; } set { m_documentSpecificMargins.Checked = (bool)value; } }
+
+    public float DocHorizontalMargin { get { return (float) m_documentHorizontalMargins.Value; } set { m_documentHorizontalMargins.Value = (decimal) value; } }
+
+    public float DocVerticalMargin { get { return (float) m_documentVerticalMargins.Value; } set { m_documentVerticalMargins.Value = (decimal) value; } }
+
     public float ConnectionArrowSize { get { return (float) m_arrowSizeUpDown.Value; } set { m_arrowSizeUpDown.Value = (decimal) value; } }
 
     private void editBoxLeave(object sender, EventArgs e)
@@ -481,6 +487,12 @@ namespace Trizbort
       if (string.IsNullOrWhiteSpace(txtDefaultRoomName.Text))
       {
         MessageBox.Show("The default room name can't be empty. Please put something in there.", "Empty default name", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        txtDefaultRoomName.Focus();
+        DialogResult = DialogResult.None;
+      }
+      if (!txtDefaultRoomName.Text.Any(Char.IsLetter))
+      {
+        MessageBox.Show("The default room name must contain one letter. Please include a letter.", "Invalid default name", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         txtDefaultRoomName.Focus();
         DialogResult = DialogResult.None;
       }

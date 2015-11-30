@@ -459,6 +459,7 @@ namespace Trizbort
                 // player teleported to new room;
                 // don't connect it up, as we don't know how they got there
                 room = m_canvas.CreateRoom(m_lastKnownRoom, roomName);
+                if (m_lastKnownRoom == null) { room.IsStartRoom = true; }
                 Trace("{0}: teleported to new room, {1}.", FormatTranscriptLineForDisplay(line), roomName);
                 await WaitForStep();
               }
@@ -628,6 +629,27 @@ namespace Trizbort
           {
             words.RemoveAt(0);
             break;
+          }
+        }
+      }
+
+      if ((words.Count == 2) && (words[0].Equals("trypush")))
+      {
+        foreach (var pair in s_namesForMovementCommands)
+        {
+          var direction = pair.Key;
+          var wordsForDirection = pair.Value;
+          foreach (var wordForDirection in wordsForDirection)
+          {
+            if (StringComparer.InvariantCultureIgnoreCase.Compare(words[1], wordForDirection) == 0)
+            {
+              Vector delta = CompassPointHelper.GetAutomapDirectionVector(CompassPointHelper.GetCompassDirection(direction));
+              delta.X *= m_lastKnownRoom.Width + Settings.PreferredDistanceBetweenRooms;
+              delta.X += m_lastKnownRoom.X;
+              delta.Y *= m_lastKnownRoom.Height + Settings.PreferredDistanceBetweenRooms;
+              delta.Y += m_lastKnownRoom.Y;
+              m_lastKnownRoom.Position = Settings.Snap(delta);
+            }
           }
         }
       }

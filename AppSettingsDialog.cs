@@ -46,6 +46,12 @@ namespace Trizbort
       set { chkSaveTADSToADV3Lite.Checked=value; }
     }
 
+    public bool LoadLastProjectOnStart
+    {
+      get { return chkLoadLast.Checked; }
+      set { chkLoadLast.Checked=value; }
+    }
+
     public bool SaveToImage
     {
       get { return chkSaveToImage.Checked; }

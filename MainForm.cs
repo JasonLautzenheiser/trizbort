@@ -84,6 +84,7 @@ namespace Trizbort
     private void MainForm_Load(object sender, EventArgs e)
     {
       Canvas.MinimapVisible = Settings.ShowMiniMap;
+      bool projectLoaded = false;
 
       var args = Environment.GetCommandLineArgs();
       if (args.Length == 2 && args[1].Equals("-?"))
@@ -95,6 +96,7 @@ namespace Trizbort
         try
         {
           BeginInvoke((MethodInvoker) delegate { OpenProject(Settings.LastProjectFileName); });
+          projectLoaded = true;
         }
         catch (Exception)
         {
@@ -105,6 +107,7 @@ namespace Trizbort
         try
         {
           BeginInvoke((MethodInvoker) delegate { OpenProject(args[2]); smartSave(); });
+          projectLoaded = true;
         }
         catch (Exception)
         {
@@ -115,6 +118,7 @@ namespace Trizbort
         try
         {
           BeginInvoke((MethodInvoker) delegate { OpenProject(args[1]); });
+          projectLoaded = true;
         }
         catch (Exception)
         {
@@ -124,6 +128,7 @@ namespace Trizbort
       {
         try
         {
+
           var cmdLineAutomap = new AutomapSettings();
           cmdLineAutomap = Settings.Automap;
           cmdLineAutomap.FileName = args[2];
@@ -142,6 +147,7 @@ namespace Trizbort
             });
           }
           Project.Current.IsDirty = false;
+          projectLoaded = true;
         }
         catch (Exception)
         {
@@ -151,6 +157,17 @@ namespace Trizbort
       else if (args.Length > 1)
       {
         showCmdUsage(true);
+      }
+      if ((Settings.LoadLastProjectOnStart) && (!projectLoaded))
+      {
+        try
+        {
+          BeginInvoke((MethodInvoker) delegate { OpenProject(Settings.LastProjectFileName); });
+          projectLoaded = true;
+        }
+        catch (Exception)
+        {
+        }
       }
       NewVersionDialog.CheckForUpdatesAsync(this, false);
     }

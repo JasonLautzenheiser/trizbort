@@ -29,10 +29,12 @@
       this.m_cancelButton = new System.Windows.Forms.Button();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.chkSaveAtZoom = new System.Windows.Forms.CheckBox();
+      this.chkLoadLast = new System.Windows.Forms.CheckBox();
       this.m_invertWheelCheckBox = new System.Windows.Forms.CheckBox();
       this.cboImageSaveType = new System.Windows.Forms.ComboBox();
       this.label2 = new System.Windows.Forms.Label();
       this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+      this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
       this.groupBox2 = new System.Windows.Forms.GroupBox();
       this.chkSaveToImage = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.chkSaveToPDF = new DevComponents.DotNetBar.Controls.CheckBoxX();
@@ -81,12 +83,24 @@
       this.groupBox1.BackColor = System.Drawing.Color.Transparent;
       this.groupBox1.Controls.Add(this.chkSaveAtZoom);
       this.groupBox1.Controls.Add(this.m_invertWheelCheckBox);
+      this.groupBox1.Controls.Add(this.chkLoadLast);
       this.groupBox1.Location = new System.Drawing.Point(6, 16);
       this.groupBox1.Name = "groupBox1";
       this.groupBox1.Size = new System.Drawing.Size(360, 80);
       this.groupBox1.TabIndex = 3;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Preferences";
+      // 
+      // chkLoadLast
+      // 
+      this.chkLoadLast.AutoSize = true;
+      this.chkLoadLast.Location = new System.Drawing.Point(163, 20);
+      this.chkLoadLast.Name = "chkLoadLast";
+      this.chkLoadLast.Size = new System.Drawing.Size(131, 17);
+      this.chkLoadLast.TabIndex = 2;
+      this.chkLoadLast.Text = "&Open last project on start";
+      this.toolTip2.SetToolTip(this.chkLoadLast, "If this is checked, Trizbort will load the last project on startup\r\n");
+      this.chkLoadLast.UseVisualStyleBackColor = true;
       // 
       // chkSaveAtZoom
       // 
@@ -385,6 +399,8 @@
         private System.Windows.Forms.ComboBox cboImageSaveType;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chkSaveAtZoom;
+        private System.Windows.Forms.CheckBox chkLoadLast;
+        private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.NumericUpDown m_preferredHorizontalMargin;

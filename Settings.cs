@@ -427,6 +427,7 @@ namespace Trizbort
 
     public static bool InfiniteScrollBounds { get; set; }
     public static bool ShowMiniMap { get; set; }
+    public static bool LoadLastProjectOnStart { get; set; }
     public static string LastProjectFileName { get; set; }
     public static string LastExportImageFileName { get; set; }
     public static string LastExportInform7FileName { get; set; }
@@ -468,6 +469,7 @@ namespace Trizbort
             InfiniteScrollBounds = root["infiniteScrollBounds"].ToBool(InfiniteScrollBounds);
             ShowMiniMap = root["showMiniMap"].ToBool(ShowMiniMap);
 
+            LoadLastProjectOnStart = root["loadLastProjectOnStart"].ToBool(LoadLastProjectOnStart);
             LastProjectFileName = root["lastProjectFileName"].Text;
             LastExportImageFileName = root["lastExportedImageFileName"].Text;
             LastExportInform7FileName = root["lastExportedInform7FileName"].Text;
@@ -539,6 +541,7 @@ namespace Trizbort
           scribe.Element("canvasHeight", CanvasHeight);
           scribe.Element("canvasWidth", CanvasWidth);
 
+          scribe.Element("loadLastProjectOnStart", LoadLastProjectOnStart);
           scribe.Element("lastProjectFileName", LastProjectFileName);
           scribe.Element("lastExportedImageFileName", LastExportImageFileName);
           scribe.Element("lastExportedInform7FileName", LastExportInform7FileName);
@@ -1051,6 +1054,7 @@ namespace Trizbort
         dialog.SpecifyGenMargins = SpecifyGenMargins;
         dialog.GenHorizontalMargin = GenHorizontalMargin;
         dialog.GenVerticalMargin = GenVerticalMargin;
+        dialog.LoadLastProjectOnStart = LoadLastProjectOnStart;
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
@@ -1063,6 +1067,7 @@ namespace Trizbort
           SpecifyGenMargins = dialog.SpecifyGenMargins;
           GenHorizontalMargin = (int)dialog.GenHorizontalMargin;
           GenVerticalMargin = (int)dialog.GenVerticalMargin;
+          LoadLastProjectOnStart = dialog.LoadLastProjectOnStart;
         }
       }
     }

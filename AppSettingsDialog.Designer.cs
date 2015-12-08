@@ -31,6 +31,8 @@
       this.chkSaveAtZoom = new System.Windows.Forms.CheckBox();
       this.chkLoadLast = new System.Windows.Forms.CheckBox();
       this.m_invertWheelCheckBox = new System.Windows.Forms.CheckBox();
+      this.labelG = new System.Windows.Forms.Label();
+      this.cboAdjustGranularity = new System.Windows.Forms.ComboBox();
       this.cboImageSaveType = new System.Windows.Forms.ComboBox();
       this.label2 = new System.Windows.Forms.Label();
       this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -84,9 +86,11 @@
       this.groupBox1.Controls.Add(this.chkSaveAtZoom);
       this.groupBox1.Controls.Add(this.m_invertWheelCheckBox);
       this.groupBox1.Controls.Add(this.chkLoadLast);
+      this.groupBox1.Controls.Add(this.cboAdjustGranularity);
+      this.groupBox1.Controls.Add(this.labelG);
       this.groupBox1.Location = new System.Drawing.Point(6, 16);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(360, 80);
+      this.groupBox1.Size = new System.Drawing.Size(400, 80);
       this.groupBox1.TabIndex = 3;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Preferences";
@@ -94,7 +98,7 @@
       // chkLoadLast
       // 
       this.chkLoadLast.AutoSize = true;
-      this.chkLoadLast.Location = new System.Drawing.Point(163, 20);
+      this.chkLoadLast.Location = new System.Drawing.Point(203, 20);
       this.chkLoadLast.Name = "chkLoadLast";
       this.chkLoadLast.Size = new System.Drawing.Size(131, 17);
       this.chkLoadLast.TabIndex = 2;
@@ -122,6 +126,29 @@
       this.m_invertWheelCheckBox.TabIndex = 1;
       this.m_invertWheelCheckBox.Text = "Invert Mouse Wheel &Zoom";
       this.m_invertWheelCheckBox.UseVisualStyleBackColor = true;
+      // 
+      // cboAdjustGranularity
+      // 
+      this.cboAdjustGranularity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cboAdjustGranularity.FormattingEnabled = true;
+      this.cboAdjustGranularity.Items.AddRange(new object[] {
+            "Fourths ",
+            "Eighths ",
+            "Sixteenths "});
+      this.cboAdjustGranularity.Location = new System.Drawing.Point(300, 40);
+      this.cboAdjustGranularity.Name = "cboAdjustGranularity";
+      this.cboAdjustGranularity.Size = new System.Drawing.Size(84, 17);
+      this.cboAdjustGranularity.TabIndex = 3;
+      this.cboAdjustGranularity.Enter += new System.EventHandler(this.cboAdjustGranularity_Enter);
+      // 
+      // labelG
+      // 
+      this.labelG.AutoSize = true;
+      this.labelG.Location = new System.Drawing.Point(200, 43);
+      this.labelG.Name = "labelG";
+      this.labelG.Size = new System.Drawing.Size(130,21);
+      this.labelG.TabIndex = 2;
+      this.labelG.Text = "Adjust &Granularity:";
       // 
       // cboImageSaveType
       // 
@@ -160,9 +187,9 @@
       this.groupBox2.Controls.Add(this.label2);
       this.groupBox2.Controls.Add(this.labelH);
       this.groupBox2.Controls.Add(this.labelV);
-      this.groupBox2.Location = new System.Drawing.Point(3, 102);
+      this.groupBox2.Location = new System.Drawing.Point(6, 102);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(360, 120);
+      this.groupBox2.Size = new System.Drawing.Size(400, 120);
       this.groupBox2.TabIndex = 12;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Smart Save";
@@ -396,6 +423,8 @@
 		private System.Windows.Forms.Button m_cancelButton;
 		private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox m_invertWheelCheckBox;
+        private System.Windows.Forms.ComboBox cboAdjustGranularity;
+        private System.Windows.Forms.Label labelG;
         private System.Windows.Forms.ComboBox cboImageSaveType;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chkSaveAtZoom;

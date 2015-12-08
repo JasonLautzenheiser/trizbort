@@ -70,9 +70,20 @@ namespace Trizbort
       set { cboImageSaveType.SelectedIndex = value; }
     }
 
+    public int AdjustGranularity
+    {
+      get { return cboAdjustGranularity.SelectedIndex; }
+      set { cboAdjustGranularity.SelectedIndex = value; }
+    }
+
     private void AppSettingsDialog_Load(object sender, System.EventArgs e)
     {
       
+    }
+
+    private void cboAdjustGranularity_Enter(object sender, System.EventArgs e)
+    {
+      cboAdjustGranularity.DroppedDown = true;
     }
 
     private void cboImageSaveType_Enter(object sender, System.EventArgs e)

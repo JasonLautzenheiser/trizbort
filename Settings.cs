@@ -415,6 +415,7 @@ namespace Trizbort
     public static int GenVerticalMargin { get; set; }
     public static int CanvasWidth { get; set; }
     public static int CanvasHeight { get; set; }
+    public static int AdjustGranularity { get; set; }
     public static int DefaultImageType { get; set; }
     public static bool InvertMouseWheel { get; set; }
     public static Version DontCareAboutVersion { get; set; }
@@ -477,6 +478,7 @@ namespace Trizbort
             LastExportTadsFileName = root["lastExportedTadsFileName"].Text;
 
             InvertMouseWheel = root["invertMouseWheel"].ToBool(InvertMouseWheel);
+            AdjustGranularity = root["adjustGranularity"].ToInt(AdjustGranularity);
             DefaultImageType = root["defaultImageType"].ToInt(DefaultImageType);
             SaveToImage = root["saveToImage"].ToBool(SaveToImage);
             SaveToPDF = root["saveToPDF"].ToBool(SaveToPDF);
@@ -531,6 +533,7 @@ namespace Trizbort
           scribe.Element("showMiniMap", ShowMiniMap);
           scribe.Element("invertMouseWheel", InvertMouseWheel);
           scribe.Element("defaultImageType", DefaultImageType);
+          scribe.Element("adjustGranularity", AdjustGranularity);
           scribe.Element("saveAt100", SaveAt100);
           scribe.Element("saveToPDF", SaveToPDF);
           scribe.Element("saveToImage", SaveToImage);
@@ -1047,6 +1050,7 @@ namespace Trizbort
       {
         dialog.InvertMouseWheel = InvertMouseWheel;
         dialog.DefaultImageType = DefaultImageType;
+        dialog.AdjustGranularity = AdjustGranularity;
         dialog.SaveToImage = SaveToImage;
         dialog.SaveToPDF = SaveToPDF;
         dialog.SaveTADSToADV3Lite = SaveTADSToADV3Lite;
@@ -1060,6 +1064,7 @@ namespace Trizbort
         {
           InvertMouseWheel = dialog.InvertMouseWheel;
           DefaultImageType = dialog.DefaultImageType;
+          AdjustGranularity = dialog.AdjustGranularity;
           SaveAt100 = dialog.SaveAt100;
           SaveToImage = dialog.SaveToImage;
           SaveToPDF = dialog.SaveToPDF;

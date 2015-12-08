@@ -892,9 +892,12 @@ namespace Trizbort
             MessageBox.Show("There are no free ports in room " + connRoom.Name, "Connector rotate failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
       }
-      pointToChange.CompassPoint = (CompassPoint)dirToChange;
 
+      if (this.VertexList[upEnd].Port != connRoom.Ports[(int)dirToChange])
+      { //this should always be different, but just in case...
+      this.VertexList[upEnd].Port = connRoom.Ports[(int)dirToChange];
       RaiseChanged();
+      }
       return;
 
     }

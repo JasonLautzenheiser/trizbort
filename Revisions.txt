@@ -14,6 +14,11 @@ FIX: #172 - Disallow room names to be just numbers as it creates bad I7 code.
 FIX: #173 - Like #172, Blank room names are not allowed as it will create bad exported code.
 FIX: #180 - When running a test command in the I7 IDE, command numbers in brackets are created at the front of each prompt line, like '>[7] n', this confused the automapper.
 COS: #200 - File dialog for choosing transcript in automapper now filters by *.txt and *.log -- Any other extensions in common use for transcripts?
+ENH: #202 - Option to auto-load the last saved map when opening trizbort.
+ENH: #203 - More command line options added (just beginning this, -? for current ones)
+ENH: #197 - Automap improvements: Mark start room.
+ENH: #205 - Ctrl-D deletes all connectors from selected room.
+ENH: #188 - \ (backslash) on room will attempt to reorganize the connections
 
 
 1.5.9.3

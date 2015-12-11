@@ -1172,6 +1172,32 @@ namespace Trizbort
             NewConnectionLabel = ConnectionLabel.Down;
             ApplyConnectionLabel(NewConnectionLabel);
           }
+          if (ModifierKeys == Keys.Control)
+          {
+            if ((HasSingleSelectedElement) && (SelectedElement.GetType() == typeof(Room)))
+            {
+              var x = (Room)SelectedElement;
+              x.DeleteAllRoomConnections();
+            }
+          }
+          break;
+        case Keys.OemSemicolon:
+        case Keys.Oem5:
+          if (ModifierKeys == Keys.None)
+          {
+            if ((HasSingleSelectedElement) && (SelectedElement.GetType() == typeof(Room)))
+            {
+              var x = (Room)SelectedElement;
+              x.AdjustAllRoomConnections();
+            }
+          }
+          else if ((ModifierKeys & Keys.Control) == Keys.Control)
+          {
+            Settings.AdjustGranularity++; Settings.AdjustGranularity %= 3;
+            int x = 4 << Settings.AdjustGranularity; // yeah this is cutesy code but it does the job
+            if ((ModifierKeys & Keys.Shift) == Keys.Shift) //Shift pops up current granularity
+              MessageBox.Show("Adjust Granularity " +( (Settings.AdjustGranularity == 0) ? "de" : "in") + "creased to " + x.ToString() + ".", "Granularity Adjust");
+          }
           break;
         case Keys.I:
           if (ModifierKeys == Keys.None)

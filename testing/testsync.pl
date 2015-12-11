@@ -36,6 +36,10 @@ if ((!$orphanedFiles) && (!$badFiles))
   `7z a all-test-files.zip \*.trizbort \*.bat`;
   print "Zip file update complete.\n";
   }
+  else
+  {
+  print "You may wish to rerun with -r to commit the updated zip and bat files to all-test-files.zip.\n";
+  }
 }
 else
 {
@@ -108,6 +112,7 @@ sub usage
 print<<EOT;
 USAGE
 The only flag right now is -r to run the zip file creator after.
+-? shows this without printing usage, but that doesn't really count.
 EOT
 
 exit;

@@ -20,3 +20,9 @@ echo Manual test case. Make sure connector chooses right room on (control?)-(bra
 %TESTBASE%\connector-choose-right-room.trizbort
 echo Manual test case. Make sure that rotating a connector skips full ports and throws an error if there are no empty ports.
 %TESTBASE%\connector-rotate-full-ports.trizbort
+echo Manual test case. Make sure that fourths, eighths and sixteenths do not change this.
+%TESTBASE%\auto-adjust-fourths.trizbort
+echo Manual test case. Make sure that eighths and sixteenths do not change this. Fourths should mangle it.
+%TESTBASE%\auto-adjust-eighths.trizbort
+echo Manual test case. Make sure that sixteenths do not change this. Eighths and fourths should mangle it.
+%TESTBASE%\auto-adjust-sixteenths.trizbort

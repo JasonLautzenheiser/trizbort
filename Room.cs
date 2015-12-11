@@ -1221,6 +1221,85 @@ namespace Trizbort
       return objects;
     }
 
+    public void AdjustAllRoomConnections()
+    {
+        bool somethingChanged = false;
+        foreach (var element in this.GetConnections())
+        {
+            if (element.VertexList[0].Port.Owner == element.VertexList[1].Port.Owner) { continue; }
+
+            CompassPoint cp = CompassPoint.Min;
+
+            float xDelta = element.VertexList[0].Port.Owner.Position.X - element.VertexList[1].Port.Owner.Position.X;
+            float yDelta = element.VertexList[0].Port.Owner.Position.Y - element.VertexList[1].Port.Owner.Position.Y;
+
+            if ((xDelta == 0) && (yDelta == 0)) { continue; }
+            if (xDelta == 0) { cp = CompassPoint.North; }
+            else
+            {
+                float slope = (yDelta / xDelta);
+                float abSlope = Math.Abs(slope);
+                bool isNeg = (slope > 0);
+                bool isLeft = (xDelta > 0);
+                switch (Settings.AdjustGranularity)
+                {  //These numbers are decided as follows: tangent of 45 degrees, then 22.5/67.5, then 11.25/33.75/56.25/78.75
+                    case 0: //fourths
+                        if (abSlope > 1) { cp = CompassPoint.North; }
+                        else { cp = CompassPoint.East; if (isLeft) { cp = CompassPoint.West; } }
+                        break;
+                    case 1: //eighths
+                        if (abSlope > 2.414) { cp = CompassPoint.North; } //incidentally tan (pi/8) = sqrt 2 - 1. Angle bisector theorem/trig identities prove it.
+                        else if (abSlope > 0.414) { cp = CompassPoint.NorthEast; if (isNeg) { cp = CompassPoint.NorthWest; } }
+                        else { cp = CompassPoint.East; if (isLeft) { cp = CompassPoint.West; } }
+                        break;
+                    case 2: //sixteenths
+                        if (abSlope > 5.03) { cp = CompassPoint.North; }
+                        else if (abSlope > 1.49) { cp = CompassPoint.NorthNorthEast; if (isNeg) { cp = CompassPoint.NorthNorthWest; } }
+                        else if (abSlope > 0.668) { cp = CompassPoint.NorthEast; if (isNeg) { cp = CompassPoint.NorthWest; } }
+                        else if (abSlope > 0.197) { cp = CompassPoint.EastNorthEast; if (isNeg) { cp = CompassPoint.WestNorthWest; } }
+                        else { cp = CompassPoint.East; if (isLeft) { cp = CompassPoint.West; } }
+                        break;
+                }
+            }
+            //we need to check we're not totally backwards here. This code appears correct, but I'm defining the boolean in case there's
+            //a special case I forgot.
+            bool backwards = (yDelta < 0);
+            if (backwards)
+            {
+            cp = CompassPointHelper.GetOpposite(cp);
+            }
+            int cpInt = (int)cp;
+            if (element.VertexList[0].Port != element.VertexList[0].Port.Owner.Ports[cpInt])
+            {
+                somethingChanged = true;
+                element.VertexList[0].Port = element.VertexList[0].Port.Owner.Ports[cpInt];
+            }
+            int cpIntOpposite = (int)(CompassPointHelper.GetOpposite(cp));
+            if (element.VertexList[1].Port != element.VertexList[1].Port.Owner.Ports[cpIntOpposite])
+            {
+                element.VertexList[1].Port = element.VertexList[1].Port.Owner.Ports[cpIntOpposite];
+                somethingChanged = true;
+            }
+        }
+        if (somethingChanged) RaiseChanged();
+    }
+
+    public void DeleteAllRoomConnections()
+    {
+      bool zappedOne = false;
+      foreach (var element in this.GetConnections())
+      {
+      Project.Current.Elements.Remove(element); zappedOne = true;
+      }
+      if (zappedOne) { RaiseChanged(); } else { MessageBox.Show("No connections were deleted.", "Nothing to delete");  }
+
+/*      foreach (var b in this.L)
+      {
+        Project.Current.Elements.Remove(b.);
+      }*/
+
+    }
+
     public void ClearDescriptions()
     {
       if (mDescriptions.Count > 0)

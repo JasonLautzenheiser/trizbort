@@ -46,6 +46,12 @@ namespace Trizbort
       set { chkSaveTADSToADV3Lite.Checked=value; }
     }
 
+    public bool LoadLastProjectOnStart
+    {
+      get { return chkLoadLast.Checked; }
+      set { chkLoadLast.Checked=value; }
+    }
+
     public bool SaveToImage
     {
       get { return chkSaveToImage.Checked; }
@@ -64,9 +70,20 @@ namespace Trizbort
       set { cboImageSaveType.SelectedIndex = value; }
     }
 
+    public int AdjustGranularity
+    {
+      get { return cboAdjustGranularity.SelectedIndex; }
+      set { cboAdjustGranularity.SelectedIndex = value; }
+    }
+
     private void AppSettingsDialog_Load(object sender, System.EventArgs e)
     {
       
+    }
+
+    private void cboAdjustGranularity_Enter(object sender, System.EventArgs e)
+    {
+      cboAdjustGranularity.DroppedDown = true;
     }
 
     private void cboImageSaveType_Enter(object sender, System.EventArgs e)

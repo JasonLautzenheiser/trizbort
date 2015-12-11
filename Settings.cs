@@ -415,6 +415,7 @@ namespace Trizbort
     public static int GenVerticalMargin { get; set; }
     public static int CanvasWidth { get; set; }
     public static int CanvasHeight { get; set; }
+    public static int AdjustGranularity { get; set; }
     public static int DefaultImageType { get; set; }
     public static bool InvertMouseWheel { get; set; }
     public static Version DontCareAboutVersion { get; set; }
@@ -427,6 +428,7 @@ namespace Trizbort
 
     public static bool InfiniteScrollBounds { get; set; }
     public static bool ShowMiniMap { get; set; }
+    public static bool LoadLastProjectOnStart { get; set; }
     public static string LastProjectFileName { get; set; }
     public static string LastExportImageFileName { get; set; }
     public static string LastExportInform7FileName { get; set; }
@@ -468,6 +470,7 @@ namespace Trizbort
             InfiniteScrollBounds = root["infiniteScrollBounds"].ToBool(InfiniteScrollBounds);
             ShowMiniMap = root["showMiniMap"].ToBool(ShowMiniMap);
 
+            LoadLastProjectOnStart = root["loadLastProjectOnStart"].ToBool(LoadLastProjectOnStart);
             LastProjectFileName = root["lastProjectFileName"].Text;
             LastExportImageFileName = root["lastExportedImageFileName"].Text;
             LastExportInform7FileName = root["lastExportedInform7FileName"].Text;
@@ -475,6 +478,7 @@ namespace Trizbort
             LastExportTadsFileName = root["lastExportedTadsFileName"].Text;
 
             InvertMouseWheel = root["invertMouseWheel"].ToBool(InvertMouseWheel);
+            AdjustGranularity = root["adjustGranularity"].ToInt(AdjustGranularity);
             DefaultImageType = root["defaultImageType"].ToInt(DefaultImageType);
             SaveToImage = root["saveToImage"].ToBool(SaveToImage);
             SaveToPDF = root["saveToPDF"].ToBool(SaveToPDF);
@@ -529,6 +533,7 @@ namespace Trizbort
           scribe.Element("showMiniMap", ShowMiniMap);
           scribe.Element("invertMouseWheel", InvertMouseWheel);
           scribe.Element("defaultImageType", DefaultImageType);
+          scribe.Element("adjustGranularity", AdjustGranularity);
           scribe.Element("saveAt100", SaveAt100);
           scribe.Element("saveToPDF", SaveToPDF);
           scribe.Element("saveToImage", SaveToImage);
@@ -539,6 +544,7 @@ namespace Trizbort
           scribe.Element("canvasHeight", CanvasHeight);
           scribe.Element("canvasWidth", CanvasWidth);
 
+          scribe.Element("loadLastProjectOnStart", LoadLastProjectOnStart);
           scribe.Element("lastProjectFileName", LastProjectFileName);
           scribe.Element("lastExportedImageFileName", LastExportImageFileName);
           scribe.Element("lastExportedInform7FileName", LastExportInform7FileName);
@@ -1044,6 +1050,7 @@ namespace Trizbort
       {
         dialog.InvertMouseWheel = InvertMouseWheel;
         dialog.DefaultImageType = DefaultImageType;
+        dialog.AdjustGranularity = AdjustGranularity;
         dialog.SaveToImage = SaveToImage;
         dialog.SaveToPDF = SaveToPDF;
         dialog.SaveTADSToADV3Lite = SaveTADSToADV3Lite;
@@ -1051,11 +1058,13 @@ namespace Trizbort
         dialog.SpecifyGenMargins = SpecifyGenMargins;
         dialog.GenHorizontalMargin = GenHorizontalMargin;
         dialog.GenVerticalMargin = GenVerticalMargin;
+        dialog.LoadLastProjectOnStart = LoadLastProjectOnStart;
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
           InvertMouseWheel = dialog.InvertMouseWheel;
           DefaultImageType = dialog.DefaultImageType;
+          AdjustGranularity = dialog.AdjustGranularity;
           SaveAt100 = dialog.SaveAt100;
           SaveToImage = dialog.SaveToImage;
           SaveToPDF = dialog.SaveToPDF;
@@ -1063,6 +1072,7 @@ namespace Trizbort
           SpecifyGenMargins = dialog.SpecifyGenMargins;
           GenHorizontalMargin = (int)dialog.GenHorizontalMargin;
           GenVerticalMargin = (int)dialog.GenVerticalMargin;
+          LoadLastProjectOnStart = dialog.LoadLastProjectOnStart;
         }
       }
     }

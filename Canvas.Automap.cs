@@ -35,6 +35,7 @@ namespace Trizbort
     private readonly MultithreadedAutomapCanvas m_threadSafeAutomapCanvas;
     private bool m_dontAskAboutAmbiguities;
 
+
     public bool IsAutomapping
     {
       get { return m_automap.Running; }
@@ -440,6 +441,20 @@ namespace Trizbort
           {
             // the two rooms are connected already in the given direction, B to A or both ways.
             wrongWay = connection.Flow == ConnectionFlow.OneWay;
+            return connection;
+          }
+          if (fromRoom == target && toRoom == source)
+          {
+            var r1 = (Room.CompassPort)connection.VertexList[1].Port;
+            r1.CompassPoint = (CompassPoint)directionFromSource;
+            wrongWay = connection.Flow == ConnectionFlow.OneWay;
+            return connection;
+          }
+          if (fromRoom == source && toRoom == target)
+          {
+            var r1 = (Room.CompassPort)connection.VertexList[0].Port;
+            r1.CompassPoint = (CompassPoint)directionFromSource;
+            wrongWay = false;
             return connection;
           }
         }

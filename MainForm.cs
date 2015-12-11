@@ -72,16 +72,53 @@ namespace Trizbort
       Canvas.StopAutomapping();
     }
 
+    private void showCmdUsage(bool userError)
+    {
+      string firstLine = userError ? "Invalid command line flag entered\n" : "Here are the arguments you can use:\n";
+      string usageHeader = userError ? "Invalid command line flag" : "Usage";
+            MessageBox.Show(firstLine +
+        "(file name) opens that file\n-a opens previous project\n-q shows this help menu\n-qs quick-saves a project\n" +
+        "-m (file) (optional to-file) automaps a file, saving to another file if specified", usageHeader);
+    }
+
     private void MainForm_Load(object sender, EventArgs e)
     {
       Canvas.MinimapVisible = Settings.ShowMiniMap;
+      bool projectLoaded = false;
 
       var args = Environment.GetCommandLineArgs();
-      if (args.Length > 1 && File.Exists(args[1]))
+      if (args.Length == 2 && args[1].Equals("-?"))
+      {
+        showCmdUsage(false);
+      }
+      else if (args.Length == 2 && args[1].Equals("-a"))
+      {
+        try
+        {
+          BeginInvoke((MethodInvoker) delegate { OpenProject(Settings.LastProjectFileName); });
+          projectLoaded = true;
+        }
+        catch (Exception)
+        {
+        }
+      }
+      else if (args.Length == 3 && File.Exists(args[2]) && args[1].Equals("-qs"))
+      {
+        try
+        {
+          BeginInvoke((MethodInvoker) delegate { OpenProject(args[2]); smartSave(); });
+          projectLoaded = true;
+        }
+        catch (Exception)
+        {
+        }
+      }
+      else if (args.Length > 1 && File.Exists(args[1]))
       {
         try
         {
           BeginInvoke((MethodInvoker) delegate { OpenProject(args[1]); });
+          projectLoaded = true;
         }
         catch (Exception)
         {
@@ -91,6 +128,7 @@ namespace Trizbort
       {
         try
         {
+
           var cmdLineAutomap = new AutomapSettings();
           cmdLineAutomap = Settings.Automap;
           cmdLineAutomap.FileName = args[2];
@@ -109,11 +147,27 @@ namespace Trizbort
             });
           }
           Project.Current.IsDirty = false;
+          projectLoaded = true;
         }
         catch (Exception)
         {
         }
         Project.Current.IsDirty = false;
+      }
+      else if (args.Length > 1)
+      {
+        showCmdUsage(true);
+      }
+      if ((Settings.LoadLastProjectOnStart) && (!projectLoaded))
+      {
+        try
+        {
+          BeginInvoke((MethodInvoker) delegate { OpenProject(Settings.LastProjectFileName); });
+          projectLoaded = true;
+        }
+        catch (Exception)
+        {
+        }
       }
       NewVersionDialog.CheckForUpdatesAsync(this, false);
     }

@@ -2875,6 +2875,7 @@ namespace Trizbort
       dragMode = DragModes.None;
       NewConnectionStyle = ConnectionStyle.Solid;
       NewConnectionFlow = ConnectionFlow.TwoWay;
+      NewConnectionLabel = ConnectionLabel.None;
       mNewRoomSize = new Vector(Settings.GridSize*3, Settings.GridSize*2);
       mNewRoomIsDark = false;
       mNewRoomObjectsPosition = CompassPoint.South;

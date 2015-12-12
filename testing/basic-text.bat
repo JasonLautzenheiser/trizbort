@@ -93,3 +93,7 @@ echo stray line
 %TESTBASE%\stray-line.trizbort
 echo purple start room
 %TESTBASE%\start-room-purple.trizbort
+echo line labeling: all 24 placements here (up, down and middle text from center room)
+%TESTBASE%\line-labeling.trizbort
+echo line labeling: all 24 placements here (up, down and middle text from center room)
+%TESTBASE%\line-labeling-side-by-side.trizbort

@@ -761,6 +761,7 @@ namespace Trizbort
       Color[Colors.SmallText] = System.Drawing.Color.MidnightBlue;
       Color[Colors.LineText] = System.Drawing.Color.MidnightBlue;
       Color[Colors.Grid] = Drawing.Mix(System.Drawing.Color.White, System.Drawing.Color.Black, 25, 1);
+      Color[Colors.StartRoom] = System.Drawing.Color.GreenYellow;
 
       LargeFont = new Font("Comic Sans MS", 13.0f, FontStyle.Regular, GraphicsUnit.World);
       SmallFont = new Font("Comic Sans MS", 11.0f, FontStyle.Regular, GraphicsUnit.World);

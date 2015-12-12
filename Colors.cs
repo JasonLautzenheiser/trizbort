@@ -41,7 +41,8 @@ namespace Trizbort
     public static readonly int SmallText = 7;
     public static readonly int LineText = 8;
     public static readonly int Grid = 9;
-    public static readonly int Count = 10;
+    public static readonly int StartRoom = 10;
+    public static readonly int Count = 11;
 
     private static readonly string[] Names =
     {
@@ -54,7 +55,8 @@ namespace Trizbort
       "largeText",
       "smallText",
       "lineText",
-      "grid"
+      "grid",
+      "startRoom"
     };
 
     public static bool ToName(int color, out string name)

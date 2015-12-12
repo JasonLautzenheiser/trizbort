@@ -91,3 +91,5 @@ echo use ctrl arrows to autolink
 %TESTBASE%\small-room-ctrl-arrow-test.trizbort
 echo stray line
 %TESTBASE%\stray-line.trizbort
+echo purple start room
+%TESTBASE%\start-room-purple.trizbort

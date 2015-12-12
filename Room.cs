@@ -681,7 +681,7 @@ namespace Trizbort
           Drawing.AddLine(pathSelected, bottomSelect, random, StraightEdges);
           Drawing.AddLine(pathSelected, leftSelect, random, StraightEdges);
         }
-        var brushSelected = new SolidBrush(Color.GreenYellow);
+        var brushSelected = new SolidBrush(Settings.Color[Colors.StartRoom]);
         graphics.DrawPath(brushSelected, pathSelected);
       }
 

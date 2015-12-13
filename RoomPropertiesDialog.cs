@@ -714,6 +714,17 @@ namespace Trizbort
       {
         path.AddEllipse(new RectangleF(rect.X, rect.Y, rect.Width, rect.Height));
       }
+      else if (cboDrawType.SelectedItem == itemOctagonal)
+      {
+        path.AddLine(rect.X, rect.Y + rect.Height/4, rect.X, rect.Y + 3*rect.Height/4);
+        path.AddLine(rect.X, rect.Y + 3*rect.Height/4, rect.X + rect.Width/4, rect.Y + rect.Height);
+        path.AddLine(rect.X + rect.Width / 4, rect.Y + rect.Height, rect.X + 3*rect.Width/4, rect.Y + rect.Height);
+        path.AddLine(rect.X + 3*rect.Width/4, rect.Y + rect.Height, rect.X+rect.Width, rect.Y + 3*rect.Height/4);
+        path.AddLine(rect.X + rect.Width, rect.Y + rect.Height/4, rect.X + rect.Width, rect.Y + 3*rect.Height/4);
+        path.AddLine(rect.X + rect.Width, rect.Y + rect.Height / 4, rect.X + 3*rect.Width/4, rect.Y);
+        path.AddLine(rect.X + 3*rect.Width/4, rect.Y, rect.X + rect.Width/4, rect.Y);
+        path.AddLine(rect.X + rect.Width/4, rect.Y, rect.X, rect.Y + rect.Height/4);
+      }
       else if (cboDrawType.SelectedItem == itemStraightEdges)
       {
         path.AddRectangle(rect);

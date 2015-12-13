@@ -397,6 +397,8 @@ namespace Trizbort
       }
     }
 
+    public static bool startRoomLoaded { get; set; }
+
     public static bool DebugShowFPS { get; set; }
     public static bool DebugShowMouseCoordinates { get; set; }
     public static bool DebugDisableTextRendering { get; set; }
@@ -774,6 +776,8 @@ namespace Trizbort
       IsGridVisible = true;
       GridSize = 32.0f;
       ShowOrigin = true;
+
+      startRoomLoaded = false;
 
       DarknessStripeSize = 24.0f;
       ObjectListOffsetFromRoom = 4.0f;

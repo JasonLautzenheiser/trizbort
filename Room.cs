@@ -1139,6 +1139,13 @@ namespace Trizbort
       Region = element.Attribute("region").Text;
       IsDark = element.Attribute("isDark").ToBool();
       IsStartRoom = element.Attribute("isStartRoom").ToBool();
+      if (IsStartRoom)
+      {
+          if (Settings.startRoomLoaded)
+            MessageBox.Show($"{Name} is a duplicate start room. You may need to erase \"isStartRoom=YES\" from the XML.", "Duplicate start room warning");
+          else
+            Settings.startRoomLoaded = true;
+      }
       if (element.Attribute("roundedCorners").ToBool())
         this.Shape = RoomShape.RoundedCorners;
       if (element.Attribute("octagonal").ToBool())

@@ -24,7 +24,17 @@ namespace Trizbort
       stats += $"# of Rooms: {MapStatistics.NumberOfRooms}{Environment.NewLine}";
       stats += $"# of Dark Rooms: {MapStatistics.NumberOfDarkRooms}{Environment.NewLine}";
       stats += $"# of Unconnected Rooms: {MapStatistics.NumberOfFloatingRooms}{Environment.NewLine}";
-      
+
+      stats += $"{Environment.NewLine}";
+
+      if (MapStatistics.NumberOfStartRooms == 1)
+        stats += $"Start room = {MapStatistics.StartRoomName}";
+      else if (MapStatistics.NumberOfStartRooms == 2)
+        stats += $"More than one start room.";
+      else
+        stats += $"No start room.";
+      stats += $"{Environment.NewLine}";
+
       stats += $"{Environment.NewLine}";
       stats += $"# of Connections: {MapStatistics.NumberOfConnections}{Environment.NewLine}";
       stats += $"# of Dangling Connections: {MapStatistics.NumberOfDanglingConnections}{Environment.NewLine}";

@@ -3,6 +3,8 @@
 #makes sure all trizbort files are in some batch file or other
 #also checks if a trizbort file is used in more than one test case
 
+use Win32::Clipboard;
+
 processCmdLine();
 
 opendir(DIR, ".");
@@ -23,7 +25,12 @@ for $thistriz (@triz)
 {
   if ($thistriz =~ /\.trizbort/i)
   {
-    if (!$trizfile{$thistriz}) { print "Orphaned trizbort file: \%TESTBASE\%\\$thistriz\n"; $orphanedFiles++; }
+    if (!$trizfile{$thistriz})
+	{
+	  print "Orphaned trizbort file: \%TESTBASE\%\\$thistriz\n";
+	  $orphanedFiles++;
+	  if ($sendToClip) { $clipString .= "echo TEST DESCRIPTION HERE\n\%TESTBASE\%\\$thistriz\n"; }
+	}
   }
 }
 
@@ -43,9 +50,15 @@ if ((!$orphanedFiles) && (!$badFiles))
 }
 else
 {
-  if ($orphanedFiles == 0) { print "There are no orphaned files in the test directory, but there are $badFiles bad files in various batch files.\n"; }
-  elsif ($badFiles == 0) { print "There are no bad files, but there are $orphanedFiles orphaned files in the test directory.\n"; }
-  else { print "$orphanedFiles orphaned files in the test directory, and $badFiles bad files in the batch files.\n"; } 
+  if ($orphanedFiles == 0) { print "There are no orphaned files in the test directory, but there are $badFiles bad file(s) in various batch files.\n"; }
+  elsif ($badFiles == 0) { print "There are no bad files, but you have $orphanedFiles orphaned file(s) in the test directory.\n"; }
+  else { print "$orphanedFiles orphaned file(s) in the test directory, and $badFiles bad file(s) in the batch files.\n"; } 
+  if ($orphanedFiles && $clipString)
+  {
+    $clip = Win32::Clipboard::new();
+    $clip->Set("$clipString");
+	print "Set clipboard string to orphaned files.\n";
+  }
   if ($runZipAfter) { print "Fix the orphaned file issue in order to update the ZIP file.\n"; }
 }
 
@@ -91,6 +104,7 @@ while ($count <= $#ARGV)
   
   for ($a)
   {
+    /-s/ && do { $sendToClip = 1; $count++; next; };
     /-r/ && do { $runZipAfter = 1; $count++; next; };
 	/-\?/ && do { usage(); };
 	print "Invalid argument # $count: $a\n";
@@ -111,7 +125,8 @@ sub usage
 {
 print<<EOT;
 USAGE
-The only flag right now is -r to run the zip file creator after.
+-r runs the zip file creator after.
+-s sets the missing file text to the clipboard.
 -? shows this without printing usage, but that doesn't really count.
 EOT
 

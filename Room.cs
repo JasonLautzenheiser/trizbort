@@ -68,6 +68,7 @@ namespace Trizbort
       Size = new Vector(3*Settings.GridSize, 2*Settings.GridSize);
       Position = new Vector(-Size.X/2, -Size.Y/2);
       Corners = new CornerRadii();
+      Shape = RoomShape.SquareCorners; //would be nice to make an app default later: issue #93
 
       // connections may connect to any of our "corners"
       PortList.Add(new CompassPort(CompassPoint.North, this));
@@ -97,6 +98,7 @@ namespace Trizbort
       Size = new Vector(3*Settings.GridSize, 2*Settings.GridSize);
       Position = new Vector(-Size.X/2, -Size.Y/2);
       Corners = new CornerRadii();
+      Shape = RoomShape.SquareCorners; //would be nice to make an app default later: issue #93
 
       // connections may connect to any of our "corners"
       PortList.Add(new CompassPort(CompassPoint.North, this));
@@ -1146,12 +1148,17 @@ namespace Trizbort
           else
             Settings.startRoomLoaded = true;
       }
+      //Note: long term, we probably want an app default for this, but for now, let's force a room shape. #93 should fix this code along with #149.
+      //We also should not have two of these at once.
       if (element.Attribute("roundedCorners").ToBool())
         this.Shape = RoomShape.RoundedCorners;
-      if (element.Attribute("octagonal").ToBool())
+      else if (element.Attribute("octagonal").ToBool())
         this.Shape = RoomShape.Octagonal;
-      if (element.Attribute("ellipse").ToBool())
+      else if (element.Attribute("ellipse").ToBool())
         this.Shape = RoomShape.Ellipse;
+      else
+        this.Shape = RoomShape.SquareCorners;
+
       StraightEdges = element.Attribute("handDrawn").ToBool();
       AllCornersEqual = element.Attribute("allcornersequal").ToBool();
 

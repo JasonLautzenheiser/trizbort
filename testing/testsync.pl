@@ -53,11 +53,18 @@ else
   if ($orphanedFiles == 0) { print "There are no orphaned files in the test directory, but there are $badFiles bad file(s) in various batch files.\n"; }
   elsif ($badFiles == 0) { print "There are no bad files, but you have $orphanedFiles orphaned file(s) in the test directory.\n"; }
   else { print "$orphanedFiles orphaned file(s) in the test directory, and $badFiles bad file(s) in the batch files.\n"; } 
-  if ($orphanedFiles && $clipString)
+  if ($orphanedFiles)
   {
-    $clip = Win32::Clipboard::new();
-    $clip->Set("$clipString");
-	print "Set clipboard string to orphaned files.\n";
+    if ($clipString)
+	{
+      $clip = Win32::Clipboard::new();
+      $clip->Set("$clipString");
+	  print "Clipboard string set to orphaned files.\n";
+	}
+	else
+	{
+	  print "Use -s to set the clipboard to the orphaned files.\n";
+	}
   }
   if ($runZipAfter) { print "Fix the orphaned file issue in order to update the ZIP file.\n"; }
 }

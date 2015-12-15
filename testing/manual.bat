@@ -32,3 +32,5 @@ echo Manual test case. Use shift-arrows to get through the various maps.
 %TESTBASE%\shift-arrow-bent-directions.trizbort
 echo Manual test case. Use shift-arrows to get through the various maps.
 %TESTBASE%\shift-arrow-off-directions.trizbort
+echo Manual test case. Save as PDF and verify each room's description-annotation looks reasonable.
+%TESTBASE%\pdf-save-annotation.trizbort

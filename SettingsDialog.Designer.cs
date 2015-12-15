@@ -743,7 +743,8 @@ namespace Trizbort
             "Room Text",
             "Object Text",
             "Connection Text",
-            "Grid"});
+            "Grid",
+            "Start Room"});
       this.m_colorListBox.Location = new System.Drawing.Point(82, 19);
       this.m_colorListBox.Name = "m_colorListBox";
       this.m_colorListBox.Size = new System.Drawing.Size(174, 147);

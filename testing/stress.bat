@@ -4,6 +4,8 @@ set TESTBASE=.
 
 echo this is a bunch of stress cases.
 
+echo Two start rooms (maybe better in a future error.bat)
+%TESTBASE%\two-start-rooms.trizbort
 echo First, ASCII conflict characters
 %TESTBASE%\chars-gt-lt-underline-dquote.trizbort
 echo Then, DBCS all over

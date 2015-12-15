@@ -26,3 +26,9 @@ echo Manual test case. Make sure that eighths and sixteenths do not change this.
 %TESTBASE%\auto-adjust-eighths.trizbort
 echo Manual test case. Make sure that sixteenths do not change this. Eighths and fourths should mangle it.
 %TESTBASE%\auto-adjust-sixteenths.trizbort
+echo Manual test case. Use shift-arrows to get through the various maps.
+%TESTBASE%\shift-arrow-basic-directions.trizbort
+echo Manual test case. Use shift-arrows to get through the various maps.
+%TESTBASE%\shift-arrow-bent-directions.trizbort
+echo Manual test case. Use shift-arrows to get through the various maps.
+%TESTBASE%\shift-arrow-off-directions.trizbort

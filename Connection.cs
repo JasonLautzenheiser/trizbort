@@ -479,6 +479,10 @@ namespace Trizbort
       {
         var totalLength = lineSegments.Sum(lineSegment => lineSegment.Length);
         var middle = totalLength/2;
+        if (lineSegments.Count % 2 == 1) // with default values, middle text is horizontally but not vertically centered
+        { //We usually have 3 line segments but in some cases we might not e.g. if there are no stalks
+            middle += (4 * Settings.LineFont.Height) / 5;
+        }
         foreach (var lineSegment in lineSegments)
         {
           var length = lineSegment.Length;

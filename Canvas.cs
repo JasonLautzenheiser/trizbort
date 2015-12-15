@@ -1080,9 +1080,19 @@ namespace Trizbort
         case Keys.Home:
           if (e.Control)
             ZoomToFit();
+          else if (ModifierKeys == Keys.Shift)
+            shiftArrowHandler(Keys.Home);
           else
             ResetZoomOrigin();
           break;
+
+        case Keys.PageUp:
+        case Keys.PageDown:
+        case Keys.End:
+          if (ModifierKeys == Keys.Shift)
+            shiftArrowHandler(e.KeyCode);
+          break;
+
 
         case Keys.Right:
         case Keys.Left:
@@ -1095,6 +1105,9 @@ namespace Trizbort
               break;
             case Keys.Control:
               ctrlArrowHandler(e.KeyCode);
+              break;
+            case Keys.Shift:
+              shiftArrowHandler(e.KeyCode);
               break;
             default:
               moveArrowKeyHandler(e.KeyCode, e.Shift);
@@ -1326,28 +1339,17 @@ namespace Trizbort
           break;
 
         case Keys.NumPad8:
-          addOrSelectRooms(CompassPoint.North);
-          break;
         case Keys.NumPad9:
-          addOrSelectRooms(CompassPoint.NorthEast);
-          break;
         case Keys.NumPad6:
-          addOrSelectRooms(CompassPoint.East);
-          break;
         case Keys.NumPad3:
-          addOrSelectRooms(CompassPoint.SouthEast);
-          break;
         case Keys.NumPad2:
-          addOrSelectRooms(CompassPoint.South);
-          break;
         case Keys.NumPad1:
-          addOrSelectRooms(CompassPoint.SouthWest);
-          break;
         case Keys.NumPad4:
-          addOrSelectRooms(CompassPoint.West);
-          break;
         case Keys.NumPad7:
-          addOrSelectRooms(CompassPoint.NorthWest);
+          if (ModifierKeys == Keys.Shift)
+            shiftArrowHandler(e.KeyCode);
+          else
+            addOrSelectRooms(indicatedDirection(e.KeyCode));
           break;
       }
 
@@ -1395,27 +1397,99 @@ namespace Trizbort
       }
     }
 
-    private void ctrlArrowHandler(Keys keyCode)
+    private CompassPoint indicatedDirection(Keys keyCode)
     {
-      var direction = CompassPoint.North;
+      var returnDir = CompassPoint.North;
+
       switch (keyCode)
       {
         case Keys.Left:
-          direction = CompassPoint.West;
+        case Keys.NumPad4:
+          returnDir = CompassPoint.West;
           break;
 
         case Keys.Right:
-          direction = CompassPoint.East;
+        case Keys.NumPad6:
+          returnDir = CompassPoint.East;
           break;
 
         case Keys.Up:
-          direction = CompassPoint.North;
+        case Keys.NumPad8:
+          returnDir = CompassPoint.North;
           break;
 
         case Keys.Down:
-          direction = CompassPoint.South;
+        case Keys.NumPad2:
+          returnDir = CompassPoint.South;
+          break;
+
+        case Keys.NumPad1:
+        case Keys.End:
+          returnDir = CompassPoint.SouthWest;
+          break;
+
+        case Keys.NumPad3:
+        case Keys.PageDown:
+          returnDir = CompassPoint.SouthEast;
+          break;
+
+        case Keys.NumPad7:
+        case Keys.Home:
+          returnDir = CompassPoint.NorthWest;
+          break;
+
+        case Keys.NumPad9:
+        case Keys.PageUp:
+          returnDir = CompassPoint.NorthEast;
           break;
       }
+      return returnDir;
+    }
+
+    private void shiftArrowHandler(Keys keyCode)
+    {
+      if (!HasSingleSelectedElement) return;
+      if (SelectedElement.GetType() == typeof(Connection))
+      {
+        ctrlArrowHandler(keyCode);
+        return;
+      }
+      if (SelectedElement.GetType() != typeof(Room)) return;
+
+      var thisRoom = SelectedElement as Room;
+      CompassPoint direction = indicatedDirection(keyCode);
+
+      //this seems prohibitively time consuming as Genstein pointed out elsewhere, and I don't like the code. It can probably be simpler.
+      //But the basic idea is to try the main direction, then the direction clockwise, then the direction counterclockwise.
+      foreach (var tSelectedElement in thisRoom.GetConnections(direction))
+      if (tSelectedElement != null)
+      {
+        EnsureVisible(tSelectedElement);
+        SelectedElement = tSelectedElement;
+        Refresh();
+        return;
+      }
+      foreach (var tSelectedElement in thisRoom.GetConnections(CompassPointHelper.RotateClockwise(direction)))
+      if (tSelectedElement != null)
+      {
+        EnsureVisible(tSelectedElement);
+        SelectedElement = tSelectedElement;
+        Refresh();
+        return;
+      }
+      foreach (var tSelectedElement in thisRoom.GetConnections(CompassPointHelper.RotateAntiClockwise(direction)))
+      if (tSelectedElement != null)
+      {
+        EnsureVisible(tSelectedElement);
+        SelectedElement = tSelectedElement;
+        Refresh();
+        return;
+      }
+    }
+
+    private void ctrlArrowHandler(Keys keyCode)
+    {
+      var direction = indicatedDirection(keyCode);
 
       if (!selectRoomRelativeToSelectedRoom(direction) && !selectRoomRelativeToSelectedConnection(direction))
         addOrConnectRoomRelativeToSelectedRoom(direction);
@@ -2818,6 +2892,7 @@ namespace Trizbort
       dragMode = DragModes.None;
       NewConnectionStyle = ConnectionStyle.Solid;
       NewConnectionFlow = ConnectionFlow.TwoWay;
+      NewConnectionLabel = ConnectionLabel.None;
       mNewRoomSize = new Vector(Settings.GridSize*3, Settings.GridSize*2);
       mNewRoomIsDark = false;
       mNewRoomObjectsPosition = CompassPoint.South;

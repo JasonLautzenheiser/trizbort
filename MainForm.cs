@@ -36,6 +36,7 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using PdfSharp.Pdf.Annotations;
 using Trizbort.Export;
 using Trizbort.Properties;
 
@@ -539,7 +540,9 @@ namespace Trizbort
       doc.Info.Subject = Project.Current.Description;
       var page = doc.AddPage();
 
-      var size = Canvas.ComputeCanvasBounds(true).Size;
+      var PDFBoundRectangle = Canvas.ComputeCanvasBounds(true);
+      var size = PDFBoundRectangle.Size;
+
       page.Width = new XUnit(size.X);
       page.Height = new XUnit(size.Y);
       using (var graphics = XGraphics.FromPdfPage(page))
@@ -547,6 +550,32 @@ namespace Trizbort
         Canvas.Draw(graphics, true, size.X, size.Y);
       }
 
+      var descripRooms = Project.Current.Elements.OfType<Room>().ToList().Where(p => p.HasDescription);
+
+      foreach (var myroom in descripRooms)
+      {
+        XRect rect = new XRect();
+        PdfTextAnnotation textAnnot = new PdfTextAnnotation();
+        textAnnot.Contents = myroom.PrimaryDescription;
+        textAnnot.Color = Color.Orange;
+        textAnnot.Icon = PdfTextAnnotationIcon.Note;
+
+        rect.Width = myroom.Width / 4; // first, decide square dimensions
+        rect.Height = myroom.Height / 4;
+        if (rect.Width > rect.Height)
+          rect.Width = rect.Height;
+        else
+          rect.Height = rect.Width;
+
+        if (myroom.Shape == RoomShape.SquareCorners) //Now, place it in the upper left or upper center based on room shape
+          rect.X = myroom.X - PDFBoundRectangle.Left;
+        else
+          rect.X = myroom.X - PDFBoundRectangle.Left + myroom.Width/2 - rect.Width/2;
+        rect.Y = PDFBoundRectangle.Height - (myroom.Y - PDFBoundRectangle.Top + rect.Height);
+
+        textAnnot.Rectangle = new PdfRectangle(rect);
+        page.Annotations.Add(textAnnot);
+      }
       doc.Save(fileName);
     }
 

@@ -19,7 +19,7 @@ ENH: #203 - More command line options added (just beginning this, -? for current
 ENH: #197 - Automap improvements: Mark start room.
 ENH: #205 - Ctrl-D deletes all connectors from selected room.
 ENH: #188 - \ (backslash) on room will attempt to reorganize the connections
-
+ENH: #81  - Annotations can be now be saved to PDFs (the annotation will be the room description)
 
 1.5.9.3
 -------------

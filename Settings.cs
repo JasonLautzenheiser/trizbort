@@ -671,6 +671,7 @@ namespace Trizbort
         {
           for (var index = 0; index < Colors.Count; ++index)
           {
+            if (Color[index] != dialog.Color[index]) { Project.Current.IsDirty = true; }
             Color[index] = dialog.Color[index];
           }
 

@@ -111,8 +111,10 @@ namespace Trizbort.Export
 
         if (!string.IsNullOrEmpty(location.Room.Region) && !location.Room.Region.Equals(Region.DefaultRegion))
           writer.WriteLine(" It is in {0}.", RegionsInExportOrder.Find(p=>p.Region.RegionName == location.Room.Region).ExportName);
+        else
+          writer.WriteLine();
 
-        writer.WriteLine(); // blank line
+        writer.WriteLine(); // extra blank line for formatting and so utterly blank rooms don't throw an error in Inform IDE
 
         if (location.Room.IsStartRoom)
         {

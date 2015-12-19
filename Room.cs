@@ -1297,7 +1297,7 @@ namespace Trizbort
                 float abSlope = Math.Abs(slope);
                 bool isNeg = (slope > 0);
                 bool isLeft = (xDelta > 0);
-                switch (Settings.AdjustGranularity)
+                switch (Settings.PortAdjustDetail)
                 {  //These numbers are decided as follows: tangent of 45 degrees, then 22.5/67.5, then 11.25/33.75/56.25/78.75
                     case 0: //fourths
                         if (abSlope > 1) { cp = CompassPoint.North; }

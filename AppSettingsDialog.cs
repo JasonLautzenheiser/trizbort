@@ -70,10 +70,10 @@ namespace Trizbort
       set { cboImageSaveType.SelectedIndex = value; }
     }
 
-    public int AdjustGranularity
+    public int PortAdjustDetail
     {
-      get { return cboAdjustGranularity.SelectedIndex; }
-      set { cboAdjustGranularity.SelectedIndex = value; }
+      get { return cboPortAdjustDetail.SelectedIndex; }
+      set { cboPortAdjustDetail.SelectedIndex = value; }
     }
 
     private void AppSettingsDialog_Load(object sender, System.EventArgs e)
@@ -81,9 +81,9 @@ namespace Trizbort
       
     }
 
-    private void cboAdjustGranularity_Enter(object sender, System.EventArgs e)
+    private void cboPortAdjustDetail_Enter(object sender, System.EventArgs e)
     {
-      cboAdjustGranularity.DroppedDown = true;
+      cboPortAdjustDetail.DroppedDown = true;
     }
 
     private void cboImageSaveType_Enter(object sender, System.EventArgs e)

@@ -32,7 +32,7 @@
       this.chkLoadLast = new System.Windows.Forms.CheckBox();
       this.m_invertWheelCheckBox = new System.Windows.Forms.CheckBox();
       this.labelG = new System.Windows.Forms.Label();
-      this.cboAdjustGranularity = new System.Windows.Forms.ComboBox();
+      this.cboPortAdjustDetail = new System.Windows.Forms.ComboBox();
       this.cboImageSaveType = new System.Windows.Forms.ComboBox();
       this.label2 = new System.Windows.Forms.Label();
       this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -86,7 +86,7 @@
       this.groupBox1.Controls.Add(this.chkSaveAtZoom);
       this.groupBox1.Controls.Add(this.m_invertWheelCheckBox);
       this.groupBox1.Controls.Add(this.chkLoadLast);
-      this.groupBox1.Controls.Add(this.cboAdjustGranularity);
+      this.groupBox1.Controls.Add(this.cboPortAdjustDetail);
       this.groupBox1.Controls.Add(this.labelG);
       this.groupBox1.Location = new System.Drawing.Point(6, 16);
       this.groupBox1.Name = "groupBox1";
@@ -127,19 +127,19 @@
       this.m_invertWheelCheckBox.Text = "Invert Mouse Wheel &Zoom";
       this.m_invertWheelCheckBox.UseVisualStyleBackColor = true;
       // 
-      // cboAdjustGranularity
+      // cboPortAdjustDetail
       // 
-      this.cboAdjustGranularity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.cboAdjustGranularity.FormattingEnabled = true;
-      this.cboAdjustGranularity.Items.AddRange(new object[] {
-            "Fourths ",
-            "Eighths ",
-            "Sixteenths "});
-      this.cboAdjustGranularity.Location = new System.Drawing.Point(300, 40);
-      this.cboAdjustGranularity.Name = "cboAdjustGranularity";
-      this.cboAdjustGranularity.Size = new System.Drawing.Size(84, 17);
-      this.cboAdjustGranularity.TabIndex = 3;
-      this.cboAdjustGranularity.Enter += new System.EventHandler(this.cboAdjustGranularity_Enter);
+      this.cboPortAdjustDetail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cboPortAdjustDetail.FormattingEnabled = true;
+      this.cboPortAdjustDetail.Items.AddRange(new object[] {
+            "NSEW (4)",
+            "Diagonals (8)",
+            "All ports (16)"});
+      this.cboPortAdjustDetail.Location = new System.Drawing.Point(300, 40);
+      this.cboPortAdjustDetail.Name = "cboPortAdjustDetail";
+      this.cboPortAdjustDetail.Size = new System.Drawing.Size(84, 17);
+      this.cboPortAdjustDetail.TabIndex = 3;
+      this.cboPortAdjustDetail.Enter += new System.EventHandler(this.cboPortAdjustDetail_Enter);
       // 
       // labelG
       // 
@@ -148,7 +148,7 @@
       this.labelG.Name = "labelG";
       this.labelG.Size = new System.Drawing.Size(130,21);
       this.labelG.TabIndex = 2;
-      this.labelG.Text = "Adjust &Granularity:";
+      this.labelG.Text = "Port Ad&just Detail:";
       // 
       // cboImageSaveType
       // 
@@ -423,7 +423,7 @@
 		private System.Windows.Forms.Button m_cancelButton;
 		private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox m_invertWheelCheckBox;
-        private System.Windows.Forms.ComboBox cboAdjustGranularity;
+        private System.Windows.Forms.ComboBox cboPortAdjustDetail;
         private System.Windows.Forms.Label labelG;
         private System.Windows.Forms.ComboBox cboImageSaveType;
         private System.Windows.Forms.Label label2;

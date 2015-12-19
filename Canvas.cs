@@ -1206,10 +1206,14 @@ namespace Trizbort
           }
           else if ((ModifierKeys & Keys.Control) == Keys.Control)
           {
-            Settings.AdjustGranularity++; Settings.AdjustGranularity %= 3;
-            int x = 4 << Settings.AdjustGranularity; // yeah this is cutesy code but it does the job
-            if ((ModifierKeys & Keys.Shift) == Keys.Shift) //Shift pops up current granularity
-              MessageBox.Show("Adjust Granularity " +( (Settings.AdjustGranularity == 0) ? "de" : "in") + "creased to " + x.ToString() + ".", "Granularity Adjust");
+            var desc = new string[3];
+            desc[0] = "NSEW";
+            desc[1] = "diagonals";
+            desc[2] = "all ports";
+            Settings.PortAdjustDetail++; Settings.PortAdjustDetail %= 3;
+            int x = 4 << Settings.PortAdjustDetail; // yeah this is cutesy code but it does the job
+            if ((ModifierKeys & Keys.Shift) == Keys.Shift) //Shift pops up current port adjust detail
+              MessageBox.Show("Available ports for readjustment " +( (Settings.PortAdjustDetail == 0) ? "de" : "in") + "creased to " + x.ToString() + " (" + desc[Settings.PortAdjustDetail] +").", "Port Detail Adjust");
           }
           break;
         case Keys.I:

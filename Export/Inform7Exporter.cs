@@ -65,34 +65,32 @@ namespace Trizbort.Export
         writer.WriteLine();
       }
 
+      writer.WriteLine("Volume Trizbort generated map");
+      writer.WriteLine();
+
       if (!string.IsNullOrWhiteSpace(history))
         exportHistory(writer, history);
     }
 
     private static void exportHistory(TextWriter writer, string history)
     {
+      string historyCoded = history.Replace("\r\n", "\r\n[line break]");
       writer.WriteLine("chapter about");
       writer.WriteLine("");
       writer.WriteLine("abouting is an action out of world.");
       writer.WriteLine("understand the command \"about\" as something new.");
       writer.WriteLine("understand \"about\" as abouting.");
-      writer.WriteLine($"carry out abouting: say \"{history}\".");
+      writer.WriteLine($"carry out abouting: say \"{historyCoded}\".");
+      writer.WriteLine("");
     }
 
-    protected override void ExportContent(TextWriter writer)
+    private bool printThisLoc(TextWriter writer, Location location)
     {
-      // export regions
-      foreach (var region in RegionsInExportOrder)
-      {
-        writer.WriteLine("There is a region called {0}.", getExportName(region.ExportName, null));
-        writer.WriteLine();
-      }
-
-      // export each location
-      foreach (var location in LocationsInExportOrder)
-      {
         // remember we've exported this location
         location.Exported = true;
+
+        writer.WriteLine("part {0}", location.ExportName);
+        writer.WriteLine();
 
         // tiresome format, avoids I7 errors:
         // these can occur with rooms called "West of House", or one room called "Cave" and one called "Damp Cave", etc.
@@ -112,29 +110,55 @@ namespace Trizbort.Export
         }
 
         if (!string.IsNullOrEmpty(location.Room.Region) && !location.Room.Region.Equals(Region.DefaultRegion))
-          writer.Write(" It is in {0}.",  RegionsInExportOrder.Find(p=>p.Region.RegionName == location.Room.Region).ExportName);
+          writer.WriteLine(" It is in {0}.", RegionsInExportOrder.Find(p=>p.Region.RegionName == location.Room.Region).ExportName);
+        else
+          writer.WriteLine();
 
-        writer.WriteLine(); // end the previous line
-        writer.WriteLine(); // blank line
+        writer.WriteLine(); // extra blank line for formatting and so utterly blank rooms don't throw an error in Inform IDE
 
         if (location.Room.IsStartRoom)
         {
           writer.Write("The player is in {0}.", location.ExportName);
           writer.WriteLine();
         }
-      }
 
-      // export the chosen exits from each location.
-      foreach (var location in LocationsInExportOrder)
-      {
+        var exportedThings = false;
+
+        foreach (var thing in location.Things)
+        {
+          exportedThings = true;
+          if (thing.Container == null)
+          {
+             writer.Write("{0}{1} {2} in {3}.", getArticle(thing.ExportName), thing.ExportName, isAre(thing.ExportName), thing.Location.ExportName);
+          }
+          else
+          {
+              writer.Write("{0}{1} {2} in the {3}.", getArticle(thing.ExportName), thing.ExportName, isAre(thing.ExportName), thing.Container.ExportName);
+          }
+          if (thing.DisplayName != thing.ExportName)
+          {
+              writer.Write(" It is privately-named. The printed name of it is {0}{1} Understand {2} as {3}.", toInform7PrintableString(thing.DisplayName), thing.DisplayName.EndsWith(".") ? string.Empty : ".", toInform7UnderstandWords(thing.DisplayName), thing.ExportName);
+          }
+          writer.WriteLine();
+        }
+
+        if (exportedThings)
+        {
+          // add a blank line if we need one
+          writer.WriteLine();
+        }
+
+        var exportedExits = false;
         // export the chosen exits from this location.
         foreach (var direction in AllDirections)
         {
           var exit = location.GetBestExit(direction);
-          if (exit != null && !exit.Exported)
+
+          if ((exit != null) && (exit.Exported == false))
           {
             // remember we've exported this exit
             exit.Exported = true;
+            exportedExits = true;
 
             writer.Write("{0} of {1} is {2}.", getInform7Name(direction), location.ExportName, exit.Target.ExportName);
             var oppositeDirection = CompassPointHelper.GetOpposite(direction);
@@ -147,72 +171,70 @@ namespace Trizbort.Export
             }
             else if (exit.Target.GetBestExit(oppositeDirection) == null)
             {
-              // if we aren't laying down a contridiction which I7 will pick up,
+              // if we aren't laying down a contradiction which I7 will pick up,
               // then be clear about one way connections.
               writer.Write(" {0} of {1} is nowhere.", getInform7Name(oppositeDirection), exit.Target.ExportName);
             }
             writer.WriteLine();
           }
         }
-      }
+        if (exportedExits) writer.WriteLine();
 
-      writer.WriteLine();
-
-      // if an exit is conditional, block it.
-      var wroteConditionalFunction = false;
-      foreach (var location in LocationsInExportOrder)
-      {
+        var wroteConditionalExit = false;
         foreach (var direction in AllDirections)
         {
           var exit = location.GetBestExit(direction);
           if (exit != null && exit.Conditional)
           {
-            if (!wroteConditionalFunction)
-            {
-              writer.WriteLine("To block conditional exits:");
-              writer.WriteLine("\tsay \"An export nymph appears on your keyboard. She says, 'You can't go that way, as that exit was marked as conditional, you know, a dotted line, in Trizbort. Obviously in your game you'll have a better rationale for this than, er, me.' She looks embarrassed. 'Bye!'\"");
-              writer.WriteLine();
-              wroteConditionalFunction = true;
-            }
-
+            wroteConditionalExit = true;
             writer.WriteLine("Instead of going {0} from {1}, block conditional exits.", getInform7Name(direction).ToLowerInvariant(), location.ExportName);
           }
         }
-      }
+        if (wroteConditionalExit)
+          writer.WriteLine();
+        return wroteConditionalExit;
 
-      if (wroteConditionalFunction)
+    }
+
+    protected override void ExportContent(TextWriter writer)
+    {
+      bool anyConditionalExits = false;
+
+      if (MapStatistics.NumberOfRoomsWithoutRegion() > 0)
       {
-        // add a blank line if we need one
-        writer.WriteLine();
-      }
+      writer.WriteLine("book Regionless Rooms");
+      writer.WriteLine();
 
-      var exportedThings = false;
       foreach (var location in LocationsInExportOrder)
       {
-        foreach (var thing in location.Things)
-        {
-          exportedThings = true;
-          if (thing.Container == null)
-          {
-            writer.Write("{0}{1} {2} in {3}.", getArticle(thing.ExportName), thing.ExportName, isAre(thing.ExportName), thing.Location.ExportName);
-          }
-          else
-          {
-            writer.Write("{0}{1} {2} in the {3}.", getArticle(thing.ExportName), thing.ExportName, isAre(thing.ExportName), thing.Container.ExportName);
-          }
-          if (thing.DisplayName != thing.ExportName)
-          {
-            writer.Write(" It is privately-named. The printed name of it is {0}{1} Understand {2} as {3}.", toInform7PrintableString(thing.DisplayName), thing.DisplayName.EndsWith(".") ? string.Empty : ".", toInform7UnderstandWords(thing.DisplayName), thing.ExportName);
-          }
-          writer.WriteLine();
-        }
+        if (location.Room.Region != "NoRegion") { continue; }
+        anyConditionalExits |= printThisLoc(writer, location);
+      }
+      }
+      // export regions
+      foreach (var region in RegionsInExportOrder)
+      {
+        writer.WriteLine("book {0}", getExportName(region.ExportName, null));
+        writer.WriteLine();
+        writer.WriteLine("There is a region called {0}.", getExportName(region.ExportName, null));
+        writer.WriteLine();
+      // export each location
+      foreach (var location in LocationsInExportOrder)
+      {
+        if (location.Room.Region != region.ExportName) { continue; }
+        anyConditionalExits |= printThisLoc(writer, location);
+      }
       }
 
-      if (exportedThings)
+      if (anyConditionalExits)
       {
-        // add a blank line if we need one
+        writer.WriteLine("book conditional exit warning");
+        writer.WriteLine();
+        writer.WriteLine("To block conditional exits:");
+        writer.WriteLine("\tsay \"An export nymph appears on your keyboard. She says, 'You can't go that way, as that exit was marked as conditional, you know, a dotted line, in Trizbort. Obviously in your game you'll have a better rationale for this than, er, me.' She looks embarrassed. 'Bye!'\"");
         writer.WriteLine();
       }
+
     }
 
     private string getArticle(string noun)

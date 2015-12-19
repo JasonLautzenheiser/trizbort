@@ -44,7 +44,14 @@ namespace Trizbort
     private readonly TextBlock mName = new TextBlock();
     private readonly TextBlock mSubTitle = new TextBlock();
     private readonly TextBlock mObjects = new TextBlock();
-    private bool mIsDark;
+    private bool mIsDark = false;
+    private bool mRoundedCorners = false;
+    private bool mOctagonal = false;
+    private bool mEllipse = false;
+    private bool mStraightEdges = false;
+    private bool mAllCornersEqual = true;
+    private bool mIsStartRoom = false;
+    private CornerRadii mCorners;
     private CompassPoint mObjectsPosition = DEFAULT_OBJECTS_POSITION;
     // Added for linking connections when pasting
     private int mOldID;
@@ -268,14 +275,47 @@ namespace Trizbort
     public override Depth Depth => Depth.Medium;
     public override bool HasDialog => true;
 
-    public CornerRadii Corners { get; set; }
+    public CornerRadii Corners
+    {
+      get { return mCorners; }
+      set { if (mCorners != value) { mCorners = value; RaiseChanged(); } }
+    }
 
-    public bool RoundedCorners { get; set; } = false;
-    public bool Octagonal { get; set; } = false;
-    public bool Ellipse { get; set; } = false;
-    public bool StraightEdges { get; set; } = false;
-    public bool AllCornersEqual { get; set; } = true;
-    public bool IsStartRoom { get; set; } = false;
+    public bool RoundedCorners
+    {
+      get { return mRoundedCorners; }
+      set { if (mRoundedCorners != value) { mRoundedCorners = value; RaiseChanged(); } }
+    }
+
+    public bool Octagonal
+    {
+      get { return mOctagonal; }
+      set { if (mOctagonal != value) { mOctagonal = value; RaiseChanged(); } }
+    }
+
+    public bool Ellipse
+    {
+      get { return mEllipse; }
+      set { if (mEllipse != value) { mEllipse = value; RaiseChanged(); } }
+    }
+
+    public bool StraightEdges
+    {
+      get { return mStraightEdges; }
+      set { if (mStraightEdges != value) { mStraightEdges = value; RaiseChanged(); } }
+    }
+
+    public bool AllCornersEqual
+    {
+      get { return mAllCornersEqual; }
+      set { if (mAllCornersEqual != value) { mAllCornersEqual = value; RaiseChanged(); } }
+    }
+
+    public bool IsStartRoom
+    {
+      get { return mIsStartRoom; }
+      set { if (mIsStartRoom != value) { mIsStartRoom = value; RaiseChanged(); } }
+    }
 
     public bool IsConnected
     {
@@ -1025,6 +1065,7 @@ namespace Trizbort
         dialog.Ellipse = Ellipse;
         dialog.StraightEdges = StraightEdges;
         dialog.AllCornersEqual = AllCornersEqual;
+        dialog.Shape = Shape;
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
@@ -1055,6 +1096,7 @@ namespace Trizbort
           Region = dialog.RoomRegion;
           Corners = dialog.Corners;
           RoundedCorners = dialog.RoundedCorners;
+          Shape = dialog.Shape;
           //Octagonal = dialog.Octagonal;
           Ellipse = dialog.Ellipse;
           StraightEdges = dialog.StraightEdges;
@@ -1255,7 +1297,7 @@ namespace Trizbort
                 float abSlope = Math.Abs(slope);
                 bool isNeg = (slope > 0);
                 bool isLeft = (xDelta > 0);
-                switch (Settings.AdjustGranularity)
+                switch (Settings.PortAdjustDetail)
                 {  //These numbers are decided as follows: tangent of 45 degrees, then 22.5/67.5, then 11.25/33.75/56.25/78.75
                     case 0: //fourths
                         if (abSlope > 1) { cp = CompassPoint.North; }

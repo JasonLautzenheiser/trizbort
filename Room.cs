@@ -1065,6 +1065,7 @@ namespace Trizbort
         dialog.Ellipse = Ellipse;
         dialog.StraightEdges = StraightEdges;
         dialog.AllCornersEqual = AllCornersEqual;
+        dialog.Shape = Shape;
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
@@ -1095,6 +1096,7 @@ namespace Trizbort
           Region = dialog.RoomRegion;
           Corners = dialog.Corners;
           RoundedCorners = dialog.RoundedCorners;
+          Shape = dialog.Shape;
           //Octagonal = dialog.Octagonal;
           Ellipse = dialog.Ellipse;
           StraightEdges = dialog.StraightEdges;

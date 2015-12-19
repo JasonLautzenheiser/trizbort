@@ -112,6 +112,12 @@ namespace Trizbort
       }
     }
 
+    public RoomShape Shape
+    {
+      get { return (RoomShape)cboDrawType.SelectedIndex; }
+      set { cboDrawType.SelectedItem = (int)value; }
+    }
+
     public string RoomName
     {
       get { return txtName.Text.Trim(); }

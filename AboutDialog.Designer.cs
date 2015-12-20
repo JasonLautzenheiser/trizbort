@@ -108,14 +108,14 @@ namespace Trizbort
       // linkLabel1
       // 
       this.linkLabel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-      this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(80, 16);
+      this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(86, 16);
       this.linkLabel1.Location = new System.Drawing.Point(191, 275);
       this.linkLabel1.Name = "linkLabel1";
       this.linkLabel1.Size = new System.Drawing.Size(309, 30);
       this.linkLabel1.TabIndex = 6;
       this.linkLabel1.TabStop = true;
-      this.linkLabel1.Text = "Uses PDFsharp, copyright (c) 2005-2007 empira Software GmbH, Cologne (Germany), w" +
-    "ww.pdfsharp.com\r\n";
+      this.linkLabel1.Text = "Uses PDFsharp v1.32, copyright (c) 2005-2012 empira Software GmbH, Cologne (Germany), w" +
+    "ww.pdfsharp.net\r\n";
       this.linkLabel1.UseCompatibleTextRendering = true;
       this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
       // 

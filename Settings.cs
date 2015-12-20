@@ -73,9 +73,9 @@ namespace Trizbort
         new Region {RegionName = Region.DefaultRegion, RColor = System.Drawing.Color.White}
       };
       RecentProjects = new MruList();
-      Reset();
       ResetApplicationSettings();
       LoadApplicationSettings();
+      Reset();
     }
 
     private static string ApplicationSettingsPath
@@ -419,6 +419,7 @@ namespace Trizbort
     public static int CanvasHeight { get; set; }
     public static int PortAdjustDetail { get; set; }
     public static int DefaultImageType { get; set; }
+    public static string DefaultFontName { get; set; }
     public static bool InvertMouseWheel { get; set; }
     public static Version DontCareAboutVersion { get; set; }
 
@@ -481,6 +482,7 @@ namespace Trizbort
 
             InvertMouseWheel = root["invertMouseWheel"].ToBool(InvertMouseWheel);
             PortAdjustDetail = root["portAdjustDetail"].ToInt(PortAdjustDetail);
+            DefaultFontName = root["defaultFontName"].Text;
             DefaultImageType = root["defaultImageType"].ToInt(DefaultImageType);
             SaveToImage = root["saveToImage"].ToBool(SaveToImage);
             SaveToPDF = root["saveToPDF"].ToBool(SaveToPDF);
@@ -534,6 +536,7 @@ namespace Trizbort
           scribe.Element("infiniteScrollBounds", InfiniteScrollBounds);
           scribe.Element("showMiniMap", ShowMiniMap);
           scribe.Element("invertMouseWheel", InvertMouseWheel);
+          scribe.Element("defaultFontName", DefaultFontName);
           scribe.Element("defaultImageType", DefaultImageType);
           scribe.Element("portAdjustDetail", PortAdjustDetail);
           scribe.Element("saveAt100", SaveAt100);
@@ -766,9 +769,9 @@ namespace Trizbort
       Color[Colors.Grid] = Drawing.Mix(System.Drawing.Color.White, System.Drawing.Color.Black, 25, 1);
       Color[Colors.StartRoom] = System.Drawing.Color.GreenYellow;
 
-      LargeFont = new Font("Comic Sans MS", 13.0f, FontStyle.Regular, GraphicsUnit.World);
-      SmallFont = new Font("Comic Sans MS", 11.0f, FontStyle.Regular, GraphicsUnit.World);
-      LineFont = new Font("Comic Sans MS", 9.0f, FontStyle.Regular, GraphicsUnit.World);
+      LargeFont = new Font(DefaultFontName, 13.0f, FontStyle.Regular, GraphicsUnit.World);
+      SmallFont = new Font(DefaultFontName, 11.0f, FontStyle.Regular, GraphicsUnit.World);
+      LineFont = new Font(DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);
 
       LineWidth = 2.0f;
       HandDrawn = true;
@@ -1055,6 +1058,7 @@ namespace Trizbort
       using (var dialog = new AppSettingsDialog())
       {
         dialog.InvertMouseWheel = InvertMouseWheel;
+        dialog.DefaultFontName = DefaultFontName;
         dialog.DefaultImageType = DefaultImageType;
         dialog.PortAdjustDetail = PortAdjustDetail;
         dialog.SaveToImage = SaveToImage;
@@ -1069,6 +1073,7 @@ namespace Trizbort
         if (dialog.ShowDialog() == DialogResult.OK)
         {
           InvertMouseWheel = dialog.InvertMouseWheel;
+          DefaultFontName = dialog.DefaultFontName;
           DefaultImageType = dialog.DefaultImageType;
           PortAdjustDetail = dialog.PortAdjustDetail;
           SaveAt100 = dialog.SaveAt100;

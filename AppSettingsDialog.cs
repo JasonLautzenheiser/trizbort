@@ -70,6 +70,12 @@ namespace Trizbort
       set { cboImageSaveType.SelectedIndex = value; }
     }
 
+    public string DefaultFontName
+    {
+      get { return txtDefaultFontName.Text; }
+      set { txtDefaultFontName.Text = value; }
+    }
+
     public int PortAdjustDetail
     {
       get { return cboPortAdjustDetail.SelectedIndex; }

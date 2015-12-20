@@ -33,6 +33,8 @@
       this.m_invertWheelCheckBox = new System.Windows.Forms.CheckBox();
       this.labelG = new System.Windows.Forms.Label();
       this.cboPortAdjustDetail = new System.Windows.Forms.ComboBox();
+      this.txtDefaultFontName = new System.Windows.Forms.TextBox();
+      this.labelFont = new System.Windows.Forms.Label();
       this.cboImageSaveType = new System.Windows.Forms.ComboBox();
       this.label2 = new System.Windows.Forms.Label();
       this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -88,9 +90,11 @@
       this.groupBox1.Controls.Add(this.chkLoadLast);
       this.groupBox1.Controls.Add(this.cboPortAdjustDetail);
       this.groupBox1.Controls.Add(this.labelG);
+      this.groupBox1.Controls.Add(this.txtDefaultFontName);
+      this.groupBox1.Controls.Add(this.labelFont);
       this.groupBox1.Location = new System.Drawing.Point(6, 16);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(400, 80);
+      this.groupBox1.Size = new System.Drawing.Size(400, 88);
       this.groupBox1.TabIndex = 3;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Preferences";
@@ -150,6 +154,27 @@
       this.labelG.TabIndex = 2;
       this.labelG.Text = "Port Ad&just Detail:";
       // 
+      // txtDefaultFontName
+      // 
+      this.txtDefaultFontName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtDefaultFontName.BackColor = System.Drawing.SystemColors.Window;
+      this.txtDefaultFontName.CausesValidation = false;
+      this.txtDefaultFontName.Location = new System.Drawing.Point(300, 64);
+      this.txtDefaultFontName.Name = "txtDefaultFontName";
+      this.txtDefaultFontName.Size = new System.Drawing.Size(75, 21);
+      this.txtDefaultFontName.TabIndex = 5;
+      // 
+      // labelFont
+      // 
+      this.labelFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.labelFont.AutoSize = true;
+      this.labelFont.Location = new System.Drawing.Point(200, 66);
+      this.labelFont.Name = "labelFont";
+      this.labelFont.Size = new System.Drawing.Size(97, 13);
+      this.labelFont.TabIndex = 4;
+      this.labelFont.Text = "Default &Font Name";
+      // 
       // cboImageSaveType
       // 
       this.cboImageSaveType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -187,9 +212,9 @@
       this.groupBox2.Controls.Add(this.label2);
       this.groupBox2.Controls.Add(this.labelH);
       this.groupBox2.Controls.Add(this.labelV);
-      this.groupBox2.Location = new System.Drawing.Point(6, 102);
+      this.groupBox2.Location = new System.Drawing.Point(6, 106);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(400, 120);
+      this.groupBox2.Size = new System.Drawing.Size(400, 116);
       this.groupBox2.TabIndex = 12;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Smart Save";
@@ -427,6 +452,8 @@
         private System.Windows.Forms.Label labelG;
         private System.Windows.Forms.ComboBox cboImageSaveType;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtDefaultFontName;
+        private System.Windows.Forms.Label labelFont;
         private System.Windows.Forms.CheckBox chkSaveAtZoom;
         private System.Windows.Forms.CheckBox chkLoadLast;
         private System.Windows.Forms.ToolTip toolTip2;

@@ -1117,13 +1117,13 @@ namespace Trizbort
       // m_documentSpecificMargins
       // 
       this.m_documentSpecificMargins.AutoSize = true;
-      this.m_documentSpecificMargins.Cursor = System.Windows.Forms.Cursors.Help;
       this.m_documentSpecificMargins.Location = new System.Drawing.Point(112,9);
       this.m_documentSpecificMargins.Name = "m_documentSpecificMargins";
       this.m_documentSpecificMargins.Size = new System.Drawing.Size(200, 17);
       this.m_documentSpecificMargins.TabIndex = 0;
       this.m_documentSpecificMargins.Text = "Document-Specific Margins";
       this.m_documentSpecificMargins.UseVisualStyleBackColor = true;
+      this.m_documentSpecificMargins.CheckedChanged += new System.EventHandler(this.m_documentSpecificMargins_CheckedChanged);
       // 
       // m_documentHorizontalMargins
       // 

@@ -411,7 +411,6 @@ namespace Trizbort
     public static bool SaveToPDF { get; set; }
     public static bool SaveToImage { get; set; }
     public static bool SaveTADSToADV3Lite { get; set; }
-    public static bool SpecifyDocMargins { get; set; }
     public static bool SpecifyGenMargins { get; set; }
     public static int GenHorizontalMargin { get; set; }
     public static int GenVerticalMargin { get; set; }
@@ -772,6 +771,18 @@ namespace Trizbort
       LargeFont = new Font(DefaultFontName, 13.0f, FontStyle.Regular, GraphicsUnit.World);
       SmallFont = new Font(DefaultFontName, 11.0f, FontStyle.Regular, GraphicsUnit.World);
       LineFont = new Font(DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);
+
+      Settings.DocumentSpecificMargins = Settings.SpecifyGenMargins;
+
+      if (Settings.SpecifyGenMargins)
+      {
+        Settings.DocHorizontalMargin = Settings.GenHorizontalMargin;
+        Settings.DocVerticalMargin = Settings.GenVerticalMargin;
+      }
+      else
+      {
+        Settings.DocHorizontalMargin = Settings.DocVerticalMargin = 0;
+      }
 
       LineWidth = 2.0f;
       HandDrawn = true;

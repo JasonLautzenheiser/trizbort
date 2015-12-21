@@ -2,30 +2,30 @@
 <trizbort version="1.5.9.4">
 	<info />
 	<map>
-		<room id="1" name="Cave" subtitle="subtitle subtitle subtitle subtitle " x="64" y="-192" w="96" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
-		<room id="2" name="Cave" subtitle="subtitle subtitle subtitle subtitle subtitle subtitle " x="-96" y="-192" w="96" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="1" name="Cave" subtitle="subtitle subtitle subtitle subtitle " x="64" y="-192" w="128" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="2" name="Cave" subtitle="subtitle subtitle subtitle subtitle subtitle subtitle " x="-128" y="-192" w="128" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
 		<line id="3">
 			<dock index="0" id="1" port="w" />
 			<dock index="1" id="2" port="e" />
 		</line>
-		<room id="4" name="Cave" subtitle="subtitle subtitle" x="224" y="-192" w="96" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="4" name="Cave" subtitle="subtitle subtitle" x="256" y="-192" w="128" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
 		<line id="5">
 			<dock index="0" id="1" port="e" />
 			<dock index="1" id="4" port="w" />
 		</line>
-		<room id="6" name="Cave Cave Cave Cave" subtitle="subtitle subtitle " x="224" y="32" w="96" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="6" name="Cave Cave Cave Cave" subtitle="subtitle subtitle " x="256" y="32" w="128" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
 		<line id="7">
 			<dock index="0" id="4" port="s" />
 			<dock index="1" id="6" port="n" />
 		</line>
-		<room id="8" name="Cave Cave Cave Cave" subtitle="subtitle subtitle subtitle subtitle " x="64" y="32" w="96" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+		<room id="8" name="Cave Cave Cave Cave" subtitle="subtitle subtitle subtitle subtitle " x="64" y="32" w="128" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
 			<objects at="w" />
 		</room>
 		<line id="9">
 			<dock index="0" id="6" port="w" />
 			<dock index="1" id="8" port="e" />
 		</line>
-		<room id="10" name="Cave Cave Cave Cave" subtitle="subtitle subtitle subtitle subtitle subtitle subtitle " x="-96" y="32" w="96" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="10" name="Cave Cave Cave Cave" subtitle="subtitle subtitle subtitle subtitle subtitle subtitle " x="-128" y="32" w="128" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
 		<line id="11">
 			<dock index="0" id="8" port="w" />
 			<dock index="1" id="10" port="e" />
@@ -38,9 +38,9 @@
 			<dock index="0" id="8" port="n" />
 			<dock index="1" id="1" port="s" />
 		</line>
-		<room id="14" name="Cave Cave Cave Cave Cave Cave" subtitle="subtitle subtitle subtitle subtitle subtitle subtitle " x="-96" y="256" w="96" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
-		<room id="15" name="Cave Cave Cave Cave Cave Cave" subtitle="subtitle subtitle subtitle subtitle " x="64" y="256" w="96" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
-		<room id="16" name="Cave Cave Cave Cave Cave Cave" subtitle="subtitle subtitle " x="224" y="256" w="96" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="14" name="Cave Cave Cave Cave Cave Cave" subtitle="subtitle subtitle subtitle subtitle subtitle subtitle " x="-128" y="256" w="128" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="15" name="Cave Cave Cave Cave Cave Cave" subtitle="subtitle subtitle subtitle subtitle " x="64" y="256" w="128" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="16" name="Cave Cave Cave Cave Cave Cave" subtitle="subtitle subtitle " x="256" y="256" w="128" h="160" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
 		<line id="17">
 			<dock index="0" id="16" port="w" />
 			<dock index="1" id="15" port="e" />
@@ -82,7 +82,7 @@
 		<fonts>
 			<room size="13">Arial</room>
 			<object size="11">Arial</object>
-			<line size="9">Arial</line>
+			<line size="14">Arial</line>
 		</fonts>
 		<grid>
 			<snapTo>yes</snapTo>

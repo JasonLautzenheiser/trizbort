@@ -71,6 +71,8 @@ namespace Trizbort
       m_RegionListing.DrawMode = DrawMode.OwnerDrawFixed;
       m_RegionListing.DrawItem += RegionListBox_DrawItem;
       m_RegionListing.SelectedIndex = 0;
+
+      m_documentVerticalMargins.Enabled = m_documentHorizontalMargins.Enabled = m_documentSpecificMargins.Checked;
     }
 
     public string Title { get { return m_titleTextBox.Text; } set { m_titleTextBox.Text = value; } }
@@ -471,6 +473,10 @@ namespace Trizbort
       }
     }
 
+    private void m_documentSpecificMargins_CheckedChanged(object sender, EventArgs e)
+    {
+      m_documentHorizontalMargins.Enabled = m_documentVerticalMargins.Enabled = m_documentSpecificMargins.Checked;
+    }
 
     private void tabControl1_Selected(object sender, TabControlEventArgs e)
     {

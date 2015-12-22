@@ -101,3 +101,5 @@ echo subtitle positioning and sizing: smaller than title (issue #220)
 %TESTBASE%\long-subtitles.trizbort
 echo subtitle positioning and sizing: larger than title (issue #219)
 %TESTBASE%\long-big-subtitles.trizbort
+echo Basic ASCII extended characters should work
+%TESTBASE%\ext-chars-test.trizbort

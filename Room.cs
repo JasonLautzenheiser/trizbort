@@ -950,9 +950,9 @@ namespace Trizbort
       {
         if (!Settings.DebugDisableTextRendering)
         {
-          var actualTextRect = mName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
-          var subTitleBounds = new Rect(actualTextRect.X, (actualTextRect.Y + actualTextRect.Height - 4), actualTextRect.Width, actualTextRect.Height);
-          mSubTitle.Draw(graphics, Settings.LineFont, roombrush, subTitleBounds.Position, subTitleBounds.Size, XStringFormats.Center);
+          var RoomTextRect = mName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
+          var SubtitleTextRect = new Rect(RoomTextRect.Left, RoomTextRect.Bottom, RoomTextRect.Right - RoomTextRect.Left, textBounds.Bottom - RoomTextRect.Bottom);
+          mSubTitle.Draw(graphics, Settings.LineFont, roombrush, SubtitleTextRect.Position, SubtitleTextRect.Size, XStringFormats.Center);
         }
       }
 

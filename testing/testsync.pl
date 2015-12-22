@@ -76,6 +76,7 @@ sub getTriz
   while ($a = <A>)
   {
     if ($a =~ /^::/) { next; }
+	if ($a =~ /rem skip/i) { $skip = 1; next; }
     if ($a =~ /\.trizbort/)
     {
       chomp($a);
@@ -89,6 +90,10 @@ sub getTriz
 	    if (!$skip)
 		{
 	    print ("WARNING: $a is used twice.\n");
+		}
+		else
+		{
+		$skip = 0;
 		}
 	  }
       $trizfile{$a} = $_[0];

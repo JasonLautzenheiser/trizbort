@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Trizbort
       InitializeComponent();
     }
 
-    private void MapStatisticsView_Load(object sender, EventArgs e)
+    public string MapStatisticsString()
     {
       string stats = string.Empty;
 
@@ -60,8 +61,37 @@ namespace Trizbort
       stats += $"Total # Objects in All Rooms: {MapStatistics.NumberOfTotalObjectsInRooms}{Environment.NewLine}";
       stats += $"Total # Rooms with Objects: {MapStatistics.NumberOfRoomsWithObjects}{Environment.NewLine}";
 
+      return stats;
+    }
 
-      txtStats.Text = stats;
+    public void MapStatisticsView_Export(object sender, EventArgs e)
+    {
+      var stats = MapStatisticsString();
+
+      var curFile = Project.Current.FileName;
+      string outFile = "";
+
+      if (string.IsNullOrEmpty(curFile))
+      {
+        outFile = "c:\\temp\\default-log.txt";
+      }
+      else
+      {
+        if (curFile.Contains(".trizbort"))
+          outFile = curFile.Replace(".trizbort", ".log");
+        else
+          outFile = curFile + ".trizbort";
+      }
+      var writer = new StreamWriter(outFile, false, Encoding.UTF8, 2 ^ 16);
+      if (writer == null) { MessageBox.Show("Could not open" + outFile, "Write error"); }
+      writer.Write(stats);
+      writer.Close();
+      MessageBox.Show("Wrote log to " + outFile, "Log file written");
+    }
+
+    private void MapStatisticsView_Load(object sender, EventArgs e)
+    {
+      txtStats.Text = MapStatisticsString();
       txtStats.SelectionStart = 1;
       txtStats.SelectionLength = 0;
     }

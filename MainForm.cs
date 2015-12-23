@@ -1230,6 +1230,12 @@ namespace Trizbort
       frm.ShowDialog();
     }
 
+    private void mapStatisticsExportToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      var frm = new MapStatisticsView();
+      frm.MapStatisticsView_Export(sender, e);
+    }
+
     private void selectAllRoomsToolStripMenuItem_Click(object sender, EventArgs e)
     {
       Canvas.SelectAllRooms();

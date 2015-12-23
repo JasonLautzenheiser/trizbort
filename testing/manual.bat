@@ -2,7 +2,8 @@
 
 set TESTBASE=.
 
-echo this is a bunch of manual test cases, where the instructions are provided as the description of a large sized room.
+echo this is a bunch of manual test cases for manipulating the canvas.
+echo Instructions should be contained in a marquee room at the top.
 
 echo Manual test case. Edit::Select special
 %TESTBASE%\manual-edit-select-special.trizbort

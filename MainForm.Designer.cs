@@ -160,6 +160,7 @@ namespace Trizbort
       this.m_projectResetToDefaultSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
       this.mapStatisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.mapStatisticsExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_helpMenu = new System.Windows.Forms.ToolStripMenuItem();
       this.m_onlineHelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_checkForUpdatesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1006,7 +1007,8 @@ namespace Trizbort
             this.toolStripSeparator11,
             this.m_projectResetToDefaultSettingsMenuItem,
             this.toolStripSeparator14,
-            this.mapStatisticsToolStripMenuItem});
+            this.mapStatisticsToolStripMenuItem,
+            this.mapStatisticsExportToolStripMenuItem});
       this.m_projectMenu.Name = "m_projectMenu";
       this.m_projectMenu.Size = new System.Drawing.Size(47, 20);
       this.m_projectMenu.Text = "&Tools";
@@ -1048,6 +1050,12 @@ namespace Trizbort
       this.mapStatisticsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
       this.mapStatisticsToolStripMenuItem.Text = "Map Statistics...";
       this.mapStatisticsToolStripMenuItem.Click += new System.EventHandler(this.mapStatisticsToolStripMenuItem_Click);
+      // mapStatisticsExportToolStripMenuItem
+      // 
+      this.mapStatisticsExportToolStripMenuItem.Name = "mapStatisticsToolStripMenuItem";
+      this.mapStatisticsExportToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+      this.mapStatisticsExportToolStripMenuItem.Text = "Map Statistic E&xport...";
+      this.mapStatisticsExportToolStripMenuItem.Click += new System.EventHandler(this.mapStatisticsExportToolStripMenuItem_Click);
       // 
       // m_helpMenu
       // 
@@ -1331,6 +1339,7 @@ namespace Trizbort
         private System.Windows.Forms.ToolStripMenuItem tADSToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripMenuItem mapStatisticsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mapStatisticsExportToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem selectSpecialToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem selectAllRoomsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem selectAllConnectionsToolStripMenuItem;

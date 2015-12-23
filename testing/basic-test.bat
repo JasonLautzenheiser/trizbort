@@ -3,6 +3,8 @@
 ::to rebuild
 ::7z a all-test-files.zip *.trizbort *.bat
 
+echo This tests very basic cases. Some may be used for manual testing elsewhere, but you should just be able to eyeball and move on.
+
 echo All 6 border types appear below.
 %TESTBASE%\borders.trizbort
 echo Connection types and combinations are tested here.

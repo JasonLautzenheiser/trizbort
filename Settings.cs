@@ -482,6 +482,9 @@ namespace Trizbort
             InvertMouseWheel = root["invertMouseWheel"].ToBool(InvertMouseWheel);
             PortAdjustDetail = root["portAdjustDetail"].ToInt(PortAdjustDetail);
             DefaultFontName = root["defaultFontName"].Text;
+
+            if (DefaultFontName.Length == 0) DefaultFontName = "Arial"; // important for compatibility with 1.5.9.3 and before. Otherwise it's set to MS Sans Serif
+
             DefaultImageType = root["defaultImageType"].ToInt(DefaultImageType);
             SaveToImage = root["saveToImage"].ToBool(SaveToImage);
             SaveToPDF = root["saveToPDF"].ToBool(SaveToPDF);

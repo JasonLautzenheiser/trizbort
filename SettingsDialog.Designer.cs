@@ -534,7 +534,7 @@ namespace Trizbort
       // 
       this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.label13.AutoSize = true;
-      this.label13.Location = new System.Drawing.Point(133, 17);
+      this.label13.Location = new System.Drawing.Point(136, 17);
       this.label13.Name = "label13";
       this.label13.Size = new System.Drawing.Size(104, 13);
       this.label13.TabIndex = 0;
@@ -1099,7 +1099,7 @@ namespace Trizbort
       this.groupBox4.Controls.Add(this.m_documentHorizontalMargins);
       this.groupBox4.Controls.Add(this.m_documentVerticalMargins);
       this.groupBox4.Name = "groupBox4";
-      this.groupBox4.Size = new System.Drawing.Size(343, 80);
+      this.groupBox4.Size = new System.Drawing.Size(343, 75);
       this.groupBox4.TabIndex = 1;
       this.groupBox4.TabStop = false;
       this.groupBox4.Text = "&Margins";
@@ -1108,7 +1108,7 @@ namespace Trizbort
       // 
       this.label4b.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.label4b.AutoSize = true;
-      this.label4b.Location = new System.Drawing.Point(112, 29);
+      this.label4b.Location = new System.Drawing.Point(142, 29);
       this.label4b.Name = "label4b";
       this.label4b.Size = new System.Drawing.Size(123, 13);
       this.label4b.TabIndex = 1;
@@ -1129,7 +1129,7 @@ namespace Trizbort
       // 
       this.m_documentHorizontalMargins.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.m_documentHorizontalMargins.DecimalPlaces = 1;
-      this.m_documentHorizontalMargins.Location = new System.Drawing.Point(242, 29);
+      this.m_documentHorizontalMargins.Location = new System.Drawing.Point(242, 28);
       this.m_documentHorizontalMargins.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -1149,7 +1149,7 @@ namespace Trizbort
       // 
       this.label4c.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.label4c.AutoSize = true;
-      this.label4c.Location = new System.Drawing.Point(112, 49);
+      this.label4c.Location = new System.Drawing.Point(155, 49);
       this.label4c.Name = "label4c";
       this.label4c.Size = new System.Drawing.Size(123, 13);
       this.label4c.TabIndex = 1;

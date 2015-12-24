@@ -59,9 +59,18 @@ namespace Trizbort.Export
 
     protected override void ExportContent(TextWriter writer)
     {
+      if (RegionsInExportOrder.Count > 1)
+      {
+      foreach (var region in RegionsInExportOrder)
+      {
+      writer.WriteLine("Class {0};", region.ExportName);
+      }
+      writer.WriteLine();
+      }
+
       foreach (var location in LocationsInExportOrder)
       {
-        writer.WriteLine("Object  {0} {1}", location.ExportName, toI6String(location.Room.Name, DOUBLE_QUOTE));
+        writer.WriteLine("{0}  {1} {2}", location.Room.Region == Region.DefaultRegion ? "Object" : GetExportName(location.Room.Region, null), location.ExportName, toI6String(location.Room.Name, DOUBLE_QUOTE));
         writer.WriteLine("  with  description");
         writer.WriteLine("            {0},", toI6String(location.Room.PrimaryDescription, DOUBLE_QUOTE));
         foreach (var direction in AllDirections)

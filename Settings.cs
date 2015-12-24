@@ -75,7 +75,7 @@ namespace Trizbort
       RecentProjects = new MruList();
       ResetApplicationSettings();
       LoadApplicationSettings();
-      ResetProjectSettings();
+      Reset();
     }
 
     private static string ApplicationSettingsPath
@@ -754,7 +754,7 @@ namespace Trizbort
       }
     }
 
-    public static void ResetProjectSettings()
+    public static void Reset()
     {
       Color[Colors.Canvas] = System.Drawing.Color.White;
       Color[Colors.Fill] = System.Drawing.Color.White;

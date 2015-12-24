@@ -179,7 +179,7 @@ namespace Trizbort
         return;
 
       Project.Current = new Project();
-      Settings.ResetProjectSettings();
+      Settings.Reset();
     }
 
     protected override void OnClosing(CancelEventArgs e)
@@ -1055,7 +1055,7 @@ namespace Trizbort
     {
       if (MessageBox.Show("Restore default settings?\n\nThis will revert any changes to settings in this project.", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
       {
-        Settings.ResetProjectSettings();
+        Settings.Reset();
       }
     }
 

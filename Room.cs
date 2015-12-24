@@ -147,9 +147,12 @@ namespace Trizbort
       get { return shape; }
       set
       {
+        if (shape != value)
+        {
         shape = value;
         setRoomShape(value);
         RaiseChanged();
+        }
       }
     }
 

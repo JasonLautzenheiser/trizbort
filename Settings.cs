@@ -812,7 +812,6 @@ namespace Trizbort
       {
         new Region {RegionName = Region.DefaultRegion, RColor = System.Drawing.Color.White}
       };
-
     }
 
     public static void Save(XmlScribe scribe)

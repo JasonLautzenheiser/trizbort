@@ -623,6 +623,30 @@ namespace Trizbort.Export
       }
     }
 
+    public static string deaccent (string mystr)
+    {
+      string x = "";
+      foreach (var c in mystr)
+      {
+        if ((c >= 'à') && (c <= 'å')) x = x + 'a';
+        else if ((c >= 'À') && (c <= 'Å')) x = x + 'A';
+        else if (c == 'Ç') x = x + 'C';
+        else if (c == 'ç') x = x + 'c';
+        else if ((c >= 'è') && (c <= 'ë')) x = x + 'e';
+        else if ((c >= 'È') && (c <= 'Ë')) x = x + 'E';
+        else if ((c >= 'ì') && (c <= 'ï')) x = x + 'i';
+        else if ((c >= 'Ì') && (c <= 'Ï')) x = x + 'I';
+        else if (c == 'ñ') x = x + 'n';
+        else if (c == 'Ñ') x = x + 'N';
+        else if ((c >= 'Ò') && (c <= 'Ö')) x = x + 'o';
+        else if ((c >= 'ò') && (c <= 'ö')) x = x + 'O';
+        else if ((c >= 'ù') && (c <= 'ü')) x = x + 'u';
+        else if ((c >= 'Ù') && (c <= 'Ü')) x = x + 'U';
+        else x = x + c;
+      }
+      return x;
+    }
+
     protected class Thing
     {
       public Thing(string displayName, string exportName, Location location, Thing container, int indent)

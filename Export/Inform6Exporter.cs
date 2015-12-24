@@ -130,8 +130,8 @@ namespace Trizbort.Export
           continue;
         }
 
-        writer.WriteLine("Object {0} {1} {2}", repeat("-> ", indent), thing.ExportName, toI6String(stripOddCharacters(thing.DisplayName, ' ', '-').Trim(), DOUBLE_QUOTE));
-        writer.Write("  with  name {0}", toI6Words(stripOddCharacters(thing.DisplayName, ' ', '-')));
+        writer.WriteLine("Object {0} {1} {2}", repeat("-> ", indent), thing.ExportName, toI6String(stripUnaccentedCharacters(thing.DisplayName).Trim(), DOUBLE_QUOTE));
+        writer.Write("  with  name {0}", toI6Words(deaccent(stripUnaccentedCharacters(thing.DisplayName))));
         if (thing.Contents.Count > 0)
         {
           writer.WriteLine(",");
@@ -161,7 +161,7 @@ namespace Trizbort.Export
         {
           output += ' ';
         }
-        output += toI6String(word, SINGLE_QUOTE);
+        output += toI6String(deaccent(word), SINGLE_QUOTE);
       }
       return output;
     }
@@ -221,7 +221,7 @@ namespace Trizbort.Export
 
     protected override string GetExportName(Room room, int? suffix)
     {
-      var name = stripOddCharacters(room.Name);
+      var name = deaccent(stripUnaccentedCharacters(room.Name)).Replace(" ", "");
       if (string.IsNullOrEmpty(name))
       {
         name = "room";
@@ -235,7 +235,7 @@ namespace Trizbort.Export
 
     protected override string GetExportName(string displayName, int? suffix)
     {
-      var name = stripOddCharacters(displayName);
+      var name = deaccent(stripUnaccentedCharacters(displayName)).Replace(" ", "");
       if (string.IsNullOrEmpty(name))
       {
         name = "item";
@@ -245,6 +245,11 @@ namespace Trizbort.Export
         name = $"{name}{suffix}";
       }
       return name;
+    }
+
+    private static string stripUnaccentedCharacters(string text)
+    {
+      return stripOddCharacters(text, 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', ' ', '-');
     }
 
     private static string stripOddCharacters(string text, params char[] exclude)

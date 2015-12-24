@@ -59,7 +59,7 @@ namespace Trizbort.Export
 
     protected override void ExportContent(TextWriter writer)
     {
-      if (RegionsInExportOrder.Count > 1)
+      if (RegionsInExportOrder.Count > 0)
       {
       foreach (var region in RegionsInExportOrder)
       {

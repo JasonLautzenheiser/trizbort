@@ -43,9 +43,11 @@
       this.chkSaveToImage = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.chkSaveToPDF = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.chkSaveTADSToADV3Lite = new DevComponents.DotNetBar.Controls.CheckBoxX();
-      this.chkSpecifyMargins = new DevComponents.DotNetBar.Controls.CheckBoxX();
+      this.groupBox3 = new System.Windows.Forms.GroupBox();
+      this.chkDefaultHandDrawn = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.labelV = new System.Windows.Forms.Label();
       this.labelH = new System.Windows.Forms.Label();
+      this.chkSpecifyMargins = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.m_preferredVerticalMargin = new System.Windows.Forms.NumericUpDown();
       this.m_preferredHorizontalMargin = new System.Windows.Forms.NumericUpDown();
       this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
@@ -55,6 +57,7 @@
       this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
       this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
+      this.groupBox3.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
       this.superTabControl1.SuspendLayout();
       this.superTabControlPanel1.SuspendLayout();
@@ -64,7 +67,7 @@
       // 
       this.m_okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.m_okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-      this.m_okButton.Location = new System.Drawing.Point(280, 270);
+      this.m_okButton.Location = new System.Drawing.Point(280, 318);
       this.m_okButton.Name = "m_okButton";
       this.m_okButton.Size = new System.Drawing.Size(75, 23);
       this.m_okButton.TabIndex = 4;
@@ -75,7 +78,7 @@
       // 
       this.m_cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.m_cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.m_cancelButton.Location = new System.Drawing.Point(361, 270);
+      this.m_cancelButton.Location = new System.Drawing.Point(361, 318);
       this.m_cancelButton.Name = "m_cancelButton";
       this.m_cancelButton.Size = new System.Drawing.Size(75, 23);
       this.m_cancelButton.TabIndex = 5;
@@ -90,11 +93,9 @@
       this.groupBox1.Controls.Add(this.chkLoadLast);
       this.groupBox1.Controls.Add(this.cboPortAdjustDetail);
       this.groupBox1.Controls.Add(this.labelG);
-      this.groupBox1.Controls.Add(this.txtDefaultFontName);
-      this.groupBox1.Controls.Add(this.labelFont);
       this.groupBox1.Location = new System.Drawing.Point(6, 16);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(400, 88);
+      this.groupBox1.Size = new System.Drawing.Size(400, 64);
       this.groupBox1.TabIndex = 3;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Preferences";
@@ -160,7 +161,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.txtDefaultFontName.BackColor = System.Drawing.SystemColors.Window;
       this.txtDefaultFontName.CausesValidation = false;
-      this.txtDefaultFontName.Location = new System.Drawing.Point(300, 64);
+      this.txtDefaultFontName.Location = new System.Drawing.Point(300, 35);
       this.txtDefaultFontName.Name = "txtDefaultFontName";
       this.txtDefaultFontName.Size = new System.Drawing.Size(75, 21);
       this.txtDefaultFontName.TabIndex = 5;
@@ -169,7 +170,7 @@
       // 
       this.labelFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.labelFont.AutoSize = true;
-      this.labelFont.Location = new System.Drawing.Point(200, 66);
+      this.labelFont.Location = new System.Drawing.Point(200, 35);
       this.labelFont.Name = "labelFont";
       this.labelFont.Size = new System.Drawing.Size(97, 13);
       this.labelFont.TabIndex = 4;
@@ -202,19 +203,14 @@
       // groupBox2
       // 
       this.groupBox2.BackColor = System.Drawing.Color.Transparent;
-      this.groupBox2.Controls.Add(this.m_preferredHorizontalMargin);
-      this.groupBox2.Controls.Add(this.m_preferredVerticalMargin);
-      this.groupBox2.Controls.Add(this.chkSpecifyMargins);
       this.groupBox2.Controls.Add(this.chkSaveTADSToADV3Lite);
       this.groupBox2.Controls.Add(this.chkSaveToImage);
       this.groupBox2.Controls.Add(this.chkSaveToPDF);
       this.groupBox2.Controls.Add(this.cboImageSaveType);
       this.groupBox2.Controls.Add(this.label2);
-      this.groupBox2.Controls.Add(this.labelH);
-      this.groupBox2.Controls.Add(this.labelV);
-      this.groupBox2.Location = new System.Drawing.Point(6, 106);
+      this.groupBox2.Location = new System.Drawing.Point(6, 78);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(400, 116);
+      this.groupBox2.Size = new System.Drawing.Size(400, 94);
       this.groupBox2.TabIndex = 12;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Smart Save";
@@ -222,17 +218,17 @@
       // labelV
       // 
       this.labelV.AutoSize = true;
-      this.labelV.Location = new System.Drawing.Point(214, 92);
+      this.labelV.Location = new System.Drawing.Point(10, 60);
       this.labelV.Name = "label2";
       this.labelV.Size = new System.Drawing.Size(40,13);
       this.labelV.TabIndex = 11;
-      this.labelV.Text = "Vert";
+      this.labelV.Text = "Vertical";
       // 
       // m_preferredVerticalMargin
       // 
       this.m_preferredVerticalMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.m_preferredVerticalMargin.DecimalPlaces = 1;
-      this.m_preferredVerticalMargin.Location = new System.Drawing.Point(254, 89);
+      this.m_preferredVerticalMargin.Location = new System.Drawing.Point(130, 60);
       this.m_preferredVerticalMargin.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -251,17 +247,17 @@
       // labelH
       // 
       this.labelH.AutoSize = true;
-      this.labelH.Location = new System.Drawing.Point(214, 66);
-      this.labelH.Name = "labelV";
+      this.labelH.Location = new System.Drawing.Point(10, 35);
+      this.labelH.Name = "labelH";
       this.labelH.Size = new System.Drawing.Size(40,13);
       this.labelH.TabIndex = 9;
-      this.labelH.Text = "Horiz";
+      this.labelH.Text = "Horizontal";
       // 
       // m_preferredHorizontalMargin
       // 
       this.m_preferredHorizontalMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.m_preferredHorizontalMargin.DecimalPlaces = 1;
-      this.m_preferredHorizontalMargin.Location = new System.Drawing.Point(254, 63);
+      this.m_preferredHorizontalMargin.Location = new System.Drawing.Point(130, 35);
       this.m_preferredHorizontalMargin.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -276,6 +272,7 @@
             0,
             0,
             0});
+      //
       // chkSpecifyMargins
       // 
       this.chkSpecifyMargins.BackgroundStyle.Class = "";
@@ -283,12 +280,26 @@
       this.chkSpecifyMargins.Checked = true;
       this.chkSpecifyMargins.CheckState = System.Windows.Forms.CheckState.Checked;
       this.chkSpecifyMargins.CheckValue = "Y";
-      this.chkSpecifyMargins.Location = new System.Drawing.Point(214, 42);
+      this.chkSpecifyMargins.Location = new System.Drawing.Point(10, 10);
       this.chkSpecifyMargins.Name = "chkSpecifyMargins";
       this.chkSpecifyMargins.Size = new System.Drawing.Size(140, 23);
       this.chkSpecifyMargins.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
       this.chkSpecifyMargins.TabIndex = 7;
       this.chkSpecifyMargins.Text = "Specify margins";
+      //
+      // chkDefaultHandDrawn
+      // 
+      this.chkDefaultHandDrawn.BackgroundStyle.Class = "";
+      this.chkDefaultHandDrawn.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.chkDefaultHandDrawn.Checked = false;
+      this.chkDefaultHandDrawn.CheckState = System.Windows.Forms.CheckState.Unchecked;
+      this.chkDefaultHandDrawn.CheckValue = "N";
+      this.chkDefaultHandDrawn.Location = new System.Drawing.Point(200, 10);
+      this.chkDefaultHandDrawn.Name = "chkDefaultHandDrawn";
+      this.chkDefaultHandDrawn.Size = new System.Drawing.Size(140, 23);
+      this.chkDefaultHandDrawn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+      this.chkDefaultHandDrawn.TabIndex = 7;
+      this.chkDefaultHandDrawn.Text = "Default Hand Drawn";
       // 
       // chkSaveTADSToADV3Lite
       // 
@@ -338,6 +349,24 @@
       this.chkSaveToPDF.TabIndex = 4;
       this.chkSaveToPDF.Text = "Save to PDF";
       // 
+      // groupBox3
+      // 
+      this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+      this.groupBox3.Controls.Add(this.m_preferredHorizontalMargin);
+      this.groupBox3.Controls.Add(this.m_preferredVerticalMargin);
+      this.groupBox3.Controls.Add(this.chkSpecifyMargins);
+      this.groupBox3.Controls.Add(this.labelH);
+      this.groupBox3.Controls.Add(this.labelV);
+      this.groupBox3.Controls.Add(this.txtDefaultFontName);
+      this.groupBox3.Controls.Add(this.labelFont);
+      this.groupBox3.Controls.Add(this.chkDefaultHandDrawn);
+      this.groupBox3.Location = new System.Drawing.Point(6, 172);
+      this.groupBox3.Name = "groupBox3";
+      this.groupBox3.Size = new System.Drawing.Size(400, 90);
+      this.groupBox3.TabIndex = 1;
+      this.groupBox3.TabStop = false;
+      this.groupBox3.Text = "App defaults";
+      // 
       // superTabControl1
       // 
       this.superTabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -365,7 +394,7 @@
       this.superTabControl1.ReorderTabsEnabled = true;
       this.superTabControl1.SelectedTabFont = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
       this.superTabControl1.SelectedTabIndex = 1;
-      this.superTabControl1.Size = new System.Drawing.Size(432, 250);
+      this.superTabControl1.Size = new System.Drawing.Size(432, 300);
       this.superTabControl1.TabFont = new System.Drawing.Font("Tahoma", 8.25F);
       this.superTabControl1.TabIndex = 7;
       this.superTabControl1.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
@@ -395,10 +424,11 @@
       // 
       this.superTabControlPanel1.Controls.Add(this.groupBox1);
       this.superTabControlPanel1.Controls.Add(this.groupBox2);
+      this.superTabControlPanel1.Controls.Add(this.groupBox3);
       this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.superTabControlPanel1.Location = new System.Drawing.Point(0, 26);
       this.superTabControlPanel1.Name = "superTabControlPanel1";
-      this.superTabControlPanel1.Size = new System.Drawing.Size(432, 211);
+      this.superTabControlPanel1.Size = new System.Drawing.Size(432, 360);
       this.superTabControlPanel1.TabIndex = 1;
       this.superTabControlPanel1.TabItem = this.superTabItem1;
       // 
@@ -415,7 +445,7 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.m_cancelButton;
-      this.ClientSize = new System.Drawing.Size(446, 310);
+      this.ClientSize = new System.Drawing.Size(446, 350);
       this.Controls.Add(this.superTabControl1);
       this.Controls.Add(this.m_okButton);
       this.Controls.Add(this.m_cancelButton);
@@ -435,6 +465,8 @@
       this.groupBox1.PerformLayout();
       this.groupBox2.ResumeLayout(false);
       this.groupBox2.PerformLayout();
+      this.groupBox3.ResumeLayout(false);
+      this.groupBox3.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
       this.superTabControl1.ResumeLayout(false);
       this.superTabControlPanel1.ResumeLayout(false);
@@ -459,14 +491,16 @@
         private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private DevComponents.DotNetBar.Controls.CheckBoxX chkSpecifyMargins;
+        private DevComponents.DotNetBar.Controls.CheckBoxX chkDefaultHandDrawn;
+        private DevComponents.DotNetBar.Controls.CheckBoxX chkSaveTADSToADV3Lite;
+        private DevComponents.DotNetBar.Controls.CheckBoxX chkSaveToImage;
+        private DevComponents.DotNetBar.Controls.CheckBoxX chkSaveToPDF;
+        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.NumericUpDown m_preferredHorizontalMargin;
         private System.Windows.Forms.Label labelH;
         private System.Windows.Forms.NumericUpDown m_preferredVerticalMargin;
         private System.Windows.Forms.Label labelV;
-        private DevComponents.DotNetBar.Controls.CheckBoxX chkSpecifyMargins;
-        private DevComponents.DotNetBar.Controls.CheckBoxX chkSaveTADSToADV3Lite;
-        private DevComponents.DotNetBar.Controls.CheckBoxX chkSaveToImage;
-        private DevComponents.DotNetBar.Controls.CheckBoxX chkSaveToPDF;
         private DevComponents.DotNetBar.SuperTabControl superTabControl1;
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel2;
         private DevComponents.DotNetBar.SuperTabItem tabInform7;

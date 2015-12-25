@@ -190,7 +190,7 @@ namespace Trizbort
       this.m_handDrawnCheckBox.Location = new System.Drawing.Point(48, 20);
       this.m_handDrawnCheckBox.Name = "m_handDrawnCheckBox";
       this.m_handDrawnCheckBox.Size = new System.Drawing.Size(93, 17);
-      this.superTooltip1.SetSuperTooltip(this.m_handDrawnCheckBox, new DevComponents.DotNetBar.SuperTooltipInfo("Hand-drawn", "", "By default Trizbort gives lines a \"hand drawn\" appearance. If you prefer straight" +
+      this.superTooltip1.SetSuperTooltip(this.m_handDrawnCheckBox, new DevComponents.DotNetBar.SuperTooltipInfo("Hand-drawn", "", "Trizbort can give lines a \"hand drawn\" appearance. If you prefer straight" +
             " lines, you can uncheck this box. This applies to connections\' lines, the border" +
             " of a room, and dividing fill lines.", null, null, DevComponents.DotNetBar.eTooltipColor.Orange));
       this.m_handDrawnCheckBox.TabIndex = 0;

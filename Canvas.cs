@@ -662,10 +662,10 @@ namespace Trizbort
         return;
 
       var disabledHandDrawLinesForSpeed = false;
-      if (!finalRender && ZoomFactor < 0.75f && Settings.HandDrawn)
+      if (!finalRender && ZoomFactor < 0.75f && Settings.HandDrawnDoc)
       {
         disabledHandDrawLinesForSpeed = true;
-        Settings.HandDrawnUnchecked = false;
+        Settings.HandDrawnDocUnchecked = false;
       }
 
       var context = new DrawingContext(ZoomFactor) {UseSmartLineSegments = mSmartLineSegmentsUpToDate};
@@ -721,7 +721,7 @@ namespace Trizbort
 
       if (disabledHandDrawLinesForSpeed)
       {
-        Settings.HandDrawnUnchecked = true;
+        Settings.HandDrawnDocUnchecked = true;
       }
     }
 

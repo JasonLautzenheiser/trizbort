@@ -115,7 +115,7 @@ namespace Trizbort
     public RoomShape Shape
     {
       get { return (RoomShape)cboDrawType.SelectedIndex; }
-      set { cboDrawType.SelectedItem = (int)value; }
+      set { cboDrawType.SelectedIndex = (int)value; }
     }
 
     public string RoomName

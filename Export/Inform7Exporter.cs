@@ -127,19 +127,16 @@ namespace Trizbort.Export
         foreach (var thing in location.Things)
         {
           exportedThings = true;
-          if (thing.Container == null)
-          {
-             writer.Write("{0}{1} {2} in {3}.", getArticle(thing.ExportName), thing.ExportName, isAre(thing.ExportName), thing.Location.ExportName);
-          }
-          else
-          {
-              writer.Write("{0}{1} {2} in the {3}.", getArticle(thing.ExportName), thing.ExportName, isAre(thing.ExportName), thing.Container.ExportName);
-          }
+
+          writer.Write("{0}{1} {2} in {3}.", getArticle(thing), thing.ExportName, whatItIs(thing),
+            thing.Container == null ? thing.Location.ExportName : "the" + thing.Container.ExportName);
           if (thing.DisplayName != thing.ExportName)
           {
               writer.Write(" It is privately-named. The printed name of it is {0}{1} Understand {2} as {3}.", toInform7PrintableString(thing.DisplayName), thing.DisplayName.EndsWith(".") ? string.Empty : ".", toInform7UnderstandWords(thing.DisplayName), thing.ExportName);
           }
           writer.WriteLine();
+          if (!string.IsNullOrWhiteSpace(thing.WarningText))
+            writer.WriteLine("[Note: there were errors with your bracketed definitions.\n{0}]", thing.WarningText);
         }
 
         if (exportedThings)
@@ -196,6 +193,19 @@ namespace Trizbort.Export
 
     }
 
+    private static string whatItIs(Thing thing)
+    {
+      string whatString = "is a " + (thing.forceplural == Thing.Amounts.plural ? "plural-named " : "") + (thing.properNamed == true ? "proper-named " : "") + "thing";
+      if (thing.isScenery) { whatString += ". it is scenery"; }
+      if (thing.isContainer) { whatString += ". it is a container"; }
+      if (thing.isSupporter) { whatString += ". it is a supporter"; }
+      if (thing.isPerson)
+      {
+        whatString += ". it is a " + Thing.ThingGender.GetName(typeof(Thing.ThingGender), thing.gender) + " person";
+      }
+      return whatString;
+    }
+
     protected override void ExportContent(TextWriter writer)
     {
       bool anyConditionalExits = false;
@@ -237,9 +247,13 @@ namespace Trizbort.Export
 
     }
 
-    private string getArticle(string noun)
+    private string getArticle(Thing myThing)
     {
-      if (string.IsNullOrEmpty(noun) || isPlural(noun))
+      string noun = myThing.ExportName;
+      
+      if (myThing.properNamed == true) return "";
+
+      if (string.IsNullOrEmpty(noun) || isPlural(noun) || (myThing.forceplural == Thing.Amounts.plural))
       {
         if (!string.IsNullOrEmpty(noun) && char.IsUpper(noun[0]))
         {
@@ -261,8 +275,9 @@ namespace Trizbort.Export
       return "A ";
     }
 
-    private static string isAre(string noun)
+    private static string isAre(Thing myThing)
     {
+      if (myThing.forceplural == Thing.Amounts.plural) return "are";
       return "is";
     }
 

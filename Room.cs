@@ -76,6 +76,7 @@ namespace Trizbort
       Position = new Vector(-Size.X/2, -Size.Y/2);
       Corners = new CornerRadii();
       Shape = RoomShape.SquareCorners; //would be nice to make an app default later: issue #93
+      StraightEdges = true;
 
       // connections may connect to any of our "corners"
       PortList.Add(new CompassPort(CompassPoint.North, this));
@@ -281,7 +282,15 @@ namespace Trizbort
     public CornerRadii Corners
     {
       get { return mCorners; }
-      set { if (mCorners != value) { mCorners = value; RaiseChanged(); } }
+      set
+      {
+        if (mCorners == null) { mCorners = value; return; }
+        if (mCorners.BottomLeft != value.BottomLeft) { mCorners.BottomLeft = value.BottomLeft; RaiseChanged(); } //mCorners never equals value...
+        if (mCorners.BottomRight != value.BottomRight) { mCorners.BottomRight = value.BottomRight; RaiseChanged(); }
+        if (mCorners.TopLeft != value.TopLeft) { mCorners.TopLeft = value.TopLeft; RaiseChanged(); }
+        if (mCorners.TopRight != value.TopRight) { mCorners.TopRight = value.TopRight; RaiseChanged(); }
+        return;
+      }
     }
 
     public bool RoundedCorners
@@ -305,7 +314,8 @@ namespace Trizbort
     public bool StraightEdges
     {
       get { return mStraightEdges; }
-      set { if (mStraightEdges != value) { mStraightEdges = value; RaiseChanged(); } }
+      set { if (mStraightEdges != value) { mStraightEdges = value; //RaiseChanged(); This is disabled because it gives false positives
+      } }
     }
 
     public bool AllCornersEqual

@@ -775,6 +775,8 @@ namespace Trizbort
       Color[Colors.Grid] = Drawing.Mix(System.Drawing.Color.White, System.Drawing.Color.Black, 25, 1);
       Color[Colors.StartRoom] = System.Drawing.Color.GreenYellow;
 
+      Project.Current.Title = Project.Current.Author = Project.Current.History = Project.Current.Description = "";
+
       LargeFont = new Font(DefaultFontName, 13.0f, FontStyle.Regular, GraphicsUnit.World);
       SmallFont = new Font(DefaultFontName, 11.0f, FontStyle.Regular, GraphicsUnit.World);
       LineFont = new Font(DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);

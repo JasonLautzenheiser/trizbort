@@ -28,6 +28,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
 using Trizbort.Extensions;
@@ -987,6 +988,11 @@ namespace Trizbort
       {
         var format = new XStringFormat();
         var pos = expandedBounds.GetCorner(mObjectsPosition);
+
+        string tempStr = mObjects.Text;
+        Regex rgx = new Regex(@"\[[^\]\[]*\]");
+        mObjects.Text = rgx.Replace(mObjects.Text, "");
+
         if (!Drawing.SetAlignmentFromCardinalOrOrdinalDirection(format, mObjectsPosition))
         {
           // object list appears inside the room below its name
@@ -1018,6 +1024,7 @@ namespace Trizbort
 
           }
         }
+        mObjects.Text = tempStr;
       }
     }
 

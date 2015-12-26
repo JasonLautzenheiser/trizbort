@@ -28,6 +28,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace Trizbort.Export
@@ -282,8 +283,18 @@ namespace Trizbort.Export
         var objectNames = objectsText.Replace("\r", string.Empty).Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
         foreach (var objectName in objectNames)
         {
-          // the display name is simply the object name without indentation
+          // the display name is simply the object name without indentation and without and trailing []
           var displayName = objectName.Trim();
+
+          var propString = displayName;
+
+          Regex rgx = new Regex(@"\[[^\]\[]*\]");
+          displayName = rgx.Replace(displayName, "");
+
+          Regex rgx2 = new Regex(@".*\[");
+          propString = rgx2.Replace(propString, "");
+          rgx2 = new Regex(@"\].*");
+          propString = rgx2.Replace(propString, "");
 
           if (string.IsNullOrEmpty(displayName))
           {
@@ -318,7 +329,7 @@ namespace Trizbort.Export
             }
           }
 
-          var thing = new Thing(displayName, exportName, location, container, indent);
+          var thing = new Thing(displayName, exportName, location, container, indent, propString);
           mapExportNameToThing.Add(exportName, thing);
           location.Things.Add(thing);
         }
@@ -649,7 +660,7 @@ namespace Trizbort.Export
 
     protected class Thing
     {
-      public Thing(string displayName, string exportName, Location location, Thing container, int indent)
+      public Thing(string displayName, string exportName, Location location, Thing container, int indent, string propString)
       {
         DisplayName = displayName;
         ExportName = exportName;
@@ -658,8 +669,79 @@ namespace Trizbort.Export
         Debug.Assert(container == null || container.Location == location, "Thing's container is not located in the same room as the thing.");
         container?.Contents.Add(this);
         Indent = indent;
+        WarningText = "";
         Contents = new List<Thing>();
+        PropString = propString;
+
+        Regex PropRegx = new Regex("[fmp12csu!]");
+        string errString = PropRegx.Replace(PropString, "");
+
+        if (!string.IsNullOrWhiteSpace(errString))
+          WarningText += "The properties string " + PropString + " has the invalid character" + (errString.Length == 1 ? "" : "s") + " " + errString + ".\n";
+
+        //P defines a neuter person. F female, M male.
+        if (propString.Contains("f")) { isPerson = true; gender = ThingGender.female; }
+        if (propString.Contains("m"))
+        {
+          if (isPerson) { WarningText += "You defined two different genders: " + Thing.ThingGender.GetName(typeof(Thing.ThingGender), gender) + " then male.\n"; }
+          gender = ThingGender.male;
+          isPerson = true;
+        }
+        if (propString.Contains("p"))
+        {
+          if (isPerson) { WarningText += "You defined two different genders: " + Thing.ThingGender.GetName(typeof(Thing.ThingGender), gender) + " then neuter.\n"; }
+          gender = ThingGender.neuter;
+          isPerson = true;
+        }
+
+        //We can force plural or singular. Default is let Trizbort decide.
+        forceplural = Amounts.noforce;
+        if (propString.Contains("1")) { forceplural = Amounts.singular; }
+        if (propString.Contains("2"))
+        {
+          if (forceplural != Amounts.noforce) { WarningText += "You defined this object as both singular and plural.\n"; }
+          forceplural = Amounts.plural;
+        }
+
+        //this isn't perfect. If something contains something else, then we need to add that as well.
+        if (propString.Contains("c"))
+        {
+          if (isPerson)
+            WarningText += "You defined this as a person and container. This will cause Inform to throw an error.\n";
+          else
+            isContainer = true;
+        }
+        if (propString.Contains("s"))
+        {
+          if (isPerson)
+            WarningText += "You defined this as a person and scenery. Inform allows that, but you may not want to hide this person.\n";
+          isScenery = true;
+        }
+        if (propString.Contains("u"))
+        {
+          if (isPerson)
+            WarningText += "You defined this as a person and a supporter. This will cause Inform to throw an error.\n";
+          else
+            isSupporter = true;
+        }
+
+        if (propString.Contains("!")) properNamed = true;
       }
+
+      public enum Amounts
+      {
+        noforce,
+        singular,
+        plural
+      }
+
+      public enum ThingGender
+      {
+        neuter,
+        male,
+        female
+      };
+
 
       public string DisplayName { get; private set; }
       public string ExportName { get; private set; }
@@ -667,6 +749,17 @@ namespace Trizbort.Export
       public Thing Container { get; private set; }
       public int Indent { get; private set; }
       public List<Thing> Contents { get; private set; }
+
+      public string PropString { get; private set; }
+      public string WarningText { get; private set; }
+      public bool isPerson { get; private set; }
+      public bool isContainer { get; private set; }
+      public bool isScenery { get; private set; }
+      public bool isSupporter { get; private set; }
+      public bool properNamed { get; private set; }
+      public Amounts forceplural { get; private set; }
+      public ThingGender gender { get; private set; }
+
     }
   }
 }

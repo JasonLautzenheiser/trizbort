@@ -143,7 +143,7 @@ namespace Trizbort
         if (new FileInfo(FileName).Length == 0)
         {
           // this is an empty file, probably thanks to our Explorer New->Trizbort Map menu option.
-          Settings.Reset();
+          Settings.ResetProjectSettings();
           return true;
         }
 
@@ -203,7 +203,7 @@ namespace Trizbort
         }
 
         // load settings last, since their load can't be undone
-        Settings.Reset();
+        Settings.ResetProjectSettings();
         Settings.Load(root["settings"]);
         return true;
       }

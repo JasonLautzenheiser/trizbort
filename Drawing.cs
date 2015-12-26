@@ -66,7 +66,7 @@ namespace Trizbort
 
     public static void AddLine(XGraphicsPath path, LineSegment segment, Random random, bool straightEdges)
     {
-      if (Settings.HandDrawn && !straightEdges)
+      if (Settings.HandDrawnDoc && !straightEdges)
       {
         var dx = segment.End.X - segment.Start.X;
         var dy = segment.End.Y - segment.Start.Y;

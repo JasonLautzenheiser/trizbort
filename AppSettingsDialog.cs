@@ -40,6 +40,12 @@ namespace Trizbort
       set { chkSpecifyMargins.Checked=value; }
     }
 
+    public bool HandDrawnGlobal
+    {
+      get { return chkDefaultHandDrawn.Checked; }
+      set { chkDefaultHandDrawn.Checked=value; }
+    }
+
     public bool SaveTADSToADV3Lite 
     {
       get { return chkSaveTADSToADV3Lite.Checked; }

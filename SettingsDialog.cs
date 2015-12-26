@@ -121,7 +121,7 @@ namespace Trizbort
       }
     }
 
-    public bool HandDrawn { get { return m_handDrawnCheckBox.Checked; } set { m_handDrawnCheckBox.Checked = value; } }
+    public bool HandDrawnDoc { get { return m_handDrawnCheckBox.Checked; } set { m_handDrawnCheckBox.Checked = value; } }
 
     public float LineWidth { get { return (float) m_lineWidthUpDown.Value; } set { m_lineWidthUpDown.Value = (decimal) value; } }
 

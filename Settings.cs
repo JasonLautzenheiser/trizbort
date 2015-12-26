@@ -127,20 +127,20 @@ namespace Trizbort
       }
     }
 
-    public static bool HandDrawn
+    public static bool HandDrawnDoc
     {
-      get { return HandDrawnUnchecked; }
+      get { return HandDrawnDocUnchecked; }
       set
       {
-        if (HandDrawnUnchecked != value)
+        if (HandDrawnDocUnchecked != value)
         {
-          HandDrawnUnchecked = value;
+          HandDrawnDocUnchecked = value;
           RaiseChanged();
         }
       }
     }
 
-    public static bool HandDrawnUnchecked { get; set; }
+    public static bool HandDrawnDocUnchecked { get; set; }
 
     public static float LineWidth
     {
@@ -419,6 +419,7 @@ namespace Trizbort
     public static int PortAdjustDetail { get; set; }
     public static int DefaultImageType { get; set; }
     public static string DefaultFontName { get; set; }
+    public static bool HandDrawnGlobal { get; set; }
     public static bool InvertMouseWheel { get; set; }
     public static Version DontCareAboutVersion { get; set; }
 
@@ -493,6 +494,7 @@ namespace Trizbort
             SpecifyGenMargins = root["specifyMargins"].ToBool(SpecifyGenMargins);
             GenHorizontalMargin = root["horizontalMargin"].ToInt(GenHorizontalMargin);
             GenVerticalMargin = root["verticalMargin"].ToInt(GenVerticalMargin);
+            HandDrawnGlobal = root["handDrawnDefault"].ToBool(HandDrawnGlobal);
 
             CanvasWidth = root["canvasWidth"].ToInt(CanvasWidth);
             CanvasHeight = root["canvasHeight"].ToInt(CanvasHeight);
@@ -548,6 +550,8 @@ namespace Trizbort
           scribe.Element("verticalMargin", GenVerticalMargin);
           scribe.Element("horizontalMargin", GenHorizontalMargin);
           scribe.Element("specifyMargins", SpecifyGenMargins);
+          scribe.Element("handDrawnDefault", HandDrawnGlobal);
+
           scribe.Element("canvasHeight", CanvasHeight);
           scribe.Element("canvasWidth", CanvasWidth);
 
@@ -655,7 +659,7 @@ namespace Trizbort
         dialog.LargeFont = LargeFont;
         dialog.SmallFont = SmallFont;
         dialog.LineFont = LineFont;
-        dialog.HandDrawn = HandDrawn;
+        dialog.HandDrawnDoc = HandDrawnDoc;
         dialog.LineWidth = LineWidth;
         dialog.SnapToGrid = SnapToGrid;
         dialog.GridSize = GridSize;
@@ -696,8 +700,8 @@ namespace Trizbort
           SmallFont = dialog.SmallFont;
           if (LineFont != dialog.LineFont) { Project.Current.IsDirty = true; }
           LineFont = dialog.LineFont;
-          if (HandDrawn != dialog.HandDrawn) { Project.Current.IsDirty = true; }
-          HandDrawn = dialog.HandDrawn;
+          if (HandDrawnDoc != dialog.HandDrawnDoc) { Project.Current.IsDirty = true; }
+          HandDrawnDoc = dialog.HandDrawnDoc;
           if (LineWidth != dialog.LineWidth) { Project.Current.IsDirty = true; };
           LineWidth = dialog.LineWidth;
           if (SnapToGrid != dialog.SnapToGrid) { Project.Current.IsDirty = true; };
@@ -775,6 +779,8 @@ namespace Trizbort
       SmallFont = new Font(DefaultFontName, 11.0f, FontStyle.Regular, GraphicsUnit.World);
       LineFont = new Font(DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);
 
+      Settings.HandDrawnDoc = Settings.HandDrawnGlobal;
+
       Settings.DocumentSpecificMargins = Settings.SpecifyGenMargins;
 
       if (Settings.SpecifyGenMargins)
@@ -788,7 +794,6 @@ namespace Trizbort
       }
 
       LineWidth = 2.0f;
-      HandDrawn = true;
 
       SnapToGrid = true;
       IsGridVisible = true;
@@ -860,7 +865,7 @@ namespace Trizbort
 
       scribe.StartElement("lines");
       scribe.Element("width", s_lineWidth);
-      scribe.Element("handDrawn", HandDrawnUnchecked);
+      scribe.Element("handDrawn", HandDrawnDocUnchecked);
       scribe.Element("arrowSize", s_connectionArrowSize);
       scribe.Element("textOffset", s_textOffsetFromConnection);
       scribe.EndElement();
@@ -1043,7 +1048,7 @@ namespace Trizbort
       ShowOrigin = element["grid"]["showOrigin"].ToBool(s_showOrigin);
 
       LineWidth = element["lines"]["width"].ToFloat(s_lineWidth);
-      HandDrawn = element["lines"]["handDrawn"].ToBool(HandDrawnUnchecked);
+      HandDrawnDoc = element["lines"]["handDrawn"].ToBool(HandDrawnDocUnchecked);
       ConnectionArrowSize = element["lines"]["arrowSize"].ToFloat(s_connectionArrowSize);
       TextOffsetFromConnection = element["lines"]["textOffset"].ToFloat(s_textOffsetFromConnection);
 
@@ -1083,6 +1088,7 @@ namespace Trizbort
         dialog.GenHorizontalMargin = GenHorizontalMargin;
         dialog.GenVerticalMargin = GenVerticalMargin;
         dialog.LoadLastProjectOnStart = LoadLastProjectOnStart;
+        dialog.HandDrawnGlobal = HandDrawnGlobal;
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
@@ -1098,6 +1104,7 @@ namespace Trizbort
           GenHorizontalMargin = (int)dialog.GenHorizontalMargin;
           GenVerticalMargin = (int)dialog.GenVerticalMargin;
           LoadLastProjectOnStart = dialog.LoadLastProjectOnStart;
+          HandDrawnGlobal = dialog.HandDrawnGlobal;
         }
       }
     }

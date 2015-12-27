@@ -286,7 +286,7 @@ namespace Trizbort.Export
           // the display name is simply the object name without indentation and without and trailing []
           var displayName = objectName.Trim();
 
-          var propString = "";
+          string propString = "";
 
           Regex rgx = new Regex(@"\[[^\]\[]*\]");
 
@@ -294,6 +294,7 @@ namespace Trizbort.Export
 
           if (match.Success)
           {
+            propString = displayName;
             displayName = rgx.Replace(displayName, "");
             Regex rgx2 = new Regex(@".*\[");
             propString = rgx2.Replace(propString, "");

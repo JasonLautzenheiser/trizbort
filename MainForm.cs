@@ -752,6 +752,29 @@ namespace Trizbort
       }
     }
 
+    private void FileExportAlanMenuItem_Click(object sender, EventArgs e)
+    {
+        var fileName = Settings.LastExportAlanFileName;
+        if (ExportCode<AlanExporter>(ref fileName))
+        {
+            Settings.LastExportAlanFileName = fileName;
+        }
+    }
+
+    private void alanToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        ExportCode<AlanExporter>();
+    }
+
+    private void FileExportTADSMenuItem_Click(object sender, EventArgs e)
+    {
+      var fileName = Settings.LastExportTadsFileName;
+      if (ExportCode<TadsExporter>(ref fileName))
+      {
+        Settings.LastExportTadsFileName = fileName;
+      }
+    }
+
     private void tADSToTextToolStripMenuItem_Click(object sender, EventArgs e)
     {
       ExportCode<TadsExporter>();

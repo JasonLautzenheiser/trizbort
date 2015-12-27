@@ -438,6 +438,7 @@ namespace Trizbort
     public static string LastExportInform6FileName { get; set; }
     public static string LastExportTadsFileName { get; set; }
     public static string LastExportHugoFileName { get; set; }
+    public static string LastExportAlanFileName { get; set; }
     public static MruList RecentProjects { get; private set; }
 
     private static void ResetApplicationSettings()

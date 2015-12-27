@@ -1140,6 +1140,8 @@ namespace Trizbort
     {
       if (Project.Current.Elements.OfType<Room>().Any())
       {
+        m_fileExportAlanMenuItem.Enabled = true;
+        m_fileExportHugoMenuItem.Enabled = true;
         m_fileExportInform7MenuItem.Enabled = true;
         m_fileExportInform6MenuItem.Enabled = true;
         m_fileExportTADSMenuItem.Enabled = true;
@@ -1147,6 +1149,8 @@ namespace Trizbort
       }
       else
       {
+        m_fileExportAlanMenuItem.Enabled = false;
+        m_fileExportHugoMenuItem.Enabled = false;
         m_fileExportInform7MenuItem.Enabled = false;
         m_fileExportInform6MenuItem.Enabled = false;
         m_fileExportTADSMenuItem.Enabled = false;

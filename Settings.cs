@@ -438,6 +438,7 @@ namespace Trizbort
     public static string LastExportInform6FileName { get; set; }
     public static string LastExportTadsFileName { get; set; }
     public static string LastExportHugoFileName { get; set; }
+    public static string LastExportZILFileName { get; set; }
     public static MruList RecentProjects { get; private set; }
 
     private static void ResetApplicationSettings()
@@ -479,6 +480,8 @@ namespace Trizbort
             LastExportInform7FileName = root["lastExportedInform7FileName"].Text;
             LastExportInform6FileName = root["lastExportedInform6FileName"].Text;
             LastExportTadsFileName = root["lastExportedTadsFileName"].Text;
+            LastExportHugoFileName = root["lastExportedHugoFileName"].Text;
+            LastExportZILFileName = root["lastExportedZilFileName"].Text;
 
             InvertMouseWheel = root["invertMouseWheel"].ToBool(InvertMouseWheel);
             PortAdjustDetail = root["portAdjustDetail"].ToInt(PortAdjustDetail);
@@ -562,6 +565,7 @@ namespace Trizbort
           scribe.Element("lastExportedInform6FileName", LastExportInform6FileName);
           scribe.Element("lastExportedTadsFileName", LastExportTadsFileName);
           scribe.Element("lastExportedHugoFileName", LastExportHugoFileName);
+          scribe.Element("lastExportedZilFileName", LastExportZILFileName);
 
           scribe.StartElement("recentProjects");
           var index = 0;

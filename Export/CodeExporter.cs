@@ -286,15 +286,20 @@ namespace Trizbort.Export
           // the display name is simply the object name without indentation and without and trailing []
           var displayName = objectName.Trim();
 
-          var propString = displayName;
+          var propString = "";
 
           Regex rgx = new Regex(@"\[[^\]\[]*\]");
-          displayName = rgx.Replace(displayName, "");
 
-          Regex rgx2 = new Regex(@".*\[");
-          propString = rgx2.Replace(propString, "");
-          rgx2 = new Regex(@"\].*");
-          propString = rgx2.Replace(propString, "");
+          Match match = rgx.Match(displayName);
+
+          if (match.Success)
+          {
+            displayName = rgx.Replace(displayName, "");
+            Regex rgx2 = new Regex(@".*\[");
+            propString = rgx2.Replace(propString, "");
+            rgx2 = new Regex(@"\].*");
+            propString = rgx2.Replace(propString, "");
+          }
 
           if (string.IsNullOrEmpty(displayName))
           {

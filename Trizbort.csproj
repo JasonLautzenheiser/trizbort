@@ -142,6 +142,7 @@
     <Compile Include="DrawingContext.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="BoundList.cs" />
+    <Compile Include="Export\AlanExporter.cs" />
     <Compile Include="Export\CodeExporter.cs" />
     <Compile Include="Export\HugoExporter.cs" />
     <Compile Include="Export\Inform6Exporter.cs" />

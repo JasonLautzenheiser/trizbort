@@ -439,6 +439,7 @@ namespace Trizbort
     public static string LastExportTadsFileName { get; set; }
     public static string LastExportHugoFileName { get; set; }
     public static string LastExportZILFileName { get; set; }
+    public static string LastExportAlanFileName { get; set; }
     public static MruList RecentProjects { get; private set; }
 
     private static void ResetApplicationSettings()
@@ -1008,7 +1009,7 @@ namespace Trizbort
 
           var node = region.Attribute("name");
           tRegion.RegionName = node != null && node.Text != string.Empty ? node.Text : region.Name;
-          
+
           tRegion.RegionName = tRegion.ClearRegionNameObfuscation();
           tRegion.RColor = region.ToColor(System.Drawing.Color.White);
           Regions.Add(tRegion);

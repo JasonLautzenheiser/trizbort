@@ -752,6 +752,29 @@ namespace Trizbort
       }
     }
 
+    private void FileExportAlanMenuItem_Click(object sender, EventArgs e)
+    {
+        var fileName = Settings.LastExportAlanFileName;
+        if (ExportCode<AlanExporter>(ref fileName))
+        {
+            Settings.LastExportAlanFileName = fileName;
+        }
+    }
+
+    private void alanToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        ExportCode<AlanExporter>();
+    }
+
+    private void FileExportTADSMenuItem_Click(object sender, EventArgs e)
+    {
+      var fileName = Settings.LastExportTadsFileName;
+      if (ExportCode<TadsExporter>(ref fileName))
+      {
+        Settings.LastExportTadsFileName = fileName;
+      }
+    }
+
     private void tADSToTextToolStripMenuItem_Click(object sender, EventArgs e)
     {
       ExportCode<TadsExporter>();
@@ -1117,6 +1140,8 @@ namespace Trizbort
     {
       if (Project.Current.Elements.OfType<Room>().Any())
       {
+        m_fileExportAlanMenuItem.Enabled = true;
+        m_fileExportHugoMenuItem.Enabled = true;
         m_fileExportInform7MenuItem.Enabled = true;
         m_fileExportInform6MenuItem.Enabled = true;
         m_fileExportTADSMenuItem.Enabled = true;
@@ -1124,6 +1149,8 @@ namespace Trizbort
       }
       else
       {
+        m_fileExportAlanMenuItem.Enabled = false;
+        m_fileExportHugoMenuItem.Enabled = false;
         m_fileExportInform7MenuItem.Enabled = false;
         m_fileExportInform6MenuItem.Enabled = false;
         m_fileExportTADSMenuItem.Enabled = false;

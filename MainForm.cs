@@ -717,10 +717,10 @@ namespace Trizbort
 
     private void zILToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      var fileName = Settings.LastExportTadsFileName;
+      var fileName = Settings.LastExportZILFileName;
       if (ExportCode<ZilExporter>(ref fileName))
       {
-        Settings.LastExportTadsFileName = fileName;
+        Settings.LastExportZILFileName = fileName;
       }
     }
 

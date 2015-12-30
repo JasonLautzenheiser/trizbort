@@ -403,25 +403,6 @@ namespace Trizbort
       }
     }
 
-    private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
-    {
-      switch (m_tabControl.SelectedTabIndex)
-      {
-        default:
-          mLastViewedTab = Tab.Objects;
-          break;
-        case 1:
-          mLastViewedTab = Tab.Description;
-          break;
-        case 2:
-          mLastViewedTab = Tab.Colors;
-          break;
-        case 3:
-          mLastViewedTab = Tab.Regions;
-          break;
-      }
-    }
-
     private void PositionCheckBox_CheckedChanged(object sender, EventArgs e)
     {
       if (mAdjustingPosition)
@@ -814,5 +795,29 @@ namespace Trizbort
 
     }
 
+    private void m_tabControl_SelectedTabChanged(object sender, DevComponents.DotNetBar.SuperTabStripSelectedTabChangedEventArgs e)
+    {
+      switch (m_tabControl.SelectedTabIndex)
+      {
+        default:
+          mLastViewedTab = Tab.Objects;
+          break;
+        case 1:
+          mLastViewedTab = Tab.Description;
+          break;
+        case 2:
+          mLastViewedTab = Tab.Colors;
+          break;
+        case 3:
+          mLastViewedTab = Tab.Regions;
+          break;
+      }
+
+    }
+
+    private void lblObjectSyntaxHelp_Click(object sender, EventArgs e)
+    {
+      pnlObjectSyntaxHelp.Visible = !pnlObjectSyntaxHelp.Visible;
+    }
   }
 }

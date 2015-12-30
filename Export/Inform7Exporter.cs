@@ -129,7 +129,7 @@ namespace Trizbort.Export
           exportedThings = true;
 
           writer.Write("{0}{1} {2} in {3}.", getArticle(thing), thing.ExportName, whatItIs(thing),
-            thing.Container == null ? thing.Location.ExportName : "the" + thing.Container.ExportName);
+            thing.Container == null ? thing.Location.ExportName : "the " + thing.Container.ExportName);
           if (thing.DisplayName != thing.ExportName)
           {
               writer.Write(" It is privately-named. The printed name of it is {0}{1} Understand {2} as {3}.", toInform7PrintableString(thing.DisplayName), thing.DisplayName.EndsWith(".") ? string.Empty : ".", toInform7UnderstandWords(thing.DisplayName), thing.ExportName);
@@ -196,12 +196,12 @@ namespace Trizbort.Export
     private static string whatItIs(Thing thing)
     {
       string whatString = "is a " + (thing.forceplural == Thing.Amounts.plural ? "plural-named " : "") + (thing.properNamed == true ? "proper-named " : "") + "thing";
-      if (thing.isScenery) { whatString += ". it is scenery"; }
-      if (thing.isContainer) { whatString += ". it is a container"; }
-      if (thing.isSupporter) { whatString += ". it is a supporter"; }
+      if (thing.isScenery) { whatString += $". {thing.ExportName} is scenery"; }
+      if (thing.isContainer) { whatString += $". {thing.ExportName} is a container"; }
+      if (thing.isSupporter) { whatString += $". {thing.ExportName} is a supporter"; }
       if (thing.isPerson)
       {
-        whatString += ". it is a " + Thing.ThingGender.GetName(typeof(Thing.ThingGender), thing.gender) + " person";
+        whatString += $". {thing.ExportName} is a " + Thing.ThingGender.GetName(typeof(Thing.ThingGender), thing.gender) + " person";
       }
       return whatString;
     }

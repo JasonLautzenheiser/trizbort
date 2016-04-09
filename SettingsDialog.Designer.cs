@@ -118,18 +118,18 @@ namespace Trizbort
       this.btnChange = new System.Windows.Forms.Button();
       this.m_RegionListing = new System.Windows.Forms.ListBox();
       this.tabPage3 = new System.Windows.Forms.TabPage();
-      this.groupBox2 = new System.Windows.Forms.GroupBox();
-      this.label7 = new System.Windows.Forms.Label();
-      this.label3 = new System.Windows.Forms.Label();
-      this.m_snapToElementDistanceUpDown = new System.Windows.Forms.NumericUpDown();
-      this.label2 = new System.Windows.Forms.Label();
-      this.m_handleSizeUpDown = new System.Windows.Forms.NumericUpDown();
       this.groupBox4 = new System.Windows.Forms.GroupBox();
       this.label4b = new System.Windows.Forms.Label();
       this.label4c = new System.Windows.Forms.Label();
       this.m_documentSpecificMargins = new System.Windows.Forms.CheckBox();
       this.m_documentHorizontalMargins = new System.Windows.Forms.NumericUpDown();
       this.m_documentVerticalMargins = new System.Windows.Forms.NumericUpDown();
+      this.groupBox2 = new System.Windows.Forms.GroupBox();
+      this.label7 = new System.Windows.Forms.Label();
+      this.label3 = new System.Windows.Forms.Label();
+      this.m_snapToElementDistanceUpDown = new System.Windows.Forms.NumericUpDown();
+      this.label2 = new System.Windows.Forms.Label();
+      this.m_handleSizeUpDown = new System.Windows.Forms.NumericUpDown();
       this.propertySettings1 = new DevComponents.DotNetBar.PropertySettings();
       this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
       ((System.ComponentModel.ISupportInitialize)(this.m_lineWidthUpDown)).BeginInit();
@@ -153,8 +153,10 @@ namespace Trizbort
       this.tabPage2.SuspendLayout();
       this.tabRegions.SuspendLayout();
       this.tabPage3.SuspendLayout();
-      this.groupBox2.SuspendLayout();
       this.groupBox4.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.m_documentHorizontalMargins)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.m_documentVerticalMargins)).BeginInit();
+      this.groupBox2.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.m_snapToElementDistanceUpDown)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.m_handleSizeUpDown)).BeginInit();
       this.SuspendLayout();
@@ -190,12 +192,13 @@ namespace Trizbort
       this.m_handDrawnCheckBox.Location = new System.Drawing.Point(48, 20);
       this.m_handDrawnCheckBox.Name = "m_handDrawnCheckBox";
       this.m_handDrawnCheckBox.Size = new System.Drawing.Size(93, 17);
-      this.superTooltip1.SetSuperTooltip(this.m_handDrawnCheckBox, new DevComponents.DotNetBar.SuperTooltipInfo("Hand-drawn", "", "Trizbort can give lines a \"hand drawn\" appearance. If you prefer straight" +
-            " lines, you can uncheck this box. This applies to connections\' lines, the border" +
-            " of a room, and dividing fill lines.", null, null, DevComponents.DotNetBar.eTooltipColor.Orange));
+      this.superTooltip1.SetSuperTooltip(this.m_handDrawnCheckBox, new DevComponents.DotNetBar.SuperTooltipInfo("Hand-drawn", "", "Trizbort can give lines a \"hand drawn\" appearance. If you prefer straight lines, " +
+            "you can uncheck this box. This applies to connections\' lines, the border of a ro" +
+            "om, and dividing fill lines.", null, null, DevComponents.DotNetBar.eTooltipColor.Orange));
       this.m_handDrawnCheckBox.TabIndex = 0;
       this.m_handDrawnCheckBox.Text = "\"&Hand-drawn\"";
       this.m_handDrawnCheckBox.UseVisualStyleBackColor = true;
+      this.m_handDrawnCheckBox.Visible = false;
       // 
       // m_lineWidthUpDown
       // 
@@ -1006,6 +1009,91 @@ namespace Trizbort
       this.tabPage3.Text = "Other";
       this.tabPage3.UseVisualStyleBackColor = true;
       // 
+      // groupBox4
+      // 
+      this.groupBox4.Controls.Add(this.label4b);
+      this.groupBox4.Controls.Add(this.label4c);
+      this.groupBox4.Controls.Add(this.m_documentSpecificMargins);
+      this.groupBox4.Controls.Add(this.m_documentHorizontalMargins);
+      this.groupBox4.Controls.Add(this.m_documentVerticalMargins);
+      this.groupBox4.Location = new System.Drawing.Point(5, 214);
+      this.groupBox4.Name = "groupBox4";
+      this.groupBox4.Size = new System.Drawing.Size(343, 75);
+      this.groupBox4.TabIndex = 1;
+      this.groupBox4.TabStop = false;
+      this.groupBox4.Text = "&Margins";
+      // 
+      // label4b
+      // 
+      this.label4b.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.label4b.AutoSize = true;
+      this.label4b.Location = new System.Drawing.Point(142, 29);
+      this.label4b.Name = "label4b";
+      this.label4b.Size = new System.Drawing.Size(95, 13);
+      this.label4b.TabIndex = 1;
+      this.label4b.Text = "&Horizontal margins";
+      // 
+      // label4c
+      // 
+      this.label4c.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.label4c.AutoSize = true;
+      this.label4c.Location = new System.Drawing.Point(155, 49);
+      this.label4c.Name = "label4c";
+      this.label4c.Size = new System.Drawing.Size(82, 13);
+      this.label4c.TabIndex = 1;
+      this.label4c.Text = "&Vertical margins";
+      // 
+      // m_documentSpecificMargins
+      // 
+      this.m_documentSpecificMargins.AutoSize = true;
+      this.m_documentSpecificMargins.Location = new System.Drawing.Point(112, 9);
+      this.m_documentSpecificMargins.Name = "m_documentSpecificMargins";
+      this.m_documentSpecificMargins.Size = new System.Drawing.Size(200, 17);
+      this.m_documentSpecificMargins.TabIndex = 0;
+      this.m_documentSpecificMargins.Text = "Document-Specific Margins";
+      this.m_documentSpecificMargins.UseVisualStyleBackColor = true;
+      this.m_documentSpecificMargins.CheckedChanged += new System.EventHandler(this.m_documentSpecificMargins_CheckedChanged);
+      // 
+      // m_documentHorizontalMargins
+      // 
+      this.m_documentHorizontalMargins.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_documentHorizontalMargins.DecimalPlaces = 1;
+      this.m_documentHorizontalMargins.Location = new System.Drawing.Point(242, 28);
+      this.m_documentHorizontalMargins.Maximum = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            0});
+      this.m_documentHorizontalMargins.Name = "m_documentHorizontalMargins";
+      this.m_documentHorizontalMargins.Size = new System.Drawing.Size(95, 21);
+      this.m_documentHorizontalMargins.TabIndex = 4;
+      this.m_documentHorizontalMargins.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      this.m_documentHorizontalMargins.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+      // 
+      // m_documentVerticalMargins
+      // 
+      this.m_documentVerticalMargins.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_documentVerticalMargins.DecimalPlaces = 1;
+      this.m_documentVerticalMargins.Location = new System.Drawing.Point(242, 49);
+      this.m_documentVerticalMargins.Maximum = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            0});
+      this.m_documentVerticalMargins.Name = "m_documentVerticalMargins";
+      this.m_documentVerticalMargins.Size = new System.Drawing.Size(95, 21);
+      this.m_documentVerticalMargins.TabIndex = 4;
+      this.m_documentVerticalMargins.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      this.m_documentVerticalMargins.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+      // 
       // groupBox2
       // 
       this.groupBox2.Controls.Add(this.label7);
@@ -1090,91 +1178,6 @@ namespace Trizbort
             0,
             0});
       // 
-      // groupBox4
-      // 
-      this.groupBox4.Location = new System.Drawing.Point(5, 214);
-      this.groupBox4.Controls.Add(this.label4b);
-      this.groupBox4.Controls.Add(this.label4c);
-      this.groupBox4.Controls.Add(this.m_documentSpecificMargins);
-      this.groupBox4.Controls.Add(this.m_documentHorizontalMargins);
-      this.groupBox4.Controls.Add(this.m_documentVerticalMargins);
-      this.groupBox4.Name = "groupBox4";
-      this.groupBox4.Size = new System.Drawing.Size(343, 75);
-      this.groupBox4.TabIndex = 1;
-      this.groupBox4.TabStop = false;
-      this.groupBox4.Text = "&Margins";
-      // 
-      // label4b
-      // 
-      this.label4b.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.label4b.AutoSize = true;
-      this.label4b.Location = new System.Drawing.Point(142, 29);
-      this.label4b.Name = "label4b";
-      this.label4b.Size = new System.Drawing.Size(123, 13);
-      this.label4b.TabIndex = 1;
-      this.label4b.Text = "&Horizontal margins";
-      // 
-      // m_documentSpecificMargins
-      // 
-      this.m_documentSpecificMargins.AutoSize = true;
-      this.m_documentSpecificMargins.Location = new System.Drawing.Point(112,9);
-      this.m_documentSpecificMargins.Name = "m_documentSpecificMargins";
-      this.m_documentSpecificMargins.Size = new System.Drawing.Size(200, 17);
-      this.m_documentSpecificMargins.TabIndex = 0;
-      this.m_documentSpecificMargins.Text = "Document-Specific Margins";
-      this.m_documentSpecificMargins.UseVisualStyleBackColor = true;
-      this.m_documentSpecificMargins.CheckedChanged += new System.EventHandler(this.m_documentSpecificMargins_CheckedChanged);
-      // 
-      // m_documentHorizontalMargins
-      // 
-      this.m_documentHorizontalMargins.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_documentHorizontalMargins.DecimalPlaces = 1;
-      this.m_documentHorizontalMargins.Location = new System.Drawing.Point(242, 28);
-      this.m_documentHorizontalMargins.Maximum = new decimal(new int[] {
-            4096,
-            0,
-            0,
-            0});
-      this.m_documentHorizontalMargins.Name = "m_documentHorizontalMargins";
-      this.m_documentHorizontalMargins.Size = new System.Drawing.Size(95, 20);
-      this.m_documentHorizontalMargins.TabIndex = 4;
-      this.m_documentHorizontalMargins.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-      this.m_documentHorizontalMargins.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-      // 
-      // label4c
-      // 
-      this.label4c.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.label4c.AutoSize = true;
-      this.label4c.Location = new System.Drawing.Point(155, 49);
-      this.label4c.Name = "label4c";
-      this.label4c.Size = new System.Drawing.Size(123, 13);
-      this.label4c.TabIndex = 1;
-      this.label4c.Text = "&Vertical margins";
-      // 
-      // m_documentVerticalMargins
-      // 
-      this.m_documentVerticalMargins.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_documentVerticalMargins.DecimalPlaces = 1;
-      this.m_documentVerticalMargins.Location = new System.Drawing.Point(242, 49);
-      this.m_documentVerticalMargins.Maximum = new decimal(new int[] {
-            4096,
-            0,
-            0,
-            0});
-      this.m_documentVerticalMargins.Name = "m_documentVerticalMargins";
-      this.m_documentVerticalMargins.Size = new System.Drawing.Size(95, 20);
-      this.m_documentVerticalMargins.TabIndex = 4;
-      this.m_documentVerticalMargins.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-      this.m_documentVerticalMargins.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-      // 
       // propertySettings1
       // 
       this.propertySettings1.DisplayName = "Region1";
@@ -1233,6 +1236,10 @@ namespace Trizbort
       this.tabRegions.ResumeLayout(false);
       this.tabRegions.PerformLayout();
       this.tabPage3.ResumeLayout(false);
+      this.groupBox4.ResumeLayout(false);
+      this.groupBox4.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.m_documentHorizontalMargins)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.m_documentVerticalMargins)).EndInit();
       this.groupBox2.ResumeLayout(false);
       this.groupBox2.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.m_snapToElementDistanceUpDown)).EndInit();

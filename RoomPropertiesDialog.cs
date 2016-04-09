@@ -141,6 +141,12 @@ namespace Trizbort
       set { m_descriptionTextBox.Text = value; }
     }
 
+    public bool HandDrawnEdges
+    {
+      get { return chkHandDrawnRoom.Checked; }
+      set { chkHandDrawnRoom.Checked = value; }
+    }
+
     public bool IsStartRoom
     {
       get { return chkStartRoom.Checked; }
@@ -818,6 +824,11 @@ namespace Trizbort
     private void lblObjectSyntaxHelp_Click(object sender, EventArgs e)
     {
       pnlObjectSyntaxHelp.Visible = !pnlObjectSyntaxHelp.Visible;
+    }
+
+    private void chkHandDrawnRoom_CheckedChanged(object sender, EventArgs e)
+    {
+
     }
   }
 }

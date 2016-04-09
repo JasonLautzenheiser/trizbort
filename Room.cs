@@ -72,6 +72,7 @@ namespace Trizbort
     public Room(Project project): base(project)
     {
       Name = Settings.DefaultRoomName;
+      HandDrawnEdges = Settings.HandDrawnGlobal;
       Region = Trizbort.Region.DefaultRegion;
       Size = new Vector(3*Settings.GridSize, 2*Settings.GridSize);
       Position = new Vector(-Size.X/2, -Size.Y/2);
@@ -143,7 +144,10 @@ namespace Trizbort
       }
     }
 
+    
     private RoomShape shape;
+    private bool mHandDrawnEdges;
+
     public RoomShape Shape
     {
       get { return shape; }
@@ -323,6 +327,12 @@ namespace Trizbort
     {
       get { return mAllCornersEqual; }
       set { if (mAllCornersEqual != value) { mAllCornersEqual = value; RaiseChanged(); } }
+    }
+
+    public bool HandDrawnEdges
+    {
+      get { return mHandDrawnEdges; }
+      set { if (mHandDrawnEdges != value) { mHandDrawnEdges = value;RaiseChanged(); } }
     }
 
     public bool IsStartRoom
@@ -646,6 +656,8 @@ namespace Trizbort
       //1. if (IsStartRoom) => start room outline
       //2. if (context.Selected) => selected room outline
       //3. if (!Settings.DebugDisableLineRendering => main default outline
+
+      StraightEdges = !HandDrawnEdges;
 
       var random = new Random(Name.GetHashCode());
 
@@ -1068,6 +1080,7 @@ namespace Trizbort
         dialog.RoomSubTitle = SubTitle;
         dialog.IsDark = IsDark;
         dialog.IsStartRoom = IsStartRoom;
+        dialog.HandDrawnEdges = HandDrawnEdges;
         dialog.Objects = Objects;
         dialog.ObjectsPosition = ObjectsPosition;
         dialog.BorderStyle = BorderStyle;
@@ -1098,6 +1111,7 @@ namespace Trizbort
           }
           IsDark = dialog.IsDark;
           IsStartRoom = dialog.IsStartRoom;
+          HandDrawnEdges = dialog.HandDrawnEdges;
           Objects = dialog.Objects;
           BorderStyle = dialog.BorderStyle;
           ObjectsPosition = dialog.ObjectsPosition;

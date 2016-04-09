@@ -2,28 +2,37 @@ Change Log
 
 1.5.9.4
 -------------
-ENH: #170 - The short cut key '0' will select the starting room.
-ENH: #40  - Also #192, Now we can adjust margins on exported images.  We allow for default margins that can be adjusted and document specific margins.
-ENH: #185 - TADS/Adv3Lite export now supports regions.
-CHG: #182 - Wording change on the duplicate room dialog in automapper.
-ENH: #189 - '[' and ']' as well as Ctrl-[ and Ctrl-] will move the selected connector around to available ports on the connected rooms. 
-ENH: #184 - Ctrl-B backs up your current project file.
+We made a lot of improvements to exporting to your favorite IF language and cleaning up our own code.  We are also trying to add features that make sense to simplify building of maps while still giving you plenty of shortcuts and power tools.
+We are also in the process of improving the export to different languages.  We've added ALAN support and improved support for I7, I6, TADS and ZIL.  As always if you find ways to improve, have suggestions or find bugs, please let us know or submit an issue
+on github.  Documentation is a little outdated so apologies on that.  Hopefully we'll be updating that soon.
+
+Future enhancements I hope to make:  Continue to improve and expand language export, improve the object language to handle more errors and give more flexibility
+ENH:      - beginning of object definition language in the objects list.  Still in beta (so use at own risk as things may change, but feedback is appreciated) and really focused on I7 at the moment.  We will continue to improve, fix and tweak.
 ENH: #23  - Command line option to start automapping of file.  -m transcriptfile [trizbort map name]
 ENH: #27  - Saves app window dimensions on close.
+ENH: #40  - Also #192, Now we can adjust margins on exported images.  We allow for default margins that can be adjusted and document specific margins.
+ENH: #81  - Annotations can be now be saved to PDFs (the annotation will be the room description)
+ENH: #170 - The short cut key '0' will select the starting room.
+ENH: #184 - Ctrl-B backs up your current project file.
+ENH: #185 - TADS/Adv3Lite export now supports regions.
+ENH: #188 - \ (backslash) on room will attempt to reorganize the connections.  Be careful with this as it tries to be smart about room location in relevence to each other.  It can make mistakes so we are looking at ways to improve and make trizbort a bit smarter.
+ENH: #189 - '[' and ']' as well as Ctrl-[ and Ctrl-] will move the selected connector around to available ports on the connected rooms. 
+ENH: #197 - Automap improvements: Mark start room.
+ENH: #202 - Option to auto-load the last saved map when opening trizbort.
+ENH: #203 - More command line options added (just beginning this, -? for current ones)
+ENH: #205 - Ctrl-D deletes all connectors from selected room.
+ENH: #233 - I6 export now implements regions as classes.
+ENH: #255 - ALAN Export - (Beta)
+ENH: #258 - Added popup for language definition in the description area.
+ENH: #264 - Hand-drawn is now a room property.  Global setting for new rooms, can be changed on a room level.
+COS: #182 - Wording change on the duplicate room dialog in automapper.
+COS: #200 - File dialog for choosing transcript in automapper now filters by *.txt and *.log -- Any other extensions in common use for transcripts?
 FIX: #172 - Disallow room names to be just numbers as it creates bad I7 code.
 FIX: #173 - Like #172, Blank room names are not allowed as it will create bad exported code.
 FIX: #180 - When running a test command in the I7 IDE, command numbers in brackets are created at the front of each prompt line, like '>[7] n', this confused the automapper.
-FIX: #251 - ZIL last file name exported is now saved.
-COS: #200 - File dialog for choosing transcript in automapper now filters by *.txt and *.log -- Any other extensions in common use for transcripts?
-ENH: #202 - Option to auto-load the last saved map when opening trizbort.
-ENH: #203 - More command line options added (just beginning this, -? for current ones)
-ENH: #197 - Automap improvements: Mark start room.
-ENH: #205 - Ctrl-D deletes all connectors from selected room.
-ENH: #188 - \ (backslash) on room will attempt to reorganize the connections
-ENH: #81  - Annotations can be now be saved to PDFs (the annotation will be the room description)
-ENH: #255 - ALAN Export - (Beta)
-ENH:      - beginning of object definition language in the objects list.  Still in beta (so use at own risk as things may change, but feedback is appreciated) and really focused on I7 at the moment.  We will continue to improve, fix and tweak.
-ENH: #258 - Added popup for language definition in the description area.
+FIX: #234 - Trying to improve the export to code with some special characters from non-english languages.  (Further improvement suggestions welcome)
+FIX: #246 - Fixed some areas that were causing Trizbort to think the map was "dirty" and needed saved when it really wasn't.
+
 
 
 

@@ -13,6 +13,7 @@ ENH: #27  - Saves app window dimensions on close.
 FIX: #172 - Disallow room names to be just numbers as it creates bad I7 code.
 FIX: #173 - Like #172, Blank room names are not allowed as it will create bad exported code.
 FIX: #180 - When running a test command in the I7 IDE, command numbers in brackets are created at the front of each prompt line, like '>[7] n', this confused the automapper.
+FIX: #251 - ZIL last file name exported is now saved.
 COS: #200 - File dialog for choosing transcript in automapper now filters by *.txt and *.log -- Any other extensions in common use for transcripts?
 ENH: #202 - Option to auto-load the last saved map when opening trizbort.
 ENH: #203 - More command line options added (just beginning this, -? for current ones)
@@ -20,6 +21,11 @@ ENH: #197 - Automap improvements: Mark start room.
 ENH: #205 - Ctrl-D deletes all connectors from selected room.
 ENH: #188 - \ (backslash) on room will attempt to reorganize the connections
 ENH: #81  - Annotations can be now be saved to PDFs (the annotation will be the room description)
+ENH: #255 - ALAN Export - (Beta)
+ENH:      - beginning of object definition language in the objects list.  Still in beta (so use at own risk as things may change, but feedback is appreciated) and really focused on I7 at the moment.  We will continue to improve, fix and tweak.
+ENH: #258 - Added popup for language definition in the description area.
+
+
 
 1.5.9.3
 -------------

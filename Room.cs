@@ -77,7 +77,7 @@ namespace Trizbort
       Position = new Vector(-Size.X/2, -Size.Y/2);
       Corners = new CornerRadii();
       Shape = RoomShape.SquareCorners; //would be nice to make an app default later: issue #93
-      StraightEdges = true;
+//      StraightEdges = true;
 
       // connections may connect to any of our "corners"
       PortList.Add(new CompassPort(CompassPoint.North, this));

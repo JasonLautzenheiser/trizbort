@@ -1,5 +1,10 @@
 Change Log
 
+1.5.9.5
+-------------
+ENH: #196 - "tb dotted" in transcript now forces next connection to be dotted.
+ENH: #11  - "tb exit [direction]" in transcript will add a connection stub in that direction and "tb noexit [direction]" will remove a connection stub.
+
 1.5.9.4
 -------------
 We made a lot of improvements to exporting to your favorite IF language and cleaning up our own code.  We are also trying to add features that make sense to simplify building of maps while still giving you plenty of shortcuts and power tools.

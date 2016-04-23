@@ -198,7 +198,7 @@ namespace Trizbort
             this.m_helpMenu});
       this.m_menuStrip.Location = new System.Drawing.Point(0, 0);
       this.m_menuStrip.Name = "m_menuStrip";
-      this.m_menuStrip.Size = new System.Drawing.Size(624, 24);
+      this.m_menuStrip.Size = new System.Drawing.Size(1928, 24);
       this.m_menuStrip.TabIndex = 1;
       // 
       // m_fileMenu
@@ -325,7 +325,7 @@ namespace Trizbort
       // m_fileExportAlanMenuItem
       // 
       this.m_fileExportAlanMenuItem.Name = "m_fileExportAlanMenuItem";
-      this.m_fileExportAlanMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+      this.m_fileExportAlanMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.L)));
       this.m_fileExportAlanMenuItem.Size = new System.Drawing.Size(251, 22);
       this.m_fileExportAlanMenuItem.Text = "&Alan...";
@@ -334,7 +334,7 @@ namespace Trizbort
       // m_fileExportHugoMenuItem
       // 
       this.m_fileExportHugoMenuItem.Name = "m_fileExportHugoMenuItem";
-      this.m_fileExportHugoMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+      this.m_fileExportHugoMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.H)));
       this.m_fileExportHugoMenuItem.Size = new System.Drawing.Size(251, 22);
       this.m_fileExportHugoMenuItem.Text = "&Hugo...";
@@ -383,8 +383,8 @@ namespace Trizbort
       // 
       // alanToTextToolStripMenuItem
       // 
-      this.alanToTextToolStripMenuItem.Name = "AlanToTextToolStripMenuItem";
-      this.alanToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt)
+      this.alanToTextToolStripMenuItem.Name = "alanToTextToolStripMenuItem";
+      this.alanToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.L)));
       this.alanToTextToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
       this.alanToTextToolStripMenuItem.Text = "Alan to Clipboard";
@@ -392,8 +392,8 @@ namespace Trizbort
       // 
       // hugoToTextToolStripMenuItem
       // 
-      this.hugoToTextToolStripMenuItem.Name = "HugoToTextToolStripMenuItem";
-      this.hugoToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt)
+      this.hugoToTextToolStripMenuItem.Name = "hugoToTextToolStripMenuItem";
+      this.hugoToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.H)));
       this.hugoToTextToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
       this.hugoToTextToolStripMenuItem.Text = "Hugo to Clipboard";
@@ -719,7 +719,7 @@ namespace Trizbort
       // 
       this.handDrawnToolStripMenuItem.Name = "handDrawnToolStripMenuItem";
       this.handDrawnToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-      this.handDrawnToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+      this.handDrawnToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
       this.handDrawnToolStripMenuItem.Text = "Hand-Drawn";
       this.handDrawnToolStripMenuItem.Click += new System.EventHandler(this.handDrawnToolStripMenuItem_Click);
       // 
@@ -727,7 +727,7 @@ namespace Trizbort
       // 
       this.ellipseToolStripMenuItem.Name = "ellipseToolStripMenuItem";
       this.ellipseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-      this.ellipseToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+      this.ellipseToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
       this.ellipseToolStripMenuItem.Text = "Ellipse";
       this.ellipseToolStripMenuItem.Click += new System.EventHandler(this.ellipseToolStripMenuItem_Click);
       // 
@@ -735,7 +735,7 @@ namespace Trizbort
       // 
       this.roundedEdgesToolStripMenuItem.Name = "roundedEdgesToolStripMenuItem";
       this.roundedEdgesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-      this.roundedEdgesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+      this.roundedEdgesToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
       this.roundedEdgesToolStripMenuItem.Text = "Rounded Edges";
       this.roundedEdgesToolStripMenuItem.Click += new System.EventHandler(this.roundedEdgesToolStripMenuItem_Click);
       // 
@@ -743,7 +743,7 @@ namespace Trizbort
       // 
       this.octagonalEdgesToolStripMenuItem.Name = "octagonalEdgesToolStripMenuItem";
       this.octagonalEdgesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D8)));
-      this.octagonalEdgesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+      this.octagonalEdgesToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
       this.octagonalEdgesToolStripMenuItem.Text = "Octagonal Edges";
       this.octagonalEdgesToolStripMenuItem.Click += new System.EventHandler(this.octagonalEdgesToolStripMenuItem_Click);
       // 
@@ -1072,9 +1072,10 @@ namespace Trizbort
       this.mapStatisticsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
       this.mapStatisticsToolStripMenuItem.Text = "Map Statistics...";
       this.mapStatisticsToolStripMenuItem.Click += new System.EventHandler(this.mapStatisticsToolStripMenuItem_Click);
+      // 
       // mapStatisticsExportToolStripMenuItem
       // 
-      this.mapStatisticsExportToolStripMenuItem.Name = "mapStatisticsToolStripMenuItem";
+      this.mapStatisticsExportToolStripMenuItem.Name = "mapStatisticsExportToolStripMenuItem";
       this.mapStatisticsExportToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
       this.mapStatisticsExportToolStripMenuItem.Text = "Map Statistic E&xport...";
       this.mapStatisticsExportToolStripMenuItem.Click += new System.EventHandler(this.mapStatisticsExportToolStripMenuItem_Click);
@@ -1129,7 +1130,7 @@ namespace Trizbort
       this.m_toolStrip.Location = new System.Drawing.Point(0, 24);
       this.m_toolStrip.Name = "m_toolStrip";
       this.m_toolStrip.Padding = new System.Windows.Forms.Padding(1, 0, 1, 0);
-      this.m_toolStrip.Size = new System.Drawing.Size(38, 399);
+      this.m_toolStrip.Size = new System.Drawing.Size(38, 978);
       this.m_toolStrip.TabIndex = 2;
       // 
       // m_toggleDottedLinesButton
@@ -1174,9 +1175,9 @@ namespace Trizbort
       this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.labelItem1,
             this.controlContainerItem1});
-      this.bar1.Location = new System.Drawing.Point(0, 423);
+      this.bar1.Location = new System.Drawing.Point(0, 1002);
       this.bar1.Name = "bar1";
-      this.bar1.Size = new System.Drawing.Size(624, 27);
+      this.bar1.Size = new System.Drawing.Size(1928, 27);
       this.bar1.Stretch = true;
       this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2000;
       this.bar1.TabIndex = 5;
@@ -1192,7 +1193,7 @@ namespace Trizbort
       this.txtZoom.BackgroundStyle.Class = "DateTimeInputBackground";
       this.txtZoom.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
       this.txtZoom.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-      this.txtZoom.Location = new System.Drawing.Point(565, 2);
+      this.txtZoom.Location = new System.Drawing.Point(1869, 2);
       this.txtZoom.MaxValue = 1000;
       this.txtZoom.MinValue = 10;
       this.txtZoom.Name = "txtZoom";
@@ -1224,7 +1225,7 @@ namespace Trizbort
       this.Canvas.Location = new System.Drawing.Point(38, 24);
       this.Canvas.MinimapVisible = true;
       this.Canvas.Name = "Canvas";
-      this.Canvas.Size = new System.Drawing.Size(586, 370);
+      this.Canvas.Size = new System.Drawing.Size(1890, 949);
       this.Canvas.TabIndex = 0;
       // 
       // m_automapBar
@@ -1233,11 +1234,11 @@ namespace Trizbort
       this.m_automapBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.m_automapBar.Dock = System.Windows.Forms.DockStyle.Bottom;
       this.m_automapBar.ForeColor = System.Drawing.SystemColors.InfoText;
-      this.m_automapBar.Location = new System.Drawing.Point(38, 394);
+      this.m_automapBar.Location = new System.Drawing.Point(38, 973);
       this.m_automapBar.MaximumSize = new System.Drawing.Size(4096, 29);
       this.m_automapBar.MinimumSize = new System.Drawing.Size(2, 29);
       this.m_automapBar.Name = "m_automapBar";
-      this.m_automapBar.Size = new System.Drawing.Size(586, 29);
+      this.m_automapBar.Size = new System.Drawing.Size(1890, 29);
       this.m_automapBar.Status = "(Status)";
       this.m_automapBar.TabIndex = 4;
       // 
@@ -1245,7 +1246,7 @@ namespace Trizbort
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(Settings.CanvasWidth, Settings.CanvasHeight);
+      this.ClientSize = new System.Drawing.Size(1928, 1029);
       this.Controls.Add(this.Canvas);
       this.Controls.Add(this.m_automapBar);
       this.Controls.Add(this.m_toolStrip);

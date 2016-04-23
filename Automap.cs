@@ -45,7 +45,8 @@ namespace Trizbort
     Up,
     Down,
     In,
-    Out
+    Out,
+    None
   };
 
   public sealed class Automap
@@ -670,7 +671,28 @@ namespace Trizbort
             {
               UseDottedConnection = true;
             }
+
+            if (words[1].Equals("exit", StringComparison.OrdinalIgnoreCase))
+            {
+              if (words.Count > 2)
+              {
+                var direction = getDirection(words[2]);
+                if (direction != AutomapDirection.None)
+                  m_canvas.AddExitStub(m_lastKnownRoom, direction);
+              }
+            }
+
+            if (words[1].Equals("noexit", StringComparison.OrdinalIgnoreCase))
+            {
+              if (words.Count > 2)
+              {
+                var direction = getDirection(words[2]);
+                if (direction != AutomapDirection.None)
+                  m_canvas.RemoveExitStub(m_lastKnownRoom, direction);
+              }
+            }
           }
+
 
         }
       }
@@ -710,6 +732,24 @@ namespace Trizbort
 
       // the word wasn't for a direction after all.
     }
+
+    private AutomapDirection getDirection(string possibleDirection)
+    {
+      foreach (var pair in s_namesForMovementCommands)
+      {
+        var direction = pair.Key;
+        var wordsForDirection = pair.Value;
+        foreach (var wordForDirection in wordsForDirection)
+        {
+          if (StringComparer.InvariantCultureIgnoreCase.Compare(possibleDirection, wordForDirection) == 0)
+          {
+            return direction;
+          }
+        }
+      }
+      return AutomapDirection.None ;
+    }
+
 
     #region Private Member Variables
 

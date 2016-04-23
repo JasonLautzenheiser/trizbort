@@ -50,6 +50,9 @@ namespace Trizbort
 
   public sealed class Automap
   {
+    public bool UseDottedConnection { get; set; } = false;
+
+
     private async Task WaitForStep()
     {
       // for diagnostic purposes, allow single stepping
@@ -524,6 +527,7 @@ namespace Trizbort
 
     private void ProcessPromptCommand(string command)
     {
+
       // unless we find one, this command does not involve moving in a given direction
       m_lastMoveDirection = null;
 
@@ -576,6 +580,7 @@ namespace Trizbort
         return;
       }
 
+      
       // TODO: We entirely don't handle "go east. n. s then w." etc. and I don't see an easy way of doing so.
 
       // split the command into individual words
@@ -653,6 +658,24 @@ namespace Trizbort
           }
         }
       }
+
+      // look for custom tb trizbort commands
+      if (words.Count > 0)
+      {
+        if (words[0].Equals("tb", StringComparison.OrdinalIgnoreCase))
+        {
+          if (words.Count > 1)
+          {
+            if (words[1].Equals("dotted", StringComparison.OrdinalIgnoreCase))
+            {
+              UseDottedConnection = true;
+            }
+          }
+
+        }
+      }
+
+
 
       // we should have just one word left
       if (words.Count != 1)

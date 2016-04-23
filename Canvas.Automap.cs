@@ -267,7 +267,17 @@ namespace Trizbort
 
         // add a new connection
         connection = addConnection(source, sourceCompassPoint, target, targetCompassPoint);
-        connection.Style = ConnectionStyle.Solid;
+
+        if (m_automap.UseDottedConnection)
+        {
+          connection.Style = ConnectionStyle.Dashed;
+          m_automap.UseDottedConnection = false;
+        }
+        else
+        {
+          connection.Style = ConnectionStyle.Solid;
+        }
+
         connection.Flow = ConnectionFlow.OneWay;
       }
       else if (wrongWay)

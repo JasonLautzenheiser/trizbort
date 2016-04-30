@@ -71,7 +71,9 @@ namespace Trizbort
     private async Task<string> WaitForNewLine(StreamReader reader, CancellationToken token)
     {
       if (reader.EndOfStream)
+      {
         Status = "Automapping is waiting for more text.";
+      }
       while (reader.EndOfStream)
       {
         await Task.Delay(500, token);
@@ -860,7 +862,77 @@ namespace Trizbort
       Status = "Automap is not running.";
     }
 
-    internal async void Start(IAutomapCanvas canvas, AutomapSettings settings)
+
+    internal async Task StartCL(IAutomapCanvas canvas, AutomapSettings settings)
+    {
+      m_canvas = canvas;
+      m_settings = settings;
+      m_firstRoom = true;
+      Debug.Assert(m_settings.AssumeRoomsWithSameNameAreSameRoom || m_settings.VerboseTranscript, "Must assume rooms with same name are same room unless transcript is verbose.");
+      Status = "Automapping has started.";
+      List<string> lines = new List<string>();
+      try
+      {
+        using (var stream = File.Open(m_settings.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+          using (var reader = new StreamReader(stream))
+          {
+            while (!reader.EndOfStream)
+            {
+              var line = reader.ReadLine();
+              lines.Add(line);
+
+            }
+          }
+
+        // keep track of lines we read between here and the next prompt
+        var linesBetweenPrompts = new List<string>();
+        Status = "Automapping is processing the transcript.";
+
+        foreach (var line in lines)
+        {
+          string command;
+          if (IsPrompt(line, out command))
+          {
+            // this is a prompt line
+
+            // let's process everything leading up to it since the last prompt, but not necessarily this new prompt itself
+            await ProcessTranscriptText(linesBetweenPrompts);
+
+            // we've now dealt with all lines to this point
+            linesBetweenPrompts.Clear();
+
+           // process the next command
+            ProcessPromptCommand(command);
+
+            Trace("{0}: {1}{2}", FormatTranscriptLineForDisplay(line), m_lastMoveDirection != null ? "GO " : string.Empty, m_lastMoveDirection != null ? m_lastMoveDirection.Value.ToString().ToUpperInvariant() : string.Empty);
+          }
+          else
+          {
+            // this line isn't a prompt;
+            // hang onto it for now in case we meet a prompt shortly.
+            linesBetweenPrompts.Add(line);
+          }
+
+        }
+      }
+      catch (IOException ex)
+      {
+        // couldn't read from the file
+        Trace("Automap: Error reading line in file.\nError message: " + ex.Message);
+        MessageBox.Show("Error opening transcript file:\n" + ex.Message + "\n\nAutomapping halted.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+      catch (UnauthorizedAccessException)
+      {
+        MessageBox.Show("Could not gain access to the transcript file. Your interpreter may be restricting access to it. Try again in a few minutes " +
+                        "or with scripting off in your interpreter.\n\nAutomapping halted.", "Access Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+
+      Trace("Automap: Gentle thread exit.");
+      Status = "Automapping has completed.";
+    }
+
+
+    internal async Task Start(IAutomapCanvas canvas, AutomapSettings settings)
     {
       if (Running)
       {

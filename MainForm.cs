@@ -32,11 +32,13 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevComponents.DotNetBar;
+using CommandLine;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Annotations;
+using Trizbort.Domain;
 using Trizbort.Export;
 using Trizbort.Properties;
 
@@ -73,92 +75,25 @@ namespace Trizbort
       Canvas.StopAutomapping();
     }
 
-    private void showCmdUsage(bool userError)
-    {
-      string firstLine = userError ? "Invalid command line flag entered\n" : "Here are the arguments you can use:\n";
-      string usageHeader = userError ? "Invalid command line flag" : "Usage";
-            MessageBox.Show(firstLine +
-        "(file name) opens that file\n-a opens previous project\n-q shows this help menu\n-qs quick-saves a project\n" +
-        "-m (file) (optional to-file) automaps a file, saving to another file if specified", usageHeader);
-    }
-
     private void MainForm_Load(object sender, EventArgs e)
     {
       Canvas.MinimapVisible = Settings.ShowMiniMap;
       bool projectLoaded = false;
 
       var args = Environment.GetCommandLineArgs();
-      if (args.Length == 2 && args[1].Equals("-?"))
-      {
-        showCmdUsage(false);
-      }
-      else if (args.Length == 2 && args[1].Equals("-a"))
-      {
-        try
-        {
-          BeginInvoke((MethodInvoker) delegate { OpenProject(Settings.LastProjectFileName); });
-          projectLoaded = true;
-        }
-        catch (Exception)
-        {
-        }
-      }
-      else if (args.Length == 3 && File.Exists(args[2]) && args[1].Equals("-qs"))
-      {
-        try
-        {
-          BeginInvoke((MethodInvoker) delegate { OpenProject(args[2]); smartSave(); });
-          projectLoaded = true;
-        }
-        catch (Exception)
-        {
-        }
-      }
-      else if (args.Length > 1 && File.Exists(args[1]))
-      {
-        try
-        {
-          BeginInvoke((MethodInvoker) delegate { OpenProject(args[1]); });
-          projectLoaded = true;
-        }
-        catch (Exception)
-        {
-        }
-      }
-      else if ((args.Length >= 3) && (args[1].Equals("-m")) && (File.Exists(args[2])))
-      {
-        try
-        {
 
-          var cmdLineAutomap = new AutomapSettings();
-          cmdLineAutomap = Settings.Automap;
-          cmdLineAutomap.FileName = args[2];
-          BeginInvoke((MethodInvoker) delegate
-          {
-            Canvas.StartAutomapping(cmdLineAutomap);
-            Canvas.StopAutomapping();
-          }
-          );
-          if (args.Length > 3)
-          {
-          BeginInvoke((MethodInvoker) delegate
-            {
-              Canvas.StopAutomapping(); SaveAsCmdLineProject(args[3]);
-              Project.Current.IsDirty = false; Close();
-            });
-          }
-          Project.Current.IsDirty = false;
-          projectLoaded = true;
-        }
-        catch (Exception)
-        {
-        }
-        Project.Current.IsDirty = false;
-      }
-      else if (args.Length > 1)
+      var ext = Parser.Default.ParseArguments<CommandLineOptions>(args);
+
+      if (ext.Tag == ParserResultType.Parsed)
       {
-        showCmdUsage(true);
+        var result = (Parsed<CommandLineOptions>) ext;
+        projectLoaded = commandLineActions(result.Value);
       }
+      else
+      {
+        var result = (NotParsed<CommandLineOptions>) ext;
+      }
+
       if ((Settings.LoadLastProjectOnStart) && (!projectLoaded))
       {
         try
@@ -171,6 +106,78 @@ namespace Trizbort
         }
       }
       NewVersionDialog.CheckForUpdatesAsync(this, false);
+    }
+
+
+    private bool commandLineActions(CommandLineOptions options)
+    {
+      bool projectLoaded = false;
+
+      if (options.LoadLastProject)
+      {
+        OpenProject(Settings.LastProjectFileName);
+        projectLoaded = true;
+      }
+
+      if (options.Transcript != null)
+      {
+        projectLoaded = CLAutoMap(options).Result;
+      }
+
+      if (options.QuickSave != null && options.Transcript == null)
+      {
+        SaveAsCmdLineProject(options.QuickSave);
+        Project.Current.IsDirty = false;
+      }
+
+      if (options.FileName != null)
+      {
+        if (!projectLoaded)
+        {
+          OpenProject(options.FileName);
+          projectLoaded = true;
+
+          if (options.SmartSave)
+          {
+            smartSave(true);
+          }
+        }
+      }
+
+
+      if (options.Exit)
+      {
+        Close();
+      }
+
+      return projectLoaded;
+    }
+
+    private async Task<bool> CLAutoMap(CommandLineOptions options)
+    {
+      bool projectLoaded = false;
+      try
+      {
+        var cmdLineAutomap = Settings.Automap;
+        cmdLineAutomap.FileName = options.Transcript;
+
+        await Canvas.StartAutomapping(cmdLineAutomap,true);
+        Canvas.StopAutomapping();
+
+        if (options.QuickSave != null)
+        {
+          SaveAsCmdLineProject(options.QuickSave);
+          Project.Current.IsDirty = false;
+        }
+
+        Project.Current.IsDirty = false;
+        projectLoaded = true;
+      }
+      catch (Exception)
+      {
+      }
+      Project.Current.IsDirty = false;
+      return projectLoaded;
     }
 
     private void FileNewMenuItem_Click(object sender, EventArgs e)
@@ -250,7 +257,7 @@ namespace Trizbort
       return false;
     }
 
-    private bool OpenProject(string fileName)
+    public bool OpenProject(string fileName)
     {
       var project = new Project();
       project.FileName = fileName;
@@ -369,12 +376,13 @@ namespace Trizbort
       smartSave();
     }
 
-    private void smartSave()
+    private void smartSave(bool silent = false)
     {
 
       if (!Settings.SaveToPDF && !Settings.SaveToImage)
       {
-        MessageBox.Show("Your settings are set to not save anything. Please check your App Settings if this is not what you want.");
+        if (!silent)
+          MessageBox.Show("Your settings are set to not save anything. Please check your App Settings if this is not what you want.");
         return;
       }
 
@@ -434,7 +442,7 @@ namespace Trizbort
               sText += string.Format("Image file has been saved to {0}", sImageFile);
             }
 
-            MessageBox.Show(sText, "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (!silent) MessageBox.Show(sText, "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
           }
         }
       }

@@ -25,6 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Trizbort
@@ -332,12 +333,16 @@ namespace Trizbort
       }
     }
 
-    public void StartAutomapping(AutomapSettings settings)
+    public Task StartAutomapping(AutomapSettings settings, bool justParseFile = false)
     {
       StopAutomapping();
 
-      m_automap.Start(m_threadSafeAutomapCanvas, settings);
+      Task task;
+      task = justParseFile ? m_automap.StartCL(m_threadSafeAutomapCanvas, settings) : m_automap.Start(m_threadSafeAutomapCanvas, settings);
+
       m_dontAskAboutAmbiguities = false;
+
+      return task;
     }
 
     public void StopAutomapping()

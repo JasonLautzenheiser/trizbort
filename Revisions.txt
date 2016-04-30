@@ -4,6 +4,13 @@ Change Log
 -------------
 ENH: #196 - "tb dotted" in transcript now forces next connection to be dotted.
 ENH: #11  - "tb exit [direction]" in transcript will add a connection stub in that direction and "tb noexit [direction]" will remove a connection stub.
+ENH: #270 - refactored the command line handling.  Commands are now: 
+						-a, --loadlastproject
+						-m, --automap --> give it a text file transcript.  ex) trizbort --automap zork1.txt
+						-q, --quicksave --> quicksave the file to the given filename, useful in conjunction with other commands like --automap
+						-s, --smartsave --> silently do smartsave based on current smartsave settings.
+						-x, --exit --> close trizbort, again useful in conjunction with other arguments.  ex) trizbort --automap zork1.txt --quicksave zork1.trizbort --exit
+
 
 1.5.9.4
 -------------

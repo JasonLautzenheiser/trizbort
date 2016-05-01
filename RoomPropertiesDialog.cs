@@ -27,6 +27,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
+using DevComponents.DotNetBar.Schedule;
 
 namespace Trizbort
 {
@@ -829,6 +830,27 @@ namespace Trizbort
     private void chkHandDrawnRoom_CheckedChanged(object sender, EventArgs e)
     {
 
+    }
+
+
+
+    private void txtObjects_KeyDown(object sender, KeyEventArgs e)
+    {
+      SelectAllHandler(sender, e);
+    }
+
+    private static void SelectAllHandler(object sender, KeyEventArgs e)
+    {
+      if (e.Control && e.KeyCode == Keys.A)
+      {
+        ((TextBox) sender).SelectAll();
+        e.Handled = true;
+      }
+    }
+
+    private void m_descriptionTextBox_KeyDown(object sender, KeyEventArgs e)
+    {
+      SelectAllHandler(sender,e);
     }
   }
 }

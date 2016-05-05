@@ -38,7 +38,7 @@ namespace Trizbort
   ///   Elements have a position and size and may be drawn.
   ///   Elements have zero or more ports to which connections may be made.
   /// </remarks>
-  internal abstract class Element : IComparable<Element>, IComponent
+  public abstract class Element : IComparable<Element>, IComponent
   {
     private int m_id;
 

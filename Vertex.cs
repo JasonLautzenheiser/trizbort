@@ -36,7 +36,7 @@ namespace Trizbort
     /// Each vertex is fixed either to a point in space or 
     /// to an element's port.
     /// </remarks>
-    internal class Vertex
+    public class Vertex
     {
         public Vertex()
         {

@@ -24,7 +24,7 @@
 
 namespace Trizbort
 {
-  sealed partial class Canvas
+  public sealed partial class Canvas
     {
         /// <summary> 
         /// Required designer variable.

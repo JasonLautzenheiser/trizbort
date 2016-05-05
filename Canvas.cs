@@ -41,7 +41,7 @@ using Timer = System.Threading.Timer;
 
 namespace Trizbort
 {
-  internal sealed partial class Canvas : UserControl, IAutomapCanvas
+  public sealed partial class Canvas : UserControl, IAutomapCanvas
   {
     public const string CopyDelimiter = "::=::";
     private static readonly int RecomputeNMillisecondsAfterChange = 500;

@@ -32,7 +32,7 @@ using System.Windows.Forms;
 
 namespace Trizbort
 {
-  internal enum AutomapDirection
+  public enum AutomapDirection
   {
     North,
     South,

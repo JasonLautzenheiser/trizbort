@@ -2,6 +2,7 @@ Change Log
 
 1.5.9.5
 -------------
+---: ---- - exposed some properties from the EXE.  Allow for future plugins and apps integrating with Trizbort.
 ENH: #196 - "tb dotted" in transcript now forces next connection to be dotted.
 ENH: #11  - "tb exit [direction]" in transcript will add a connection stub in that direction and "tb noexit [direction]" will remove a connection stub.
 ENH: #270 - refactored the command line handling.  Commands are now: 

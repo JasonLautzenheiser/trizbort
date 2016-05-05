@@ -38,7 +38,7 @@ namespace Trizbort
   /// <summary>
   ///   A room in the project.
   /// </summary>
-  internal class Room : Element, ISizeable
+  public class Room : Element, ISizeable
   {
     private const CompassPoint DEFAULT_OBJECTS_POSITION = CompassPoint.South;
     private readonly List<string> mDescriptions = new List<string>();

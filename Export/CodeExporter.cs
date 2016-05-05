@@ -33,7 +33,7 @@ using System.Xml;
 
 namespace Trizbort.Export
 {
-  internal abstract class CodeExporter : IDisposable
+  public abstract class CodeExporter : IDisposable
   {
     /// <summary>
     ///   The collection of locations to export, indexed by their corresponding room.

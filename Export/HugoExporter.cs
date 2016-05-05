@@ -22,7 +22,6 @@
     THE SOFTWARE.
 */
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -31,8 +30,8 @@ using System.Text;
 
 namespace Trizbort.Export
 {
-    internal class HugoExporter : CodeExporter
-    {
+  internal class HugoExporter : CodeExporter
+  {
     private const char SINGLE_QUOTE = '\'';
     private const char DOUBLE_QUOTE = '"';
 
@@ -55,6 +54,12 @@ namespace Trizbort.Export
       writer.WriteLine();
       writer.WriteLine("routine init");
       writer.WriteLine("{");
+      writer.WriteLine("\tcls");
+      writer.WriteLine("\tverbosity = 2");
+      writer.WriteLine("\tcounter = -1");
+      writer.WriteLine("\tSTATUSTYPE = 1 !1 = score / turns, 2 = time, 3 = moves: score:");
+      writer.WriteLine("\tplayer = you");
+
       if (!string.IsNullOrWhiteSpace(title))
       {
         writer.WriteLine("\tFont(BOLD_ON)");
@@ -70,7 +75,7 @@ namespace Trizbort.Export
 
       if (LocationsInExportOrder.Count > 0)
       {
-        bool foundStart = false;
+        var foundStart = false;
         foreach (var location in LocationsInExportOrder)
         {
           if (location.Room.IsStartRoom)
@@ -84,7 +89,7 @@ namespace Trizbort.Export
           }
         }
         if (!foundStart)
-            writer.WriteLine("\tlocation = {0}", LocationsInExportOrder[0].ExportName);
+          writer.WriteLine("\tlocation = {0}", LocationsInExportOrder[0].ExportName);
       }
       else
       {
@@ -95,6 +100,8 @@ namespace Trizbort.Export
       {
         exportHistory(writer, history);
       }
+
+      writer.WriteLine("\tMovePlayer(location)");
       writer.WriteLine("}");
       writer.WriteLine();
     }
@@ -110,48 +117,61 @@ namespace Trizbort.Export
 
     protected override void ExportContent(TextWriter writer)
     {
+      if (RegionsInExportOrder.Count > 0)
+      {
+        writer.WriteLine("property region");
+      }
+
       foreach (var location in LocationsInExportOrder)
       {
-                if (!string.IsNullOrEmpty(location.Room.PrimaryDescription))
-                {
-                    writer.WriteLine("\tlong_desc");
-                    writer.WriteLine("\t{");
-                    writer.WriteLine("\t\t{0}", location.Room.PrimaryDescription);
-                    writer.WriteLine("\t}");
-                }
-                writer.WriteLine("room {0}", location.ExportName);
-                writer.WriteLine("{");
-                foreach (var direction in AllDirections)
-                {
-                    var exit = location.GetBestExit(direction);
-                    if (exit != null)
-                    {
-                        writer.WriteLine("\t{0} {1}", toHugoPropertyName(direction), exit.Target.ExportName);
-                    }
-                }
-                writer.WriteLine("}");
-                writer.WriteLine();
+        writer.WriteLine($"room {location.ExportName}");
+        writer.WriteLine("{");
 
-                exportThings(writer, location.Things, null, 1);
-            }
+        if (location.Room.Region != Region.DefaultRegion)
+          writer.WriteLine($"\tregion {location.Room.Region}");
 
-            writer.WriteLine("player_character you \"you\"");
+        if (!string.IsNullOrEmpty(location.Room.PrimaryDescription))
+        {
+          writer.WriteLine("\tlong_desc");
+          writer.WriteLine("\t\"");
+          writer.WriteLine($"\t\t{location.Room.PrimaryDescription}");
+          writer.WriteLine("\t\"");
+        }
+        writer.WriteLine();
+        foreach (var direction in AllDirections)
+        {
+          var exit = location.GetBestExit(direction);
+          if (exit != null)
+          {
+            writer.WriteLine($"\t{toHugoPropertyName(direction)} {exit.Target.ExportName}");
+          }
+        }
+        writer.WriteLine();
+        if (location.Room.IsDark)
+          writer.WriteLine("\tis not light");
+        writer.WriteLine("}");
+        writer.WriteLine();
+
+        exportThings(writer, location.Things, null, 1);
+      }
+
+      writer.WriteLine("player_character you \"you\"");
       writer.WriteLine("{");
       writer.WriteLine("}");
-            writer.WriteLine();
-
+      writer.WriteLine();
     }
 
     private static void exportThings(TextWriter writer, List<Thing> things, Thing container, int indent)
     {
-      foreach (var thing in things.Where(thing => thing.Container == container)) {
-                writer.WriteLine("object {0}", thing.ExportName);
-                writer.WriteLine("{");
-                writer.WriteLine("\tin {0}", thing.Location.ExportName);
-                writer.WriteLine("}");
-                writer.WriteLine();
+      foreach (var thing in things.Where(thing => thing.Container == container))
+      {
+        writer.WriteLine("object {0}", thing.ExportName);
+        writer.WriteLine("{");
+        writer.WriteLine("\tin {0}", thing.Location.ExportName);
+        writer.WriteLine("}");
+        writer.WriteLine();
 
-                exportThings(writer, thing.Contents, thing, indent + 1);
+        exportThings(writer, thing.Contents, thing, indent + 1);
       }
     }
 

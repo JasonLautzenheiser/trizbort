@@ -28,5 +28,23 @@ namespace Trizbort.Domain
 
     [Option('x', "exit", HelpText = "Exit Trizbort.")]
     public bool Exit { get; set; }
+
+    [Option("inform6", HelpText = "Export to I6.")]
+    public string I6 { get; set; }
+
+    [Option("inform7", HelpText = "Export to I7.")]
+    public string I7 { get; set; }
+
+    [Option("tads", HelpText = "Export to Tads.")]
+    public string Tads { get; set; }
+
+    [Option("alan", HelpText = "Export to Alan.")]
+    public string Alan { get; set; }
+
+    [Option("hugo", HelpText = "Export to Hugo.")]
+    public string Hugo { get; set; }
+
+    [Option("zil", HelpText = "Export to Zil.")]
+    public string Zil { get; set; }
   }
 }

@@ -258,6 +258,7 @@ namespace Trizbort.Export
         case AutomapDirection.Out:
           return "Outside";
         default:
+          return "";
           throw new InvalidOperationException("Cannot convert a direction to its Inform 7 equivalent.");
       }
     }

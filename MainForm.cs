@@ -130,6 +130,7 @@ namespace Trizbort
         Project.Current.IsDirty = false;
       }
 
+
       if (options.FileName != null)
       {
         if (!projectLoaded)
@@ -144,6 +145,36 @@ namespace Trizbort
         }
       }
 
+      if (!string.IsNullOrWhiteSpace(options.I6))
+      {
+        ExportCodeCL<Inform6Exporter>(options.I6);
+      }
+
+      if (!string.IsNullOrWhiteSpace(options.I7))
+      {
+        ExportCodeCL<Inform7Exporter>(options.I7);
+      }
+
+      if (!string.IsNullOrWhiteSpace(options.Tads))
+      {
+        ExportCodeCL<TadsExporter>(options.Tads);
+      }
+
+
+      if (!string.IsNullOrWhiteSpace(options.Alan))
+      {
+        ExportCodeCL<AlanExporter>(options.Alan);
+      }
+
+      if (!string.IsNullOrWhiteSpace(options.Hugo))
+      {
+        ExportCodeCL<HugoExporter>(options.Hugo);
+      }
+
+      if (!string.IsNullOrWhiteSpace(options.Zil))
+      {
+        ExportCodeCL<ZilExporter>(options.Zil);
+      }
 
       if (options.Exit)
       {
@@ -152,6 +183,8 @@ namespace Trizbort
 
       return projectLoaded;
     }
+
+    
 
     private async Task<bool> CLAutoMap(CommandLineOptions options)
     {
@@ -264,7 +297,6 @@ namespace Trizbort
       if (project.Load())
       {
         Project.Current = project;
-        //AboutMap();
         Settings.RecentProjects.Add(fileName);
         return true;
       }
@@ -786,6 +818,14 @@ namespace Trizbort
     private void tADSToTextToolStripMenuItem_Click(object sender, EventArgs e)
     {
       ExportCode<TadsExporter>();
+    }
+
+    private void ExportCodeCL<T>(string exportFile) where T : CodeExporter, new()
+    {
+      using (var exporter = new T())
+      {
+        exporter.Export(exportFile);
+      }
     }
 
     private void ExportCode<T>() where T: CodeExporter, new()

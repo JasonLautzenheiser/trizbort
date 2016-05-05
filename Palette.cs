@@ -38,7 +38,7 @@ namespace Trizbort
     /// of their lifetimes and avoids creating them until necessary,
     /// and then only once.
     /// </remarks>
-    internal class Palette : IDisposable
+    public class Palette : IDisposable
     {
         public void Dispose()
         {

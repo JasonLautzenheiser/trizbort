@@ -27,7 +27,7 @@ using System.Collections.Generic;
 
 namespace Trizbort
 {
-    internal class ProjectChangedEventArgs : EventArgs
+  public class ProjectChangedEventArgs : EventArgs
     {
         public ProjectChangedEventArgs(Project oldProject, Project newProject)
         {
@@ -39,7 +39,7 @@ namespace Trizbort
         public Project NewProject { get; private set; }
     }
 
-    internal class ItemEventArgs<T> : EventArgs
+  public class ItemEventArgs<T> : EventArgs
     {
         public ItemEventArgs(T item)
         {
@@ -49,7 +49,8 @@ namespace Trizbort
         public T Item { get; private set; }
     }
 
-    internal delegate void ProjectChangedEventHandler(object sender, ProjectChangedEventArgs e);
-    internal delegate void ItemEventHandler<T>(object sender, ItemEventArgs<T> e);
+  public delegate void ProjectChangedEventHandler(object sender, ProjectChangedEventArgs e);
+
+  public delegate void ItemEventHandler<T>(object sender, ItemEventArgs<T> e);
 
 }

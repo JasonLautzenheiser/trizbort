@@ -33,7 +33,7 @@ using Trizbort.Extensions;
 
 namespace Trizbort
 {
-  internal class Project
+  public class Project
   {
     public static readonly string FilterString = "Trizbort Map Files|*.trizbort";
     private static Project mCurrent = new Project();

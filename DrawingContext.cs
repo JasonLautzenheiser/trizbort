@@ -31,7 +31,7 @@ namespace Trizbort
     /// <summary>
     /// The context in which an object's drawing is taking place.
     /// </summary>
-    internal class DrawingContext
+    public class DrawingContext
     {
         public DrawingContext(float zoomFactor)
         {

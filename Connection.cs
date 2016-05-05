@@ -42,7 +42,7 @@ namespace Trizbort
   ///   Each vertex is fixed either to a point in space or
   ///   to an element's port.
   /// </remarks>
-  internal class Connection : Element
+  public class Connection : Element
   {
     public const string Up = "up";
     public const string Down = "down";
@@ -1011,7 +1011,7 @@ namespace Trizbort
   /// <summary>
   ///   The visual style of a connection.
   /// </summary>
-  internal enum ConnectionStyle
+  public enum ConnectionStyle
   {
     Solid,
     Dashed
@@ -1020,7 +1020,7 @@ namespace Trizbort
   /// <summary>
   ///   The direction in which a connection flows.
   /// </summary>
-  internal enum ConnectionFlow
+  public enum ConnectionFlow
   {
     TwoWay,
     OneWay
@@ -1030,7 +1030,7 @@ namespace Trizbort
   ///   The style of label to display on a line.
   ///   This is a simple set of defaults; lines may have entirely custom labels.
   /// </summary>
-  internal enum ConnectionLabel
+  public enum ConnectionLabel
   {
     None,
     Up,

@@ -30,7 +30,7 @@ using System.Windows.Forms;
 
 namespace Trizbort
 {
-  sealed partial class Canvas
+  public sealed partial class Canvas
   {
     private readonly Automap m_automap = Automap.Instance;
     private readonly MultithreadedAutomapCanvas m_threadSafeAutomapCanvas;

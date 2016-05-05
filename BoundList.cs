@@ -28,7 +28,7 @@ using System.Collections.ObjectModel;
 
 namespace Trizbort
 {
-    internal class BoundList<T> : Collection<T>
+  public class BoundList<T> : Collection<T>
     {
         public void AddRange<U>(IEnumerable<U> list) where U : T
         {

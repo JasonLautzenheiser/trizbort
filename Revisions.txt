@@ -12,6 +12,8 @@ ENH: #270 - refactored the command line handling.  Commands are now:
 						-s, --smartsave --> silently do smartsave based on current smartsave settings.
 						-x, --exit --> close trizbort, again useful in conjunction with other arguments.  ex) trizbort --automap zork1.txt --quicksave zork1.trizbort --exit
 
+ENH: #267 - added command line parameters for exporting maps to source files --inform7, --inform6, --alan, --hugo, --tads, --zil
+
 
 1.5.9.4
 -------------

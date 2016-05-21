@@ -33,6 +33,7 @@ using System.Threading;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
+using Trizbort.Domain;
 using Timer = System.Threading.Timer;
 
 // ReSharper disable PossibleLossOfFraction
@@ -1278,11 +1279,24 @@ namespace Trizbort
           break;
 
         case Keys.K:
+
           if (ModifierKeys == Keys.None)
           {
-            foreach (var room in SelectedRooms)
-              room.IsDark = !room.IsDark;
+            CanvasController.ToggleDarkness(SelectedRooms);
           }
+
+          if (ModifierKeys == (Keys.Control | Keys.Shift))
+          {
+            CanvasController.ForceLighted(SelectedRooms);
+          }
+
+          if (ModifierKeys == Keys.Control)
+          {
+            CanvasController.ForceDarkness(SelectedRooms);
+          }
+
+
+
           break;
 
         case Keys.F1:

@@ -13,6 +13,8 @@ ENH: #270 - refactored the command line handling.  Commands are now:
 						-x, --exit --> close trizbort, again useful in conjunction with other arguments.  ex) trizbort --automap zork1.txt --quicksave zork1.trizbort --exit
 
 ENH: #267 - added command line parameters for exporting maps to source files --inform7, --inform6, --alan, --hugo, --tads, --zil
+ENH: #186 - Added region support to Hugo export.
+ENH: #279 - Added Ctrl-K to Force Darkness on selected rooms; Added Ctrl-Shift-K to force lighted on rooms.
 
 
 1.5.9.4

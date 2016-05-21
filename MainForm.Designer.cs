@@ -111,9 +111,11 @@ namespace Trizbort
       this.roomsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_editAddRoomMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_editRenameMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_editChangeRegionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
       this.m_editIsDarkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.m_editChangeRegionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.makeRoomDarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.makeRoomLightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
       this.roomShapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.handDrawnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -645,9 +647,11 @@ namespace Trizbort
       this.roomsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.m_editAddRoomMenuItem,
             this.m_editRenameMenuItem,
+            this.m_editChangeRegionMenuItem,
             this.toolStripSeparator16,
             this.m_editIsDarkMenuItem,
-            this.m_editChangeRegionMenuItem,
+            this.makeRoomDarkToolStripMenuItem,
+            this.makeRoomLightToolStripMenuItem,
             this.toolStripSeparator2,
             this.roomShapeToolStripMenuItem,
             this.toolStripSeparator18,
@@ -678,6 +682,14 @@ namespace Trizbort
       this.m_editRenameMenuItem.Text = "Re&name";
       this.m_editRenameMenuItem.Click += new System.EventHandler(this.EditRenameMenuItem_Click);
       // 
+      // m_editChangeRegionMenuItem
+      // 
+      this.m_editChangeRegionMenuItem.Name = "m_editChangeRegionMenuItem";
+      this.m_editChangeRegionMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F2)));
+      this.m_editChangeRegionMenuItem.Size = new System.Drawing.Size(229, 22);
+      this.m_editChangeRegionMenuItem.Text = "Change Region";
+      this.m_editChangeRegionMenuItem.Click += new System.EventHandler(this.m_editChangeRegionMenuItem_Click);
+      // 
       // toolStripSeparator16
       // 
       this.toolStripSeparator16.Name = "toolStripSeparator16";
@@ -691,13 +703,22 @@ namespace Trizbort
       this.m_editIsDarkMenuItem.Text = "Toggle Dar&kness";
       this.m_editIsDarkMenuItem.Click += new System.EventHandler(this.EditIsDarkMenuItem_Click);
       // 
-      // m_editChangeRegionMenuItem
+      // makeRoomDarkToolStripMenuItem
       // 
-      this.m_editChangeRegionMenuItem.Name = "m_editChangeRegionMenuItem";
-      this.m_editChangeRegionMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F2)));
-      this.m_editChangeRegionMenuItem.Size = new System.Drawing.Size(229, 22);
-      this.m_editChangeRegionMenuItem.Text = "Change Region";
-      this.m_editChangeRegionMenuItem.Click += new System.EventHandler(this.m_editChangeRegionMenuItem_Click);
+      this.makeRoomDarkToolStripMenuItem.Name = "makeRoomDarkToolStripMenuItem";
+      this.makeRoomDarkToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
+      this.makeRoomDarkToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+      this.makeRoomDarkToolStripMenuItem.Text = "Force Darkness";
+      this.makeRoomDarkToolStripMenuItem.Click += new System.EventHandler(this.makeRoomDarkToolStripMenuItem_Click);
+      // 
+      // makeRoomLightToolStripMenuItem
+      // 
+      this.makeRoomLightToolStripMenuItem.Name = "makeRoomLightToolStripMenuItem";
+      this.makeRoomLightToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.K)));
+      this.makeRoomLightToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+      this.makeRoomLightToolStripMenuItem.Text = "Force Lighted";
+      this.makeRoomLightToolStripMenuItem.Click += new System.EventHandler(this.makeRoomLightToolStripMenuItem_Click);
       // 
       // toolStripSeparator2
       // 
@@ -1395,6 +1416,8 @@ namespace Trizbort
     private System.Windows.Forms.ToolStripMenuItem swapNamesToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem swapFormatsFillsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem swapRegionsToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem makeRoomDarkToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem makeRoomLightToolStripMenuItem;
   }
 }
 

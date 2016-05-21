@@ -1111,9 +1111,7 @@ namespace Trizbort
 
     private void EditIsDarkMenuItem_Click(object sender, EventArgs e)
     {
-      foreach (var room in Canvas.SelectedRooms) {
-        room.IsDark = !room.IsDark;
-      }
+      CanvasController.ToggleDarkness(Canvas.SelectedRooms);
     }
 
     private void ProjectSettingsMenuItem_Click(object sender, EventArgs e)
@@ -1410,6 +1408,16 @@ namespace Trizbort
     private void swapRegionsToolStripMenuItem_Click(object sender, EventArgs e)
     {
       Canvas.SwapRoomRegions();
+    }
+
+    private void makeRoomDarkToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      CanvasController.ForceDarkness(Canvas.SelectedRooms);
+    }
+
+    private void makeRoomLightToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      CanvasController.ForceLighted(Canvas.SelectedRooms);
     }
   }
 }

@@ -143,6 +143,7 @@
     <Compile Include="DisambiguateRoomsDialog.Designer.cs">
       <DependentUpon>DisambiguateRoomsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Domain\CanvasController.cs" />
     <Compile Include="Domain\CommandLineOptions.cs" />
     <Compile Include="DrawingContext.cs" />
     <Compile Include="Element.cs" />

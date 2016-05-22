@@ -143,8 +143,15 @@
     <Compile Include="DisambiguateRoomsDialog.Designer.cs">
       <DependentUpon>DisambiguateRoomsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Domain\CanvasController.cs" />
     <Compile Include="Domain\CommandLineOptions.cs" />
+    <Compile Include="Domain\Commands\SelectCommand.cs" />
+    <Compile Include="Domain\Controllers\CanvasController.cs" />
+    <Compile Include="Domain\Controllers\CommandController.cs" />
+    <Compile Include="Domain\Controllers\ElementController.cs" />
+    <Compile Include="Domain\Controllers\RoomController.cs" />
+    <Compile Include="Domain\Enums\LightingActionType.cs" />
+    <Compile Include="Domain\Enums\SelectTypes.cs" />
+    <Compile Include="Domain\ICommand.cs" />
     <Compile Include="DrawingContext.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="BoundList.cs" />

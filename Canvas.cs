@@ -33,7 +33,8 @@ using System.Threading;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
-using Trizbort.Domain;
+using Trizbort.Domain.Controllers;
+using Trizbort.Domain.Enums;
 using Timer = System.Threading.Timer;
 
 // ReSharper disable PossibleLossOfFraction
@@ -44,6 +45,9 @@ namespace Trizbort
 {
   public sealed partial class Canvas : UserControl, IAutomapCanvas
   {
+
+    private readonly CommandController commandController;
+
     public const string CopyDelimiter = "::=::";
     private static readonly int RecomputeNMillisecondsAfterChange = 500;
     private static bool mSmartLineSegmentsUpToDate;
@@ -77,6 +81,8 @@ namespace Trizbort
     public Canvas()
     {
       InitializeComponent();
+
+      commandController = new CommandController(this);
 
       SetStyle(ControlStyles.Selectable, true);
       TabStop = true;
@@ -164,7 +170,7 @@ namespace Trizbort
 
     public bool HasSingleSelectedElement => SelectedElementCount == 1;
 
-    public IEnumerable<Element> SelectedElements => mSelectedElements;
+    public IList<Element> SelectedElements => mSelectedElements;
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     private ResizeHandle hoverHandle
@@ -502,7 +508,7 @@ namespace Trizbort
         // HACK: fudge the canvas size to allow for overhanging line/object text
         var v1 = Settings.LineFont.GetHeight();
         var v2 = Settings.SmallFont.GetHeight() * 24;
-        bounds.Inflate(Math.Max(Settings.LineFont.GetHeight(), Settings.SmallFont.GetHeight())*24);
+        bounds.Inflate(Math.Max(v1, v2));
       }
       return bounds;
     }
@@ -786,15 +792,6 @@ namespace Trizbort
       graphics.DrawLine(palette.MarqueeBorderPen, topLeft, bottomLeft);
     }
 
-    private static RectangleF CanvasToClient(RectangleF bounds, Rect canvasBounds, Rectangle clientArea)
-    {
-      bounds.X = (bounds.X - canvasBounds.Left)/Math.Max(1, canvasBounds.Width)*clientArea.Width;
-      bounds.Y = (bounds.Y - canvasBounds.Top)/Math.Max(1, canvasBounds.Height)*clientArea.Height;
-      bounds.Width = bounds.Width/Math.Max(1, canvasBounds.Width)*clientArea.Width;
-      bounds.Height = bounds.Height/Math.Max(1, canvasBounds.Height)*clientArea.Height;
-      return bounds;
-    }
-
     public PointF CanvasToClient(Vector v)
     {
       v.X -= Origin.X;
@@ -882,13 +879,13 @@ namespace Trizbort
 
       if (isDragButton(e))
       {
-        beginDragPan(clientPos, canvasPos);
+        beginDragPan(clientPos);
       }
       else if (e.Button == MouseButtons.Left)
       {
         if (CanSelectElements)
         {
-          beginDragMove(clientPos, canvasPos);
+          beginDragMove(canvasPos);
         }
         if (dragMode == DragModes.None)
         {
@@ -901,7 +898,7 @@ namespace Trizbort
       else if (e.Button == MouseButtons.Right)
       {
         if (CanSelectElements)
-          beginDragMove(clientPos, canvasPos);
+          beginDragMove(canvasPos);
       }
 
       base.OnMouseDown(e);
@@ -937,18 +934,18 @@ namespace Trizbort
       switch (dragMode)
       {
         case DragModes.Pan:
-          doDragPan(clientPos, canvasPos);
+          doDragPan(clientPos);
           break;
         case DragModes.MoveElement:
-          doDragMoveElement(clientPos, canvasPos);
+          doDragMoveElement(canvasPos);
           break;
         case DragModes.MoveResizeHandle:
-          doDragMoveResizeHandle(clientPos, canvasPos);
+          doDragMoveResizeHandle(canvasPos);
           break;
         case DragModes.MovePort:
           HoverElement = hitTestElement(canvasPos, true);
           hoverPort = hitTestPort(canvasPos);
-          doDragMovePort(clientPos, canvasPos);
+          doDragMovePort(canvasPos);
           break;
         case DragModes.None:
           hoverHandle = hitTestHandle(canvasPos); // set first; it will RecreatePorts() if the value changes
@@ -986,7 +983,7 @@ namespace Trizbort
           if (new Vector(mLastMouseDownPosition).Distance(new Vector(mousePosition)) > Settings.DragDistanceToInitiateNewConnection)
           {
             var startPos = new PointF(mLastMouseDownPosition.X, mLastMouseDownPosition.Y);
-            beginDrawConnection(startPos, ClientToCanvas(startPos));
+            beginDrawConnection(ClientToCanvas(startPos));
           }
           break;
         case DragModes.Marquee:
@@ -1003,9 +1000,9 @@ namespace Trizbort
     {
       if (e.Button == MouseButtons.Left)
       {
-        if (CanSelectElements && HasSingleSelectedElement && SelectedElement.HasDialog)
+        if (CanSelectElements && HasSingleSelectedElement)
         {
-          SelectedElement.ShowDialog();
+          commandController.ShowElementProperties(SelectedElement);
         }
       }
       base.OnMouseDoubleClick(e);
@@ -1026,45 +1023,37 @@ namespace Trizbort
         case Keys.Enter:
           if (SelectedElement == null)
           {
-            getRoomClosestToCenter();
+            commandController.SelectRoomClosestToCenterOfViewport();
           }
-          else if (HasSingleSelectedElement && SelectedElement.HasDialog)
+          else if (HasSingleSelectedElement)
           {
-            SelectedElement.ShowDialog();
+            commandController.ShowElementProperties(SelectedElement);
           }
           break;
 
         case Keys.Escape:
-          SelectedElement = null;
+          commandController.Select(SelectTypes.None);
           break;
 
         case Keys.D0:
         case Keys.NumPad0:
-          var startRoom = Project.Current.Elements.OfType<Room>().FirstOrDefault(p => p.IsStartRoom);
-          if (startRoom != null)
-          {
-            SelectedElement = startRoom;
-            EnsureVisible(startRoom);
-          }
+          commandController.SelectStartRoom();
           break;
 
         case Keys.A:
-          if (e.Control)
-          {
-            if (e.Shift)
-            {
-              var regions = SelectedRooms.Select(p => p.Region).Distinct().ToList();
-              SelectAllRegion(regions);
-            }
-            else
-            {
-              SelectAll();
-            }
-          }
-          else if (e.Modifiers == Keys.None)
-          {
-            NewConnectionFlow = NewConnectionFlow == ConnectionFlow.TwoWay ? ConnectionFlow.OneWay : ConnectionFlow.TwoWay;
-            ApplyConnectionFlow(NewConnectionFlow);
+          switch (ModifierKeys) {
+            case (Keys.Control | Keys.Shift):
+              commandController.SelectRegions();
+              break;
+            case Keys.Control:
+              commandController.Select(SelectTypes.All);
+              break;
+            default:
+              if (e.Modifiers == Keys.None)
+              {
+                commandController.ToggleConnectionFlow(NewConnectionFlow);
+              }
+              break;
           }
           break;
 
@@ -1079,12 +1068,18 @@ namespace Trizbort
           break;
 
         case Keys.Home:
-          if (e.Control)
-            ZoomToFit();
-          else if (ModifierKeys == Keys.Shift)
-            shiftArrowHandler(Keys.Home);
-          else
-            ResetZoomOrigin();
+          switch (ModifierKeys)
+          {
+            case Keys.Control:
+              ZoomToFit();
+              break;
+            case Keys.Shift:
+              shiftArrowHandler(Keys.Home);
+              break;
+            default:
+              ResetZoomOrigin();
+              break;
+          }
           break;
 
         case Keys.PageUp:
@@ -1119,37 +1114,25 @@ namespace Trizbort
         case Keys.H:
           if (ModifierKeys == Keys.Control)
           {
-            foreach (var room in SelectedRooms)
-            {
-              room.Shape = RoomShape.SquareCorners;
-              Invalidate();
-            }
+            commandController.SetRoomShape(RoomShape.SquareCorners);
           }
           break;
 
         case Keys.E:
           if (ModifierKeys == Keys.Control)
           {
-            foreach (var room in SelectedRooms)
-            {
-              room.Shape = RoomShape.Ellipse;
-              Invalidate();
-            }
+            commandController.SetRoomShape(RoomShape.SquareCorners);
           }
           break;
 
         case Keys.R:
-          if (ModifierKeys == Keys.Control)
-          {
-            foreach (var room in SelectedRooms)
-            {
-              room.Shape = RoomShape.RoundedCorners;
-              Invalidate();
-            }
-          }
-          else if (ModifierKeys == Keys.None)
-          {
-            AddRoom(true, true);
+          switch (ModifierKeys) {
+            case Keys.Control:
+              commandController.SetRoomShape(RoomShape.RoundedCorners);
+              break;
+            case Keys.None:
+              AddRoom(true, true);
+              break;
           }
           break;
 
@@ -1163,8 +1146,7 @@ namespace Trizbort
         case Keys.T:
           if (ModifierKeys == Keys.None)
           {
-            NewConnectionStyle = NewConnectionStyle == ConnectionStyle.Solid ? ConnectionStyle.Dashed : ConnectionStyle.Solid;
-            ApplyConnectionStyle(NewConnectionStyle);
+            commandController.ToggleConnectionStyle(NewConnectionStyle);
           }
           break;
         case Keys.P:
@@ -1176,67 +1158,68 @@ namespace Trizbort
         case Keys.U:
           if (ModifierKeys == Keys.None)
           {
-            NewConnectionLabel = ConnectionLabel.Up;
-            ApplyConnectionLabel(NewConnectionLabel);
+            commandController.SetConnectionLabel(ConnectionLabel.Up);
           }
           break;
         case Keys.D:
-          if (ModifierKeys == Keys.None)
-          {
-            NewConnectionLabel = ConnectionLabel.Down;
-            ApplyConnectionLabel(NewConnectionLabel);
-          }
-          if (ModifierKeys == Keys.Control)
-          {
-            if ((HasSingleSelectedElement) && (SelectedElement.GetType() == typeof(Room)))
-            {
-              var x = (Room)SelectedElement;
-              x.DeleteAllRoomConnections();
-            }
+          switch (ModifierKeys) {
+            case Keys.None:
+              commandController.SetConnectionLabel(ConnectionLabel.Down);
+              break;
+            case Keys.Control:
+              if ((HasSingleSelectedElement) && (SelectedElement.GetType() == typeof(Room)))
+              {
+                var x = (Room)SelectedElement;
+                x.DeleteAllRoomConnections();
+              }
+              break;
           }
           break;
         case Keys.OemSemicolon:
         case Keys.Oem5:
-          if (ModifierKeys == Keys.None)
-          {
-            if ((HasSingleSelectedElement) && (SelectedElement.GetType() == typeof(Room)))
-            {
-              var x = (Room)SelectedElement;
-              x.AdjustAllRoomConnections();
-            }
-          }
-          else if ((ModifierKeys & Keys.Control) == Keys.Control)
-          {
-            var desc = new string[3];
-            desc[0] = "NSEW";
-            desc[1] = "diagonals";
-            desc[2] = "all ports";
-            Settings.PortAdjustDetail++; Settings.PortAdjustDetail %= 3;
-            int x = 4 << Settings.PortAdjustDetail; // yeah this is cutesy code but it does the job
-            if ((ModifierKeys & Keys.Shift) == Keys.Shift) //Shift pops up current port adjust detail
-              MessageBox.Show("Available ports for readjustment " +( (Settings.PortAdjustDetail == 0) ? "de" : "in") + "creased to " + x.ToString() + " (" + desc[Settings.PortAdjustDetail] +").", "Port Detail Adjust");
+          switch (ModifierKeys) {
+            case Keys.None:
+              if (HasSingleSelectedElement && (SelectedElement.GetType() == typeof(Room)))
+              {
+                var room = (Room)SelectedElement;
+                room.AdjustAllRoomConnections();
+              }
+              break;
+            case Keys.Control:
+              var desc = new string[3];
+              desc[0] = "NSEW";
+              desc[1] = "diagonals";
+              desc[2] = "all ports";
+              Settings.PortAdjustDetail++; Settings.PortAdjustDetail %= 3;
+              int x = 4 << Settings.PortAdjustDetail; // yeah this is cutesy code but it does the job
+              if ((ModifierKeys & Keys.Shift) == Keys.Shift) //Shift pops up current port adjust detail
+                MessageBox.Show($"Available ports for readjustment {((Settings.PortAdjustDetail == 0) ? "de" : "in")}creased to {x} ({desc[Settings.PortAdjustDetail]}).", "Port Detail Adjust");
+              break;
           }
           break;
         case Keys.I:
           if (ModifierKeys == Keys.None)
           {
-            NewConnectionLabel = ConnectionLabel.In;
-            ApplyConnectionLabel(NewConnectionLabel);
+            commandController.SetConnectionLabel(ConnectionLabel.In);
           }
           break;
         case Keys.O:
           if (ModifierKeys == Keys.None)
           {
-            NewConnectionLabel = ConnectionLabel.Out;
-            ApplyConnectionLabel(NewConnectionLabel);
+            commandController.SetConnectionLabel(ConnectionLabel.Out);
           }
           break;
 
         case Keys.V:
-          if (ModifierKeys == Keys.Control)
-            Paste(true);
-          else if (ModifierKeys == Keys.None)
-            ReverseLineDirection();
+          switch (ModifierKeys)
+          {
+            case Keys.Control:
+              Paste(true);
+              break;
+            case Keys.None:
+              ReverseLineDirection();
+              break;
+          }
           break;
 
         case Keys.OemCloseBrackets:
@@ -1280,19 +1263,16 @@ namespace Trizbort
 
         case Keys.K:
 
-          if (ModifierKeys == Keys.None)
-          {
-            CanvasController.ToggleDarkness(SelectedRooms);
-          }
-
-          if (ModifierKeys == (Keys.Control | Keys.Shift))
-          {
-            CanvasController.ForceLighted(SelectedRooms);
-          }
-
-          if (ModifierKeys == Keys.Control)
-          {
-            CanvasController.ForceDarkness(SelectedRooms);
+          switch (ModifierKeys) {
+            case Keys.None:
+              commandController.SetRoomLighting(LightingActionType.Toggle);
+              break;
+            case (Keys.Control | Keys.Shift):
+              commandController.SetRoomLighting(LightingActionType.ForceLight);
+              break;
+            case Keys.Control:
+              commandController.SetRoomLighting(LightingActionType.ForceDark);
+              break;
           }
 
 
@@ -1479,30 +1459,32 @@ namespace Trizbort
 
       //this seems prohibitively time consuming as Genstein pointed out elsewhere, and I don't like the code. It can probably be simpler.
       //But the basic idea is to try the main direction, then the direction clockwise, then the direction counterclockwise.
+      if (thisRoom == null) return;
+
       foreach (var tSelectedElement in thisRoom.GetConnections(direction))
-      if (tSelectedElement != null)
-      {
-        EnsureVisible(tSelectedElement);
-        SelectedElement = tSelectedElement;
-        Refresh();
-        return;
-      }
+        if (tSelectedElement != null)
+        {
+          commandController.MakeVisible(tSelectedElement);
+          SelectedElement = tSelectedElement;
+          Refresh();
+          return;
+        }
       foreach (var tSelectedElement in thisRoom.GetConnections(CompassPointHelper.RotateClockwise(direction)))
-      if (tSelectedElement != null)
-      {
-        EnsureVisible(tSelectedElement);
-        SelectedElement = tSelectedElement;
-        Refresh();
-        return;
-      }
+        if (tSelectedElement != null)
+        {
+          commandController.MakeVisible(tSelectedElement);
+          SelectedElement = tSelectedElement;
+          Refresh();
+          return;
+        }
       foreach (var tSelectedElement in thisRoom.GetConnections(CompassPointHelper.RotateAntiClockwise(direction)))
-      if (tSelectedElement != null)
-      {
-        EnsureVisible(tSelectedElement);
-        SelectedElement = tSelectedElement;
-        Refresh();
-        return;
-      }
+        if (tSelectedElement != null)
+        {
+          commandController.MakeVisible(tSelectedElement);
+          SelectedElement = tSelectedElement;
+          Refresh();
+          return;
+        }
     }
 
     private void ctrlArrowHandler(Keys keyCode)
@@ -1548,26 +1530,6 @@ namespace Trizbort
       }
     }
 
-    private void getRoomClosestToCenter()
-    {
-      // select the room closest to the center of the viewport
-      var viewportCenter = Viewport.Center;
-      Room closestRoom = null;
-      var closestDistance = float.MaxValue;
-      foreach (var element in Project.Current.Elements.OfType<Room>())
-      {
-        var roomCenter = element.InnerBounds.Center;
-        var distance = roomCenter.Distance(viewportCenter);
-
-        if (!(distance < closestDistance)) continue;
-        closestRoom = element;
-        closestDistance = distance;
-      }
-      SelectedElement = closestRoom;
-
-      if (SelectedElement != null) EnsureVisible(SelectedElement);
-    }
-
     public void ToggleText()
     {
       Settings.DebugDisableTextRendering = !Settings.DebugDisableTextRendering;
@@ -1577,7 +1539,7 @@ namespace Trizbort
     public void SwapRoomRegions()
     {
       var selectedRooms = SelectedRooms;
-      if (selectedRooms.Count() != 2) return;
+      if (selectedRooms.Count != 2) return;
 
       var room1 = selectedRooms.First();
       var room2 = selectedRooms.Last();
@@ -1590,16 +1552,16 @@ namespace Trizbort
     public void SwapRoomFill()
     {
       var selectedRooms = SelectedRooms;
-      if (selectedRooms.Count() != 2) return;
+      if (selectedRooms.Count != 2) return;
 
       var room1 = selectedRooms.First();
       var room2 = selectedRooms.Last();
 
-      var tBS = room1.BorderStyle;
-      var tRB = room1.RoomBorder;
-      var tRF = room1.RoomFill;
-      var tSF = room1.SecondFill;
-      var tSFL = room1.SecondFillLocation;
+      var tBs = room1.BorderStyle;
+      var tRb = room1.RoomBorder;
+      var tRf = room1.RoomFill;
+      var tSf = room1.SecondFill;
+      var tSfl = room1.SecondFillLocation;
       var tShape = room1.Shape;
 
       room1.BorderStyle = room2.BorderStyle;
@@ -1609,18 +1571,18 @@ namespace Trizbort
       room1.SecondFill = room2.SecondFill;
       room1.Shape = room2.Shape;
 
-      room2.BorderStyle = tBS;
-      room2.RoomBorder = tRB;
-      room2.RoomFill = tRF;
-      room2.SecondFillLocation = tSFL;
-      room2.SecondFill = tSF;
+      room2.BorderStyle = tBs;
+      room2.RoomBorder = tRb;
+      room2.RoomFill = tRf;
+      room2.SecondFillLocation = tSfl;
+      room2.SecondFill = tSf;
       room2.Shape = tShape;
     }
 
     public void SwapRoomNames()
     {
       var selectedRooms = SelectedRooms;
-      if (selectedRooms.Count() != 2) return;
+      if (selectedRooms.Count != 2) return;
 
       var room1 = selectedRooms.First();
       var room2 = selectedRooms.Last();
@@ -1633,7 +1595,7 @@ namespace Trizbort
     public void SwapRooms()
     {
       var selectedRooms = SelectedRooms;
-      if (selectedRooms.Count() != 2) return;
+      if (selectedRooms.Count != 2) return;
 
       var room1 = selectedRooms.First();
       var room2 = selectedRooms.Last();
@@ -1642,14 +1604,6 @@ namespace Trizbort
       room2.Objects = objects;
     }
 
-    private RectangleF calcViewportBounds()
-    {
-      var clientArea = new Rectangle(0, 0, Width, Height);
-      var canvasBounds = ComputeCanvasBounds(false);
-      var viewportBounds = CanvasToClient(Viewport.ToRectangleF(), canvasBounds, clientArea);
-      viewportBounds.Intersect(clientArea);
-      return viewportBounds;
-    }
 
     /// <summary>
     ///   Select the room in the given direction from the selected room;
@@ -1666,7 +1620,7 @@ namespace Trizbort
         if (nextRoom != null)
         {
           SelectedElement = nextRoom;
-          EnsureVisible(SelectedElement);
+          commandController.MakeVisible(SelectedElement);
           return true;
         }
       }
@@ -1767,7 +1721,7 @@ namespace Trizbort
           var tSelectedElement = conn.VertexList[0]?.Port?.Owner;
           if (tSelectedElement != null)
           {
-            EnsureVisible(tSelectedElement);
+            commandController.MakeVisible(tSelectedElement);
             HoverElement = null;
             SelectedElement = tSelectedElement;
             Refresh();
@@ -1787,7 +1741,7 @@ namespace Trizbort
           var tSelectedElement = conn.VertexList[1]?.Port?.Owner;
           if (tSelectedElement != null)
           {
-            EnsureVisible(tSelectedElement);
+            commandController.MakeVisible(tSelectedElement);
             HoverElement = null;
             SelectedElement = tSelectedElement;
             Refresh();
@@ -1863,7 +1817,7 @@ namespace Trizbort
           // just connect the rooms together
           addConnection(room, compassPoint, two, CompassPointHelper.GetOpposite(compassPoint));
           SelectedElement = existing;
-          EnsureVisible(SelectedElement);
+          commandController.MakeVisible(SelectedElement);
         }
         else
         {
@@ -1882,7 +1836,7 @@ namespace Trizbort
           Project.Current.Elements.Add(newRoom);
           addConnection(room, compassPoint, newRoom, CompassPointHelper.GetOpposite(compassPoint));
           SelectedElement = newRoom;
-          EnsureVisible(SelectedElement);
+          commandController.MakeVisible(SelectedElement);
           Refresh();
           newRoom.ShowDialog();
         }
@@ -1938,11 +1892,7 @@ namespace Trizbort
     /// </remarks>
     private Room getRoomInApproximateDirectionFromRoom(Room room, CompassPoint compassPoint)
     {
-      Room nextRoom;
-      if (getRoomInExactDirectionFromRoom(room, compassPoint) != null)
-        nextRoom = getRoomInExactDirectionFromRoom(room, compassPoint);
-      else
-        nextRoom = getRoomInExactDirectionFromRoom(room, CompassPointHelper.RotateAntiClockwise(compassPoint));
+      Room nextRoom = getRoomInExactDirectionFromRoom(room, compassPoint) ?? getRoomInExactDirectionFromRoom(room, CompassPointHelper.RotateAntiClockwise(compassPoint));
 
       return nextRoom ?? (getRoomInExactDirectionFromRoom(room, CompassPointHelper.RotateClockwise(compassPoint)));
     }
@@ -1970,55 +1920,8 @@ namespace Trizbort
       return null;
     }
 
-    /// <summary>
-    ///   Ensure the given element is visible, without changing the zoom factor.
-    /// </summary>
-    /// <param name="element">The element to make visible.</param>
-    private void EnsureVisible(Element element)
-    {
-      if (element == null) return;
-      var rect = Rect.Empty;
-      rect = element.UnionBoundsWith(rect, false);
-      if (rect != Rect.Empty)
-      {
-        Origin = rect.Center;
-      }
-    }
 
-    /// <summary>
-    ///   Ensure the given point is visible.
-    /// </summary>
-    /// <param name="canvasPos">The canvas position to make visible.</param>
-    private void EnsureVisible(Vector canvasPos)
-    {
-      var topLeft = ClientToCanvas(PointF.Empty);
-      var bottomRight = ClientToCanvas(new PointF(Width, Height));
-      var dx = 0.0f;
-      var dy = 0.0f;
-      if (canvasPos.X < topLeft.X)
-      {
-        dx -= topLeft.X - canvasPos.X;
-      }
-      if (canvasPos.Y < topLeft.Y)
-      {
-        dy -= topLeft.Y - canvasPos.Y;
-      }
-      if (canvasPos.X > bottomRight.X)
-      {
-        dx += canvasPos.X - bottomRight.X;
-      }
-      if (canvasPos.Y > bottomRight.Y)
-      {
-        dy += canvasPos.Y - bottomRight.Y;
-      }
-      if (dx != 0 || dy != 0)
-      {
-        var origin = Origin;
-        Origin = new Vector(origin.X + dx, origin.Y + dy);
-      }
-    }
-
-    private void beginDragPan(PointF clientPos, Vector canvasPos)
+    private void beginDragPan(PointF clientPos)
     {
       dragMode = DragModes.Pan;
       mPanPosition = clientPos;
@@ -2026,7 +1929,7 @@ namespace Trizbort
       Capture = true;
     }
 
-    private void beginDragMove(PointF clientPos, Vector canvasPos)
+    private void beginDragMove(Vector canvasPos)
     {
       if (hoverHandle != null)
       {
@@ -2108,7 +2011,7 @@ namespace Trizbort
       Capture = true;
     }
 
-    private void beginDrawConnection(PointF clientPos, Vector canvasPos)
+    private void beginDrawConnection(Vector canvasPos)
     {
       Connection connection;
       hoverPort = hitTestPort(canvasPos);
@@ -2218,7 +2121,7 @@ namespace Trizbort
       Refresh();
     }
 
-    private void doDragPan(PointF clientPos, Vector canvasPos)
+    private void doDragPan(PointF clientPos)
     {
       var delta = Drawing.Subtract(mPanPosition, clientPos);
       delta = Drawing.Divide(delta, ZoomFactor);
@@ -2226,7 +2129,7 @@ namespace Trizbort
       mPanPosition = clientPos;
     }
 
-    private void doDragMoveElement(PointF clientPos, Vector canvasPos)
+    private void doDragMoveElement(Vector canvasPos)
     {
       canvasPos = Settings.Snap(canvasPos);
       foreach (var element in mSelectedElements)
@@ -2259,7 +2162,7 @@ namespace Trizbort
       }
     }
 
-    private void doDragMoveResizeHandle(PointF clientPos, Vector canvasPos)
+    private void doDragMoveResizeHandle(Vector canvasPos)
     {
       // the mouse has moved this much on the canvas since we last successfully resized the element
       var delta = canvasPos - mDragResizeHandleLastPosition;
@@ -2316,7 +2219,7 @@ namespace Trizbort
       }
     }
 
-    private void doDragMovePort(PointF clientPos, Vector canvasPos)
+    private void doDragMovePort(Vector canvasPos)
     {
       if (hoverPort != null && hoverPort != mDragMovePort)
       {
@@ -2371,7 +2274,7 @@ namespace Trizbort
             var pos = connection.VertexList[0].Position;
             foreach (var v in connection.VertexList)
             {
-              if (v.Port != null && v.Port.Owner is Room)
+              if (v.Port?.Owner is Room)
               {
                 // keep connections attached to rooms;
                 // if they don't go anywhere, they
@@ -2518,18 +2421,11 @@ namespace Trizbort
         var bounds = port.Owner.UnionBoundsWith(Rect.Empty, true);
         if (bounds.Contains(canvasPos))
         {
-          if (dragMode == DragModes.MovePort)
-          {
-            // if we're dragging a line to set its end point and are over a room, ALWAYS snap to ports:
-            // we do this to avoid the user accidentally making a connection that "nearly" goes to a room.
-            snapDistance = float.MaxValue;
-          }
-          else
-          {
-            // if we'starting a new line and are over a room, NEVER snap to ports:
-            // we do this if hit testing inside so we can more easily select small rooms and not their ports
-            snapDistance = 0;
-          }
+          // if we're dragging a line to set its end point and are over a room, ALWAYS snap to ports:
+          // we do this to avoid the user accidentally making a connection that "nearly" goes to a room.
+          // if we'starting a new line and are over a room, NEVER snap to ports:
+          // we do this if hit testing inside so we can more easily select small rooms and not their ports
+          snapDistance = dragMode == DragModes.MovePort ? float.MaxValue : 0;
         }
 
         if (distance <= snapDistance && distance < closestDistance)
@@ -2645,14 +2541,6 @@ namespace Trizbort
       Invalidate();
     }
 
-    public void ApplyConnectionStyle(ConnectionStyle connectionStyle)
-    {
-      foreach (var connection in SelectedConnections)
-      {
-        connection.Style = connectionStyle;
-      }
-      Invalidate();
-    }
 
     public event EventHandler NewConnectionStyleChanged;
 
@@ -2660,20 +2548,6 @@ namespace Trizbort
     {
       var changed = NewConnectionStyleChanged;
       changed?.Invoke(this, EventArgs.Empty);
-    }
-
-    public void ApplyConnectionFlow(ConnectionFlow connectionFlow)
-    {
-      foreach (var element in mSelectedElements)
-      {
-        var element1 = element as Connection;
-        if (element1 != null)
-        {
-          var connection = element1;
-          connection.Flow = connectionFlow;
-        }
-      }
-      Invalidate();
     }
 
     public event EventHandler NewConnectionFlowChanged;
@@ -2699,13 +2573,6 @@ namespace Trizbort
       {
         connection.MidText = string.Empty;
       }
-      Invalidate();
-    }
-
-    public void ApplyConnectionLabel(ConnectionLabel connectionLabel)
-    {
-      foreach (var element in SelectedConnections)
-        element.SetText(connectionLabel);
       Invalidate();
     }
 
@@ -2795,14 +2662,12 @@ namespace Trizbort
     {
       // apply sequentially as each change will affect our defaults,
       // so setting the style will cause us to take the existing flow and label, etc.
-      NewConnectionStyle = ConnectionStyle.Solid;
-      ApplyConnectionStyle(NewConnectionStyle);
 
-      NewConnectionFlow = ConnectionFlow.TwoWay;
-      ApplyConnectionFlow(NewConnectionFlow);
+      commandController.SetConnectionStyle(ConnectionStyle.Solid);
 
-      NewConnectionLabel = ConnectionLabel.None;
-      ApplyConnectionLabel(NewConnectionLabel);
+      commandController.SetConnectionFlow(ConnectionFlow.TwoWay);
+
+      commandController.SetConnectionLabel(ConnectionLabel.None);
 
       ClearMidText();
 
@@ -3416,28 +3281,12 @@ namespace Trizbort
     {
       var image = new Bitmap(24, 20);
       var g = Graphics.FromImage(image);
-      var txtColorFont = new Font("Arial", 6);
       using (var palette = new Palette())
       {
         g.FillRectangle(palette.Brush(region.RColor), 0, 0, 24, 20);
       }
 
       return image;
-    }
-
-    private void darkToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-      var selectedRooms = mSelectedElements.Where(p => p is Room).ToList();
-
-      if (!selectedRooms.Any())
-        selectedRooms.Add(lastSelectedRoom);
-
-      var darkMenu = ((ToolStripMenuItem) sender);
-
-      foreach (var selectedRoom in selectedRooms.Cast<Room>())
-      {
-        selectedRoom.IsDark = !darkMenu.Checked;
-      }
     }
 
     // context menu event to change region of room(s)
@@ -3458,7 +3307,7 @@ namespace Trizbort
 
     private void roomPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      SelectedElement.ShowDialog();
+      commandController.ShowElementProperties(SelectedElement);
     }
 
     private void mapSettingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3475,11 +3324,6 @@ namespace Trizbort
     private void joinRoomsToolStripMenuItem_Click(object sender, EventArgs e)
     {
       JoinSelectedRooms(SelectedRooms.First(), SelectedRooms.Last());
-    }
-
-    private void swapObjectsToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-      SwapRooms();
     }
 
     public void SelectAllRooms()
@@ -3538,9 +3382,9 @@ namespace Trizbort
 
     private void renameToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      if (HasSingleSelectedElement && SelectedElement.HasDialog)
+      if (HasSingleSelectedElement)
       {
-        SelectedElement.ShowDialog();
+        commandController.ShowElementProperties(SelectedElement);
       }
     }
 
@@ -3554,38 +3398,22 @@ namespace Trizbort
 
     private void handDrawnToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      foreach (var room in SelectedRooms)
-      {
-        room.Shape = RoomShape.SquareCorners;
-      }
-      Invalidate();
+      commandController.SetRoomShape(RoomShape.SquareCorners);
     }
 
     private void ellipseToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      foreach (var room in SelectedRooms)
-      {
-        room.Shape = RoomShape.Ellipse;
-      }
-      Invalidate();
+      commandController.SetRoomShape(RoomShape.Ellipse);
     }
 
     private void roundedEdgesToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      foreach (var room in SelectedRooms)
-      {
-        room.Shape = RoomShape.RoundedCorners;
-      }
-      Invalidate();
+      commandController.SetRoomShape(RoomShape.RoundedCorners);
     }
 
     private void octagonalEdgesToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      foreach (var room in SelectedRooms)
-      {
-        room.Shape = RoomShape.Octagonal;
-      }
-      Invalidate();
+      commandController.SetRoomShape(RoomShape.Octagonal);
     }
 
     private void objectsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3625,54 +3453,32 @@ namespace Trizbort
 
     private void m_toggleDirectionalLinesMenuItem_Click(object sender, EventArgs e)
     {
-      switch (NewConnectionFlow)
-      {
-        case ConnectionFlow.TwoWay:
-          NewConnectionFlow = ConnectionFlow.OneWay;
-          break;
-        case ConnectionFlow.OneWay:
-          NewConnectionFlow = ConnectionFlow.TwoWay;
-          break;
-      }
-      ApplyConnectionFlow(NewConnectionFlow);
+      commandController.ToggleConnectionFlow(NewConnectionFlow);
     }
 
     private void m_toggleDottedLinesMenuItem_Click(object sender, EventArgs e)
     {
-      switch (NewConnectionStyle)
-      {
-        case ConnectionStyle.Solid:
-          NewConnectionStyle = ConnectionStyle.Dashed;
-          break;
-        case ConnectionStyle.Dashed:
-          NewConnectionStyle = ConnectionStyle.Solid;
-          break;
-      }
-      ApplyConnectionStyle(NewConnectionStyle);
+      commandController.ToggleConnectionStyle(NewConnectionStyle);
     }
 
     private void m_upLinesMenuItem_Click(object sender, EventArgs e)
     {
-      NewConnectionLabel = ConnectionLabel.Up;
-      ApplyConnectionLabel(NewConnectionLabel);
+      commandController.SetConnectionLabel(ConnectionLabel.Up);
     }
 
     private void m_downLinesMenuItem_Click(object sender, EventArgs e)
     {
-      NewConnectionLabel = ConnectionLabel.Down;
-      ApplyConnectionLabel(NewConnectionLabel);
+      commandController.SetConnectionLabel(ConnectionLabel.Down);
     }
 
     private void m_inLinesMenuItem_Click(object sender, EventArgs e)
     {
-      NewConnectionLabel = ConnectionLabel.In;
-      ApplyConnectionLabel(NewConnectionLabel);
+      commandController.SetConnectionLabel(ConnectionLabel.In);
     }
 
     private void m_outLinesMenuItem_Click(object sender, EventArgs e)
     {
-      NewConnectionLabel = ConnectionLabel.Out;
-      ApplyConnectionLabel(NewConnectionLabel);
+      commandController.SetConnectionLabel(ConnectionLabel.Out);
     }
 
     private enum DragModes

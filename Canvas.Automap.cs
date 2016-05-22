@@ -327,18 +327,14 @@ namespace Trizbort
       }
 
       SelectedElement = room;
-      if (room != null)
-      {
-        EnsureVisible(room);
-      }
+      commandController.MakeVisible(room);
     }
 
     public Task StartAutomapping(AutomapSettings settings, bool justParseFile = false)
     {
       StopAutomapping();
 
-      Task task;
-      task = justParseFile ? m_automap.StartCL(m_threadSafeAutomapCanvas, settings) : m_automap.Start(m_threadSafeAutomapCanvas, settings);
+      var task = justParseFile ? m_automap.StartCL(m_threadSafeAutomapCanvas, settings) : m_automap.Start(m_threadSafeAutomapCanvas, settings);
 
       m_dontAskAboutAmbiguities = false;
 

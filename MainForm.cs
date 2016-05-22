@@ -39,6 +39,8 @@ using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Annotations;
 using Trizbort.Domain;
+using Trizbort.Domain.Controllers;
+using Trizbort.Domain.Enums;
 using Trizbort.Export;
 using Trizbort.Properties;
 
@@ -46,24 +48,31 @@ namespace Trizbort
 {
   internal partial class MainForm : Form
   {
+    private readonly CommandController commandController;
+
     private static readonly TimeSpan IdleProcessingEveryNSeconds = TimeSpan.FromSeconds(0.2);
-    private readonly string m_caption;
+    private readonly string mCaption;
     public Canvas Canvas;
-    private DateTime m_lastUpdateUITime;
-    public bool fromCmdLine = false;
+    private DateTime mLastUpdateUITime;
+    public bool FromCmdLine = false;
 
     public MainForm()
     {
       InitializeComponent();
 
-      m_caption = Text;
+      commandController = new CommandController(Canvas);
 
-      Application.Idle += OnIdle;
-      m_lastUpdateUITime = DateTime.MinValue;
+      mCaption = Text;
+
+      Application.Idle += onIdle;
+      mLastUpdateUITime = DateTime.MinValue;
 
       m_automapBar.StopClick += onMAutomapBarOnStopClick;
       Canvas.ZoomChanged += adjustZoomed;
     }
+
+    public sealed override string Text { get { return base.Text; }
+      set { base.Text = value; } }
 
     private void adjustZoomed(object sender, EventArgs e)
     {
@@ -89,20 +98,16 @@ namespace Trizbort
         var result = (Parsed<CommandLineOptions>) ext;
         projectLoaded = commandLineActions(result.Value);
       }
-      else
-      {
-        var result = (NotParsed<CommandLineOptions>) ext;
-      }
 
       if ((Settings.LoadLastProjectOnStart) && (!projectLoaded))
       {
         try
         {
           BeginInvoke((MethodInvoker) delegate { OpenProject(Settings.LastProjectFileName); });
-          projectLoaded = true;
         }
         catch (Exception)
         {
+          // ignored
         }
       }
       NewVersionDialog.CheckForUpdatesAsync(this, false);
@@ -121,12 +126,12 @@ namespace Trizbort
 
       if (options.Transcript != null)
       {
-        projectLoaded = CLAutoMap(options).Result;
+        projectLoaded = clAutoMap(options).Result;
       }
 
       if (options.QuickSave != null && options.Transcript == null)
       {
-        SaveAsCmdLineProject(options.QuickSave);
+        saveAsCmdLineProject(options.QuickSave);
         Project.Current.IsDirty = false;
       }
 
@@ -147,33 +152,33 @@ namespace Trizbort
 
       if (!string.IsNullOrWhiteSpace(options.I6))
       {
-        ExportCodeCL<Inform6Exporter>(options.I6);
+        exportCodeCl<Inform6Exporter>(options.I6);
       }
 
       if (!string.IsNullOrWhiteSpace(options.I7))
       {
-        ExportCodeCL<Inform7Exporter>(options.I7);
+        exportCodeCl<Inform7Exporter>(options.I7);
       }
 
       if (!string.IsNullOrWhiteSpace(options.Tads))
       {
-        ExportCodeCL<TadsExporter>(options.Tads);
+        exportCodeCl<TadsExporter>(options.Tads);
       }
 
 
       if (!string.IsNullOrWhiteSpace(options.Alan))
       {
-        ExportCodeCL<AlanExporter>(options.Alan);
+        exportCodeCl<AlanExporter>(options.Alan);
       }
 
       if (!string.IsNullOrWhiteSpace(options.Hugo))
       {
-        ExportCodeCL<HugoExporter>(options.Hugo);
+        exportCodeCl<HugoExporter>(options.Hugo);
       }
 
       if (!string.IsNullOrWhiteSpace(options.Zil))
       {
-        ExportCodeCL<ZilExporter>(options.Zil);
+        exportCodeCl<ZilExporter>(options.Zil);
       }
 
       if (options.Exit)
@@ -186,7 +191,7 @@ namespace Trizbort
 
     
 
-    private async Task<bool> CLAutoMap(CommandLineOptions options)
+    private async Task<bool> clAutoMap(CommandLineOptions options)
     {
       bool projectLoaded = false;
       try
@@ -199,7 +204,7 @@ namespace Trizbort
 
         if (options.QuickSave != null)
         {
-          SaveAsCmdLineProject(options.QuickSave);
+          saveAsCmdLineProject(options.QuickSave);
           Project.Current.IsDirty = false;
         }
 
@@ -208,6 +213,7 @@ namespace Trizbort
       }
       catch (Exception)
       {
+        // ignored
       }
       Project.Current.IsDirty = false;
       return projectLoaded;
@@ -215,7 +221,7 @@ namespace Trizbort
 
     private void FileNewMenuItem_Click(object sender, EventArgs e)
     {
-      if (!CheckLoseProject())
+      if (!checkLoseProject())
         return;
 
       Project.Current = new Project();
@@ -224,31 +230,31 @@ namespace Trizbort
 
     protected override void OnClosing(CancelEventArgs e)
     {
-      if (!CheckLoseProject())
+      if (!checkLoseProject())
       {
         e.Cancel = true;
         return;
       }
 
-      Settings.CanvasHeight = this.Height - 27;
-      Settings.CanvasWidth = this.Width - 8;
+      Settings.CanvasHeight = Height - 27;
+      Settings.CanvasWidth = Width - 8;
       Settings.SaveApplicationSettings();
       Canvas.StopAutomapping();
 
       base.OnClosing(e);
     }
 
-    private bool CheckLoseProject()
+    private bool checkLoseProject()
     {
       if (Project.Current.IsDirty)
       {
         // see if the user would like to save
-        var result = MessageBox.Show(this, string.Format("Do you want to save changes to {0}?", Project.Current.Name), Text, MessageBoxButtons.YesNoCancel);
+        var result = MessageBox.Show(this, $"Do you want to save changes to {Project.Current.Name}?", Text, MessageBoxButtons.YesNoCancel);
         switch (result)
         {
           case DialogResult.Yes:
             // user would like to save
-            if (!SaveProject())
+            if (!saveProject())
             {
               // didn't actually save; treat as cancel
               return false;
@@ -271,29 +277,26 @@ namespace Trizbort
       return true;
     }
 
-    private bool OpenProject()
+    public void OpenProject()
     {
-      if (!CheckLoseProject())
-        return false;
+      if (!checkLoseProject())
+        return;
 
       using (var dialog = new OpenFileDialog())
       {
         dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(Settings.LastProjectFileName);
-        dialog.Filter = string.Format("{0}|All Files|*.*||", Project.FilterString);
+        dialog.Filter = $"{Project.FilterString}|All Files|*.*||";
         if (dialog.ShowDialog() == DialogResult.OK)
         {
           Settings.LastProjectFileName = dialog.FileName;
-          return OpenProject(dialog.FileName);
+          OpenProject(dialog.FileName);
         }
       }
-
-      return false;
     }
 
     public bool OpenProject(string fileName)
     {
-      var project = new Project();
-      project.FileName = fileName;
+      var project = new Project {FileName = fileName};
       if (project.Load())
       {
         Project.Current = project;
@@ -304,7 +307,7 @@ namespace Trizbort
       return false;
     }
 
-    private void AboutMap()
+    private void aboutMap()
     {
       var project = Project.Current;
       if (!string.IsNullOrEmpty(project.Title) || !string.IsNullOrEmpty(project.Author) || !string.IsNullOrEmpty(project.Description))
@@ -320,7 +323,7 @@ namespace Trizbort
           {
             builder.AppendLine();
           }
-          builder.AppendLine(string.Format("by {0}", project.Author));
+          builder.AppendLine($"by {project.Author}");
         }
         if (!string.IsNullOrEmpty(project.Description))
         {
@@ -334,11 +337,11 @@ namespace Trizbort
       }
     }
 
-    private bool SaveProject()
+    private bool saveProject()
     {
       if (!Project.Current.HasFileName)
       {
-        return SaveAsProject();
+        return saveAsProject();
       }
 
       if (Project.Current.Save())
@@ -349,7 +352,7 @@ namespace Trizbort
       return false;
     }
 
-    private void SaveAsCmdLineProject(string outfile)
+    private void saveAsCmdLineProject(string outfile)
     {
       Settings.LastProjectFileName = outfile;
       Project.Current.FileName = outfile;
@@ -360,7 +363,7 @@ namespace Trizbort
       }
     }
 
-    private bool SaveAsProject()
+    private bool saveAsProject()
     {
       using (var dialog = new SaveFileDialog())
       {
@@ -372,7 +375,7 @@ namespace Trizbort
         {
           dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(Settings.LastProjectFileName);
         }
-        dialog.Filter = string.Format("{0}|All Files|*.*||", Project.FilterString);
+        dialog.Filter = $"{Project.FilterString}|All Files|*.*||";
         if (dialog.ShowDialog() == DialogResult.OK)
         {
           Settings.LastProjectFileName = dialog.FileName;
@@ -395,12 +398,12 @@ namespace Trizbort
 
     private void FileSaveMenuItem_Click(object sender, EventArgs e)
     {
-      SaveProject();
+      saveProject();
     }
 
     private void FileSaveAsMenuItem_Click(object sender, EventArgs e)
     {
-      SaveAsProject();
+      saveAsProject();
     }
 
     private void smartSaveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -423,7 +426,7 @@ namespace Trizbort
       {
         if (MessageBox.Show("Your project needs to be saved before we can do a SmartSave.  Would you like to save the project now?", "Save Project?", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
         {
-          mSaved = SaveProject();
+          mSaved = saveProject();
         }
       }
       else
@@ -443,7 +446,7 @@ namespace Trizbort
             sPDFFile = exportPDF();
             if (sPDFFile == string.Empty)
             {
-              MessageBox.Show(string.Format("There was an error saving the PDF file during the SmartSave.  Please make sure the PDF is not already opened."), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+              MessageBox.Show("There was an error saving the PDF file during the SmartSave.  Please make sure the PDF is not already opened.", "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
               bSaveError = true;
             }
           }
@@ -453,7 +456,7 @@ namespace Trizbort
             sImageFile = exportImage();
             if (sImageFile == string.Empty)
             {
-              MessageBox.Show(string.Format("There was an error saving the Image file during the SmartSave.  Please make sure the Image is not already opened."), "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+              MessageBox.Show("There was an error saving the Image file during the SmartSave.  Please make sure the Image is not already opened.", "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
               bSaveError = true;
             }
 
@@ -464,14 +467,14 @@ namespace Trizbort
             string sText = string.Empty;
             if (Settings.SaveToPDF)
             {
-              sText += string.Format("PDF file has been saved to {0}", sPDFFile);
+              sText += $"PDF file has been saved to {sPDFFile}";
             }
 
             if (Settings.SaveToImage)
             {
               if (sText != string.Empty)
                 sText += Environment.NewLine;
-              sText += string.Format("Image file has been saved to {0}", sImageFile);
+              sText += $"Image file has been saved to {sImageFile}";
             }
 
             if (!silent) MessageBox.Show(sText, "Smart Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -562,7 +565,7 @@ namespace Trizbort
           }
           catch (Exception ex)
           {
-            MessageBox.Show(Program.MainForm, string.Format("There was a problem exporting the map:\n\n{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Program.MainForm, $"There was a problem exporting the map:\n\n{ex.Message}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
           }
         }
       }
@@ -580,8 +583,8 @@ namespace Trizbort
       doc.Info.Subject = Project.Current.Description;
       var page = doc.AddPage();
 
-      var PDFBoundRectangle = Canvas.ComputeCanvasBounds(true);
-      var size = PDFBoundRectangle.Size;
+      var pdfBoundRectangle = Canvas.ComputeCanvasBounds(true);
+      var size = pdfBoundRectangle.Size;
 
       page.Width = new XUnit(size.X);
       page.Height = new XUnit(size.Y);
@@ -595,10 +598,12 @@ namespace Trizbort
       foreach (var myroom in descripRooms)
       {
         XRect rect = new XRect();
-        PdfTextAnnotation textAnnot = new PdfTextAnnotation();
-        textAnnot.Contents = myroom.PrimaryDescription;
-        textAnnot.Color = Color.Orange;
-        textAnnot.Icon = PdfTextAnnotationIcon.Note;
+        PdfTextAnnotation textAnnot = new PdfTextAnnotation
+        {
+          Contents = myroom.PrimaryDescription,
+          Color = Color.Orange,
+          Icon = PdfTextAnnotationIcon.Note
+        };
 
         rect.Width = myroom.Width / 4; // first, decide square dimensions
         rect.Height = myroom.Height / 4;
@@ -608,10 +613,10 @@ namespace Trizbort
           rect.Height = rect.Width;
 
         if (myroom.Shape == RoomShape.SquareCorners) //Now, place it in the upper left or upper center based on room shape
-          rect.X = myroom.X - PDFBoundRectangle.Left;
+          rect.X = myroom.X - pdfBoundRectangle.Left;
         else
-          rect.X = myroom.X - PDFBoundRectangle.Left + myroom.Width/2 - rect.Width/2;
-        rect.Y = PDFBoundRectangle.Height - (myroom.Y - PDFBoundRectangle.Top + rect.Height);
+          rect.X = myroom.X - pdfBoundRectangle.Left + myroom.Width/2 - rect.Width/2;
+        rect.Y = pdfBoundRectangle.Height - (myroom.Y - pdfBoundRectangle.Top + rect.Height);
 
         textAnnot.Rectangle = new PdfRectangle(rect);
         page.Annotations.Add(textAnnot);
@@ -632,7 +637,7 @@ namespace Trizbort
           Settings.LastExportImageFileName = Path.GetDirectoryName(dialog.FileName)+@"\";
           if (!saveImage(dialog.FileName))
           {
-            MessageBox.Show(string.Format("There was an error saving the image file.  Please make sure the image is not already opened."), "Export Image", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show("There was an error saving the image file.  Please make sure the image is not already opened.", "Export Image", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
           }
         }
       }
@@ -664,7 +669,7 @@ namespace Trizbort
 
       try
       {
-        if (format == ImageFormat.Emf)
+        if (Equals(format, ImageFormat.Emf))
         {
           // export as a metafile
           using (var nativeGraphics = Graphics.FromHwnd(Canvas.Handle))
@@ -729,7 +734,7 @@ namespace Trizbort
     private void FileExportInform7MenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportInform7FileName;
-      if (ExportCode<Inform7Exporter>(ref fileName))
+      if (exportCode<Inform7Exporter>(ref fileName))
       {
         Settings.LastExportInform7FileName = fileName;
       }
@@ -737,14 +742,14 @@ namespace Trizbort
 
     private void inform7ToTextToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      ExportCode<Inform7Exporter>();
+      exportCode<Inform7Exporter>();
     }
 
 
     private void FileExportInform6MenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportInform6FileName;
-      if (ExportCode<Inform6Exporter>(ref fileName))
+      if (exportCode<Inform6Exporter>(ref fileName))
       {
         Settings.LastExportInform6FileName = fileName;
       }
@@ -752,13 +757,13 @@ namespace Trizbort
 
     private void inform6ToTextToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      ExportCode<Inform6Exporter>();
+      exportCode<Inform6Exporter>();
     }
 
     private void zILToolStripMenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportZILFileName;
-      if (ExportCode<ZilExporter>(ref fileName))
+      if (exportCode<ZilExporter>(ref fileName))
       {
         Settings.LastExportZILFileName = fileName;
       }
@@ -766,13 +771,13 @@ namespace Trizbort
 
     private void zILToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      ExportCode<ZilExporter>();
+      exportCode<ZilExporter>();
     }
 
     private void FileExportHugoMenuItem_Click(object sender, EventArgs e)
     {
         var fileName = Settings.LastExportHugoFileName;
-        if (ExportCode<HugoExporter>(ref fileName))
+        if (exportCode<HugoExporter>(ref fileName))
         {
             Settings.LastExportHugoFileName = fileName;
         }
@@ -780,13 +785,13 @@ namespace Trizbort
 
     private void hugoToTextToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        ExportCode<HugoExporter>();
+        exportCode<HugoExporter>();
     }
 
     private void FileExportTadsMenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportTadsFileName;
-      if (ExportCode<TadsExporter>(ref fileName))
+      if (exportCode<TadsExporter>(ref fileName))
       {
         Settings.LastExportTadsFileName = fileName;
       }
@@ -795,7 +800,7 @@ namespace Trizbort
     private void FileExportAlanMenuItem_Click(object sender, EventArgs e)
     {
         var fileName = Settings.LastExportAlanFileName;
-        if (ExportCode<AlanExporter>(ref fileName))
+        if (exportCode<AlanExporter>(ref fileName))
         {
             Settings.LastExportAlanFileName = fileName;
         }
@@ -803,13 +808,13 @@ namespace Trizbort
 
     private void alanToTextToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        ExportCode<AlanExporter>();
+        exportCode<AlanExporter>();
     }
 
     private void FileExportTADSMenuItem_Click(object sender, EventArgs e)
     {
       var fileName = Settings.LastExportTadsFileName;
-      if (ExportCode<TadsExporter>(ref fileName))
+      if (exportCode<TadsExporter>(ref fileName))
       {
         Settings.LastExportTadsFileName = fileName;
       }
@@ -817,10 +822,10 @@ namespace Trizbort
 
     private void tADSToTextToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      ExportCode<TadsExporter>();
+      exportCode<TadsExporter>();
     }
 
-    private void ExportCodeCL<T>(string exportFile) where T : CodeExporter, new()
+    private void exportCodeCl<T>(string exportFile) where T : CodeExporter, new()
     {
       using (var exporter = new T())
       {
@@ -828,7 +833,7 @@ namespace Trizbort
       }
     }
 
-    private void ExportCode<T>() where T: CodeExporter, new()
+    private void exportCode<T>() where T: CodeExporter, new()
     {
       using (var exporter = new T())
       {
@@ -837,7 +842,7 @@ namespace Trizbort
       }
     }
 
-    private bool ExportCode<T>(ref string lastExportFileName) where T : CodeExporter, new()
+    private bool exportCode<T>(ref string lastExportFileName) where T : CodeExporter, new()
     {
       using (var exporter = new T())
       {
@@ -852,7 +857,7 @@ namespace Trizbort
             {
               filterString += "|";
             }
-            filterString += string.Format("{0}|*{1}", filter.Key, filter.Value);
+            filterString += $"{filter.Key}|*{filter.Value}";
           }
 
           if (!string.IsNullOrEmpty(filterString))
@@ -887,7 +892,7 @@ namespace Trizbort
             }
             catch (Exception ex)
             {
-              MessageBox.Show(Program.MainForm, string.Format("There was a problem exporting the map:\n\n{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+              MessageBox.Show(Program.MainForm, $"There was a problem exporting the map:\n\n{ex.Message}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
           }
         }
@@ -915,7 +920,8 @@ namespace Trizbort
     {
       if (Canvas.HasSingleSelectedElement && Canvas.SelectedElement.HasDialog)
       {
-        Canvas.SelectedElement.ShowDialog();
+        commandController.ShowElementProperties(Canvas.SelectedElement);
+
       }
     }
 
@@ -926,54 +932,32 @@ namespace Trizbort
 
     private void ToggleDottedLines_Click(object sender, EventArgs e)
     {
-      switch (Canvas.NewConnectionStyle)
-      {
-        case ConnectionStyle.Solid:
-          Canvas.NewConnectionStyle = ConnectionStyle.Dashed;
-          break;
-        case ConnectionStyle.Dashed:
-          Canvas.NewConnectionStyle = ConnectionStyle.Solid;
-          break;
-      }
-      Canvas.ApplyConnectionStyle(Canvas.NewConnectionStyle);
+      commandController.ToggleConnectionStyle(Canvas.NewConnectionStyle);
     }
 
     private void ToggleDirectionalLines_Click(object sender, EventArgs e)
     {
-      switch (Canvas.NewConnectionFlow)
-      {
-        case ConnectionFlow.TwoWay:
-          Canvas.NewConnectionFlow = ConnectionFlow.OneWay;
-          break;
-        case ConnectionFlow.OneWay:
-          Canvas.NewConnectionFlow = ConnectionFlow.TwoWay;
-          break;
-      }
-      Canvas.ApplyConnectionFlow(Canvas.NewConnectionFlow);
+      commandController.ToggleConnectionFlow(Canvas.NewConnectionFlow);
     }
 
     private void UpLinesMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.NewConnectionLabel = ConnectionLabel.Up;
-      Canvas.ApplyConnectionLabel(Canvas.NewConnectionLabel);
+      commandController.SetConnectionLabel(ConnectionLabel.Up);
     }
 
     private void DownLinesMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.NewConnectionLabel = ConnectionLabel.Down;
-      Canvas.ApplyConnectionLabel(Canvas.NewConnectionLabel);
+      commandController.SetConnectionLabel(ConnectionLabel.Down);
     }
 
     private void InLinesMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.NewConnectionLabel = ConnectionLabel.In;
-      Canvas.ApplyConnectionLabel(Canvas.NewConnectionLabel);
+      commandController.SetConnectionLabel(ConnectionLabel.In);
     }
 
     private void OutLinesMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.NewConnectionLabel = ConnectionLabel.Out;
-      Canvas.ApplyConnectionLabel(Canvas.NewConnectionLabel);
+      commandController.SetConnectionLabel(ConnectionLabel.Out);
     }
 
     private void ReverseLineMenuItem_Click(object sender, EventArgs e)
@@ -981,20 +965,20 @@ namespace Trizbort
       Canvas.ReverseLineDirection();
     }
 
-    private void OnIdle(object sender, EventArgs e)
+    private void onIdle(object sender, EventArgs e)
     {
       var now = DateTime.Now;
-      if (now - m_lastUpdateUITime > IdleProcessingEveryNSeconds)
+      if (now - mLastUpdateUITime > IdleProcessingEveryNSeconds)
       {
-        m_lastUpdateUITime = now;
-        UpdateCommandUI();
+        mLastUpdateUITime = now;
+        updateCommandUI();
       }
     }
 
-    private void UpdateCommandUI()
+    private void updateCommandUI()
     {
       // caption
-      Text = string.Format("{0}{1} - {2} - {3}", Project.Current.Name, Project.Current.IsDirty ? "*" : string.Empty, m_caption, Application.ProductVersion);
+      Text = $"{Project.Current.Name}{(Project.Current.IsDirty ? "*" : string.Empty)} - {mCaption} - {Application.ProductVersion}";
 
       // line drawing options
       m_toggleDottedLinesButton.Checked = Canvas.NewConnectionStyle == ConnectionStyle.Dashed;
@@ -1044,13 +1028,13 @@ namespace Trizbort
       // minimap
       m_viewMinimapMenuItem.Checked = Canvas.MinimapVisible;
 
-      UpdateToolStripImages();
+      updateToolStripImages();
       Canvas.UpdateScrollBars();
     }
 
     private void FileRecentProject_Click(object sender, EventArgs e)
     {
-      if (!CheckLoseProject())
+      if (!checkLoseProject())
       {
         return;
       }
@@ -1059,7 +1043,7 @@ namespace Trizbort
       OpenProject(fileName);
     }
 
-    private void UpdateToolStripImages()
+    private void updateToolStripImages()
     {
       foreach (ToolStripItem item in m_toolStrip.Items)
       {
@@ -1105,13 +1089,13 @@ namespace Trizbort
     {
       if (Canvas.HasSingleSelectedElement && Canvas.SelectedElement.HasDialog)
       {
-        Canvas.SelectedElement.ShowDialog();
+        commandController.ShowElementProperties(Canvas.SelectedElement);
       }
     }
 
     private void EditIsDarkMenuItem_Click(object sender, EventArgs e)
     {
-      CanvasController.ToggleDarkness(Canvas.SelectedRooms);
+      commandController.SetRoomLighting(LightingActionType.Toggle);
     }
 
     private void ProjectSettingsMenuItem_Click(object sender, EventArgs e)
@@ -1243,12 +1227,12 @@ namespace Trizbort
 
     private void EditSelectAllMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.SelectAll();
+      commandController.Select(SelectTypes.All);
     }
 
     private void EditSelectNoneMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.SelectedElement = null;
+      commandController.Select(SelectTypes.None);
     }
 
     private void ViewEntireMapMenuItem_Click(object sender, EventArgs e)
@@ -1311,37 +1295,37 @@ namespace Trizbort
 
     private void selectAllRoomsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.SelectAllRooms();
+      commandController.Select(SelectTypes.Rooms);
     }
 
     private void selectedUnconnectedRoomsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.SelectAllUnconnectedRooms();
+      commandController.Select(SelectTypes.UnconnectedRooms);
     }
 
     private void selectAllConnectionsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.SelectAllConnections();
+      commandController.Select(SelectTypes.Connections);
     }
 
     private void selectDanglingConnectionsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.SelectDanglingConnections();
+      commandController.Select(SelectTypes.DanglingConnections);
     }
 
     private void selectSelfLoopingConnectionsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.SelectSelfLoopingConnections();
+      commandController.Select(SelectTypes.SelfLoopingConnections);
     }
 
     private void selectRoomsWObjectsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.SelectRoomsWithObjects();
+      commandController.Select(SelectTypes.RoomsWithObjects);
     }
 
     private void selectRoomsWoObjectsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Canvas.SelectRoomsWithoutObjects();
+      commandController.Select(SelectTypes.RoomsWithOutObjects);
     }
 
     private void toggleTextToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1412,12 +1396,12 @@ namespace Trizbort
 
     private void makeRoomDarkToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      CanvasController.ForceDarkness(Canvas.SelectedRooms);
+      commandController.SetRoomLighting(LightingActionType.ForceDark);
     }
 
     private void makeRoomLightToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      CanvasController.ForceLighted(Canvas.SelectedRooms);
+      commandController.SetRoomLighting(LightingActionType.ForceLight);
     }
   }
 }

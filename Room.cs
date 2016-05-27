@@ -1016,8 +1016,7 @@ namespace Trizbort
         {
           if (!Settings.DebugDisableTextRendering)
           {
-            var aObjects = mObjects.Text.Split('\n');
-            var tString = aObjects.Take(MAX_OBJECTS).Aggregate(string.Empty, (current, aObject) => current + (aObject + "\n"));
+            var tString = mObjects.Text;
             var displayObjects = new TextBlock() {Text = tString};
 
             var block = displayObjects.Draw(graphics, font, brush, pos, Vector.Zero, format);

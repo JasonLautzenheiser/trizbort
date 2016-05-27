@@ -31,6 +31,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
+using Trizbort.Domain;
 using Trizbort.Extensions;
 
 namespace Trizbort

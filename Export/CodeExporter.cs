@@ -30,6 +30,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Trizbort.Domain;
 
 namespace Trizbort.Export
 {

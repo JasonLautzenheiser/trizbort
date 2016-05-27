@@ -130,13 +130,6 @@
     </Compile>
     <Compile Include="Colors.cs" />
     <Compile Include="CompassPoint.cs" />
-    <Compile Include="Connection.cs" />
-    <Compile Include="ConnectionPropertiesDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConnectionPropertiesDialog.Designer.cs">
-      <DependentUpon>ConnectionPropertiesDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="DisambiguateRoomsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +138,8 @@
     </Compile>
     <Compile Include="Domain\CanvasController.cs" />
     <Compile Include="Domain\CommandLineOptions.cs" />
+    <Compile Include="Domain\Connection.cs" />
+    <Compile Include="Domain\Door.cs" />
     <Compile Include="DrawingContext.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="BoundList.cs" />
@@ -203,6 +198,12 @@
     </Compile>
     <Compile Include="Smoothing.cs" />
     <Compile Include="TextBlock.cs" />
+    <Compile Include="UI\ConnectionPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ConnectionPropertiesDialog.Designer.cs">
+      <DependentUpon>ConnectionPropertiesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vector.cs" />
     <Compile Include="Vertex.cs" />
     <Compile Include="Events.cs" />
@@ -230,9 +231,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Canvas.resx">
       <DependentUpon>Canvas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConnectionPropertiesDialog.resx">
-      <DependentUpon>ConnectionPropertiesDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DisambiguateRoomsDialog.resx">
       <DependentUpon>DisambiguateRoomsDialog.cs</DependentUpon>
@@ -268,6 +266,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\ConnectionPropertiesDialog.resx">
+      <DependentUpon>ConnectionPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <Compile Include="Drawing.cs" />
     <Compile Include="ResizeHandle.cs" />

@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -479,7 +480,40 @@ namespace Trizbort.Domain
         context.LinesDrawn.Add(lineSegment);
       }
 
+      if (door != null)
+      {
+        showDoorIcons(graphics, lineSegments[0], door);
+      }
+
       annotate(graphics, palette, lineSegments);
+    }
+
+    private void showDoorIcons(XGraphics graphics, LineSegment lineSegment, Door pDoor)
+    {
+      var doorIcon = !door.Open ? new Bitmap(@"C:\Projects\trizbort\trizbort\trizbort\bin\Debug\Images\door.png") : new Bitmap(@"C:\Projects\trizbort\trizbort\trizbort\bin\Debug\Images\door_in.png");
+      using (var bmp = new Bitmap(16, 16, PixelFormat.Format32bppPArgb))
+      {
+        var bounds = new Rect(lineSegment.Start, Vector.Zero);
+
+        float angle;
+        var compassPoint = directionFromAngle(out angle, lineSegment.Delta);
+        int dist = 15;
+        if (compassPoint == CompassPoint.NorthWest)
+          bounds.Inflate(-dist, -dist+9);
+
+        if (compassPoint == CompassPoint.NorthEast)
+          bounds.Inflate(-dist-5, -dist);
+
+        if (compassPoint == CompassPoint.SouthEast)
+          bounds.Inflate(-dist, dist-9);
+
+        if (compassPoint == CompassPoint.SouthWest )
+          bounds.Inflate(-dist, -dist);
+
+        var pos = bounds.GetCorner(compassPoint);
+
+        graphics.DrawImage(doorIcon, pos.ToPointF());
+      }
     }
 
     private void annotate(XGraphics graphics, Palette palette, List<LineSegment> lineSegments)
@@ -546,7 +580,30 @@ namespace Trizbort.Domain
       var bounds = new Rect(point, Vector.Zero);
       bounds.Inflate(Settings.TextOffsetFromConnection);
 
-      var angle = (float) -(Math.Atan2(delta.Y, delta.X)/Math.PI*180.0);
+      float angle;
+      var compassPoint = directionFromAngle(out angle, delta);
+
+      var pos = bounds.GetCorner(compassPoint);
+      var format = new XStringFormat();
+      Drawing.SetAlignmentFromCardinalOrOrdinalDirection(format, compassPoint);
+      if (alignment == StringAlignment.Center && Numeric.InRange(angle, -10, 10))
+      {
+        // HACK: if the line segment is pretty horizontal and we're drawing mid-line text,
+        // move text below the line to get it out of the way of any labels at the ends,
+        // and center the text so it fits onto a line between two proximal rooms.
+        pos = bounds.GetCorner(CompassPoint.South);
+        format.Alignment = XStringAlignment.Center;
+        format.LineAlignment = XLineAlignment.Near;
+      }
+
+
+      if (!Settings.DebugDisableTextRendering)
+        text.Draw(graphics, Settings.LineFont, palette.LineTextBrush, pos, Vector.Zero, format);
+    }
+
+    private static CompassPoint directionFromAngle(out float angle, Vector delta)
+    {
+      angle = (float) -(Math.Atan2(delta.Y, delta.X)/Math.PI*180.0);
       var compassPoint = CompassPoint.East;
       if (Numeric.InRange(angle, 0, 45))
       {
@@ -580,23 +637,7 @@ namespace Trizbort.Domain
       {
         compassPoint = CompassPoint.SouthEast;
       }
-
-      var pos = bounds.GetCorner(compassPoint);
-      var format = new XStringFormat();
-      Drawing.SetAlignmentFromCardinalOrOrdinalDirection(format, compassPoint);
-      if (alignment == StringAlignment.Center && Numeric.InRange(angle, -10, 10))
-      {
-        // HACK: if the line segment is pretty horizontal and we're drawing mid-line text,
-        // move text below the line to get it out of the way of any labels at the ends,
-        // and center the text so it fits onto a line between two proximal rooms.
-        pos = bounds.GetCorner(CompassPoint.South);
-        format.Alignment = XStringAlignment.Center;
-        format.LineAlignment = XLineAlignment.Near;
-      }
-
-
-      if (!Settings.DebugDisableTextRendering)
-        text.Draw(graphics, Settings.LineFont, palette.LineTextBrush, pos, Vector.Zero, format);
+      return compassPoint;
     }
 
     public override Rect UnionBoundsWith(Rect rect, bool includeMargins)

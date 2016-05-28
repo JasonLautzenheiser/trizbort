@@ -301,6 +301,12 @@
   <ItemGroup>
     <Content Include="Images\Arrow.png" />
     <Content Include="Images\Blank.png" />
+    <Content Include="Images\door.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\door_in.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\DrawLine.cur" />
     <Content Include="Images\DrawLine.png" />
     <Content Include="Images\DrawLineInverted.cur" />

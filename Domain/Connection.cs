@@ -32,6 +32,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
+using Trizbort.Properties;
 using Trizbort.UI;
 
 namespace Trizbort.Domain
@@ -490,30 +491,13 @@ namespace Trizbort.Domain
 
     private void showDoorIcons(XGraphics graphics, LineSegment lineSegment, Door pDoor)
     {
-      var doorIcon = !door.Open ? new Bitmap(@"C:\Projects\trizbort\trizbort\trizbort\bin\Debug\Images\door.png") : new Bitmap(@"C:\Projects\trizbort\trizbort\trizbort\bin\Debug\Images\door_in.png");
-      using (var bmp = new Bitmap(16, 16, PixelFormat.Format32bppPArgb))
-      {
-        var bounds = new Rect(lineSegment.Start, Vector.Zero);
 
-        float angle;
-        var compassPoint = directionFromAngle(out angle, lineSegment.Delta);
-        int dist = 15;
-        if (compassPoint == CompassPoint.NorthWest)
-          bounds.Inflate(-dist, -dist+9);
+      var doorIcon = door.Open ? new Bitmap(Resources.Door_Open) : new Bitmap(Resources.Door);
+      var doorLock = door.Locked ? new Bitmap(Resources.Lock) : new Bitmap(Resources.Unlocked);
+      lineSegment.IconBlock1.Image = doorIcon;
+      lineSegment.IconBlock2.Image = doorLock;
 
-        if (compassPoint == CompassPoint.NorthEast)
-          bounds.Inflate(-dist-5, -dist);
-
-        if (compassPoint == CompassPoint.SouthEast)
-          bounds.Inflate(-dist, dist-9);
-
-        if (compassPoint == CompassPoint.SouthWest )
-          bounds.Inflate(-dist, -dist);
-
-        var pos = bounds.GetCorner(compassPoint);
-
-        graphics.DrawImage(doorIcon, pos.ToPointF());
-      }
+      lineSegment.DrawIcons(graphics);
     }
 
     private void annotate(XGraphics graphics, Palette palette, List<LineSegment> lineSegments)
@@ -581,7 +565,7 @@ namespace Trizbort.Domain
       bounds.Inflate(Settings.TextOffsetFromConnection);
 
       float angle;
-      var compassPoint = directionFromAngle(out angle, delta);
+      var compassPoint = CompassPointHelper.DirectionFromAngle(out angle, delta);
 
       var pos = bounds.GetCorner(compassPoint);
       var format = new XStringFormat();
@@ -600,45 +584,7 @@ namespace Trizbort.Domain
       if (!Settings.DebugDisableTextRendering)
         text.Draw(graphics, Settings.LineFont, palette.LineTextBrush, pos, Vector.Zero, format);
     }
-
-    private static CompassPoint directionFromAngle(out float angle, Vector delta)
-    {
-      angle = (float) -(Math.Atan2(delta.Y, delta.X)/Math.PI*180.0);
-      var compassPoint = CompassPoint.East;
-      if (Numeric.InRange(angle, 0, 45))
-      {
-        compassPoint = CompassPoint.NorthWest;
-      }
-      else if (Numeric.InRange(angle, 45, 90))
-      {
-        compassPoint = CompassPoint.SouthEast;
-      }
-      else if (Numeric.InRange(angle, 90, 135))
-      {
-        compassPoint = CompassPoint.SouthWest;
-      }
-      else if (Numeric.InRange(angle, 135, 180))
-      {
-        compassPoint = CompassPoint.NorthEast;
-      }
-      else if (Numeric.InRange(angle, 0, -45))
-      {
-        compassPoint = CompassPoint.NorthEast;
-      }
-      else if (Numeric.InRange(angle, -45, -90))
-      {
-        compassPoint = CompassPoint.NorthEast;
-      }
-      else if (Numeric.InRange(angle, -90, -135))
-      {
-        compassPoint = CompassPoint.NorthWest;
-      }
-      else if (Numeric.InRange(angle, -135, -180))
-      {
-        compassPoint = CompassPoint.SouthEast;
-      }
-      return compassPoint;
-    }
+    
 
     public override Rect UnionBoundsWith(Rect rect, bool includeMargins)
     {

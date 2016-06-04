@@ -76,6 +76,46 @@ namespace Trizbort
       "nnw"
     };
 
+    public static CompassPoint DirectionFromAngle(out float angle, Vector delta)
+    {
+      angle = (float)-(Math.Atan2(delta.Y, delta.X) / Math.PI * 180.0);
+      var compassPoint = CompassPoint.East;
+      if (Numeric.InRange(angle, 0, 45))
+      {
+        compassPoint = CompassPoint.NorthWest;
+      }
+      else if (Numeric.InRange(angle, 45, 90))
+      {
+        compassPoint = CompassPoint.SouthEast;
+      }
+      else if (Numeric.InRange(angle, 90, 135))
+      {
+        compassPoint = CompassPoint.SouthWest;
+      }
+      else if (Numeric.InRange(angle, 135, 180))
+      {
+        compassPoint = CompassPoint.NorthEast;
+      }
+      else if (Numeric.InRange(angle, 0, -45))
+      {
+        compassPoint = CompassPoint.NorthEast;
+      }
+      else if (Numeric.InRange(angle, -45, -90))
+      {
+        compassPoint = CompassPoint.NorthEast;
+      }
+      else if (Numeric.InRange(angle, -90, -135))
+      {
+        compassPoint = CompassPoint.NorthWest;
+      }
+      else if (Numeric.InRange(angle, -135, -180))
+      {
+        compassPoint = CompassPoint.SouthEast;
+      }
+      return compassPoint;
+    }
+
+
     public static bool ToName(CompassPoint point, out string name)
     {
       var index = (int) point;
@@ -235,7 +275,7 @@ namespace Trizbort
       }
     }
 
-    public static CompassPoint GetCompassPointFromAutomapDirectionVector(Vector vector)
+    public static CompassPoint GetCompassPointFromDirectionVector(Vector vector)
     {
       if (vector.X < 0)
       {
@@ -317,7 +357,7 @@ namespace Trizbort
     /// </summary>
     public static CompassPoint GetNearestCardinalOrOrdinal(CompassPoint compassPoint)
     {
-      return GetCompassPointFromAutomapDirectionVector(GetAutomapDirectionVector(compassPoint));
+      return GetCompassPointFromDirectionVector(GetAutomapDirectionVector(compassPoint));
     }
 
 

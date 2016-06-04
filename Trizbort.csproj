@@ -139,6 +139,7 @@
     <Compile Include="Domain\CanvasController.cs" />
     <Compile Include="Domain\CommandLineOptions.cs" />
     <Compile Include="Domain\Connection.cs" />
+    <Compile Include="Domain\ConnectionIconBlock.cs" />
     <Compile Include="Domain\Door.cs" />
     <Compile Include="DrawingContext.cs" />
     <Compile Include="Element.cs" />
@@ -301,17 +302,15 @@
   <ItemGroup>
     <Content Include="Images\Arrow.png" />
     <Content Include="Images\Blank.png" />
-    <Content Include="Images\door.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\door_in.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Images\door.png" />
+    <Content Include="Images\door_in.png" />
     <Content Include="Images\DrawLine.cur" />
     <Content Include="Images\DrawLine.png" />
     <Content Include="Images\DrawLineInverted.cur" />
     <Content Include="Images\LineDirection.png" />
     <Content Include="Images\LineStyle.png" />
+    <Content Include="Images\lock.png" />
+    <Content Include="Images\lock_unlock.png" />
     <Content Include="Images\MoveLine.cur" />
     <Content Include="Images\MoveLineInverted.cur" />
     <Content Include="Images\ToolStripBackground.png" />

@@ -33,6 +33,7 @@ using System.Threading;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
+using Trizbort.Domain;
 using Trizbort.Domain.Controllers;
 using Trizbort.Domain.Enums;
 using Timer = System.Threading.Timer;

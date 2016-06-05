@@ -483,13 +483,13 @@ namespace Trizbort.Domain
 
       if (door != null)
       {
-        showDoorIcons(graphics, lineSegments[0], door);
+        showDoorIcons(graphics, lineSegments[0]);
       }
 
       annotate(graphics, palette, lineSegments);
     }
 
-    private void showDoorIcons(XGraphics graphics, LineSegment lineSegment, Door pDoor)
+    private void showDoorIcons(XGraphics graphics, LineSegment lineSegment)
     {
 
       var doorIcon = door.Open ? new Bitmap(Resources.Door_Open) : new Bitmap(Resources.Door);

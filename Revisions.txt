@@ -15,6 +15,7 @@ ENH: #270 - refactored the command line handling.  Commands are now:
 ENH: #267 - added command line parameters for exporting maps to source files --inform7, --inform6, --alan, --hugo, --tads, --zil
 ENH: #186 - Added region support to Hugo export.
 ENH: #279 - Added Ctrl-K to Force Darkness on selected rooms; Added Ctrl-Shift-K to force lighted on rooms.
+ENH: #56  - Added support for doors.  It can be setup in the connection properties.  Export to I7 only at this point.
 
 
 1.5.9.4

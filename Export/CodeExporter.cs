@@ -29,7 +29,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml;
+using Trizbort.Domain;
 
 namespace Trizbort.Export
 {
@@ -57,7 +57,7 @@ namespace Trizbort.Export
     {
       get
       {
-        foreach (AutomapDirection direction in Enum.GetValues(typeof (AutomapDirection)))
+        foreach (AutomapDirection direction in Enum.GetValues(typeof(AutomapDirection)))
         {
           yield return direction;
         }
@@ -67,8 +67,9 @@ namespace Trizbort.Export
     /// <summary>
     ///   The collection of locations on the map, in the order in which they should be exported.
     /// </summary>
-    protected List<Location> LocationsInExportOrder { get; private set; }
-    protected List<ExportRegion> RegionsInExportOrder { get; private set; }
+    protected List<Location> LocationsInExportOrder { get; }
+
+    protected List<ExportRegion> RegionsInExportOrder { get; }
 
     public void Dispose()
     {
@@ -108,7 +109,6 @@ namespace Trizbort.Export
       }
       return ss;
     }
-
 
 
     public void Export(string fileName)
@@ -163,7 +163,7 @@ namespace Trizbort.Export
       foreach (var reservedWord in ReservedWords)
         mapExportNameToRegion.Add(reservedWord, null);
 
-      foreach (var region in Settings.Regions.Where(p=>p.RegionName != Region.DefaultRegion))
+      foreach (var region in Settings.Regions.Where(p => p.RegionName != Region.DefaultRegion))
       {
         var exportName = GetExportName(region.RegionName, null);
         if (exportName == string.Empty)
@@ -242,11 +242,11 @@ namespace Trizbort.Export
         if (mMapRoomToLocation.TryGetValue(sourceRoom, out sourceLocation) &&
             mMapRoomToLocation.TryGetValue(targetRoom, out targetLocation))
         {
-          sourceLocation.AddExit(new Exit(sourceLocation, targetLocation, sourceCompassPoint, connection.StartText, connection.Style));
+          sourceLocation.AddExit(new Exit(sourceLocation, targetLocation, sourceCompassPoint, connection.StartText, connection));
 
           if (connection.Flow == ConnectionFlow.TwoWay)
           {
-            targetLocation.AddExit(new Exit(targetLocation, sourceLocation, targetCompassPoint, connection.EndText, connection.Style));
+            targetLocation.AddExit(new Exit(targetLocation, sourceLocation, targetCompassPoint, connection.EndText, connection));
           }
         }
       }
@@ -286,17 +286,17 @@ namespace Trizbort.Export
           // the display name is simply the object name without indentation and without and trailing []
           var displayName = objectName.Trim();
 
-          string propString = "";
+          var propString = "";
 
-          Regex rgx = new Regex(@"\[[^\]\[]*\]");
+          var rgx = new Regex(@"\[[^\]\[]*\]");
 
-          Match match = rgx.Match(displayName);
+          var match = rgx.Match(displayName);
 
           if (match.Success)
           {
             propString = displayName;
             displayName = rgx.Replace(displayName, "");
-            Regex rgx2 = new Regex(@".*\[");
+            var rgx2 = new Regex(@".*\[");
             propString = rgx2.Replace(propString, "");
             rgx2 = new Regex(@"\].*");
             propString = rgx2.Replace(propString, "");
@@ -352,6 +352,30 @@ namespace Trizbort.Export
       }
     }
 
+    public static string deaccent(string mystr)
+    {
+      var x = "";
+      foreach (var c in mystr)
+      {
+        if ((c >= 'à') && (c <= 'å')) x = x + 'a';
+        else if ((c >= 'À') && (c <= 'Å')) x = x + 'A';
+        else if (c == 'Ç') x = x + 'C';
+        else if (c == 'ç') x = x + 'c';
+        else if ((c >= 'è') && (c <= 'ë')) x = x + 'e';
+        else if ((c >= 'È') && (c <= 'Ë')) x = x + 'E';
+        else if ((c >= 'ì') && (c <= 'ï')) x = x + 'i';
+        else if ((c >= 'Ì') && (c <= 'Ï')) x = x + 'I';
+        else if (c == 'ñ') x = x + 'n';
+        else if (c == 'Ñ') x = x + 'N';
+        else if ((c >= 'Ò') && (c <= 'Ö')) x = x + 'o';
+        else if ((c >= 'ò') && (c <= 'ö')) x = x + 'O';
+        else if ((c >= 'ù') && (c <= 'ü')) x = x + 'u';
+        else if ((c >= 'Ù') && (c <= 'Ü')) x = x + 'U';
+        else x = x + c;
+      }
+      return x;
+    }
+
     protected class ExportRegion
     {
       public ExportRegion(Region region, string exportName)
@@ -361,7 +385,7 @@ namespace Trizbort.Export
       }
 
       public Region Region { get; private set; }
-      public string ExportName { get; private set; }
+      public string ExportName { get; }
       public bool Exported { get; set; }
     }
 
@@ -376,8 +400,8 @@ namespace Trizbort.Export
         ExportName = exportName;
       }
 
-      public Room Room { get; private set; }
-      public string ExportName { get; private set; }
+      public Room Room { get; }
+      public string ExportName { get; }
       public bool Exported { get; set; }
 
       public List<Thing> Things { get; } = new List<Thing>();
@@ -403,7 +427,7 @@ namespace Trizbort.Export
       private Exit pickBestExit(AutomapDirection direction)
       {
         // sort exits by priority for this direction only
-        mExits.Sort((Exit a, Exit b) =>
+        mExits.Sort((a, b) =>
         {
           var one = a.GetPriority(direction);
           var two = b.GetPriority(direction);
@@ -437,78 +461,62 @@ namespace Trizbort.Export
 
     protected class Exit
     {
-      /// <summary>
-      ///   The priority of the this exit's primary direction, compared to other exits which may go in the same direction from
-      ///   the same room.
-      /// </summary>
-      /// <remarks>
-      ///   Since multiple exits may lead the same way from the same room, priorities are
-      ///   used to decide which exit is the "best" exit in any direction.
-      ///   For example, a northerly exit which is docked to the N compass point and which
-      ///   does not go up, down, in or out is a higher priority than a northerly exit
-      ///   docked to the NNE compass point and which also goes up.
-      /// </remarks>
+      // The priority of the this exit's primary direction, compared to other exits which may go in the same direction from
+      // the same room.
+      // 
+      // Since multiple exits may lead the same way from the same room, priorities are
+      // used to decide which exit is the "best" exit in any direction.
+      // For example, a northerly exit which is docked to the N compass point and which
+      // does not go up, down, in or out is a higher priority than a northerly exit
+      // docked to the NNE compass point and which also goes up.
       private int mPrimaryPriority;
 
-      public Exit(Location source, Location target, CompassPoint visualCompassPoint, string connectionText, ConnectionStyle connectionStyle)
+      public Exit(Location source, Location target, CompassPoint visualCompassPoint, string connectionText, Connection connection)
       {
         Source = source;
         Target = target;
         VisualCompassPoint = visualCompassPoint;
-        Conditional = connectionStyle == ConnectionStyle.Dashed;
+        Door = connection.Door;
+        ConnectionName = connection.ConnectionName;
+        Conditional = connection.Style == ConnectionStyle.Dashed;
 
         assignPrimaryPriority();
         assignSecondaryDirection(connectionText);
         if (SecondaryDirection != null)
-          PrimaryDirection = (AutomapDirection)SecondaryDirection;
+          PrimaryDirection = (AutomapDirection) SecondaryDirection;
         else
           assignPrimaryDirection();
       }
 
-      /// <summary>
-      ///   The room from which this exit leads.
-      /// </summary>
+      public Door Door { get; private set; }
+      public string ConnectionName { get; private set; }
+
+      //  The room from which this exit leads.
       public Location Source { get; private set; }
 
-      /// <summary>
-      ///   The room to which this exit leads.
-      /// </summary>
-      public Location Target { get; private set; }
+      //  The room to which this exit leads.
+      public Location Target { get; }
 
-      /// <summary>
-      ///   The compass point in Trizbort at which this exit is docked to the starting room.
-      /// </summary>
-      /// <remarks>
-      ///   Naturally this may include compass points such as SouthSouthWest need to be
-      ///   translated into an exportable direction; see PrimaryDirection and SecondaryDirection.
-      /// </remarks>
-      public CompassPoint VisualCompassPoint { get; private set; }
+      //  The compass point in Trizbort at which this exit is docked to the starting room.
+      //  Naturally this may include compass points such as SouthSouthWest need to be
+      //  translated into an exportable direction; see PrimaryDirection and SecondaryDirection.
+      public CompassPoint VisualCompassPoint { get; }
 
-      /// <summary>
-      ///   The primary direction of this exit: N, S, E, W, NE, NW, SE, SW.
-      ///   Deduced from VisualCompassPoint.
-      /// </summary>
+      //   The primary direction of this exit: N, S, E, W, NE, NW, SE, SW.
+      //   Deduced from VisualCompassPoint.
       public AutomapDirection PrimaryDirection { get; private set; }
 
-      /// <summary>
-      ///   The secondary direction of this exit, if any: either up, down, in or out.
-      /// </summary>
+      //   The secondary direction of this exit, if any: either up, down, in or out.
       public AutomapDirection? SecondaryDirection { get; private set; }
 
-      /// <summary>
-      ///   True if this exit requires some in-game action from the player to be used; false otherwise.
-      /// </summary>
+      //   True if this exit requires some in-game action from the player to be used; false otherwise.
       public bool Conditional { get; private set; }
 
-      /// <summary>
-      ///   True if this exit has been exported; false otherwise.
-      /// </summary>
+      //   True if this exit has been exported; false otherwise.
       public bool Exported { get; set; }
 
-      /// <summary>
-      ///   Get the priority of the exit, in the given direction, with respect to other exits.
-      ///   Higher priorities indicate more suitable exits.
-      /// </summary>
+      //   Get the priority of the exit, in the given direction, with respect to other exits.
+      //   Higher priorities indicate more suitable exits.
       public int GetPriority(AutomapDirection direction)
       {
         if (direction == PrimaryDirection)
@@ -621,9 +629,7 @@ namespace Trizbort.Export
         }
       }
 
-      /// <summary>
-      ///   Test whether an exit is reciprocated in the other direction; i.e. is there a bidirectional connection.
-      /// </summary>
+      //  Test whether an exit is reciprocated in the other direction; i.e. is there a bidirectional connection.
       public static bool IsReciprocated(Location source, AutomapDirection direction, Location target)
       {
         if (target != null)
@@ -640,32 +646,22 @@ namespace Trizbort.Export
       }
     }
 
-    public static string deaccent (string mystr)
-    {
-      string x = "";
-      foreach (var c in mystr)
-      {
-        if ((c >= 'à') && (c <= 'å')) x = x + 'a';
-        else if ((c >= 'À') && (c <= 'Å')) x = x + 'A';
-        else if (c == 'Ç') x = x + 'C';
-        else if (c == 'ç') x = x + 'c';
-        else if ((c >= 'è') && (c <= 'ë')) x = x + 'e';
-        else if ((c >= 'È') && (c <= 'Ë')) x = x + 'E';
-        else if ((c >= 'ì') && (c <= 'ï')) x = x + 'i';
-        else if ((c >= 'Ì') && (c <= 'Ï')) x = x + 'I';
-        else if (c == 'ñ') x = x + 'n';
-        else if (c == 'Ñ') x = x + 'N';
-        else if ((c >= 'Ò') && (c <= 'Ö')) x = x + 'o';
-        else if ((c >= 'ò') && (c <= 'ö')) x = x + 'O';
-        else if ((c >= 'ù') && (c <= 'ü')) x = x + 'u';
-        else if ((c >= 'Ù') && (c <= 'Ü')) x = x + 'U';
-        else x = x + c;
-      }
-      return x;
-    }
-
     protected class Thing
     {
+      public enum Amounts
+      {
+        noforce,
+        singular,
+        plural
+      }
+
+      public enum ThingGender
+      {
+        neuter,
+        male,
+        female
+      }
+
       public Thing(string displayName, string exportName, Location location, Thing container, int indent, string propString)
       {
         DisplayName = displayName;
@@ -679,23 +675,27 @@ namespace Trizbort.Export
         Contents = new List<Thing>();
         PropString = propString;
 
-        Regex PropRegx = new Regex("[fmp12csu!]");
-        string errString = PropRegx.Replace(PropString, "");
+        var PropRegx = new Regex("[fmp12csu!]");
+        var errString = PropRegx.Replace(PropString, "");
 
         if (!string.IsNullOrWhiteSpace(errString))
           WarningText += "The properties string " + PropString + " has the invalid character" + (errString.Length == 1 ? "" : "s") + " " + errString + ".\n";
 
         //P defines a neuter person. F female, M male.
-        if (propString.Contains("f")) { isPerson = true; gender = ThingGender.female; }
+        if (propString.Contains("f"))
+        {
+          isPerson = true;
+          gender = ThingGender.female;
+        }
         if (propString.Contains("m"))
         {
-          if (isPerson) { WarningText += "You defined two different genders: " + Thing.ThingGender.GetName(typeof(Thing.ThingGender), gender) + " then male.\n"; }
+          if (isPerson) { WarningText += "You defined two different genders: " + Enum.GetName(typeof(ThingGender), gender) + " then male.\n"; }
           gender = ThingGender.male;
           isPerson = true;
         }
         if (propString.Contains("p"))
         {
-          if (isPerson) { WarningText += "You defined two different genders: " + Thing.ThingGender.GetName(typeof(Thing.ThingGender), gender) + " then neuter.\n"; }
+          if (isPerson) { WarningText += "You defined two different genders: " + Enum.GetName(typeof(ThingGender), gender) + " then neuter.\n"; }
           gender = ThingGender.neuter;
           isPerson = true;
         }
@@ -734,38 +734,23 @@ namespace Trizbort.Export
         if (propString.Contains("!")) properNamed = true;
       }
 
-      public enum Amounts
-      {
-        noforce,
-        singular,
-        plural
-      }
-
-      public enum ThingGender
-      {
-        neuter,
-        male,
-        female
-      };
-
 
       public string DisplayName { get; private set; }
       public string ExportName { get; private set; }
-      public Location Location { get; private set; }
+      public Location Location { get; }
       public Thing Container { get; private set; }
-      public int Indent { get; private set; }
-      public List<Thing> Contents { get; private set; }
+      public int Indent { get; }
+      public List<Thing> Contents { get; }
 
-      public string PropString { get; private set; }
-      public string WarningText { get; private set; }
-      public bool isPerson { get; private set; }
+      public string PropString { get; }
+      public string WarningText { get; }
+      public bool isPerson { get; }
       public bool isContainer { get; private set; }
       public bool isScenery { get; private set; }
       public bool isSupporter { get; private set; }
       public bool properNamed { get; private set; }
-      public Amounts forceplural { get; private set; }
-      public ThingGender gender { get; private set; }
-
+      public Amounts forceplural { get; }
+      public ThingGender gender { get; }
     }
   }
 }

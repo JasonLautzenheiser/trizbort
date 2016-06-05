@@ -24,15 +24,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
-using Trizbort.Extensions;
+using Trizbort.Properties;
+using Trizbort.UI;
 
-namespace Trizbort
+namespace Trizbort.Domain
 {
   /// <summary>
   ///   A connection between elements or points in space.
@@ -42,37 +45,40 @@ namespace Trizbort
   ///   Each vertex is fixed either to a point in space or
   ///   to an element's port.
   /// </remarks>
+  [SuppressMessage("ReSharper", "CanBeReplacedWithTryCastAndCheckForNull")]
   public class Connection : Element
   {
     public const string Up = "up";
     public const string Down = "down";
     public const string In = "in";
     public const string Out = "out";
-    private static readonly ConnectionStyle DefaultStyle = ConnectionStyle.Solid;
-    private static readonly ConnectionFlow DefaultFlow = ConnectionFlow.TwoWay;
-    private readonly TextBlock m_endText = new TextBlock();
-    private readonly TextBlock m_midText = new TextBlock();
-    private readonly List<LineSegment> m_smartSegments = new List<LineSegment>();
-    private readonly TextBlock m_startText = new TextBlock();
-    private readonly BoundList<Vertex> m_vertexList = new BoundList<Vertex>();
-    private ConnectionFlow m_flow = DefaultFlow;
-    private ConnectionStyle m_style = DefaultStyle;
-    private Color m_ConnectionColor = Color.Transparent;
+    private string connectionName = string.Empty;
+    private const ConnectionStyle DEFAULT_STYLE = ConnectionStyle.Solid;
+    private const ConnectionFlow DEFAULT_FLOW = ConnectionFlow.TwoWay;
+    private readonly TextBlock mEndText = new TextBlock();
+    private readonly TextBlock mMidText = new TextBlock();
+    private readonly List<LineSegment> mSmartSegments = new List<LineSegment>();
+    private readonly TextBlock mStartText = new TextBlock();
+    private Color mConnectionColor = Color.Transparent;
+    private ConnectionFlow mFlow = DEFAULT_FLOW;
+    private ConnectionStyle mStyle = DEFAULT_STYLE;
+    private Door door;
+
 
     public Connection(Project project)
       : base(project)
     {
-      m_vertexList.Added += OnVertexAdded;
-      m_vertexList.Removed += OnVertexRemoved;
+      VertexList.Added += onVertexAdded;
+      VertexList.Removed += onVertexRemoved;
     }
 
     // Added this second constructor to be used when loading a room
     // This constructor is significantly faster as it doesn't look for gap in the element IDs
-    public Connection(Project project, int TotalIDs)
-      : base(project, TotalIDs)
+    public Connection(Project project, int totalIDs)
+      : base(project, totalIDs)
     {
-      m_vertexList.Added += OnVertexAdded;
-      m_vertexList.Removed += OnVertexRemoved;
+      VertexList.Added += onVertexAdded;
+      VertexList.Removed += onVertexRemoved;
     }
 
     public Connection(Project project, Vertex a, Vertex b)
@@ -83,8 +89,8 @@ namespace Trizbort
     }
 
     // Added to ignore ID gaps
-    public Connection(Project project, Vertex a, Vertex b, int TotalIDs)
-      : this(project, TotalIDs)
+    public Connection(Project project, Vertex a, Vertex b, int totalIDs)
+      : this(project, totalIDs)
     {
       VertexList.Add(a);
       VertexList.Add(b);
@@ -100,8 +106,8 @@ namespace Trizbort
     }
 
     // Added to ignore ID gaps
-    public Connection(Project project, Vertex a, Vertex b, int TotalIDs, params Vertex[] args)
-      : this(project, a, b, TotalIDs)
+    public Connection(Project project, Vertex a, Vertex b, int totalIDs, params Vertex[] args)
+      : this(project, a, b, totalIDs)
     {
       foreach (var vertex in args)
       {
@@ -109,26 +115,40 @@ namespace Trizbort
       }
     }
 
-    public Color ConnectionColor
+    public Door Door
     {
-      get { return m_ConnectionColor; }
+      get { return door; }
       set
       {
-        if (m_ConnectionColor != value)
+        if (door != value)
         {
-          m_ConnectionColor = value;
+          door = value;
           RaiseChanged();
         }
       }
     }
-    public ConnectionStyle Style
+
+    public Color ConnectionColor
     {
-      get { return m_style; }
+      get { return mConnectionColor; }
       set
       {
-        if (m_style != value)
+        if (mConnectionColor != value)
         {
-          m_style = value;
+          mConnectionColor = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    public ConnectionStyle Style
+    {
+      get { return mStyle; }
+      set
+      {
+        if (mStyle != value)
+        {
+          mStyle = value;
           RaiseChanged();
         }
       }
@@ -136,12 +156,25 @@ namespace Trizbort
 
     public ConnectionFlow Flow
     {
-      get { return m_flow; }
+      get { return mFlow; }
       set
       {
-        if (m_flow != value)
+        if (mFlow != value)
         {
-          m_flow = value;
+          mFlow = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    public string ConnectionName
+    {
+      get { return connectionName; }
+      set
+      {
+        if (connectionName != value)
+        {
+          connectionName = value;
           RaiseChanged();
         }
       }
@@ -149,12 +182,12 @@ namespace Trizbort
 
     public string StartText
     {
-      get { return m_startText.Text; }
+      get { return mStartText.Text; }
       set
       {
-        if (m_startText.Text != value)
+        if (mStartText.Text != value)
         {
-          m_startText.Text = value;
+          mStartText.Text = value;
           RaiseChanged();
         }
       }
@@ -162,12 +195,12 @@ namespace Trizbort
 
     public string MidText
     {
-      get { return m_midText.Text; }
+      get { return mMidText.Text; }
       set
       {
-        if (m_midText.Text != value)
+        if (mMidText.Text != value)
         {
-          m_midText.Text = value;
+          mMidText.Text = value;
           RaiseChanged();
         }
       }
@@ -175,45 +208,37 @@ namespace Trizbort
 
     public string EndText
     {
-      get { return m_endText.Text; }
+      get { return mEndText.Text; }
       set
       {
-        if (m_endText.Text != value)
+        if (mEndText.Text != value)
         {
-          m_endText.Text = value;
+          mEndText.Text = value;
           RaiseChanged();
         }
       }
     }
 
-    public BoundList<Vertex> VertexList
-    {
-      get { return m_vertexList; }
-    }
+    public BoundList<Vertex> VertexList { get; } = new BoundList<Vertex>();
 
-    public override Depth Depth
-    {
-      get { return Depth.Low; }
-    }
+    public override Depth Depth => Depth.Low;
 
-    public override bool HasDialog
-    {
-      get { return true; }
-    }
+    public override bool HasDialog => true;
 
-    private void OnVertexAdded(object sender, ItemEventArgs<Vertex> e)
+    private void onVertexAdded(object sender, ItemEventArgs<Vertex> e)
     {
       e.Item.Connection = this;
-      e.Item.Changed += OnVertexChanged;
+      e.Item.Changed += onVertexChanged;
       PortList.Add(new VertexPort(e.Item, this));
     }
 
-    private void OnVertexRemoved(object sender, ItemEventArgs<Vertex> e)
+    private void onVertexRemoved(object sender, ItemEventArgs<Vertex> e)
     {
       e.Item.Connection = null;
-      e.Item.Changed -= OnVertexChanged;
-      foreach (VertexPort port in PortList)
+      e.Item.Changed -= onVertexChanged;
+      foreach (var port1 in PortList)
       {
+        var port = (VertexPort) port1;
         if (port.Vertex == e.Item)
         {
           PortList.Remove(port);
@@ -222,7 +247,7 @@ namespace Trizbort
       }
     }
 
-    private void OnVertexChanged(object sender, EventArgs e)
+    private void onVertexChanged(object sender, EventArgs e)
     {
       RaiseChanged();
     }
@@ -270,13 +295,12 @@ namespace Trizbort
       SetText(start, null, end);
     }
 
-    private List<LineSegment> GetSegments()
+    private List<LineSegment> getSegments()
     {
       var list = new List<LineSegment>();
       if (VertexList.Count > 0)
       {
         var first = VertexList[0];
-        var last = VertexList[VertexList.Count - 1];
 
         var index = 0;
         var a = VertexList[index++].Position;
@@ -317,7 +341,7 @@ namespace Trizbort
     ///   list.
     /// </param>
     /// <returns>True if the line segment was split and newSegments now exists and contains line segments; false otherwise.</returns>
-    private bool Split(LineSegment lineSegment, DrawingContext context, ref List<LineSegment> newSegments)
+    private bool split(LineSegment lineSegment, DrawingContext context, ref List<LineSegment> newSegments)
     {
       foreach (var previousSegment in context.LinesDrawn)
       {
@@ -333,7 +357,7 @@ namespace Trizbort
                 var one = new LineSegment(lineSegment.Start, intersect.Position);
                 if (one.Shorten(amount))
                 {
-                  if (!Split(one, context, ref newSegments))
+                  if (!split(one, context, ref newSegments))
                   {
                     if (newSegments == null)
                     {
@@ -345,7 +369,7 @@ namespace Trizbort
                 var two = new LineSegment(intersect.Position, lineSegment.End);
                 if (two.Forshorten(amount))
                 {
-                  if (!Split(two, context, ref newSegments))
+                  if (!split(two, context, ref newSegments))
                   {
                     if (newSegments == null)
                     {
@@ -359,7 +383,7 @@ namespace Trizbort
               case LineSegmentIntersectType.StartA:
                 if (lineSegment.Forshorten(amount))
                 {
-                  if (!Split(lineSegment, context, ref newSegments))
+                  if (!split(lineSegment, context, ref newSegments))
                   {
                     if (newSegments == null)
                     {
@@ -373,7 +397,7 @@ namespace Trizbort
               case LineSegmentIntersectType.EndA:
                 if (lineSegment.Shorten(amount))
                 {
-                  if (!Split(lineSegment, context, ref newSegments))
+                  if (!split(lineSegment, context, ref newSegments))
                   {
                     if (newSegments == null)
                     {
@@ -396,24 +420,24 @@ namespace Trizbort
 
     public override void RecomputeSmartLineSegments(DrawingContext context)
     {
-      m_smartSegments.Clear();
-      foreach (var lineSegment in GetSegments())
+      mSmartSegments.Clear();
+      foreach (var lineSegment in getSegments())
       {
         List<LineSegment> newSegments = null;
-        if (Split(lineSegment, context, ref newSegments))
+        if (split(lineSegment, context, ref newSegments))
         {
           foreach (var newSegment in newSegments)
           {
-            m_smartSegments.Add(newSegment);
+            mSmartSegments.Add(newSegment);
           }
         }
         else
         {
-          m_smartSegments.Add(lineSegment);
+          mSmartSegments.Add(lineSegment);
         }
       }
 
-      foreach (var segment in m_smartSegments)
+      foreach (var segment in mSmartSegments)
       {
         context.LinesDrawn.Add(segment);
       }
@@ -421,7 +445,7 @@ namespace Trizbort
 
     public override void Draw(XGraphics graphics, Palette palette, DrawingContext context)
     {
-      var lineSegments = context.UseSmartLineSegments ? m_smartSegments : GetSegments();
+      var lineSegments = context.UseSmartLineSegments ? mSmartSegments : getSegments();
 
       foreach (var lineSegment in lineSegments)
       {
@@ -442,7 +466,7 @@ namespace Trizbort
         var delta = lineSegment.Delta;
         if (Flow == ConnectionFlow.OneWay && delta.Length > Settings.ConnectionArrowSize)
         {
-          SolidBrush brush = (SolidBrush) palette.GetLineBrush(context.Selected, context.Hover);
+          var brush = (SolidBrush) palette.GetLineBrush(context.Selected, context.Hover);
           SolidBrush specialBrush = null;
 
           if (!context.Hover)
@@ -457,31 +481,48 @@ namespace Trizbort
         context.LinesDrawn.Add(lineSegment);
       }
 
-      Annotate(graphics, palette, lineSegments);
+      if (door != null)
+      {
+        showDoorIcons(graphics, lineSegments[0]);
+      }
+
+      annotate(graphics, palette, lineSegments);
     }
 
-    private void Annotate(XGraphics graphics, Palette palette, List<LineSegment> lineSegments)
+    private void showDoorIcons(XGraphics graphics, LineSegment lineSegment)
+    {
+
+      var doorIcon = door.Open ? new Bitmap(Resources.Door_Open) : new Bitmap(Resources.Door);
+      var doorLock = door.Locked ? new Bitmap(Resources.Lock) : new Bitmap(Resources.Unlocked);
+      lineSegment.IconBlock1.Image = doorIcon;
+      lineSegment.IconBlock2.Image = doorLock;
+
+      lineSegment.DrawIcons(graphics);
+    }
+
+    private void annotate(XGraphics graphics, Palette palette, List<LineSegment> lineSegments)
     {
       if (lineSegments.Count == 0)
         return;
 
       if (!string.IsNullOrEmpty(StartText))
       {
-        Annotate(graphics, palette, lineSegments[0], m_startText, StringAlignment.Near, GetSourceRoom()?.Shape);
+        annotate(graphics, palette, lineSegments[0], mStartText, StringAlignment.Near);
       }
 
       if (!string.IsNullOrEmpty(EndText))
       {
-        Annotate(graphics, palette, lineSegments[lineSegments.Count - 1], m_endText, StringAlignment.Far, GetTargetRoom()?.Shape);
+        annotate(graphics, palette, lineSegments[lineSegments.Count - 1], mEndText, StringAlignment.Far);
       }
 
       if (!string.IsNullOrEmpty(MidText))
       {
         var totalLength = lineSegments.Sum(lineSegment => lineSegment.Length);
         var middle = totalLength/2;
-        if (lineSegments.Count % 2 == 1) // with default values, middle text is horizontally but not vertically centered
-        { //We usually have 3 line segments but in some cases we might not e.g. if there are no stalks
-            middle += (4 * Settings.LineFont.Height) / 5;
+        if (lineSegments.Count%2 == 1) // with default values, middle text is horizontally but not vertically centered
+        {
+          //We usually have 3 line segments but in some cases we might not e.g. if there are no stalks
+          middle += 4.0f*Settings.LineFont.Height/5;
         }
         foreach (var lineSegment in lineSegments)
         {
@@ -495,20 +536,19 @@ namespace Trizbort
             middle /= length;
             var pos = lineSegment.Start + lineSegment.Delta*middle;
             var fakeSegment = new LineSegment(pos - lineSegment.Delta*Numeric.Small, pos + lineSegment.Delta*Numeric.Small);
-            Annotate(graphics, palette, fakeSegment, m_midText, StringAlignment.Center);
+            annotate(graphics, palette, fakeSegment, mMidText, StringAlignment.Center);
             break;
           }
         }
       }
     }
 
-    private static void Annotate(XGraphics graphics, Palette palette, LineSegment lineSegment, TextBlock text, StringAlignment alignment, RoomShape? shape = RoomShape.SquareCorners)
+    private static void annotate(XGraphics graphics, Palette palette, LineSegment lineSegment, TextBlock text, StringAlignment alignment)
     {
       Vector point;
       var delta = lineSegment.Delta;
       switch (alignment)
       {
-        case StringAlignment.Near:
         default:
           point = lineSegment.Start;
           delta.Negate();
@@ -524,40 +564,8 @@ namespace Trizbort
       var bounds = new Rect(point, Vector.Zero);
       bounds.Inflate(Settings.TextOffsetFromConnection);
 
-      var angle = (float) -(Math.Atan2(delta.Y, delta.X)/Math.PI*180.0);
-      var compassPoint = CompassPoint.East;
-      if (Numeric.InRange(angle, 0, 45))
-      {
-        compassPoint = CompassPoint.NorthWest;
-      }
-      else if (Numeric.InRange(angle, 45, 90))
-      {
-        compassPoint = CompassPoint.SouthEast;
-      }
-      else if (Numeric.InRange(angle, 90, 135))
-      {
-        compassPoint = CompassPoint.SouthWest;
-      }
-      else if (Numeric.InRange(angle, 135, 180))
-      {
-        compassPoint = CompassPoint.NorthEast;
-      }
-      else if (Numeric.InRange(angle, 0, -45))
-      {
-        compassPoint = CompassPoint.NorthEast;
-      }
-      else if (Numeric.InRange(angle, -45, -90))
-      {
-        compassPoint = CompassPoint.NorthEast;
-      }
-      else if (Numeric.InRange(angle, -90, -135))
-      {
-        compassPoint = CompassPoint.NorthWest;
-      }
-      else if (Numeric.InRange(angle, -135, -180))
-      {
-        compassPoint = CompassPoint.SouthEast;
-      }
+      float angle;
+      var compassPoint = CompassPointHelper.DirectionFromAngle(out angle, delta);
 
       var pos = bounds.GetCorner(compassPoint);
       var format = new XStringFormat();
@@ -572,10 +580,11 @@ namespace Trizbort
         format.LineAlignment = XLineAlignment.Near;
       }
 
-      
+
       if (!Settings.DebugDisableTextRendering)
         text.Draw(graphics, Settings.LineFont, palette.LineTextBrush, pos, Vector.Zero, format);
     }
+    
 
     public override Rect UnionBoundsWith(Rect rect, bool includeMargins)
     {
@@ -627,7 +636,7 @@ namespace Trizbort
     public override float Distance(Vector pos, bool includeMargins)
     {
       var distance = float.MaxValue;
-      foreach (var segment in GetSegments())
+      foreach (var segment in getSegments())
       {
         distance = Math.Min(distance, pos.DistanceFromLineSegment(segment));
       }
@@ -636,7 +645,7 @@ namespace Trizbort
 
     public override bool Intersects(Rect rect)
     {
-      foreach (var segment in GetSegments())
+      foreach (var segment in getSegments())
       {
         if (segment.IntersectsWith(rect))
         {
@@ -650,30 +659,44 @@ namespace Trizbort
     {
       using (var dialog = new ConnectionPropertiesDialog())
       {
+        dialog.ConnectionName = ConnectionName;
         dialog.IsDotted = Style == ConnectionStyle.Dashed;
         dialog.IsDirectional = Flow == ConnectionFlow.OneWay;
         dialog.StartText = StartText;
         dialog.MidText = MidText;
         dialog.EndText = EndText;
         dialog.ConnectionColor = ConnectionColor;
+        dialog.Door = Door;
         if (dialog.ShowDialog() == DialogResult.OK)
         {
+          ConnectionName = dialog.ConnectionName;
           Style = dialog.IsDotted ? ConnectionStyle.Dashed : ConnectionStyle.Solid;
           Flow = dialog.IsDirectional ? ConnectionFlow.OneWay : ConnectionFlow.TwoWay;
           ConnectionColor = dialog.ConnectionColor;
           StartText = dialog.StartText;
           MidText = dialog.MidText;
           EndText = dialog.EndText;
+          Door = dialog.Door;
         }
       }
     }
 
     public void Save(XmlScribe scribe)
     {
+      scribe.Attribute("name", ConnectionName);
+      if (Door != null)
+      {
+        scribe.Attribute("door", true);
+        scribe.Attribute("lockable", door.Lockable);
+        scribe.Attribute("openable", door.Openable);
+        scribe.Attribute("locked", door.Locked);
+        scribe.Attribute("open", door.Open);
+      }
       if (ConnectionColor != Color.Transparent)
         scribe.Attribute("color", Colors.SaveColor(ConnectionColor));
 
-      if (Style != DefaultStyle)
+
+      if (Style != DEFAULT_STYLE)
       {
         switch (Style)
         {
@@ -685,7 +708,7 @@ namespace Trizbort
             break;
         }
       }
-      if (Flow != DefaultFlow)
+      if (Flow != DEFAULT_FLOW)
       {
         switch (Flow)
         {
@@ -732,13 +755,24 @@ namespace Trizbort
         }
         ++index;
       }
+
+
     }
 
     public object BeginLoad(XmlElementReader element)
     {
+
+      if (element.Attribute("door").Text == "yes")
+      {
+        Door = new Door();
+        Door.Lockable = element.Attribute("lockable").Text == "yes";
+        Door.Locked = element.Attribute("locked").Text == "yes";
+        Door.Open = element.Attribute("open").Text == "yes";
+        Door.Openable = element.Attribute("openable").Text == "yes";
+      }
+
       switch (element.Attribute("style").Text)
       {
-        case "solid":
         default:
           Style = ConnectionStyle.Solid;
           break;
@@ -748,7 +782,6 @@ namespace Trizbort
       }
       switch (element.Attribute("flow").Text)
       {
-        case "twoWay":
         default:
           Flow = ConnectionFlow.TwoWay;
           break;
@@ -756,6 +789,7 @@ namespace Trizbort
           Flow = ConnectionFlow.OneWay;
           break;
       }
+      ConnectionName = element.Attribute("name").Text;
       StartText = element.Attribute("startText").Text;
       MidText = element.Attribute("midText").Text;
       EndText = element.Attribute("endText").Text;
@@ -769,8 +803,7 @@ namespace Trizbort
       {
         if (vertexElement.HasName("point"))
         {
-          var vertex = new Vertex();
-          vertex.Position = new Vector(vertexElement.Attribute("x").ToFloat(), vertexElement.Attribute("y").ToFloat());
+          var vertex = new Vertex {Position = new Vector(vertexElement.Attribute("x").ToFloat(), vertexElement.Attribute("y").ToFloat())};
           VertexList.Add(vertex);
         }
         else if (vertexElement.HasName("dock"))
@@ -787,7 +820,7 @@ namespace Trizbort
 
     public void EndLoad(object state)
     {
-      var elements = (List<XmlElementReader>) (state);
+      var elements = (List<XmlElementReader>) state;
       for (var index = 0; index < elements.Count; ++index)
       {
         var element = elements[index];
@@ -831,9 +864,9 @@ namespace Trizbort
 
     public Room GetSourceRoom(out CompassPoint sourceCompassPoint)
     {
-      if (m_vertexList.Count > 0)
+      if (VertexList.Count > 0)
       {
-        var port = m_vertexList[0].Port;
+        var port = VertexList[0].Port;
         if (port is Room.CompassPort)
         {
           var compassPort = (Room.CompassPort) port;
@@ -847,22 +880,22 @@ namespace Trizbort
 
     public int ConnectedRoomToRotate(bool whichRoom)
     {
-    //first, let's take care of cases where the right room is forced, if there is one
-      if ((this.VertexList[0].Port == null) && (this.VertexList[0].Port == null)) return -1;
-      if (this.VertexList[1].Port == null) return 0;
-      if (this.VertexList[0].Port == null) return 1;
+      //first, let's take care of cases where the right room is forced, if there is one
+      if ((VertexList[0].Port == null) && (VertexList[0].Port == null)) return -1;
+      if (VertexList[1].Port == null) return 0;
+      if (VertexList[0].Port == null) return 1;
 
-      var firstRoom = (Room)this.VertexList[0].Port.Owner;
-      var secondRoom = (Room)this.VertexList[1].Port.Owner;
+      var firstRoom = (Room) VertexList[0].Port.Owner;
+      var secondRoom = (Room) VertexList[1].Port.Owner;
 
-      var firstCenterY = firstRoom.Y + firstRoom.Height / 2;
-      var secondCenterY = secondRoom.Y + secondRoom.Height / 2;
+      var firstCenterY = firstRoom.Y + firstRoom.Height/2;
+      var secondCenterY = secondRoom.Y + secondRoom.Height/2;
 
       if (firstCenterY < secondCenterY) { return whichRoom ? 0 : 1; }
       if (firstCenterY > secondCenterY) { return whichRoom ? 1 : 0; }
 
-      var firstCenterX = firstRoom.Position.X + firstRoom.Height / 2;
-      var secondCenterX = secondRoom.Position.X + secondRoom.Height / 2;
+      var firstCenterX = firstRoom.Position.X + firstRoom.Height/2;
+      var secondCenterX = secondRoom.Position.X + secondRoom.Height/2;
 
       if (firstCenterX < secondCenterX) { return whichRoom ? 0 : 1; }
       if (firstCenterX > secondCenterX) { return whichRoom ? 1 : 0; }
@@ -874,8 +907,8 @@ namespace Trizbort
     {
       var upEnd = ConnectedRoomToRotate(upperRoom);
       if (upEnd == -1) { return; }
-      var pointToChange = (Room.CompassPort)VertexList[ConnectedRoomToRotate(upperRoom)].Port;
-      var connRoom = (Room)pointToChange.Owner;
+      var pointToChange = (Room.CompassPort) VertexList[ConnectedRoomToRotate(upperRoom)].Port;
+      var connRoom = (Room) pointToChange.Owner;
       var dirToChange = pointToChange.CompassPoint;
       var startDir = dirToChange;
       do
@@ -886,27 +919,26 @@ namespace Trizbort
           dirToChange++;
         if (dirToChange < CompassPoint.Min) { dirToChange = CompassPoint.Max; }
         if (dirToChange > CompassPoint.Max) { dirToChange = CompassPoint.Min; }
-      }
-      while ((dirToChange != startDir) && (connRoom.GetConnections((CompassPoint)dirToChange).Count > 0));
+      } while ((dirToChange != startDir) && (connRoom.GetConnections(dirToChange).Count > 0));
 
       if (startDir == dirToChange)
       {
         MessageBox.Show($"There are no free ports in room {connRoom.Name}", "Connector rotate failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
         return;
       }
-      if (this.VertexList[upEnd].Port != connRoom.Ports[(int) dirToChange])
+      if (VertexList[upEnd].Port != connRoom.Ports[(int) dirToChange])
       {
         //this should always be different, but just in case...
-        this.VertexList[upEnd].Port = connRoom.Ports[(int) dirToChange];
+        VertexList[upEnd].Port = connRoom.Ports[(int) dirToChange];
         RaiseChanged();
       }
     }
 
     public Room GetTargetRoom(out CompassPoint targetCompassPoint)
     {
-      if (m_vertexList.Count > 1)
+      if (VertexList.Count > 1)
       {
-        var port = m_vertexList[m_vertexList.Count - 1].Port;
+        var port = VertexList[VertexList.Count - 1].Port;
         if (port is Room.CompassPort)
         {
           var compassPort = (Room.CompassPort) port;
@@ -918,10 +950,10 @@ namespace Trizbort
       return null;
     }
 
-    public String ClipboardPrint()
+    public string ClipboardPrint()
     {
       var clipboardText = "";
-      
+
       switch (Style)
       {
         case ConnectionStyle.Solid:
@@ -987,12 +1019,12 @@ namespace Trizbort
         Connection = connection;
       }
 
-      public override string ID { get { return Connection.VertexList.IndexOf(Vertex).ToString(CultureInfo.InvariantCulture); } }
+      public override string ID => Connection.VertexList.IndexOf(Vertex).ToString(CultureInfo.InvariantCulture);
 
-      public override Port DockedAt { get { return Vertex.Port; } }
+      public override Port DockedAt => Vertex.Port;
 
-      public Vertex Vertex { get; private set; }
-      public Connection Connection { get; private set; }
+      public Vertex Vertex { get; }
+      public Connection Connection { get; }
 
       public override void SetPosition(Vector pos)
       {

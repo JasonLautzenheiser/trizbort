@@ -29,6 +29,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using Trizbort.Domain;
 using Trizbort.Extensions;
 
 namespace Trizbort

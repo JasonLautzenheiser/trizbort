@@ -53,6 +53,7 @@ namespace Trizbort.Domain
     public const string In = "in";
     public const string Out = "out";
     private string connectionName = string.Empty;
+    private string connectionDescription = string.Empty;
     private const ConnectionStyle DEFAULT_STYLE = ConnectionStyle.Solid;
     private const ConnectionFlow DEFAULT_FLOW = ConnectionFlow.TwoWay;
     private readonly TextBlock mEndText = new TextBlock();
@@ -175,6 +176,19 @@ namespace Trizbort.Domain
         if (connectionName != value)
         {
           connectionName = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    public string ConnectionDescription
+    {
+      get { return connectionDescription; }
+      set
+      {
+        if (connectionDescription != value)
+        {
+          connectionDescription = value;
           RaiseChanged();
         }
       }
@@ -660,6 +674,7 @@ namespace Trizbort.Domain
       using (var dialog = new ConnectionPropertiesDialog())
       {
         dialog.ConnectionName = ConnectionName;
+        dialog.ConnectionDescription = ConnectionDescription;
         dialog.IsDotted = Style == ConnectionStyle.Dashed;
         dialog.IsDirectional = Flow == ConnectionFlow.OneWay;
         dialog.StartText = StartText;
@@ -670,6 +685,7 @@ namespace Trizbort.Domain
         if (dialog.ShowDialog() == DialogResult.OK)
         {
           ConnectionName = dialog.ConnectionName;
+          ConnectionDescription = dialog.ConnectionDescription;
           Style = dialog.IsDotted ? ConnectionStyle.Dashed : ConnectionStyle.Solid;
           Flow = dialog.IsDirectional ? ConnectionFlow.OneWay : ConnectionFlow.TwoWay;
           ConnectionColor = dialog.ConnectionColor;
@@ -684,6 +700,7 @@ namespace Trizbort.Domain
     public void Save(XmlScribe scribe)
     {
       scribe.Attribute("name", ConnectionName);
+      scribe.Attribute("description", ConnectionDescription);
       if (Door != null)
       {
         scribe.Attribute("door", true);
@@ -790,6 +807,7 @@ namespace Trizbort.Domain
           break;
       }
       ConnectionName = element.Attribute("name").Text;
+      ConnectionDescription = element.Attribute("description").Text;
       StartText = element.Attribute("startText").Text;
       MidText = element.Attribute("midText").Text;
       EndText = element.Attribute("endText").Text;

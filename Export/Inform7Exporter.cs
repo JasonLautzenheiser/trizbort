@@ -191,7 +191,7 @@ namespace Trizbort.Export
       writer.WriteLine($"{exit.ConnectionName} is a door. {exit.ConnectionName} is {direction.ToString().ToLower()} of {location.ExportName} and {oppositeDirection.ToString().ToLower()} of {exit.Target.ExportName}.  ");
       writer.WriteLine($"{exit.ConnectionName} is {(exit.Door.Open ? "open" : "closed")} and {(exit.Door.Openable ? "openable" : "not openable")}.");
       writer.WriteLine($"{exit.ConnectionName} is {(exit.Door.Locked ? "locked" : "unlocked")} and {(exit.Door.Lockable ? "lockable" : "not lockable")}.");
-
+      writer.WriteLine($"The description of {exit.ConnectionName} is {toInform7PrintableString(exit.ConnectionDescription)}.");
       reciprocal.Exported = true;
       writer.WriteLine();
     }

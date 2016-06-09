@@ -478,6 +478,7 @@ namespace Trizbort.Export
         VisualCompassPoint = visualCompassPoint;
         Door = connection.Door;
         ConnectionName = connection.ConnectionName;
+        ConnectionDescription = connection.ConnectionDescription;
         Conditional = connection.Style == ConnectionStyle.Dashed;
 
         assignPrimaryPriority();
@@ -490,6 +491,7 @@ namespace Trizbort.Export
 
       public Door Door { get; private set; }
       public string ConnectionName { get; private set; }
+      public string ConnectionDescription { get; private set; }
 
       //  The room from which this exit leads.
       public Location Source { get; private set; }

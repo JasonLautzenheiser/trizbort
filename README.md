@@ -1,4 +1,4 @@
-trizbort  
+trizbort  [![GitHub version](https://badge.fury.io/gh/jasonlautzenheiser%2Ftrizbort.svg)](https://badge.fury.io/gh/jasonlautzenheiser%2Ftrizbort)
 ========
 
 This is the source code to Trizbort, the Interactive Fiction Mapper.

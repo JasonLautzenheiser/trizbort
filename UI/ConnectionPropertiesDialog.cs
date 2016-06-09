@@ -67,6 +67,12 @@ namespace Trizbort.UI
       set { txtName.Text = value;updateControls(); }
     }
 
+    public string ConnectionDescription
+    {
+      get { return txtDescription.Text; }
+      set { txtDescription.Text = value; updateControls(); }
+    }
+
     public string StartText
     {
       get { return m_startTextBox.Text; }
@@ -76,7 +82,6 @@ namespace Trizbort.UI
         updateControls();
       }
     }
-
 
     public string MidText
     {

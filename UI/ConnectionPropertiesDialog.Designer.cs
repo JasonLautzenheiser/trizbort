@@ -80,6 +80,8 @@ namespace Trizbort.UI
       this.chkLocked = new System.Windows.Forms.CheckBox();
       this.chkOpen = new System.Windows.Forms.CheckBox();
       this.chkOpenable = new System.Windows.Forms.CheckBox();
+      this.label4 = new System.Windows.Forms.Label();
+      this.txtDescription = new System.Windows.Forms.TextBox();
       this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.SuspendLayout();
@@ -320,15 +322,15 @@ namespace Trizbort.UI
       this.label3.AutoSize = true;
       this.label3.Location = new System.Drawing.Point(14, 16);
       this.label3.Name = "label3";
-      this.label3.Size = new System.Drawing.Size(34, 13);
+      this.label3.Size = new System.Drawing.Size(38, 13);
       this.label3.TabIndex = 7;
-      this.label3.Text = "Name";
+      this.label3.Text = "Name:";
       // 
       // txtName
       // 
-      this.txtName.Location = new System.Drawing.Point(49, 13);
+      this.txtName.Location = new System.Drawing.Point(58, 13);
       this.txtName.Name = "txtName";
-      this.txtName.Size = new System.Drawing.Size(374, 21);
+      this.txtName.Size = new System.Drawing.Size(365, 21);
       this.txtName.TabIndex = 8;
       // 
       // chkLockable
@@ -371,6 +373,23 @@ namespace Trizbort.UI
       this.chkOpenable.Text = "Openable";
       this.chkOpenable.UseVisualStyleBackColor = true;
       // 
+      // label4
+      // 
+      this.label4.AutoSize = true;
+      this.label4.Location = new System.Drawing.Point(9, 268);
+      this.label4.Name = "label4";
+      this.label4.Size = new System.Drawing.Size(64, 13);
+      this.label4.TabIndex = 13;
+      this.label4.Text = "Description:";
+      // 
+      // txtDescription
+      // 
+      this.txtDescription.Location = new System.Drawing.Point(12, 284);
+      this.txtDescription.Multiline = true;
+      this.txtDescription.Name = "txtDescription";
+      this.txtDescription.Size = new System.Drawing.Size(401, 63);
+      this.txtDescription.TabIndex = 14;
+      // 
       // ConnectionPropertiesDialog
       // 
       this.AcceptButton = this.m_okButton;
@@ -378,6 +397,8 @@ namespace Trizbort.UI
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.m_cancelButton;
       this.ClientSize = new System.Drawing.Size(435, 388);
+      this.Controls.Add(this.label4);
+      this.Controls.Add(this.txtDescription);
       this.Controls.Add(this.chkOpen);
       this.Controls.Add(this.chkOpenable);
       this.Controls.Add(this.chkLocked);
@@ -436,5 +457,7 @@ namespace Trizbort.UI
     private System.Windows.Forms.CheckBox chkLocked;
     private System.Windows.Forms.CheckBox chkOpen;
     private System.Windows.Forms.CheckBox chkOpenable;
+    private System.Windows.Forms.Label label4;
+    private System.Windows.Forms.TextBox txtDescription;
   }
 }

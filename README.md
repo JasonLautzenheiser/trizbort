@@ -1,4 +1,4 @@
-trizbort
+trizbort  [![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg?maxAge=2592000?style=plastic)]([github-tag]: https://img.shields.io/github/tag/jasonlautzenheiser/trizbort.svg?maxAge=2592000)
 ========
 
 This is the source code to Trizbort, the Interactive Fiction Mapper.

@@ -623,12 +623,13 @@ namespace Trizbort.Domain
 
     public override string GetToolTipText()
     {
-      return "Connection ToolTip Text";
+      return ConnectionDescription;
     }
 
     public override eTooltipColor GetToolTipColor()
     {
-      return eTooltipColor.Apple;
+
+      return Door == null ? eTooltipColor.Lemon : eTooltipColor.Apple;
     }
 
     public override string GetToolTipFooter()
@@ -638,12 +639,12 @@ namespace Trizbort.Domain
 
     public override string GetToolTipHeader()
     {
-      return string.Empty;
+      return $"{ConnectionName}{(Door != null ? $" (Door)" : string.Empty)}";
     }
 
     public override bool HasTooltip()
     {
-      return false;
+      return true;
     }
 
 

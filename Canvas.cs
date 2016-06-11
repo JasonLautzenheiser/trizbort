@@ -962,6 +962,7 @@ namespace Trizbort
             {
               if ((roomTooltip.IsTooltipVisible) && (sameElement)) return;
 
+              if (HoverElement.GetToolTipHeader() == string.Empty) return;
               var toolTip = new SuperTooltipInfo(HoverElement.GetToolTipHeader(), HoverElement.GetToolTipFooter(), HoverElement.GetToolTipText(), null, null, HoverElement.GetToolTipColor());
 
               roomTooltip.SetSuperTooltip(this, toolTip);
@@ -974,8 +975,16 @@ namespace Trizbort
                 tPoint.Y += tRoom.Height + 10;
                 tPoint.X -= 10;
               }
+              else if (hoverElement is Connection)
+              {
+                var tConnection = (Connection) hoverElement;
+                tPoint = tConnection.VertexList[0].Position;
+                tPoint.Y += 10;
+                tPoint.X -= 10;
+              }
               var xxttPoint = CanvasToClient(tPoint);
               var newPoint = PointToScreen(new Point((int) xxttPoint.X, (int) xxttPoint.Y));
+
               roomTooltip.ShowTooltip(this, newPoint);
             }
           }

@@ -16,6 +16,7 @@ ENH: #267 - added command line parameters for exporting maps to source files --i
 ENH: #186 - Added region support to Hugo export.
 ENH: #279 - Added Ctrl-K to Force Darkness on selected rooms; Added Ctrl-Shift-K to force lighted on rooms.
 ENH: #56  - Added support for doors.  It can be setup in the connection properties.  Export to I7 only at this point.
+ENH: #285 - Add descriptions to connections.  Used only for doors at the moment.
 
 
 1.5.9.4

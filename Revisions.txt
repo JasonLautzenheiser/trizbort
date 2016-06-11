@@ -2,7 +2,6 @@ Change Log
 
 1.5.9.5
 -------------
----: ---- - exposed some properties from the EXE.  Allow for future plugins and apps integrating with Trizbort.
 ENH: #196 - "tb dotted" in transcript now forces next connection to be dotted.
 ENH: #11  - "tb exit [direction]" in transcript will add a connection stub in that direction and "tb noexit [direction]" will remove a connection stub.
 ENH: #270 - refactored the command line handling.  Commands are now: 
@@ -17,6 +16,7 @@ ENH: #186 - Added region support to Hugo export.
 ENH: #279 - Added Ctrl-K to Force Darkness on selected rooms; Added Ctrl-Shift-K to force lighted on rooms.
 ENH: #56  - Added support for doors.  It can be setup in the connection properties.  Export to I7 only at this point.
 ENH: #285 - Add descriptions to connections.  Used only for doors at the moment.
+ENH: #283 - Allow for fine control of object text positioning.
 
 
 1.5.9.4

@@ -25,6 +25,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -853,6 +854,11 @@ namespace Trizbort.UI
     private void m_descriptionTextBox_KeyDown(object sender, KeyEventArgs e)
     {
       SelectAllHandler(sender,e);
+    }
+
+    private void toolTip_BeforeTooltipDisplay(object sender, DevComponents.DotNetBar.SuperTooltipEventArgs e)
+    {
+      e.TooltipInfo.BodyText = e.TooltipInfo.BodyText.Replace("{gridsize}", Settings.GridSize.ToString(CultureInfo.CurrentCulture));
     }
   }
 }

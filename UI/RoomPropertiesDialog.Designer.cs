@@ -73,6 +73,11 @@ namespace Trizbort.UI
       this.label6 = new System.Windows.Forms.Label();
       this.m_tabControl = new DevComponents.DotNetBar.SuperTabControl();
       this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.txtRight = new DevComponents.Editors.IntegerInput();
+      this.txtDown = new DevComponents.Editors.IntegerInput();
+      this.label12 = new System.Windows.Forms.Label();
+      this.label10 = new System.Windows.Forms.Label();
+      this.chkCustomPosition = new System.Windows.Forms.CheckBox();
       this.pnlObjectSyntaxHelp = new System.Windows.Forms.Panel();
       this.label9 = new System.Windows.Forms.Label();
       this.lblObjectSyntaxHelp = new System.Windows.Forms.Label();
@@ -120,14 +125,12 @@ namespace Trizbort.UI
       this.cboBorderStyle = new System.Windows.Forms.ComboBox();
       this.label8 = new System.Windows.Forms.Label();
       this.chkStartRoom = new System.Windows.Forms.CheckBox();
-      this.chkCustomPosition = new System.Windows.Forms.CheckBox();
-      this.label10 = new System.Windows.Forms.Label();
-      this.label12 = new System.Windows.Forms.Label();
-      this.txtDown = new DevComponents.Editors.IntegerInput();
-      this.txtRight = new DevComponents.Editors.IntegerInput();
+      this.toolTip = new DevComponents.DotNetBar.SuperTooltip();
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).BeginInit();
       this.m_tabControl.SuspendLayout();
       this.superTabControlPanel1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.txtRight)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtDown)).BeginInit();
       this.pnlObjectSyntaxHelp.SuspendLayout();
       this.m_objectsPositionGroupBox.SuspendLayout();
       this.superTabControlPanel5.SuspendLayout();
@@ -139,8 +142,6 @@ namespace Trizbort.UI
       this.superTabControlPanel4.SuspendLayout();
       this.superTabControlPanel3.SuspendLayout();
       this.superTabControlPanel2.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.txtDown)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.txtRight)).BeginInit();
       this.SuspendLayout();
       // 
       // m_okButton
@@ -411,6 +412,70 @@ namespace Trizbort.UI
       this.superTabControlPanel1.Size = new System.Drawing.Size(477, 184);
       this.superTabControlPanel1.TabIndex = 1;
       this.superTabControlPanel1.TabItem = this.tabObjects;
+      // 
+      // txtRight
+      // 
+      // 
+      // 
+      // 
+      this.txtRight.BackgroundStyle.Class = "DateTimeInputBackground";
+      this.txtRight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.txtRight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+      this.txtRight.Location = new System.Drawing.Point(415, 160);
+      this.txtRight.Name = "txtRight";
+      this.txtRight.ShowUpDown = true;
+      this.txtRight.Size = new System.Drawing.Size(55, 21);
+      this.toolTip.SetSuperTooltip(this.txtRight, new DevComponents.DotNetBar.SuperTooltipInfo("", "", "These values are in pixels.  Positive numbers move to the right and down.  To giv" +
+            "e some reference, the grid size is set to {gridsize}.", null, null, DevComponents.DotNetBar.eTooltipColor.BlueMist));
+      this.txtRight.TabIndex = 25;
+      // 
+      // txtDown
+      // 
+      // 
+      // 
+      // 
+      this.txtDown.BackgroundStyle.Class = "DateTimeInputBackground";
+      this.txtDown.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.txtDown.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+      this.txtDown.Location = new System.Drawing.Point(415, 138);
+      this.txtDown.Name = "txtDown";
+      this.txtDown.ShowUpDown = true;
+      this.txtDown.Size = new System.Drawing.Size(55, 21);
+      this.toolTip.SetSuperTooltip(this.txtDown, new DevComponents.DotNetBar.SuperTooltipInfo("", "", "These values are in pixels.  Positive numbers move to the right and down.  To giv" +
+            "e some reference, the grid size is set to {gridsize}.", null, null, DevComponents.DotNetBar.eTooltipColor.BlueMist));
+      this.txtDown.TabIndex = 24;
+      // 
+      // label12
+      // 
+      this.label12.AutoSize = true;
+      this.label12.BackColor = System.Drawing.Color.Transparent;
+      this.label12.Location = new System.Drawing.Point(373, 163);
+      this.label12.Name = "label12";
+      this.label12.Size = new System.Drawing.Size(36, 13);
+      this.label12.TabIndex = 23;
+      this.label12.Text = "Right:";
+      // 
+      // label10
+      // 
+      this.label10.AutoSize = true;
+      this.label10.BackColor = System.Drawing.Color.Transparent;
+      this.label10.Location = new System.Drawing.Point(371, 144);
+      this.label10.Name = "label10";
+      this.label10.Size = new System.Drawing.Size(38, 13);
+      this.label10.TabIndex = 22;
+      this.label10.Text = "Down:";
+      // 
+      // chkCustomPosition
+      // 
+      this.chkCustomPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.chkCustomPosition.AutoSize = true;
+      this.chkCustomPosition.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+      this.chkCustomPosition.Location = new System.Drawing.Point(368, 122);
+      this.chkCustomPosition.Name = "chkCustomPosition";
+      this.chkCustomPosition.Size = new System.Drawing.Size(102, 17);
+      this.chkCustomPosition.TabIndex = 21;
+      this.chkCustomPosition.Text = "Custom Position";
+      this.chkCustomPosition.UseVisualStyleBackColor = true;
       // 
       // pnlObjectSyntaxHelp
       // 
@@ -1059,65 +1124,10 @@ namespace Trizbort.UI
       this.chkStartRoom.UseVisualStyleBackColor = true;
       this.chkStartRoom.CheckedChanged += new System.EventHandler(this.chkStartRoom_CheckedChanged);
       // 
-      // chkCustomPosition
+      // toolTip
       // 
-      this.chkCustomPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.chkCustomPosition.AutoSize = true;
-      this.chkCustomPosition.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-      this.chkCustomPosition.Location = new System.Drawing.Point(368, 122);
-      this.chkCustomPosition.Name = "chkCustomPosition";
-      this.chkCustomPosition.Size = new System.Drawing.Size(102, 17);
-      this.chkCustomPosition.TabIndex = 21;
-      this.chkCustomPosition.Text = "Custom Position";
-      this.chkCustomPosition.UseVisualStyleBackColor = true;
-      // 
-      // label10
-      // 
-      this.label10.AutoSize = true;
-      this.label10.BackColor = System.Drawing.Color.Transparent;
-      this.label10.Location = new System.Drawing.Point(371, 144);
-      this.label10.Name = "label10";
-      this.label10.Size = new System.Drawing.Size(38, 13);
-      this.label10.TabIndex = 22;
-      this.label10.Text = "Down:";
-      // 
-      // label12
-      // 
-      this.label12.AutoSize = true;
-      this.label12.BackColor = System.Drawing.Color.Transparent;
-      this.label12.Location = new System.Drawing.Point(373, 163);
-      this.label12.Name = "label12";
-      this.label12.Size = new System.Drawing.Size(36, 13);
-      this.label12.TabIndex = 23;
-      this.label12.Text = "Right:";
-      // 
-      // txtDown
-      // 
-      // 
-      // 
-      // 
-      this.txtDown.BackgroundStyle.Class = "DateTimeInputBackground";
-      this.txtDown.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.txtDown.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-      this.txtDown.Location = new System.Drawing.Point(415, 138);
-      this.txtDown.Name = "txtDown";
-      this.txtDown.ShowUpDown = true;
-      this.txtDown.Size = new System.Drawing.Size(55, 21);
-      this.txtDown.TabIndex = 24;
-      // 
-      // txtRight
-      // 
-      // 
-      // 
-      // 
-      this.txtRight.BackgroundStyle.Class = "DateTimeInputBackground";
-      this.txtRight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.txtRight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-      this.txtRight.Location = new System.Drawing.Point(415, 160);
-      this.txtRight.Name = "txtRight";
-      this.txtRight.ShowUpDown = true;
-      this.txtRight.Size = new System.Drawing.Size(55, 21);
-      this.txtRight.TabIndex = 25;
+      this.toolTip.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
+      this.toolTip.BeforeTooltipDisplay += new DevComponents.DotNetBar.SuperTooltipEventHandler(this.toolTip_BeforeTooltipDisplay);
       // 
       // RoomPropertiesDialog
       // 
@@ -1154,6 +1164,8 @@ namespace Trizbort.UI
       this.m_tabControl.ResumeLayout(false);
       this.superTabControlPanel1.ResumeLayout(false);
       this.superTabControlPanel1.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.txtRight)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtDown)).EndInit();
       this.pnlObjectSyntaxHelp.ResumeLayout(false);
       this.m_objectsPositionGroupBox.ResumeLayout(false);
       this.superTabControlPanel5.ResumeLayout(false);
@@ -1170,8 +1182,6 @@ namespace Trizbort.UI
       this.superTabControlPanel3.PerformLayout();
       this.superTabControlPanel2.ResumeLayout(false);
       this.superTabControlPanel2.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.txtDown)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.txtRight)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -1251,5 +1261,6 @@ namespace Trizbort.UI
     private System.Windows.Forms.CheckBox chkCustomPosition;
     private DevComponents.Editors.IntegerInput txtRight;
     private DevComponents.Editors.IntegerInput txtDown;
+    private DevComponents.DotNetBar.SuperTooltip toolTip;
   }
 }

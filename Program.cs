@@ -26,6 +26,7 @@ using System;
 using System.Windows.Forms;
 using CommandLine;
 using Trizbort.Domain;
+using Trizbort.UI;
 
 namespace Trizbort
 {

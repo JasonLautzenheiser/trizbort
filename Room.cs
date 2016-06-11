@@ -33,6 +33,7 @@ using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
 using Trizbort.Domain;
 using Trizbort.Extensions;
+using Trizbort.UI;
 
 namespace Trizbort
 {
@@ -1433,40 +1434,40 @@ namespace Trizbort
     public string ClipboardPrint()
     {
       var clipboardText = "";
-      clipboardText += Name + Canvas.CopyDelimiter;
-      clipboardText += Position.X + Canvas.CopyDelimiter;
-      clipboardText += Position.Y + Canvas.CopyDelimiter;
-      clipboardText += Size.X + Canvas.CopyDelimiter;
-      clipboardText += Size.Y + Canvas.CopyDelimiter;
-      clipboardText += IsDark + Canvas.CopyDelimiter;
-      clipboardText += PrimaryDescription + Canvas.CopyDelimiter;
-      clipboardText += Region + Canvas.CopyDelimiter;
-      clipboardText += BorderStyle + Canvas.CopyDelimiter;
+      clipboardText += Name + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += Position.X + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += Position.Y + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += Size.X + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += Size.Y + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += IsDark + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += PrimaryDescription + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += Region + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += BorderStyle + UI.Controls.Canvas.CopyDelimiter;
 
-      clipboardText += StraightEdges + Canvas.CopyDelimiter;
-      clipboardText += Ellipse + Canvas.CopyDelimiter;
-      clipboardText += RoundedCorners + Canvas.CopyDelimiter;
-      clipboardText += Octagonal + Canvas.CopyDelimiter;
-      clipboardText += Corners.TopRight + Canvas.CopyDelimiter;
-      clipboardText += Corners.TopLeft + Canvas.CopyDelimiter;
-      clipboardText += Corners.BottomRight + Canvas.CopyDelimiter;
-      clipboardText += Corners.BottomLeft + Canvas.CopyDelimiter;
+      clipboardText += StraightEdges + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += Ellipse + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += RoundedCorners + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += Octagonal + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += Corners.TopRight + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += Corners.TopLeft + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += Corners.BottomRight + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += Corners.BottomLeft + UI.Controls.Canvas.CopyDelimiter;
 
       var colorValue = Colors.SaveColor(RoomFill);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
+      clipboardText += colorValue + UI.Controls.Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(SecondFill);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-      clipboardText += SecondFillLocation + Canvas.CopyDelimiter;
+      clipboardText += colorValue + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += SecondFillLocation + UI.Controls.Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomBorder);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
+      clipboardText += colorValue + UI.Controls.Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomLargeText); 
-      clipboardText += colorValue + Canvas.CopyDelimiter;
+      clipboardText += colorValue + UI.Controls.Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomSmallText);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
+      clipboardText += colorValue + UI.Controls.Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomBorder);
       clipboardText += colorValue;
@@ -1476,10 +1477,10 @@ namespace Trizbort
       {
         var objectsDirection = "";
         CompassPointHelper.ToName(ObjectsPosition, out objectsDirection);
-        clipboardText += Canvas.CopyDelimiter + objectsDirection + Canvas.CopyDelimiter;
+        clipboardText += UI.Controls.Canvas.CopyDelimiter + objectsDirection + UI.Controls.Canvas.CopyDelimiter;
         if (!string.IsNullOrEmpty(Objects))
         {
-          clipboardText += (Objects.Replace("\r\n", Canvas.CopyDelimiter));
+          clipboardText += (Objects.Replace("\r\n", UI.Controls.Canvas.CopyDelimiter));
         }
       }
 
@@ -1492,17 +1493,17 @@ namespace Trizbort
       var clipboardText = string.Empty;
 
       var colorValue = Colors.SaveColor(RoomFill);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
+      clipboardText += colorValue + UI.Controls.Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(SecondFill); 
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-      clipboardText += SecondFillLocation + Canvas.CopyDelimiter;
+      clipboardText += colorValue + UI.Controls.Canvas.CopyDelimiter;
+      clipboardText += SecondFillLocation + UI.Controls.Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomBorder);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
+      clipboardText += colorValue + UI.Controls.Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomLargeText);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
+      clipboardText += colorValue + UI.Controls.Canvas.CopyDelimiter;
 
       colorValue = Colors.SaveColor(RoomSmallText);
       clipboardText += colorValue;

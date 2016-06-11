@@ -52,7 +52,7 @@ namespace Trizbort
     private Vector visualPosition => Position;
     private Rect visualBounds => new Rect(visualPosition - size/2, size);
 
-    public virtual void Draw(Canvas canvas, XGraphics graphics, Palette palette, DrawingContext context)
+    public virtual void Draw(UI.Controls.Canvas canvas, XGraphics graphics, Palette palette, DrawingContext context)
     {
       Drawing.DrawHandle(canvas, graphics, palette, visualBounds, context, false, true);
     }

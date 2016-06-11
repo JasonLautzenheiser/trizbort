@@ -7,7 +7,7 @@ namespace Trizbort.Domain.Commands
 {
   public class SelectCommand : ICanvasCommand<SelectTypes>
   {
-    public void Execute(Canvas canvas, SelectTypes value)
+    public void Execute(UI.Controls.Canvas canvas, SelectTypes value)
     {
       switch (value)
       {
@@ -44,7 +44,7 @@ namespace Trizbort.Domain.Commands
 
     }
 
-    public void Execute(Canvas canvas, SelectTypes value, object other)
+    public void Execute(UI.Controls.Canvas canvas, SelectTypes value, object other)
     {
       switch (value)
       {

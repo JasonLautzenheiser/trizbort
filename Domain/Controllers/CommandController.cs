@@ -7,9 +7,9 @@ namespace Trizbort.Domain.Controllers
 {
   public class CommandController
   {
-    private readonly Canvas canvas;
+    private readonly UI.Controls.Canvas canvas;
 
-    public CommandController(Canvas canvas)
+    public CommandController(UI.Controls.Canvas canvas)
     {
       this.canvas = canvas;
     }

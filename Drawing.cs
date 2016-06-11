@@ -106,7 +106,7 @@ namespace Trizbort
       }
     }
 
-    public static void DrawHandle(Canvas canvas, XGraphics graphics, Palette palette, Rect bounds, DrawingContext context, bool alwaysAlpha, bool round)
+    public static void DrawHandle(UI.Controls.Canvas canvas, XGraphics graphics, Palette palette, Rect bounds, DrawingContext context, bool alwaysAlpha, bool round)
     {
       if (bounds.Width <= 0 || bounds.Height <= 0)
       {

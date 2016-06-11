@@ -170,7 +170,7 @@ namespace Trizbort
       return bounds.Contains(pos);
     }
 
-    public void Draw(Canvas canvas, XGraphics graphics, Palette palette, DrawingContext context)
+    public void Draw(UI.Controls.Canvas canvas, XGraphics graphics, Palette palette, DrawingContext context)
     {
       Drawing.DrawHandle(canvas, graphics, palette, bounds, context, false, false);
     }

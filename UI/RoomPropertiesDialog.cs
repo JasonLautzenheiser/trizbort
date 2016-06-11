@@ -393,6 +393,9 @@ namespace Trizbort.UI
     }
 
     public bool AllCornersEqual { get { return chkCornersSame.Checked; } set { chkCornersSame.Checked = value; } }
+    public bool ObjectsCustomPosition { get { return chkCustomPosition.Checked; } set { chkCustomPosition.Checked = value; } }
+    public int ObjectsCustomPositionDown { get { return txtDown.Value; } set { txtDown.Value = value; } }
+    public int ObjectsCustomPositionRight { get { return txtRight.Value; } set { txtRight.Value = value; } }
 
     private void RegionListBox_DrawItem(object sender, DrawItemEventArgs e)
     {

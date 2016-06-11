@@ -72,8 +72,6 @@ namespace Trizbort.UI
       this.cboRegion = new System.Windows.Forms.ComboBox();
       this.label6 = new System.Windows.Forms.Label();
       this.m_tabControl = new DevComponents.DotNetBar.SuperTabControl();
-      this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.tabDescription = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.pnlObjectSyntaxHelp = new System.Windows.Forms.Panel();
       this.label9 = new System.Windows.Forms.Label();
@@ -114,15 +112,21 @@ namespace Trizbort.UI
       this.m_roomBorderTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.m_roomFillTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.tabColors = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.tabDescription = new DevComponents.DotNetBar.SuperTabItem();
       this.txtName = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.txtSubTitle = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.label7 = new System.Windows.Forms.Label();
       this.cboBorderStyle = new System.Windows.Forms.ComboBox();
       this.label8 = new System.Windows.Forms.Label();
       this.chkStartRoom = new System.Windows.Forms.CheckBox();
+      this.chkCustomPosition = new System.Windows.Forms.CheckBox();
+      this.label10 = new System.Windows.Forms.Label();
+      this.label12 = new System.Windows.Forms.Label();
+      this.txtDown = new DevComponents.Editors.IntegerInput();
+      this.txtRight = new DevComponents.Editors.IntegerInput();
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).BeginInit();
       this.m_tabControl.SuspendLayout();
-      this.superTabControlPanel2.SuspendLayout();
       this.superTabControlPanel1.SuspendLayout();
       this.pnlObjectSyntaxHelp.SuspendLayout();
       this.m_objectsPositionGroupBox.SuspendLayout();
@@ -134,6 +138,9 @@ namespace Trizbort.UI
       ((System.ComponentModel.ISupportInitialize)(this.txtTopRight)).BeginInit();
       this.superTabControlPanel4.SuspendLayout();
       this.superTabControlPanel3.SuspendLayout();
+      this.superTabControlPanel2.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.txtDown)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtRight)).BeginInit();
       this.SuspendLayout();
       // 
       // m_okButton
@@ -188,7 +195,7 @@ namespace Trizbort.UI
       this.m_descriptionTextBox.Location = new System.Drawing.Point(3, 3);
       this.m_descriptionTextBox.Multiline = true;
       this.m_descriptionTextBox.Name = "m_descriptionTextBox";
-      this.m_descriptionTextBox.Size = new System.Drawing.Size(472, 178);
+      this.m_descriptionTextBox.Size = new System.Drawing.Size(472, 204);
       this.m_descriptionTextBox.TabIndex = 13;
       this.m_descriptionTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.m_descriptionTextBox_KeyDown);
       // 
@@ -387,25 +394,13 @@ namespace Trizbort.UI
       this.m_tabControl.SelectedTabChanged += new System.EventHandler<DevComponents.DotNetBar.SuperTabStripSelectedTabChangedEventArgs>(this.m_tabControl_SelectedTabChanged);
       this.m_tabControl.Enter += new System.EventHandler(this.m_tabControl_Enter);
       // 
-      // superTabControlPanel2
-      // 
-      this.superTabControlPanel2.Controls.Add(this.m_descriptionTextBox);
-      this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 26);
-      this.superTabControlPanel2.Name = "superTabControlPanel2";
-      this.superTabControlPanel2.Size = new System.Drawing.Size(477, 184);
-      this.superTabControlPanel2.TabIndex = 0;
-      this.superTabControlPanel2.TabItem = this.tabDescription;
-      // 
-      // tabDescription
-      // 
-      this.tabDescription.AttachedControl = this.superTabControlPanel2;
-      this.tabDescription.GlobalItem = false;
-      this.tabDescription.Name = "tabDescription";
-      this.tabDescription.Text = "D&escription";
-      // 
       // superTabControlPanel1
       // 
+      this.superTabControlPanel1.Controls.Add(this.txtRight);
+      this.superTabControlPanel1.Controls.Add(this.txtDown);
+      this.superTabControlPanel1.Controls.Add(this.label12);
+      this.superTabControlPanel1.Controls.Add(this.label10);
+      this.superTabControlPanel1.Controls.Add(this.chkCustomPosition);
       this.superTabControlPanel1.Controls.Add(this.pnlObjectSyntaxHelp);
       this.superTabControlPanel1.Controls.Add(this.lblObjectSyntaxHelp);
       this.superTabControlPanel1.Controls.Add(this.txtObjects);
@@ -627,9 +622,9 @@ namespace Trizbort.UI
       this.superTabControlPanel5.Controls.Add(this.cboDrawType);
       this.superTabControlPanel5.Controls.Add(this.pnlSampleRoomShape);
       this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel5.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
       this.superTabControlPanel5.Name = "superTabControlPanel5";
-      this.superTabControlPanel5.Size = new System.Drawing.Size(477, 184);
+      this.superTabControlPanel5.Size = new System.Drawing.Size(477, 210);
       this.superTabControlPanel5.TabIndex = 0;
       this.superTabControlPanel5.TabItem = this.superTabItem1;
       // 
@@ -836,9 +831,9 @@ namespace Trizbort.UI
       this.superTabControlPanel4.Controls.Add(this.cboRegion);
       this.superTabControlPanel4.Controls.Add(this.label6);
       this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
       this.superTabControlPanel4.Name = "superTabControlPanel4";
-      this.superTabControlPanel4.Size = new System.Drawing.Size(477, 184);
+      this.superTabControlPanel4.Size = new System.Drawing.Size(477, 210);
       this.superTabControlPanel4.TabIndex = 0;
       this.superTabControlPanel4.TabItem = this.tabRegions;
       // 
@@ -868,9 +863,9 @@ namespace Trizbort.UI
       this.superTabControlPanel3.Controls.Add(this.label3);
       this.superTabControlPanel3.Controls.Add(this.m_changeRoomTextButton);
       this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 0);
       this.superTabControlPanel3.Name = "superTabControlPanel3";
-      this.superTabControlPanel3.Size = new System.Drawing.Size(477, 184);
+      this.superTabControlPanel3.Size = new System.Drawing.Size(477, 210);
       this.superTabControlPanel3.TabIndex = 0;
       this.superTabControlPanel3.TabItem = this.tabColors;
       // 
@@ -976,6 +971,23 @@ namespace Trizbort.UI
       this.tabColors.Name = "tabColors";
       this.tabColors.Text = "&Colors";
       // 
+      // superTabControlPanel2
+      // 
+      this.superTabControlPanel2.Controls.Add(this.m_descriptionTextBox);
+      this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 0);
+      this.superTabControlPanel2.Name = "superTabControlPanel2";
+      this.superTabControlPanel2.Size = new System.Drawing.Size(477, 210);
+      this.superTabControlPanel2.TabIndex = 0;
+      this.superTabControlPanel2.TabItem = this.tabDescription;
+      // 
+      // tabDescription
+      // 
+      this.tabDescription.AttachedControl = this.superTabControlPanel2;
+      this.tabDescription.GlobalItem = false;
+      this.tabDescription.Name = "tabDescription";
+      this.tabDescription.Text = "D&escription";
+      // 
       // txtName
       // 
       // 
@@ -1047,6 +1059,66 @@ namespace Trizbort.UI
       this.chkStartRoom.UseVisualStyleBackColor = true;
       this.chkStartRoom.CheckedChanged += new System.EventHandler(this.chkStartRoom_CheckedChanged);
       // 
+      // chkCustomPosition
+      // 
+      this.chkCustomPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.chkCustomPosition.AutoSize = true;
+      this.chkCustomPosition.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+      this.chkCustomPosition.Location = new System.Drawing.Point(368, 122);
+      this.chkCustomPosition.Name = "chkCustomPosition";
+      this.chkCustomPosition.Size = new System.Drawing.Size(102, 17);
+      this.chkCustomPosition.TabIndex = 21;
+      this.chkCustomPosition.Text = "Custom Position";
+      this.chkCustomPosition.UseVisualStyleBackColor = true;
+      // 
+      // label10
+      // 
+      this.label10.AutoSize = true;
+      this.label10.BackColor = System.Drawing.Color.Transparent;
+      this.label10.Location = new System.Drawing.Point(371, 144);
+      this.label10.Name = "label10";
+      this.label10.Size = new System.Drawing.Size(38, 13);
+      this.label10.TabIndex = 22;
+      this.label10.Text = "Down:";
+      // 
+      // label12
+      // 
+      this.label12.AutoSize = true;
+      this.label12.BackColor = System.Drawing.Color.Transparent;
+      this.label12.Location = new System.Drawing.Point(373, 163);
+      this.label12.Name = "label12";
+      this.label12.Size = new System.Drawing.Size(36, 13);
+      this.label12.TabIndex = 23;
+      this.label12.Text = "Right:";
+      // 
+      // txtDown
+      // 
+      // 
+      // 
+      // 
+      this.txtDown.BackgroundStyle.Class = "DateTimeInputBackground";
+      this.txtDown.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.txtDown.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+      this.txtDown.Location = new System.Drawing.Point(415, 138);
+      this.txtDown.Name = "txtDown";
+      this.txtDown.ShowUpDown = true;
+      this.txtDown.Size = new System.Drawing.Size(55, 21);
+      this.txtDown.TabIndex = 24;
+      // 
+      // txtRight
+      // 
+      // 
+      // 
+      // 
+      this.txtRight.BackgroundStyle.Class = "DateTimeInputBackground";
+      this.txtRight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.txtRight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+      this.txtRight.Location = new System.Drawing.Point(415, 160);
+      this.txtRight.Name = "txtRight";
+      this.txtRight.ShowUpDown = true;
+      this.txtRight.Size = new System.Drawing.Size(55, 21);
+      this.txtRight.TabIndex = 25;
+      // 
       // RoomPropertiesDialog
       // 
       this.AcceptButton = this.m_okButton;
@@ -1080,8 +1152,6 @@ namespace Trizbort.UI
       this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RoomPropertiesDialog_KeyUp);
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).EndInit();
       this.m_tabControl.ResumeLayout(false);
-      this.superTabControlPanel2.ResumeLayout(false);
-      this.superTabControlPanel2.PerformLayout();
       this.superTabControlPanel1.ResumeLayout(false);
       this.superTabControlPanel1.PerformLayout();
       this.pnlObjectSyntaxHelp.ResumeLayout(false);
@@ -1098,6 +1168,10 @@ namespace Trizbort.UI
       this.superTabControlPanel4.PerformLayout();
       this.superTabControlPanel3.ResumeLayout(false);
       this.superTabControlPanel3.PerformLayout();
+      this.superTabControlPanel2.ResumeLayout(false);
+      this.superTabControlPanel2.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.txtDown)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtRight)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -1172,5 +1246,10 @@ namespace Trizbort.UI
     private System.Windows.Forms.Panel pnlObjectSyntaxHelp;
     private System.Windows.Forms.Label label9;
     private System.Windows.Forms.CheckBox chkHandDrawnRoom;
+    private System.Windows.Forms.Label label12;
+    private System.Windows.Forms.Label label10;
+    private System.Windows.Forms.CheckBox chkCustomPosition;
+    private DevComponents.Editors.IntegerInput txtRight;
+    private DevComponents.Editors.IntegerInput txtDown;
   }
 }

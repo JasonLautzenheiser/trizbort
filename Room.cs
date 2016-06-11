@@ -1013,17 +1013,26 @@ namespace Trizbort
           format.LineAlignment = XLineAlignment.Far;
           format.Alignment = XStringAlignment.Near;
           var height = InnerBounds.Height/2 - font.Height/2;
-          var bounds = new Rect(InnerBounds.Left + Settings.ObjectListOffsetFromRoom, InnerBounds.Bottom - height, InnerBounds.Width - Settings.ObjectListOffsetFromRoom, height - Settings.ObjectListOffsetFromRoom);
+          var bounds = new Rect(InnerBounds.Left + Settings.ObjectListOffsetFromRoom , InnerBounds.Bottom - height, InnerBounds.Width - Settings.ObjectListOffsetFromRoom, height - Settings.ObjectListOffsetFromRoom);
           brush = (bUseObjectRoomBrush ? new SolidBrush(RoomSmallText) : roombrush);
+          pos = bounds.Position;
+          pos.X += (ObjectsCustomPosition ? ObjectsCustomPositionRight : 0);
+          pos.Y += (ObjectsCustomPosition ? ObjectsCustomPositionDown : 0);
           if (bounds.Width > 0 && bounds.Height > 0)
           {
-            mObjects.Draw(graphics, font, brush, bounds.Position, bounds.Size, format);
+            mObjects.Draw(graphics, font, brush, pos, bounds.Size, format);
           }
           drawnObjectList = true;
         }
         else if (mObjectsPosition == CompassPoint.North || mObjectsPosition == CompassPoint.South)
         {
-          pos.X += Settings.ObjectListOffsetFromRoom;
+          pos.X += Settings.ObjectListOffsetFromRoom + (ObjectsCustomPosition ? ObjectsCustomPositionRight : 0);
+          pos.Y += (ObjectsCustomPosition ? ObjectsCustomPositionDown : 0);
+        }
+        else
+        {
+          pos.X += (ObjectsCustomPosition ? ObjectsCustomPositionRight : 0);
+          pos.Y += (ObjectsCustomPosition ? ObjectsCustomPositionDown : 0);
         }
 
         if (!drawnObjectList)
@@ -1084,6 +1093,9 @@ namespace Trizbort
         dialog.HandDrawnEdges = HandDrawnEdges;
         dialog.Objects = Objects;
         dialog.ObjectsPosition = ObjectsPosition;
+        dialog.ObjectsCustomPosition = ObjectsCustomPosition;
+        dialog.ObjectsCustomPositionDown = ObjectsCustomPositionDown;
+        dialog.ObjectsCustomPositionRight = ObjectsCustomPositionRight;
         dialog.BorderStyle = BorderStyle;
 
         dialog.RoomFillColor = RoomFill;
@@ -1116,6 +1128,9 @@ namespace Trizbort
           Objects = dialog.Objects;
           BorderStyle = dialog.BorderStyle;
           ObjectsPosition = dialog.ObjectsPosition;
+          ObjectsCustomPosition = dialog.ObjectsCustomPosition;
+          ObjectsCustomPositionDown = dialog.ObjectsCustomPositionDown;
+          ObjectsCustomPositionRight = dialog.ObjectsCustomPositionRight;
           // Added for Room specific colors
           RoomFill = dialog.RoomFillColor;
           // Added for Room specific colors
@@ -1139,6 +1154,10 @@ namespace Trizbort
         }
       }
     }
+
+    public int ObjectsCustomPositionDown { get; set; }
+    public int ObjectsCustomPositionRight { get; set; }
+    public bool ObjectsCustomPosition  { get; set; }
 
     public void Save(XmlScribe scribe)
     {
@@ -1193,10 +1212,19 @@ namespace Trizbort
       if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DEFAULT_OBJECTS_POSITION)
       {
         scribe.StartElement("objects");
+
         if (ObjectsPosition != DEFAULT_OBJECTS_POSITION)
         {
           scribe.Attribute("at", ObjectsPosition);
         }
+
+        if (ObjectsCustomPosition)
+        {
+          scribe.Attribute("custom", ObjectsCustomPosition);  
+          scribe.Attribute("customRight",ObjectsCustomPositionRight);
+          scribe.Attribute("customDown",ObjectsCustomPositionDown);
+        }
+
         if (!string.IsNullOrEmpty(Objects))
         {
           scribe.Value(Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|"));
@@ -1269,6 +1297,9 @@ namespace Trizbort
       }
       Objects = element["objects"].Text.Replace("|", "\r\n").Replace("\\\r\n", "|");
       ObjectsPosition = element["objects"].Attribute("at").ToCompassPoint(ObjectsPosition);
+      ObjectsCustomPosition = element["objects"].Attribute("custom").ToBool();
+      ObjectsCustomPositionRight = element["objects"].Attribute("customRight").ToInt();
+      ObjectsCustomPositionDown = element["objects"].Attribute("customDown").ToInt();
     }
 
     public List<Connection> GetConnections()

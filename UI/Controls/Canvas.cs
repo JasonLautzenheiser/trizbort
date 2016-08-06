@@ -2235,20 +2235,6 @@ namespace Trizbort.UI.Controls
       {
         if (mDragMovePort.DockedAt != hoverPort && (!(hoverPort is MoveablePort) || ((MoveablePort) hoverPort).DockedAt != mDragMovePort))
         {
-          // TODO: Docking disabled until a decent mechanism is worked out.
-          // Currently can cause infinite loops which can crash the program;
-          // eg. dock A to B, B to C, C to A.
-          // Also after docking A to B, moving B brings A but moving A doesn't bring B.
-          // Perhaps some form of "weld" to make the vertices actually the same?
-          // And a corresponding "unweld" option?
-          // Or simply detect circular references and refuse to make them,
-          // always move them all together, etc.
-
-          // m_dragMovePort.DockAt(HoverPort);
-
-          // Until docking re-enabled, treat as positional move;
-          // but do dock to rooms etc. as that's safe.
-          // See also BeginDrawConnection().
           if (!(hoverPort is MoveablePort))
           {
             mDragMovePort.DockAt(hoverPort);

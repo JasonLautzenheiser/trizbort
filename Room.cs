@@ -347,26 +347,10 @@ namespace Trizbort
     {
       get
       {
-        // TODO: This is needlessly expensive
-        foreach (var element in Project.Current.Elements)
-        {
-          if (!(element is Connection))
-          {
-            continue;
-          }
-
-          var connection = (Connection) element;
-          foreach (var vertex in connection.VertexList)
-          {
-            var port = vertex.Port;
-            if (port != null && port.Owner == this)
-            {
-              return true;
-            }
-          }
-        }
-
-        return false;
+        return Project.Current.Elements.OfType<Connection>()
+          .Any(element => element
+            .VertexList.Select(vertex => vertex.Port)
+            .Any(port => port != null && port.Owner == this));
       }
     }
 

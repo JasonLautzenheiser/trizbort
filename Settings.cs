@@ -454,7 +454,6 @@ namespace Trizbort
       SaveToPDF = true;
       SaveTADSToADV3Lite = true;
       RecentProjects.Clear();
-      // TODO: add other application settings here
     }
 
     private static void LoadApplicationSettings()
@@ -1066,7 +1065,7 @@ namespace Trizbort
       PreferredDistanceBetweenRooms = element["rooms"]["preferredDistanceBetweenRooms"].ToFloat(s_connectionStalkLength*2); // introduced in v1.2, hence default based on existing setting
 
       DefaultRoomName = element["rooms"]["defaultRoomName"].Text;
-      if (string.IsNullOrEmpty(DefaultRoomName)) //Fix for Bug#132: Trizbort needs a non-empty default
+      if (string.IsNullOrEmpty(DefaultRoomName)) 
           DefaultRoomName = "Cave";
 
       HandleSize = element["ui"]["handleSize"].ToFloat(s_handleSize);

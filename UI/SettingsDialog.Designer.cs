@@ -791,11 +791,11 @@ namespace Trizbort.UI
       // label9
       // 
       this.label9.AutoSize = true;
-      this.label9.Location = new System.Drawing.Point(39, 73);
+      this.label9.Location = new System.Drawing.Point(6, 73);
       this.label9.Name = "label9";
-      this.label9.Size = new System.Drawing.Size(26, 13);
+      this.label9.Size = new System.Drawing.Size(70, 13);
       this.label9.TabIndex = 8;
-      this.label9.Text = "&Line";
+      this.label9.Text = "&Line/Subtitle:";
       // 
       // m_lineFontSizeTextBox
       // 
@@ -832,11 +832,11 @@ namespace Trizbort.UI
       // label12
       // 
       this.label12.AutoSize = true;
-      this.label12.Location = new System.Drawing.Point(39, 47);
+      this.label12.Location = new System.Drawing.Point(28, 47);
       this.label12.Name = "label12";
-      this.label12.Size = new System.Drawing.Size(39, 13);
+      this.label12.Size = new System.Drawing.Size(48, 13);
       this.label12.TabIndex = 4;
-      this.label12.Text = "&Object";
+      this.label12.Text = "&Objects:";
       // 
       // m_smallFontSizeTextBox
       // 
@@ -873,11 +873,11 @@ namespace Trizbort.UI
       // label11
       // 
       this.label11.AutoSize = true;
-      this.label11.Location = new System.Drawing.Point(41, 22);
+      this.label11.Location = new System.Drawing.Point(8, 22);
       this.label11.Name = "label11";
-      this.label11.Size = new System.Drawing.Size(34, 13);
+      this.label11.Size = new System.Drawing.Size(68, 13);
       this.label11.TabIndex = 0;
-      this.label11.Text = "&Room";
+      this.label11.Text = "&Room Name:";
       // 
       // m_largeFontSizeTextBox
       // 
@@ -1048,7 +1048,7 @@ namespace Trizbort.UI
       this.m_documentSpecificMargins.AutoSize = true;
       this.m_documentSpecificMargins.Location = new System.Drawing.Point(112, 9);
       this.m_documentSpecificMargins.Name = "m_documentSpecificMargins";
-      this.m_documentSpecificMargins.Size = new System.Drawing.Size(200, 17);
+      this.m_documentSpecificMargins.Size = new System.Drawing.Size(154, 17);
       this.m_documentSpecificMargins.TabIndex = 0;
       this.m_documentSpecificMargins.Text = "Document-Specific Margins";
       this.m_documentSpecificMargins.UseVisualStyleBackColor = true;

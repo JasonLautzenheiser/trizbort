@@ -128,8 +128,7 @@ namespace Trizbort.Export
       {
         exportedThings = true;
 
-        writer.Write("{0}{1} {2} in {3}.", getArticle(thing), thing.ExportName, whatItIs(thing),
-                     thing.Container == null ? thing.Location.ExportName : "the " + thing.Container.ExportName);
+        writer.Write($"{getArticle(thing)}{thing.ExportName} {whatItIs(thing)} in {(thing.Container == null ? thing.Location.ExportName : "the " + thing.Container.ExportName)}.");
         if (thing.DisplayName != thing.ExportName)
         {
           writer.Write(" It is privately-named. The printed name of it is {0}{1} Understand {2} as {3}.", toInform7PrintableString(thing.DisplayName), thing.DisplayName.EndsWith(".") ? string.Empty : ".", toInform7UnderstandWords(thing.DisplayName), thing.ExportName);

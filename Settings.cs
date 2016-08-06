@@ -41,9 +41,9 @@ namespace Trizbort
     // per-map settings, saved with the map
     private static readonly Color[] s_color = new Color[Colors.Count];
     private static List<Region> s_regionColor = new List<Region>();
-    private static Font s_largeFont;
-    private static Font s_smallFont;
-    private static Font s_lineFont;
+    private static Font s_roomNameFont;
+    private static Font s_objectFont;
+    private static Font s_subtitleFont;
     private static float s_lineWidth;
     private static bool s_snapToGrid;
     private static bool s_isGridVisible;
@@ -89,40 +89,40 @@ namespace Trizbort
 
     public static string DefaultRoomName { get; set; } = "Cave";
 
-    public static Font LargeFont
+    public static Font RoomNameFont
     {
-      get { return s_largeFont; }
+      get { return s_roomNameFont; }
       set
       {
-        if (s_largeFont != value)
+        if (s_roomNameFont != value)
         {
-          s_largeFont = value;
+          s_roomNameFont = value;
           RaiseChanged();
         }
       }
     }
 
-    public static Font SmallFont
+    public static Font ObjectFont
     {
-      get { return s_smallFont; }
+      get { return s_objectFont; }
       set
       {
-        if (s_smallFont != value)
+        if (s_objectFont != value)
         {
-          s_smallFont = value;
+          s_objectFont = value;
           RaiseChanged();
         }
       }
     }
 
-    public static Font LineFont
+    public static Font SubtitleFont
     {
-      get { return s_lineFont; }
+      get { return s_subtitleFont; }
       set
       {
-        if (s_lineFont != value)
+        if (s_subtitleFont != value)
         {
-          s_lineFont = value;
+          s_subtitleFont = value;
           RaiseChanged();
         }
       }
@@ -421,6 +421,7 @@ namespace Trizbort
     public static int DefaultImageType { get; set; }
     public static string DefaultFontName { get; set; }
     public static bool HandDrawnGlobal { get; set; }
+    public static bool ShowToolTipsOnObjects { get; set; } = true;
     public static bool InvertMouseWheel { get; set; }
     public static Version DontCareAboutVersion { get; set; }
 
@@ -454,6 +455,7 @@ namespace Trizbort
       SaveToPDF = true;
       SaveTADSToADV3Lite = true;
       RecentProjects.Clear();
+      ShowToolTipsOnObjects = true;
     }
 
     private static void LoadApplicationSettings()
@@ -499,6 +501,7 @@ namespace Trizbort
             GenHorizontalMargin = root["horizontalMargin"].ToInt(GenHorizontalMargin);
             GenVerticalMargin = root["verticalMargin"].ToInt(GenVerticalMargin);
             HandDrawnGlobal = root["handDrawnDefault"].ToBool(HandDrawnGlobal);
+            ShowToolTipsOnObjects = root["showToolTipsOnObjects"].ToBool(true);
 
             CanvasWidth = root["canvasWidth"].ToInt(CanvasWidth);
             CanvasHeight = root["canvasHeight"].ToInt(CanvasHeight);
@@ -555,6 +558,7 @@ namespace Trizbort
           scribe.Element("horizontalMargin", GenHorizontalMargin);
           scribe.Element("specifyMargins", SpecifyGenMargins);
           scribe.Element("handDrawnDefault", HandDrawnGlobal);
+          scribe.Element("showToolTipsOnObjects", ShowToolTipsOnObjects);
 
           scribe.Element("canvasHeight", CanvasHeight);
           scribe.Element("canvasWidth", CanvasWidth);
@@ -661,9 +665,9 @@ namespace Trizbort
         dialog.Description = Project.Current.Description;
         dialog.History = Project.Current.History;
         dialog.DefaultRoomName = DefaultRoomName;
-        dialog.LargeFont = LargeFont;
-        dialog.SmallFont = SmallFont;
-        dialog.LineFont = LineFont;
+        dialog.LargeFont = RoomNameFont;
+        dialog.SmallFont = ObjectFont;
+        dialog.LineFont = SubtitleFont;
         dialog.HandDrawnDoc = HandDrawnDoc;
         dialog.LineWidth = LineWidth;
         dialog.SnapToGrid = SnapToGrid;
@@ -699,12 +703,12 @@ namespace Trizbort
           Project.Current.History = dialog.History;
           if (DefaultRoomName != dialog.DefaultRoomName) { Project.Current.IsDirty = true; }
           DefaultRoomName = dialog.DefaultRoomName;
-          if (LargeFont != dialog.LargeFont) { Project.Current.IsDirty = true; }
-          LargeFont = dialog.LargeFont;
-          if (SmallFont != dialog.SmallFont) { Project.Current.IsDirty = true; }
-          SmallFont = dialog.SmallFont;
-          if (LineFont != dialog.LineFont) { Project.Current.IsDirty = true; }
-          LineFont = dialog.LineFont;
+          if (RoomNameFont != dialog.LargeFont) { Project.Current.IsDirty = true; }
+          RoomNameFont = dialog.LargeFont;
+          if (ObjectFont != dialog.SmallFont) { Project.Current.IsDirty = true; }
+          ObjectFont = dialog.SmallFont;
+          if (SubtitleFont != dialog.LineFont) { Project.Current.IsDirty = true; }
+          SubtitleFont = dialog.LineFont;
           if (HandDrawnDoc != dialog.HandDrawnDoc) { Project.Current.IsDirty = true; }
           HandDrawnDoc = dialog.HandDrawnDoc;
           if (LineWidth != dialog.LineWidth) { Project.Current.IsDirty = true; };
@@ -782,9 +786,9 @@ namespace Trizbort
 
       Project.Current.Title = Project.Current.Author = Project.Current.History = Project.Current.Description = "";
 
-      LargeFont = new Font(DefaultFontName, 13.0f, FontStyle.Regular, GraphicsUnit.World);
-      SmallFont = new Font(DefaultFontName, 11.0f, FontStyle.Regular, GraphicsUnit.World);
-      LineFont = new Font(DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);
+      RoomNameFont = new Font(DefaultFontName, 13.0f, FontStyle.Regular, GraphicsUnit.World);
+      ObjectFont = new Font(DefaultFontName, 11.0f, FontStyle.Regular, GraphicsUnit.World);
+      SubtitleFont = new Font(DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);
 
       Settings.HandDrawnDoc = Settings.HandDrawnGlobal;
 
@@ -858,9 +862,9 @@ namespace Trizbort
 
       // save fonts
       scribe.StartElement("fonts");
-      SaveFont(scribe, s_largeFont, "room");
-      SaveFont(scribe, s_smallFont, "object");
-      SaveFont(scribe, s_lineFont, "line");
+      SaveFont(scribe, s_roomNameFont, "room");
+      SaveFont(scribe, s_objectFont, "object");
+      SaveFont(scribe, s_subtitleFont, "line");
       scribe.EndElement();
 
       scribe.StartElement("grid");
@@ -1037,15 +1041,15 @@ namespace Trizbort
         }
         if (font.Name == "room")
         {
-          LargeFont = new Font(font.ToText(LargeFont.Name), Numeric.Clamp(font.Attribute("size").ToFloat(LargeFont.Size), MinFontSize, MaxFontSize), style, GraphicsUnit.World);
+          RoomNameFont = new Font(font.ToText(RoomNameFont.Name), Numeric.Clamp(font.Attribute("size").ToFloat(RoomNameFont.Size), MinFontSize, MaxFontSize), style, GraphicsUnit.World);
         }
         else if (font.Name == "object")
         {
-          SmallFont = new Font(font.ToText(SmallFont.Name), Numeric.Clamp(font.Attribute("size").ToFloat(SmallFont.Size), MinFontSize, MaxFontSize), style, GraphicsUnit.World);
+          ObjectFont = new Font(font.ToText(ObjectFont.Name), Numeric.Clamp(font.Attribute("size").ToFloat(ObjectFont.Size), MinFontSize, MaxFontSize), style, GraphicsUnit.World);
         }
         else if (font.Name == "line")
         {
-          LineFont = new Font(font.ToText(SmallFont.Name), Numeric.Clamp(font.Attribute("size").ToFloat(LineFont.Size), MinFontSize, MaxFontSize), style, GraphicsUnit.World);
+          SubtitleFont = new Font(font.ToText(ObjectFont.Name), Numeric.Clamp(font.Attribute("size").ToFloat(SubtitleFont.Size), MinFontSize, MaxFontSize), style, GraphicsUnit.World);
         }
       }
 
@@ -1096,6 +1100,7 @@ namespace Trizbort
         dialog.GenVerticalMargin = GenVerticalMargin;
         dialog.LoadLastProjectOnStart = LoadLastProjectOnStart;
         dialog.HandDrawnGlobal = HandDrawnGlobal;
+        dialog.ShowToolTipsOnObjects = ShowToolTipsOnObjects;
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
@@ -1112,6 +1117,7 @@ namespace Trizbort
           GenVerticalMargin = (int)dialog.GenVerticalMargin;
           LoadLastProjectOnStart = dialog.LoadLastProjectOnStart;
           HandDrawnGlobal = dialog.HandDrawnGlobal;
+          ShowToolTipsOnObjects = dialog.ShowToolTipsOnObjects;
         }
       }
     }

@@ -947,7 +947,7 @@ namespace Trizbort
         }
       }
 
-      var font = Settings.LargeFont;
+      var font = Settings.RoomNameFont;
       var roombrush = new SolidBrush(regionColor.TextColor);
       // Room specific fill brush (White shows global color)
       if (RoomLargeText != Color.Transparent) { roombrush = new SolidBrush(RoomLargeText); }
@@ -964,7 +964,7 @@ namespace Trizbort
         {
           var RoomTextRect = mName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
           var SubtitleTextRect = new Rect(RoomTextRect.Left, RoomTextRect.Bottom, RoomTextRect.Right - RoomTextRect.Left, textBounds.Bottom - RoomTextRect.Bottom);
-          mSubTitle.Draw(graphics, Settings.LineFont, roombrush, SubtitleTextRect.Position, SubtitleTextRect.Size, XStringFormats.Center);
+          mSubTitle.Draw(graphics, Settings.SubtitleFont, roombrush, SubtitleTextRect.Position, SubtitleTextRect.Size, XStringFormats.Center);
         }
       }
 
@@ -972,7 +972,7 @@ namespace Trizbort
       expandedBounds.Inflate(Settings.ObjectListOffsetFromRoom, Settings.ObjectListOffsetFromRoom);
       var drawnObjectList = false;
 
-      font = Settings.SmallFont;
+      font = Settings.ObjectFont;
       brush = palette.SmallTextBrush;
       // Room specific fill brush (White shows global color)
       var bUseObjectRoomBrush = false;

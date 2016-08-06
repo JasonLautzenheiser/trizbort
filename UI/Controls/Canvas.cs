@@ -507,8 +507,8 @@ namespace Trizbort.UI.Controls
           return bounds;
         }
         // HACK: fudge the canvas size to allow for overhanging line/object text
-        var v1 = Settings.LineFont.GetHeight();
-        var v2 = Settings.SmallFont.GetHeight() * 24;
+        var v1 = Settings.SubtitleFont.GetHeight();
+        var v2 = Settings.ObjectFont.GetHeight() * 24;
         bounds.Inflate(Math.Max(v1, v2));
       }
       return bounds;
@@ -581,14 +581,14 @@ namespace Trizbort.UI.Controls
         {
           var fps = 1.0f/(float) (stopwatch.Elapsed.TotalSeconds);
           graphics.Graphics.Transform = new Matrix();
-          graphics.DrawString($"{stopwatch.Elapsed.TotalMilliseconds} ms ({fps} fps) {TextBlock.RebuildCount} rebuilds", Settings.LargeFont, Brushes.Red, new PointF(10, 20 + Settings.LargeFont.GetHeight()));
+          graphics.DrawString($"{stopwatch.Elapsed.TotalMilliseconds} ms ({fps} fps) {TextBlock.RebuildCount} rebuilds", Settings.RoomNameFont, Brushes.Red, new PointF(10, 20 + Settings.RoomNameFont.GetHeight()));
         }
         if (Settings.DebugShowMouseCoordinates && !finalRender)
         {
           var mouseCoord = MousePosition;
           graphics.Graphics.Transform = new Matrix();
-          graphics.DrawString($"X:{mouseCoord.X}  Y:{mouseCoord.Y}", Settings.LargeFont, Brushes.Green, new PointF(10, 40 + Settings.LargeFont.GetHeight()));
-          graphics.DrawString(HoverElement == null ? new Point(0, 0).ToString() : PointToClient(HoverElement.Position.ToPoint()).ToString(), Settings.LargeFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.LargeFont.GetHeight()));
+          graphics.DrawString($"X:{mouseCoord.X}  Y:{mouseCoord.Y}", Settings.RoomNameFont, Brushes.Green, new PointF(10, 40 + Settings.RoomNameFont.GetHeight()));
+          graphics.DrawString(HoverElement == null ? new Point(0, 0).ToString() : PointToClient(HoverElement.Position.ToPoint()).ToString(), Settings.RoomNameFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.RoomNameFont.GetHeight()));
         }
       }
 
@@ -957,12 +957,12 @@ namespace Trizbort.UI.Controls
 
           if (HoverElement == null)
             roomTooltip.HideTooltip();
-          else if (HoverElement.HasTooltip())
+          else if (Settings.ShowToolTipsOnObjects && HoverElement.HasTooltip())
           {
             {
               if ((roomTooltip.IsTooltipVisible) && (sameElement)) return;
 
-              if (HoverElement.GetToolTipHeader() == string.Empty) return;
+              if (HoverElement.GetToolTipHeader() == string.Empty && HoverElement.GetToolTipText() == string.Empty) return;
               var toolTip = new SuperTooltipInfo(HoverElement.GetToolTipHeader(), HoverElement.GetToolTipFooter(), HoverElement.GetToolTipText(), null, null, HoverElement.GetToolTipColor());
 
               roomTooltip.SetSuperTooltip(this, toolTip);

@@ -29,10 +29,10 @@
       this.m_cancelButton = new System.Windows.Forms.Button();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.chkSaveAtZoom = new System.Windows.Forms.CheckBox();
-      this.chkLoadLast = new System.Windows.Forms.CheckBox();
       this.m_invertWheelCheckBox = new System.Windows.Forms.CheckBox();
-      this.labelG = new System.Windows.Forms.Label();
+      this.chkLoadLast = new System.Windows.Forms.CheckBox();
       this.cboPortAdjustDetail = new System.Windows.Forms.ComboBox();
+      this.labelG = new System.Windows.Forms.Label();
       this.txtDefaultFontName = new System.Windows.Forms.TextBox();
       this.labelFont = new System.Windows.Forms.Label();
       this.cboImageSaveType = new System.Windows.Forms.ComboBox();
@@ -40,24 +40,27 @@
       this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
       this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
       this.groupBox2 = new System.Windows.Forms.GroupBox();
+      this.chkSaveTADSToADV3Lite = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.chkSaveToImage = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.chkSaveToPDF = new DevComponents.DotNetBar.Controls.CheckBoxX();
-      this.chkSaveTADSToADV3Lite = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
-      this.chkDefaultHandDrawn = new DevComponents.DotNetBar.Controls.CheckBoxX();
-      this.labelV = new System.Windows.Forms.Label();
-      this.labelH = new System.Windows.Forms.Label();
-      this.chkSpecifyMargins = new DevComponents.DotNetBar.Controls.CheckBoxX();
-      this.m_preferredVerticalMargin = new System.Windows.Forms.NumericUpDown();
       this.m_preferredHorizontalMargin = new System.Windows.Forms.NumericUpDown();
+      this.m_preferredVerticalMargin = new System.Windows.Forms.NumericUpDown();
+      this.chkSpecifyMargins = new DevComponents.DotNetBar.Controls.CheckBoxX();
+      this.labelH = new System.Windows.Forms.Label();
+      this.labelV = new System.Windows.Forms.Label();
+      this.chkDefaultHandDrawn = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
-      this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.tabInform7 = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.tabInform7 = new DevComponents.DotNetBar.SuperTabItem();
+      this.chkShowTooltips = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.groupBox3.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.m_preferredHorizontalMargin)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.m_preferredVerticalMargin)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
       this.superTabControl1.SuspendLayout();
       this.superTabControlPanel1.SuspendLayout();
@@ -100,17 +103,6 @@
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Preferences";
       // 
-      // chkLoadLast
-      // 
-      this.chkLoadLast.AutoSize = true;
-      this.chkLoadLast.Location = new System.Drawing.Point(203, 20);
-      this.chkLoadLast.Name = "chkLoadLast";
-      this.chkLoadLast.Size = new System.Drawing.Size(131, 17);
-      this.chkLoadLast.TabIndex = 2;
-      this.chkLoadLast.Text = "&Open last project on start";
-      this.toolTip2.SetToolTip(this.chkLoadLast, "If this is checked, Trizbort will load the last project on startup\r\n");
-      this.chkLoadLast.UseVisualStyleBackColor = true;
-      // 
       // chkSaveAtZoom
       // 
       this.chkSaveAtZoom.AutoSize = true;
@@ -132,6 +124,17 @@
       this.m_invertWheelCheckBox.Text = "Invert Mouse Wheel &Zoom";
       this.m_invertWheelCheckBox.UseVisualStyleBackColor = true;
       // 
+      // chkLoadLast
+      // 
+      this.chkLoadLast.AutoSize = true;
+      this.chkLoadLast.Location = new System.Drawing.Point(203, 20);
+      this.chkLoadLast.Name = "chkLoadLast";
+      this.chkLoadLast.Size = new System.Drawing.Size(150, 17);
+      this.chkLoadLast.TabIndex = 2;
+      this.chkLoadLast.Text = "&Open last project on start";
+      this.toolTip2.SetToolTip(this.chkLoadLast, "If this is checked, Trizbort will load the last project on startup\r\n");
+      this.chkLoadLast.UseVisualStyleBackColor = true;
+      // 
       // cboPortAdjustDetail
       // 
       this.cboPortAdjustDetail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -142,7 +145,7 @@
             "All ports (16)"});
       this.cboPortAdjustDetail.Location = new System.Drawing.Point(300, 40);
       this.cboPortAdjustDetail.Name = "cboPortAdjustDetail";
-      this.cboPortAdjustDetail.Size = new System.Drawing.Size(84, 17);
+      this.cboPortAdjustDetail.Size = new System.Drawing.Size(84, 21);
       this.cboPortAdjustDetail.TabIndex = 3;
       this.cboPortAdjustDetail.Enter += new System.EventHandler(this.cboPortAdjustDetail_Enter);
       // 
@@ -151,7 +154,7 @@
       this.labelG.AutoSize = true;
       this.labelG.Location = new System.Drawing.Point(200, 43);
       this.labelG.Name = "labelG";
-      this.labelG.Size = new System.Drawing.Size(130,21);
+      this.labelG.Size = new System.Drawing.Size(95, 13);
       this.labelG.TabIndex = 2;
       this.labelG.Text = "Port Ad&just Detail:";
       // 
@@ -215,93 +218,10 @@
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Smart Save";
       // 
-      // labelV
-      // 
-      this.labelV.AutoSize = true;
-      this.labelV.Location = new System.Drawing.Point(10, 60);
-      this.labelV.Name = "label2";
-      this.labelV.Size = new System.Drawing.Size(40,13);
-      this.labelV.TabIndex = 11;
-      this.labelV.Text = "Vertical";
-      // 
-      // m_preferredVerticalMargin
-      // 
-      this.m_preferredVerticalMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_preferredVerticalMargin.DecimalPlaces = 1;
-      this.m_preferredVerticalMargin.Location = new System.Drawing.Point(130, 60);
-      this.m_preferredVerticalMargin.Maximum = new decimal(new int[] {
-            4096,
-            0,
-            0,
-            0});
-      this.m_preferredVerticalMargin.Name = "m_preferredVerticalMargin";
-      this.m_preferredVerticalMargin.Size = new System.Drawing.Size(55, 21);
-      this.m_preferredVerticalMargin.TabIndex = 10;
-      this.m_preferredVerticalMargin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-      this.m_preferredVerticalMargin.Value = new decimal(new int[] {
-            64,
-            0,
-            0,
-            0});
-      // 
-      // labelH
-      // 
-      this.labelH.AutoSize = true;
-      this.labelH.Location = new System.Drawing.Point(10, 35);
-      this.labelH.Name = "labelH";
-      this.labelH.Size = new System.Drawing.Size(40,13);
-      this.labelH.TabIndex = 9;
-      this.labelH.Text = "Horizontal";
-      // 
-      // m_preferredHorizontalMargin
-      // 
-      this.m_preferredHorizontalMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_preferredHorizontalMargin.DecimalPlaces = 1;
-      this.m_preferredHorizontalMargin.Location = new System.Drawing.Point(130, 35);
-      this.m_preferredHorizontalMargin.Maximum = new decimal(new int[] {
-            4096,
-            0,
-            0,
-            0});
-      this.m_preferredHorizontalMargin.Name = "m_preferredHorizontalMargin";
-      this.m_preferredHorizontalMargin.Size = new System.Drawing.Size(55, 21);
-      this.m_preferredHorizontalMargin.TabIndex = 8;
-      this.m_preferredHorizontalMargin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-      this.m_preferredHorizontalMargin.Value = new decimal(new int[] {
-            64,
-            0,
-            0,
-            0});
-      //
-      // chkSpecifyMargins
-      // 
-      this.chkSpecifyMargins.BackgroundStyle.Class = "";
-      this.chkSpecifyMargins.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.chkSpecifyMargins.Checked = true;
-      this.chkSpecifyMargins.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chkSpecifyMargins.CheckValue = "Y";
-      this.chkSpecifyMargins.Location = new System.Drawing.Point(10, 10);
-      this.chkSpecifyMargins.Name = "chkSpecifyMargins";
-      this.chkSpecifyMargins.Size = new System.Drawing.Size(140, 23);
-      this.chkSpecifyMargins.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-      this.chkSpecifyMargins.TabIndex = 7;
-      this.chkSpecifyMargins.Text = "Specify margins";
-      //
-      // chkDefaultHandDrawn
-      // 
-      this.chkDefaultHandDrawn.BackgroundStyle.Class = "";
-      this.chkDefaultHandDrawn.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.chkDefaultHandDrawn.Checked = false;
-      this.chkDefaultHandDrawn.CheckState = System.Windows.Forms.CheckState.Unchecked;
-      this.chkDefaultHandDrawn.CheckValue = "N";
-      this.chkDefaultHandDrawn.Location = new System.Drawing.Point(200, 10);
-      this.chkDefaultHandDrawn.Name = "chkDefaultHandDrawn";
-      this.chkDefaultHandDrawn.Size = new System.Drawing.Size(140, 23);
-      this.chkDefaultHandDrawn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-      this.chkDefaultHandDrawn.TabIndex = 7;
-      this.chkDefaultHandDrawn.Text = "Default Hand Drawn";
-      // 
       // chkSaveTADSToADV3Lite
+      // 
+      // 
+      // 
       // 
       this.chkSaveTADSToADV3Lite.BackgroundStyle.Class = "";
       this.chkSaveTADSToADV3Lite.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
@@ -352,6 +272,7 @@
       // groupBox3
       // 
       this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+      this.groupBox3.Controls.Add(this.chkShowTooltips);
       this.groupBox3.Controls.Add(this.m_preferredHorizontalMargin);
       this.groupBox3.Controls.Add(this.m_preferredVerticalMargin);
       this.groupBox3.Controls.Add(this.chkSpecifyMargins);
@@ -366,6 +287,95 @@
       this.groupBox3.TabIndex = 1;
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "App defaults";
+      // 
+      // m_preferredHorizontalMargin
+      // 
+      this.m_preferredHorizontalMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_preferredHorizontalMargin.DecimalPlaces = 1;
+      this.m_preferredHorizontalMargin.Location = new System.Drawing.Point(130, 35);
+      this.m_preferredHorizontalMargin.Maximum = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            0});
+      this.m_preferredHorizontalMargin.Name = "m_preferredHorizontalMargin";
+      this.m_preferredHorizontalMargin.Size = new System.Drawing.Size(55, 21);
+      this.m_preferredHorizontalMargin.TabIndex = 8;
+      this.m_preferredHorizontalMargin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      this.m_preferredHorizontalMargin.Value = new decimal(new int[] {
+            64,
+            0,
+            0,
+            0});
+      // 
+      // m_preferredVerticalMargin
+      // 
+      this.m_preferredVerticalMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_preferredVerticalMargin.DecimalPlaces = 1;
+      this.m_preferredVerticalMargin.Location = new System.Drawing.Point(130, 60);
+      this.m_preferredVerticalMargin.Maximum = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            0});
+      this.m_preferredVerticalMargin.Name = "m_preferredVerticalMargin";
+      this.m_preferredVerticalMargin.Size = new System.Drawing.Size(55, 21);
+      this.m_preferredVerticalMargin.TabIndex = 10;
+      this.m_preferredVerticalMargin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      this.m_preferredVerticalMargin.Value = new decimal(new int[] {
+            64,
+            0,
+            0,
+            0});
+      // 
+      // chkSpecifyMargins
+      // 
+      // 
+      // 
+      // 
+      this.chkSpecifyMargins.BackgroundStyle.Class = "";
+      this.chkSpecifyMargins.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.chkSpecifyMargins.Checked = true;
+      this.chkSpecifyMargins.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chkSpecifyMargins.CheckValue = "Y";
+      this.chkSpecifyMargins.Location = new System.Drawing.Point(10, 10);
+      this.chkSpecifyMargins.Name = "chkSpecifyMargins";
+      this.chkSpecifyMargins.Size = new System.Drawing.Size(140, 23);
+      this.chkSpecifyMargins.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+      this.chkSpecifyMargins.TabIndex = 7;
+      this.chkSpecifyMargins.Text = "Specify margins";
+      // 
+      // labelH
+      // 
+      this.labelH.AutoSize = true;
+      this.labelH.Location = new System.Drawing.Point(10, 35);
+      this.labelH.Name = "labelH";
+      this.labelH.Size = new System.Drawing.Size(55, 13);
+      this.labelH.TabIndex = 9;
+      this.labelH.Text = "Horizontal";
+      // 
+      // labelV
+      // 
+      this.labelV.AutoSize = true;
+      this.labelV.Location = new System.Drawing.Point(10, 60);
+      this.labelV.Name = "labelV";
+      this.labelV.Size = new System.Drawing.Size(42, 13);
+      this.labelV.TabIndex = 11;
+      this.labelV.Text = "Vertical";
+      // 
+      // chkDefaultHandDrawn
+      // 
+      // 
+      // 
+      // 
+      this.chkDefaultHandDrawn.BackgroundStyle.Class = "";
+      this.chkDefaultHandDrawn.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.chkDefaultHandDrawn.Location = new System.Drawing.Point(200, 10);
+      this.chkDefaultHandDrawn.Name = "chkDefaultHandDrawn";
+      this.chkDefaultHandDrawn.Size = new System.Drawing.Size(140, 23);
+      this.chkDefaultHandDrawn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+      this.chkDefaultHandDrawn.TabIndex = 7;
+      this.chkDefaultHandDrawn.Text = "Default Hand Drawn";
       // 
       // superTabControl1
       // 
@@ -403,12 +413,31 @@
       this.superTabControl1.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.VisualStudio2008Dock;
       this.superTabControl1.Text = "superTabControl1";
       // 
+      // superTabControlPanel1
+      // 
+      this.superTabControlPanel1.Controls.Add(this.groupBox1);
+      this.superTabControlPanel1.Controls.Add(this.groupBox2);
+      this.superTabControlPanel1.Controls.Add(this.groupBox3);
+      this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel1.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel1.Name = "superTabControlPanel1";
+      this.superTabControlPanel1.Size = new System.Drawing.Size(432, 274);
+      this.superTabControlPanel1.TabIndex = 1;
+      this.superTabControlPanel1.TabItem = this.superTabItem1;
+      // 
+      // superTabItem1
+      // 
+      this.superTabItem1.AttachedControl = this.superTabControlPanel1;
+      this.superTabItem1.GlobalItem = false;
+      this.superTabItem1.Name = "superTabItem1";
+      this.superTabItem1.Text = "General";
+      // 
       // superTabControlPanel2
       // 
       this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
       this.superTabControlPanel2.Location = new System.Drawing.Point(0, 26);
       this.superTabControlPanel2.Name = "superTabControlPanel2";
-      this.superTabControlPanel2.Size = new System.Drawing.Size(432, 211);
+      this.superTabControlPanel2.Size = new System.Drawing.Size(432, 274);
       this.superTabControlPanel2.TabIndex = 0;
       this.superTabControlPanel2.TabItem = this.tabInform7;
       // 
@@ -420,24 +449,22 @@
       this.tabInform7.Text = "Inform 7";
       this.tabInform7.Visible = false;
       // 
-      // superTabControlPanel1
+      // chkShowTooltips
       // 
-      this.superTabControlPanel1.Controls.Add(this.groupBox1);
-      this.superTabControlPanel1.Controls.Add(this.groupBox2);
-      this.superTabControlPanel1.Controls.Add(this.groupBox3);
-      this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel1.Location = new System.Drawing.Point(0, 26);
-      this.superTabControlPanel1.Name = "superTabControlPanel1";
-      this.superTabControlPanel1.Size = new System.Drawing.Size(432, 360);
-      this.superTabControlPanel1.TabIndex = 1;
-      this.superTabControlPanel1.TabItem = this.superTabItem1;
       // 
-      // superTabItem1
       // 
-      this.superTabItem1.AttachedControl = this.superTabControlPanel1;
-      this.superTabItem1.GlobalItem = false;
-      this.superTabItem1.Name = "superTabItem1";
-      this.superTabItem1.Text = "General";
+      // 
+      this.chkShowTooltips.BackgroundStyle.Class = "";
+      this.chkShowTooltips.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.chkShowTooltips.Checked = true;
+      this.chkShowTooltips.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chkShowTooltips.CheckValue = "Y";
+      this.chkShowTooltips.Location = new System.Drawing.Point(200, 58);
+      this.chkShowTooltips.Name = "chkShowTooltips";
+      this.chkShowTooltips.Size = new System.Drawing.Size(154, 23);
+      this.chkShowTooltips.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+      this.chkShowTooltips.TabIndex = 12;
+      this.chkShowTooltips.Text = "Show Tooltips on Objects";
       // 
       // AppSettingsDialog
       // 
@@ -467,6 +494,8 @@
       this.groupBox2.PerformLayout();
       this.groupBox3.ResumeLayout(false);
       this.groupBox3.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.m_preferredHorizontalMargin)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.m_preferredVerticalMargin)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
       this.superTabControl1.ResumeLayout(false);
       this.superTabControlPanel1.ResumeLayout(false);
@@ -506,5 +535,6 @@
         private DevComponents.DotNetBar.SuperTabItem tabInform7;
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel1;
         private DevComponents.DotNetBar.SuperTabItem superTabItem1;
-	}
+    private DevComponents.DotNetBar.Controls.CheckBoxX chkShowTooltips;
+  }
 }

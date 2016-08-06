@@ -17,7 +17,11 @@ ENH: #279 - Added Ctrl-K to Force Darkness on selected rooms; Added Ctrl-Shift-K
 ENH: #56  - Added support for doors.  It can be setup in the connection properties.  Export to I7 only at this point.
 ENH: #285 - Add descriptions to connections.  Used only for doors at the moment.
 ENH: #283 - Allow for fine control of object text positioning.
-
+COS: #294 - Fix wording on context menu for hand-drawn room.
+ENH:      - Tooltips will now show on items with out a title.  This will help with being able to put different attributes or descriptions on items (connections, rooms).
+ENH: #295 - Added option to app settings to show / not-show tooltips on objects.
+REF: #214 - Refactored font code name.
+REF: #213 - changed labels in app settings font settings.
 
 1.5.9.4
 -------------

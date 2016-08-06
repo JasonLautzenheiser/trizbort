@@ -45,6 +45,12 @@ namespace Trizbort.UI
       set { chkDefaultHandDrawn.Checked=value; }
     }
 
+    public bool ShowToolTipsOnObjects
+    {
+      get { return chkShowTooltips.Checked; }
+      set { chkShowTooltips.Checked=value; }
+    }
+
     public bool SaveTADSToADV3Lite 
     {
       get { return chkSaveTADSToADV3Lite.Checked; }

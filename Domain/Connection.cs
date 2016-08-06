@@ -536,7 +536,7 @@ namespace Trizbort.Domain
         if (lineSegments.Count%2 == 1) // with default values, middle text is horizontally but not vertically centered
         {
           //We usually have 3 line segments but in some cases we might not e.g. if there are no stalks
-          middle += 4.0f*Settings.LineFont.Height/5;
+          middle += 4.0f*Settings.SubtitleFont.Height/5;
         }
         foreach (var lineSegment in lineSegments)
         {
@@ -596,7 +596,7 @@ namespace Trizbort.Domain
 
 
       if (!Settings.DebugDisableTextRendering)
-        text.Draw(graphics, Settings.LineFont, palette.LineTextBrush, pos, Vector.Zero, format);
+        text.Draw(graphics, Settings.SubtitleFont, palette.LineTextBrush, pos, Vector.Zero, format);
     }
     
 

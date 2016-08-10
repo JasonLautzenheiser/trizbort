@@ -1,5 +1,10 @@
 Change Log
 
+1.5.9.6
+-------------
+ENH: #300 - Automap will now detect when a room is being connected in the same direction as another room. The user will be prompted to keep one or other or both.
+
+
 1.5.9.5
 -------------
 ENH: #196 - "tb dotted" in transcript now forces next connection to be dotted.

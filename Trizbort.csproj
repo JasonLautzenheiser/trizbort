@@ -161,6 +161,12 @@
     <Compile Include="UI\AutomapDialog.Designer.cs">
       <DependentUpon>AutomapDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\AutomapRoomSameDirectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AutomapRoomSameDirectionDialog.Designer.cs">
+      <DependentUpon>AutomapRoomSameDirectionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ConnectionPropertiesDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AutomapDialog.resx">
       <DependentUpon>AutomapDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AutomapRoomSameDirectionDialog.resx">
+      <DependentUpon>AutomapRoomSameDirectionDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ConnectionPropertiesDialog.resx">
       <DependentUpon>ConnectionPropertiesDialog.cs</DependentUpon>

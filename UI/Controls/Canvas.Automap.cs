@@ -584,6 +584,14 @@ namespace Trizbort.UI.Controls
         {
         }
       }
+
+      public void RemoveRoom(Room mOtherRoom)
+      {
+        try { m_control.Invoke((MethodInvoker)delegate { m_canvas.RemoveRoom(mOtherRoom); }); }
+        catch (Exception)
+        {
+        }
+      }
     }
   }
 }

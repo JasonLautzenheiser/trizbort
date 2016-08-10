@@ -26,9 +26,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Trizbort.UI;
 
 namespace Trizbort
 {
@@ -446,12 +448,43 @@ namespace Trizbort
             if (m_lastKnownRoom != null && m_lastMoveDirection != null)
             {
               // player moved to new room
-              // if not added already, add room to map; and join it up to the previous one
-              room = m_canvas.CreateRoom(m_lastKnownRoom, m_lastMoveDirection.Value, roomName, line);
-              m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
-              Trace("{0}: {1} is now {2} from {3}.", FormatTranscriptLineForDisplay(line), roomName, m_lastMoveDirection.Value.ToString().ToLower(), m_lastKnownRoom.Name);
+
+              // is there already a connection in that direction?
+              var mOtherRoom = m_lastKnownRoom.GetConnections(CompassPointHelper.GetCompassDirection(m_lastMoveDirection.Value)).FirstOrDefault()?.GetTargetRoom();
+              if (mOtherRoom != null)
+              {
+                var frm = new AutomapRoomSameDirectionDialog();
+                frm.Room1 = mOtherRoom;
+                frm.Room2 = roomName;
+                frm.ShowDialog();
+
+                switch (frm.Result)
+                {
+                  case AutomapSameDirectionResult.KeepRoom1:
+                    break;
+                  case AutomapSameDirectionResult.KeepRoom2:
+                    room = m_canvas.CreateRoom(m_lastKnownRoom, m_lastMoveDirection.Value, roomName, line);
+                    m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
+                    m_canvas.RemoveRoom(mOtherRoom);
+                    break;
+                  case AutomapSameDirectionResult.KeepBoth:
+                    room = m_canvas.CreateRoom(m_lastKnownRoom, m_lastMoveDirection.Value, roomName, line);
+                    m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
+                    break;
+                  default:
+                    throw new ArgumentOutOfRangeException();
+                }
+              }
+              else
+              {
+
+                // if not added already, add room to map; and join it up to the previous one
+                room = m_canvas.CreateRoom(m_lastKnownRoom, m_lastMoveDirection.Value, roomName, line);
+                m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
+                Trace("{0}: {1} is now {2} from {3}.", FormatTranscriptLineForDisplay(line), roomName, m_lastMoveDirection.Value.ToString().ToLower(), m_lastKnownRoom.Name);
+              }
             }
-            else 
+            else
             {
               if ((m_firstRoom) || (m_gameName == roomName))
               {
@@ -470,7 +503,8 @@ namespace Trizbort
                 await WaitForStep();
               }
             }
-            if (room != null) {
+            if (room != null)
+            {
               DeduceExitsFromDescription(room, roomDescription);
               NowInRoom(room);
             }
@@ -530,7 +564,6 @@ namespace Trizbort
 
     private void ProcessPromptCommand(string command)
     {
-
       // unless we find one, this command does not involve moving in a given direction
       m_lastMoveDirection = null;
 
@@ -583,7 +616,7 @@ namespace Trizbort
         return;
       }
 
-      
+
       // TODO: We entirely don't handle "go east. n. s then w." etc. and I don't see an easy way of doing so.
 
       // split the command into individual words
@@ -616,7 +649,10 @@ namespace Trizbort
               stripWord = true;
               break;
             }
-            if ((word[temp] < '0') || (word[temp] > '9')) { break; }
+            if ((word[temp] < '0') || (word[temp] > '9'))
+            {
+              break;
+            }
           }
         }
 
@@ -694,11 +730,8 @@ namespace Trizbort
               }
             }
           }
-
-
         }
       }
-
 
 
       // we should have just one word left
@@ -727,6 +760,7 @@ namespace Trizbort
             // we'll either add a proper connection shortly, or they player can't go that way
             m_canvas.RemoveExitStub(m_lastKnownRoom, m_lastMoveDirection.Value);
 
+
             return;
           }
         }
@@ -749,9 +783,8 @@ namespace Trizbort
           }
         }
       }
-      return AutomapDirection.None ;
+      return AutomapDirection.None;
     }
-
 
     #region Private Member Variables
 
@@ -780,33 +813,12 @@ namespace Trizbort
 
     private static readonly Dictionary<AutomapDirection, List<string>> s_namesForMovementCommands = new Dictionary<AutomapDirection, List<string>>
     {
-      {AutomapDirection.North, new List<string> {"north", "n", "fore", "f"}},
-      {AutomapDirection.South, new List<string> {"south", "s", "aft", "a"}},
-      {AutomapDirection.East, new List<string> {"east", "e", "starboard", "sb"}},
-      {AutomapDirection.West, new List<string> {"west", "w", "port", "p"}},
-      {AutomapDirection.NorthEast, new List<string> {"northeast", "ne"}},
-      {AutomapDirection.SouthEast, new List<string> {"southeast", "se"}},
-      {AutomapDirection.SouthWest, new List<string> {"southwest", "sw"}},
-      {AutomapDirection.NorthWest, new List<string> {"northwest", "nw"}},
-      {AutomapDirection.Up, new List<string> {"up", "u"}},
-      {AutomapDirection.Down, new List<string> {"down", "d"}},
-      {AutomapDirection.In, new List<string> {"in", "inside"}},
-      {AutomapDirection.Out, new List<string> {"out", "outside"}}
+      {AutomapDirection.North, new List<string> {"north", "n", "fore", "f"}}, {AutomapDirection.South, new List<string> {"south", "s", "aft", "a"}}, {AutomapDirection.East, new List<string> {"east", "e", "starboard", "sb"}}, {AutomapDirection.West, new List<string> {"west", "w", "port", "p"}}, {AutomapDirection.NorthEast, new List<string> {"northeast", "ne"}}, {AutomapDirection.SouthEast, new List<string> {"southeast", "se"}}, {AutomapDirection.SouthWest, new List<string> {"southwest", "sw"}}, {AutomapDirection.NorthWest, new List<string> {"northwest", "nw"}}, {AutomapDirection.Up, new List<string> {"up", "u"}}, {AutomapDirection.Down, new List<string> {"down", "d"}}, {AutomapDirection.In, new List<string> {"in", "inside"}}, {AutomapDirection.Out, new List<string> {"out", "outside"}}
     };
 
     private static readonly Dictionary<List<AutomapDirection>, List<string>> s_namesForExitsInRoomDescriptions = new Dictionary<List<AutomapDirection>, List<string>>
     {
-      {new List<AutomapDirection> {AutomapDirection.North}, new List<string> {"north", "northward", "fore", "northern"}},
-      {new List<AutomapDirection> {AutomapDirection.South}, new List<string> {"south", "southward", "aft", "southern"}},
-      {new List<AutomapDirection> {AutomapDirection.East}, new List<string> {"east", "eastward", "starboard", "eastern"}},
-      {new List<AutomapDirection> {AutomapDirection.West}, new List<string> {"west", "westward", "port", "western"}},
-      {new List<AutomapDirection> {AutomapDirection.NorthEast}, new List<string> {"northeast", "northeastward", "northeastern"}},
-      {new List<AutomapDirection> {AutomapDirection.SouthEast}, new List<string> {"southeast", "southeastward", "southeastern"}},
-      {new List<AutomapDirection> {AutomapDirection.SouthWest}, new List<string> {"southwest", "southwestward", "southwestern"}},
-      {new List<AutomapDirection> {AutomapDirection.NorthWest}, new List<string> {"northwest", "northwest", "northwestern"}},
-      {new List<AutomapDirection> {AutomapDirection.Up}, new List<string> {"up", "upward", "upwards", "ascend", "above"}},
-      {new List<AutomapDirection> {AutomapDirection.Down}, new List<string> {"down", "downward", "downwards", "descend", "below"}},
-      {new List<AutomapDirection> {AutomapDirection.North, AutomapDirection.South, AutomapDirection.East, AutomapDirection.West, AutomapDirection.NorthEast, AutomapDirection.NorthWest, AutomapDirection.SouthEast, AutomapDirection.SouthWest}, new List<string> {"all directions", "every direction"}}
+      {new List<AutomapDirection> {AutomapDirection.North}, new List<string> {"north", "northward", "fore", "northern"}}, {new List<AutomapDirection> {AutomapDirection.South}, new List<string> {"south", "southward", "aft", "southern"}}, {new List<AutomapDirection> {AutomapDirection.East}, new List<string> {"east", "eastward", "starboard", "eastern"}}, {new List<AutomapDirection> {AutomapDirection.West}, new List<string> {"west", "westward", "port", "western"}}, {new List<AutomapDirection> {AutomapDirection.NorthEast}, new List<string> {"northeast", "northeastward", "northeastern"}}, {new List<AutomapDirection> {AutomapDirection.SouthEast}, new List<string> {"southeast", "southeastward", "southeastern"}}, {new List<AutomapDirection> {AutomapDirection.SouthWest}, new List<string> {"southwest", "southwestward", "southwestern"}}, {new List<AutomapDirection> {AutomapDirection.NorthWest}, new List<string> {"northwest", "northwest", "northwestern"}}, {new List<AutomapDirection> {AutomapDirection.Up}, new List<string> {"up", "upward", "upwards", "ascend", "above"}}, {new List<AutomapDirection> {AutomapDirection.Down}, new List<string> {"down", "downward", "downwards", "descend", "below"}}, {new List<AutomapDirection> {AutomapDirection.North, AutomapDirection.South, AutomapDirection.East, AutomapDirection.West, AutomapDirection.NorthEast, AutomapDirection.NorthWest, AutomapDirection.SouthEast, AutomapDirection.SouthWest}, new List<string> {"all directions", "every direction"}}
     };
 
     #endregion
@@ -840,10 +852,7 @@ namespace Trizbort
 
     public string Status { get; private set; }
 
-    public bool Running
-    {
-      get { return (m_tokenSource != null && !m_tokenSource.IsCancellationRequested); }
-    }
+    public bool Running { get { return (m_tokenSource != null && !m_tokenSource.IsCancellationRequested); } }
 
     public void Stop()
     {
@@ -880,7 +889,6 @@ namespace Trizbort
             {
               var line = reader.ReadLine();
               lines.Add(line);
-
             }
           }
 
@@ -901,7 +909,7 @@ namespace Trizbort
             // we've now dealt with all lines to this point
             linesBetweenPrompts.Clear();
 
-           // process the next command
+            // process the next command
             ProcessPromptCommand(command);
 
             Trace("{0}: {1}{2}", FormatTranscriptLineForDisplay(line), m_lastMoveDirection != null ? "GO " : string.Empty, m_lastMoveDirection != null ? m_lastMoveDirection.Value.ToString().ToUpperInvariant() : string.Empty);
@@ -912,7 +920,6 @@ namespace Trizbort
             // hang onto it for now in case we meet a prompt shortly.
             linesBetweenPrompts.Add(line);
           }
-
         }
       }
       catch (IOException ex)
@@ -923,8 +930,7 @@ namespace Trizbort
       }
       catch (UnauthorizedAccessException)
       {
-        MessageBox.Show("Could not gain access to the transcript file. Your interpreter may be restricting access to it. Try again in a few minutes " +
-                        "or with scripting off in your interpreter.\n\nAutomapping halted.", "Access Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show("Could not gain access to the transcript file. Your interpreter may be restricting access to it. Try again in a few minutes " + "or with scripting off in your interpreter.\n\nAutomapping halted.", "Access Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
 
       Trace("Automap: Gentle thread exit.");
@@ -948,86 +954,86 @@ namespace Trizbort
       try
       {
         using (var stream = File.Open(m_settings.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-        using (var reader = new StreamReader(stream))
-        using (m_tokenSource = new CancellationTokenSource())
-        {
-          var lastline = "";
-
-          if (m_settings.ContinueTranscript)
-          {
-            while (!reader.EndOfStream)
-              lastline = await reader.ReadLineAsync();
-          }
-
-          // keep track of lines we read between here and the next prompt
-          var linesBetweenPrompts = new List<string>();
-          Status = "Automapping is processing the transcript.";
-
-          var promptLine = string.Empty;
-          var line = string.Empty;
-          var atFileEnd = false;
-          // loop until cancelled
-          while (true)
-          {
-            if (m_settings.ContinueTranscript)
+          using (var reader = new StreamReader(stream))
+            using (m_tokenSource = new CancellationTokenSource())
             {
-              line = lastline;
-              m_settings.ContinueTranscript = false;
-            }
-            else
-            {
-              // ...read a line of text
-              try
+              var lastline = "";
+
+              if (m_settings.ContinueTranscript)
               {
-                line = await WaitForNewLine(reader, m_tokenSource.Token);
-                atFileEnd = reader.EndOfStream; // store this now so that it's still valid when we use it below
+                while (!reader.EndOfStream)
+                  lastline = await reader.ReadLineAsync();
               }
-              catch (TaskCanceledException)
+
+              // keep track of lines we read between here and the next prompt
+              var linesBetweenPrompts = new List<string>();
+              Status = "Automapping is processing the transcript.";
+
+              var promptLine = string.Empty;
+              var line = string.Empty;
+              var atFileEnd = false;
+              // loop until cancelled
+              while (true)
               {
-                break;
-              }
-            }
-
-            //Trace("[" + line + "]");
-            string command;
-            if (IsPrompt(line, out command))
-            {
-              // this is a prompt line
-
-              // let's process everything leading up to it since the last prompt, but not necessarily this new prompt itself
-              await ProcessTranscriptText(linesBetweenPrompts);
-
-              // we've now dealt with all lines to this point
-              linesBetweenPrompts.Clear();
-
-              // handle the case where we're at the end of the file, waiting for user input
-              if (atFileEnd)
-              {
-                try
+                if (m_settings.ContinueTranscript)
                 {
-                  // we've already read the prompt, now just read the command when the player enters it
-                  command = (await WaitForNewLine(reader, m_tokenSource.Token)).Trim();
+                  line = lastline;
+                  m_settings.ContinueTranscript = false;
                 }
-                catch (TaskCanceledException)
+                else
                 {
-                  break;
+                  // ...read a line of text
+                  try
+                  {
+                    line = await WaitForNewLine(reader, m_tokenSource.Token);
+                    atFileEnd = reader.EndOfStream; // store this now so that it's still valid when we use it below
+                  }
+                  catch (TaskCanceledException)
+                  {
+                    break;
+                  }
+                }
+
+                //Trace("[" + line + "]");
+                string command;
+                if (IsPrompt(line, out command))
+                {
+                  // this is a prompt line
+
+                  // let's process everything leading up to it since the last prompt, but not necessarily this new prompt itself
+                  await ProcessTranscriptText(linesBetweenPrompts);
+
+                  // we've now dealt with all lines to this point
+                  linesBetweenPrompts.Clear();
+
+                  // handle the case where we're at the end of the file, waiting for user input
+                  if (atFileEnd)
+                  {
+                    try
+                    {
+                      // we've already read the prompt, now just read the command when the player enters it
+                      command = (await WaitForNewLine(reader, m_tokenSource.Token)).Trim();
+                    }
+                    catch (TaskCanceledException)
+                    {
+                      break;
+                    }
+                  }
+
+                  // process the next command
+                  ProcessPromptCommand(command);
+
+
+                  Trace("{0}: {1}{2}", FormatTranscriptLineForDisplay(line), m_lastMoveDirection != null ? "GO " : string.Empty, m_lastMoveDirection != null ? m_lastMoveDirection.Value.ToString().ToUpperInvariant() : string.Empty);
+                }
+                else
+                {
+                  // this line isn't a prompt;
+                  // hang onto it for now in case we meet a prompt shortly.
+                  linesBetweenPrompts.Add(line);
                 }
               }
-
-              // process the next command
-              ProcessPromptCommand(command);
-
-
-              Trace("{0}: {1}{2}", FormatTranscriptLineForDisplay(line), m_lastMoveDirection != null ? "GO " : string.Empty, m_lastMoveDirection != null ? m_lastMoveDirection.Value.ToString().ToUpperInvariant() : string.Empty);
             }
-            else
-            {
-              // this line isn't a prompt;
-              // hang onto it for now in case we meet a prompt shortly.
-              linesBetweenPrompts.Add(line);
-            }
-          }
-        }
       }
       catch (IOException ex)
       {
@@ -1037,8 +1043,7 @@ namespace Trizbort
       }
       catch (UnauthorizedAccessException)
       {
-        MessageBox.Show("Could not gain access to the transcript file. Your interpreter may be restricting access to it. Try again in a few minutes " +
-                        "or with scripting off in your interpreter.\n\nAutomapping halted.", "Access Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show("Could not gain access to the transcript file. Your interpreter may be restricting access to it. Try again in a few minutes " + "or with scripting off in your interpreter.\n\nAutomapping halted.", "Access Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
 
       Trace("Automap: Gentle thread exit.");

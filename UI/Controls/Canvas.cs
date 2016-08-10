@@ -3487,5 +3487,10 @@ namespace Trizbort.UI.Controls
       Marquee,
       DrawLine
     }
+
+    public void RemoveRoom(Room mOtherRoom)
+    {
+      Project.Current.Elements.Remove(mOtherRoom);
+    }
   }
 }

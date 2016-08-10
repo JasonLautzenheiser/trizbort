@@ -22,31 +22,28 @@
     THE SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Trizbort
 {
-    internal interface IAutomapCanvas
-    {
-        /// <summary>
-        /// Find a room matching the given name and, if the given description isn't null, the given description.
-        /// </summary>
-        Room FindRoom(string roomName, string roomDescription, string line, RoomMatcher matcher);
+  internal interface IAutomapCanvas
+  {
+    /// <summary>
+    ///   Find a room matching the given name and, if the given description isn't null, the given description.
+    /// </summary>
+    Room FindRoom(string roomName, string roomDescription, string line, RoomMatcher matcher);
 
-        Room CreateRoom(Room existing, string name);
+    Room CreateRoom(Room existing, string name);
 
-        Room CreateRoom(Room existing, AutomapDirection directionFromExisting, string roomName, string line);
+    Room CreateRoom(Room existing, AutomapDirection directionFromExisting, string roomName, string line);
 
-        void Connect(Room source, AutomapDirection directionFromSource, Room target);
+    void Connect(Room source, AutomapDirection directionFromSource, Room target);
 
-        void AddExitStub(Room room, AutomapDirection direction);
+    void AddExitStub(Room room, AutomapDirection direction);
 
-        void RemoveExitStub(Room room, AutomapDirection direction);
+    void RemoveExitStub(Room room, AutomapDirection direction);
 
-        void SelectRoom(Room room);
-    }
+    void SelectRoom(Room room);
+    void RemoveRoom(Room mOtherRoom);
+  }
 
-    internal delegate bool? RoomMatcher(string roomName, string roomDescription, Room room);
+  internal delegate bool? RoomMatcher(string roomName, string roomDescription, Room room);
 }

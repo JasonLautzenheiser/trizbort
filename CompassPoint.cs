@@ -24,6 +24,7 @@
 
 using System;
 using System.Diagnostics;
+using Trizbort.Automap;
 
 namespace Trizbort
 {

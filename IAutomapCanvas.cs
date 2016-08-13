@@ -22,6 +22,8 @@
     THE SOFTWARE.
 */
 
+using Trizbort.Automap;
+
 namespace Trizbort
 {
   internal interface IAutomapCanvas

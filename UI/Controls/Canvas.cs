@@ -103,7 +103,7 @@ namespace Trizbort.UI.Controls
       Settings.Changed += onSettingsChanged;
       onSettingsChanged(this, EventArgs.Empty);
 
-      m_threadSafeAutomapCanvas = new UI.Controls.Canvas.MultithreadedAutomapCanvas(this);
+      mThreadSafeAutomapCanvas = new UI.Controls.Canvas.multithreadedAutomapCanvas(this);
       m_minimap.Canvas = this;
     }
 
@@ -1334,7 +1334,7 @@ namespace Trizbort.UI.Controls
 
             default:
               if (IsAutomapping)
-                m_automap.RunToCompletion();
+                mAutomap.RunToCompletion();
 
               break;
           }
@@ -1342,7 +1342,7 @@ namespace Trizbort.UI.Controls
 
         case Keys.F11:
           if (IsAutomapping)
-            m_automap.Step();
+            mAutomap.Step();
 
           break;
 

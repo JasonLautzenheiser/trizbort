@@ -4,6 +4,7 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Trizbort.Automap;
 using Trizbort.Extensions;
 using static System.String;
 

@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using Trizbort.Automap;
 
 namespace Trizbort.Export
 {

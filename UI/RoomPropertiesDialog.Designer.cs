@@ -126,6 +126,7 @@ namespace Trizbort.UI
       this.label8 = new System.Windows.Forms.Label();
       this.chkStartRoom = new System.Windows.Forms.CheckBox();
       this.toolTip = new DevComponents.DotNetBar.SuperTooltip();
+      this.chkEndRoom = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).BeginInit();
       this.m_tabControl.SuspendLayout();
       this.superTabControlPanel1.SuspendLayout();
@@ -1129,6 +1130,18 @@ namespace Trizbort.UI
       this.toolTip.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
       this.toolTip.BeforeTooltipDisplay += new DevComponents.DotNetBar.SuperTooltipEventHandler(this.toolTip_BeforeTooltipDisplay);
       // 
+      // chkEndRoom
+      // 
+      this.chkEndRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.chkEndRoom.AutoSize = true;
+      this.chkEndRoom.Location = new System.Drawing.Point(390, 98);
+      this.chkEndRoom.Name = "chkEndRoom";
+      this.chkEndRoom.Size = new System.Drawing.Size(74, 17);
+      this.chkEndRoom.TabIndex = 99;
+      this.chkEndRoom.Text = "End Room";
+      this.chkEndRoom.UseVisualStyleBackColor = true;
+      this.chkEndRoom.CheckedChanged += new System.EventHandler(this.chkEndRoom_CheckedChanged);
+      // 
       // RoomPropertiesDialog
       // 
       this.AcceptButton = this.m_okButton;
@@ -1136,6 +1149,7 @@ namespace Trizbort.UI
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.m_cancelButton;
       this.ClientSize = new System.Drawing.Size(512, 381);
+      this.Controls.Add(this.chkEndRoom);
       this.Controls.Add(this.chkStartRoom);
       this.Controls.Add(this.cboBorderStyle);
       this.Controls.Add(this.label8);
@@ -1262,5 +1276,6 @@ namespace Trizbort.UI
     private DevComponents.Editors.IntegerInput txtRight;
     private DevComponents.Editors.IntegerInput txtDown;
     private DevComponents.DotNetBar.SuperTooltip toolTip;
+    private System.Windows.Forms.CheckBox chkEndRoom;
   }
 }

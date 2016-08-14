@@ -762,10 +762,10 @@ namespace Trizbort.UI
 
     private void zILToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      var fileName = Settings.LastExportZILFileName;
+      var fileName = Settings.LastExportZilFileName;
       if (exportCode<ZilExporter>(ref fileName))
       {
-        Settings.LastExportZILFileName = fileName;
+        Settings.LastExportZilFileName = fileName;
       }
     }
 

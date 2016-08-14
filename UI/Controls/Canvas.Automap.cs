@@ -215,7 +215,7 @@ namespace Trizbort.UI.Controls
       }
     }
 
-    void IAutomapCanvas.Connect(Room source, AutomapDirection directionFromSource, Room target)
+    void IAutomapCanvas.Connect(Room source, AutomapDirection directionFromSource, Room target, bool assumeTwoWayConnections)
     {
       if (!Project.Current.Elements.Contains(source) || !Project.Current.Elements.Contains(target))
       {
@@ -269,7 +269,7 @@ namespace Trizbort.UI.Controls
           connection.Style = ConnectionStyle.Solid;
         }
 
-        connection.Flow = ConnectionFlow.OneWay;
+        connection.Flow = assumeTwoWayConnections ? ConnectionFlow.TwoWay : ConnectionFlow.OneWay;
       }
       else if (wrongWay)
       {
@@ -543,9 +543,9 @@ namespace Trizbort.UI.Controls
         return room;
       }
 
-      public void Connect(Room source, AutomapDirection directionFromSource, Room target)
+      public void Connect(Room source, AutomapDirection directionFromSource, Room target, bool assumeTwoWayConnections)
       {
-        try { mControl.Invoke((MethodInvoker) delegate { mCanvas.Connect(source, directionFromSource, target); }); }
+        try { mControl.Invoke((MethodInvoker) delegate { mCanvas.Connect(source, directionFromSource, target, assumeTwoWayConnections); }); }
         catch (Exception)
         {
           // ignored

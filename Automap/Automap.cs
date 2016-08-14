@@ -414,12 +414,12 @@ namespace Trizbort.Automap
                     break;
                   case AutomapSameDirectionResult.KeepRoom2:
                     room = m_canvas.CreateRoom(m_lastKnownRoom, m_lastMoveDirection.Value, roomName, line);
-                    m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
+                    m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room, m_settings.AssumeTwoWayConnections);
                     m_canvas.RemoveRoom(mOtherRoom);
                     break;
                   case AutomapSameDirectionResult.KeepBoth:
                     room = m_canvas.CreateRoom(m_lastKnownRoom, m_lastMoveDirection.Value, roomName, line);
-                    m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
+                    m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room, m_settings.AssumeTwoWayConnections);
                     break;
                   default:
                     throw new ArgumentOutOfRangeException();
@@ -429,7 +429,7 @@ namespace Trizbort.Automap
               {
                 // if not added already, add room to map; and join it up to the previous one
                 room = m_canvas.CreateRoom(m_lastKnownRoom, m_lastMoveDirection.Value, roomName, line);
-                m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
+                m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room, m_settings.AssumeTwoWayConnections);
                 Trace("{0}: {1} is now {2} from {3}.", FormatTranscriptLineForDisplay(line), roomName, m_lastMoveDirection.Value.ToString().ToLower(), m_lastKnownRoom.Name);
               }
             }
@@ -465,7 +465,7 @@ namespace Trizbort.Automap
             if ((m_lastKnownRoom != null) && (m_lastMoveDirection != null))
             {
               // player moved sensibly; ensure rooms are connected up
-              m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room);
+              m_canvas.Connect(m_lastKnownRoom, m_lastMoveDirection.Value, room, m_settings.AssumeTwoWayConnections);
               Trace("{0}: {1} is now {2} from {3}.", FormatTranscriptLineForDisplay(line), roomName, m_lastMoveDirection.Value.ToString().ToLower(), m_lastKnownRoom.Name);
             }
 

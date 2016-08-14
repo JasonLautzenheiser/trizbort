@@ -37,7 +37,7 @@ namespace Trizbort
 
     Room CreateRoom(Room existing, AutomapDirection directionFromExisting, string roomName, string line);
 
-    void Connect(Room source, AutomapDirection directionFromSource, Room target);
+    void Connect(Room source, AutomapDirection directionFromSource, Room target, bool assumeTwoWayConnections);
 
     void AddExitStub(Room room, AutomapDirection direction);
 

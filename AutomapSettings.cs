@@ -24,32 +24,36 @@
 
 namespace Trizbort
 {
-    public struct AutomapSettings
+  public struct AutomapSettings
+  {
+    public static AutomapSettings Default
     {
-        public static AutomapSettings Default
+      get
+      {
+        var settings = new AutomapSettings
         {
-            get
-            {
-                var settings = new AutomapSettings();
-                settings.FileName = string.Empty;
-                settings.SingleStep = false;
-                settings.VerboseTranscript = true;
-                settings.AssumeRoomsWithSameNameAreSameRoom = false;
-                settings.GuessExits = true;
-                settings.AddObjectCommand = "tb see";
-                settings.AddRegionCommand = "tb region";
-                settings.ContinueTranscript = false;
-                return settings;
-            }
-        }
-
-        public string FileName;
-        public bool SingleStep;
-        public bool VerboseTranscript;
-        public bool AssumeRoomsWithSameNameAreSameRoom;
-        public bool GuessExits;
-        public string AddObjectCommand;
-        public string AddRegionCommand;
-        public bool ContinueTranscript;
+          FileName = string.Empty,
+          SingleStep = false,
+          VerboseTranscript = true,
+          AssumeRoomsWithSameNameAreSameRoom = false,
+          GuessExits = true,
+          AddObjectCommand = "tb see",
+          AddRegionCommand = "tb region",
+          ContinueTranscript = false,
+          AssumeTwoWayConnections = true
+        };
+        return settings;
+      }
     }
+
+    public string FileName;
+    public bool SingleStep;
+    public bool VerboseTranscript;
+    public bool AssumeRoomsWithSameNameAreSameRoom;
+    public bool GuessExits;
+    public string AddObjectCommand;
+    public string AddRegionCommand;
+    public bool ContinueTranscript;
+    public bool AssumeTwoWayConnections;
+  }
 }

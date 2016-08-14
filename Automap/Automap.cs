@@ -845,6 +845,7 @@ namespace Trizbort.Automap
       m_canvas = canvas;
       m_settings = settings;
       m_firstRoom = true;
+      m_lastKnownRoom = null;
       Debug.Assert(m_settings.AssumeRoomsWithSameNameAreSameRoom || m_settings.VerboseTranscript, "Must assume rooms with same name are same room unless transcript is verbose.");
       Status = "Automapping has started.";
 

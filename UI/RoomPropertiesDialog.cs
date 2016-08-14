@@ -154,6 +154,12 @@ namespace Trizbort.UI
       set { chkStartRoom.Checked = value; }
     }
 
+    public bool IsEndRoom
+    {
+      get { return chkEndRoom.Checked; }
+      set { chkEndRoom.Checked = value; }
+    }
+
     public bool IsDark
     {
       get { return m_isDarkCheckBox.Checked; }
@@ -859,6 +865,21 @@ namespace Trizbort.UI
     private void toolTip_BeforeTooltipDisplay(object sender, DevComponents.DotNetBar.SuperTooltipEventArgs e)
     {
       e.TooltipInfo.BodyText = e.TooltipInfo.BodyText.Replace("{gridsize}", Settings.GridSize.ToString(CultureInfo.CurrentCulture));
+    }
+
+    private void chkEndRoom_CheckedChanged(object sender, EventArgs e)
+    {
+      if (chkEndRoom.Checked)
+      {
+        var list = Project.Current.Elements.OfType<Room>().Where(p => p.IsEndRoom && p.ID != roomID).ToList();
+
+        if (list.Count <= 0) return;
+
+        if (MessageBox.Show($"The room '{list.First().Name}' is set as the ending room.  Do you want to change it to this room?", "Change Ending Room", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+          Project.Current.Elements.OfType<Room>().ToList().ForEach(p => p.IsEndRoom = false);
+        else
+          chkEndRoom.Checked = false;
+      }
     }
   }
 }

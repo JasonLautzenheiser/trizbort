@@ -146,7 +146,7 @@ namespace Trizbort.UI
 
     public float SnapToElementSize { get { return (float) m_snapToElementDistanceUpDown.Value; } set { m_snapToElementDistanceUpDown.Value = (decimal) value; } }
 
-    public bool DocumentSpecificMargins { get { return (bool) m_documentSpecificMargins.Checked; } set { m_documentSpecificMargins.Checked = (bool)value; } }
+    public bool DocumentSpecificMargins { get { return  m_documentSpecificMargins.Checked; } set { m_documentSpecificMargins.Checked = value; } }
 
     public float DocHorizontalMargin { get { return (float) m_documentHorizontalMargins.Value; } set { m_documentHorizontalMargins.Value = (decimal) value; } }
 
@@ -316,11 +316,11 @@ namespace Trizbort.UI
     {
       if (e.KeyData == Keys.F2)
       {
-        createEditBox(sender);
+        createEditBox();
       }
     }
 
-    private void createEditBox(object sender)
+    private void createEditBox()
     {
       itemSelected = m_RegionListing.SelectedIndex;
 

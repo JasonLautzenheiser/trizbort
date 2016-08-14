@@ -156,7 +156,7 @@ namespace Trizbort
           throw new InvalidDataException(string.Format("Not a {0} map file.", Application.ProductName));
 
         //reset checks: we may make this into a function if we ever wish to verify a Trizbort file first.
-        Settings.startRoomLoaded = false;
+        Settings.StartRoomLoaded = false;
 
         // file version
         var versionNumber = root.Attribute("version").Text;

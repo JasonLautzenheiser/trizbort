@@ -54,6 +54,7 @@ namespace Trizbort
     private bool mStraightEdges = false;
     private bool mAllCornersEqual = true;
     private bool mIsStartRoom = false;
+    private bool mIsEndRoom = false;
     private CornerRadii mCorners;
     private CompassPoint mObjectsPosition = DEFAULT_OBJECTS_POSITION;
     // Added for linking connections when pasting
@@ -341,6 +342,12 @@ namespace Trizbort
     {
       get { return mIsStartRoom; }
       set { if (mIsStartRoom != value) { mIsStartRoom = value; RaiseChanged(); } }
+    }
+
+    public bool IsEndRoom
+    {
+      get { return mIsEndRoom; }
+      set { if (mIsEndRoom != value) { mIsEndRoom = value; RaiseChanged(); } }
     }
 
     public bool IsConnected
@@ -683,7 +690,7 @@ namespace Trizbort
       context.LinesDrawn.Add(left);
 
       // if starting room: this is the code to draw a yellow-green boundary around the start room
-      if (IsStartRoom)
+      if (IsStartRoom || IsEndRoom)
       {
         var tBounds = InnerBounds;
         tBounds.Inflate(5);
@@ -735,7 +742,7 @@ namespace Trizbort
           Drawing.AddLine(pathSelected, bottomSelect, random, StraightEdges);
           Drawing.AddLine(pathSelected, leftSelect, random, StraightEdges);
         }
-        var brushSelected = new SolidBrush(Settings.Color[Colors.StartRoom]);
+        var brushSelected = new SolidBrush(Settings.Color[IsStartRoom ? Colors.StartRoom : Colors.EndRoom]);
         graphics.DrawPath(brushSelected, pathSelected);
       }
 
@@ -1074,6 +1081,7 @@ namespace Trizbort
         dialog.RoomSubTitle = SubTitle;
         dialog.IsDark = IsDark;
         dialog.IsStartRoom = IsStartRoom;
+        dialog.IsEndRoom = IsEndRoom;
         dialog.HandDrawnEdges = HandDrawnEdges;
         dialog.Objects = Objects;
         dialog.ObjectsPosition = ObjectsPosition;
@@ -1108,6 +1116,7 @@ namespace Trizbort
           }
           IsDark = dialog.IsDark;
           IsStartRoom = dialog.IsStartRoom;
+          IsEndRoom = dialog.IsEndRoom;
           HandDrawnEdges = dialog.HandDrawnEdges;
           Objects = dialog.Objects;
           BorderStyle = dialog.BorderStyle;
@@ -1172,6 +1181,10 @@ namespace Trizbort
       {
         scribe.Attribute("isStartRoom", IsStartRoom);
       }
+      if (IsEndRoom)
+      {
+        scribe.Attribute("isEndRoom", IsEndRoom);
+      }
 
       scribe.Attribute("description", PrimaryDescription);
 
@@ -1230,12 +1243,20 @@ namespace Trizbort
       Region = element.Attribute("region").Text;
       IsDark = element.Attribute("isDark").ToBool();
       IsStartRoom = element.Attribute("isStartRoom").ToBool();
+      IsEndRoom = element.Attribute("isEndRoom").ToBool();
       if (IsStartRoom)
       {
-          if (Settings.startRoomLoaded)
+          if (Settings.StartRoomLoaded)
             MessageBox.Show($"{Name} is a duplicate start room. You may need to erase \"isStartRoom=YES\" from the XML.", "Duplicate start room warning");
           else
-            Settings.startRoomLoaded = true;
+            Settings.StartRoomLoaded = true;
+      }
+      if (IsStartRoom)
+      {
+          if (Settings.EndRoomLoaded)
+            MessageBox.Show($"{Name} is a duplicate end room. You may need to erase \"isEndRoom=YES\" from the XML.", "Duplicate end room warning");
+          else
+            Settings.EndRoomLoaded = true;
       }
       //Note: long term, we probably want an app default for this, but for now, let's force a room shape. #93 should fix this code along with #149.
       //We also should not have two of these at once.

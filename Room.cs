@@ -750,7 +750,7 @@ namespace Trizbort
       if (context.Selected)
       {
         var tBounds = InnerBounds;
-        tBounds.Inflate(5);
+        tBounds.Inflate(Project.Current.ActiveSelectedElement?.ID == ID ? 10 : 5);
 
         var topLeftSelect = tBounds.GetCorner(CompassPoint.NorthWest);
         var topRightSelect = tBounds.GetCorner(CompassPoint.NorthEast);
@@ -797,7 +797,7 @@ namespace Trizbort
           Drawing.AddLine(pathSelected, bottomSelect, random, StraightEdges);
           Drawing.AddLine(pathSelected, leftSelect, random, StraightEdges);
         }
-        var brushSelected = new SolidBrush(Color.Gold);
+        var brushSelected = Project.Current.ActiveSelectedElement?.ID == ID ? new SolidBrush(Color.Gold) : new SolidBrush(Color.Gold);
         graphics.DrawPath(brushSelected, pathSelected);
       }
 

@@ -67,6 +67,13 @@ namespace Trizbort
       }
     }
 
+    public List<Element> GetSelectedElements()
+    {
+      return Canvas.SelectedElements.ToList();
+    }
+
+    public Element ActiveSelectedElement { get; set; }
+
     public Canvas Canvas => mainForm.Canvas;
 
     public bool IsDirty { get; set; }

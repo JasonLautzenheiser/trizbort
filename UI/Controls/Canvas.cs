@@ -1331,6 +1331,16 @@ namespace Trizbort.UI.Controls
               Settings.DebugDisableLineRendering = !Settings.DebugDisableLineRendering;
               Invalidate();
               break;
+
+            case Keys.Shift:
+              moveActiveSelected(false);
+
+              break;
+
+            default:
+              moveActiveSelected(true);
+
+              break;
           }
           break;
 
@@ -1372,6 +1382,34 @@ namespace Trizbort.UI.Controls
       }
 
       base.OnKeyDown(e);
+    }
+
+    private static void moveActiveSelected(bool moveForward = true)
+    {
+      var list = Project.Current.GetSelectedElements();
+      var element = list.Find(p => p.ID == Project.Current.ActiveSelectedElement?.ID);
+      if (element == null) return;
+
+      int index = list.IndexOf(element);
+      if (index == -1) return;
+
+      Element newElement;
+
+
+      //        newElement = index + 1 > list.Count ? list[0] : list[index+1];
+      if (moveForward)
+      {
+        index++;
+        newElement = list[index == list.Count ? 0 : index%(list.Count)];
+      }
+      else
+      {
+        index--;
+        newElement = list[index == -1 ? list.Count - 1 : index%(list.Count)];
+      }
+      var controller = new CanvasController();
+      controller.EnsureVisible(newElement);
+      Project.Current.ActiveSelectedElement = newElement;
     }
 
     private void addOrSelectRooms(CompassPoint? compassPoint)

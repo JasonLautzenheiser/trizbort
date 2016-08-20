@@ -51,7 +51,10 @@ namespace Trizbort.UI
 
       var controller = new CanvasController();
       controller.SelectElements(found);
-      controller.EnsureVisible(found.FirstOrDefault());
+
+      Project.Current.ActiveSelectedElement = found.FirstOrDefault();
+
+      controller.EnsureVisible(Project.Current.ActiveSelectedElement);
 
       Close();
 

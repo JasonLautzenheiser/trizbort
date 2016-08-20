@@ -24,7 +24,7 @@
 
 namespace Trizbort.UI.Controls
 {
-    partial class Minimap
+  sealed partial class Minimap
     {
         /// <summary> 
         /// Required designer variable.

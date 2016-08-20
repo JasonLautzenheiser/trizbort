@@ -1271,6 +1271,16 @@ namespace Trizbort.UI.Controls
           }
           break;
 
+        case Keys.F:
+          switch (ModifierKeys)
+          {
+            case Keys.Control:
+              var qf = new QuickFind();
+              qf.Show();
+              break;
+          }
+          break;
+
         case Keys.K:
 
           switch (ModifierKeys) {
@@ -2454,6 +2464,12 @@ namespace Trizbort.UI.Controls
         setRoomDefaultsFrom((Room) selectedElement);
       }
       Invalidate();
+    }
+
+    public void SelectElements(List<Element> elements)
+    {
+      mSelectedElements.Clear();
+      mSelectedElements.AddRange(elements);
     }
 
     public void SelectAllRegion(IEnumerable<string> regions)

@@ -31,6 +31,8 @@ using System.Windows.Forms;
 using System.Xml;
 using Trizbort.Domain;
 using Trizbort.Extensions;
+using Trizbort.UI;
+using Trizbort.UI.Controls;
 
 namespace Trizbort
 {
@@ -38,11 +40,20 @@ namespace Trizbort
   {
     public static readonly string FilterString = "Trizbort Map Files|*.trizbort";
     private static Project mCurrent = new Project();
+    private MainForm mainForm;
 
-    public Project()
+    public Project(MainForm mainForm)
     {
       Elements.Removed += onElementRemoved;
+      mCurrent = this;
+      this.mainForm = mainForm;
     }
+
+    private Project()
+    {
+      
+    }
+
 
     public static Project Current
     {
@@ -55,6 +66,8 @@ namespace Trizbort
         raiseProjectChanged(oldProject, mCurrent);
       }
     }
+
+    public Canvas Canvas => mainForm.Canvas;
 
     public bool IsDirty { get; set; }
 
@@ -135,6 +148,13 @@ namespace Trizbort
       }
       element = null;
       return false;
+    }
+
+    public List<Element> GetElementByName(string name)
+    {
+      var list = Elements.Where(p => p.Name == name).ToList();
+      return list;
+
     }
 
     public bool Load()

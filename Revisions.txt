@@ -9,7 +9,7 @@ ENH: #297 - Automap now supports the EXITS command
 ENH: #171 - Can now specify an end room.
 FIX: #195 - Issue in Automapper when restarting, it would sometimes get confused and not display any rooms.
 ENH: #296 - Added new option in Automapper, to assume two-way directions (on by default).
-
+ENH: #57  - Add a FIND, currently only on Room / Connection name.  Needs optimized, could be slow on larger maps.  Found elements are selected.
 
 
 1.5.9.5

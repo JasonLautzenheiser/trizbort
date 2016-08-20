@@ -46,7 +46,7 @@ using Trizbort.Properties;
 
 namespace Trizbort.UI
 {
-  internal partial class MainForm : Form
+  public partial class MainForm : Form
   {
     private readonly CommandController commandController;
 
@@ -224,7 +224,7 @@ namespace Trizbort.UI
       if (!checkLoseProject())
         return;
 
-      Project.Current = new Project();
+      Project.Current = new Project(this);
       Settings.Reset();
     }
 
@@ -296,7 +296,7 @@ namespace Trizbort.UI
 
     public bool OpenProject(string fileName)
     {
-      var project = new Project {FileName = fileName};
+      var project = new Project(this) {FileName = fileName};
       if (project.Load())
       {
         Project.Current = project;

@@ -52,8 +52,8 @@ namespace Trizbort.Domain
     public const string Down = "down";
     public const string In = "in";
     public const string Out = "out";
-    private string connectionName = string.Empty;
-    private string connectionDescription = string.Empty;
+    private string name = string.Empty;
+    private string description = string.Empty;
     private const ConnectionStyle DEFAULT_STYLE = ConnectionStyle.Solid;
     private const ConnectionFlow DEFAULT_FLOW = ConnectionFlow.TwoWay;
     private readonly TextBlock mEndText = new TextBlock();
@@ -168,27 +168,27 @@ namespace Trizbort.Domain
       }
     }
 
-    public string ConnectionName
+    public override string Name
     {
-      get { return connectionName; }
+      get { return name; }
       set
       {
-        if (connectionName != value)
+        if (name != value)
         {
-          connectionName = value;
+          name = value;
           RaiseChanged();
         }
       }
     }
 
-    public string ConnectionDescription
+    public string Description
     {
-      get { return connectionDescription; }
+      get { return description; }
       set
       {
-        if (connectionDescription != value)
+        if (description != value)
         {
-          connectionDescription = value;
+          description = value;
           RaiseChanged();
         }
       }
@@ -623,7 +623,7 @@ namespace Trizbort.Domain
 
     public override string GetToolTipText()
     {
-      return ConnectionDescription;
+      return Description;
     }
 
     public override eTooltipColor GetToolTipColor()
@@ -639,7 +639,7 @@ namespace Trizbort.Domain
 
     public override string GetToolTipHeader()
     {
-      return $"{ConnectionName}{(Door != null ? $" (Door)" : string.Empty)}";
+      return $"{Name}{(Door != null ? $" (Door)" : string.Empty)}";
     }
 
     public override bool HasTooltip()
@@ -674,8 +674,8 @@ namespace Trizbort.Domain
     {
       using (var dialog = new ConnectionPropertiesDialog())
       {
-        dialog.ConnectionName = ConnectionName;
-        dialog.ConnectionDescription = ConnectionDescription;
+        dialog.ConnectionName = Name;
+        dialog.ConnectionDescription = Description;
         dialog.IsDotted = Style == ConnectionStyle.Dashed;
         dialog.IsDirectional = Flow == ConnectionFlow.OneWay;
         dialog.StartText = StartText;
@@ -685,8 +685,8 @@ namespace Trizbort.Domain
         dialog.Door = Door;
         if (dialog.ShowDialog() == DialogResult.OK)
         {
-          ConnectionName = dialog.ConnectionName;
-          ConnectionDescription = dialog.ConnectionDescription;
+          Name = dialog.ConnectionName;
+          Description = dialog.ConnectionDescription;
           Style = dialog.IsDotted ? ConnectionStyle.Dashed : ConnectionStyle.Solid;
           Flow = dialog.IsDirectional ? ConnectionFlow.OneWay : ConnectionFlow.TwoWay;
           ConnectionColor = dialog.ConnectionColor;
@@ -700,8 +700,8 @@ namespace Trizbort.Domain
 
     public void Save(XmlScribe scribe)
     {
-      scribe.Attribute("name", ConnectionName);
-      scribe.Attribute("description", ConnectionDescription);
+      scribe.Attribute("name", Name);
+      scribe.Attribute("description", Description);
       if (Door != null)
       {
         scribe.Attribute("door", true);
@@ -807,8 +807,8 @@ namespace Trizbort.Domain
           Flow = ConnectionFlow.OneWay;
           break;
       }
-      ConnectionName = element.Attribute("name").Text;
-      ConnectionDescription = element.Attribute("description").Text;
+      Name = element.Attribute("name").Text;
+      Description = element.Attribute("description").Text;
       StartText = element.Attribute("startText").Text;
       MidText = element.Attribute("midText").Text;
       EndText = element.Attribute("endText").Text;

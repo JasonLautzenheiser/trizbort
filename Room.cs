@@ -135,7 +135,7 @@ namespace Trizbort
     /// <summary>
     ///   Get/set the name of the room.
     /// </summary>
-    public string Name
+    public override string Name
     {
       get { return mName.Text; }
       set

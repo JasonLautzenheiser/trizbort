@@ -1,12 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Trizbort.Domain.Commands;
+using Trizbort.UI;
 
 namespace Trizbort.Domain.Controllers
 {
   public class CanvasController
   {
     private readonly UI.Controls.Canvas canvas;
+
+    public CanvasController()
+    {
+      this.canvas = Project.Current.Canvas;
+    }
 
     public CanvasController(UI.Controls.Canvas canvas)
     {
@@ -89,6 +95,11 @@ namespace Trizbort.Domain.Controllers
     {
       connections.ForEach(p => p.SetText(label));
       canvas.NewConnectionLabel = label;
+    }
+
+    public void SelectElements(List<Element> elements)
+    {
+      canvas.SelectElements(elements);
     }
 
   }

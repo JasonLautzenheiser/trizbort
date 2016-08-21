@@ -25,8 +25,6 @@ namespace Trizbort.Domain
     {
       var bounds = new Rect(Segment.Start, Vector.Zero);
 
-      float angle;
-//      var compassPoint = CompassPointHelper.DirectionFromAngle(out angle, Segment.Delta);
       var compassPoint = CompassPointHelper.GetCompassPointFromDirectionVector(Segment.Delta);
       var pos = bounds.GetCorner(compassPoint);
       Size offsets = new Size(0,0);

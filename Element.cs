@@ -86,6 +86,8 @@ namespace Trizbort
       }
     }
 
+    public virtual string Name { get; set; }
+
     /// <summary>
     ///   Get the drawing priority of this element.
     /// </summary>

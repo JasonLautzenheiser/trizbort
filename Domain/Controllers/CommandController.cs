@@ -29,13 +29,13 @@ namespace Trizbort.Domain.Controllers
 
     public void SelectStartRoom()
     {
-      var controller = new CanvasController(canvas);
+      var controller = new CanvasController();
       controller.SelectStartRoom();
     }
 
     public void SelectRoomClosestToCenterOfViewport()
     {
-      var controller = new CanvasController(canvas);
+      var controller = new CanvasController();
       controller.SelectRoomClosestToCenterOfViewport();
     }
 
@@ -73,7 +73,7 @@ namespace Trizbort.Domain.Controllers
 
     public void SetConnectionFlow(ConnectionFlow flow)
     {
-      var controller = new CanvasController(canvas);
+      var controller = new CanvasController();
 
       controller.SetConnectionFlow(flow);
     }
@@ -81,14 +81,14 @@ namespace Trizbort.Domain.Controllers
     public void ToggleConnectionFlow(ConnectionFlow flow)
     {
       var f = flow == ConnectionFlow.OneWay ? ConnectionFlow.TwoWay : ConnectionFlow.OneWay;
-      var controller = new CanvasController(canvas);
+      var controller = new CanvasController();
 
       controller.SetConnectionFlow(f);
     }
 
     public void SetConnectionStyle(ConnectionStyle style)
     {
-      var controller = new CanvasController(canvas);
+      var controller = new CanvasController();
 
       controller.SetConnectionStyle(style);
     }
@@ -96,21 +96,21 @@ namespace Trizbort.Domain.Controllers
     public void ToggleConnectionStyle(ConnectionStyle style)
     {
       var f = style == ConnectionStyle.Dashed ? ConnectionStyle.Solid : ConnectionStyle.Dashed;
-      var controller = new CanvasController(canvas);
+      var controller = new CanvasController();
 
       controller.SetConnectionStyle(f);
     }
 
     public void SetConnectionLabel(ConnectionLabel label)
     {
-      var controller = new CanvasController(canvas);
+      var controller = new CanvasController();
 
       controller.SetConnectionLabel(label);
     }
 
     public void MakeVisible(Element element)
     {
-      var controller = new CanvasController(canvas);
+      var controller = new CanvasController();
       controller.EnsureVisible(element);
     }
   }

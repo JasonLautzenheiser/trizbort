@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Trizbort.Domain.Commands;
+using Trizbort.UI;
 
 namespace Trizbort.Domain.Controllers
 {
@@ -8,9 +9,10 @@ namespace Trizbort.Domain.Controllers
   {
     private readonly UI.Controls.Canvas canvas;
 
-    public CanvasController(UI.Controls.Canvas canvas)
+
+    public CanvasController()
     {
-      this.canvas = canvas;
+      this.canvas = TrizbortApplication.MainForm.Canvas;
     }
 
     public void SelectRoomClosestToCenterOfViewport()
@@ -89,6 +91,11 @@ namespace Trizbort.Domain.Controllers
     {
       connections.ForEach(p => p.SetText(label));
       canvas.NewConnectionLabel = label;
+    }
+
+    public void SelectElements(List<Element> elements)
+    {
+      canvas.SelectElements(elements);
     }
 
   }

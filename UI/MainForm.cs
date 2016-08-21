@@ -46,7 +46,7 @@ using Trizbort.Properties;
 
 namespace Trizbort.UI
 {
-  internal partial class MainForm : Form
+  public partial class MainForm : Form
   {
     private readonly CommandController commandController;
 
@@ -60,11 +60,13 @@ namespace Trizbort.UI
     {
       InitializeComponent();
 
+      TrizbortApplication.MainForm = this;
+
       commandController = new CommandController(Canvas);
 
       mCaption = Text;
 
-      Application.Idle += onIdle;
+      System.Windows.Forms.Application.Idle += onIdle;
       mLastUpdateUITime = DateTime.MinValue;
 
       m_automapBar.StopClick += onMAutomapBarOnStopClick;
@@ -296,7 +298,7 @@ namespace Trizbort.UI
 
     public bool OpenProject(string fileName)
     {
-      var project = new Project {FileName = fileName};
+      var project = new Project() {FileName = fileName};
       if (project.Load())
       {
         Project.Current = project;
@@ -333,7 +335,7 @@ namespace Trizbort.UI
           }
           builder.AppendLine(project.Description);
         }
-        MessageBox.Show(builder.ToString(), Application.ProductName, MessageBoxButtons.OK);
+        MessageBox.Show(builder.ToString(), System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK);
       }
     }
 
@@ -565,7 +567,7 @@ namespace Trizbort.UI
           }
           catch (Exception ex)
           {
-            MessageBox.Show(Program.MainForm, $"There was a problem exporting the map:\n\n{ex.Message}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Program.MainForm, $"There was a problem exporting the map:\n\n{ex.Message}", System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
           }
         }
       }
@@ -578,7 +580,7 @@ namespace Trizbort.UI
       var doc = new PdfDocument();
       doc.Info.Title = Project.Current.Title;
       doc.Info.Author = Project.Current.Author;
-      doc.Info.Creator = Application.ProductName;
+      doc.Info.Creator = System.Windows.Forms.Application.ProductName;
       doc.Info.CreationDate = DateTime.Now;
       doc.Info.Subject = Project.Current.Description;
       var page = doc.AddPage();
@@ -892,7 +894,7 @@ namespace Trizbort.UI
             }
             catch (Exception ex)
             {
-              MessageBox.Show(Program.MainForm, $"There was a problem exporting the map:\n\n{ex.Message}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+              MessageBox.Show(Program.MainForm, $"There was a problem exporting the map:\n\n{ex.Message}", System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
           }
         }
@@ -978,7 +980,7 @@ namespace Trizbort.UI
     private void updateCommandUI()
     {
       // caption
-      Text = $"{Project.Current.Name}{(Project.Current.IsDirty ? "*" : string.Empty)} - {mCaption} - {Application.ProductVersion}";
+      Text = $"{Project.Current.Name}{(Project.Current.IsDirty ? "*" : string.Empty)} - {mCaption} - {System.Windows.Forms.Application.ProductVersion}";
 
       // line drawing options
       m_toggleDottedLinesButton.Checked = Canvas.NewConnectionStyle == ConnectionStyle.Dashed;
@@ -1106,7 +1108,7 @@ namespace Trizbort.UI
 
     private void ProjectResetToDefaultSettingsMenuItem_Click(object sender, EventArgs e)
     {
-      if (MessageBox.Show("Restore default settings?\n\nThis will revert any changes to settings in this project.", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+      if (MessageBox.Show("Restore default settings?\n\nThis will revert any changes to settings in this project.", System.Windows.Forms.Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
       {
         Settings.Reset();
       }

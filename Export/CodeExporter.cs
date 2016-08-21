@@ -478,8 +478,8 @@ namespace Trizbort.Export
         Target = target;
         VisualCompassPoint = visualCompassPoint;
         Door = connection.Door;
-        ConnectionName = connection.ConnectionName;
-        ConnectionDescription = connection.ConnectionDescription;
+        ConnectionName = connection.Name;
+        ConnectionDescription = connection.Description;
         Conditional = connection.Style == ConnectionStyle.Dashed;
 
         assignPrimaryPriority();

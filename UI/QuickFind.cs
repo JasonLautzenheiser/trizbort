@@ -9,7 +9,7 @@ namespace Trizbort.UI
 {
   public partial class QuickFind : Form
   {
-    private readonly List<FindAutofindCacheItem> cache;
+    private readonly List<findAutofindCacheItem> cache;
 
     public QuickFind()
     {
@@ -23,19 +23,19 @@ namespace Trizbort.UI
       cboFind.AutoCompleteCustomSource = source;
     }
 
-    private List<FindAutofindCacheItem> buildFindCache()
+    private List<findAutofindCacheItem> buildFindCache()
     {
       var indexer = new Indexer();
       var findCacheItems = indexer.Index();
 
-      List<FindAutofindCacheItem> list = new List<FindAutofindCacheItem>();
+      List<findAutofindCacheItem> list = new List<findAutofindCacheItem>();
 
       foreach (var item in findCacheItems)
       {
-        var x1 = new FindAutofindCacheItem { Room = item.Element, Text = item.Name?.Trim() };
-        var x2 = new FindAutofindCacheItem { Room = item.Element, Text = item.Description?.Trim() };
-        var x3 = new FindAutofindCacheItem { Room = item.Element, Text = item.Objects?.Trim() };
-        var x4 = new FindAutofindCacheItem { Room = item.Element, Text = item.Subtitle?.Trim() };
+        var x1 = new findAutofindCacheItem { Room = item.Element, Text = item.Name?.Trim() };
+        var x2 = new findAutofindCacheItem { Room = item.Element, Text = item.Description?.Trim() };
+        var x3 = new findAutofindCacheItem { Room = item.Element, Text = item.Objects?.Trim() };
+        var x4 = new findAutofindCacheItem { Room = item.Element, Text = item.Subtitle?.Trim() };
 
         list.Add(x1);
         if (!string.IsNullOrEmpty(x2.Text)) list.Add(x2);
@@ -96,9 +96,10 @@ namespace Trizbort.UI
       {
         doFind();
       }
+
     }
 
-    private class FindAutofindCacheItem
+    private class findAutofindCacheItem
     {
       public Element Room {get;set;}
       public string Text { get; set; }
@@ -107,6 +108,12 @@ namespace Trizbort.UI
       {
         return $"{Text}";
       }
+    }
+
+    private void QuickFind_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Escape)
+        Close();
     }
   }
 }

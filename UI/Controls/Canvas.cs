@@ -1280,7 +1280,7 @@ namespace Trizbort.UI.Controls
           {
             case Keys.Control:
               var qf = new QuickFind();
-              qf.Show();
+              qf.ShowDialog();
               break;
           }
           break;

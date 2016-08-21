@@ -95,19 +95,21 @@
       this.BackColor = System.Drawing.SystemColors.Control;
       this.CancelButton = this.btnCancel;
       this.ClientSize = new System.Drawing.Size(414, 109);
-      this.ControlBox = false;
       this.Controls.Add(this.cboFind);
       this.Controls.Add(this.btnCancel);
       this.Controls.Add(this.btnFind);
       this.Controls.Add(this.labelX1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+      this.KeyPreview = true;
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "QuickFind";
       this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+      this.Text = "Quick Find";
       this.Activated += new System.EventHandler(this.QuickFind_Activated);
       this.Deactivate += new System.EventHandler(this.QuickFind_Deactivate);
+      this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QuickFind_KeyDown);
       this.ResumeLayout(false);
       this.PerformLayout();
 

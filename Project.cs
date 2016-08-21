@@ -40,18 +40,12 @@ namespace Trizbort
   {
     public static readonly string FilterString = "Trizbort Map Files|*.trizbort";
     private static Project mCurrent = new Project();
-    private MainForm mainForm;
+//    private MainForm mainForm;
 
-    public Project(MainForm mainForm)
+
+    public Project()
     {
       Elements.Removed += onElementRemoved;
-      mCurrent = this;
-      this.mainForm = mainForm;
-    }
-
-    private Project()
-    {
-      
     }
 
 
@@ -74,7 +68,7 @@ namespace Trizbort
 
     public Element ActiveSelectedElement { get; set; }
 
-    public Canvas Canvas => mainForm.Canvas;
+    public Canvas Canvas => TrizbortApplication.MainForm.Canvas;
 
     public bool IsDirty { get; set; }
 
@@ -180,7 +174,7 @@ namespace Trizbort
         var root = new XmlElementReader(doc.DocumentElement);
 
         if (!root.HasName("trizbort"))
-          throw new InvalidDataException(string.Format("Not a {0} map file.", Application.ProductName));
+          throw new InvalidDataException(string.Format("Not a {0} map file.", System.Windows.Forms.Application.ProductName));
 
         //reset checks: we may make this into a function if we ever wish to verify a Trizbort file first.
         Settings.StartRoomLoaded = false;
@@ -237,7 +231,7 @@ namespace Trizbort
       }
       catch (Exception ex)
       {
-        MessageBox.Show(Program.MainForm, string.Format("There was a problem loading the map:\n\n{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show(Program.MainForm, string.Format("There was a problem loading the map:\n\n{0}", ex.Message), System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
         return false;
       }
     }
@@ -276,7 +270,7 @@ namespace Trizbort
         using (var scribe = XmlScribe.Create(FileName))
         {
           scribe.StartElement("trizbort");
-          scribe.Attribute("version", Application.ProductVersion);
+          scribe.Attribute("version", System.Windows.Forms.Application.ProductVersion);
           scribe.StartElement("info");
           if (!string.IsNullOrEmpty(Title))
           {
@@ -310,7 +304,7 @@ namespace Trizbort
       }
       catch (Exception ex)
       {
-        MessageBox.Show(Program.MainForm, string.Format("There was a problem saving the map:\n\n{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show(Program.MainForm, string.Format("There was a problem saving the map:\n\n{0}", ex.Message), System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
         return false;
       }
     }

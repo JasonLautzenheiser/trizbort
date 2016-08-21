@@ -9,14 +9,10 @@ namespace Trizbort.Domain.Controllers
   {
     private readonly UI.Controls.Canvas canvas;
 
+
     public CanvasController()
     {
-      this.canvas = Project.Current.Canvas;
-    }
-
-    public CanvasController(UI.Controls.Canvas canvas)
-    {
-      this.canvas = canvas;
+      this.canvas = TrizbortApplication.MainForm.Canvas;
     }
 
     public void SelectRoomClosestToCenterOfViewport()

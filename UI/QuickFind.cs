@@ -51,7 +51,6 @@ namespace Trizbort.UI
 
       var found = getResults(s);
 
-
       var controller = new CanvasController();
       controller.SelectElements(found);
 

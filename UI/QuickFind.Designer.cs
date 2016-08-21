@@ -71,7 +71,7 @@
       // 
       // cboFind
       // 
-      this.cboFind.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+      this.cboFind.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
       this.cboFind.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
       this.cboFind.DisplayMember = "Text";
       this.cboFind.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;

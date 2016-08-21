@@ -40,15 +40,15 @@ namespace Trizbort
     [STAThread]
     private static void Main(string[] args)
     {
-      Application.EnableVisualStyles();
-      Application.SetCompatibleTextRenderingDefault(false);
+      System.Windows.Forms.Application.EnableVisualStyles();
+      System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
       
 
       using (var form = new MainForm())
       {
         MainForm = form;
-          Application.Run(form);
+        System.Windows.Forms.Application.Run(form);
         MainForm = null;
       }
     }

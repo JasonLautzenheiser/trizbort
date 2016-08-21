@@ -1031,13 +1031,17 @@ namespace Trizbort.UI.Controls
       switch (e.KeyCode)
       {
         case Keys.Enter:
-          if (SelectedElement == null)
+          if (SelectedElement == null && Project.Current.ActiveSelectedElement == null)
           {
             commandController.SelectRoomClosestToCenterOfViewport();
           }
           else if (HasSingleSelectedElement)
           {
             commandController.ShowElementProperties(SelectedElement);
+          }
+          else if (Project.Current.ActiveSelectedElement != null)
+          {
+            commandController.ShowElementProperties(Project.Current.ActiveSelectedElement);
           }
           break;
 

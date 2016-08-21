@@ -16,14 +16,11 @@ namespace Trizbort.UI
       InitializeComponent();
 
       cache = buildFindCache();
-      cache = cache.OrderBy(p => p.Text).ToList();
+      cache = cache.OrderBy(p => p.Name).ToList();
 
       var source = new AutoCompleteStringCollection();
-      source.AddRange(cache.Select(p=>p.Text).ToArray());
+      source.AddRange(cache.Select(p=>p.ToString()).ToArray());
       cboFind.AutoCompleteCustomSource = source;
-
-      cboFind.Items.AddRange(cache.ToArray());
-      cboFind.DisplayMember = "Text";
     }
 
     private List<FindCacheItem> buildFindCache()
@@ -44,10 +41,16 @@ namespace Trizbort.UI
 
     private void btnFind_Click(object sender, EventArgs e)
     {
+      doFind();
+    }
+
+    private void doFind()
+    {
       string s = cboFind.Text;
       if (string.IsNullOrWhiteSpace(s)) Close();
 
-      var found = Project.Current.GetElementByName(s);
+      var found = getResults(s);
+
 
       var controller = new CanvasController();
       controller.SelectElements(found);
@@ -57,12 +60,25 @@ namespace Trizbort.UI
       controller.EnsureVisible(Project.Current.ActiveSelectedElement);
 
       Close();
+    }
 
+    private List<Element> getResults(string s)
+    {
+      var list = cache.Where(xx => (xx.Name?.IndexOf(s,StringComparison.CurrentCultureIgnoreCase) > -1) || (xx.Description?.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) > -1) || (xx.Objects?.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) > -1)).Select(p => p.Element).ToList();
+      return list;
     }
 
     private void btnCancel_Click(object sender, EventArgs e)
     {
       Close();
+    }
+
+    private void cboFind_KeyPress(object sender, KeyPressEventArgs e)
+    {
+      if (e.KeyChar == (int) Keys.Enter)
+      {
+        doFind();
+      }
     }
   }
 }

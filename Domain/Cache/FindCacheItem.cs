@@ -3,17 +3,20 @@
   public enum FindCacheObjectType
   {
     RoomName, 
-    Connection,
+    RoomDescription,
+    Objects,
   }
 
   public class FindCacheItem
   {
-    public string Text { get; set; }
-    public FindCacheObjectType Type { get; set; }
+    public Element Element { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public string Objects { get; set; }
 
     public override string ToString()
     {
-      return Text;
+      return $"{Name} {Description} {Objects}".Trim();
     }
   }
 }

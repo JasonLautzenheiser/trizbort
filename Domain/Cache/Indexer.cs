@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Trizbort.Domain.Cache
 {
@@ -8,28 +9,16 @@ namespace Trizbort.Domain.Cache
     {
       var items = new List<FindCacheItem>();
 
-      foreach (var element in Project.Current.Elements)
+      foreach (var element in Project.Current.Elements.OfType<Room>())
       {
-
-        if (!(element is Room || element is Connection)) continue;
-
-        var cacheItem = new FindCacheItem();
-        if (element is Room)
+        var room = element;
+        var cacheItem = new FindCacheItem
         {
-          var room = (Room) element;
-          if (string.IsNullOrWhiteSpace(room.Name)) continue;
-          cacheItem.Text = room.Name;
-          cacheItem.Type = FindCacheObjectType.RoomName;
-        }
-
-        if (element is Connection)
-        {
-          var connection = (Connection)element;
-          if (string.IsNullOrWhiteSpace(connection.Name)) continue;
-          cacheItem.Text = connection.Name;
-          cacheItem.Type = FindCacheObjectType.Connection;
-        }
-
+          Element = room,
+          Name = room.Name,
+          Description = room.PrimaryDescription,
+          Objects = room.Objects
+        };
         items.Add(cacheItem);
       }
 

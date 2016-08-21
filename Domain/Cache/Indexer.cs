@@ -17,7 +17,8 @@ namespace Trizbort.Domain.Cache
           Element = room,
           Name = room.Name,
           Description = room.PrimaryDescription,
-          Objects = room.Objects
+          Objects = room.Objects,
+          Subtitle = room.SubTitle
         };
         items.Add(cacheItem);
       }

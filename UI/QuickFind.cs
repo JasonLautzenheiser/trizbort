@@ -9,24 +9,42 @@ namespace Trizbort.UI
 {
   public partial class QuickFind : Form
   {
-    private List<FindCacheItem> cache;
+    private readonly List<FindAutofindCacheItem> cache;
 
     public QuickFind()
     {
       InitializeComponent();
 
       cache = buildFindCache();
-      cache = cache.OrderBy(p => p.Name).ToList();
+      cache = cache.OrderBy(p => p.Text).ToList();
 
       var source = new AutoCompleteStringCollection();
       source.AddRange(cache.Select(p=>p.ToString()).ToArray());
       cboFind.AutoCompleteCustomSource = source;
     }
 
-    private List<FindCacheItem> buildFindCache()
+    private List<FindAutofindCacheItem> buildFindCache()
     {
       var indexer = new Indexer();
-      return indexer.Index();
+      var findCacheItems = indexer.Index();
+
+      List<FindAutofindCacheItem> list = new List<FindAutofindCacheItem>();
+
+      foreach (var item in findCacheItems)
+      {
+        var x1 = new FindAutofindCacheItem { Room = item.Element, Text = item.Name?.Trim() };
+        var x2 = new FindAutofindCacheItem { Room = item.Element, Text = item.Description?.Trim() };
+        var x3 = new FindAutofindCacheItem { Room = item.Element, Text = item.Objects?.Trim() };
+        var x4 = new FindAutofindCacheItem { Room = item.Element, Text = item.Subtitle?.Trim() };
+
+        list.Add(x1);
+        if (!string.IsNullOrEmpty(x2.Text)) list.Add(x2);
+        if (!string.IsNullOrEmpty(x3.Text)) list.Add(x3);
+        if (!string.IsNullOrEmpty(x4.Text)) list.Add(x4);
+      }
+
+
+      return list;
     }
 
     private void QuickFind_Deactivate(object sender, EventArgs e)
@@ -63,7 +81,7 @@ namespace Trizbort.UI
 
     private List<Element> getResults(string s)
     {
-      var list = cache.Where(xx => (xx.Name?.IndexOf(s,StringComparison.CurrentCultureIgnoreCase) > -1) || (xx.Description?.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) > -1) || (xx.Objects?.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) > -1)).Select(p => p.Element).ToList();
+      var list = cache.Where(xx => (xx.Text?.IndexOf(s,StringComparison.CurrentCultureIgnoreCase) > -1)).Select(p => p.Room).ToList();
       return list;
     }
 
@@ -77,6 +95,17 @@ namespace Trizbort.UI
       if (e.KeyChar == (int) Keys.Enter)
       {
         doFind();
+      }
+    }
+
+    private class FindAutofindCacheItem
+    {
+      public Element Room {get;set;}
+      public string Text { get; set; }
+
+      public override string ToString()
+      {
+        return $"{Text}";
       }
     }
   }

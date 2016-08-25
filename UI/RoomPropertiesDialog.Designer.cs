@@ -1171,7 +1171,7 @@ namespace Trizbort.UI
       this.Name = "RoomPropertiesDialog";
       this.ShowIcon = false;
       this.ShowInTaskbar = false;
-      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Room Properties";
       this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RoomPropertiesDialog_KeyUp);
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).EndInit();

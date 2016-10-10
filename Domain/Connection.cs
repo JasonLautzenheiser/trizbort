@@ -235,7 +235,7 @@ namespace Trizbort.Domain
 
     public BoundList<Vertex> VertexList { get; } = new BoundList<Vertex>();
 
-    public override Depth Depth => Depth.Low;
+    public override Depth Depth => Depth.High;
 
     public override bool HasDialog => true;
 
@@ -596,7 +596,10 @@ namespace Trizbort.Domain
 
 
       if (!Settings.DebugDisableTextRendering)
+      {
+
         text.Draw(graphics, Settings.SubtitleFont, palette.LineTextBrush, pos, Vector.Zero, format);
+      }
     }
     
 

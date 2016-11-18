@@ -772,7 +772,7 @@ namespace Trizbort
     public static void Reset()
     {
       Color[Colors.Canvas] = System.Drawing.Color.White;
-      Color[Colors.Fill] = System.Drawing.Color.White;
+      //Color[Colors.Fill] = System.Drawing.Color.White;
       Color[Colors.Border] = System.Drawing.Color.MidnightBlue;
       Color[Colors.Line] = System.Drawing.Color.MidnightBlue;
       Color[Colors.HoverLine] = System.Drawing.Color.DarkOrange;
@@ -839,8 +839,7 @@ namespace Trizbort
       scribe.StartElement("colors");
       for (var index = 0; index < Colors.Count; ++index)
       {
-        string colorName;
-        if (Colors.ToName(index, out colorName))
+        if (Colors.ToName(index, out string colorName))
         {
           scribe.Element(colorName, Color[index]);
         }
@@ -992,8 +991,7 @@ namespace Trizbort
       var colors = element["colors"];
       foreach (var color in colors.Children)
       {
-        int index;
-        if (Colors.FromName(color.Name, out index))
+        if (Colors.FromName(color.Name, out int index))
         {
           Color[index] = color.ToColor(Color[index]);
         }

@@ -206,10 +206,10 @@ namespace Trizbort
             get { return m_largeTextPen ?? (m_largeTextPen = Pen(Settings.Color[Colors.LargeText])); }
         }
 
-        public Pen FillPen
-        {
-            get { return m_fillPen ?? (m_fillPen = Pen(Settings.Color[Colors.Fill])); }
-        }
+        //public Pen FillPen
+        //{
+        //    get { return m_fillPen ?? (m_fillPen = Pen(Settings.Color[Colors.Fill])); }
+        //}
 
         public Pen GridPen
         {
@@ -228,10 +228,11 @@ namespace Trizbort
 
         public Brush FillBrush
         {
-            get { return m_fillBrush ?? (m_fillBrush = Brush(Settings.Color[Colors.Fill])); }
+//            get { return m_fillBrush ?? (m_fillBrush = Brush(Settings.Color[Colors.Fill])); }
+          get { return m_fillBrush ?? (m_fillBrush = Brush(Color.White)); }
         }
 
-        public Brush LargeTextBrush
+    public Brush LargeTextBrush
         {
             get { return m_largeTextBrush ?? (m_largeTextBrush = Brush(Settings.Color[Colors.LargeText])); }
         }

@@ -738,7 +738,6 @@ namespace Trizbort.UI
       this.m_colorListBox.FormattingEnabled = true;
       this.m_colorListBox.Items.AddRange(new object[] {
             "Canvas",
-            "Fill",
             "Border",
             "Connection",
             "Connection (selected)",

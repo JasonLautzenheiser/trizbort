@@ -957,6 +957,7 @@ namespace Trizbort
       var font = Settings.RoomNameFont;
       var roombrush = new SolidBrush(regionColor.TextColor);
       // Room specific fill brush (White shows global color)
+
       if (RoomLargeText != Color.Transparent) { roombrush = new SolidBrush(RoomLargeText); }
 
       var textBounds = InnerBounds;

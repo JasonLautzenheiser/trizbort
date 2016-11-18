@@ -2,14 +2,16 @@ Change Log
 
 1.5.9.6
 -------------
+- Beginning to refactor code to take advantage of C#7
+- Removed the "fill" color in app settings.  It wasn't being used anymore (#310)
 - Fixed issue with room properties window opening in the upper left corner of the screen (#309)
-ENH: #300 - Automap will now detect when a room is being connected in the same direction as another room. The user will be prompted to keep one or other or both.
-ENH: #297 - Automap now supports the EXITS command
-ENH: #171 - Can now specify an end room.
-FIX: #195 - Issue in Automapper when restarting, it would sometimes get confused and not display any rooms.
-ENH: #296 - Added new option in Automapper, to assume two-way directions (on by default).
-ENH: #57  - Add a FIND, currently only on Rooms (name, subtitle, objects and description).  Found elements are selected.
-ENH:      - F3 / Shift-F3 will cycle through found matches
+- Automap will now detect when a room is being connected in the same direction as another room. The user will be prompted to keep one or other or both. (#300)
+- Automap now supports the EXITS command (#297)
+- Can now specify an end room. (#171)
+- Issue in Automapper when restarting, it would sometimes get confused and not display any rooms. (#195)
+- Added new option in Automapper, to assume two-way directions (on by default). (#296)
+- Add a FIND, currently only on Rooms (name, subtitle, objects and description).  Found elements are selected. (#57)
+- F3 / Shift-F3 will cycle through found matches
 
 
 

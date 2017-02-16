@@ -1,5 +1,9 @@
 Change Log
 
+1.5.9.7
+-------------
+- Issue fixed with older maps that had blank regions and exporting to I7 which would result in a mostly empty I7 file.
+
 1.5.9.6
 -------------
 - Beginning to refactor code to take advantage of C#7

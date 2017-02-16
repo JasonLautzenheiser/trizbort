@@ -104,7 +104,7 @@ namespace Trizbort
 
     public static int NumberOfRegions
     {
-      get { return Settings.Regions.Count(p=>p.RegionName != Region.DefaultRegion); }
+      get { return Settings.Regions.Count(p=>p.RegionName != Region.DefaultRegion && p.RegionName != string.Empty); }
     }
 
     public static int NumberOfRoomsInRegion(string pRegion)
@@ -114,7 +114,7 @@ namespace Trizbort
 
     public static int NumberOfRoomsWithoutRegion()
     {
-      return Project.Current.Elements.OfType<Room>().Count(p => p.Region == Region.DefaultRegion);
+      return Project.Current.Elements.OfType<Room>().Count(p => p.Region == Region.DefaultRegion || p.Region == string.Empty);
     }
 
   }

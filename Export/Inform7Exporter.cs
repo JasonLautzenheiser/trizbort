@@ -237,8 +237,9 @@ namespace Trizbort.Export
       {
         writer.WriteLine("book Regionless Rooms");
         writer.WriteLine();
+      }
 
-        foreach (var location in LocationsInExportOrder)
+      foreach (var location in LocationsInExportOrder)
         {
           if (location.Room.Region != "NoRegion")
           {
@@ -246,7 +247,6 @@ namespace Trizbort.Export
           }
           anyConditionalExits |= printThisLoc(writer, location);
         }
-      }
       // export regions
       foreach (var region in RegionsInExportOrder)
       {

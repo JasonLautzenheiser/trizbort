@@ -1,8 +1,13 @@
 Change Log
 
+1.5.9.8
+-------------
+- if the default hand drawn option was not checked in the appsettings, then you could never make a room with hand drawn edges.  This should be corrected.
+
 1.5.9.7
 -------------
 - Issue fixed with older maps that had blank regions and exporting to I7 which would result in a mostly empty I7 file.
+- Issue with the EXITS command with last release that was breaking automap in general.  EXITS rolled back until a proper fix is in place.
 
 1.5.9.6
 -------------

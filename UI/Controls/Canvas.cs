@@ -670,11 +670,11 @@ namespace Trizbort.UI.Controls
         return;
 
       var disabledHandDrawLinesForSpeed = false;
-      if (!finalRender && ZoomFactor < 0.75f && Settings.HandDrawnDoc)
-      {
-        disabledHandDrawLinesForSpeed = true;
-        Settings.HandDrawnDocUnchecked = false;
-      }
+//      if (!finalRender && ZoomFactor < 0.75f && Settings.HandDrawnDoc)
+//      {
+//        disabledHandDrawLinesForSpeed = true;
+//        Settings.HandDrawnDocUnchecked = false;
+//      }
 
       var context = new DrawingContext(ZoomFactor) {UseSmartLineSegments = mSmartLineSegmentsUpToDate};
       var elements = depthSortElements();
@@ -727,10 +727,10 @@ namespace Trizbort.UI.Controls
         }
       }
 
-      if (disabledHandDrawLinesForSpeed)
-      {
-        Settings.HandDrawnDocUnchecked = true;
-      }
+//      if (disabledHandDrawLinesForSpeed)
+//      {
+//        Settings.HandDrawnDocUnchecked = true;
+//      }
     }
 
     private void drawHandles(XGraphics graphics, Palette palette)

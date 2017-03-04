@@ -178,6 +178,7 @@ namespace Trizbort
 
         //reset checks: we may make this into a function if we ever wish to verify a Trizbort file first.
         Settings.StartRoomLoaded = false;
+        Settings.EndRoomLoaded = false;
 
         // file version
         var versionNumber = root.Attribute("version").Text;

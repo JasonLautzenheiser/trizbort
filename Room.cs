@@ -1252,7 +1252,7 @@ namespace Trizbort
           else
             Settings.StartRoomLoaded = true;
       }
-      if (IsStartRoom)
+      if (IsEndRoom)
       {
           if (Settings.EndRoomLoaded)
             MessageBox.Show($"{Name} is a duplicate end room. You may need to erase \"isEndRoom=YES\" from the XML.", "Duplicate end room warning");

@@ -812,6 +812,7 @@ namespace Trizbort
       ShowOrigin = true;
 
       StartRoomLoaded = false;
+      EndRoomLoaded = false;
 
       DarknessStripeSize = 24.0f;
       ObjectListOffsetFromRoom = 4.0f;

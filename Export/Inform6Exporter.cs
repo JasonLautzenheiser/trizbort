@@ -71,20 +71,22 @@ namespace Trizbort.Export
 
       foreach (var location in LocationsInExportOrder)
       {
-        writer.WriteLine("{0}  {1} {2}", location.Room.Region == Region.DefaultRegion ? "Object" : GetExportName(location.Room.Region, null), location.ExportName, toI6String(location.Room.Name, DOUBLE_QUOTE));
-        writer.WriteLine("  with  description");
-        writer.WriteLine("            {0},", toI6String(location.Room.PrimaryDescription, DOUBLE_QUOTE));
+        // export the location object
+        writeLocation(writer, location);
+
+        // export the doors from this location.
         foreach (var direction in AllDirections)
         {
           var exit = location.GetBestExit(direction);
-          if (exit != null)
+          if ((exit != null) && (exit.Door != null) && (exit.Exported == false))
           {
-            writer.WriteLine("        {0} {1},", toI6PropertyName(direction), exit.Target.ExportName);
+            // remember we've exported this exit
+            exit.Exported = true;
+            writeDoor(writer, location, direction, exit);
           }
         }
-        writer.WriteLine("   has  {0}light;", location.Room.IsDark ? "~" : string.Empty);
-        writer.WriteLine();
 
+        // export the objects in this location
         ExportThings(writer, location.Things, null, 1);
       }
 
@@ -140,8 +142,18 @@ namespace Trizbort.Export
           continue;
         }
 
+        writeOneThing(writer, thing, indent);
+
+        ExportThings(writer, thing.Contents, thing, indent + 1);
+      }
+    }
+
+    private void writeOneThing(TextWriter writer, Thing thing, int indent)
+    {
         writer.WriteLine("Object {0} {1} {2}", repeat("-> ", indent), thing.ExportName, toI6String(stripUnaccentedCharacters(thing.DisplayName).Trim(), DOUBLE_QUOTE));
+
         writer.Write("  with  name {0}", toI6Words(deaccent(stripUnaccentedCharacters(thing.DisplayName))));
+        writer.Write("        description {0}", toI6String(thing.DisplayName, DOUBLE_QUOTE));
         if (thing.Contents.Count > 0)
         {
           writer.WriteLine(",");
@@ -152,9 +164,41 @@ namespace Trizbort.Export
           writer.WriteLine(";");
         }
         writer.WriteLine();
+    }
 
-        ExportThings(writer, thing.Contents, thing, indent + 1);
-      }
+    private void writeLocation(TextWriter writer, Location location)
+    {
+        writer.WriteLine("{0}  {1} {2}", location.Room.Region == Region.DefaultRegion ? "Object" : GetExportName(location.Room.Region, null), location.ExportName, toI6String(location.Room.Name, DOUBLE_QUOTE));
+        writer.WriteLine("  with  description");
+        writer.WriteLine("            {0},", toI6String(location.Room.PrimaryDescription, DOUBLE_QUOTE));
+        foreach (var direction in AllDirections)
+        {
+          var exit = location.GetBestExit(direction);
+          if (exit != null)
+          {
+            if (exit.Door != null)
+              writer.WriteLine("        {0} {1},", toI6PropertyName(direction), GetExportName(exit.ConnectionName, null));
+            else
+              writer.WriteLine("        {0} {1},", toI6PropertyName(direction), exit.Target.ExportName);
+          }
+        }
+        writer.WriteLine("   has  {0}light;", location.Room.IsDark ? "~" : string.Empty);
+        writer.WriteLine();
+    }
+
+    private void writeDoor(TextWriter writer, Location location, AutomapDirection direction, Exit exit)
+    {
+      var oppositeDirection = CompassPointHelper.GetOpposite(direction);
+      var reciprocal = exit.Target.GetBestExit(oppositeDirection);
+      writer.WriteLine("Object {0} {1}", GetExportName(exit.ConnectionName, null), exit.ConnectionDescription);
+      writer.WriteLine("  with  name {0},", toI6Words(deaccent(stripUnaccentedCharacters(exit.ConnectionName))));
+      writer.WriteLine("        description {0},", toI6String(exit.ConnectionDescription, DOUBLE_QUOTE));
+      writer.WriteLine("        found_in {0} {1},", location.ExportName, exit.Target.ExportName);
+      writer.WriteLine("        door_to [; if (self in {0}) return {1}; return {0};],", location.ExportName, exit.Target.ExportName);
+      writer.WriteLine("        door_dir [; if (self in {0}) return {1}; return {2}; ],", location.ExportName, toI6PropertyName(direction), toI6PropertyName(oppositeDirection));
+      writer.WriteLine("  has   door {0} {1} {2} {3} ;", (exit.Door.Openable ? "openable" : string.Empty), (exit.Door.Open ? "open" : "~open"), (exit.Door.Lockable ? "lockable" : string.Empty), (exit.Door.Locked ? "locked" : "~locked"));
+      reciprocal.Exported = true;
+      writer.WriteLine();
     }
 
     private static string toI6Words(string text)

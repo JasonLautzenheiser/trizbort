@@ -3,6 +3,7 @@ Change Log
 1.5.9.8
 -------------
 - if the default hand drawn option was not checked in the appsettings, then you could never make a room with hand drawn edges.  This should be corrected.
+- Hugo support for exporting Doors...thanks to Andrew Schultz and Hugo Labrande
 
 1.5.9.7
 -------------

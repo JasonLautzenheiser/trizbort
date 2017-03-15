@@ -78,7 +78,7 @@ namespace Trizbort.Export
         foreach (var direction in AllDirections)
         {
           var exit = location.GetBestExit(direction);
-          if ((exit.Door != null) && (exit.Exported == false))
+          if ((exit != null) && (exit.Door != null) && (exit.Exported == false))
           {
             // remember we've exported this exit
             exit.Exported = true;
@@ -176,7 +176,10 @@ namespace Trizbort.Export
           var exit = location.GetBestExit(direction);
           if (exit != null)
           {
-            writer.WriteLine("        {0} {1},", toI6PropertyName(direction), exit.Target.ExportName);
+            if (exit.Door != null)
+              writer.WriteLine("        {0} {1},", toI6PropertyName(direction), GetExportName(exit.ConnectionName, null));
+            else
+              writer.WriteLine("        {0} {1},", toI6PropertyName(direction), exit.Target.ExportName);
           }
         }
         writer.WriteLine("   has  {0}light;", location.Room.IsDark ? "~" : string.Empty);
@@ -187,7 +190,7 @@ namespace Trizbort.Export
     {
       var oppositeDirection = CompassPointHelper.GetOpposite(direction);
       var reciprocal = exit.Target.GetBestExit(oppositeDirection);
-      writer.WriteLine("Object {0} {1}", exit.ConnectionName, exit.ConnectionDescription, DOUBLE_QUOTE);
+      writer.WriteLine("Object {0} {1}", GetExportName(exit.ConnectionName, null), exit.ConnectionDescription);
       writer.WriteLine("  with  name {0},", toI6Words(deaccent(stripUnaccentedCharacters(exit.ConnectionName))));
       writer.WriteLine("        description {0},", toI6String(exit.ConnectionDescription, DOUBLE_QUOTE));
       writer.WriteLine("        found_in {0} {1},", location.ExportName, exit.Target.ExportName);

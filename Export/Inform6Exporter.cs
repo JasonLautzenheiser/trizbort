@@ -46,7 +46,7 @@ namespace Trizbort.Export
 
     protected override IEnumerable<string> ReservedWords => new[] {"Constant", "Story", "Headline", "Include", "Object", "with", "has", "hasnt", "not", "and", "or", "n_to", "s_to", "e_to", "w_to", "nw_to", "ne_to", "sw_to", "se_to", "u_to", "d_to", "in_to", "out_to", "before", "after", "if", "else", "print", "player", "location", "description"};
 
-    protected override Encoding Encoding => Encoding.ASCII;
+//    protected override Encoding Encoding => Encoding.ASCII;
 
     protected override void ExportHeader(TextWriter writer, string title, string author, string description, string history)
     {

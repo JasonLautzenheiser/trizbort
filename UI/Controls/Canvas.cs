@@ -2835,6 +2835,7 @@ namespace Trizbort.UI.Controls
       mNewRoomObjectsPosition = CompassPoint.South;
       requestRecomputeSmartSegments();
       StopAutomapping();
+      roomTooltip.SetSuperTooltip(this,null);
     }
 
     public void CopySelectedElements()
@@ -3550,5 +3551,6 @@ namespace Trizbort.UI.Controls
     {
       Project.Current.Elements.Remove(mOtherRoom);
     }
+
   }
 }

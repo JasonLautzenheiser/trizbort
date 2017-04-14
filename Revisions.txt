@@ -4,6 +4,7 @@ Change Log
 -------------
 - if the default hand drawn option was not checked in the appsettings, then you could never make a room with hand drawn edges.  This should be corrected.
 - Hugo support for exporting Doors...thanks to Andrew Schultz and Hugo Labrande
+- Accented characters where not being exported properly to Hugo, I6 and TADS (#330 & #329 - Thanks to Hugo Labrande for the report).  
 
 1.5.9.7
 -------------

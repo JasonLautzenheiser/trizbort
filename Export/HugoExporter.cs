@@ -45,7 +45,7 @@ namespace Trizbort.Export
     };
 
     protected override IEnumerable<string> ReservedWords => new[] {"Room", "Actor", "Thing", "Object", "Door", "Chair", "Heavy", "Fixture", "OpenableContainer", "Food", "GameMainDef", "if", "else", "me"};
-    protected override Encoding Encoding => Encoding.ASCII;
+//    protected override Encoding Encoding => Encoding.ASCII;
 
     protected override void ExportHeader(TextWriter writer, string title, string author, string description, string history)
     {

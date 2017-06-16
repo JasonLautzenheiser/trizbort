@@ -1,5 +1,10 @@
 Change Log
 
+1.5.9.9
+-------------
+ - The Room properties dialog parent was not getting set properly which could cause it to get lost on alt-tab making trizbort appear to be locked up. (#332)
+
+
 1.5.9.8
 -------------
 - if the default hand drawn option was not checked in the appsettings, then you could never make a room with hand drawn edges.  This should be corrected.

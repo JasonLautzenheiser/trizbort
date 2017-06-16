@@ -686,7 +686,7 @@ namespace Trizbort.Domain
         dialog.EndText = EndText;
         dialog.ConnectionColor = ConnectionColor;
         dialog.Door = Door;
-        if (dialog.ShowDialog() == DialogResult.OK)
+        if (dialog.ShowDialog(Project.Canvas) == DialogResult.OK)
         {
           Name = dialog.ConnectionName;
           Description = dialog.ConnectionDescription;

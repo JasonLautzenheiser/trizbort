@@ -31,7 +31,6 @@ using System.Windows.Forms;
 using System.Xml;
 using Trizbort.Domain;
 using Trizbort.Extensions;
-using Trizbort.UI;
 using Trizbort.UI.Controls;
 
 namespace Trizbort
@@ -39,6 +38,7 @@ namespace Trizbort
   public class Project
   {
     public static readonly string FilterString = "Trizbort Map Files|*.trizbort";
+
     private static Project mCurrent = new Project();
 //    private MainForm mainForm;
 
@@ -51,7 +51,7 @@ namespace Trizbort
 
     public static Project Current
     {
-      get { return mCurrent; }
+      get => mCurrent;
       set
       {
         if (mCurrent == value) return;
@@ -59,11 +59,6 @@ namespace Trizbort
         mCurrent = value;
         raiseProjectChanged(oldProject, mCurrent);
       }
-    }
-
-    public List<Element> GetSelectedElements()
-    {
-      return Canvas.SelectedElements.ToList();
     }
 
     public Element ActiveSelectedElement { get; set; }
@@ -88,7 +83,17 @@ namespace Trizbort
 
     public bool HasFileName => !string.IsNullOrEmpty(FileName);
 
+    public bool MustHaveDescription { get; set; } = false;
+    public bool MustHaveUniqueNames { get; set; } = false;
+    public bool MustHaveSubtitle { get; set; } = true;
+    public bool MustHaveNoDanglingConnectors { get; set; } = false;
+
     public string Name => !HasFileName ? "Untitled" : Path.GetFileNameWithoutExtension(FileName);
+
+    public List<Element> GetSelectedElements()
+    {
+      return Canvas.SelectedElements.ToList();
+    }
 
     /// <summary>
     ///   Handle element removal by removing elements which refer to it. May recurse.
@@ -102,18 +107,12 @@ namespace Trizbort
       {
         var connection = element;
         foreach (var vertex in connection.VertexList)
-        {
           if (vertex.Port != null && vertex.Port.Owner == e.Item)
-          {
             doomed.Add(element);
-          }
-        }
       }
 
       foreach (var element in doomed)
-      {
         Elements.Remove(element);
-      }
     }
 
     public static event ProjectChangedEventHandler ProjectChanged;
@@ -143,7 +142,8 @@ namespace Trizbort
     /// <returns></returns>
     public bool FindElement(int id, out Element element)
     {
-      foreach (var existing in Elements.Where(existing => existing.ID == id)) {
+      foreach (var existing in Elements.Where(existing => existing.ID == id))
+      {
         element = existing;
         return true;
       }
@@ -155,7 +155,6 @@ namespace Trizbort
     {
       var list = Elements.Where(p => p.Name == name).ToList();
       return list;
-
     }
 
     public bool Load()
@@ -174,7 +173,7 @@ namespace Trizbort
         var root = new XmlElementReader(doc.DocumentElement);
 
         if (!root.HasName("trizbort"))
-          throw new InvalidDataException(string.Format("Not a {0} map file.", System.Windows.Forms.Application.ProductName));
+          throw new InvalidDataException(string.Format("Not a {0} map file.", Application.ProductName));
 
         //reset checks: we may make this into a function if we ever wish to verify a Trizbort file first.
         Settings.StartRoomLoaded = false;
@@ -194,7 +193,6 @@ namespace Trizbort
         var map = root["map"];
         var mapConnectionToLoadState = new Dictionary<Connection, object>();
         foreach (var element in map.Children)
-        {
           if (element.HasName("room"))
           {
             // Changed the constructor used for elements when loading a file for a significant speed increase
@@ -210,12 +208,9 @@ namespace Trizbort
             connection.ID = element.Attribute("id").ToInt(connection.ID);
             var loadState = connection.BeginLoad(element);
             if (loadState != null)
-            {
               mapConnectionToLoadState.Add(connection, loadState);
-            }
             Elements.Add(connection);
           }
-        }
 
         // connect them together
         foreach (var pair in mapConnectionToLoadState)
@@ -232,7 +227,7 @@ namespace Trizbort
       }
       catch (Exception ex)
       {
-        MessageBox.Show(Program.MainForm, string.Format("There was a problem loading the map:\n\n{0}", ex.Message), System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show(Program.MainForm, string.Format("There was a problem loading the map:\n\n{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
         return false;
       }
     }
@@ -252,13 +247,10 @@ namespace Trizbort
       {
         var nextAvailableFilename = FileName.NextAvailableFilename();
         File.Copy(FileName, nextAvailableFilename);
-        MessageBox.Show($"You project has been backed up to {nextAvailableFilename}.", "Project backed up.",MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageBox.Show($"You project has been backed up to {nextAvailableFilename}.", "Project backed up.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         return true;
       }
-      else
-      {
-        MessageBox.Show("Your project has not yet been saved to a file. There is nothing to backup.", "Nothing to backup.",MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-      }
+      MessageBox.Show("Your project has not yet been saved to a file. There is nothing to backup.", "Nothing to backup.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
       return false;
     }
 
@@ -271,30 +263,20 @@ namespace Trizbort
         using (var scribe = XmlScribe.Create(FileName))
         {
           scribe.StartElement("trizbort");
-          scribe.Attribute("version", System.Windows.Forms.Application.ProductVersion);
+          scribe.Attribute("version", Application.ProductVersion);
           scribe.StartElement("info");
           if (!string.IsNullOrEmpty(Title))
-          {
             scribe.Element("title", Title);
-          }
           if (!string.IsNullOrEmpty(Author))
-          {
             scribe.Element("author", Author);
-          }
           if (!string.IsNullOrEmpty(Description))
-          {
             scribe.Element("description", Description);
-          }
           if (!string.IsNullOrEmpty(History))
-          {
             scribe.Element("history", History);
-          }
           scribe.EndElement();
           scribe.StartElement("map");
           foreach (var element in Elements)
-          {
             saveElement(scribe, element);
-          }
           scribe.EndElement();
           scribe.StartElement("settings");
           Settings.Save(scribe);
@@ -305,7 +287,7 @@ namespace Trizbort
       }
       catch (Exception ex)
       {
-        MessageBox.Show(Program.MainForm, string.Format("There was a problem saving the map:\n\n{0}", ex.Message), System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show(Program.MainForm, string.Format("There was a problem saving the map:\n\n{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
         return false;
       }
     }
@@ -330,13 +312,13 @@ namespace Trizbort
 
     public bool AreRoomsConnected(List<Room> selectedRooms)
     {
-      if (selectedRooms.Count < 2) { return false; }
+      if (selectedRooms.Count < 2) return false;
       if (selectedRooms.Count == 2)
       {
         var room1 = selectedRooms.First();
         var room2 = selectedRooms.Last();
 
-        if ((room1.IsConnected) && (room2.IsConnected))
+        if (room1.IsConnected && room2.IsConnected)
         {
           var con = room1.GetConnections();
           foreach (var connection in con)

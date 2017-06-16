@@ -1106,7 +1106,7 @@ namespace Trizbort
         dialog.AllCornersEqual = AllCornersEqual;
         dialog.Shape = Shape;
 
-        if (dialog.ShowDialog() == DialogResult.OK)
+        if (dialog.ShowDialog(Project.Canvas) == DialogResult.OK)
         {
           Name = dialog.RoomName;
           SubTitle = dialog.RoomSubTitle;

@@ -180,8 +180,13 @@ namespace Trizbort.UI
       this.txtZoom = new DevComponents.Editors.IntegerInput();
       this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
       this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
-      this.Canvas = new UI.Controls.Canvas();
-      this.m_automapBar = new AutomapBar();
+      this.Canvas = new Trizbort.UI.Controls.Canvas();
+      this.m_automapBar = new Trizbort.UI.Controls.AutomapBar();
+      this.validationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.roomsMustHaveUniqueNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.roomsMustHaveADescriptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.roomsMustHaveASubtitleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_menuStrip.SuspendLayout();
       this.m_toolStrip.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
@@ -196,6 +201,7 @@ namespace Trizbort.UI
             this.m_editMenu,
             this.roomsToolStripMenuItem,
             this.connectionsToolStripMenuItem,
+            this.validationToolStripMenuItem,
             this.m_viewMenu,
             this.automappingToolStripMenuItem,
             this.m_projectMenu,
@@ -1265,6 +1271,45 @@ namespace Trizbort.UI
       this.m_automapBar.Status = "(Status)";
       this.m_automapBar.TabIndex = 4;
       // 
+      // validationToolStripMenuItem
+      // 
+      this.validationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.roomsMustHaveUniqueNamesToolStripMenuItem,
+            this.roomsMustHaveADescriptionToolStripMenuItem,
+            this.roomsMustHaveASubtitleToolStripMenuItem,
+            this.roomsMustNotHaveADanglingConnectionToolStripMenuItem});
+      this.validationToolStripMenuItem.Name = "validationToolStripMenuItem";
+      this.validationToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+      this.validationToolStripMenuItem.Text = "Validation";
+      // 
+      // roomsMustHaveUniqueNamesToolStripMenuItem
+      // 
+      this.roomsMustHaveUniqueNamesToolStripMenuItem.Name = "roomsMustHaveUniqueNamesToolStripMenuItem";
+      this.roomsMustHaveUniqueNamesToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
+      this.roomsMustHaveUniqueNamesToolStripMenuItem.Text = "Rooms Must Have a Unique Name";
+      this.roomsMustHaveUniqueNamesToolStripMenuItem.Click += new System.EventHandler(this.roomsMustHaveUniqueNamesToolStripMenuItem_Click);
+      // 
+      // roomsMustHaveADescriptionToolStripMenuItem
+      // 
+      this.roomsMustHaveADescriptionToolStripMenuItem.Name = "roomsMustHaveADescriptionToolStripMenuItem";
+      this.roomsMustHaveADescriptionToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
+      this.roomsMustHaveADescriptionToolStripMenuItem.Text = "Rooms Must Have a Description";
+      this.roomsMustHaveADescriptionToolStripMenuItem.Click += new System.EventHandler(this.roomsMustHaveADescriptionToolStripMenuItem_Click);
+      // 
+      // roomsMustHaveASubtitleToolStripMenuItem
+      // 
+      this.roomsMustHaveASubtitleToolStripMenuItem.Name = "roomsMustHaveASubtitleToolStripMenuItem";
+      this.roomsMustHaveASubtitleToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
+      this.roomsMustHaveASubtitleToolStripMenuItem.Text = "Rooms Must Have a Subtitle";
+      this.roomsMustHaveASubtitleToolStripMenuItem.Click += new System.EventHandler(this.roomsMustHaveASubtitleToolStripMenuItem_Click);
+      // 
+      // roomsMustNotHaveADanglingConnectionToolStripMenuItem
+      // 
+      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Name = "roomsMustNotHaveADanglingConnectionToolStripMenuItem";
+      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
+      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Text = "Rooms Must Not Have a Dangling Connection";
+      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Click += new System.EventHandler(this.roomsMustNotHaveADanglingConnectionToolStripMenuItem_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1420,6 +1465,11 @@ namespace Trizbort.UI
     private System.Windows.Forms.ToolStripMenuItem swapRegionsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem makeRoomDarkToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem makeRoomLightToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem validationToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem roomsMustHaveUniqueNamesToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem roomsMustHaveADescriptionToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem roomsMustHaveASubtitleToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem roomsMustNotHaveADanglingConnectionToolStripMenuItem;
   }
 }
 

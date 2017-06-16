@@ -1014,6 +1014,11 @@ namespace Trizbort.UI
       swapFormatsFillsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
       swapRegionsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
 
+      roomsMustHaveUniqueNamesToolStripMenuItem.Checked = Project.Current.MustHaveUniqueNames;
+      roomsMustHaveADescriptionToolStripMenuItem.Checked = Project.Current.MustHaveDescription;
+      roomsMustHaveASubtitleToolStripMenuItem.Checked = Project.Current.MustHaveSubtitle;
+      roomsMustNotHaveADanglingConnectionToolStripMenuItem.Checked = Project.Current.MustHaveNoDanglingConnectors;
+      
       m_editChangeRegionMenuItem.Enabled = (Canvas.SelectedRooms.Any() && Settings.Regions.Count > 1 );
       handDrawnToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
       ellipseToolStripMenuItem.Enabled = (Canvas.SelectedRooms.Any());
@@ -1404,6 +1409,30 @@ namespace Trizbort.UI
     private void makeRoomLightToolStripMenuItem_Click(object sender, EventArgs e)
     {
       commandController.SetRoomLighting(LightingActionType.ForceLight);
+    }
+
+    private void roomsMustHaveUniqueNamesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      commandController.SetValidation(ValidationType.RoomUniqueName);
+      Project.Current.Canvas.Invalidate();
+    }
+
+    private void roomsMustHaveADescriptionToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      commandController.SetValidation(ValidationType.RoomDescription);
+      Project.Current.Canvas.Invalidate();
+    }
+
+    private void roomsMustHaveASubtitleToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      commandController.SetValidation(ValidationType.RoomSubTitle);
+      Project.Current.Canvas.Invalidate();
+    }
+
+    private void roomsMustNotHaveADanglingConnectionToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      commandController.SetValidation(ValidationType.RoomDanglingConnection);
+      Project.Current.Canvas.Invalidate();
     }
   }
 }

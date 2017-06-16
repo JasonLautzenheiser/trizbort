@@ -113,5 +113,25 @@ namespace Trizbort.Domain.Controllers
       var controller = new CanvasController();
       controller.EnsureVisible(element);
     }
+
+    public void SetValidation(ValidationType validationType)
+    {
+      switch (validationType) {
+        case ValidationType.RoomUniqueName:
+          Project.Current.MustHaveUniqueNames = !Project.Current.MustHaveUniqueNames;
+          break;
+        case ValidationType.RoomDescription:
+          Project.Current.MustHaveDescription = !Project.Current.MustHaveDescription;
+          break;
+        case ValidationType.RoomSubTitle:
+          Project.Current.MustHaveSubtitle = !Project.Current.MustHaveSubtitle;
+          break;
+        case ValidationType.RoomDanglingConnection:
+          Project.Current.MustHaveNoDanglingConnectors = !Project.Current.MustHaveNoDanglingConnectors;
+          break;
+        default:
+          throw new ArgumentOutOfRangeException(nameof(validationType), validationType, null);
+      }
+    }
   }
 }

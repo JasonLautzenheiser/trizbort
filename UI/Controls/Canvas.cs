@@ -2679,8 +2679,6 @@ namespace Trizbort.UI.Controls
       if (ZoomFactor > 1/10.00f)
       {
         ZoomFactor -= 0.01f;
-        if (ZoomFactor < 1/10.00f)
-          ZoomFactor -= 1/10.00f;
       }
     }
 

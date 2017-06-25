@@ -31,6 +31,14 @@ namespace Trizbort.UI
         stats += $"No start room.";
       stats += $"{Environment.NewLine}";
 
+      if (MapStatistics.NumberOfEndRooms == 1)
+        stats += $"End room = {MapStatistics.EndRoomName}";
+      else if (MapStatistics.NumberOfEndRooms == 2)
+        stats += $"More than one end room.";
+      else
+        stats += $"No end room.";
+      stats += $"{Environment.NewLine}";
+
       stats += $"{Environment.NewLine}";
       stats += $"# of Connections: {MapStatistics.NumberOfConnections}{Environment.NewLine}";
       stats += $"# of Dangling Connections: {MapStatistics.NumberOfDanglingConnections}{Environment.NewLine}";

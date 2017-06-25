@@ -12,9 +12,16 @@ namespace Trizbort
 
     public static int NumberOfStartRooms => Project.Current.Elements.OfType<Room>().Count(p => p.IsStartRoom);
 
+    public static int NumberOfEndRooms => Project.Current.Elements.OfType<Room>().Count(p => p.IsEndRoom);
+
     public static string StartRoomName
     {
       get { foreach (var x in Project.Current.Elements.OfType<Room>()) { if (x.IsStartRoom) { return x.Name; } } return "(None)"; }
+    }
+
+    public static string EndRoomName
+    {
+      get { foreach (var x in Project.Current.Elements.OfType<Room>()) { if (x.IsEndRoom) { return x.Name; } } return "(None)"; }
     }
 
     public static int NumberOfFloatingRooms

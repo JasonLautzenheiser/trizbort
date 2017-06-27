@@ -14,6 +14,18 @@ namespace Trizbort
 
     public static int NumberOfEndRooms => Project.Current.Elements.OfType<Room>().Count(p => p.IsEndRoom);
 
+    public static int NumberOfOneWayConnections => Project.Current.Elements.OfType<Connection>().Count(p => p.Flow == ConnectionFlow.OneWay);
+
+    public static int NumberOfDottedConnections => Project.Current.Elements.OfType<Connection>().Count(p => p.Style == ConnectionStyle.Dashed);
+
+    public static int NumberOfDoors => Project.Current.Elements.OfType<Door>().Count();
+
+    public static int NumberOfLockedDoors => Project.Current.Elements.OfType<Door>().Count(p => p.Locked);
+
+    public static int NumberOfOpenDoors => Project.Current.Elements.OfType<Door>().Count(p => p.Open);
+
+    public static int NumberOfOpenableDoors => Project.Current.Elements.OfType<Door>().Count(p => p.Openable);
+
     public static string StartRoomName
     {
       get { foreach (var x in Project.Current.Elements.OfType<Room>()) { if (x.IsStartRoom) { return x.Name; } } return "(None)"; }
@@ -106,6 +118,37 @@ namespace Trizbort
             }
             return true;
         });
+      }
+    }
+
+    public static int UpDown
+    {
+        get {
+        return Project.Current.Elements.OfType<Connection>().Count(p =>
+        {
+          if ((p.EndText == $"up") && (p.StartText == $"down"))
+            return true;
+          if ((p.EndText == $"down") && (p.StartText == $"up"))
+            return true;
+          return false;
+        }
+        );
+      }
+    }
+
+    public static int InOut
+    {
+      get
+      {
+        return Project.Current.Elements.OfType<Connection>().Count(p =>
+        {
+          if ((p.EndText == $"in") && (p.StartText == $"out"))
+            return true;
+          if ((p.EndText == $"out") && (p.StartText == $"in"))
+            return true;
+          return false;
+        }
+        );
       }
     }
 

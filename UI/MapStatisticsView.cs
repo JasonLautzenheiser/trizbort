@@ -40,11 +40,18 @@ namespace Trizbort.UI
       stats += $"{Environment.NewLine}";
 
       stats += $"{Environment.NewLine}";
-      stats += $"# of Connections: {MapStatistics.NumberOfConnections}{Environment.NewLine}";
+      stats += $"# of Connections: {MapStatistics.NumberOfConnections}, {MapStatistics.NumberOfOneWayConnections} one-way, {MapStatistics.NumberOfDottedConnections} dashed/dotted," +
+        $"{MapStatistics.UpDown} up/down, {MapStatistics.InOut} in/out.{Environment.NewLine}";
       stats += $"# of Dangling Connections: {MapStatistics.NumberOfDanglingConnections}{Environment.NewLine}";
       stats += $"# of Self Looping Connections: {MapStatistics.NumberOfLoopingConnections}{Environment.NewLine}";
 
       stats += $"# of Dead Ends: {MapStatistics.NumberOfDeadEnds}{Environment.NewLine}";
+
+      stats += $"{Environment.NewLine}";
+      stats += string.Format("{0} door{1}, {2} locked, {3} open, {4} openable{5}",
+        MapStatistics.NumberOfDoors, plur(MapStatistics.NumberOfDoors),
+        MapStatistics.NumberOfLockedDoors, MapStatistics.NumberOfOpenDoors, MapStatistics.NumberOfOpenableDoors,
+        Environment.NewLine);
 
       stats += $"{Environment.NewLine}";
       stats += $"# of Regions: {MapStatistics.NumberOfRegions}{Environment.NewLine}";
@@ -65,6 +72,11 @@ namespace Trizbort.UI
       stats += $"Total # Rooms with Objects: {MapStatistics.NumberOfRoomsWithObjects}{Environment.NewLine}";
 
       return stats;
+    }
+
+    public string plur (int x)
+    {
+      return (x == 1 ? "" : "s");
     }
 
     public void MapStatisticsView_Export(object sender, EventArgs e)

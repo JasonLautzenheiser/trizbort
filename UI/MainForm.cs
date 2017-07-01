@@ -1092,6 +1092,16 @@ namespace Trizbort.UI
       Canvas.ZoomFactor = 2.0f;
     }
 
+    private void ViewZoomMiniIn_Click(object sender, EventArgs e)
+    {
+      Canvas.ZoomInMicro();
+    }
+
+    private void ViewZoomMiniOut_Click(object sender, EventArgs e)
+    {
+      Canvas.ZoomOutMicro();
+    }
+
     private void EditRenameMenuItem_Click(object sender, EventArgs e)
     {
       if (Canvas.HasSingleSelectedElement && Canvas.SelectedElement.HasDialog)

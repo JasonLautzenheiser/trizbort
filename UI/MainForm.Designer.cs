@@ -152,6 +152,9 @@ namespace Trizbort.UI
       this.m_viewZoomFiftyPercentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewZoomOneHundredPercentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewZoomTwoHundredPercentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
+      this.m_viewZoomMiniOut = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_viewZoomMiniIn = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewEntireMapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewResetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
@@ -952,7 +955,10 @@ namespace Trizbort.UI
             this.toolStripSeparator7,
             this.m_viewZoomFiftyPercentMenuItem,
             this.m_viewZoomOneHundredPercentMenuItem,
-            this.m_viewZoomTwoHundredPercentMenuItem});
+            this.m_viewZoomTwoHundredPercentMenuItem,
+            this.toolStripSeparator20,
+            this.m_viewZoomMiniIn,
+            this.m_viewZoomMiniOut});
       this.m_viewZoomMenu.Name = "m_viewZoomMenu";
       this.m_viewZoomMenu.Size = new System.Drawing.Size(204, 22);
       this.m_viewZoomMenu.Text = "&Zoom";
@@ -998,6 +1004,27 @@ namespace Trizbort.UI
       this.m_viewZoomTwoHundredPercentMenuItem.Size = new System.Drawing.Size(189, 22);
       this.m_viewZoomTwoHundredPercentMenuItem.Text = "&200%";
       this.m_viewZoomTwoHundredPercentMenuItem.Click += new System.EventHandler(this.ViewZoomTwoHundredPercentMenuItem_Click);
+      // 
+      // toolStripSeparator20
+      // 
+      this.toolStripSeparator20.Name = "toolStripSeparator20";
+      this.toolStripSeparator20.Size = new System.Drawing.Size(186, 6);
+      // 
+      // m_viewZoomMiniIn
+      // 
+      this.m_viewZoomMiniIn.Name = "m_viewZoomMiniIn";
+      this.m_viewZoomMiniIn.ShortcutKeyDisplayString = "ctrl / Mouse Wheel";
+      this.m_viewZoomMiniIn.Size = new System.Drawing.Size(189, 22);
+      this.m_viewZoomMiniIn.Text = "&-1%";
+      this.m_viewZoomMiniIn.Click += new System.EventHandler(this.ViewZoomMiniIn_Click);
+      // 
+      // m_viewZoomMiniIn
+      //
+      this.m_viewZoomMiniOut.Name = "m_viewZoomMiniOut";
+      this.m_viewZoomMiniOut.ShortcutKeyDisplayString = "ctrl / Mouse Wheel";
+      this.m_viewZoomMiniOut.Size = new System.Drawing.Size(189, 22);
+      this.m_viewZoomMiniOut.Text = "&+1%";
+      this.m_viewZoomMiniOut.Click += new System.EventHandler(this.ViewZoomMiniOut_Click);
       // 
       // m_viewEntireMapMenuItem
       // 
@@ -1365,6 +1392,9 @@ namespace Trizbort.UI
         private System.Windows.Forms.ToolStripMenuItem m_viewZoomFiftyPercentMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_viewZoomOneHundredPercentMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_viewZoomTwoHundredPercentMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
+        private System.Windows.Forms.ToolStripMenuItem m_viewZoomMiniOut;
+        private System.Windows.Forms.ToolStripMenuItem m_viewZoomMiniIn;
         private System.Windows.Forms.ToolStripMenuItem m_viewResetMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_editRenameMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;

@@ -848,11 +848,17 @@ namespace Trizbort.UI.Controls
 
       if (isZoomIn(e.Delta))
       {
-        ZoomIn();
+        if (ModifierKeys == Keys.Control)
+          ZoomInMicro();
+        else
+          ZoomIn();
       }
       else if (isZoomOut(e.Delta) && ZoomFactor > 1/100.0f)
       {
-        ZoomOut();
+        if (ModifierKeys == Keys.Control)
+          ZoomOutMicro();
+        else
+          ZoomOut();
       }
 
       var newPos = ClientToCanvas(new PointF(e.X, e.Y));
@@ -2657,6 +2663,22 @@ namespace Trizbort.UI.Controls
       if (ZoomFactor > 1/10.00f)
       {
         ZoomFactor /= 1.25f;
+      }
+    }
+
+    public void ZoomInMicro()
+    {
+      if (ZoomFactor < 100.0f)
+      {
+        ZoomFactor += 0.01f;
+      }
+    }
+
+    public void ZoomOutMicro()
+    {
+      if (ZoomFactor > 1/10.00f)
+      {
+        ZoomFactor -= 0.01f;
       }
     }
 

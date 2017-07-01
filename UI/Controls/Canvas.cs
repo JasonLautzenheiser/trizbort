@@ -2686,17 +2686,13 @@ namespace Trizbort.UI.Controls
     {
       ResetZoomOrigin();
       var canvasBounds = ComputeCanvasBounds(false);
-      if (!Viewport.Contains(canvasBounds))
+      while (!Viewport.Contains(canvasBounds))
       {
-        float xRatio = (float)(canvasBounds.Left - canvasBounds.Right) / (float)(Left - Right);
-        float yRatio = (float)(canvasBounds.Top - canvasBounds.Bottom) / (float)(Top - Bottom);
-
-        ZoomFactor = Math.Min(xRatio, yRatio);
+        ZoomOut();
 
         // Added an escape clause in the case the map is too large to shrink to the screen
         if (ZoomFactor <= 1/10.00f)
         {
-          ZoomFactor = 1/10.00f;
           return;
         }
       }

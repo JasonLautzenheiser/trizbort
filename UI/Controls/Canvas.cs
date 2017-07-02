@@ -508,7 +508,7 @@ namespace Trizbort.UI.Controls
         }
         // HACK: fudge the canvas size to allow for overhanging line/object text
         var v1 = Settings.SubtitleFont.GetHeight();
-        var v2 = Settings.ObjectFont.GetHeight() * 24;
+        var v2 = Settings.ObjectFont.GetHeight() * 4;
         bounds.Inflate(Math.Max(v1, v2));
       }
       return bounds;

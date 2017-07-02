@@ -45,7 +45,8 @@ namespace Trizbort.UI
       stats += $"{Environment.NewLine}";
 
       stats += $"{Environment.NewLine}";
-      stats += $"# of Connections: {MapStatistics.NumberOfConnections}, {MapStatistics.NumberOfOneWayConnections} one-way, {MapStatistics.NumberOfDottedConnections} dashed/dotted, " +
+      stats += $"# of Connections: {MapStatistics.NumberOfConnections} total, {MapStatistics.UnlabeledConnections} unlabeled, " +
+        $"{MapStatistics.NumberOfOneWayConnections} one-way, {MapStatistics.NumberOfDottedConnections} dashed/dotted, " +
         $"{MapStatistics.UpDown} up/down, {MapStatistics.InOut} in/out.{Environment.NewLine}";
       stats += $"# of Dangling Connections: {MapStatistics.NumberOfDanglingConnections}{Environment.NewLine}";
       stats += $"# of Self Looping Connections: {MapStatistics.NumberOfLoopingConnections}{Environment.NewLine}";
@@ -111,7 +112,7 @@ namespace Trizbort.UI
 
           stats += $"{Environment.NewLine}";
 
-          if (linkedRegions == $"")
+          if (linkedRegions == string.Empty)
             stats += $"{region1.RegionName} is not linked to any other regions.";
           else
             stats += $"{region1.RegionName} is linked to {linkedRegions}.";
@@ -122,12 +123,14 @@ namespace Trizbort.UI
 
       stats += string.Format("{0} up-down connection{1}{2}", MapStatistics.UpDown, plur(MapStatistics.UpDown), Environment.NewLine);
       stats += string.Format("{0} in-out connection{1}{2}", MapStatistics.InOut, plur(MapStatistics.InOut), Environment.NewLine);
-      stats += string.Format("{0} miscellaneous {1}connection{2}", MapStatistics.MiscConnect, plur(MapStatistics.MiscConnect), Environment.NewLine);
-      stats += string.Format("{0} diagonal connection{1} (2-way){2}", MapStatistics.DiagonalConnects(2), plur(MapStatistics.DiagonalConnects(2)), Environment.NewLine);
-      stats += string.Format("{0} diagonal connection{1} (1-way){2}", MapStatistics.DiagonalConnects(1), plur(MapStatistics.DiagonalConnects(1)), Environment.NewLine);
-      stats += string.Format("{0} connections with middle text (1-way){2}", MapStatistics.HasMiddleText, plur(MapStatistics.HasMiddleText), Environment.NewLine);
-      stats += string.Format("{0} bent connection{1}, {2} with no text{3}", MapStatistics.BentConnects(true), plur(MapStatistics.BentConnects(true)),
-          MapStatistics.BentConnects(false), Environment.NewLine);
+      stats += string.Format("{0} custom {1}connection{2}", MapStatistics.CustomConnections, plur(MapStatistics.CustomConnections), Environment.NewLine);
+      stats += string.Format("{0} diagonal connection{1} (2-way){2}", MapStatistics.DiagonalConnections(2),
+        plur(MapStatistics.DiagonalConnections(2)), Environment.NewLine);
+      stats += string.Format("{0} diagonal connection{1} (1-way){2}", MapStatistics.DiagonalConnections(1),
+        plur(MapStatistics.DiagonalConnections(1)), Environment.NewLine);
+      stats += string.Format("{0} connection{1} with middle text{2}", MapStatistics.HasMiddleText, plur(MapStatistics.HasMiddleText), Environment.NewLine);
+      stats += string.Format("{0} bent connection{1}, {2} with no text{3}", MapStatistics.BentConnections(true), plur(MapStatistics.BentConnections(true)),
+          MapStatistics.BentConnections(false), Environment.NewLine);
       stats += Environment.NewLine;
 
       stats += MapStatistics.dupConnectionList("in") + Environment.NewLine;

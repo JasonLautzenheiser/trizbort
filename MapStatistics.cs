@@ -156,13 +156,13 @@ namespace Trizbort
       }
     }
 
-    public static int MiscConnect
+    public static int CustomConnections
     {
       get
       {
         var labeled = Project.Current.Elements.OfType<Connection>().Count(p =>
         {
-          if ((p.EndText != $"") || (p.StartText != $""))
+          if ((p.EndText != string.Empty) || (p.StartText != string.Empty))
             return true;
           return false;
         }
@@ -177,7 +177,7 @@ namespace Trizbort
       {
         return Project.Current.Elements.OfType<Connection>().Count(p =>
         {
-          if (p.MidText != $"")
+          if (p.MidText != string.Empty)
             return true;
           return false;
         }
@@ -185,7 +185,21 @@ namespace Trizbort
       }
     }
 
-    public static int DiagonalConnects(int checkval)
+    public static int UnlabeledConnections
+    {
+      get
+      {
+        return Project.Current.Elements.OfType<Connection>().Count(p =>
+        {
+        if ((p.VertexList[0].Connection.StartText != "") || (p.VertexList[1].Connection.EndText != ""))
+          return true;
+        return false;
+        }
+        );
+      }
+    }
+
+    public static int DiagonalConnections(int checkval)
     {
         return Project.Current.Elements.OfType<Connection>().Count(p =>
         {
@@ -206,7 +220,7 @@ namespace Trizbort
 
     }
 
-    public static int BentConnects(bool ignoreAnnos)
+    public static int BentConnections(bool ignoreAnnos)
     {
         return Project.Current.Elements.OfType<Connection>().Count(p =>
         {

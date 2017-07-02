@@ -18,22 +18,34 @@ namespace Trizbort
 
     public static int NumberOfDottedConnections => Project.Current.Elements.OfType<Connection>().Count(p => p.Style == ConnectionStyle.Dashed);
 
-    public static int NumberOfDoors => Project.Current.Elements.OfType<Door>().Count();
+    public static int NumberOfDoors => Project.Current.Elements.OfType<Connection>().Count(p => p.Door != null);
 
-    public static int NumberOfLockedDoors => Project.Current.Elements.OfType<Door>().Count(p => p.Locked);
+    public static int NumberOfLockedDoors => Project.Current.Elements.OfType<Connection>().Count(p => p.Door != null && p.Door.Locked);
 
-    public static int NumberOfOpenDoors => Project.Current.Elements.OfType<Door>().Count(p => p.Open);
+    public static int NumberOfLockableDoors => Project.Current.Elements.OfType<Connection>().Count(p => p.Door != null && p.Door.Lockable);
 
-    public static int NumberOfOpenableDoors => Project.Current.Elements.OfType<Door>().Count(p => p.Openable);
+    public static int NumberOfOpenDoors => Project.Current.Elements.OfType<Connection>().Count(p => p.Door != null && p.Door.Open);
+
+    public static int NumberOfOpenableDoors => Project.Current.Elements.OfType<Connection>().Count(p => p.Door != null && p.Door.Openable);
 
     public static string StartRoomName
     {
-      get { foreach (var x in Project.Current.Elements.OfType<Room>()) { if (x.IsStartRoom) { return x.Name; } } return "(None)"; }
+      get
+      {
+        var room = Project.Current.Elements.OfType<Room>().First(p => p.IsStartRoom);
+        return room != null ? room.Name : "(None)";
+      }
     }
 
     public static string EndRoomName
     {
-      get { foreach (var x in Project.Current.Elements.OfType<Room>()) { if (x.IsEndRoom) { return x.Name; } } return "(None)"; }
+      get
+      {
+        var list = Project.Current.Elements.OfType<Room>().Where(p => p.IsEndRoom);
+        var endRoomName = Project.Current.Elements.OfType<Room>().Where(p => p.IsEndRoom).Select(p=>p.Name).Aggregate((i, j) => i + ", " + j);
+        return endRoomName;
+      }
+//      get { foreach (var x in Project.Current.Elements.OfType<Room>()) { if (x.IsEndRoom) { return x.Name; } } return "(None)"; }
     }
 
     public static int NumberOfFloatingRooms

@@ -14,6 +14,10 @@ namespace Trizbort
 
     public static int NumberOfEndRooms => Project.Current.Elements.OfType<Room>().Count(p => p.IsEndRoom);
 
+    public static int NumberOfRoomsWithSubtitles => Project.Current.Elements.OfType<Room>().Count(p => p.SubTitle != "");
+
+    public static int NumberOfDescribedRooms => Project.Current.Elements.OfType<Room>().Count(p => p.HasDescription);
+
     public static int NumberOfOneWayConnections => Project.Current.Elements.OfType<Connection>().Count(p => p.Flow == ConnectionFlow.OneWay);
 
     public static int NumberOfDottedConnections => Project.Current.Elements.OfType<Connection>().Count(p => p.Style == ConnectionStyle.Dashed);
@@ -70,6 +74,12 @@ namespace Trizbort
     public static int NumberOfRoomsWithObjects
     {
       get { return Project.Current.Elements.OfType<Room>().Count(p => p.ListOfObjects().Count > 0); }
+    }
+
+    public static int NumberOfRoomsWithXObjects(int objectNum, bool XOrMore)
+    {
+      return XOrMore ? Project.Current.Elements.OfType<Room>().Count(p => p.ListOfObjects().Count >= objectNum) :
+        Project.Current.Elements.OfType<Room>().Count(p => p.ListOfObjects().Count == objectNum);
     }
 
     public static int NumberOfTotalObjectsInRooms
@@ -146,6 +156,104 @@ namespace Trizbort
       }
     }
 
+    public static int MiscConnect
+    {
+      get
+      {
+        var labeled = Project.Current.Elements.OfType<Connection>().Count(p =>
+        {
+          if ((p.EndText != $"") || (p.StartText != $""))
+            return true;
+          return false;
+        }
+        );
+        return labeled - InOut - UpDown;
+      }
+    }
+
+    public static int HasMiddleText
+    {
+      get
+      {
+        return Project.Current.Elements.OfType<Connection>().Count(p =>
+        {
+          if (p.MidText != $"")
+            return true;
+          return false;
+        }
+        );
+      }
+    }
+
+    public static int DiagonalConnects(int checkval)
+    {
+        return Project.Current.Elements.OfType<Connection>().Count(p =>
+        {
+        var port1 = (Room.CompassPort)p.VertexList[0].Port;
+        var port2 = (Room.CompassPort)p.VertexList[1].Port;
+
+        var firstRoomConnectionDir = (int)port1?.CompassPoint;
+        var secondRoomConnectionDir = (int)port2?.CompassPoint;
+        var diags = 0;
+
+        if ((firstRoomConnectionDir % 4 == 2) && (p.VertexList[0].Connection.StartText == ""))
+          diags++;
+        if ((secondRoomConnectionDir % 4 == 2) && (p.VertexList[1].Connection.EndText == ""))
+          diags++;
+        return (diags == checkval);
+        }
+        );
+
+    }
+
+    public static int BentConnects(bool ignoreAnnos)
+    {
+        return Project.Current.Elements.OfType<Connection>().Count(p =>
+        {
+        var port1 = (Room.CompassPort)p.VertexList[0].Port;
+        var port2 = (Room.CompassPort)p.VertexList[1].Port;
+
+        var firstRoomConnectionDir = port1.CompassPoint;
+        var secondRoomConnectionDir = port2.CompassPoint;
+
+        if (!ignoreAnnos) // To ignore annotations means we count a bend no matter what, even if it has special start/end text
+        {
+          if ((p.VertexList[0].Connection.StartText != "") || (p.VertexList[1].Connection.EndText != ""))
+          {
+            return false;
+          }
+        }
+
+        if (!Project.Current.Canvas.EqualEnough(firstRoomConnectionDir, CompassPointHelper.GetOpposite(secondRoomConnectionDir)))
+        {
+          var x = 1;
+          x++;
+        }
+        // if the port directions are not (roughly) opposite, then we have a bent connection. Note NN(EW) = N, WW(NS) = W, etc.
+        return (!Project.Current.Canvas.EqualEnough(firstRoomConnectionDir, CompassPointHelper.GetOpposite(secondRoomConnectionDir)));
+        }
+        );
+
+        }
+
+    public static bool roomHasDupConnection(Room rm, string dupString)
+    {
+      var dupes = 0;
+      foreach (var element in rm.GetConnections())
+      {
+        if ((element.GetTargetRoom() == rm) && (element.EndText == dupString)) { dupes++; }
+        if ((element.GetSourceRoom() == rm) && (element.StartText == dupString)) { dupes++; }
+      }
+      return (dupes > 1);
+    }
+
+    public static string dupConnectionList(string dupString)
+    {
+      var myList = Project.Current.Elements.OfType<Room>().ToArray().OrderBy(p=>p.Name).Where(p=>roomHasDupConnection(p, dupString));
+      if (myList.Count() == 0) { return "No rooms with duplicate " + dupString + " exits."; }
+      return "Rooms with duplicate " + dupString + " exits: " + string.Join(", ", myList.Select(x => x.Name).ToArray()) + ".";
+    }
+
     public static int InOut
     {
       get
@@ -160,6 +268,23 @@ namespace Trizbort
         }
         );
       }
+    }
+
+    public static bool RegionsLinked(Region r1, Region r2)
+    {
+      if (r1 == r2)
+        return false;
+      foreach (var room in Project.Current.Elements.OfType<Room>().ToArray().OrderBy(p => p.Name).Where(p => p.Region == r1.RegionName))
+      {
+        var roomConnections = room.GetConnections();
+
+        foreach (var thisConnection in roomConnections)
+        {
+          if ((thisConnection.GetSourceRoom().Region == r2.RegionName) || (thisConnection.GetTargetRoom().Region == r2.RegionName))
+            return true;
+        }
+      }
+      return false;
     }
 
     public static int NumberOfRegions

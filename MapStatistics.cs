@@ -41,11 +41,9 @@ namespace Trizbort
     {
       get
       {
-        var list = Project.Current.Elements.OfType<Room>().Where(p => p.IsEndRoom);
         var endRoomName = Project.Current.Elements.OfType<Room>().Where(p => p.IsEndRoom).Select(p=>p.Name).Aggregate((i, j) => i + ", " + j);
         return endRoomName;
       }
-//      get { foreach (var x in Project.Current.Elements.OfType<Room>()) { if (x.IsEndRoom) { return x.Name; } } return "(None)"; }
     }
 
     public static int NumberOfFloatingRooms

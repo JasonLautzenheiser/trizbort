@@ -206,8 +206,9 @@ namespace Trizbort
         var port1 = (Room.CompassPort)p.VertexList[0].Port;
         var port2 = (Room.CompassPort)p.VertexList[1].Port;
 
-        var firstRoomConnectionDir = (int)port1?.CompassPoint;
-        var secondRoomConnectionDir = (int)port2?.CompassPoint;
+        var firstRoomConnectionDir = port1 == null ? 0 : (int)port1?.CompassPoint;
+        var secondRoomConnectionDir = port2 == null ? 0 : (int)port2?.CompassPoint;
+
         var diags = 0;
 
         if ((firstRoomConnectionDir % 4 == 2) && (p.VertexList[0].Connection.StartText == ""))
@@ -229,6 +230,9 @@ namespace Trizbort
 
         var firstRoomConnectionDir = port1.CompassPoint;
         var secondRoomConnectionDir = port2.CompassPoint;
+
+        if (port1 == null || port2 == null)
+          return false;
 
         if (!ignoreAnnos) // To ignore annotations means we count a bend no matter what, even if it has special start/end text
         {

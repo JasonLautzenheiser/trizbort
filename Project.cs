@@ -85,7 +85,7 @@ namespace Trizbort
 
     public bool MustHaveDescription { get; set; } = false;
     public bool MustHaveUniqueNames { get; set; } = false;
-    public bool MustHaveSubtitle { get; set; } = true;
+    public bool MustHaveSubtitle { get; set; } = false;
     public bool MustHaveNoDanglingConnectors { get; set; } = false;
 
     public string Name => !HasFileName ? "Untitled" : Path.GetFileNameWithoutExtension(FileName);

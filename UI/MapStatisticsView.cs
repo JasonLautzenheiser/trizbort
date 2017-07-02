@@ -25,7 +25,7 @@ namespace Trizbort.UI
 
       if (MapStatistics.NumberOfStartRooms == 1)
         stats += $"Start room = {MapStatistics.StartRoomName}";
-      else if (MapStatistics.NumberOfStartRooms == 2)
+      else if (MapStatistics.NumberOfStartRooms > 1)
         stats += $"More than one start room.";
       else
         stats += $"No start room.";
@@ -33,8 +33,8 @@ namespace Trizbort.UI
 
       if (MapStatistics.NumberOfEndRooms == 1)
         stats += $"End room = {MapStatistics.EndRoomName}";
-      else if (MapStatistics.NumberOfEndRooms == 2)
-        stats += $"More than one end room.";
+      else if (MapStatistics.NumberOfEndRooms > 1)
+        stats += $"End rooms = ({MapStatistics.EndRoomName})";
       else
         stats += $"No end room.";
       stats += $"{Environment.NewLine}";
@@ -48,9 +48,9 @@ namespace Trizbort.UI
       stats += $"# of Dead Ends: {MapStatistics.NumberOfDeadEnds}{Environment.NewLine}";
 
       stats += $"{Environment.NewLine}";
-      stats += string.Format("{0} door{1}, {2} locked, {3} open, {4} openable{5}",
+      stats += string.Format("{0} door{1}, {2} locked, {3} lockable, {4} open, {5} openable{6}",
         MapStatistics.NumberOfDoors, plur(MapStatistics.NumberOfDoors),
-        MapStatistics.NumberOfLockedDoors, MapStatistics.NumberOfOpenDoors, MapStatistics.NumberOfOpenableDoors,
+        MapStatistics.NumberOfLockedDoors, MapStatistics.NumberOfLockableDoors, MapStatistics.NumberOfOpenDoors, MapStatistics.NumberOfOpenableDoors,
         Environment.NewLine);
 
       stats += $"{Environment.NewLine}";

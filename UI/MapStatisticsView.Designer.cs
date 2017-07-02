@@ -43,14 +43,14 @@
       this.txtStats.Name = "txtStats";
       this.txtStats.ReadOnly = true;
       this.txtStats.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-      this.txtStats.Size = new System.Drawing.Size(335, 308);
+      this.txtStats.Size = new System.Drawing.Size(400, 308);
       this.txtStats.TabIndex = 0;
       // 
       // MapStatisticsView
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(360, 333);
+      this.ClientSize = new System.Drawing.Size(425, 333);
       this.Controls.Add(this.txtStats);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
       this.MaximizeBox = false;

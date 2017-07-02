@@ -144,6 +144,11 @@ namespace Trizbort.UI
       this.m_inLinesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_outLinesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_reverseLineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.validationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.roomsMustHaveUniqueNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.roomsMustHaveADescriptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.roomsMustHaveASubtitleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewMenu = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewZoomMenu = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewZoomInMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -153,8 +158,8 @@ namespace Trizbort.UI
       this.m_viewZoomOneHundredPercentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewZoomTwoHundredPercentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
-      this.m_viewZoomMiniOut = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewZoomMiniIn = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_viewZoomMiniOut = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewEntireMapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_viewResetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
@@ -183,13 +188,11 @@ namespace Trizbort.UI
       this.txtZoom = new DevComponents.Editors.IntegerInput();
       this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
       this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
+      this.startRoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.endRoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
       this.Canvas = new Trizbort.UI.Controls.Canvas();
       this.m_automapBar = new Trizbort.UI.Controls.AutomapBar();
-      this.validationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.roomsMustHaveUniqueNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.roomsMustHaveADescriptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.roomsMustHaveASubtitleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_menuStrip.SuspendLayout();
       this.m_toolStrip.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
@@ -663,6 +666,9 @@ namespace Trizbort.UI
             this.m_editIsDarkMenuItem,
             this.makeRoomDarkToolStripMenuItem,
             this.makeRoomLightToolStripMenuItem,
+            this.toolStripSeparator17,
+            this.startRoomToolStripMenuItem,
+            this.endRoomToolStripMenuItem,
             this.toolStripSeparator2,
             this.roomShapeToolStripMenuItem,
             this.toolStripSeparator18,
@@ -935,6 +941,45 @@ namespace Trizbort.UI
       this.m_reverseLineMenuItem.Text = "Re&verse Line";
       this.m_reverseLineMenuItem.Click += new System.EventHandler(this.ReverseLineMenuItem_Click);
       // 
+      // validationToolStripMenuItem
+      // 
+      this.validationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.roomsMustHaveUniqueNamesToolStripMenuItem,
+            this.roomsMustHaveADescriptionToolStripMenuItem,
+            this.roomsMustHaveASubtitleToolStripMenuItem,
+            this.roomsMustNotHaveADanglingConnectionToolStripMenuItem});
+      this.validationToolStripMenuItem.Name = "validationToolStripMenuItem";
+      this.validationToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+      this.validationToolStripMenuItem.Text = "Validation";
+      // 
+      // roomsMustHaveUniqueNamesToolStripMenuItem
+      // 
+      this.roomsMustHaveUniqueNamesToolStripMenuItem.Name = "roomsMustHaveUniqueNamesToolStripMenuItem";
+      this.roomsMustHaveUniqueNamesToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
+      this.roomsMustHaveUniqueNamesToolStripMenuItem.Text = "Rooms Must Have a Unique Name";
+      this.roomsMustHaveUniqueNamesToolStripMenuItem.Click += new System.EventHandler(this.roomsMustHaveUniqueNamesToolStripMenuItem_Click);
+      // 
+      // roomsMustHaveADescriptionToolStripMenuItem
+      // 
+      this.roomsMustHaveADescriptionToolStripMenuItem.Name = "roomsMustHaveADescriptionToolStripMenuItem";
+      this.roomsMustHaveADescriptionToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
+      this.roomsMustHaveADescriptionToolStripMenuItem.Text = "Rooms Must Have a Description";
+      this.roomsMustHaveADescriptionToolStripMenuItem.Click += new System.EventHandler(this.roomsMustHaveADescriptionToolStripMenuItem_Click);
+      // 
+      // roomsMustHaveASubtitleToolStripMenuItem
+      // 
+      this.roomsMustHaveASubtitleToolStripMenuItem.Name = "roomsMustHaveASubtitleToolStripMenuItem";
+      this.roomsMustHaveASubtitleToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
+      this.roomsMustHaveASubtitleToolStripMenuItem.Text = "Rooms Must Have a Subtitle";
+      this.roomsMustHaveASubtitleToolStripMenuItem.Click += new System.EventHandler(this.roomsMustHaveASubtitleToolStripMenuItem_Click);
+      // 
+      // roomsMustNotHaveADanglingConnectionToolStripMenuItem
+      // 
+      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Name = "roomsMustNotHaveADanglingConnectionToolStripMenuItem";
+      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
+      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Text = "Rooms Must Not Have a Dangling Connection";
+      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Click += new System.EventHandler(this.roomsMustNotHaveADanglingConnectionToolStripMenuItem_Click);
+      // 
       // m_viewMenu
       // 
       this.m_viewMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -967,7 +1012,7 @@ namespace Trizbort.UI
       // 
       this.m_viewZoomInMenuItem.Name = "m_viewZoomInMenuItem";
       this.m_viewZoomInMenuItem.ShortcutKeyDisplayString = "+ / Mouse Wheel";
-      this.m_viewZoomInMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.m_viewZoomInMenuItem.Size = new System.Drawing.Size(205, 22);
       this.m_viewZoomInMenuItem.Text = "&In";
       this.m_viewZoomInMenuItem.Click += new System.EventHandler(this.ViewZoomInMenuItem_Click);
       // 
@@ -975,54 +1020,54 @@ namespace Trizbort.UI
       // 
       this.m_viewZoomOutMenuItem.Name = "m_viewZoomOutMenuItem";
       this.m_viewZoomOutMenuItem.ShortcutKeyDisplayString = "- / Mouse Wheel";
-      this.m_viewZoomOutMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.m_viewZoomOutMenuItem.Size = new System.Drawing.Size(205, 22);
       this.m_viewZoomOutMenuItem.Text = "&Out";
       this.m_viewZoomOutMenuItem.Click += new System.EventHandler(this.ViewZoomOutMenuItem_Click);
       // 
       // toolStripSeparator7
       // 
       this.toolStripSeparator7.Name = "toolStripSeparator7";
-      this.toolStripSeparator7.Size = new System.Drawing.Size(186, 6);
+      this.toolStripSeparator7.Size = new System.Drawing.Size(202, 6);
       // 
       // m_viewZoomFiftyPercentMenuItem
       // 
       this.m_viewZoomFiftyPercentMenuItem.Name = "m_viewZoomFiftyPercentMenuItem";
-      this.m_viewZoomFiftyPercentMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.m_viewZoomFiftyPercentMenuItem.Size = new System.Drawing.Size(205, 22);
       this.m_viewZoomFiftyPercentMenuItem.Text = "&50%";
       this.m_viewZoomFiftyPercentMenuItem.Click += new System.EventHandler(this.ViewZoomFiftyPercentMenuItem_Click);
       // 
       // m_viewZoomOneHundredPercentMenuItem
       // 
       this.m_viewZoomOneHundredPercentMenuItem.Name = "m_viewZoomOneHundredPercentMenuItem";
-      this.m_viewZoomOneHundredPercentMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.m_viewZoomOneHundredPercentMenuItem.Size = new System.Drawing.Size(205, 22);
       this.m_viewZoomOneHundredPercentMenuItem.Text = "&100%";
       this.m_viewZoomOneHundredPercentMenuItem.Click += new System.EventHandler(this.ViewZoomOneHundredPercentMenuItem_Click);
       // 
       // m_viewZoomTwoHundredPercentMenuItem
       // 
       this.m_viewZoomTwoHundredPercentMenuItem.Name = "m_viewZoomTwoHundredPercentMenuItem";
-      this.m_viewZoomTwoHundredPercentMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.m_viewZoomTwoHundredPercentMenuItem.Size = new System.Drawing.Size(205, 22);
       this.m_viewZoomTwoHundredPercentMenuItem.Text = "&200%";
       this.m_viewZoomTwoHundredPercentMenuItem.Click += new System.EventHandler(this.ViewZoomTwoHundredPercentMenuItem_Click);
       // 
       // toolStripSeparator20
       // 
       this.toolStripSeparator20.Name = "toolStripSeparator20";
-      this.toolStripSeparator20.Size = new System.Drawing.Size(186, 6);
+      this.toolStripSeparator20.Size = new System.Drawing.Size(202, 6);
       // 
       // m_viewZoomMiniIn
       // 
       this.m_viewZoomMiniIn.Name = "m_viewZoomMiniIn";
       this.m_viewZoomMiniIn.ShortcutKeyDisplayString = "ctrl / Mouse Wheel";
-      this.m_viewZoomMiniIn.Size = new System.Drawing.Size(189, 22);
+      this.m_viewZoomMiniIn.Size = new System.Drawing.Size(205, 22);
       this.m_viewZoomMiniIn.Text = "&-1%";
       this.m_viewZoomMiniIn.Click += new System.EventHandler(this.ViewZoomMiniIn_Click);
       // 
-      // m_viewZoomMiniIn
-      //
+      // m_viewZoomMiniOut
+      // 
       this.m_viewZoomMiniOut.Name = "m_viewZoomMiniOut";
       this.m_viewZoomMiniOut.ShortcutKeyDisplayString = "ctrl / Mouse Wheel";
-      this.m_viewZoomMiniOut.Size = new System.Drawing.Size(189, 22);
+      this.m_viewZoomMiniOut.Size = new System.Drawing.Size(205, 22);
       this.m_viewZoomMiniOut.Text = "&+1%";
       this.m_viewZoomMiniOut.Click += new System.EventHandler(this.ViewZoomMiniOut_Click);
       // 
@@ -1274,6 +1319,27 @@ namespace Trizbort.UI
       this.controlContainerItem1.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
       this.controlContainerItem1.Name = "controlContainerItem1";
       // 
+      // startRoomToolStripMenuItem
+      // 
+      this.startRoomToolStripMenuItem.Name = "startRoomToolStripMenuItem";
+      this.startRoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
+      this.startRoomToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+      this.startRoomToolStripMenuItem.Text = "Start Room";
+      this.startRoomToolStripMenuItem.Click += new System.EventHandler(this.startRoomToolStripMenuItem_Click);
+      // 
+      // endRoomToolStripMenuItem
+      // 
+      this.endRoomToolStripMenuItem.Name = "endRoomToolStripMenuItem";
+      this.endRoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F5)));
+      this.endRoomToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+      this.endRoomToolStripMenuItem.Text = "End Room";
+      this.endRoomToolStripMenuItem.Click += new System.EventHandler(this.endRoomToolStripMenuItem_Click);
+      // 
+      // toolStripSeparator17
+      // 
+      this.toolStripSeparator17.Name = "toolStripSeparator17";
+      this.toolStripSeparator17.Size = new System.Drawing.Size(226, 6);
+      // 
       // Canvas
       // 
       this.Canvas.BackColor = System.Drawing.Color.White;
@@ -1297,45 +1363,6 @@ namespace Trizbort.UI
       this.m_automapBar.Size = new System.Drawing.Size(1890, 29);
       this.m_automapBar.Status = "(Status)";
       this.m_automapBar.TabIndex = 4;
-      // 
-      // validationToolStripMenuItem
-      // 
-      this.validationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.roomsMustHaveUniqueNamesToolStripMenuItem,
-            this.roomsMustHaveADescriptionToolStripMenuItem,
-            this.roomsMustHaveASubtitleToolStripMenuItem,
-            this.roomsMustNotHaveADanglingConnectionToolStripMenuItem});
-      this.validationToolStripMenuItem.Name = "validationToolStripMenuItem";
-      this.validationToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-      this.validationToolStripMenuItem.Text = "Validation";
-      // 
-      // roomsMustHaveUniqueNamesToolStripMenuItem
-      // 
-      this.roomsMustHaveUniqueNamesToolStripMenuItem.Name = "roomsMustHaveUniqueNamesToolStripMenuItem";
-      this.roomsMustHaveUniqueNamesToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
-      this.roomsMustHaveUniqueNamesToolStripMenuItem.Text = "Rooms Must Have a Unique Name";
-      this.roomsMustHaveUniqueNamesToolStripMenuItem.Click += new System.EventHandler(this.roomsMustHaveUniqueNamesToolStripMenuItem_Click);
-      // 
-      // roomsMustHaveADescriptionToolStripMenuItem
-      // 
-      this.roomsMustHaveADescriptionToolStripMenuItem.Name = "roomsMustHaveADescriptionToolStripMenuItem";
-      this.roomsMustHaveADescriptionToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
-      this.roomsMustHaveADescriptionToolStripMenuItem.Text = "Rooms Must Have a Description";
-      this.roomsMustHaveADescriptionToolStripMenuItem.Click += new System.EventHandler(this.roomsMustHaveADescriptionToolStripMenuItem_Click);
-      // 
-      // roomsMustHaveASubtitleToolStripMenuItem
-      // 
-      this.roomsMustHaveASubtitleToolStripMenuItem.Name = "roomsMustHaveASubtitleToolStripMenuItem";
-      this.roomsMustHaveASubtitleToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
-      this.roomsMustHaveASubtitleToolStripMenuItem.Text = "Rooms Must Have a Subtitle";
-      this.roomsMustHaveASubtitleToolStripMenuItem.Click += new System.EventHandler(this.roomsMustHaveASubtitleToolStripMenuItem_Click);
-      // 
-      // roomsMustNotHaveADanglingConnectionToolStripMenuItem
-      // 
-      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Name = "roomsMustNotHaveADanglingConnectionToolStripMenuItem";
-      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
-      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Text = "Rooms Must Not Have a Dangling Connection";
-      this.roomsMustNotHaveADanglingConnectionToolStripMenuItem.Click += new System.EventHandler(this.roomsMustNotHaveADanglingConnectionToolStripMenuItem_Click);
       // 
       // MainForm
       // 
@@ -1500,6 +1527,9 @@ namespace Trizbort.UI
     private System.Windows.Forms.ToolStripMenuItem roomsMustHaveADescriptionToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem roomsMustHaveASubtitleToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem roomsMustNotHaveADanglingConnectionToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem startRoomToolStripMenuItem;
+    private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
+    private System.Windows.Forms.ToolStripMenuItem endRoomToolStripMenuItem;
   }
 }
 

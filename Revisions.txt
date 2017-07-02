@@ -5,7 +5,12 @@ Change Log
  - The Room properties dialog parent was not getting set properly which could cause it to get lost on alt-tab making trizbort appear to be locked up. (#332)
  - Adjusted tab order and layout slightly to get more commonly used items to the top of the tab order. (#334)
  - Beginnings of a room validation with graphical indicator of rooms that don't pass validation.  (#333)
+ - Put menu items (shortcut keys) in place for set start room (Ctrl-F5) and set end room (Shift-F5).  (#335)
+ - Added some stats for doors / connections (#343)
+ - Added the end room into stats (#339)
+ - Added a micro-zoom (Ctrl-MouseWheelUp/Down) (#341)
 
+ 
 
 1.5.9.8
 -------------

@@ -81,7 +81,10 @@ namespace Trizbort.UI.Controls
       this.applicationSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.lblZoom = new System.Windows.Forms.Label();
       this.roomTooltip = new DevComponents.DotNetBar.SuperTooltip();
+      this.startRoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.endRoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_minimap = new Trizbort.UI.Controls.Minimap();
+      this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
       this.ctxCanvasMenu.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -122,6 +125,9 @@ namespace Trizbort.UI.Controls
             this.m_reverseLineMenuItem,
             this.renameToolStripMenuItem,
             this.darkToolStripMenuItem,
+            this.toolStripSeparator6,
+            this.startRoomToolStripMenuItem,
+            this.endRoomToolStripMenuItem,
             this.toolStripMenuItem1,
             this.regionToolStripMenuItem,
             this.toolStripMenuItem2,
@@ -134,7 +140,7 @@ namespace Trizbort.UI.Controls
             this.mapSettingsToolStripMenuItem,
             this.applicationSettingsToolStripMenuItem});
       this.ctxCanvasMenu.Name = "ctxCanvasMenu";
-      this.ctxCanvasMenu.Size = new System.Drawing.Size(190, 320);
+      this.ctxCanvasMenu.Size = new System.Drawing.Size(190, 370);
       this.ctxCanvasMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxCanvasMenu_Opening);
       // 
       // addRoomToolStripMenuItem
@@ -147,6 +153,7 @@ namespace Trizbort.UI.Controls
       // 
       // toolStripSeparator3
       // 
+      this.toolStripSeparator3.ForeColor = System.Drawing.SystemColors.ControlText;
       this.toolStripSeparator3.Name = "toolStripSeparator3";
       this.toolStripSeparator3.Size = new System.Drawing.Size(186, 6);
       // 
@@ -434,6 +441,22 @@ namespace Trizbort.UI.Controls
       this.roomTooltip.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
       this.roomTooltip.PositionBelowControl = false;
       // 
+      // startRoomToolStripMenuItem
+      // 
+      this.startRoomToolStripMenuItem.Name = "startRoomToolStripMenuItem";
+      this.startRoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
+      this.startRoomToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.startRoomToolStripMenuItem.Text = "Start Room";
+      this.startRoomToolStripMenuItem.Click += new System.EventHandler(this.startRoomToolStripMenuItem_Click);
+      // 
+      // endRoomToolStripMenuItem
+      // 
+      this.endRoomToolStripMenuItem.Name = "endRoomToolStripMenuItem";
+      this.endRoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F5)));
+      this.endRoomToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.endRoomToolStripMenuItem.Text = "End Room";
+      this.endRoomToolStripMenuItem.Click += new System.EventHandler(this.endRoomToolStripMenuItem_Click);
+      // 
       // m_minimap
       // 
       this.m_minimap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -444,6 +467,11 @@ namespace Trizbort.UI.Controls
       this.m_minimap.Size = new System.Drawing.Size(197, 128);
       this.m_minimap.TabIndex = 6;
       this.m_minimap.TabStop = false;
+      // 
+      // toolStripSeparator6
+      // 
+      this.toolStripSeparator6.Name = "toolStripSeparator6";
+      this.toolStripSeparator6.Size = new System.Drawing.Size(186, 6);
       // 
       // Canvas
       // 
@@ -507,5 +535,8 @@ namespace Trizbort.UI.Controls
     private System.Windows.Forms.ToolStripMenuItem m_inLinesMenuItem;
     private System.Windows.Forms.ToolStripMenuItem m_outLinesMenuItem;
     private System.Windows.Forms.ToolStripMenuItem m_reverseLineMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem startRoomToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem endRoomToolStripMenuItem;
+    private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
   }
 }

@@ -1014,6 +1014,12 @@ namespace Trizbort.UI
       swapFormatsFillsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
       swapRegionsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
 
+      startRoomToolStripMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
+      startRoomToolStripMenuItem.Checked = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room && ((Room)Canvas.SelectedElement).IsStartRoom;
+      endRoomToolStripMenuItem.Enabled = Canvas.SelectedElement is Room;
+      endRoomToolStripMenuItem.Checked = Canvas.SelectedElement is Room && ((Room)Canvas.SelectedElement).IsEndRoom;
+
+
       roomsMustHaveUniqueNamesToolStripMenuItem.Checked = Project.Current.MustHaveUniqueNames;
       roomsMustHaveADescriptionToolStripMenuItem.Checked = Project.Current.MustHaveDescription;
       roomsMustHaveASubtitleToolStripMenuItem.Checked = Project.Current.MustHaveSubtitle;
@@ -1443,6 +1449,16 @@ namespace Trizbort.UI
     {
       commandController.SetValidation(ValidationType.RoomDanglingConnection);
       Project.Current.Canvas.Invalidate();
+    }
+
+    private void startRoomToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      commandController.SetStartRoom();
+    }
+
+    private void endRoomToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      commandController.SetEndRoom();
     }
   }
 }

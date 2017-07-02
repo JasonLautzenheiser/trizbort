@@ -3295,6 +3295,16 @@ namespace Trizbort.UI.Controls
           swapObjectsToolStripMenuItem.Visible = true;
           roomPropertiesToolStripMenuItem.Visible = true;
 
+          toolStripSeparator6.Visible = true;
+          startRoomToolStripMenuItem.Visible = true;
+          endRoomToolStripMenuItem.Visible = true;
+
+          startRoomToolStripMenuItem.Enabled = HasSingleSelectedElement;
+          endRoomToolStripMenuItem.Enabled = true;
+
+          startRoomToolStripMenuItem.Checked = lastSelectedRoom.IsStartRoom && HasSingleSelectedElement;
+          endRoomToolStripMenuItem.Checked = lastSelectedRoom.IsEndRoom;
+
           toolStripMenuItem1.Visible = true;
           toolStripMenuItem2.Visible = true;
           toolStripSeparator1.Visible = true;
@@ -3321,6 +3331,10 @@ namespace Trizbort.UI.Controls
           swapObjectsToolStripMenuItem.Visible = false;
           roomPropertiesToolStripMenuItem.Visible = true;
 
+          startRoomToolStripMenuItem.Visible = false;
+          endRoomToolStripMenuItem.Visible = false;
+          toolStripSeparator6.Visible = false;
+
           m_lineStylesMenuItem.Visible = true;
           m_reverseLineMenuItem.Visible = true;
 
@@ -3341,6 +3355,10 @@ namespace Trizbort.UI.Controls
         joinRoomsToolStripMenuItem.Visible = false;
         swapObjectsToolStripMenuItem.Visible = false;
         roomPropertiesToolStripMenuItem.Visible = false;
+
+        startRoomToolStripMenuItem.Visible = false;
+        endRoomToolStripMenuItem.Visible = false;
+        toolStripSeparator6.Visible = false;
 
         m_lineStylesMenuItem.Visible = false;
         m_reverseLineMenuItem.Visible = false;
@@ -3574,5 +3592,14 @@ namespace Trizbort.UI.Controls
       Project.Current.Elements.Remove(mOtherRoom);
     }
 
+    private void startRoomToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      commandController.SetStartRoom();
+    }
+
+    private void endRoomToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      commandController.SetEndRoom();
+    }
   }
 }

@@ -114,6 +114,30 @@ namespace Trizbort.Domain.Controllers
       controller.EnsureVisible(element);
     }
 
+    public void SetEndRoom()
+    {
+      foreach (var selectedRoom in canvas.SelectedRooms)
+      {
+        selectedRoom.IsEndRoom = !selectedRoom.IsEndRoom;
+      }
+    }
+
+    public void SetStartRoom()
+    {
+      if (canvas.SelectedRooms.Count == 1)
+      {
+        if (canvas.SelectedRooms.First().IsStartRoom)
+        {
+          canvas.SelectedRooms.First().IsStartRoom = false;
+        }
+        else
+        {
+          Project.Current.Elements.OfType<Room>().Where(p => p.IsStartRoom).ToList().ForEach(p => p.IsStartRoom = false);
+          canvas.SelectedRooms.First().IsStartRoom = true;
+        }
+      }
+    }
+
     public void SetValidation(ValidationType validationType)
     {
       switch (validationType) {

@@ -131,8 +131,10 @@ namespace Trizbort
                 if ((y.GetSourceRoom() == null) || (y.GetTargetRoom() == null))
                     continue;
                 if (y.Flow == ConnectionFlow.TwoWay)
+                {
                     if (y.GetSourceRoom() != y.GetTargetRoom()) // make sure it doesn't loop on itself
                         return false;
+                }
                 else if (y.GetSourceRoom() == p) //if our room starts the one-way line, it's not a dead end
                     return false;
             }

@@ -508,7 +508,7 @@ namespace Trizbort.UI.Controls
         }
         // HACK: fudge the canvas size to allow for overhanging line/object text
         var v1 = Settings.SubtitleFont.GetHeight();
-        var v2 = Settings.ObjectFont.GetHeight() * 24;
+        var v2 = Settings.ObjectFont.GetHeight() * 4;
         bounds.Inflate(Math.Max(v1, v2));
       }
       return bounds;
@@ -2685,17 +2685,22 @@ namespace Trizbort.UI.Controls
     public void ZoomToFit()
     {
       ResetZoomOrigin();
-      var canvasBounds = ComputeCanvasBounds(false);
-      while (!Viewport.Contains(canvasBounds))
-      {
-        ZoomOut();
+      var canvasBounds = ComputeCanvasBounds(true);
 
+      if (!Viewport.Contains(canvasBounds))
+      {
+        float xRatio = (Left - Right) / (canvasBounds.Left - canvasBounds.Right);
+        float yRatio = (Bottom - Top) / (canvasBounds.Bottom - canvasBounds.Top);
+
+        ZoomFactor = Math.Min(1, Math.Min(xRatio, yRatio));
+ 
         // Added an escape clause in the case the map is too large to shrink to the screen
         if (ZoomFactor <= 1/10.00f)
         {
+          ZoomFactor = 1/10.00f;
           return;
         }
-      }
+       }
     }
 
     private void setRoomDefaultsFrom(Room room)

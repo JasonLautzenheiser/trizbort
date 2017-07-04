@@ -3,7 +3,8 @@
 set TESTBASE=.
 
 echo this is a bunch of manual test cases for manipulating the canvas.
-echo Instructions should be contained in a marquee room at the top.
+echo Instructions should be contained in a marquee room at the top, if there is nothing in the below documents.
+echo Some documents may be urposefully simple.
 
 echo Manual test case. Edit::Select special
 %TESTBASE%\manual-edit-select-special.trizbort
@@ -37,3 +38,25 @@ echo Manual test case. Save as PDF and verify each room's description-annotation
 %TESTBASE%\pdf-save-annotation.trizbort
 echo ctrl-alt-7 to test exported code.
 %TESTBASE%\properties-in-brackets-basic.trizbort
+echo test zooms with ctrl-home. Should be 21% on 1050 height screen.
+%TESTBASE%\17-by-17-1200-margins.trizbort
+echo test zooms with ctrl-home. Should be 21% on 1050 height screen.
+%TESTBASE%\17-by-17-1200h-margins.trizbort
+echo test zooms with ctrl-home. Should be 32% on 1050 height screen.
+%TESTBASE%\17-by-17-1200w-margins.trizbort
+echo test zooms with ctrl-home. Should be 28% on 1050 height screen.
+%TESTBASE%\17-by-17-600-margins.trizbort
+echo test zooms with ctrl-home. Should be 44% on 1050 height screen.
+%TESTBASE%\17-tall-0margins.trizbort
+echo test zooms with ctrl-home. Should be 42% on 1050 height screen.
+%TESTBASE%\17-tall.trizbort
+echo test zooms with ctrl-home. Should be 58% on 1050 height screen.
+%TESTBASE%\17-wide.trizbort
+echo should not blow up or have extreme zoom percent
+%TESTBASE%\vertical-connector-only.trizbort
+echo should not blow up or have extreme zoom percent
+%TESTBASE%\vertical-connector-only-2.trizbort
+echo should not blow up or have extreme zoom percent
+%TESTBASE%\horizontal-connector-only.trizbort
+echo should not blow up or have extreme zoom percent
+%TESTBASE%\horizontal-connector-only-2.trizbort

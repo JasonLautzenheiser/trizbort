@@ -4,6 +4,7 @@ Change Log
 -------------
 	- fixed naming constency between context menu and main menu and room shape names (#356) 
 	- opening zoom is a bit more accurate and better handles margins (#357)
+	- check for new versioned files and show warning when loading map (#353)
 
 1.5.9.9
 -------------

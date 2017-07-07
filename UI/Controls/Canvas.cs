@@ -2650,6 +2650,14 @@ namespace Trizbort.UI.Controls
       ZoomFactor = 1.0f;
     }
 
+    public void ZoomOutSingleIncrement()
+    {
+      if (ZoomFactor > 1 / 10.00f)
+      {
+        ZoomFactor /= 1.01f;
+      }
+    }
+
     public void ZoomIn()
     {
       if (ZoomFactor < 100.0f)
@@ -2689,18 +2697,11 @@ namespace Trizbort.UI.Controls
 
       if (!Viewport.Contains(canvasBounds))
       {
-        float xRatio = (Left - Right) / (canvasBounds.Left - canvasBounds.Right);
-        float yRatio = (Bottom - Top) / (canvasBounds.Bottom - canvasBounds.Top);
+        float xRatio = Width / canvasBounds.Width;
+        float yRatio = Height / canvasBounds.Height;
 
-        ZoomFactor = Math.Min(1, Math.Min(xRatio, yRatio));
- 
-        // Added an escape clause in the case the map is too large to shrink to the screen
-        if (ZoomFactor <= 1/10.00f)
-        {
-          ZoomFactor = 1/10.00f;
-          return;
-        }
-       }
+        ZoomFactor = Math.Max(Math.Min(xRatio, yRatio), 1/10f);
+      }
     }
 
     private void setRoomDefaultsFrom(Room room)

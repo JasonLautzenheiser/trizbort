@@ -260,14 +260,12 @@ namespace Trizbort
 
     public static bool DocumentSpecificMargins
     {
-      get { return sDocSpecificMargins; }
+      get => sDocSpecificMargins;
       set
       {
-        if (sDocSpecificMargins != value)
-        {
-          sDocSpecificMargins = value;
-          raiseChanged();
-        }
+        if (sDocSpecificMargins == value) return;
+        sDocSpecificMargins = value;
+        raiseChanged();
       }
     }
 

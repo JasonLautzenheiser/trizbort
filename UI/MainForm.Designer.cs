@@ -118,6 +118,9 @@ namespace Trizbort.UI
       this.m_editIsDarkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.makeRoomDarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.makeRoomLightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+      this.startRoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.endRoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
       this.roomShapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.handDrawnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -188,9 +191,6 @@ namespace Trizbort.UI
       this.txtZoom = new DevComponents.Editors.IntegerInput();
       this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
       this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
-      this.startRoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.endRoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
       this.Canvas = new Trizbort.UI.Controls.Canvas();
       this.m_automapBar = new Trizbort.UI.Controls.AutomapBar();
       this.m_menuStrip.SuspendLayout();
@@ -737,6 +737,27 @@ namespace Trizbort.UI
       this.makeRoomLightToolStripMenuItem.Text = "Force Lighted";
       this.makeRoomLightToolStripMenuItem.Click += new System.EventHandler(this.makeRoomLightToolStripMenuItem_Click);
       // 
+      // toolStripSeparator17
+      // 
+      this.toolStripSeparator17.Name = "toolStripSeparator17";
+      this.toolStripSeparator17.Size = new System.Drawing.Size(226, 6);
+      // 
+      // startRoomToolStripMenuItem
+      // 
+      this.startRoomToolStripMenuItem.Name = "startRoomToolStripMenuItem";
+      this.startRoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
+      this.startRoomToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+      this.startRoomToolStripMenuItem.Text = "Start Room";
+      this.startRoomToolStripMenuItem.Click += new System.EventHandler(this.startRoomToolStripMenuItem_Click);
+      // 
+      // endRoomToolStripMenuItem
+      // 
+      this.endRoomToolStripMenuItem.Name = "endRoomToolStripMenuItem";
+      this.endRoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F5)));
+      this.endRoomToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+      this.endRoomToolStripMenuItem.Text = "End Room";
+      this.endRoomToolStripMenuItem.Click += new System.EventHandler(this.endRoomToolStripMenuItem_Click);
+      // 
       // toolStripSeparator2
       // 
       this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -758,7 +779,7 @@ namespace Trizbort.UI
       this.handDrawnToolStripMenuItem.Name = "handDrawnToolStripMenuItem";
       this.handDrawnToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
       this.handDrawnToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
-      this.handDrawnToolStripMenuItem.Text = "Hand-Drawn";
+      this.handDrawnToolStripMenuItem.Text = "Square Corners";
       this.handDrawnToolStripMenuItem.Click += new System.EventHandler(this.handDrawnToolStripMenuItem_Click);
       // 
       // ellipseToolStripMenuItem
@@ -1318,27 +1339,6 @@ namespace Trizbort.UI
       this.controlContainerItem1.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far;
       this.controlContainerItem1.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
       this.controlContainerItem1.Name = "controlContainerItem1";
-      // 
-      // startRoomToolStripMenuItem
-      // 
-      this.startRoomToolStripMenuItem.Name = "startRoomToolStripMenuItem";
-      this.startRoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
-      this.startRoomToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-      this.startRoomToolStripMenuItem.Text = "Start Room";
-      this.startRoomToolStripMenuItem.Click += new System.EventHandler(this.startRoomToolStripMenuItem_Click);
-      // 
-      // endRoomToolStripMenuItem
-      // 
-      this.endRoomToolStripMenuItem.Name = "endRoomToolStripMenuItem";
-      this.endRoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F5)));
-      this.endRoomToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-      this.endRoomToolStripMenuItem.Text = "End Room";
-      this.endRoomToolStripMenuItem.Click += new System.EventHandler(this.endRoomToolStripMenuItem_Click);
-      // 
-      // toolStripSeparator17
-      // 
-      this.toolStripSeparator17.Name = "toolStripSeparator17";
-      this.toolStripSeparator17.Size = new System.Drawing.Size(226, 6);
       // 
       // Canvas
       // 

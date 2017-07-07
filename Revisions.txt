@@ -1,5 +1,10 @@
 Change Log
 
+1.6.0.0
+-------------
+	- fixed naming constency between context menu and main menu and room shape names (#356) 
+	- opening zoom is a bit more accurate and better handles margins (#357)
+
 1.5.9.9
 -------------
  - The Room properties dialog parent was not getting set properly which could cause it to get lost on alt-tab making trizbort appear to be locked up. (#332)

@@ -2650,14 +2650,6 @@ namespace Trizbort.UI.Controls
       ZoomFactor = 1.0f;
     }
 
-    public void ZoomOutSingleIncrement()
-    {
-      if (ZoomFactor > 1 / 10.00f)
-      {
-        ZoomFactor /= 1.01f;
-      }
-    }
-
     public void ZoomIn()
     {
       if (ZoomFactor < 100.0f)

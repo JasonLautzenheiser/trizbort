@@ -182,6 +182,7 @@ namespace Trizbort
         // file version
         var versionNumber = root.Attribute("version").Text;
         setVersion(versionNumber);
+        checkDocVersion();
 
         // load info
         Title = root["info"]["title"].Text;
@@ -227,8 +228,42 @@ namespace Trizbort
       }
       catch (Exception ex)
       {
-        MessageBox.Show(Program.MainForm, string.Format("There was a problem loading the map:\n\n{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show(Program.MainForm, $"There was a problem loading the map:{Environment.NewLine}{Environment.NewLine}{ex.Message}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
         return false;
+      }
+    }
+
+    private void checkDocVersion()
+    {
+      var appVers = Version.Parse(Application.ProductVersion);
+      var infoList = $"Executable Version = {Application.ProductVersion}{Environment.NewLine}Document Version = {Version}{Environment.NewLine}{Environment.NewLine}";
+      var newVersionText = $"Visit www.trizbort.com to learn about and download the latest version.";
+
+      if (Version.Major < appVers.Major) return;
+      if (Version.Major > appVers.Major)
+      {
+        MessageBox.Show(Program.MainForm, $"{infoList}The document is ahead a major version. Information is very likely to be lost.{Environment.NewLine}{Environment.NewLine}{newVersionText}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return;
+      }
+
+      if (Version.Minor < appVers.Minor) return;
+      if (Version.Minor > appVers.Minor)
+      {
+        MessageBox.Show(Program.MainForm, $"{infoList}The document is ahead a minor version. Information is likely to be lost.{Environment.NewLine}{Environment.NewLine}{newVersionText}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return;
+      }
+
+      if (Version.Build < appVers.Build) return;
+      if (Version.Build > appVers.Build)
+      {
+        MessageBox.Show(Program.MainForm, $"{infoList}The document is ahead a build. Information is somewhat likely to be lost.{Environment.NewLine}{Environment.NewLine}{newVersionText}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return;
+      }
+
+      if (Version.MinorRevision < appVers.MinorRevision) return;
+      if (Version.MinorRevision > appVers.MinorRevision)
+      {
+        MessageBox.Show(Program.MainForm, $"{infoList}The document is ahead a minor revision. Information may possibly be lost.{Environment.NewLine}{Environment.NewLine}{newVersionText}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
       }
     }
 

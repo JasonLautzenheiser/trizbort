@@ -84,6 +84,9 @@ namespace Trizbort.UI
 
       stats += $"{Environment.NewLine}{new String('=', 30)}Odd stuff below here{Environment.NewLine}";
 
+      stats += $"{Environment.NewLine}Room shapes: {MapStatistics.NumberOfRectangularRooms} rectangular, {MapStatistics.NumberOfEllipticalRooms} elliptical, " +
+        $"{MapStatistics.NumberOfRoundCornerRooms} round cornered, {MapStatistics.NumberOfOctagonalRooms} octagonal.{Environment.NewLine}";
+
       if (MapStatistics.NumberOfRegions > 0)
       {
         stats += $"{Environment.NewLine}";
@@ -101,8 +104,7 @@ namespace Trizbort.UI
         }
         stats += $"{Environment.NewLine}";
       }
-
-      if (MapStatistics.NumberOfRegions > 1)
+      else if (MapStatistics.NumberOfRegions > 1)
       {
         stats += $"{Environment.NewLine}Region Links:{Environment.NewLine}";
         var allRegions = Settings.Regions.OrderBy(p => p.RegionName).Where(p => p.RegionName != Trizbort.Region.DefaultRegion);
@@ -120,6 +122,8 @@ namespace Trizbort.UI
         }
         stats += $"{Environment.NewLine}";
       }
+      else
+        stats += $"{Environment.NewLine}";
 
       stats += string.Format("{0} up-down connection{1}{2}", MapStatistics.UpDown, plur(MapStatistics.UpDown), Environment.NewLine);
       stats += string.Format("{0} in-out connection{1}{2}", MapStatistics.InOut, plur(MapStatistics.InOut), Environment.NewLine);

@@ -32,6 +32,14 @@ namespace Trizbort
 
     public static int NumberOfOpenableDoors => Project.Current.Elements.OfType<Connection>().Count(p => p.Door != null && p.Door.Openable);
 
+    public static int NumberOfEllipticalRooms => Project.Current.Elements.OfType<Room>().Count(p => p.Shape == RoomShape.Ellipse);
+
+    public static int NumberOfRectangularRooms => Project.Current.Elements.OfType<Room>().Count(p => p.Shape == RoomShape.SquareCorners);
+
+    public static int NumberOfRoundCornerRooms => Project.Current.Elements.OfType<Room>().Count(p => p.Shape == RoomShape.RoundedCorners);
+
+    public static int NumberOfOctagonalRooms => Project.Current.Elements.OfType<Room>().Count(p => p.Shape == RoomShape.Octagonal);
+
     public static string StartRoomName
     {
       get

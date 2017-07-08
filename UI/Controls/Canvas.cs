@@ -391,6 +391,7 @@ namespace Trizbort.UI.Controls
         {
           element.Changed -= onElementChanged;
         }
+        e.OldProject.Dispose();
       }
       if (e.NewProject != null)
       {

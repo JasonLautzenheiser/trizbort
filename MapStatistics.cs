@@ -126,17 +126,24 @@ namespace Trizbort
                 return false;
             }
 
+            // we are looking for dead ends and not isolated rooms, so we need to make sure there is a way into a room before calling it a dead end
+            var waysIn = 0;
+
             foreach (var y in x)
             {
                 if ((y.GetSourceRoom() == null) || (y.GetTargetRoom() == null))
-                    continue;
+                    continue; // in other words, a dangling connection does not allow a way in.
                 if (y.Flow == ConnectionFlow.TwoWay)
+                {
                     if (y.GetSourceRoom() != y.GetTargetRoom()) // make sure it doesn't loop on itself
                         return false;
+                }
                 else if (y.GetSourceRoom() == p) //if our room starts the one-way line, it's not a dead end
                     return false;
+                else
+                    waysIn++;
             }
-            return true;
+            return waysIn > 0;
         });
       }
     }

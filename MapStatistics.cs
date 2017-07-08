@@ -319,7 +319,7 @@ namespace Trizbort
         if (keysAndNums.Count() == 0)
           return "None";
 
-        var totalDupes = String.Join(", ", keysAndNums.Select(x => x.Key + "(" + x.Value + ")"));//myDict.Select(x => x.Key + "=" + x.Value).ToArray()
+        var totalDupes = String.Join(", ", keysAndNums.Select(x => x.Key + "(" + x.Value + ")"));
 
         return totalDupes;
       }

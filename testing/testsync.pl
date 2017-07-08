@@ -4,6 +4,21 @@
 #also checks if a trizbort file is used in more than one test case
 
 use Win32::Clipboard;
+use strict;
+use warnings;
+
+#########################
+#options
+my $runZipAfter = 0;
+my $sendToClip = 0;
+
+#########################
+#variables
+my %trizfile;
+my $orphanedFiles = 0;
+my $badFiles = 0;
+my $clip;
+my $clipString = "";
 
 processCmdLine();
 
@@ -13,7 +28,7 @@ my @triz = readdir(DIR);
 
 close(DIR);
 
-for $batfile (@triz)
+for my $batfile (@triz)
 {
   if ($batfile =~ /\.bat/i)
   {
@@ -21,7 +36,7 @@ for $batfile (@triz)
   }
 }
 
-for $thistriz (@triz)
+for my $thistriz (@triz)
 {
   if ($thistriz =~ /\.trizbort/i)
   {
@@ -71,8 +86,11 @@ else
 
 sub getTriz
 {
+  my %warning;
+  my $skip = 0;
   print "Reading $_[0]\n";
   open(A, "$_[0]");
+
   while ($a = <A>)
   {
     if ($a =~ /^::/) { next; }

@@ -30,15 +30,17 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using Trizbort.Domain;
+using Trizbort.Domain.Watchers;
 using Trizbort.Extensions;
 using Trizbort.UI.Controls;
 
 namespace Trizbort
 {
-  public class Project
+  public class Project : IDisposable
   {
     public static readonly string FilterString = "Trizbort Map Files|*.trizbort";
 
+    public static TrizbortFileWatcher FileWatcher = new TrizbortFileWatcher();
     private static Project mCurrent = new Project();
 //    private MainForm mainForm;
 
@@ -46,6 +48,11 @@ namespace Trizbort
     public Project()
     {
       Elements.Removed += onElementRemoved;
+    }
+
+    private void ReloadMap(object sender, EventArgs e)
+    {
+      TrizbortApplication.MainForm.OpenProject(FileName);
     }
 
 
@@ -159,6 +166,8 @@ namespace Trizbort
 
     public bool Load()
     {
+      FileWatcher.ReloadMap -= ReloadMap;
+
       try
       {
         if (new FileInfo(FileName).Length == 0)
@@ -224,6 +233,10 @@ namespace Trizbort
         // load settings last, since their load can't be undone
         Settings.Reset();
         Settings.Load(root["settings"]);
+
+        // setup filewatcher.
+        FileWatcher.ReloadMap += ReloadMap;
+        FileWatcher.InitializeWatcher(FileName);
         return true;
       }
       catch (Exception ex)
@@ -371,6 +384,11 @@ namespace Trizbort
         return false;
       }
       return false;
+    }
+
+    public void Dispose()
+    {
+      FileWatcher.ReloadMap -= ReloadMap;
     }
   }
 }

@@ -118,6 +118,7 @@
     <Compile Include="Domain\Door.cs" />
     <Compile Include="Domain\Enums\ValidationType.cs" />
     <Compile Include="Domain\TrizbortApplication.cs" />
+    <Compile Include="Domain\Watchers\TrizbortFileWatcher.cs" />
     <Compile Include="DrawingContext.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="BoundList.cs" />

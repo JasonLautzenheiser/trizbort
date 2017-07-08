@@ -243,6 +243,8 @@ namespace Trizbort.UI
       Settings.SaveApplicationSettings();
       Canvas.StopAutomapping();
 
+      Project.FileWatcher.Dispose();
+
       base.OnClosing(e);
     }
 
@@ -302,6 +304,7 @@ namespace Trizbort.UI
       if (project.Load())
       {
         Project.Current = project;
+        Settings.LastProjectFileName = fileName;
         Settings.RecentProjects.Add(fileName);
         return true;
       }

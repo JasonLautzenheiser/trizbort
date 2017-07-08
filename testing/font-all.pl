@@ -15,6 +15,26 @@
 
 use POSIX;
 
+use strict;
+use warnings;
+
+########################
+#options
+#
+
+my $justPrintFonts = 0;
+my $lowBound = 0;
+my $upperBound = 0;
+my $noFormatting = 0;
+my $toQuit = 0;
+my $quitAt = 0;
+
+########################
+#variables
+#
+
+my $fontCount = 0;
+
 preProcessCmd();
 
 $|=1;
@@ -45,7 +65,7 @@ else { print "No key.\n"; }
 
 RegCloseKey( $key );
 
-for $curfont (sort keys %allfonts)
+for my $curfont (sort keys %allfonts)
 {
   # font name is nicer looking/more descriptive than font file name, so use that
 
@@ -66,8 +86,8 @@ for $curfont (sort keys %allfonts)
   if ($quitAt) { $toQuit++; if ($toQuit > $quitAt) { print "You've run your $quitAt tests. Finished!\n"; last; } }
 
   # ok, go through with processing it.
-
   my $outStr = "fonttest-$data.trizbort";
+  my $params="";
   open(A, "unavailable-font.trizbort");
   open(B, ">$outStr");
   while ($a = <A>)
@@ -107,10 +127,11 @@ if ($quitAt)
 
 sub preProcessCmd
 {
+  my $count = 0;
   while ($count <= $#ARGV)
   {
-    $a = @ARGV[$count];
-    $b = @ARGV[$count+1];
+    $a = $ARGV[$count];
+    $b = $ARGV[$count+1];
     for ($a)
     {
       /^-q$/ && do { $quitAt = $b; $toQuit = 0; $count+= 2; next; };
@@ -123,7 +144,7 @@ sub preProcessCmd
       usage();
     }
   }
-  if ($lowbound && $upperBound && (lc($lowBound) ge lc($upperBound)))
+  if ($lowBound && $upperBound && (lc($lowBound) ge lc($upperBound)))
   {
     die("You specified a lower bound greater than an upper bound. Bailing.");
   }

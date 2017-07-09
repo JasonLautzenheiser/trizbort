@@ -304,6 +304,8 @@ namespace Trizbort
 
     public bool Save()
     {
+      FileWatcher.StopWatcher();
+
       var settings = new XmlWriterSettings {Encoding = Encoding.UTF8, Indent = true, IndentChars = "\t"};
 
       try
@@ -331,11 +333,13 @@ namespace Trizbort
           scribe.EndElement();
         }
         IsDirty = false;
+        FileWatcher.StartWatcher();
         return true;
       }
       catch (Exception ex)
       {
         MessageBox.Show(Program.MainForm, string.Format("There was a problem saving the map:\n\n{0}", ex.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        FileWatcher.StartWatcher();
         return false;
       }
     }

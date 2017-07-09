@@ -3304,6 +3304,10 @@ namespace Trizbort.UI.Controls
           startRoomToolStripMenuItem.Checked = lastSelectedRoom.IsStartRoom && HasSingleSelectedElement;
           endRoomToolStripMenuItem.Checked = lastSelectedRoom.IsEndRoom;
 
+          sendToBackToolStripMenuItem.Visible = true;
+          bringToFrontToolStripMenuItem.Visible = true;
+          toolStripSeparator7.Visible = true;
+
           toolStripMenuItem1.Visible = true;
           toolStripMenuItem2.Visible = true;
           toolStripSeparator1.Visible = true;
@@ -3329,6 +3333,10 @@ namespace Trizbort.UI.Controls
           joinRoomsToolStripMenuItem.Visible = false;
           swapObjectsToolStripMenuItem.Visible = false;
           roomPropertiesToolStripMenuItem.Visible = true;
+
+          sendToBackToolStripMenuItem.Visible = false;
+          bringToFrontToolStripMenuItem.Visible = false;
+          toolStripSeparator7.Visible = false;
 
           startRoomToolStripMenuItem.Visible = false;
           endRoomToolStripMenuItem.Visible = false;
@@ -3358,6 +3366,10 @@ namespace Trizbort.UI.Controls
         startRoomToolStripMenuItem.Visible = false;
         endRoomToolStripMenuItem.Visible = false;
         toolStripSeparator6.Visible = false;
+
+        sendToBackToolStripMenuItem.Visible = false;
+        bringToFrontToolStripMenuItem.Visible = false;
+        toolStripSeparator7.Visible = false;
 
         m_lineStylesMenuItem.Visible = false;
         m_reverseLineMenuItem.Visible = false;

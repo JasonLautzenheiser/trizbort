@@ -157,5 +157,23 @@ namespace Trizbort.Domain.Controllers
           throw new ArgumentOutOfRangeException(nameof(validationType), validationType, null);
       }
     }
+
+    public void BringToFront()
+    {
+      int newIndex = canvas.GetHighestZOrderIndex();
+      foreach (var element in canvas.SelectedElements)
+      {
+        element.ZOrder = newIndex;
+      }
+    }
+
+    public void SendToBack()
+    {
+      int newIndex = canvas.GetLowestZOrderIndex();
+      foreach (var element in canvas.SelectedElements)
+      {
+        element.ZOrder = newIndex;
+      }
+    }
   }
 }

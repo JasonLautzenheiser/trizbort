@@ -3600,5 +3600,29 @@ namespace Trizbort.UI.Controls
     {
       commandController.SetEndRoom();
     }
+
+    private void sendToBackToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      commandController.SendToBack();
+    }
+
+    private void bringToFrontToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      commandController.BringToFront();
+    }
+
+    public int GetLowestZOrderIndex()
+    {
+      if (Project.Current.Elements.Count <= 0) return 0;
+      int low = Project.Current.Elements.Select(p => p.ZOrder).OrderBy(p => p).FirstOrDefault();
+      return low - 1;
+    }
+
+    public int GetHighestZOrderIndex()
+    {
+      if (Project.Current.Elements.Count <= 0) return 0;
+      int high = Project.Current.Elements.Select(p => p.ZOrder).OrderByDescending(p => p).FirstOrDefault();
+      return high + 1;
+    }
   }
 }

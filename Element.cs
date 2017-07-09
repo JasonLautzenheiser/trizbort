@@ -88,6 +88,9 @@ namespace Trizbort
 
     public virtual string Name { get; set; }
 
+    private int zOrder = 0;
+    public virtual int ZOrder { get => zOrder; set { zOrder = value; RaiseChanged(); } }
+
     /// <summary>
     ///   Get the drawing priority of this element.
     /// </summary>
@@ -138,7 +141,11 @@ namespace Trizbort
       var delta = Depth.CompareTo(element.Depth);
       if (delta == 0)
       {
-        delta = ID.CompareTo(element.ID);
+        delta = ZOrder.CompareTo(element.ZOrder);
+        if (delta == 0)
+        {
+          delta = ID.CompareTo(element.ID);
+        }
       }
       return delta;
     }

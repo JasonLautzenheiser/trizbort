@@ -1327,6 +1327,8 @@ namespace Trizbort
       colorValue = Colors.SaveColor(RoomSmallText);
       scribe.Attribute("roomSmallText", colorValue);
 
+      scribe.Attribute("ZOrder", ZOrder);
+
       // Up to this point was added to turn colors to Hex code for xmpl saving/loading
 
       if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DEFAULT_OBJECTS_POSITION)
@@ -1362,6 +1364,7 @@ namespace Trizbort
       IsDark = element.Attribute("isDark").ToBool();
       IsStartRoom = element.Attribute("isStartRoom").ToBool();
       IsEndRoom = element.Attribute("isEndRoom").ToBool();
+      ZOrder = element.Attribute("ZOrder").ToInt();
       if (IsStartRoom)
         if (Settings.StartRoomLoaded)
           MessageBox.Show($"{Name} is a duplicate start room. You may need to erase \"isStartRoom=YES\" from the XML.", "Duplicate start room warning");

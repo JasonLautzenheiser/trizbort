@@ -308,19 +308,12 @@ namespace Trizbort
     {
       get
       {
-        var roomNameDictionary = new Dictionary<string, long>(StringComparer.InvariantCultureIgnoreCase);
-        foreach (var rm in Project.Current.Elements.OfType<Room>())
-          if (roomNameDictionary.ContainsKey(rm.Name))
-            roomNameDictionary[rm.Name]++;
-          else
-            roomNameDictionary[rm.Name] = 1;
-
-        var keysAndNums = roomNameDictionary.Where(p => p.Value > 1);
-        if (keysAndNums.Count() == 0)
+        var roomNames = Project.Current.Elements.OfType<Room>().GroupBy(n => n.Name, (key, values) => new { Name = key, Count = values.Count() }, StringComparer.InvariantCultureIgnoreCase);
+        var keysAndNums = roomNames.Where(p => p.Count > 1).ToList();
+        if (!keysAndNums.Any())
           return "None";
 
-        var totalDupes = String.Join(", ", keysAndNums.Select(x => x.Key + "(" + x.Value + ")"));
-
+        var totalDupes = String.Join(", ", keysAndNums.Select(x => x.Name + "(" + x.Count + ")"));
         return totalDupes;
       }
     }

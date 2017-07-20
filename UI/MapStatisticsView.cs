@@ -84,6 +84,8 @@ namespace Trizbort.UI
 
       stats += $"{Environment.NewLine}{new String('=', 30)}Odd stuff below here{Environment.NewLine}";
 
+      stats += $"{Environment.NewLine}Duplicate rooms: {MapStatistics.DuplicateNamedRooms}.{Environment.NewLine}";
+
       stats += $"{Environment.NewLine}Room shapes: {MapStatistics.NumberOfRectangularRooms} rectangular, {MapStatistics.NumberOfEllipticalRooms} elliptical, " +
         $"{MapStatistics.NumberOfRoundCornerRooms} round cornered, {MapStatistics.NumberOfOctagonalRooms} octagonal.{Environment.NewLine}";
 

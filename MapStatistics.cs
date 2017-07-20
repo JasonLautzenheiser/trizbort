@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Trizbort.Domain;
 
@@ -300,6 +301,27 @@ namespace Trizbort
           return false;
         }
         );
+      }
+    }
+
+    public static string DuplicateNamedRooms
+    {
+      get
+      {
+        var roomNameDictionary = new Dictionary<string, long>(StringComparer.InvariantCultureIgnoreCase);
+        foreach (var rm in Project.Current.Elements.OfType<Room>())
+          if (roomNameDictionary.ContainsKey(rm.Name))
+            roomNameDictionary[rm.Name]++;
+          else
+            roomNameDictionary[rm.Name] = 1;
+
+        var keysAndNums = roomNameDictionary.Where(p => p.Value > 1);
+        if (keysAndNums.Count() == 0)
+          return "None";
+
+        var totalDupes = String.Join(", ", keysAndNums.Select(x => x.Key + "(" + x.Value + ")"));
+
+        return totalDupes;
       }
     }
 

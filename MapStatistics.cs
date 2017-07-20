@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Trizbort.Domain;
 
@@ -65,17 +64,7 @@ namespace Trizbort
         {
             var x = p.GetConnections();
 
-            if (x.Count == 0)
-                return true;
-            foreach (var y in x)
-            {
-                if ((y.GetSourceRoom() != null) && (y.GetTargetRoom() != null)) //first, ignore dangling connections
-                {
-                    if (y.GetSourceRoom() != y.GetTargetRoom()) //next, ignore looping connections
-                        return false;
-                }
-            }
-            return true;
+            return x.Count == 0 || x.Where(y => y.GetSourceRoom() != null && y.GetTargetRoom() != null).All(y => y.GetSourceRoom() == y.GetTargetRoom());
         });
       }
     }
@@ -85,9 +74,9 @@ namespace Trizbort
       get { return Project.Current.Elements.OfType<Room>().Count(p => p.ListOfObjects().Count > 0); }
     }
 
-    public static int NumberOfRoomsWithXObjects(int objectNum, bool XOrMore)
+    public static int NumberOfRoomsWithXObjects(int objectNum, bool xOrMore)
     {
-      return XOrMore ? Project.Current.Elements.OfType<Room>().Count(p => p.ListOfObjects().Count >= objectNum) :
+      return xOrMore ? Project.Current.Elements.OfType<Room>().Count(p => p.ListOfObjects().Count >= objectNum) :
         Project.Current.Elements.OfType<Room>().Count(p => p.ListOfObjects().Count == objectNum);
     }
 
@@ -130,9 +119,7 @@ namespace Trizbort
 
             if (x.Count == 0) // if a room is isolated, it (usually) can't be a dead end...
             {
-                if (p.IsStartRoom) // unless it's the the start room, since there is a way to get there...the game puts you there.
-                    return true;
-                return false;
+              return p.IsStartRoom;
             }
 
             // we are looking for dead ends and not isolated rooms, so we need to make sure there is a way into a room before calling it a dead end
@@ -140,7 +127,7 @@ namespace Trizbort
 
             foreach (var y in x)
             {
-                if ((y.GetSourceRoom() == null) || (y.GetTargetRoom() == null))
+                if (y.GetSourceRoom() == null || y.GetTargetRoom() == null)
                     continue; // in other words, a dangling connection does not allow a way in.
                 if (y.Flow == ConnectionFlow.TwoWay)
                 {
@@ -162,11 +149,9 @@ namespace Trizbort
         get {
         return Project.Current.Elements.OfType<Connection>().Count(p =>
         {
-          if ((p.EndText == $"up") && (p.StartText == $"down"))
+          if (p.EndText == "up" && p.StartText == "down")
             return true;
-          if ((p.EndText == $"down") && (p.StartText == $"up"))
-            return true;
-          return false;
+          return p.EndText == "down" && p.StartText == "up";
         }
         );
       }
@@ -176,13 +161,7 @@ namespace Trizbort
     {
       get
       {
-        var labeled = Project.Current.Elements.OfType<Connection>().Count(p =>
-        {
-          if ((p.EndText != string.Empty) || (p.StartText != string.Empty))
-            return true;
-          return false;
-        }
-        );
+        var labeled = Project.Current.Elements.OfType<Connection>().Count(p => p.EndText != string.Empty || p.StartText != string.Empty);
         return labeled - InOut - UpDown;
       }
     }
@@ -191,13 +170,7 @@ namespace Trizbort
     {
       get
       {
-        return Project.Current.Elements.OfType<Connection>().Count(p =>
-        {
-          if (p.MidText != string.Empty)
-            return true;
-          return false;
-        }
-        );
+        return Project.Current.Elements.OfType<Connection>().Count(p => p.MidText != string.Empty);
       }
     }
 
@@ -205,86 +178,72 @@ namespace Trizbort
     {
       get
       {
-        return Project.Current.Elements.OfType<Connection>().Count(p =>
-        {
-        if ((p.VertexList[0].Connection.StartText != "") || (p.VertexList[1].Connection.EndText != ""))
-          return true;
-        return false;
-        }
-        );
+        return Project.Current.Elements.OfType<Connection>().Count(p => p.VertexList[0].Connection.StartText != string.Empty || p.VertexList[1].Connection.EndText != string.Empty);
       }
     }
 
     public static int DiagonalConnections(int checkval)
     {
-        return Project.Current.Elements.OfType<Connection>().Count(p =>
-        {
-        var port1 = (Room.CompassPort)p.VertexList[0].Port;
-        var port2 = (Room.CompassPort)p.VertexList[1].Port;
+      return Project.Current.Elements.OfType<Connection>().Count(p =>
+                                                                 {
+                                                                   var port1 = (Room.CompassPort) p.VertexList[0].Port;
+                                                                   var port2 = (Room.CompassPort) p.VertexList[1].Port;
 
-        var firstRoomConnectionDir = (port1 == null) ? 0 : (int)port1?.CompassPoint;
-        var secondRoomConnectionDir = (port2 == null) ? 0 : (int)port2?.CompassPoint;
+                                                                   var firstRoomConnectionDir = port1 == null ? 0 : (int) port1.CompassPoint;
+                                                                   var secondRoomConnectionDir = port2 == null ? 0 : (int) port2.CompassPoint;
 
-        var diags = 0;
+                                                                   var diags = 0;
 
-        if ((firstRoomConnectionDir % 4 == 2) && (p.VertexList[0].Connection.StartText == ""))
-          diags++;
-        if ((secondRoomConnectionDir % 4 == 2) && (p.VertexList[1].Connection.EndText == ""))
-          diags++;
-        return (diags == checkval);
-        }
-        );
-
+                                                                   if (firstRoomConnectionDir % 4 == 2 && p.VertexList[0].Connection.StartText == string.Empty)
+                                                                     diags++;
+                                                                   if (secondRoomConnectionDir % 4 == 2 && p.VertexList[1].Connection.EndText == string.Empty)
+                                                                     diags++;
+                                                                   return diags == checkval;
+                                                                 }
+                                                                );
     }
 
     public static int BentConnections(bool ignoreAnnos)
     {
-        return Project.Current.Elements.OfType<Connection>().Count(p =>
-        {
-        var port1 = (Room.CompassPort)p.VertexList[0].Port;
-        var port2 = (Room.CompassPort)p.VertexList[1].Port;
+      return Project.Current.Elements.OfType<Connection>().Count(p =>
+                                                                 {
+                                                                   var port1 = (Room.CompassPort) p.VertexList[0].Port;
+                                                                   var port2 = (Room.CompassPort) p.VertexList[1].Port;
 
-        if (port1 == null || port2 == null)
-          return false;
+                                                                   if (port1 == null || port2 == null)
+                                                                     return false;
 
-        var firstRoomConnectionDir = port1.CompassPoint;
-        var secondRoomConnectionDir = port2.CompassPoint;
+                                                                   var firstRoomConnectionDir = port1.CompassPoint;
+                                                                   var secondRoomConnectionDir = port2.CompassPoint;
 
-        if (!ignoreAnnos) // To ignore annotations means we count a bend no matter what, even if it has special start/end text
-        {
-          if ((p.VertexList[0].Connection.StartText != "") || (p.VertexList[1].Connection.EndText != ""))
-          {
-            return false;
-          }
-        }
+                                                                   if (ignoreAnnos) return !Project.Current.Canvas.EqualEnough(firstRoomConnectionDir, CompassPointHelper.GetOpposite(secondRoomConnectionDir));
+                                                                   if (p.VertexList[0].Connection.StartText != "" || p.VertexList[1].Connection.EndText != "")
+                                                                   {
+                                                                     return false;
+                                                                   }
 
-        if (!Project.Current.Canvas.EqualEnough(firstRoomConnectionDir, CompassPointHelper.GetOpposite(secondRoomConnectionDir)))
-        {
-          var x = 1;
-          x++;
-        }
-        // if the port directions are not (roughly) opposite, then we have a bent connection. Note NN(EW) = N, WW(NS) = W, etc.
-        return (!Project.Current.Canvas.EqualEnough(firstRoomConnectionDir, CompassPointHelper.GetOpposite(secondRoomConnectionDir)));
-        }
-        );
+                                                                   // if the port directions are not (roughly) opposite, then we have a bent connection. Note NN(EW) = N, WW(NS) = W, etc.
+                                                                   return !Project.Current.Canvas.EqualEnough(firstRoomConnectionDir, CompassPointHelper.GetOpposite(secondRoomConnectionDir));
+                                                                 }
+                                                                );
 
-        }
+    }
 
-    public static bool roomHasDupConnection(Room rm, string dupString)
+    public static bool RoomHasDupConnection(Room rm, string dupString)
     {
       var dupes = 0;
       foreach (var element in rm.GetConnections())
       {
-        if ((element.GetTargetRoom() == rm) && (element.EndText == dupString)) { dupes++; }
-        if ((element.GetSourceRoom() == rm) && (element.StartText == dupString)) { dupes++; }
+        if (element.GetTargetRoom() == rm && element.EndText == dupString) { dupes++; }
+        if (element.GetSourceRoom() == rm && element.StartText == dupString) { dupes++; }
       }
-      return (dupes > 1);
+      return dupes > 1;
     }
 
-    public static string dupConnectionList(string dupString)
+    public static string DupConnectionList(string dupString)
     {
-      var myList = Project.Current.Elements.OfType<Room>().ToArray().OrderBy(p=>p.Name).Where(p=>roomHasDupConnection(p, dupString));
-      if (myList.Count() == 0) { return "No rooms with duplicate " + dupString + " exits."; }
+      var myList = Project.Current.Elements.OfType<Room>().OrderBy(p=>p.Name).Where(p=>RoomHasDupConnection(p, dupString)).ToArray();
+      if (!myList.Any()) { return "No rooms with duplicate " + dupString + " exits."; }
       return "Rooms with duplicate " + dupString + " exits: " + string.Join(", ", myList.Select(x => x.Name).ToArray()) + ".";
     }
 
@@ -293,14 +252,12 @@ namespace Trizbort
       get
       {
         return Project.Current.Elements.OfType<Connection>().Count(p =>
-        {
-          if ((p.EndText == $"in") && (p.StartText == $"out"))
-            return true;
-          if ((p.EndText == $"out") && (p.StartText == $"in"))
-            return true;
-          return false;
-        }
-        );
+                                                                   {
+                                                                     if (p.EndText == "in" && p.StartText == "out")
+                                                                       return true;
+                                                                     return p.EndText == "out" && p.StartText == "in";
+                                                                   }
+                                                                  );
       }
     }
 
@@ -313,26 +270,14 @@ namespace Trizbort
         if (!keysAndNums.Any())
           return "None";
 
-        var totalDupes = String.Join(", ", keysAndNums.Select(x => x.Name + "(" + x.Count + ")"));
+        var totalDupes = string.Join(", ", keysAndNums.Select(x => x.Name + "(" + x.Count + ")"));
         return totalDupes;
       }
     }
 
     public static bool RegionsLinked(Region r1, Region r2)
     {
-      if (r1 == r2)
-        return false;
-      foreach (var room in Project.Current.Elements.OfType<Room>().ToArray().OrderBy(p => p.Name).Where(p => p.Region == r1.RegionName))
-      {
-        var roomConnections = room.GetConnections();
-
-        foreach (var thisConnection in roomConnections)
-        {
-          if ((thisConnection.GetSourceRoom().Region == r2.RegionName) || (thisConnection.GetTargetRoom().Region == r2.RegionName))
-            return true;
-        }
-      }
-      return false;
+      return r1 != r2 && Project.Current.Elements.OfType<Room>().ToArray().OrderBy(p => p.Name).Where(p => p.Region == r1.RegionName).SelectMany(room => room.GetConnections()).Any(thisConnection => (thisConnection.GetSourceRoom().Region == r2.RegionName) || (thisConnection.GetTargetRoom().Region == r2.RegionName));
     }
 
     public static int NumberOfRegions

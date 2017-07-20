@@ -139,10 +139,10 @@ namespace Trizbort.UI
           MapStatistics.BentConnections(false), Environment.NewLine);
       stats += Environment.NewLine;
 
-      stats += MapStatistics.dupConnectionList("in") + Environment.NewLine;
-      stats += MapStatistics.dupConnectionList("out") + Environment.NewLine;
-      stats += MapStatistics.dupConnectionList("up") + Environment.NewLine;
-      stats += MapStatistics.dupConnectionList("down") + Environment.NewLine;
+      stats += MapStatistics.DupConnectionList("in") + Environment.NewLine;
+      stats += MapStatistics.DupConnectionList("out") + Environment.NewLine;
+      stats += MapStatistics.DupConnectionList("up") + Environment.NewLine;
+      stats += MapStatistics.DupConnectionList("down") + Environment.NewLine;
 
       return stats;
     }

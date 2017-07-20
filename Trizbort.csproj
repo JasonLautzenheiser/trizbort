@@ -117,6 +117,7 @@
     <Compile Include="Domain\ConnectionIconBlock.cs" />
     <Compile Include="Domain\Door.cs" />
     <Compile Include="Domain\Enums\ValidationType.cs" />
+    <Compile Include="Domain\RoomValidationState.cs" />
     <Compile Include="Domain\TrizbortApplication.cs" />
     <Compile Include="Domain\Watchers\TrizbortFileWatcher.cs" />
     <Compile Include="DrawingContext.cs" />

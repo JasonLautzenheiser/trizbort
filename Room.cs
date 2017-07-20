@@ -36,6 +36,8 @@ using Trizbort.Domain;
 using Trizbort.Extensions;
 using Trizbort.UI;
 using Trizbort.UI.Controls;
+using Trizbort.Domain.Enums;
+using ValidationType = Trizbort.Domain.Enums.ValidationType;
 
 namespace Trizbort
 {
@@ -157,6 +159,8 @@ namespace Trizbort
       }
     }
 
+    public List<RoomValidationState> ValidationState { get; set; } = new List<RoomValidationState>();
+
     public RoomShape Shape
     {
       get => shape;
@@ -187,27 +191,38 @@ namespace Trizbort
       }
     }
 
-    private List<string> validationIssues;
-
     private bool valid()
     {
-      return validationIssues == null || validationIssues.Count == 0;
+      return ValidationState == null || ValidationState.Count == 0;
     }
 
     public void CheckValidation()
     {
-      validationIssues = new List<string>();
+      RoomValidationState state;  
+      ValidationState.Clear();
 
       if (Project.Current.MustHaveDescription && !this.HasDescription)
       {
-        validationIssues.Add("There is no description for this room.");
+        state = new RoomValidationState
+        {
+          Message = "There is no description for this room.",
+          Status = RoomValidationStatus.Invalid,
+          Type = ValidationType.RoomDescription
+        };
+        ValidationState.Add(state);
       }
 
       if (Project.Current.MustHaveUniqueNames)
       {
         if (Project.Current.Elements.OfType<Room>().Count(p => p.Name == Name) > 1)
         {
-          validationIssues.Add("The room name is not unique.");
+          state = new RoomValidationState
+          {
+            Message = "The room name is not unique.",
+            Status = RoomValidationStatus.Invalid,
+            Type = ValidationType.RoomUniqueName
+          };
+          ValidationState.Add(state);
         }
       }
 
@@ -216,7 +231,13 @@ namespace Trizbort
         
         if (Project.Current.Elements.OfType<Connection>().Count(p => p.GetSourceRoom() == this && p.GetTargetRoom() == null) > 0)
         {
-          validationIssues.Add("Room has dangling connectors.");
+          state = new RoomValidationState
+          {
+            Message = "Room has dangling connectors.",
+            Status = RoomValidationStatus.Invalid,
+            Type = ValidationType.RoomUniqueName
+          };
+          ValidationState.Add(state);
         }
       }
 
@@ -225,7 +246,13 @@ namespace Trizbort
         
         if (String.IsNullOrWhiteSpace(SubTitle))
         {
-          validationIssues.Add("Room must have a subtitle.");
+          state = new RoomValidationState
+          {
+            Message = "Room must have a subtitle.",
+            Status = RoomValidationStatus.Invalid,
+            Type = ValidationType.RoomUniqueName
+          };
+          ValidationState.Add(state);
         }
       }
 
@@ -623,7 +650,8 @@ namespace Trizbort
 
     public override string ToString()
     {
-      return $"Room: {Name}";
+      var sText = $"Room: {Name}";
+      return sText;
     }
 
     public override string GetToolTipFooter()
@@ -638,7 +666,13 @@ namespace Trizbort
 
     public override string GetToolTipHeader()
     {
-      return $"{Name}{(!isDefaultRegion() ? $" ({Region})" : string.Empty)}";
+      string sText = $"{Name}{(!isDefaultRegion() ? $" ({Region})" : string.Empty)}";
+      if (!valid())
+      {
+        if (sText.Length > 0) sText += " - ";
+        sText += "Room validation issues:";
+      }
+      return sText;
     }
 
     public override bool HasTooltip()
@@ -649,7 +683,7 @@ namespace Trizbort
 
     public override eTooltipColor GetToolTipColor()
     {
-      return eTooltipColor.BlueMist;
+      return !valid() ? eTooltipColor.Red : eTooltipColor.BlueMist;
     }
 
 
@@ -708,9 +742,16 @@ namespace Trizbort
 
     public override string GetToolTipText()
     {
-      var sText = $"{PrimaryDescription}";
+      if (!valid())
+      {
+        string sText = "";
+        sText = ValidationState.Aggregate(sText, (current, roomValidationState) => current + (roomValidationState.Message + Environment.NewLine));
+        return sText;
+      }
 
-      return sText;
+      var sDesc = $"{PrimaryDescription}";
+
+      return sDesc;
     }
 
     public Port PortAt(CompassPoint compassPoint)

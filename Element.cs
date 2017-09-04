@@ -288,5 +288,11 @@ namespace Trizbort
     {
       Project = project;
     }
+
+    public RoomShape GetRoomType()
+    {
+      if (this is Room xx) return xx.Shape;
+      return RoomShape.NotARoom;
+    }
   }
 }

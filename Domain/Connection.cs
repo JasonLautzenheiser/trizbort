@@ -779,21 +779,35 @@ namespace Trizbort.Domain
       }
     }
 
-    private static void annotate(XGraphics graphics, Palette palette, LineSegment lineSegment, TextBlock text, StringAlignment alignment)
+    private void annotate(XGraphics graphics, Palette palette, LineSegment lineSegment, TextBlock text, StringAlignment alignment)
     {
       Vector point;
       var delta = lineSegment.Delta;
+      var roomTypeAdjustments = Vector.Zero;
+
+      RoomShape roomType;
+      CompassPoint dir;
       switch (alignment)
       {
         default:
-          point = lineSegment.Start;
+          roomType = VertexList[0].Port.Owner.GetRoomType();
+          if (roomType == RoomShape.Ellipse || roomType == RoomShape.Octagonal)
+          {
+            roomTypeAdjustments = this.roomTypeAdjustments(VertexList[0]);
+          }
+          point = lineSegment.Start + roomTypeAdjustments;
           delta.Negate();
           break;
         case StringAlignment.Center:
           point = lineSegment.Mid;
           break;
         case StringAlignment.Far:
-          point = lineSegment.End;
+          roomType = VertexList[1].Port.Owner.GetRoomType();
+          if (roomType == RoomShape.Ellipse || roomType == RoomShape.Octagonal)
+          {
+            roomTypeAdjustments = this.roomTypeAdjustments(VertexList[1]);
+          }
+          point = lineSegment.End + roomTypeAdjustments;
           break;
       }
 
@@ -819,6 +833,41 @@ namespace Trizbort.Domain
 
       if (!Settings.DebugDisableTextRendering)
         text.Draw(graphics, Settings.SubtitleFont, palette.LineTextBrush, pos, Vector.Zero, format);
+    }
+
+    private Vector roomTypeAdjustments(Vertex vertex)
+    {
+      Vector roomTypeAdjustments = Vector.Zero;
+      CompassPointHelper.FromName(vertex.Port.ID, out var dir);
+      switch (dir)
+      {
+        case CompassPoint.SouthEast:
+          roomTypeAdjustments = new Vector(8, 6);
+          break;
+        case CompassPoint.NorthEast:
+          roomTypeAdjustments = new Vector(10, -6);
+          break;
+        case CompassPoint.EastNorthEast:
+          roomTypeAdjustments = new Vector(4, 0);
+          break;
+        case CompassPoint.EastSouthEast:
+          roomTypeAdjustments = new Vector(4, 0);
+          break;
+        case CompassPoint.NorthWest:
+          roomTypeAdjustments = new Vector(-10, -4);
+          break;
+        case CompassPoint.SouthWest:
+          roomTypeAdjustments = new Vector(-10, 4);
+          break;
+        case CompassPoint.WestSouthWest:
+          roomTypeAdjustments = new Vector(-10, 0);
+          break;
+        case CompassPoint.WestNorthWest:
+          roomTypeAdjustments = new Vector(-10, -4);
+          break;
+
+      }
+      return roomTypeAdjustments;
     }
 
     private List<LineSegment> getSegments()

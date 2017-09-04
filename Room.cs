@@ -1739,6 +1739,7 @@ public class CornerRadii
 
 public enum RoomShape
 {
+  NotARoom,
   SquareCorners,
   RoundedCorners,
   Ellipse,

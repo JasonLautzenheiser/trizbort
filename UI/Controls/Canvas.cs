@@ -32,10 +32,12 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
+using Newtonsoft.Json;
 using PdfSharp.Drawing;
 using Trizbort.Domain;
 using Trizbort.Domain.Controllers;
 using Trizbort.Domain.Enums;
+using Trizbort.Domain.SerializeHelpers;
 using Timer = System.Threading.Timer;
 
 // ReSharper disable PossibleLossOfFraction
@@ -46,7 +48,6 @@ namespace Trizbort.UI.Controls
 {
   public sealed partial class Canvas : UserControl, IAutomapCanvas
   {
-
     private readonly CommandController commandController;
 
     public const string CopyDelimiter = "::=::";
@@ -142,7 +143,7 @@ namespace Trizbort.UI.Controls
       {
         var origin = Origin;
         var size = ClientToCanvas(new SizeF(Width, Height));
-        return new Rect(origin.X - size.Width/2, origin.Y - size.Height/2, size.Width, size.Height);
+        return new Rect(origin.X - size.Width / 2, origin.Y - size.Height / 2, size.Width, size.Height);
       }
     }
 
@@ -533,8 +534,8 @@ namespace Trizbort.UI.Controls
       {
         // zoom to fit (0,0)-(width,height)
         var canvasBounds = ComputeCanvasBounds(true);
-        ZoomFactor = Math.Min(canvasBounds.Width > 0 ? width/canvasBounds.Width : 1.0f, canvasBounds.Height > 0 ? height/canvasBounds.Height : 1.0f);
-        Origin = new Vector(canvasBounds.X + canvasBounds.Width/2, canvasBounds.Y + canvasBounds.Height/2);
+        ZoomFactor = Math.Min(canvasBounds.Width > 0 ? width / canvasBounds.Width : 1.0f, canvasBounds.Height > 0 ? height / canvasBounds.Height : 1.0f);
+        Origin = new Vector(canvasBounds.X + canvasBounds.Width / 2, canvasBounds.Y + canvasBounds.Height / 2);
       }
 
       using (var palette = new Palette())
@@ -549,7 +550,7 @@ namespace Trizbort.UI.Controls
           drawGrid(graphics, palette);
         }
 
-        graphics.TranslateTransform(width/2, height/2);
+        graphics.TranslateTransform(width / 2, height / 2);
         graphics.ScaleTransform(ZoomFactor, ZoomFactor);
         graphics.TranslateTransform(-Origin.X, -Origin.Y);
 
@@ -580,7 +581,7 @@ namespace Trizbort.UI.Controls
         stopwatch.Stop();
         if (Settings.DebugShowFPS && !finalRender)
         {
-          var fps = 1.0f/(float) (stopwatch.Elapsed.TotalSeconds);
+          var fps = 1.0f / (float) (stopwatch.Elapsed.TotalSeconds);
           graphics.Graphics.Transform = new Matrix();
           graphics.DrawString($"{stopwatch.Elapsed.TotalMilliseconds} ms ({fps} fps) {TextBlock.RebuildCount} rebuilds", Settings.RoomNameFont, Brushes.Red, new PointF(10, 20 + Settings.RoomNameFont.GetHeight()));
         }
@@ -599,10 +600,10 @@ namespace Trizbort.UI.Controls
 
     private void drawGrid(XGraphics graphics, Palette palette)
     {
-      if (Settings.IsGridVisible && Settings.GridSize*ZoomFactor > 10)
+      if (Settings.IsGridVisible && Settings.GridSize * ZoomFactor > 10)
       {
-        var topLeft = Settings.Snap(ClientToCanvas(new PointF(-Settings.GridSize*ZoomFactor, -Settings.GridSize*ZoomFactor)));
-        var bottomRight = Settings.Snap(ClientToCanvas(new PointF(Width + Settings.GridSize*ZoomFactor, Height + Settings.GridSize*ZoomFactor)));
+        var topLeft = Settings.Snap(ClientToCanvas(new PointF(-Settings.GridSize * ZoomFactor, -Settings.GridSize * ZoomFactor)));
+        var bottomRight = Settings.Snap(ClientToCanvas(new PointF(Width + Settings.GridSize * ZoomFactor, Height + Settings.GridSize * ZoomFactor)));
         var points = new List<PointF>();
         var even = true;
         for (var x = topLeft.X; x <= bottomRight.X; x += Settings.GridSize)
@@ -701,7 +702,7 @@ namespace Trizbort.UI.Controls
         element.Flagged = true;
       }
 
-      var clipToScreen = new RectangleF(Origin.X - Width/2/ZoomFactor, Origin.Y - Height/2/ZoomFactor, Width/ZoomFactor, Height/ZoomFactor);
+      var clipToScreen = new RectangleF(Origin.X - Width / 2 / ZoomFactor, Origin.Y - Height / 2 / ZoomFactor, Width / ZoomFactor, Height / ZoomFactor);
 
       foreach (var element in elements)
       {
@@ -747,8 +748,8 @@ namespace Trizbort.UI.Controls
       {
         var bounds = mHandles.Aggregate(Rect.Empty, (current, handle) => current == Rect.Empty ? new Rect(handle.Position, Vector.Zero) : current.Union(handle.Position));
 
-        bounds.X += Settings.HandleSize/2f;
-        bounds.Y += Settings.HandleSize/2f;
+        bounds.X += Settings.HandleSize / 2f;
+        bounds.Y += Settings.HandleSize / 2f;
 //        graphics.DrawRectangle(palette.ResizeBorderPen, bounds.ToRectangleF());
       }
 
@@ -798,19 +799,19 @@ namespace Trizbort.UI.Controls
     {
       v.X -= Origin.X;
       v.X *= ZoomFactor;
-      v.X += Width/2;
+      v.X += Width / 2;
       v.Y -= Origin.Y;
       v.Y *= ZoomFactor;
-      v.Y += Height/2;
+      v.Y += Height / 2;
       return new PointF(v.X, v.Y);
     }
 
     public Vector ClientToCanvas(PointF p)
     {
-      p.X -= Width/2;
+      p.X -= Width / 2;
       p.X /= ZoomFactor;
       p.X += Origin.X;
-      p.Y -= Height/2;
+      p.Y -= Height / 2;
       p.Y /= ZoomFactor;
       p.Y += Origin.Y;
       return new Vector(p.X, p.Y);
@@ -854,7 +855,7 @@ namespace Trizbort.UI.Controls
         else
           ZoomIn();
       }
-      else if (isZoomOut(e.Delta) && ZoomFactor > 1/100.0f)
+      else if (isZoomOut(e.Delta) && ZoomFactor > 1 / 100.0f)
       {
         if (ModifierKeys == Keys.Control)
           ZoomOutMicro();
@@ -1062,7 +1063,8 @@ namespace Trizbort.UI.Controls
           break;
 
         case Keys.A:
-          switch (ModifierKeys) {
+          switch (ModifierKeys)
+          {
             case (Keys.Control | Keys.Shift):
               commandController.SelectRegions();
               break;
@@ -1147,7 +1149,8 @@ namespace Trizbort.UI.Controls
           break;
 
         case Keys.R:
-          switch (ModifierKeys) {
+          switch (ModifierKeys)
+          {
             case Keys.Control:
               commandController.SetRoomShape(RoomShape.RoundedCorners);
               break;
@@ -1183,14 +1186,15 @@ namespace Trizbort.UI.Controls
           }
           break;
         case Keys.D:
-          switch (ModifierKeys) {
+          switch (ModifierKeys)
+          {
             case Keys.None:
               commandController.SetConnectionLabel(ConnectionLabel.Down);
               break;
             case Keys.Control:
               if ((HasSingleSelectedElement) && (SelectedElement.GetType() == typeof(Room)))
               {
-                var x = (Room)SelectedElement;
+                var x = (Room) SelectedElement;
                 x.DeleteAllRoomConnections();
               }
               break;
@@ -1198,11 +1202,12 @@ namespace Trizbort.UI.Controls
           break;
         case Keys.OemSemicolon:
         case Keys.Oem5:
-          switch (ModifierKeys) {
+          switch (ModifierKeys)
+          {
             case Keys.None:
               if (HasSingleSelectedElement && (SelectedElement.GetType() == typeof(Room)))
               {
-                var room = (Room)SelectedElement;
+                var room = (Room) SelectedElement;
                 room.AdjustAllRoomConnections();
               }
               break;
@@ -1211,7 +1216,8 @@ namespace Trizbort.UI.Controls
               desc[0] = "NSEW";
               desc[1] = "diagonals";
               desc[2] = "all ports";
-              Settings.PortAdjustDetail++; Settings.PortAdjustDetail %= 3;
+              Settings.PortAdjustDetail++;
+              Settings.PortAdjustDetail %= 3;
               int x = 4 << Settings.PortAdjustDetail; // yeah this is cutesy code but it does the job
               if ((ModifierKeys & Keys.Shift) == Keys.Shift) //Shift pops up current port adjust detail
                 MessageBox.Show($"Available ports for readjustment {((Settings.PortAdjustDetail == 0) ? "de" : "in")}creased to {x} ({desc[Settings.PortAdjustDetail]}).", "Port Detail Adjust");
@@ -1245,12 +1251,12 @@ namespace Trizbort.UI.Controls
 
         case Keys.OemCloseBrackets:
         case Keys.OemOpenBrackets:
-            if ((HasSingleSelectedElement) && (SelectedElement.GetType() == typeof(Connection)))
-            {
-              var x = (Connection)SelectedElement; //first we see if there is a control key, then, which bracket
-              x.RotateConnector(ModifierKeys != Keys.Control, e.KeyCode == Keys.OemOpenBrackets);
-            }
-            break;
+          if ((HasSingleSelectedElement) && (SelectedElement.GetType() == typeof(Connection)))
+          {
+            var x = (Connection) SelectedElement; //first we see if there is a control key, then, which bracket
+            x.RotateConnector(ModifierKeys != Keys.Control, e.KeyCode == Keys.OemOpenBrackets);
+          }
+          break;
 
         case Keys.J:
           if (ModifierKeys == Keys.None)
@@ -1294,7 +1300,8 @@ namespace Trizbort.UI.Controls
 
         case Keys.K:
 
-          switch (ModifierKeys) {
+          switch (ModifierKeys)
+          {
             case Keys.None:
               commandController.SetRoomLighting(LightingActionType.Toggle);
               break;
@@ -1305,7 +1312,6 @@ namespace Trizbort.UI.Controls
               commandController.SetRoomLighting(LightingActionType.ForceDark);
               break;
           }
-
 
 
           break;
@@ -1411,12 +1417,12 @@ namespace Trizbort.UI.Controls
       if (moveForward)
       {
         index++;
-        newElement = list[index == list.Count ? 0 : index%(list.Count)];
+        newElement = list[index == list.Count ? 0 : index % (list.Count)];
       }
       else
       {
         index--;
-        newElement = list[index == -1 ? list.Count - 1 : index%(list.Count)];
+        newElement = list[index == -1 ? list.Count - 1 : index % (list.Count)];
       }
       var controller = new CanvasController();
       controller.EnsureVisible(newElement);
@@ -1447,9 +1453,9 @@ namespace Trizbort.UI.Controls
       if (SelectedElementCount == 0)
       {
         if (bHorizontal)
-          Origin += new Vector((bNegative ? -1 : 1)*Viewport.Width/(shift ? 5 : 10), 0);
+          Origin += new Vector((bNegative ? -1 : 1) * Viewport.Width / (shift ? 5 : 10), 0);
         else
-          Origin += new Vector(0, (bNegative ? -1 : 1)*Viewport.Width/(shift ? 5 : 10));
+          Origin += new Vector(0, (bNegative ? -1 : 1) * Viewport.Width / (shift ? 5 : 10));
       }
       else
       {
@@ -1770,8 +1776,8 @@ namespace Trizbort.UI.Controls
       {
         var conn = element;
 
-        var firstEndPoint = (Room.CompassPort)conn.VertexList[0].Port;
-        var secondEndPoint = (Room.CompassPort)conn.VertexList[1].Port;
+        var firstEndPoint = (Room.CompassPort) conn.VertexList[0].Port;
+        var secondEndPoint = (Room.CompassPort) conn.VertexList[1].Port;
 
         var firstRoomConnectionDir = firstEndPoint?.CompassPoint;
         var secondRoomConnectionDir = secondEndPoint?.CompassPoint;
@@ -1779,13 +1785,13 @@ namespace Trizbort.UI.Controls
         var firstOutDirection = RoughOpposite(firstRoomConnectionDir);
         var secondOutDirection = RoughOpposite(secondRoomConnectionDir);
 
-        bool overrideDir = 
-          firstOutDirection == CompassPoint.NorthEast && (compassPoint == CompassPoint.North || compassPoint == CompassPoint.East) || 
-          firstOutDirection == CompassPoint.NorthWest && (compassPoint == CompassPoint.North || compassPoint == CompassPoint.West) || 
-          firstOutDirection == CompassPoint.SouthEast && (compassPoint == CompassPoint.South || compassPoint == CompassPoint.East) || 
+        bool overrideDir =
+          firstOutDirection == CompassPoint.NorthEast && (compassPoint == CompassPoint.North || compassPoint == CompassPoint.East) ||
+          firstOutDirection == CompassPoint.NorthWest && (compassPoint == CompassPoint.North || compassPoint == CompassPoint.West) ||
+          firstOutDirection == CompassPoint.SouthEast && (compassPoint == CompassPoint.South || compassPoint == CompassPoint.East) ||
           firstOutDirection == CompassPoint.SouthWest && (compassPoint == CompassPoint.South || compassPoint == CompassPoint.West);
 
-        if (overrideDir || (firstOutDirection != null && EqualEnough(compassPoint, (CompassPoint)firstOutDirection)))
+        if (overrideDir || (firstOutDirection != null && EqualEnough(compassPoint, (CompassPoint) firstOutDirection)))
         {
           var tSelectedElement = conn.VertexList[0]?.Port?.Owner;
           if (tSelectedElement != null)
@@ -1805,7 +1811,7 @@ namespace Trizbort.UI.Controls
           secondOutDirection == CompassPoint.SouthEast && (compassPoint == CompassPoint.South || compassPoint == CompassPoint.East) ||
           secondOutDirection == CompassPoint.SouthWest && (compassPoint == CompassPoint.South || compassPoint == CompassPoint.West);
 
-        if (overrideDir || (secondOutDirection != null && EqualEnough(compassPoint, (CompassPoint)secondOutDirection)))
+        if (overrideDir || (secondOutDirection != null && EqualEnough(compassPoint, (CompassPoint) secondOutDirection)))
         {
           var tSelectedElement = conn.VertexList[1]?.Port?.Owner;
           if (tSelectedElement != null)
@@ -1818,7 +1824,6 @@ namespace Trizbort.UI.Controls
           }
           return false;
         }
-
       }
 
       return false;
@@ -1876,7 +1881,7 @@ namespace Trizbort.UI.Controls
       {
         var room = element;
         var rect = room.InnerBounds;
-        rect.Inflate(Settings.PreferredDistanceBetweenRooms + room.Width/2, Settings.PreferredDistanceBetweenRooms + room.Height/2);
+        rect.Inflate(Settings.PreferredDistanceBetweenRooms + room.Width / 2, Settings.PreferredDistanceBetweenRooms + room.Height / 2);
         var centerOfNewRoom = rect.GetCorner(compassPoint);
 
         var existing = hitTestElement(centerOfNewRoom, false);
@@ -1893,7 +1898,7 @@ namespace Trizbort.UI.Controls
           // new room entirely
           var newRoom = new Room(Project.Current)
           {
-            Position = new Vector(centerOfNewRoom.X - room.Width/2, centerOfNewRoom.Y - room.Height/2),
+            Position = new Vector(centerOfNewRoom.X - room.Width / 2, centerOfNewRoom.Y - room.Height / 2),
             Region = room.Region,
             Size = room.Size,
             Shape = room.Shape,
@@ -2101,17 +2106,19 @@ namespace Trizbort.UI.Controls
       connection.SetText(NewConnectionLabel);
       Project.Current.Elements.Add(connection);
       SelectedElement = connection;
-      mDragMovePort = (MoveablePort) connection.Ports[1];
+      mDragMovePort = (MoveablePort) connection.PortList[1];
       mDragOffsetCanvas = Settings.Snap(canvasPos - connection.VertexList[0].Position);
       hoverPort = null;
       dragMode = DragModes.MovePort;
       Capture = true;
     }
 
-    public void AddRoom(bool atCursor, bool insertRoom = false)
+    public Room AddRoom(bool atCursor, bool insertRoom = false, bool doRefresh = true)
     {
+      Room room;
+      room = new Room(Project.Current) {Size = mNewRoomSize};
+
       // Changed this to ignore ID gaps. ID gaps are resolved on load
-      var room = new Room(Project.Current) {Size = mNewRoomSize};
 
       Vector pos;
       if (atCursor && ClientRectangle.Contains(PointToClient(MousePosition)))
@@ -2122,11 +2129,11 @@ namespace Trizbort.UI.Controls
       else
       {
         // center on the origin
-        pos = new Vector(Origin.X - room.Size.X/2, Origin.Y - room.Size.Y/2);
+        pos = new Vector(Origin.X - room.Size.X / 2, Origin.Y - room.Size.Y / 2);
       }
 
       // rooms' origins are in the top left corner
-      pos -= room.Size/2;
+      pos -= room.Size / 2;
 
       // snap to the grid, if required
       pos = Settings.Snap(pos);
@@ -2187,7 +2194,10 @@ namespace Trizbort.UI.Controls
       }
 
       SelectedElement = room;
-      Refresh();
+      if (doRefresh)
+        Refresh();
+
+      return room;
     }
 
     private void doDragPan(PointF clientPos)
@@ -2582,7 +2592,7 @@ namespace Trizbort.UI.Controls
           // Rather than special casing this which might confuse the user as to
           // when they can draw lines and when they can't we make the general rule
           // that if you've got something selected you can't draw a line.
-          mPorts.AddRange(HoverElement.Ports);
+          mPorts.AddRange(HoverElement.PortList);
         }
       }
 
@@ -2593,7 +2603,7 @@ namespace Trizbort.UI.Controls
       if (needMovablePortsOnSelectedElement && HasSingleSelectedElement)
       {
         if (SelectedElement != null)
-          foreach (var port in SelectedElement.Ports.OfType<MoveablePort>())
+          foreach (var port in SelectedElement.PortList.OfType<MoveablePort>())
           {
             mPorts.Add(port);
           }
@@ -2661,7 +2671,7 @@ namespace Trizbort.UI.Controls
 
     public void ZoomOut()
     {
-      if (ZoomFactor > 1/10.00f)
+      if (ZoomFactor > 1 / 10.00f)
       {
         ZoomFactor /= 1.25f;
       }
@@ -2677,7 +2687,7 @@ namespace Trizbort.UI.Controls
 
     public void ZoomOutMicro()
     {
-      if (ZoomFactor > 1/10.00f)
+      if (ZoomFactor > 1 / 10.00f)
       {
         ZoomFactor -= 0.01f;
       }
@@ -2693,7 +2703,7 @@ namespace Trizbort.UI.Controls
         float xRatio = Width / canvasBounds.Width;
         float yRatio = Height / canvasBounds.Height;
 
-        ZoomFactor = Math.Max(Math.Min(xRatio, yRatio), 1/10f);
+        ZoomFactor = Math.Max(Math.Min(xRatio, yRatio), 1 / 10f);
       }
     }
 
@@ -2786,7 +2796,7 @@ namespace Trizbort.UI.Controls
         m_vScrollBar.Maximum = (int) Math.Max(topLeft.Y + displaySize.Y, clientBounds.Bottom) - 1; // -1 since Maximum is actually maximum value + 1; see MSDN.
         m_vScrollBar.Value = (int) Math.Max(m_vScrollBar.Minimum, Math.Min(m_vScrollBar.Maximum, topLeft.Y));
         m_vScrollBar.LargeChange = (int) displaySize.Y;
-        m_vScrollBar.SmallChange = (int) (displaySize.Y/10);
+        m_vScrollBar.SmallChange = (int) (displaySize.Y / 10);
       }
 
       if (!Settings.InfiniteScrollBounds && topLeft.X <= clientBounds.Left && topLeft.X + displaySize.X >= clientBounds.Right)
@@ -2800,7 +2810,7 @@ namespace Trizbort.UI.Controls
         m_hScrollBar.Maximum = (int) Math.Max(topLeft.X + displaySize.X, clientBounds.Right) - 1; // -1 since Maximum is actually maximum value + 1; see MSDN.
         m_hScrollBar.Value = (int) Math.Max(m_hScrollBar.Minimum, Math.Min(m_hScrollBar.Maximum, topLeft.X));
         m_hScrollBar.LargeChange = (int) displaySize.X;
-        m_hScrollBar.SmallChange = (int) (displaySize.X/10);
+        m_hScrollBar.SmallChange = (int) (displaySize.X / 10);
       }
 
       mUpdatingScrollBars = false;
@@ -2823,7 +2833,7 @@ namespace Trizbort.UI.Controls
         // scroll bar arrows to keep scrolling past the bounds.
         if (Math.Abs(clientDelta) != m_vScrollBar.SmallChange)
         {
-          clientDelta = m_vScrollBar.SmallChange*(e.Type == ScrollEventType.SmallIncrement ? 1 : -1);
+          clientDelta = m_vScrollBar.SmallChange * (e.Type == ScrollEventType.SmallIncrement ? 1 : -1);
         }
       }
       if (clientDelta != 0)
@@ -2851,411 +2861,135 @@ namespace Trizbort.UI.Controls
       NewConnectionStyle = ConnectionStyle.Solid;
       NewConnectionFlow = ConnectionFlow.TwoWay;
       NewConnectionLabel = ConnectionLabel.None;
-      mNewRoomSize = new Vector(Settings.GridSize*3, Settings.GridSize*2);
+      mNewRoomSize = new Vector(Settings.GridSize * 3, Settings.GridSize * 2);
       mNewRoomIsDark = false;
       mNewRoomObjectsPosition = CompassPoint.South;
       requestRecomputeSmartSegments();
       StopAutomapping();
-      roomTooltip.SetSuperTooltip(this,null);
+      roomTooltip.SetSuperTooltip(this, null);
     }
 
     public void CopySelectedElements()
     {
-      var clipboardText = "Elements";
-      foreach (var element in mSelectedElements)
-      {
-        clipboardText += "\r\n";
-        if (element is Room)
-        {
-          clipboardText += "room" + CopyDelimiter;
-          clipboardText += element.ID + CopyDelimiter;
-          clipboardText += ((Room) element).ClipboardPrint();
-        }
-        else if (element is Connection)
-        {
-          clipboardText += "line" + CopyDelimiter;
-          clipboardText += element.ID + CopyDelimiter;
-          clipboardText += ((Connection) element).ClipboardPrint();
-        }
-      }
-
-      Clipboard.SetText(clipboardText);
+      var controller = new CopyController();
+      controller.CopyElements(mSelectedElements);
     }
 
     public void CopySelectedColor()
     {
-      var clipboardText = "Colors";
-
+      var controller = new CopyController();
       if (SelectedElement is Room)
       {
-        clipboardText += "\r\n";
-        clipboardText += ((Room) SelectedElement).ClipboardColorPrint();
+        controller.CopyColors(SelectedElement as Room);
       }
-
-      Clipboard.SetText(clipboardText);
     }
 
     public void Paste(bool atCursor)
     {
-      var clipboardText = Clipboard.GetText();
+      var controller = new CopyController();
+      var objs = controller.PasteElements();
 
-      if (!string.IsNullOrEmpty(clipboardText))
+      if (objs.GetType() == typeof(CopyController.CopyObject))
       {
-        var elements = clipboardText.Replace("\r\n", "|").Split('|');
+        var xx = objs as CopyController.CopyObject;
+        pasteRooms(atCursor, xx, controller);
 
-        if (elements.Length > 0)
+      }
+      else if (objs.GetType() == typeof(CopyController.CopyColorsObj))
+      {
+        var xx = objs as CopyController.CopyColorsObj;
+        pasteColors(xx);
+      }
+
+    }
+
+    private void pasteColors(CopyController.CopyColorsObj xx)
+    {
+      foreach (var element in SelectedElements.OfType<Room>())
+      {
+        foreach (var obj in xx.Colors)
         {
-          if (elements[0] == "Elements")
-          {
-            var index = 1;
-
-            var newElements = new List<Element>();
-
-            var firstElement = true;
-            float firstX = 0;
-            float firstY = 0;
-            float newFirstX = 0;
-            float newFirstY = 0;
-            var removeElement = false;
-
-            newElements.Clear();
-
-            while (index < elements.Length)
-            {
-              var elementProperties = elements[index].Split(new[] {CopyDelimiter}, StringSplitOptions.None);
-
-              // Rooms and Lines both copy 15 items for their base attributes
-              if (elementProperties.Length > 14)
-              {
-                // Only load rooms on the first pass
-                if (elementProperties[0] == "room")
-                {
-                  AddRoom(atCursor); // Create the room
-
-                  var currentRoom = (Room) Project.Current.Elements[Project.Current.Elements.Count - 1]; // Link to the new room
-
-                  currentRoom.OldID = Convert.ToInt32(elementProperties[1]); // Keep a record of the old ID
-                  currentRoom.Name = elementProperties[2]; // Set the room's name
-
-                  // Check if it's the first element in the paste and record the old and new locations for reference
-                  if (firstElement)
-                  {
-                    firstX = Convert.ToSingle(elementProperties[3]);
-                    firstY = Convert.ToSingle(elementProperties[4]);
-                    newFirstX = currentRoom.X;
-                    newFirstY = currentRoom.Y;
-                    firstElement = false;
-                  }
-                  else // If it's not the first element then paste it relative to the new element
-                  {
-                    currentRoom.Position = new Vector(newFirstX + (Convert.ToSingle(elementProperties[3]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[4]) - firstY));
-                  }
-
-                  // Set the remaining attributes in the order they were copied
-                  currentRoom.Size = new Vector(Convert.ToSingle(elementProperties[5]), Convert.ToSingle(elementProperties[6]));
-                  currentRoom.IsDark = Convert.ToBoolean(elementProperties[7]);
-                  currentRoom.AddDescription(elementProperties[8]);
-                  currentRoom.Region = elementProperties[9];
-                  currentRoom.BorderStyle = (BorderDashStyle) Enum.Parse(typeof (BorderDashStyle), elementProperties[10]);
-
-                  currentRoom.StraightEdges = Convert.ToBoolean(elementProperties[11]);
-                  currentRoom.Ellipse = Convert.ToBoolean(elementProperties[12]);
-                  currentRoom.RoundedCorners = Convert.ToBoolean(elementProperties[13]);
-                  currentRoom.Octagonal = Convert.ToBoolean(elementProperties[14]);
-                  currentRoom.Corners.TopRight = Convert.ToDouble(elementProperties[15]);
-                  currentRoom.Corners.TopLeft = Convert.ToDouble(elementProperties[16]);
-                  currentRoom.Corners.BottomRight = Convert.ToDouble(elementProperties[17]);
-                  currentRoom.Corners.BottomLeft = Convert.ToDouble(elementProperties[18]);
-
-                  if (elementProperties[19] != "") currentRoom.RoomFill = ColorTranslator.FromHtml(elementProperties[19]);
-                  if (elementProperties[20] != "") currentRoom.SecondFill = ColorTranslator.FromHtml(elementProperties[20]);
-                  if (elementProperties[21] != "") currentRoom.SecondFillLocation = elementProperties[21];
-                  if (elementProperties[22] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[22]);
-                  if (elementProperties[23] != "") currentRoom.RoomLargeText = ColorTranslator.FromHtml(elementProperties[23]);
-                  if (elementProperties[24] != "") currentRoom.RoomSmallText = ColorTranslator.FromHtml(elementProperties[24]);
-                  if (elementProperties[25] != "") currentRoom.RoomBorder = ColorTranslator.FromHtml(elementProperties[25]);
-
-                  // Get ready to check for objects in the room (small text)
-                  var index2 = 26;
-                  var newObjects = "";
-
-                  // Cycle through all the objects
-                  while (index2 < elementProperties.Length)
-                  {
-                    // First attribute will be which direction the objects are written
-                    if (index2 == 26)
-                    {
-                      CompassPoint point;
-                      CompassPointHelper.FromName(elementProperties[26], out point);
-                      currentRoom.ObjectsPosition = point;
-                    }
-                    // If it's the last object then don't add \r\n on the end
-                    else if (index2 == elementProperties.Length - 1)
-                    {
-                      newObjects += elementProperties[index2];
-                    }
-                    // Add all other objects with \r\n
-                    else
-                    {
-                      newObjects += elementProperties[index2] + "\r\n";
-                    }
-                    ++index2;
-                  }
-                  // Ass the objects to the room
-                  currentRoom.Objects = newObjects;
-                  // Keep a record of the elements that are pasted
-                  newElements.Add(currentRoom);
-                }
-              }
-
-              ++index;
-            }
-
-            // Reset the index for a second pass
-            index = 1;
-
-            while (index < elements.Length)
-            {
-              var elementProperties = elements[index].Split(new[] {CopyDelimiter}, StringSplitOptions.None);
-
-              // Rooms and Lines both copy 15 items for their base attributes
-              if (elementProperties.Length > 14)
-              {
-                // Only load line on the second pass
-                if (elementProperties[0] == "line")
-                {
-                  // Create the new connection
-                  var currentConnection = new Connection(Project.Current);
-                  Project.Current.Elements.Add(currentConnection);
-
-                  // Set the connection style
-                  switch (elementProperties[2])
-                  {
-                    case "solid":
-                      currentConnection.Style = ConnectionStyle.Solid;
-                      break;
-                    case "dashed":
-                      currentConnection.Style = ConnectionStyle.Dashed;
-                      break;
-                    default:
-                      currentConnection.Style = ConnectionStyle.Solid;
-                      break;
-                  }
-
-                  // Set the connection Flow
-                  switch (elementProperties[3])
-                  {
-                    case "oneWay":
-                      currentConnection.Flow = ConnectionFlow.OneWay;
-                      break;
-                    case "twoWay":
-                      currentConnection.Flow = ConnectionFlow.TwoWay;
-                      break;
-                    default:
-                      currentConnection.Flow = ConnectionFlow.OneWay;
-                      break;
-                  }
-
-                  // connection color
-                  if (elementProperties[4] != "") currentConnection.ConnectionColor = ColorTranslator.FromHtml(elementProperties[4]);
-
-                  // Set the texts on the connection
-                  currentConnection.StartText = elementProperties[5];
-                  currentConnection.MidText = elementProperties[6];
-                  currentConnection.EndText = elementProperties[7];
-
-                  // Used to determine if the first vertex needs to be redone
-                  var firstVertexFound = true;
-
-                  // Check if the first vertex is a dock or a point
-                  if (elementProperties[8] == "dock")
-                  {
-                    // If this is the first element to be pasted
-                    if (firstElement)
-                    {
-                      // Check if the other vertex is a point
-                      if (elementProperties[12] == "point")
-                      {
-                        // record the location of the line both old and new
-                        firstX = Convert.ToSingle(elementProperties[14]);
-                        firstY = Convert.ToSingle(elementProperties[15]);
-                        newFirstX = 0;
-                        newFirstY = 0;
-                        firstElement = false;
-                      }
-                      else if (elementProperties[12] == "dock")
-                      {
-                        // The first element can not be a line with 2 docked ends. Mark this for removal
-                        removeElement = true;
-                      }
-                    }
-
-                    // Make sure that co-ordinates were able to be pasted
-                    if (!firstElement)
-                    {
-                      var foundDock = false;
-
-                      // Check all the previous elements that have been pasted
-                      foreach (var element in newElements)
-                      {
-                        // Check for rooms
-                        if (element is Room)
-                        {
-                          // See if it was the room that this used to be docked to
-                          if (((Room) element).OldID == Convert.ToInt32(elementProperties[10]))
-                          {
-                            // Determine the compass point for the dock
-                            CompassPoint point;
-                            CompassPointHelper.FromName(elementProperties[11], out point);
-
-                            // Add the first Vertex
-                            var vertexOne = new Vertex(((Room) element).PortAt(point));
-                            currentConnection.VertexList.Add(vertexOne);
-
-                            foundDock = true;
-                          }
-                        }
-                      }
-
-                      if (!foundDock)
-                      {
-                        firstVertexFound = false;
-                      }
-                    }
-                  }
-                  else if (elementProperties[8] == "point")
-                  {
-                    // If this is the first element then record the location of the line both old and new
-                    if (firstElement)
-                    {
-                      firstX = Convert.ToSingle(elementProperties[10]);
-                      firstY = Convert.ToSingle(elementProperties[11]);
-                      newFirstX = 0;
-                      newFirstY = 0;
-                      firstElement = false;
-                    }
-
-                    // Add the first Vertex
-                    var vectorOne = new Vector(newFirstX + (Convert.ToSingle(elementProperties[10]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[11]) - firstY));
-                    var vertexOne = new Vertex(vectorOne);
-                    currentConnection.VertexList.Add(vertexOne);
-                  }
-
-                  // Check if the second vertex is a dock or a point
-                  if (elementProperties[12] == "dock")
-                  {
-                    // If this is the first element to be pasted
-                    if (firstElement)
-                    {
-                      removeElement = true;
-                    }
-
-                    // Make sure that co-ordinates were able to be pasted
-                    if (!firstElement)
-                    {
-                      var foundDock = false;
-
-                      // Check all the previous elements that have been pasted
-                      foreach (var element in newElements)
-                      {
-                        // Check for rooms
-                        if (element is Room)
-                        {
-                          // See if it was the room that this used to be docked to
-                          if (((Room) element).OldID == Convert.ToInt32(elementProperties[14]))
-                          {
-                            // Determine the compass point for the dock
-                            CompassPoint point;
-                            CompassPointHelper.FromName(elementProperties[15], out point);
-
-                            // Add the first Vertex
-                            var vertexOne = new Vertex(((Room) element).PortAt(point));
-                            currentConnection.VertexList.Add(vertexOne);
-
-                            foundDock = true;
-                          }
-                        }
-                      }
-
-                      if (!foundDock)
-                      {
-                        var vectorOne = new Vector(currentConnection.VertexList[0].Position.X + 1, currentConnection.VertexList[0].Position.Y + 1);
-                        var vertexOne = new Vertex(vectorOne);
-                        currentConnection.VertexList.Add(vertexOne);
-                      }
-                    }
-                  }
-                  else if (elementProperties[12] == "point")
-                  {
-                    // If this is the first element then record the location of the line both old and new
-                    if (firstElement)
-                    {
-                      removeElement = true;
-                    }
-
-                    // Add the first Vertex
-                    var vectorOne = new Vector(newFirstX + (Convert.ToSingle(elementProperties[14]) - firstX), newFirstY + (Convert.ToSingle(elementProperties[15]) - firstY));
-                    var vertexOne = new Vertex(vectorOne);
-                    currentConnection.VertexList.Add(vertexOne);
-                  }
-
-                  if (!firstVertexFound)
-                  {
-                    var vectorOne = new Vector(currentConnection.VertexList[0].Position.X + 1, currentConnection.VertexList[0].Position.Y + 1);
-                    var vertexOne = new Vertex(vectorOne);
-                    currentConnection.VertexList.Add(vertexOne);
-                  }
-
-                  // Add the new connection to the list of pasted elements
-                  newElements.Add(currentConnection);
-                }
-              }
-
-              // If the connection was not pastable it will get flagged and removed
-              if (removeElement)
-              {
-                Project.Current.Elements.Remove(Project.Current.Elements[Project.Current.Elements.Count - 1]);
-                removeElement = false;
-              }
-
-
-              ++index;
-            }
-
-            mSelectedElements = newElements;
-          }
-
-          if (elements[0] == "Colors")
-          {
-            if (elements.Length > 1)
-            {
-              var pasteColors = elements[1].Split(':');
-
-              if (pasteColors.Length > 5)
-              {
-                var fillColor = pasteColors[0];
-                var secondFillColor = pasteColors[1];
-                var secondFillLocation = pasteColors[2];
-                var borderColor = pasteColors[3];
-                var largeTextColor = pasteColors[4];
-                var smallTextColor = pasteColors[5];
-
-                foreach (var element in SelectedElements)
-                {
-                  if (element is Room)
-                  {
-                    ((Room) element).RoomFill = ColorTranslator.FromHtml(fillColor);
-                    ((Room) element).SecondFill = ColorTranslator.FromHtml(secondFillColor);
-                    ((Room) element).SecondFillLocation = secondFillLocation;
-                    ((Room) element).RoomBorder = ColorTranslator.FromHtml(borderColor);
-                    ((Room) element).RoomLargeText = ColorTranslator.FromHtml(largeTextColor);
-                    ((Room) element).RoomSmallText = ColorTranslator.FromHtml(smallTextColor);
-                  }
-                }
-              }
-            }
-          }
+          var propertyInfo = element.GetType().GetProperty(obj.Name);
+          if (propertyInfo != null) propertyInfo.SetValue(element, obj.Color);
         }
+        element.SecondFillLocation = xx.SecondFillLocation;
+      }
+
+    }
+
+    private void pasteRooms(bool atCursor, CopyController.CopyObject xx, CopyController controller)
+    {
+      var newRooms = new List<Room>();
+      var newConnections = new List<Connection>();
+
+      if (xx != null)
+      {
+        bool firstElement = true;
+
+        float offsetX = 0;
+        float offsetY = 0;
+
+        foreach (var room in xx.Rooms)
+        {
+          var newRoom = AddRoom(atCursor, false, false);
+          newRooms.Add(newRoom);
+
+          // set room position
+          if (firstElement)
+          {
+            var firstX = room.Position.X;
+            var firstY = room.Position.Y;
+            var newFirstX = newRoom.X;
+            var newFirstY = newRoom.Y;
+            firstElement = false;
+            offsetX = firstX - newFirstX;
+            offsetY = firstY - newFirstY;
+          }
+          else
+          {
+            newRoom.Position = new Vector((room.Position.X - offsetX), (room.Position.Y - offsetY));
+          }
+
+          // set room properties
+          controller.SetRoom(newRoom, room);
+        }
+
+        Refresh();
+
+        foreach (var connection in xx.Connections)
+        {
+          var currentConnection = new Connection(Project.Current);
+          Project.Current.Elements.Add(currentConnection);
+
+          controller.SetConnection(currentConnection, connection);
+
+          foreach (var vertexObj in connection.VertextList)
+          {
+            if (vertexObj.Type == CopyController.VertexType.Dock)
+            {
+              var foundDock = newRooms.FirstOrDefault(p => p.OldID == vertexObj.OwnerId);
+              if (foundDock != null)
+              {
+                CompassPoint point;
+                CompassPointHelper.FromName(vertexObj.PortId, out point);
+                var vertexOne = new Vertex(foundDock.PortAt(point));
+                currentConnection.VertexList.Add(vertexOne);
+              }
+            }
+            else
+            {
+              var vectorOne = new Vector((Convert.ToSingle(vertexObj.Position.X) - offsetX), (Convert.ToSingle(vertexObj.Position.Y) - offsetY));
+              var vertexOne = new Vertex(vectorOne);
+              currentConnection.VertexList.Add(vertexOne);
+            }
+          }
+
+          newConnections.Add(currentConnection);
+        }
+
+        mSelectedElements.Clear();
+        mSelectedElements.AddRange(newRooms);
+        mSelectedElements.AddRange(newConnections);
       }
     }
 
@@ -3318,7 +3052,7 @@ namespace Trizbort.UI.Controls
 
           swapObjectsToolStripMenuItem.Enabled = SelectedRooms.Count == 2;
           joinRoomsToolStripMenuItem.Enabled = SelectedRooms.Count == 2 && !Project.Current.AreRoomsConnected(SelectedRooms);
-          
+
 
           darkToolStripMenuItem.Checked = lastSelectedRoom.IsDark;
         }

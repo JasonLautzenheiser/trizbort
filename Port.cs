@@ -22,6 +22,7 @@
     THE SOFTWARE.
 */
 
+using Newtonsoft.Json;
 using PdfSharp.Drawing;
 
 namespace Trizbort
@@ -29,7 +30,7 @@ namespace Trizbort
   /// <summary>
   ///   A docking point at which a connection's vertex may join to an element.
   /// </summary>
-  public abstract class Port
+  public class Port
   {
     protected Port(Element owner)
     {
@@ -41,7 +42,7 @@ namespace Trizbort
     /// <summary>
     ///   Get the unique identifier for this port amongst all of the owner's ports.
     /// </summary>
-    public abstract string ID { get; }
+    public virtual string ID { get; }
 
     public virtual Vector Position => Owner.GetPortPosition(this);
     public virtual bool HasStalk => StalkPosition != Position;

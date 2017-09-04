@@ -26,14 +26,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
+using Newtonsoft.Json;
 using PdfSharp.Drawing;
 using Trizbort.Properties;
 using Trizbort.UI;
+using Trizbort.UI.Controls;
 
 namespace Trizbort.Domain
 {
@@ -52,34 +53,33 @@ namespace Trizbort.Domain
     public const string Down = "down";
     public const string In = "in";
     public const string Out = "out";
-    private string name = string.Empty;
-    private string description = string.Empty;
     private const ConnectionStyle DEFAULT_STYLE = ConnectionStyle.Solid;
     private const ConnectionFlow DEFAULT_FLOW = ConnectionFlow.TwoWay;
     private readonly TextBlock mEndText = new TextBlock();
     private readonly TextBlock mMidText = new TextBlock();
     private readonly List<LineSegment> mSmartSegments = new List<LineSegment>();
     private readonly TextBlock mStartText = new TextBlock();
+    private string description = string.Empty;
+    private Door door;
     private Color mConnectionColor = Color.Transparent;
     private ConnectionFlow mFlow = DEFAULT_FLOW;
     private ConnectionStyle mStyle = DEFAULT_STYLE;
-    private Door door;
+    private string name = string.Empty;
 
-
-    public Connection(Project project)
-      : base(project)
+    public Connection()
     {
-      VertexList.Added += onVertexAdded;
-      VertexList.Removed += onVertexRemoved;
+    }
+
+    public Connection(Project project) : base(project)
+    {
+      initEvents();
     }
 
     // Added this second constructor to be used when loading a room
     // This constructor is significantly faster as it doesn't look for gap in the element IDs
-    public Connection(Project project, int totalIDs)
-      : base(project, totalIDs)
+    public Connection(Project project, int totalIDs) : base(project, totalIDs)
     {
-      VertexList.Added += onVertexAdded;
-      VertexList.Removed += onVertexRemoved;
+      initEvents();
     }
 
     public Connection(Project project, Vertex a, Vertex b)
@@ -101,9 +101,7 @@ namespace Trizbort.Domain
       : this(project, a, b)
     {
       foreach (var vertex in args)
-      {
         VertexList.Add(vertex);
-      }
     }
 
     // Added to ignore ID gaps
@@ -111,27 +109,12 @@ namespace Trizbort.Domain
       : this(project, a, b, totalIDs)
     {
       foreach (var vertex in args)
-      {
         VertexList.Add(vertex);
-      }
-    }
-
-    public Door Door
-    {
-      get { return door; }
-      set
-      {
-        if (door != value)
-        {
-          door = value;
-          RaiseChanged();
-        }
-      }
     }
 
     public Color ConnectionColor
     {
-      get { return mConnectionColor; }
+      get => mConnectionColor;
       set
       {
         if (mConnectionColor != value)
@@ -142,48 +125,11 @@ namespace Trizbort.Domain
       }
     }
 
-    public ConnectionStyle Style
-    {
-      get { return mStyle; }
-      set
-      {
-        if (mStyle != value)
-        {
-          mStyle = value;
-          RaiseChanged();
-        }
-      }
-    }
-
-    public ConnectionFlow Flow
-    {
-      get { return mFlow; }
-      set
-      {
-        if (mFlow != value)
-        {
-          mFlow = value;
-          RaiseChanged();
-        }
-      }
-    }
-
-    public override string Name
-    {
-      get { return name; }
-      set
-      {
-        if (name != value)
-        {
-          name = value;
-          RaiseChanged();
-        }
-      }
-    }
+    public override Depth Depth => Depth.High;
 
     public string Description
     {
-      get { return description; }
+      get => description;
       set
       {
         if (description != value)
@@ -194,27 +140,14 @@ namespace Trizbort.Domain
       }
     }
 
-    public string StartText
+    public Door Door
     {
-      get { return mStartText.Text; }
+      get => door;
       set
       {
-        if (mStartText.Text != value)
+        if (door != value)
         {
-          mStartText.Text = value;
-          RaiseChanged();
-        }
-      }
-    }
-
-    public string MidText
-    {
-      get { return mMidText.Text; }
-      set
-      {
-        if (mMidText.Text != value)
-        {
-          mMidText.Text = value;
+          door = value;
           RaiseChanged();
         }
       }
@@ -222,7 +155,7 @@ namespace Trizbort.Domain
 
     public string EndText
     {
-      get { return mEndText.Text; }
+      get => mEndText.Text;
       set
       {
         if (mEndText.Text != value)
@@ -233,44 +166,347 @@ namespace Trizbort.Domain
       }
     }
 
-    public BoundList<Vertex> VertexList { get; } = new BoundList<Vertex>();
-
-    public override Depth Depth => Depth.High;
-
-    public override bool HasDialog => true;
-
-    private void onVertexAdded(object sender, ItemEventArgs<Vertex> e)
+    public ConnectionFlow Flow
     {
-      e.Item.Connection = this;
-      e.Item.Changed += onVertexChanged;
-      PortList.Add(new VertexPort(e.Item, this));
-    }
-
-    private void onVertexRemoved(object sender, ItemEventArgs<Vertex> e)
-    {
-      e.Item.Connection = null;
-      e.Item.Changed -= onVertexChanged;
-      foreach (var port1 in PortList)
+      get => mFlow;
+      set
       {
-        var port = (VertexPort) port1;
-        if (port.Vertex == e.Item)
+        if (mFlow != value)
         {
-          PortList.Remove(port);
-          break;
+          mFlow = value;
+          RaiseChanged();
         }
       }
     }
 
-    private void onVertexChanged(object sender, EventArgs e)
+    public override bool HasDialog => true;
+
+    public string MidText
     {
-      RaiseChanged();
+      get => mMidText.Text;
+      set
+      {
+        if (mMidText.Text != value)
+        {
+          mMidText.Text = value;
+          RaiseChanged();
+        }
+      }
     }
 
-    public void SetText(string start, string mid, string end)
+    public override string Name
     {
-      StartText = start;
-      MidText = mid ?? MidText;
-      EndText = end;
+      get => name;
+      set
+      {
+        if (name != value)
+        {
+          name = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    public string StartText
+    {
+      get => mStartText.Text;
+      set
+      {
+        if (mStartText.Text != value)
+        {
+          mStartText.Text = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    public ConnectionStyle Style
+    {
+      get => mStyle;
+      set
+      {
+        if (mStyle != value)
+        {
+          mStyle = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    [JsonIgnore]
+    public BoundList<Vertex> VertexList { get; set; } = new BoundList<Vertex>();
+
+    public object BeginLoad(XmlElementReader element)
+    {
+      if (element.Attribute("door").Text == "yes")
+      {
+        Door = new Door();
+        Door.Lockable = element.Attribute("lockable").Text == "yes";
+        Door.Locked = element.Attribute("locked").Text == "yes";
+        Door.Open = element.Attribute("open").Text == "yes";
+        Door.Openable = element.Attribute("openable").Text == "yes";
+      }
+
+      switch (element.Attribute("style").Text)
+      {
+        default:
+          Style = ConnectionStyle.Solid;
+          break;
+        case "dashed":
+          Style = ConnectionStyle.Dashed;
+          break;
+      }
+      switch (element.Attribute("flow").Text)
+      {
+        default:
+          Flow = ConnectionFlow.TwoWay;
+          break;
+        case "oneWay":
+          Flow = ConnectionFlow.OneWay;
+          break;
+      }
+      Name = element.Attribute("name").Text;
+      Description = element.Attribute("description").Text;
+      StartText = element.Attribute("startText").Text;
+      MidText = element.Attribute("midText").Text;
+      EndText = element.Attribute("endText").Text;
+      if (element.Attribute("color").Text != "") ConnectionColor = ColorTranslator.FromHtml(element.Attribute("color").Text);
+
+      var vertexElementList = new List<XmlElementReader>();
+      vertexElementList.AddRange(element.Children);
+      vertexElementList.Sort((a, b) => a.Attribute("index").ToInt().CompareTo(b.Attribute("index").ToInt()));
+
+      foreach (var vertexElement in vertexElementList)
+        if (vertexElement.HasName("point"))
+        {
+          var vertex = new Vertex {Position = new Vector(vertexElement.Attribute("x").ToFloat(), vertexElement.Attribute("y").ToFloat())};
+          VertexList.Add(vertex);
+        }
+        else if (vertexElement.HasName("dock"))
+        {
+          var vertex = new Vertex();
+          // temporarily leave this vertex as a positional vertex;
+          // we can't safely dock it to a port until EndLoad().
+          VertexList.Add(vertex);
+        }
+
+      return vertexElementList;
+    }
+
+    public string ClipboardPrint()
+    {
+      var clipboardText = "";
+
+      switch (Style)
+      {
+        case ConnectionStyle.Solid:
+          clipboardText += "solid" + Canvas.CopyDelimiter;
+          break;
+        case ConnectionStyle.Dashed:
+          clipboardText += "dashed" + Canvas.CopyDelimiter;
+          break;
+        default:
+          clipboardText += "default" + Canvas.CopyDelimiter;
+          break;
+      }
+
+      switch (Flow)
+      {
+        case ConnectionFlow.OneWay:
+          clipboardText += "oneWay" + Canvas.CopyDelimiter;
+          break;
+        case ConnectionFlow.TwoWay:
+          clipboardText += "twoWay" + Canvas.CopyDelimiter;
+          break;
+        default:
+          clipboardText += "default" + Canvas.CopyDelimiter;
+          break;
+      }
+
+      clipboardText += Colors.SaveColor(ConnectionColor) + Canvas.CopyDelimiter;
+
+      clipboardText += StartText + Canvas.CopyDelimiter;
+      clipboardText += MidText + Canvas.CopyDelimiter;
+      clipboardText += EndText;
+
+      var index = 0;
+      foreach (var vertex in VertexList)
+      {
+        clipboardText += Canvas.CopyDelimiter;
+        if (vertex.Port != null)
+        {
+          clipboardText += "dock" + Canvas.CopyDelimiter;
+          clipboardText += index + Canvas.CopyDelimiter;
+          clipboardText += vertex.Port.Owner.ID + Canvas.CopyDelimiter;
+          clipboardText += vertex.Port.ID;
+        }
+        else
+        {
+          clipboardText += "point" + Canvas.CopyDelimiter;
+          clipboardText += index + Canvas.CopyDelimiter;
+          clipboardText += vertex.Position.X + Canvas.CopyDelimiter;
+          clipboardText += vertex.Position.Y;
+        }
+        ++index;
+      }
+
+      clipboardText += "";
+      return clipboardText;
+    }
+
+    public int ConnectedRoomToRotate(bool whichRoom)
+    {
+      //first, let's take care of cases where the right room is forced, if there is one
+      if (VertexList[0].Port == null && VertexList[0].Port == null) return -1;
+      if (VertexList[1].Port == null) return 0;
+      if (VertexList[0].Port == null) return 1;
+
+      var firstRoom = (Room) VertexList[0].Port.Owner;
+      var secondRoom = (Room) VertexList[1].Port.Owner;
+
+      var firstCenterY = firstRoom.Y + firstRoom.Height / 2;
+      var secondCenterY = secondRoom.Y + secondRoom.Height / 2;
+
+      if (firstCenterY < secondCenterY) return whichRoom ? 0 : 1;
+      if (firstCenterY > secondCenterY) return whichRoom ? 1 : 0;
+
+      var firstCenterX = firstRoom.Position.X + firstRoom.Height / 2;
+      var secondCenterX = secondRoom.Position.X + secondRoom.Height / 2;
+
+      if (firstCenterX < secondCenterX) return whichRoom ? 0 : 1;
+      if (firstCenterX > secondCenterX) return whichRoom ? 1 : 0;
+
+      return 1;
+    }
+
+
+    public override float Distance(Vector pos, bool includeMargins)
+    {
+      var distance = float.MaxValue;
+      foreach (var segment in getSegments())
+        distance = Math.Min(distance, pos.DistanceFromLineSegment(segment));
+      return distance;
+    }
+
+    public override void Draw(XGraphics graphics, Palette palette, DrawingContext context)
+    {
+      var lineSegments = context.UseSmartLineSegments ? mSmartSegments : getSegments();
+
+      foreach (var lineSegment in lineSegments)
+      {
+        var pen = palette.GetLinePen(context.Selected, context.Hover, Style == ConnectionStyle.Dashed);
+        Pen specialPen = null;
+
+        if (!context.Hover)
+          if (ConnectionColor != Color.Transparent && !context.Selected)
+          {
+            specialPen = (Pen) pen.Clone();
+            specialPen.Color = ConnectionColor;
+          }
+
+        if (!Settings.DebugDisableLineRendering)
+          graphics.DrawLine(specialPen ?? pen, lineSegment.Start.ToPointF(), lineSegment.End.ToPointF());
+        var delta = lineSegment.Delta;
+        if (Flow == ConnectionFlow.OneWay && delta.Length > Settings.ConnectionArrowSize)
+        {
+          var brush = (SolidBrush) palette.GetLineBrush(context.Selected, context.Hover);
+          SolidBrush specialBrush = null;
+
+          if (!context.Hover)
+            if (ConnectionColor != Color.Transparent && !context.Selected)
+            {
+              specialBrush = (SolidBrush) brush.Clone();
+              specialBrush.Color = ConnectionColor;
+            }
+
+          Drawing.DrawChevron(graphics, lineSegment.Mid.ToPointF(), (float) (Math.Atan2(delta.Y, delta.X) / Math.PI * 180), Settings.ConnectionArrowSize, specialBrush ?? brush);
+        }
+        context.LinesDrawn.Add(lineSegment);
+      }
+
+      if (door != null)
+        showDoorIcons(graphics, lineSegments[0]);
+
+      annotate(graphics, palette, lineSegments);
+    }
+
+    public void EndLoad(object state)
+    {
+      var elements = (List<XmlElementReader>) state;
+      for (var index = 0; index < elements.Count; ++index)
+      {
+        var element = elements[index];
+        if (element.HasName("dock"))
+        {
+          Element target;
+          if (Project.FindElement(element.Attribute("id").ToInt(), out target))
+          {
+            var portID = element.Attribute("port").Text;
+            foreach (var port in target.PortList)
+              if (StringComparer.InvariantCultureIgnoreCase.Compare(portID, port.ID) == 0)
+              {
+                var vertex = VertexList[index];
+                vertex.Port = port;
+                break;
+              }
+          }
+        }
+      }
+    }
+
+    public override Vector GetPortPosition(Port port)
+    {
+      var vertexPort = (VertexPort) port;
+      return vertexPort.Vertex.Position;
+    }
+
+    public override Vector GetPortStalkPosition(Port port)
+    {
+      return GetPortPosition(port);
+    }
+
+    public Room GetSourceRoom()
+    {
+      CompassPoint t;
+      return GetSourceRoom(out t);
+    }
+
+    public Room GetSourceRoom(out CompassPoint sourceCompassPoint)
+    {
+      if (VertexList.Count > 0)
+      {
+        var port = VertexList[0].Port;
+        if (port is Room.CompassPort)
+        {
+          var compassPort = (Room.CompassPort) port;
+          sourceCompassPoint = compassPort.CompassPoint;
+          return port.Owner as Room;
+        }
+      }
+      sourceCompassPoint = CompassPoint.North;
+      return null;
+    }
+
+    public Room GetTargetRoom()
+    {
+      CompassPoint t;
+      return GetTargetRoom(out t);
+    }
+
+    public Room GetTargetRoom(out CompassPoint targetCompassPoint)
+    {
+      if (VertexList.Count > 1)
+      {
+        var port = VertexList[VertexList.Count - 1].Port;
+        if (port is Room.CompassPort)
+        {
+          var compassPort = (Room.CompassPort) port;
+          targetCompassPoint = compassPort.CompassPoint;
+          return compassPort.Owner as Room;
+        }
+      }
+      targetCompassPoint = CompassPoint.North;
+      return null;
     }
 
     public static void GetText(ConnectionLabel label, out string start, out string end)
@@ -302,133 +538,36 @@ namespace Trizbort.Domain
       }
     }
 
-    public void SetText(ConnectionLabel label)
+    public override eTooltipColor GetToolTipColor()
     {
-      string start, end;
-      GetText(label, out start, out end);
-      SetText(start, null, end);
+      return Door == null ? eTooltipColor.Lemon : eTooltipColor.Apple;
     }
 
-    private List<LineSegment> getSegments()
+    public override string GetToolTipFooter()
     {
-      var list = new List<LineSegment>();
-      if (VertexList.Count > 0)
-      {
-        var first = VertexList[0];
-
-        var index = 0;
-        var a = VertexList[index++].Position;
-
-        if (first.Port != null && first.Port.HasStalk)
-        {
-          var stalkPos = first.Port.StalkPosition;
-          list.Add(new LineSegment(a, stalkPos));
-          a = stalkPos;
-        }
-
-        while (index < VertexList.Count)
-        {
-          var v = VertexList[index++];
-          var b = v.Position;
-
-          if (index == VertexList.Count && v.Port != null && v.Port.HasStalk)
-          {
-            var stalkPos = v.Port.StalkPosition;
-            list.Add(new LineSegment(a, stalkPos));
-            a = stalkPos;
-          }
-
-          list.Add(new LineSegment(a, b));
-          a = b;
-        }
-      }
-      return list;
+      return string.Empty;
     }
 
-    /// <summary>
-    ///   Split the given line segment if it crosses line segments we've already drawn.
-    /// </summary>
-    /// <param name="lineSegment">The line segment to consider.</param>
-    /// <param name="context">The context in which we've been drawing line segments.</param>
-    /// <param name="newSegments">
-    ///   The results of splitting the given line segment, if any. Call with a reference to a null
-    ///   list.
-    /// </param>
-    /// <returns>True if the line segment was split and newSegments now exists and contains line segments; false otherwise.</returns>
-    private bool split(LineSegment lineSegment, DrawingContext context, ref List<LineSegment> newSegments)
+    public override string GetToolTipHeader()
     {
-      foreach (var previousSegment in context.LinesDrawn)
-      {
-        var amount = Math.Max(1, Settings.LineWidth)*3;
-        List<LineSegmentIntersect> intersects;
-        if (lineSegment.Intersect(previousSegment, true, out intersects))
-        {
-          foreach (var intersect in intersects)
-          {
-            switch (intersect.Type)
-            {
-              case LineSegmentIntersectType.MidPointA:
-                var one = new LineSegment(lineSegment.Start, intersect.Position);
-                if (one.Shorten(amount))
-                {
-                  if (!split(one, context, ref newSegments))
-                  {
-                    if (newSegments == null)
-                    {
-                      newSegments = new List<LineSegment>();
-                    }
-                    newSegments.Add(one);
-                  }
-                }
-                var two = new LineSegment(intersect.Position, lineSegment.End);
-                if (two.Forshorten(amount))
-                {
-                  if (!split(two, context, ref newSegments))
-                  {
-                    if (newSegments == null)
-                    {
-                      newSegments = new List<LineSegment>();
-                    }
-                    newSegments.Add(two);
-                  }
-                }
-                break;
+      return $"{Name}{(Door != null ? $" (Door)" : string.Empty)}";
+    }
 
-              case LineSegmentIntersectType.StartA:
-                if (lineSegment.Forshorten(amount))
-                {
-                  if (!split(lineSegment, context, ref newSegments))
-                  {
-                    if (newSegments == null)
-                    {
-                      newSegments = new List<LineSegment>();
-                    }
-                    newSegments.Add(lineSegment);
-                  }
-                }
-                break;
+    public override string GetToolTipText()
+    {
+      return Description;
+    }
 
-              case LineSegmentIntersectType.EndA:
-                if (lineSegment.Shorten(amount))
-                {
-                  if (!split(lineSegment, context, ref newSegments))
-                  {
-                    if (newSegments == null)
-                    {
-                      newSegments = new List<LineSegment>();
-                    }
-                    newSegments.Add(lineSegment);
-                  }
-                }
-                break;
-            }
+    public override bool HasTooltip()
+    {
+      return true;
+    }
 
-            // don't check other intersects;
-            // we've already split this line, and tested the parts for further intersects.
-            return newSegments != null;
-          }
-        }
-      }
+    public override bool Intersects(Rect rect)
+    {
+      foreach (var segment in getSegments())
+        if (segment.IntersectsWith(rect))
+          return true;
       return false;
     }
 
@@ -439,79 +578,169 @@ namespace Trizbort.Domain
       {
         List<LineSegment> newSegments = null;
         if (split(lineSegment, context, ref newSegments))
-        {
           foreach (var newSegment in newSegments)
-          {
             mSmartSegments.Add(newSegment);
-          }
-        }
         else
-        {
           mSmartSegments.Add(lineSegment);
-        }
       }
 
       foreach (var segment in mSmartSegments)
-      {
         context.LinesDrawn.Add(segment);
+    }
+
+    public void Reverse()
+    {
+      VertexList.Reverse();
+      RaiseChanged();
+    }
+
+    public void RotateConnector(bool upperRoom, bool whichWay)
+    {
+      var upEnd = ConnectedRoomToRotate(upperRoom);
+      if (upEnd == -1) return;
+      var pointToChange = (Room.CompassPort) VertexList[ConnectedRoomToRotate(upperRoom)].Port;
+      var connRoom = (Room) pointToChange.Owner;
+      var dirToChange = pointToChange.CompassPoint;
+      var startDir = dirToChange;
+      do
+      {
+        if (whichWay)
+          dirToChange--;
+        else
+          dirToChange++;
+        if (dirToChange < CompassPoint.Min) dirToChange = CompassPoint.Max;
+        if (dirToChange > CompassPoint.Max) dirToChange = CompassPoint.Min;
+      } while (dirToChange != startDir && connRoom.GetConnections(dirToChange).Count > 0);
+
+      if (startDir == dirToChange)
+      {
+        MessageBox.Show($"There are no free ports in room {connRoom.Name}", "Connector rotate failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        return;
+      }
+      if (VertexList[upEnd].Port != connRoom.PortList[(int) dirToChange])
+      {
+        //this should always be different, but just in case...
+        VertexList[upEnd].Port = connRoom.PortList[(int) dirToChange];
+        RaiseChanged();
       }
     }
 
-    public override void Draw(XGraphics graphics, Palette palette, DrawingContext context)
+    public void Save(XmlScribe scribe)
     {
-      var lineSegments = context.UseSmartLineSegments ? mSmartSegments : getSegments();
-
-      foreach (var lineSegment in lineSegments)
+      scribe.Attribute("name", Name);
+      scribe.Attribute("description", Description);
+      if (Door != null)
       {
-        var pen = palette.GetLinePen(context.Selected, context.Hover, Style == ConnectionStyle.Dashed);
-        Pen specialPen = null;
-
-        if (!context.Hover)
-          if ((ConnectionColor != Color.Transparent) && !context.Selected)
-          {
-            specialPen = (Pen) pen.Clone();
-            specialPen.Color = ConnectionColor;
-          }
-
-        if (!Settings.DebugDisableLineRendering)
-        {
-          graphics.DrawLine(specialPen ?? pen, lineSegment.Start.ToPointF(), lineSegment.End.ToPointF());
-        }
-        var delta = lineSegment.Delta;
-        if (Flow == ConnectionFlow.OneWay && delta.Length > Settings.ConnectionArrowSize)
-        {
-          var brush = (SolidBrush) palette.GetLineBrush(context.Selected, context.Hover);
-          SolidBrush specialBrush = null;
-
-          if (!context.Hover)
-            if ((ConnectionColor != Color.Transparent) && !context.Selected)
-            {
-              specialBrush = (SolidBrush) brush.Clone();
-              specialBrush.Color = ConnectionColor;
-            }
-
-          Drawing.DrawChevron(graphics, lineSegment.Mid.ToPointF(), (float) (Math.Atan2(delta.Y, delta.X)/Math.PI*180), Settings.ConnectionArrowSize, specialBrush ?? brush);
-        }
-        context.LinesDrawn.Add(lineSegment);
+        scribe.Attribute("door", true);
+        scribe.Attribute("lockable", door.Lockable);
+        scribe.Attribute("openable", door.Openable);
+        scribe.Attribute("locked", door.Locked);
+        scribe.Attribute("open", door.Open);
       }
+      if (ConnectionColor != Color.Transparent)
+        scribe.Attribute("color", Colors.SaveColor(ConnectionColor));
 
-      if (door != null)
+
+      if (Style != DEFAULT_STYLE)
+        switch (Style)
+        {
+          case ConnectionStyle.Solid:
+            scribe.Attribute("style", "solid");
+            break;
+          case ConnectionStyle.Dashed:
+            scribe.Attribute("style", "dashed");
+            break;
+        }
+      if (Flow != DEFAULT_FLOW)
+        switch (Flow)
+        {
+          case ConnectionFlow.OneWay:
+            scribe.Attribute("flow", "oneWay");
+            break;
+          case ConnectionFlow.TwoWay:
+            scribe.Attribute("flow", "twoWay");
+            break;
+        }
+
+      if (!string.IsNullOrEmpty(StartText))
+        scribe.Attribute("startText", StartText);
+      if (!string.IsNullOrEmpty(MidText))
+        scribe.Attribute("midText", MidText);
+      if (!string.IsNullOrEmpty(EndText))
+        scribe.Attribute("endText", EndText);
+
+      var index = 0;
+      foreach (var vertex in VertexList)
       {
-        showDoorIcons(graphics, lineSegments[0]);
+        if (vertex.Port != null)
+        {
+          scribe.StartElement("dock");
+          scribe.Attribute("index", index);
+          scribe.Attribute("id", vertex.Port.Owner.ID);
+          scribe.Attribute("port", vertex.Port.ID);
+          scribe.EndElement();
+        }
+        else
+        {
+          scribe.StartElement("point");
+          scribe.Attribute("index", index);
+          scribe.Attribute("x", vertex.Position.X);
+          scribe.Attribute("y", vertex.Position.Y);
+          scribe.EndElement();
+        }
+        ++index;
       }
-
-      annotate(graphics, palette, lineSegments);
     }
 
-    private void showDoorIcons(XGraphics graphics, LineSegment lineSegment)
+    public void SetText(string start, string mid, string end)
     {
+      StartText = start;
+      MidText = mid ?? MidText;
+      EndText = end;
+    }
 
-      var doorIcon = door.Open ? new Bitmap(Resources.Door_Open) : new Bitmap(Resources.Door);
-      var doorLock = door.Locked ? new Bitmap(Resources.Lock) : new Bitmap(Resources.Unlocked);
-      lineSegment.IconBlock1.Image = doorIcon;
-      lineSegment.IconBlock2.Image = doorLock;
+    public void SetText(ConnectionLabel label)
+    {
+      string start, end;
+      GetText(label, out start, out end);
+      SetText(start, null, end);
+    }
 
-      lineSegment.DrawIcons(graphics);
+    public override void ShowDialog()
+    {
+      using (var dialog = new ConnectionPropertiesDialog())
+      {
+        dialog.ConnectionName = Name;
+        dialog.ConnectionDescription = Description;
+        dialog.IsDotted = Style == ConnectionStyle.Dashed;
+        dialog.IsDirectional = Flow == ConnectionFlow.OneWay;
+        dialog.StartText = StartText;
+        dialog.MidText = MidText;
+        dialog.EndText = EndText;
+        dialog.ConnectionColor = ConnectionColor;
+        dialog.Door = Door;
+        if (dialog.ShowDialog(Project.Canvas) == DialogResult.OK)
+        {
+          Name = dialog.ConnectionName;
+          Description = dialog.ConnectionDescription;
+          Style = dialog.IsDotted ? ConnectionStyle.Dashed : ConnectionStyle.Solid;
+          Flow = dialog.IsDirectional ? ConnectionFlow.OneWay : ConnectionFlow.TwoWay;
+          ConnectionColor = dialog.ConnectionColor;
+          StartText = dialog.StartText;
+          MidText = dialog.MidText;
+          EndText = dialog.EndText;
+          Door = dialog.Door;
+        }
+      }
+    }
+
+
+    public override Rect UnionBoundsWith(Rect rect, bool includeMargins)
+    {
+      foreach (var vertex in VertexList)
+        rect = rect.Union(vertex.Position);
+
+      return rect;
     }
 
     private void annotate(XGraphics graphics, Palette palette, List<LineSegment> lineSegments)
@@ -520,24 +749,17 @@ namespace Trizbort.Domain
         return;
 
       if (!string.IsNullOrEmpty(StartText))
-      {
         annotate(graphics, palette, lineSegments[0], mStartText, StringAlignment.Near);
-      }
 
       if (!string.IsNullOrEmpty(EndText))
-      {
         annotate(graphics, palette, lineSegments[lineSegments.Count - 1], mEndText, StringAlignment.Far);
-      }
 
       if (!string.IsNullOrEmpty(MidText))
       {
         var totalLength = lineSegments.Sum(lineSegment => lineSegment.Length);
-        var middle = totalLength/2;
-        if (lineSegments.Count%2 == 1) // with default values, middle text is horizontally but not vertically centered
-        {
-          //We usually have 3 line segments but in some cases we might not e.g. if there are no stalks
-          middle += 4.0f*Settings.SubtitleFont.Height/5;
-        }
+        var middle = totalLength / 2;
+        if (lineSegments.Count % 2 == 1) // with default values, middle text is horizontally but not vertically centered
+          middle += 4.0f * Settings.SubtitleFont.Height / 5;
         foreach (var lineSegment in lineSegments)
         {
           var length = lineSegment.Length;
@@ -548,8 +770,8 @@ namespace Trizbort.Domain
           else
           {
             middle /= length;
-            var pos = lineSegment.Start + lineSegment.Delta*middle;
-            var fakeSegment = new LineSegment(pos - lineSegment.Delta*Numeric.Small, pos + lineSegment.Delta*Numeric.Small);
+            var pos = lineSegment.Start + lineSegment.Delta * middle;
+            var fakeSegment = new LineSegment(pos - lineSegment.Delta * Numeric.Small, pos + lineSegment.Delta * Numeric.Small);
             annotate(graphics, palette, fakeSegment, mMidText, StringAlignment.Center);
             break;
           }
@@ -596,444 +818,158 @@ namespace Trizbort.Domain
 
 
       if (!Settings.DebugDisableTextRendering)
-      {
-
         text.Draw(graphics, Settings.SubtitleFont, palette.LineTextBrush, pos, Vector.Zero, format);
-      }
     }
-    
 
-    public override Rect UnionBoundsWith(Rect rect, bool includeMargins)
+    private List<LineSegment> getSegments()
     {
-      foreach (var vertex in VertexList)
+      var list = new List<LineSegment>();
+      if (VertexList.Count > 0)
       {
-        rect = rect.Union(vertex.Position);
-      }
+        var first = VertexList[0];
 
-      return rect;
-    }
+        var index = 0;
+        var a = VertexList[index++].Position;
 
-    public override Vector GetPortPosition(Port port)
-    {
-      var vertexPort = (VertexPort) port;
-      return vertexPort.Vertex.Position;
-    }
-
-    public override Vector GetPortStalkPosition(Port port)
-    {
-      return GetPortPosition(port);
-    }
-
-    public override string GetToolTipText()
-    {
-      return Description;
-    }
-
-    public override eTooltipColor GetToolTipColor()
-    {
-
-      return Door == null ? eTooltipColor.Lemon : eTooltipColor.Apple;
-    }
-
-    public override string GetToolTipFooter()
-    {
-      return string.Empty;
-    }
-
-    public override string GetToolTipHeader()
-    {
-      return $"{Name}{(Door != null ? $" (Door)" : string.Empty)}";
-    }
-
-    public override bool HasTooltip()
-    {
-      return true;
-    }
-
-
-    public override float Distance(Vector pos, bool includeMargins)
-    {
-      var distance = float.MaxValue;
-      foreach (var segment in getSegments())
-      {
-        distance = Math.Min(distance, pos.DistanceFromLineSegment(segment));
-      }
-      return distance;
-    }
-
-    public override bool Intersects(Rect rect)
-    {
-      foreach (var segment in getSegments())
-      {
-        if (segment.IntersectsWith(rect))
+        if (first.Port != null && first.Port.HasStalk)
         {
-          return true;
+          var stalkPos = first.Port.StalkPosition;
+          list.Add(new LineSegment(a, stalkPos));
+          a = stalkPos;
         }
+
+        while (index < VertexList.Count)
+        {
+          var v = VertexList[index++];
+          var b = v.Position;
+
+          if (index == VertexList.Count && v.Port != null && v.Port.HasStalk)
+          {
+            var stalkPos = v.Port.StalkPosition;
+            list.Add(new LineSegment(a, stalkPos));
+            a = stalkPos;
+          }
+
+          list.Add(new LineSegment(a, b));
+          a = b;
+        }
+      }
+      return list;
+    }
+
+    private void initEvents()
+    {
+      VertexList.Added += onVertexAdded;
+      VertexList.Removed += onVertexRemoved;
+    }
+
+    private void onVertexAdded(object sender, ItemEventArgs<Vertex> e)
+    {
+      e.Item.Connection = this;
+      e.Item.Changed += onVertexChanged;
+      PortList.Add(new VertexPort(e.Item, this));
+    }
+
+    private void onVertexChanged(object sender, EventArgs e)
+    {
+      RaiseChanged();
+    }
+
+    private void onVertexRemoved(object sender, ItemEventArgs<Vertex> e)
+    {
+      e.Item.Connection = null;
+      e.Item.Changed -= onVertexChanged;
+      foreach (var port1 in PortList)
+      {
+        var port = (VertexPort) port1;
+        if (port.Vertex == e.Item)
+        {
+          PortList.Remove(port);
+          break;
+        }
+      }
+    }
+
+    private void showDoorIcons(XGraphics graphics, LineSegment lineSegment)
+    {
+      var doorIcon = door.Open ? new Bitmap(Resources.Door_Open) : new Bitmap(Resources.Door);
+      var doorLock = door.Locked ? new Bitmap(Resources.Lock) : new Bitmap(Resources.Unlocked);
+      lineSegment.IconBlock1.Image = doorIcon;
+      lineSegment.IconBlock2.Image = doorLock;
+
+      lineSegment.DrawIcons(graphics);
+    }
+
+    /// <summary>
+    ///   Split the given line segment if it crosses line segments we've already drawn.
+    /// </summary>
+    /// <param name="lineSegment">The line segment to consider.</param>
+    /// <param name="context">The context in which we've been drawing line segments.</param>
+    /// <param name="newSegments">
+    ///   The results of splitting the given line segment, if any. Call with a reference to a null
+    ///   list.
+    /// </param>
+    /// <returns>True if the line segment was split and newSegments now exists and contains line segments; false otherwise.</returns>
+    private bool split(LineSegment lineSegment, DrawingContext context, ref List<LineSegment> newSegments)
+    {
+      foreach (var previousSegment in context.LinesDrawn)
+      {
+        var amount = Math.Max(1, Settings.LineWidth) * 3;
+        List<LineSegmentIntersect> intersects;
+        if (lineSegment.Intersect(previousSegment, true, out intersects))
+          foreach (var intersect in intersects)
+          {
+            switch (intersect.Type)
+            {
+              case LineSegmentIntersectType.MidPointA:
+                var one = new LineSegment(lineSegment.Start, intersect.Position);
+                if (one.Shorten(amount))
+                  if (!split(one, context, ref newSegments))
+                  {
+                    if (newSegments == null)
+                      newSegments = new List<LineSegment>();
+                    newSegments.Add(one);
+                  }
+                var two = new LineSegment(intersect.Position, lineSegment.End);
+                if (two.Forshorten(amount))
+                  if (!split(two, context, ref newSegments))
+                  {
+                    if (newSegments == null)
+                      newSegments = new List<LineSegment>();
+                    newSegments.Add(two);
+                  }
+                break;
+
+              case LineSegmentIntersectType.StartA:
+                if (lineSegment.Forshorten(amount))
+                  if (!split(lineSegment, context, ref newSegments))
+                  {
+                    if (newSegments == null)
+                      newSegments = new List<LineSegment>();
+                    newSegments.Add(lineSegment);
+                  }
+                break;
+
+              case LineSegmentIntersectType.EndA:
+                if (lineSegment.Shorten(amount))
+                  if (!split(lineSegment, context, ref newSegments))
+                  {
+                    if (newSegments == null)
+                      newSegments = new List<LineSegment>();
+                    newSegments.Add(lineSegment);
+                  }
+                break;
+            }
+
+            // don't check other intersects;
+            // we've already split this line, and tested the parts for further intersects.
+            return newSegments != null;
+          }
       }
       return false;
     }
 
-    public override void ShowDialog()
-    {
-      using (var dialog = new ConnectionPropertiesDialog())
-      {
-        dialog.ConnectionName = Name;
-        dialog.ConnectionDescription = Description;
-        dialog.IsDotted = Style == ConnectionStyle.Dashed;
-        dialog.IsDirectional = Flow == ConnectionFlow.OneWay;
-        dialog.StartText = StartText;
-        dialog.MidText = MidText;
-        dialog.EndText = EndText;
-        dialog.ConnectionColor = ConnectionColor;
-        dialog.Door = Door;
-        if (dialog.ShowDialog(Project.Canvas) == DialogResult.OK)
-        {
-          Name = dialog.ConnectionName;
-          Description = dialog.ConnectionDescription;
-          Style = dialog.IsDotted ? ConnectionStyle.Dashed : ConnectionStyle.Solid;
-          Flow = dialog.IsDirectional ? ConnectionFlow.OneWay : ConnectionFlow.TwoWay;
-          ConnectionColor = dialog.ConnectionColor;
-          StartText = dialog.StartText;
-          MidText = dialog.MidText;
-          EndText = dialog.EndText;
-          Door = dialog.Door;
-        }
-      }
-    }
-
-    public void Save(XmlScribe scribe)
-    {
-      scribe.Attribute("name", Name);
-      scribe.Attribute("description", Description);
-      if (Door != null)
-      {
-        scribe.Attribute("door", true);
-        scribe.Attribute("lockable", door.Lockable);
-        scribe.Attribute("openable", door.Openable);
-        scribe.Attribute("locked", door.Locked);
-        scribe.Attribute("open", door.Open);
-      }
-      if (ConnectionColor != Color.Transparent)
-        scribe.Attribute("color", Colors.SaveColor(ConnectionColor));
-
-
-      if (Style != DEFAULT_STYLE)
-      {
-        switch (Style)
-        {
-          case ConnectionStyle.Solid:
-            scribe.Attribute("style", "solid");
-            break;
-          case ConnectionStyle.Dashed:
-            scribe.Attribute("style", "dashed");
-            break;
-        }
-      }
-      if (Flow != DEFAULT_FLOW)
-      {
-        switch (Flow)
-        {
-          case ConnectionFlow.OneWay:
-            scribe.Attribute("flow", "oneWay");
-            break;
-          case ConnectionFlow.TwoWay:
-            scribe.Attribute("flow", "twoWay");
-            break;
-        }
-      }
-
-      if (!string.IsNullOrEmpty(StartText))
-      {
-        scribe.Attribute("startText", StartText);
-      }
-      if (!string.IsNullOrEmpty(MidText))
-      {
-        scribe.Attribute("midText", MidText);
-      }
-      if (!string.IsNullOrEmpty(EndText))
-      {
-        scribe.Attribute("endText", EndText);
-      }
-
-      var index = 0;
-      foreach (var vertex in VertexList)
-      {
-        if (vertex.Port != null)
-        {
-          scribe.StartElement("dock");
-          scribe.Attribute("index", index);
-          scribe.Attribute("id", vertex.Port.Owner.ID);
-          scribe.Attribute("port", vertex.Port.ID);
-          scribe.EndElement();
-        }
-        else
-        {
-          scribe.StartElement("point");
-          scribe.Attribute("index", index);
-          scribe.Attribute("x", vertex.Position.X);
-          scribe.Attribute("y", vertex.Position.Y);
-          scribe.EndElement();
-        }
-        ++index;
-      }
-
-
-    }
-
-    public object BeginLoad(XmlElementReader element)
-    {
-
-      if (element.Attribute("door").Text == "yes")
-      {
-        Door = new Door();
-        Door.Lockable = element.Attribute("lockable").Text == "yes";
-        Door.Locked = element.Attribute("locked").Text == "yes";
-        Door.Open = element.Attribute("open").Text == "yes";
-        Door.Openable = element.Attribute("openable").Text == "yes";
-      }
-
-      switch (element.Attribute("style").Text)
-      {
-        default:
-          Style = ConnectionStyle.Solid;
-          break;
-        case "dashed":
-          Style = ConnectionStyle.Dashed;
-          break;
-      }
-      switch (element.Attribute("flow").Text)
-      {
-        default:
-          Flow = ConnectionFlow.TwoWay;
-          break;
-        case "oneWay":
-          Flow = ConnectionFlow.OneWay;
-          break;
-      }
-      Name = element.Attribute("name").Text;
-      Description = element.Attribute("description").Text;
-      StartText = element.Attribute("startText").Text;
-      MidText = element.Attribute("midText").Text;
-      EndText = element.Attribute("endText").Text;
-      if (element.Attribute("color").Text != "") { ConnectionColor = ColorTranslator.FromHtml(element.Attribute("color").Text); }
-
-      var vertexElementList = new List<XmlElementReader>();
-      vertexElementList.AddRange(element.Children);
-      vertexElementList.Sort((a, b) => a.Attribute("index").ToInt().CompareTo(b.Attribute("index").ToInt()));
-
-      foreach (var vertexElement in vertexElementList)
-      {
-        if (vertexElement.HasName("point"))
-        {
-          var vertex = new Vertex {Position = new Vector(vertexElement.Attribute("x").ToFloat(), vertexElement.Attribute("y").ToFloat())};
-          VertexList.Add(vertex);
-        }
-        else if (vertexElement.HasName("dock"))
-        {
-          var vertex = new Vertex();
-          // temporarily leave this vertex as a positional vertex;
-          // we can't safely dock it to a port until EndLoad().
-          VertexList.Add(vertex);
-        }
-      }
-
-      return vertexElementList;
-    }
-
-    public void EndLoad(object state)
-    {
-      var elements = (List<XmlElementReader>) state;
-      for (var index = 0; index < elements.Count; ++index)
-      {
-        var element = elements[index];
-        if (element.HasName("dock"))
-        {
-          Element target;
-          if (Project.FindElement(element.Attribute("id").ToInt(), out target))
-          {
-            var portID = element.Attribute("port").Text;
-            foreach (var port in target.Ports)
-            {
-              if (StringComparer.InvariantCultureIgnoreCase.Compare(portID, port.ID) == 0)
-              {
-                var vertex = VertexList[index];
-                vertex.Port = port;
-                break;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    public void Reverse()
-    {
-      VertexList.Reverse();
-      RaiseChanged();
-    }
-
-    public Room GetSourceRoom()
-    {
-      CompassPoint t;
-      return GetSourceRoom(out t);
-    }
-
-    public Room GetTargetRoom()
-    {
-      CompassPoint t;
-      return GetTargetRoom(out t);
-    }
-
-    public Room GetSourceRoom(out CompassPoint sourceCompassPoint)
-    {
-      if (VertexList.Count > 0)
-      {
-        var port = VertexList[0].Port;
-        if (port is Room.CompassPort)
-        {
-          var compassPort = (Room.CompassPort) port;
-          sourceCompassPoint = compassPort.CompassPoint;
-          return port.Owner as Room;
-        }
-      }
-      sourceCompassPoint = CompassPoint.North;
-      return null;
-    }
-
-    public int ConnectedRoomToRotate(bool whichRoom)
-    {
-      //first, let's take care of cases where the right room is forced, if there is one
-      if ((VertexList[0].Port == null) && (VertexList[0].Port == null)) return -1;
-      if (VertexList[1].Port == null) return 0;
-      if (VertexList[0].Port == null) return 1;
-
-      var firstRoom = (Room) VertexList[0].Port.Owner;
-      var secondRoom = (Room) VertexList[1].Port.Owner;
-
-      var firstCenterY = firstRoom.Y + firstRoom.Height/2;
-      var secondCenterY = secondRoom.Y + secondRoom.Height/2;
-
-      if (firstCenterY < secondCenterY) { return whichRoom ? 0 : 1; }
-      if (firstCenterY > secondCenterY) { return whichRoom ? 1 : 0; }
-
-      var firstCenterX = firstRoom.Position.X + firstRoom.Height/2;
-      var secondCenterX = secondRoom.Position.X + secondRoom.Height/2;
-
-      if (firstCenterX < secondCenterX) { return whichRoom ? 0 : 1; }
-      if (firstCenterX > secondCenterX) { return whichRoom ? 1 : 0; }
-
-      return 1;
-    }
-
-    public void RotateConnector(bool upperRoom, bool whichWay)
-    {
-      var upEnd = ConnectedRoomToRotate(upperRoom);
-      if (upEnd == -1) { return; }
-      var pointToChange = (Room.CompassPort) VertexList[ConnectedRoomToRotate(upperRoom)].Port;
-      var connRoom = (Room) pointToChange.Owner;
-      var dirToChange = pointToChange.CompassPoint;
-      var startDir = dirToChange;
-      do
-      {
-        if (whichWay)
-          dirToChange--;
-        else
-          dirToChange++;
-        if (dirToChange < CompassPoint.Min) { dirToChange = CompassPoint.Max; }
-        if (dirToChange > CompassPoint.Max) { dirToChange = CompassPoint.Min; }
-      } while ((dirToChange != startDir) && (connRoom.GetConnections(dirToChange).Count > 0));
-
-      if (startDir == dirToChange)
-      {
-        MessageBox.Show($"There are no free ports in room {connRoom.Name}", "Connector rotate failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        return;
-      }
-      if (VertexList[upEnd].Port != connRoom.Ports[(int) dirToChange])
-      {
-        //this should always be different, but just in case...
-        VertexList[upEnd].Port = connRoom.Ports[(int) dirToChange];
-        RaiseChanged();
-      }
-    }
-
-    public Room GetTargetRoom(out CompassPoint targetCompassPoint)
-    {
-      if (VertexList.Count > 1)
-      {
-        var port = VertexList[VertexList.Count - 1].Port;
-        if (port is Room.CompassPort)
-        {
-          var compassPort = (Room.CompassPort) port;
-          targetCompassPoint = compassPort.CompassPoint;
-          return compassPort.Owner as Room;
-        }
-      }
-      targetCompassPoint = CompassPoint.North;
-      return null;
-    }
-
-    public string ClipboardPrint()
-    {
-      var clipboardText = "";
-
-      switch (Style)
-      {
-        case ConnectionStyle.Solid:
-          clipboardText += "solid" + UI.Controls.Canvas.CopyDelimiter;
-          break;
-        case ConnectionStyle.Dashed:
-          clipboardText += "dashed" + UI.Controls.Canvas.CopyDelimiter;
-          break;
-        default:
-          clipboardText += "default" + UI.Controls.Canvas.CopyDelimiter;
-          break;
-      }
-
-      switch (Flow)
-      {
-        case ConnectionFlow.OneWay:
-          clipboardText += "oneWay" + UI.Controls.Canvas.CopyDelimiter;
-          break;
-        case ConnectionFlow.TwoWay:
-          clipboardText += "twoWay" + UI.Controls.Canvas.CopyDelimiter;
-          break;
-        default:
-          clipboardText += "default" + UI.Controls.Canvas.CopyDelimiter;
-          break;
-      }
-
-      clipboardText += Colors.SaveColor(ConnectionColor) + UI.Controls.Canvas.CopyDelimiter;
-
-      clipboardText += StartText + UI.Controls.Canvas.CopyDelimiter;
-      clipboardText += MidText + UI.Controls.Canvas.CopyDelimiter;
-      clipboardText += EndText;
-
-      var index = 0;
-      foreach (var vertex in VertexList)
-      {
-        clipboardText += UI.Controls.Canvas.CopyDelimiter;
-        if (vertex.Port != null)
-        {
-          clipboardText += "dock" + UI.Controls.Canvas.CopyDelimiter;
-          clipboardText += index + UI.Controls.Canvas.CopyDelimiter;
-          clipboardText += vertex.Port.Owner.ID + UI.Controls.Canvas.CopyDelimiter;
-          clipboardText += vertex.Port.ID;
-        }
-        else
-        {
-          clipboardText += "point" + UI.Controls.Canvas.CopyDelimiter;
-          clipboardText += index + UI.Controls.Canvas.CopyDelimiter;
-          clipboardText += vertex.Position.X + UI.Controls.Canvas.CopyDelimiter;
-          clipboardText += vertex.Position.Y;
-        }
-        ++index;
-      }
-
-      clipboardText += "";
-      return clipboardText;
-    }
-
-    internal class VertexPort : MoveablePort
+    public class VertexPort : MoveablePort
     {
       public VertexPort(Vertex vertex, Connection connection) : base(connection)
       {
@@ -1041,22 +977,23 @@ namespace Trizbort.Domain
         Connection = connection;
       }
 
-      public override string ID => Connection.VertexList.IndexOf(Vertex).ToString(CultureInfo.InvariantCulture);
+      public Connection Connection { get; }
 
       public override Port DockedAt => Vertex.Port;
 
-      public Vertex Vertex { get; }
-      public Connection Connection { get; }
+      public override string ID => Connection.VertexList.IndexOf(Vertex).ToString(CultureInfo.InvariantCulture);
 
-      public override void SetPosition(Vector pos)
-      {
-        Vertex.Position = pos;
-        Connection.RaiseChanged();
-      }
+      public Vertex Vertex { get; }
 
       public override void DockAt(Port port)
       {
         Vertex.Port = port;
+        Connection.RaiseChanged();
+      }
+
+      public override void SetPosition(Vector pos)
+      {
+        Vertex.Position = pos;
         Connection.RaiseChanged();
       }
     }

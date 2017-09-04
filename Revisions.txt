@@ -7,6 +7,7 @@ Change Log
 	- check for new versioned files and show warning when loading map (#353)
 	- Trizbort now will detect changes to loaded map from another application and ask to reload the map (#365)
 	- Fixed issue where Trizbort wasn't saving the last loaded project if that map was loaded from most recent maps menu (#364)
+	- Refactored the copy / paste giving some code optimizations and fixing some copy bugs where some properties were not getting copied. (#379, TRIZ-145, TRIZ-152, TRIZ-47)
 
 1.5.9.9
 -------------

@@ -24,33 +24,27 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using DevComponents.DotNetBar;
+using Newtonsoft.Json;
 using PdfSharp.Drawing;
 
 namespace Trizbort
 {
-  /// <summary>
-  ///   An element in the project, represented visually on the canvas.
-  /// </summary>
-  /// <remarks>
-  ///   Elements have a position and size and may be drawn.
-  ///   Elements have zero or more ports to which connections may be made.
-  /// </remarks>
-  public abstract class Element : IComparable<Element>, IComponent
+  public class Element : IComparable<Element>
   {
     private int m_id;
 
+    private int zOrder;
+
+    public Element()
+    {
+      initElement(null);
+    }
+
     public Element(Project project)
     {
-      Ports = new ReadOnlyCollection<Port>(PortList);
-      Project = project;
-      var id = 1;
-      while (Project.IsElementIDInUse(id))
-      {
-        ++id;
-      }
+      initElement(project);
+      var id = GetNextID();
       ID = id;
     }
 
@@ -58,38 +52,9 @@ namespace Trizbort
     // This constructor is significantly faster as it doesn't look for gap in the element IDs
     public Element(Project project, int TotalIDs)
     {
-      Ports = new ReadOnlyCollection<Port>(PortList);
-      Project = project;
+      initElement(project);
       ID = TotalIDs;
     }
-
-    /// <summary>
-    ///   Get the project of which this element is part.
-    /// </summary>
-    /// <remarks>
-    ///   The project defines the namespace in which element identifiers are unique.
-    /// </remarks>
-    public Project Project { get; }
-
-    /// <summary>
-    ///   Get the unique identifier of this element.
-    /// </summary>
-    public int ID
-    {
-      get { return m_id; }
-      set
-      {
-        if (!Project.IsElementIDInUse(value))
-        {
-          m_id = value;
-        }
-      }
-    }
-
-    public virtual string Name { get; set; }
-
-    private int zOrder = 0;
-    public virtual int ZOrder { get => zOrder; set { zOrder = value; RaiseChanged(); } }
 
     /// <summary>
     ///   Get the drawing priority of this element.
@@ -100,9 +65,9 @@ namespace Trizbort
     public virtual Depth Depth => Depth.Low;
 
     /// <summary>
-    ///   Get/set whether to raise change events.
+    ///   Get/set whether this element is flagged. For temporary use by the Canvas when traversing elements.
     /// </summary>
-    protected bool RaiseChangedEvents { get; set; } = true;
+    public bool Flagged { get; set; }
 
     /// <summary>
     ///   Get whether the element has a properties dialog which may be displayed.
@@ -110,21 +75,46 @@ namespace Trizbort
     public virtual bool HasDialog => false;
 
     /// <summary>
-    ///   Get the collection of ports on the element.
+    ///   Get the unique identifier of this element.
     /// </summary>
-    public ReadOnlyCollection<Port> Ports { get; }
+    public int ID
+    {
+      get => m_id;
+      set
+      {
+        if (Project != null)
+          if (!Project.IsElementIDInUse(value))
+            m_id = value;
+      }
+    }
+
+    public virtual string Name { get; set; }
 
     /// <summary>
     ///   Get the collection of ports on the element.
     /// </summary>
-    protected List<Port> PortList { get; } = new List<Port>();
-
-    /// <summary>
-    ///   Get/set whether this element is flagged. For temporary use by the Canvas when traversing elements.
-    /// </summary>
-    public bool Flagged { get; set; }
+    [JsonIgnore]
+    public List<Port> PortList { get; set; } = new List<Port>();
 
     public virtual Vector Position { get; set; }
+
+    [JsonIgnore]
+    public Project Project { get; set; }
+
+    public virtual int ZOrder
+    {
+      get => zOrder;
+      set
+      {
+        zOrder = value;
+        RaiseChanged();
+      }
+    }
+
+    /// <summary>
+    ///   Get/set whether to raise change events.
+    /// </summary>
+    protected bool RaiseChangedEvents { get; set; } = true;
 
     /// <summary>
     ///   Compare this element to another.
@@ -143,12 +133,15 @@ namespace Trizbort
       {
         delta = ZOrder.CompareTo(element.ZOrder);
         if (delta == 0)
-        {
           delta = ID.CompareTo(element.ID);
-        }
       }
       return delta;
     }
+
+    /// <summary>
+    ///   Event raised when the element changes.
+    /// </summary>
+    public event EventHandler Changed;
 
     public virtual void Dispose()
     {
@@ -156,30 +149,86 @@ namespace Trizbort
       Disposed?.Invoke(this, EventArgs.Empty);
     }
 
-    public ISite Site { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
-
     public event EventHandler Disposed;
 
     /// <summary>
-    ///   Event raised when the element changes.
+    ///   Get the distance from this element to the given point.
     /// </summary>
-    public event EventHandler Changed;
-
-    /// <summary>
-    ///   Raise the Changed event.
-    /// </summary>
-    protected void RaiseChanged()
+    /// <param name="includeMargins">True to include suitable margins around elements which need them; false otherwise.</param>
+    public virtual float Distance(Vector pos, bool includeMargins)
     {
-      if (!RaiseChangedEvents) return;
-      var changed = Changed;
-      changed?.Invoke(this, EventArgs.Empty);
+      return 0.0f;
     }
 
     /// <summary>
-    ///   Recompute any "smart" line segments we use when drawing.
+    ///   Draw the element.
     /// </summary>
-    public virtual void RecomputeSmartLineSegments(DrawingContext context)
+    /// <param name="graphics">The graphics with which to draw.</param>
+    /// <param name="palette">The palette from which to obtain drawing tools.</param>
+    /// <param name="context">The context in which drawing is taking place.</param>
+    public virtual void Draw(XGraphics graphics, Palette palette, DrawingContext context)
     {
+    }
+
+    public int GetNextID()
+    {
+      var id = 1;
+      while (Project.IsElementIDInUse(id))
+        ++id;
+      return id;
+    }
+
+    /// <summary>
+    ///   Get the position of a given port on the element.
+    /// </summary>
+    /// <param name="port">The port in question.</param>
+    /// <returns>The position of the port.</returns>
+    public virtual Vector GetPortPosition(Port port)
+    {
+      return new Vector(0, 0);
+    }
+
+    /// <summary>
+    ///   Get the position of the end of the "stalk" on the given port; or the port position if none.
+    /// </summary>
+    /// <param name="port">The port in question.</param>
+    /// <returns>The position of the end of the stalk, or the port position.</returns>
+    public virtual Vector GetPortStalkPosition(Port port)
+    {
+      return new Vector(0, 0);
+    }
+
+    public virtual eTooltipColor GetToolTipColor()
+    {
+      return eTooltipColor.Blue;
+    }
+
+    public virtual string GetToolTipFooter()
+    {
+      return string.Empty;
+    }
+
+    public virtual string GetToolTipHeader()
+    {
+      return string.Empty;
+    }
+
+    public virtual string GetToolTipText()
+    {
+      return string.Empty;
+    }
+
+    public virtual bool HasTooltip()
+    {
+      return false;
+    }
+
+    /// <summary>
+    ///   Get whether this element intersects the given rectangle.
+    /// </summary>
+    public virtual bool Intersects(Rect rect)
+    {
+      return false;
     }
 
     /// <summary>
@@ -195,12 +244,18 @@ namespace Trizbort
     }
 
     /// <summary>
-    ///   Draw the element.
+    ///   Recompute any "smart" line segments we use when drawing.
     /// </summary>
-    /// <param name="graphics">The graphics with which to draw.</param>
-    /// <param name="palette">The palette from which to obtain drawing tools.</param>
-    /// <param name="context">The context in which drawing is taking place.</param>
-    public abstract void Draw(XGraphics graphics, Palette palette, DrawingContext context);
+    public virtual void RecomputeSmartLineSegments(DrawingContext context)
+    {
+    }
+
+    /// <summary>
+    ///   Display the element's properties dialog.
+    /// </summary>
+    public virtual void ShowDialog()
+    {
+    }
 
     /// <summary>
     ///   Enlarge the given rectangle so as to fully incorporate this element.
@@ -214,46 +269,24 @@ namespace Trizbort
     ///   For that usage, includeMargins should be set to true.
     ///   For more exacting bounds tests, includeMargins should be set to false.
     /// </remarks>
-    public abstract Rect UnionBoundsWith(Rect rect, bool includeMargins);
-
-    /// <summary>
-    ///   Get the distance from this element to the given point.
-    /// </summary>
-    /// <param name="includeMargins">True to include suitable margins around elements which need them; false otherwise.</param>
-    public abstract float Distance(Vector pos, bool includeMargins);
-
-    /// <summary>
-    ///   Get whether this element intersects the given rectangle.
-    /// </summary>
-    public abstract bool Intersects(Rect rect);
-
-    /// <summary>
-    ///   Display the element's properties dialog.
-    /// </summary>
-    public virtual void ShowDialog()
+    public virtual Rect UnionBoundsWith(Rect rect, bool includeMargins)
     {
+      return new Rect();
     }
 
     /// <summary>
-    ///   Get the position of a given port on the element.
+    ///   Raise the Changed event.
     /// </summary>
-    /// <param name="port">The port in question.</param>
-    /// <returns>The position of the port.</returns>
-    public abstract Vector GetPortPosition(Port port);
+    protected void RaiseChanged()
+    {
+      if (!RaiseChangedEvents) return;
+      var changed = Changed;
+      changed?.Invoke(this, EventArgs.Empty);
+    }
 
-    /// <summary>
-    ///   Get the position of the end of the "stalk" on the given port; or the port position if none.
-    /// </summary>
-    /// <param name="port">The port in question.</param>
-    /// <returns>The position of the end of the stalk, or the port position.</returns>
-    public abstract Vector GetPortStalkPosition(Port port);
-
-    public abstract string GetToolTipText();
-    public abstract eTooltipColor GetToolTipColor();
-    public abstract string GetToolTipFooter();
-    public abstract string GetToolTipHeader();
-    public abstract bool HasTooltip();
-
-
+    private void initElement(Project project)
+    {
+      Project = project;
+    }
   }
 }

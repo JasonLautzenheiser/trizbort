@@ -77,110 +77,89 @@ namespace Trizbort
       "nnw"
     };
 
-    public static CompassPoint DirectionFromAngle(out float angle, Vector delta)
+
+    public static double CalcRadianForEllipse(CompassPoint point, Rect rect)
     {
-      angle = (float)-(Math.Atan2(delta.Y, delta.X) / Math.PI * 180.0);
-      var compassPoint = CompassPoint.East;
-      if (Numeric.InRange(angle, 0, 45))
-      {
-        compassPoint = CompassPoint.NorthWest;
-      }
-      else if (Numeric.InRange(angle, 45, 90))
-      {
-        compassPoint = CompassPoint.SouthEast;
-      }
-      else if (Numeric.InRange(angle, 90, 135))
-      {
-        compassPoint = CompassPoint.SouthWest;
-      }
-      else if (Numeric.InRange(angle, 135, 180))
-      {
-        compassPoint = CompassPoint.NorthEast;
-      }
-      else if (Numeric.InRange(angle, 0, -45))
-      {
-        compassPoint = CompassPoint.NorthEast;
-      }
-      else if (Numeric.InRange(angle, -45, -90))
-      {
-        compassPoint = CompassPoint.NorthEast;
-      }
-      else if (Numeric.InRange(angle, -90, -135))
-      {
-        compassPoint = CompassPoint.NorthWest;
-      }
-      else if (Numeric.InRange(angle, -135, -180))
-      {
-        compassPoint = CompassPoint.SouthEast;
-      }
-      return compassPoint;
+      var angleIncrement = 360.0 / 16.0;
+      var i = getPointIntegerValue(point);
+      return i * angleIncrement * (Math.PI / 180);
     }
 
-
-    public static bool ToName(CompassPoint point, out string name)
+    public static CompassPoint DirectionFromAngle(out float angle, Vector delta)
     {
-      var index = (int) point;
-      if (index >= 0 && index < Names.Length)
-      {
-        name = Names[index];
-        return true;
-      }
-      name = string.Empty;
-      return false;
+      angle = (float) -(Math.Atan2(delta.Y, delta.X) / Math.PI * 180.0);
+      var compassPoint = CompassPoint.East;
+      if (Numeric.InRange(angle, 0, 45))
+        compassPoint = CompassPoint.NorthWest;
+      else if (Numeric.InRange(angle, 45, 90))
+        compassPoint = CompassPoint.SouthEast;
+      else if (Numeric.InRange(angle, 90, 135))
+        compassPoint = CompassPoint.SouthWest;
+      else if (Numeric.InRange(angle, 135, 180))
+        compassPoint = CompassPoint.NorthEast;
+      else if (Numeric.InRange(angle, 0, -45))
+        compassPoint = CompassPoint.NorthEast;
+      else if (Numeric.InRange(angle, -45, -90))
+        compassPoint = CompassPoint.NorthEast;
+      else if (Numeric.InRange(angle, -90, -135))
+        compassPoint = CompassPoint.NorthWest;
+      else if (Numeric.InRange(angle, -135, -180))
+        compassPoint = CompassPoint.SouthEast;
+      return compassPoint;
     }
 
     public static bool FromName(string name, out CompassPoint point)
     {
       for (var index = 0; index < Names.Length; ++index)
-      {
         if (StringComparer.InvariantCultureIgnoreCase.Compare(name ?? string.Empty, Names[index]) == 0)
         {
           point = (CompassPoint) index;
           return true;
         }
-      }
       point = CompassPoint.North;
       return false;
     }
 
     /// <summary>
-    ///   Rotate a point clockwise to find its neighbour on that side.
+    ///   Get the direction delta (where x and y are range -1 to 1) in which
+    ///   we would place a new room given a connection in the given direction.
     /// </summary>
-    public static CompassPoint RotateClockwise(CompassPoint point)
+    /// <remarks>
+    ///   Two compass points have the same direction vector if they are mapped
+    ///   onto the the same side of a box drawn to represent the room.
+    /// </remarks>
+    public static Vector GetAutomapDirectionVector(CompassPoint compassPoint)
     {
-      point = (CompassPoint) ((int) point + 1);
-      if (point > CompassPoint.Max)
+      switch (compassPoint)
       {
-        point = CompassPoint.Min;
+        case CompassPoint.NorthNorthWest:
+        case CompassPoint.North:
+        case CompassPoint.NorthNorthEast:
+          return new Vector(0, -1);
+        case CompassPoint.NorthEast:
+          return new Vector(1, -1);
+        case CompassPoint.EastNorthEast:
+        case CompassPoint.East:
+        case CompassPoint.EastSouthEast:
+          return new Vector(1, 0);
+        case CompassPoint.SouthEast:
+          return new Vector(1, 1);
+        case CompassPoint.SouthSouthEast:
+        case CompassPoint.South:
+        case CompassPoint.SouthSouthWest:
+          return new Vector(0, 1);
+        case CompassPoint.SouthWest:
+          return new Vector(-1, 1);
+        case CompassPoint.WestSouthWest:
+        case CompassPoint.West:
+        case CompassPoint.WestNorthWest:
+          return new Vector(-1, 0);
+        case CompassPoint.NorthWest:
+          return new Vector(-1, -1);
+        default:
+          Debug.Assert(false, "Direction vector not found.");
+          return new Vector(0, -1);
       }
-      return point;
-    }
-
-    /// <summary>
-    ///   Rotate a point anti-clockwise to find its neighbour on that side.
-    /// </summary>
-    public static CompassPoint RotateAntiClockwise(CompassPoint point)
-    {
-      point = (CompassPoint) ((int) point - 1);
-      if (point < CompassPoint.Min)
-      {
-        point = CompassPoint.Max;
-      }
-      return point;
-    }
-
-    /// <summary>
-    ///   Get the geometric opposite of a compass point on the compass rose.
-    /// </summary>
-    /// <param name="point"></param>
-    /// <returns></returns>
-    public static CompassPoint GetOpposite(CompassPoint point)
-    {
-      for (var index = 0; index < (CompassPoint.Max - CompassPoint.Min + 1)/2; ++index)
-      {
-        point = RotateClockwise(point);
-      }
-      return point;
     }
 
     /// <summary>
@@ -235,87 +214,6 @@ namespace Trizbort
     }
 
     /// <summary>
-    ///   Get the direction delta (where x and y are range -1 to 1) in which
-    ///   we would place a new room given a connection in the given direction.
-    /// </summary>
-    /// <remarks>
-    ///   Two compass points have the same direction vector if they are mapped
-    ///   onto the the same side of a box drawn to represent the room.
-    /// </remarks>
-    public static Vector GetAutomapDirectionVector(CompassPoint compassPoint)
-    {
-      switch (compassPoint)
-      {
-        case CompassPoint.NorthNorthWest:
-        case CompassPoint.North:
-        case CompassPoint.NorthNorthEast:
-          return new Vector(0, -1);
-        case CompassPoint.NorthEast:
-          return new Vector(1, -1);
-        case CompassPoint.EastNorthEast:
-        case CompassPoint.East:
-        case CompassPoint.EastSouthEast:
-          return new Vector(1, 0);
-        case CompassPoint.SouthEast:
-          return new Vector(1, 1);
-        case CompassPoint.SouthSouthEast:
-        case CompassPoint.South:
-        case CompassPoint.SouthSouthWest:
-          return new Vector(0, 1);
-        case CompassPoint.SouthWest:
-          return new Vector(-1, 1);
-        case CompassPoint.WestSouthWest:
-        case CompassPoint.West:
-        case CompassPoint.WestNorthWest:
-          return new Vector(-1, 0);
-        case CompassPoint.NorthWest:
-          return new Vector(-1, -1);
-        default:
-          Debug.Assert(false, "Direction vector not found.");
-          return new Vector(0, -1);
-      }
-    }
-
-    public static CompassPoint GetCompassPointFromDirectionVector(Vector vector)
-    {
-      if (vector.X < 0)
-      {
-        if (vector.Y < 0)
-        {
-          return CompassPoint.NorthWest;
-        }
-        if (vector.Y > 0)
-        {
-          return CompassPoint.SouthWest;
-        }
-        return CompassPoint.West;
-      }
-      if (vector.X > 0)
-      {
-        if (vector.Y < 0)
-        {
-          return CompassPoint.NorthEast;
-        }
-        if (vector.Y > 0)
-        {
-          return CompassPoint.SouthEast;
-        }
-        return CompassPoint.East;
-      }
-      if (vector.Y < 0)
-      {
-        return CompassPoint.North;
-      }
-      if (vector.Y > 0)
-      {
-        return CompassPoint.South;
-      }
-
-      Debug.Assert(false, "Automap direction vector should not be zero.");
-      return CompassPoint.North;
-    }
-
-    /// <summary>
     ///   Convert an automap direction into a compass point.
     ///   Compass directions map directly; up/down/in/out are assigned specific other diretions.
     /// </summary>
@@ -353,6 +251,33 @@ namespace Trizbort
       }
     }
 
+    public static CompassPoint GetCompassPointFromDirectionVector(Vector vector)
+    {
+      if (vector.X < 0)
+      {
+        if (vector.Y < 0)
+          return CompassPoint.NorthWest;
+        if (vector.Y > 0)
+          return CompassPoint.SouthWest;
+        return CompassPoint.West;
+      }
+      if (vector.X > 0)
+      {
+        if (vector.Y < 0)
+          return CompassPoint.NorthEast;
+        if (vector.Y > 0)
+          return CompassPoint.SouthEast;
+        return CompassPoint.East;
+      }
+      if (vector.Y < 0)
+        return CompassPoint.North;
+      if (vector.Y > 0)
+        return CompassPoint.South;
+
+      Debug.Assert(false, "Automap direction vector should not be zero.");
+      return CompassPoint.North;
+    }
+
     /// <summary>
     ///   "Round" the compass point to the nearest cardinal or ordinal direction.
     /// </summary>
@@ -361,14 +286,89 @@ namespace Trizbort
       return GetCompassPointFromDirectionVector(GetAutomapDirectionVector(compassPoint));
     }
 
-
-    public static double CalcRadianForEllipse(CompassPoint point, Rect rect)
+    /// <summary>
+    ///   Get the geometric opposite of a compass point on the compass rose.
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
+    public static CompassPoint GetOpposite(CompassPoint point)
     {
-      var angleIncrement = 360.0/16.0;
-      var i = getPointIntegerValue(point);
-      return (i * angleIncrement) * (Math.PI / 180);
+      for (var index = 0; index < (CompassPoint.Max - CompassPoint.Min + 1) / 2; ++index)
+        point = RotateClockwise(point);
+      return point;
     }
 
+    /// <summary>
+    ///   Get the literal opposite of any direction.
+    /// </summary>
+    public static AutomapDirection GetOpposite(AutomapDirection direction)
+    {
+      switch (direction)
+      {
+        case AutomapDirection.North:
+          return AutomapDirection.South;
+        case AutomapDirection.South:
+          return AutomapDirection.North;
+        case AutomapDirection.East:
+          return AutomapDirection.West;
+        case AutomapDirection.West:
+          return AutomapDirection.East;
+        case AutomapDirection.NorthEast:
+          return AutomapDirection.SouthWest;
+        case AutomapDirection.NorthWest:
+          return AutomapDirection.SouthEast;
+        case AutomapDirection.SouthEast:
+          return AutomapDirection.NorthWest;
+        case AutomapDirection.SouthWest:
+          return AutomapDirection.NorthEast;
+        case AutomapDirection.Up:
+          return AutomapDirection.Down;
+        case AutomapDirection.Down:
+          return AutomapDirection.Up;
+        case AutomapDirection.In:
+          return AutomapDirection.Out;
+        case AutomapDirection.Out:
+          return AutomapDirection.In;
+        default:
+          Debug.Assert(false, "Couldn't work out the opposite of the given direction.");
+          return AutomapDirection.North;
+      }
+    }
+
+    /// <summary>
+    ///   Rotate a point anti-clockwise to find its neighbour on that side.
+    /// </summary>
+    public static CompassPoint RotateAntiClockwise(CompassPoint point)
+    {
+      point = (CompassPoint) ((int) point - 1);
+      if (point < CompassPoint.Min)
+        point = CompassPoint.Max;
+      return point;
+    }
+
+    /// <summary>
+    ///   Rotate a point clockwise to find its neighbour on that side.
+    /// </summary>
+    public static CompassPoint RotateClockwise(CompassPoint point)
+    {
+      point = (CompassPoint) ((int) point + 1);
+      if (point > CompassPoint.Max)
+        point = CompassPoint.Min;
+      return point;
+    }
+
+
+    public static bool ToName(CompassPoint point, out string name)
+    {
+      var index = (int) point;
+      if (index >= 0 && index < Names.Length)
+      {
+        name = Names[index];
+        return true;
+      }
+      name = string.Empty;
+      return false;
+    }
 
 
     private static int getPointIntegerValue(CompassPoint point)
@@ -409,43 +409,6 @@ namespace Trizbort
           return 11;
         default:
           throw new ArgumentOutOfRangeException(nameof(point), point, null);
-      }
-    }
-
-    /// <summary>
-    ///   Get the literal opposite of any direction.
-    /// </summary>
-    public static AutomapDirection GetOpposite(AutomapDirection direction)
-    {
-      switch (direction)
-      {
-        case AutomapDirection.North:
-          return AutomapDirection.South;
-        case AutomapDirection.South:
-          return AutomapDirection.North;
-        case AutomapDirection.East:
-          return AutomapDirection.West;
-        case AutomapDirection.West:
-          return AutomapDirection.East;
-        case AutomapDirection.NorthEast:
-          return AutomapDirection.SouthWest;
-        case AutomapDirection.NorthWest:
-          return AutomapDirection.SouthEast;
-        case AutomapDirection.SouthEast:
-          return AutomapDirection.NorthWest;
-        case AutomapDirection.SouthWest:
-          return AutomapDirection.NorthEast;
-        case AutomapDirection.Up:
-          return AutomapDirection.Down;
-        case AutomapDirection.Down:
-          return AutomapDirection.Up;
-        case AutomapDirection.In:
-          return AutomapDirection.Out;
-        case AutomapDirection.Out:
-          return AutomapDirection.In;
-        default:
-          Debug.Assert(false, "Couldn't work out the opposite of the given direction.");
-          return AutomapDirection.North;
       }
     }
   }

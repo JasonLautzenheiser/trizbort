@@ -29,15 +29,14 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Xml;
 using DevComponents.DotNetBar;
+using Newtonsoft.Json;
 using PdfSharp.Drawing;
 using Trizbort.Domain;
+using Trizbort.Domain.Enums;
 using Trizbort.Extensions;
 using Trizbort.UI;
 using Trizbort.UI.Controls;
-using Trizbort.Domain.Enums;
-using ValidationType = Trizbort.Domain.Enums.ValidationType;
 
 namespace Trizbort
 {
@@ -84,6 +83,11 @@ namespace Trizbort
 
     private RoomShape shape;
 
+    public Room()
+    {
+      addPortsToRoom();
+    }
+
     public Room(Project project) : base(project)
     {
       Name = Settings.DefaultRoomName;
@@ -96,22 +100,7 @@ namespace Trizbort
 //      StraightEdges = true;
 
       // connections may connect to any of our "corners"
-      PortList.Add(new CompassPort(CompassPoint.North, this));
-      PortList.Add(new CompassPort(CompassPoint.NorthNorthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.NorthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.EastNorthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.East, this));
-      PortList.Add(new CompassPort(CompassPoint.EastSouthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.SouthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.SouthSouthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.South, this));
-      PortList.Add(new CompassPort(CompassPoint.SouthSouthWest, this));
-      PortList.Add(new CompassPort(CompassPoint.SouthWest, this));
-      PortList.Add(new CompassPort(CompassPoint.WestSouthWest, this));
-      PortList.Add(new CompassPort(CompassPoint.West, this));
-      PortList.Add(new CompassPort(CompassPoint.WestNorthWest, this));
-      PortList.Add(new CompassPort(CompassPoint.NorthWest, this));
-      PortList.Add(new CompassPort(CompassPoint.NorthNorthWest, this));
+      addPortsToRoom();
     }
 
     // Added this second constructor to be used when loading a room
@@ -126,181 +115,23 @@ namespace Trizbort
       Shape = RoomShape.SquareCorners; //would be nice to make an app default later: issue #93
 
       // connections may connect to any of our "corners"
-      PortList.Add(new CompassPort(CompassPoint.North, this));
-      PortList.Add(new CompassPort(CompassPoint.NorthNorthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.NorthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.EastNorthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.East, this));
-      PortList.Add(new CompassPort(CompassPoint.EastSouthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.SouthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.SouthSouthEast, this));
-      PortList.Add(new CompassPort(CompassPoint.South, this));
-      PortList.Add(new CompassPort(CompassPoint.SouthSouthWest, this));
-      PortList.Add(new CompassPort(CompassPoint.SouthWest, this));
-      PortList.Add(new CompassPort(CompassPoint.WestSouthWest, this));
-      PortList.Add(new CompassPort(CompassPoint.West, this));
-      PortList.Add(new CompassPort(CompassPoint.WestNorthWest, this));
-      PortList.Add(new CompassPort(CompassPoint.NorthWest, this));
-      PortList.Add(new CompassPort(CompassPoint.NorthNorthWest, this));
+      addPortsToRoom();
     }
 
-    /// <summary>
-    ///   Get/set the name of the room.
-    /// </summary>
-    public override string Name
+    public bool AllCornersEqual
     {
-      get => mName.Text;
+      get => mAllCornersEqual;
       set
       {
-        value = value ?? string.Empty;
-        if (mName.Text == value) return;
-        mName.Text = value;
-        RaiseChanged();
-      }
-    }
-
-    public List<RoomValidationState> ValidationState { get; set; } = new List<RoomValidationState>();
-
-    public RoomShape Shape
-    {
-      get => shape;
-      set
-      {
-        if (shape != value)
+        if (mAllCornersEqual != value)
         {
-          shape = value;
-          setRoomShape(value);
+          mAllCornersEqual = value;
           RaiseChanged();
         }
       }
     }
 
-    /// <summary>
-    ///   Get/set the subtitle of the room.
-    /// </summary>
-    public string SubTitle
-    {
-      get => mSubTitle.Text;
-      set
-      {
-        value = value ?? string.Empty;
-        if (mSubTitle.Text == value) return;
-        mSubTitle.Text = value;
-
-        RaiseChanged();
-      }
-    }
-
-    private bool valid()
-    {
-      return ValidationState == null || ValidationState.Count == 0;
-    }
-
-    public void CheckValidation()
-    {
-      RoomValidationState state;  
-      ValidationState.Clear();
-
-      if (Project.Current.MustHaveDescription && !this.HasDescription)
-      {
-        state = new RoomValidationState
-        {
-          Message = "There is no description for this room.",
-          Status = RoomValidationStatus.Invalid,
-          Type = ValidationType.RoomDescription
-        };
-        ValidationState.Add(state);
-      }
-
-      if (Project.Current.MustHaveUniqueNames)
-      {
-        if (Project.Current.Elements.OfType<Room>().Count(p => p.Name == Name) > 1)
-        {
-          state = new RoomValidationState
-          {
-            Message = "The room name is not unique.",
-            Status = RoomValidationStatus.Invalid,
-            Type = ValidationType.RoomUniqueName
-          };
-          ValidationState.Add(state);
-        }
-      }
-
-      if (Project.Current.MustHaveNoDanglingConnectors)
-      {
-        
-        if (Project.Current.Elements.OfType<Connection>().Count(p => p.GetSourceRoom() == this && p.GetTargetRoom() == null) > 0)
-        {
-          state = new RoomValidationState
-          {
-            Message = "Room has dangling connectors.",
-            Status = RoomValidationStatus.Invalid,
-            Type = ValidationType.RoomUniqueName
-          };
-          ValidationState.Add(state);
-        }
-      }
-
-      if (Project.Current.MustHaveSubtitle)
-      {
-        
-        if (String.IsNullOrWhiteSpace(SubTitle))
-        {
-          state = new RoomValidationState
-          {
-            Message = "Room must have a subtitle.",
-            Status = RoomValidationStatus.Invalid,
-            Type = ValidationType.RoomUniqueName
-          };
-          ValidationState.Add(state);
-        }
-      }
-
-    }
-
-    /// <summary>
-    ///   Get/set whether the room is dark or lit.
-    /// </summary>
-    public bool IsDark
-    {
-      get => mIsDark;
-      set
-      {
-        if (mIsDark == value) return;
-        mIsDark = value;
-        RaiseChanged();
-      }
-    }
-
-    /// <summary>
-    ///   Get/set the list of objects in the room.
-    /// </summary>
-    public string Objects
-    {
-      get => mObjects.Text;
-      set
-      {
-        value = value ?? string.Empty;
-        if (mObjects.Text == value) return;
-        mObjects.Text = value;
-        RaiseChanged();
-      }
-    }
-
-    /// <summary>
-    ///   Get/set the position, relative to the room,
-    ///   at which the object list is drawn on the map.
-    /// </summary>
-    public CompassPoint ObjectsPosition
-    {
-      get => mObjectsPosition;
-      set
-      {
-        if (mObjectsPosition == value) return;
-        mObjectsPosition = value;
-        RaiseChanged();
-      }
-    }
+    public bool ArbitraryAutomappedPosition { get; set; }
 
     public BorderDashStyle BorderStyle
     {
@@ -312,22 +143,6 @@ namespace Trizbort
         RaiseChanged();
       }
     }
-
-    public string Region
-    {
-      get => mRoomRegion;
-      set
-      {
-        if (mRoomRegion != value)
-        {
-          mRoomRegion = value;
-          RaiseChanged();
-        }
-      }
-    }
-
-    public override Depth Depth => Depth.Medium;
-    public override bool HasDialog => true;
 
     public CornerRadii Corners
     {
@@ -362,31 +177,7 @@ namespace Trizbort
       }
     }
 
-    public bool RoundedCorners
-    {
-      get => mRoundedCorners;
-      set
-      {
-        if (mRoundedCorners != value)
-        {
-          mRoundedCorners = value;
-          RaiseChanged();
-        }
-      }
-    }
-
-    public bool Octagonal
-    {
-      get => mOctagonal;
-      set
-      {
-        if (mOctagonal != value)
-        {
-          mOctagonal = value;
-          RaiseChanged();
-        }
-      }
-    }
+    public override Depth Depth => Depth.Medium;
 
     public bool Ellipse
     {
@@ -396,28 +187,6 @@ namespace Trizbort
         if (mEllipse != value)
         {
           mEllipse = value;
-          RaiseChanged();
-        }
-      }
-    }
-
-    public bool StraightEdges
-    {
-      get => mStraightEdges;
-      set
-      {
-        if (mStraightEdges != value) mStraightEdges = value; //RaiseChanged(); This is disabled because it gives false positives
-      }
-    }
-
-    public bool AllCornersEqual
-    {
-      get => mAllCornersEqual;
-      set
-      {
-        if (mAllCornersEqual != value)
-        {
-          mAllCornersEqual = value;
           RaiseChanged();
         }
       }
@@ -436,16 +205,32 @@ namespace Trizbort
       }
     }
 
-    public bool IsStartRoom
+    public bool HasDescription => mDescriptions.Count > 0;
+    public override bool HasDialog => true;
+
+    [JsonIgnore]
+    public bool IsConnected
     {
-      get => mIsStartRoom;
+      get
+      {
+        return Project.Current.Elements.OfType<Connection>()
+                      .Any(element => element
+                             .VertexList.Select(vertex => vertex.Port)
+                             .Any(port => port != null && port.Owner == this));
+      }
+    }
+
+    /// <summary>
+    ///   Get/set whether the room is dark or lit.
+    /// </summary>
+    public bool IsDark
+    {
+      get => mIsDark;
       set
       {
-        if (mIsStartRoom != value)
-        {
-          mIsStartRoom = value;
-          RaiseChanged();
-        }
+        if (mIsDark == value) return;
+        mIsDark = value;
+        RaiseChanged();
       }
     }
 
@@ -462,18 +247,84 @@ namespace Trizbort
       }
     }
 
-    public bool IsConnected
+    public bool IsStartRoom
     {
-      get
+      get => mIsStartRoom;
+      set
       {
-        return Project.Current.Elements.OfType<Connection>()
-                      .Any(element => element
-                             .VertexList.Select(vertex => vertex.Port)
-                             .Any(port => port != null && port.Owner == this));
+        if (mIsStartRoom != value)
+        {
+          mIsStartRoom = value;
+          RaiseChanged();
+        }
       }
     }
 
-    public bool ArbitraryAutomappedPosition { get; set; }
+    /// <summary>
+    ///   Get/set the name of the room.
+    /// </summary>
+    public override string Name
+    {
+      get => mName.Text;
+      set
+      {
+        value = value ?? string.Empty;
+        if (mName.Text == value) return;
+        mName.Text = value;
+        RaiseChanged();
+      }
+    }
+
+    /// <summary>
+    ///   Get/set the list of objects in the room.
+    /// </summary>
+    public string Objects
+    {
+      get => mObjects.Text;
+      set
+      {
+        value = value ?? string.Empty;
+        if (mObjects.Text == value) return;
+        mObjects.Text = value;
+        RaiseChanged();
+      }
+    }
+
+    public bool ObjectsCustomPosition { get; set; }
+
+    public int ObjectsCustomPositionDown { get; set; }
+    public int ObjectsCustomPositionRight { get; set; }
+
+    /// <summary>
+    ///   Get/set the position, relative to the room,
+    ///   at which the object list is drawn on the map.
+    /// </summary>
+    public CompassPoint ObjectsPosition
+    {
+      get => mObjectsPosition;
+      set
+      {
+        if (mObjectsPosition == value) return;
+        mObjectsPosition = value;
+        RaiseChanged();
+      }
+    }
+
+    public bool Octagonal
+    {
+      get => mOctagonal;
+      set
+      {
+        if (mOctagonal != value)
+        {
+          mOctagonal = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    // Added for linking connections when pasting
+    public int OldID { get; set; }
 
     public string PrimaryDescription
     {
@@ -485,45 +336,14 @@ namespace Trizbort
       }
     }
 
-    public bool HasDescription => mDescriptions.Count > 0;
-
-    // Added for Room specific colors
-    public Color RoomFill
+    public string Region
     {
-      get => mRoomfill;
+      get => mRoomRegion;
       set
       {
-        if (mRoomfill != value)
+        if (mRoomRegion != value)
         {
-          mRoomfill = value;
-          RaiseChanged();
-        }
-      }
-    }
-
-    // Added for Room specific colors
-    public Color SecondFill
-    {
-      get => mSecondfill;
-      set
-      {
-        if (mSecondfill != value)
-        {
-          mSecondfill = value;
-          RaiseChanged();
-        }
-      }
-    }
-
-    // Added for Room specific colors
-    public string SecondFillLocation
-    {
-      get => mSecondfilllocation;
-      set
-      {
-        if (mSecondfilllocation != value)
-        {
-          mSecondfilllocation = value;
+          mRoomRegion = value;
           RaiseChanged();
         }
       }
@@ -538,6 +358,20 @@ namespace Trizbort
         if (mRoomborder != value)
         {
           mRoomborder = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    // Added for Room specific colors
+    public Color RoomFill
+    {
+      get => mRoomfill;
+      set
+      {
+        if (mRoomfill != value)
+        {
+          mRoomfill = value;
           RaiseChanged();
         }
       }
@@ -571,12 +405,87 @@ namespace Trizbort
       }
     }
 
-    // Added for linking connections when pasting
-    public int OldID { get; set; }
+    public bool RoundedCorners
+    {
+      get => mRoundedCorners;
+      set
+      {
+        if (mRoundedCorners != value)
+        {
+          mRoundedCorners = value;
+          RaiseChanged();
+        }
+      }
+    }
 
-    public int ObjectsCustomPositionDown { get; set; }
-    public int ObjectsCustomPositionRight { get; set; }
-    public bool ObjectsCustomPosition { get; set; }
+    // Added for Room specific colors
+    public Color SecondFill
+    {
+      get => mSecondfill;
+      set
+      {
+        if (mSecondfill != value)
+        {
+          mSecondfill = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    // Added for Room specific colors
+    public string SecondFillLocation
+    {
+      get => mSecondfilllocation;
+      set
+      {
+        if (mSecondfilllocation != value)
+        {
+          mSecondfilllocation = value;
+          RaiseChanged();
+        }
+      }
+    }
+
+    public RoomShape Shape
+    {
+      get => shape;
+      set
+      {
+        if (shape != value)
+        {
+          shape = value;
+          setRoomShape(value);
+          RaiseChanged();
+        }
+      }
+    }
+
+    public bool StraightEdges
+    {
+      get => mStraightEdges;
+      set
+      {
+        if (mStraightEdges != value) mStraightEdges = value; //RaiseChanged(); This is disabled because it gives false positives
+      }
+    }
+
+    /// <summary>
+    ///   Get/set the subtitle of the room.
+    /// </summary>
+    public string SubTitle
+    {
+      get => mSubTitle.Text;
+      set
+      {
+        value = value ?? string.Empty;
+        if (mSubTitle.Text == value) return;
+        mSubTitle.Text = value;
+
+        RaiseChanged();
+      }
+    }
+
+    public List<RoomValidationState> ValidationState { get; set; } = new List<RoomValidationState>();
 
     public sealed override Vector Position
     {
@@ -594,6 +503,9 @@ namespace Trizbort
 
     public float X => mPosition.X;
     public float Y => mPosition.Y;
+    public float Height => mSize.Y;
+
+    public Rect InnerBounds => new Rect(Position, Size);
 
     public Vector Size
     {
@@ -609,81 +521,265 @@ namespace Trizbort
     }
 
     public float Width => mSize.X;
-    public float Height => mSize.Y;
 
-    public Rect InnerBounds => new Rect(Position, Size);
-
-    private void setRoomShape(RoomShape pShape)
+    public void AddDescription(string description)
     {
-      switch (pShape)
+      if (string.IsNullOrEmpty(description))
+        return;
+
+      if (mDescriptions.Any(existing => existing == description))
+        return;
+
+      // we don't have this (non-empty) description already; add it
+      mDescriptions.Add(description);
+      RaiseChanged();
+    }
+
+    public void AdjustAllRoomConnections()
+    {
+      var somethingChanged = false;
+      foreach (var element in GetConnections())
       {
-        case RoomShape.SquareCorners:
-          StraightEdges = !StraightEdges;
-          Ellipse = false;
-          RoundedCorners = false;
-          Octagonal = false;
-          break;
-        case RoomShape.RoundedCorners:
-          RoundedCorners = true;
-          Ellipse = false;
-          StraightEdges = false;
-          if (Corners.TopRight == 0.0 && Corners.TopLeft == 0.0 && Corners.BottomRight == 0.0 && Corners.BottomLeft == 0.0)
-            Corners = new CornerRadii();
-          Octagonal = false;
-          break;
-        case RoomShape.Ellipse:
-          Ellipse = true;
-          RoundedCorners = false;
-          StraightEdges = false;
-          Octagonal = false;
-          break;
-        case RoomShape.Octagonal:
-          Octagonal = true;
-          Ellipse = false;
-          StraightEdges = false;
-          RoundedCorners = false;
-          break;
-        default:
-          throw new ArgumentOutOfRangeException(nameof(pShape), pShape, null);
+        if (element.VertexList[0].Port.Owner == element.VertexList[1].Port.Owner) continue;
+
+        var cp = CompassPoint.Min;
+
+        var xDelta = element.VertexList[0].Port.Owner.Position.X - element.VertexList[1].Port.Owner.Position.X;
+        var yDelta = element.VertexList[0].Port.Owner.Position.Y - element.VertexList[1].Port.Owner.Position.Y;
+
+        if (xDelta == 0 && yDelta == 0) continue;
+        if (xDelta == 0) { cp = CompassPoint.North; }
+        else
+        {
+          var slope = yDelta / xDelta;
+          var abSlope = Math.Abs(slope);
+          var isNeg = slope > 0;
+          var isLeft = xDelta > 0;
+          switch (Settings.PortAdjustDetail)
+          {
+            //These numbers are decided as follows: tangent of 45 degrees, then 22.5/67.5, then 11.25/33.75/56.25/78.75
+            case 0: //fourths
+              if (abSlope > 1) { cp = CompassPoint.North; }
+              else
+              {
+                cp = CompassPoint.East;
+                if (isLeft) cp = CompassPoint.West;
+              }
+              break;
+            case 1: //eighths
+              if (abSlope > 2.414) { cp = CompassPoint.North; } //incidentally tan (pi/8) = sqrt 2 - 1. Angle bisector theorem/trig identities prove it.
+              else if (abSlope > 0.414)
+              {
+                cp = CompassPoint.NorthEast;
+                if (isNeg) cp = CompassPoint.NorthWest;
+              }
+              else
+              {
+                cp = CompassPoint.East;
+                if (isLeft) cp = CompassPoint.West;
+              }
+              break;
+            case 2: //sixteenths
+              if (abSlope > 5.03) { cp = CompassPoint.North; }
+              else if (abSlope > 1.49)
+              {
+                cp = CompassPoint.NorthNorthEast;
+                if (isNeg) cp = CompassPoint.NorthNorthWest;
+              }
+              else if (abSlope > 0.668)
+              {
+                cp = CompassPoint.NorthEast;
+                if (isNeg) cp = CompassPoint.NorthWest;
+              }
+              else if (abSlope > 0.197)
+              {
+                cp = CompassPoint.EastNorthEast;
+                if (isNeg) cp = CompassPoint.WestNorthWest;
+              }
+              else
+              {
+                cp = CompassPoint.East;
+                if (isLeft) cp = CompassPoint.West;
+              }
+              break;
+          }
+        }
+        //we need to check we're not totally backwards here. This code appears correct, but I'm defining the boolean in case there's
+        //a special case I forgot.
+        var backwards = yDelta < 0;
+        if (backwards)
+          cp = CompassPointHelper.GetOpposite(cp);
+        var cpInt = (int) cp;
+        if (element.VertexList[0].Port != element.VertexList[0].Port.Owner.PortList[cpInt])
+        {
+          somethingChanged = true;
+          element.VertexList[0].Port = element.VertexList[0].Port.Owner.PortList[cpInt];
+        }
+        var cpIntOpposite = (int) CompassPointHelper.GetOpposite(cp);
+        if (element.VertexList[1].Port != element.VertexList[1].Port.Owner.PortList[cpIntOpposite])
+        {
+          element.VertexList[1].Port = element.VertexList[1].Port.Owner.PortList[cpIntOpposite];
+          somethingChanged = true;
+        }
+      }
+      if (somethingChanged) RaiseChanged();
+    }
+
+    public void CheckValidation()
+    {
+      RoomValidationState state;
+      ValidationState.Clear();
+
+      if (Project.Current.MustHaveDescription && !HasDescription)
+      {
+        state = new RoomValidationState
+        {
+          Message = "There is no description for this room.",
+          Status = RoomValidationStatus.Invalid,
+          Type = ValidationType.RoomDescription
+        };
+        ValidationState.Add(state);
+      }
+
+      if (Project.Current.MustHaveUniqueNames)
+        if (Project.Current.Elements.OfType<Room>().Count(p => p.Name == Name) > 1)
+        {
+          state = new RoomValidationState
+          {
+            Message = "The room name is not unique.",
+            Status = RoomValidationStatus.Invalid,
+            Type = ValidationType.RoomUniqueName
+          };
+          ValidationState.Add(state);
+        }
+
+      if (Project.Current.MustHaveNoDanglingConnectors)
+        if (Project.Current.Elements.OfType<Connection>().Count(p => p.GetSourceRoom() == this && p.GetTargetRoom() == null) > 0)
+        {
+          state = new RoomValidationState
+          {
+            Message = "Room has dangling connectors.",
+            Status = RoomValidationStatus.Invalid,
+            Type = ValidationType.RoomUniqueName
+          };
+          ValidationState.Add(state);
+        }
+
+      if (Project.Current.MustHaveSubtitle)
+        if (string.IsNullOrWhiteSpace(SubTitle))
+        {
+          state = new RoomValidationState
+          {
+            Message = "Room must have a subtitle.",
+            Status = RoomValidationStatus.Invalid,
+            Type = ValidationType.RoomUniqueName
+          };
+          ValidationState.Add(state);
+        }
+    }
+
+    public void ClearDescriptions()
+    {
+      if (mDescriptions.Count > 0)
+      {
+        mDescriptions.Clear();
+        RaiseChanged();
       }
     }
 
-    public override string ToString()
+
+    public string ClipboardColorPrint()
     {
-      var sText = $"Room: {Name}";
-      return sText;
+      var clipboardText = string.Empty;
+
+      var colorValue = Colors.SaveColor(RoomFill);
+      clipboardText += colorValue + Canvas.CopyDelimiter;
+
+      colorValue = Colors.SaveColor(SecondFill);
+      clipboardText += colorValue + Canvas.CopyDelimiter;
+      clipboardText += SecondFillLocation + Canvas.CopyDelimiter;
+
+      colorValue = Colors.SaveColor(RoomBorder);
+      clipboardText += colorValue + Canvas.CopyDelimiter;
+
+      colorValue = Colors.SaveColor(RoomLargeText);
+      clipboardText += colorValue + Canvas.CopyDelimiter;
+
+      colorValue = Colors.SaveColor(RoomSmallText);
+      clipboardText += colorValue;
+
+      return clipboardText;
     }
 
-    public override string GetToolTipFooter()
+    public string ClipboardPrint()
     {
-      return Objects;
-    }
+      var clipboardText = "";
+      clipboardText += Name + Canvas.CopyDelimiter;
+      clipboardText += Position.X + Canvas.CopyDelimiter;
+      clipboardText += Position.Y + Canvas.CopyDelimiter;
+      clipboardText += Size.X + Canvas.CopyDelimiter;
+      clipboardText += Size.Y + Canvas.CopyDelimiter;
+      clipboardText += IsDark + Canvas.CopyDelimiter;
+      clipboardText += PrimaryDescription + Canvas.CopyDelimiter;
+      clipboardText += Region + Canvas.CopyDelimiter;
+      clipboardText += BorderStyle + Canvas.CopyDelimiter;
 
-    private bool isDefaultRegion()
-    {
-      return Region == Trizbort.Region.DefaultRegion || string.IsNullOrEmpty(Region);
-    }
+      clipboardText += StraightEdges + Canvas.CopyDelimiter;
+      clipboardText += Ellipse + Canvas.CopyDelimiter;
+      clipboardText += RoundedCorners + Canvas.CopyDelimiter;
+      clipboardText += Octagonal + Canvas.CopyDelimiter;
+      clipboardText += Corners.TopRight + Canvas.CopyDelimiter;
+      clipboardText += Corners.TopLeft + Canvas.CopyDelimiter;
+      clipboardText += Corners.BottomRight + Canvas.CopyDelimiter;
+      clipboardText += Corners.BottomLeft + Canvas.CopyDelimiter;
 
-    public override string GetToolTipHeader()
-    {
-      string sText = $"{Name}{(!isDefaultRegion() ? $" ({Region})" : string.Empty)}";
-      if (!valid())
+      var colorValue = Colors.SaveColor(RoomFill);
+      clipboardText += colorValue + Canvas.CopyDelimiter;
+
+      colorValue = Colors.SaveColor(SecondFill);
+      clipboardText += colorValue + Canvas.CopyDelimiter;
+      clipboardText += SecondFillLocation + Canvas.CopyDelimiter;
+
+      colorValue = Colors.SaveColor(RoomBorder);
+      clipboardText += colorValue + Canvas.CopyDelimiter;
+
+      colorValue = Colors.SaveColor(RoomLargeText);
+      clipboardText += colorValue + Canvas.CopyDelimiter;
+
+      colorValue = Colors.SaveColor(RoomSmallText);
+      clipboardText += colorValue + Canvas.CopyDelimiter;
+
+      colorValue = Colors.SaveColor(RoomBorder);
+      clipboardText += colorValue;
+
+
+      if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DEFAULT_OBJECTS_POSITION)
       {
-        if (sText.Length > 0) sText += " - ";
-        sText += "Room validation issues:";
+        var objectsDirection = "";
+        CompassPointHelper.ToName(ObjectsPosition, out objectsDirection);
+        clipboardText += Canvas.CopyDelimiter + objectsDirection + Canvas.CopyDelimiter;
+        if (!string.IsNullOrEmpty(Objects))
+          clipboardText += Objects.Replace("\r\n", Canvas.CopyDelimiter);
       }
-      return sText;
+
+      return clipboardText;
     }
 
-    public override bool HasTooltip()
+    public void DeleteAllRoomConnections()
     {
-      return true;
-    }
+      var zappedOne = false;
+      foreach (var element in GetConnections())
+      {
+        Project.Current.Elements.Remove(element);
+        zappedOne = true;
+      }
+      if (zappedOne) RaiseChanged();
+      else MessageBox.Show("No connections were deleted.", "Nothing to delete");
 
-
-    public override eTooltipColor GetToolTipColor()
-    {
-      return !valid() ? eTooltipColor.Red : eTooltipColor.BlueMist;
+/*      foreach (var b in this.L)
+      {
+        Project.Current.Elements.Remove(b.);
+      }*/
     }
 
 
@@ -691,114 +787,6 @@ namespace Trizbort
     {
       var bounds = UnionBoundsWith(Rect.Empty, includeMargins);
       return pos.DistanceFromRect(bounds);
-    }
-
-    public override bool Intersects(Rect rect)
-    {
-      return InnerBounds.IntersectsWith(rect);
-    }
-
-    public override Vector GetPortPosition(Port port)
-    {
-      // map the compass points onto our bounding rectangle
-      var compass = (CompassPort) port;
-
-      if (Ellipse)
-        return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.Ellipse);
-
-      if (RoundedCorners)
-        return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.RoundedCorners, Corners);
-
-      if (Octagonal)
-        return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.Octagonal, Corners);
-
-      return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.SquareCorners, Corners);
-    }
-
-
-    public override Vector GetPortStalkPosition(Port port)
-    {
-      var outerBounds = InnerBounds;
-      outerBounds.Inflate(Settings.ConnectionStalkLength);
-      var compass = (CompassPort) port;
-      var inner = InnerBounds.GetCorner(compass.CompassPoint);
-      var outer = outerBounds.GetCorner(compass.CompassPoint);
-      switch (compass.CompassPoint)
-      {
-        case CompassPoint.EastNorthEast:
-        case CompassPoint.EastSouthEast:
-        case CompassPoint.WestNorthWest:
-        case CompassPoint.WestSouthWest:
-          return new Vector(outer.X, inner.Y);
-        case CompassPoint.NorthNorthEast:
-        case CompassPoint.NorthNorthWest:
-        case CompassPoint.SouthSouthEast:
-        case CompassPoint.SouthSouthWest:
-          return new Vector(inner.X, outer.Y);
-        default:
-          return outer;
-      }
-    }
-
-    public override string GetToolTipText()
-    {
-      if (!valid())
-      {
-        string sText = "";
-        sText = ValidationState.Aggregate(sText, (current, roomValidationState) => current + (roomValidationState.Message + Environment.NewLine));
-        return sText;
-      }
-
-      var sDesc = $"{PrimaryDescription}";
-
-      return sDesc;
-    }
-
-    public Port PortAt(CompassPoint compassPoint)
-    {
-      return PortList.Cast<CompassPort>().FirstOrDefault(port => port.CompassPoint == compassPoint);
-    }
-
-    public override void PreDraw(DrawingContext context)
-    {
-      var topLeft = InnerBounds.GetCorner(CompassPoint.NorthWest);
-      var topRight = InnerBounds.GetCorner(CompassPoint.NorthEast);
-      var bottomLeft = InnerBounds.GetCorner(CompassPoint.SouthWest);
-      var bottomRight = InnerBounds.GetCorner(CompassPoint.SouthEast);
-
-      var topCenter = InnerBounds.GetCorner(CompassPoint.North);
-      var rightCenter = InnerBounds.GetCorner(CompassPoint.East);
-      var bottomCenter = InnerBounds.GetCorner(CompassPoint.South);
-      var leftCenter = InnerBounds.GetCorner(CompassPoint.West);
-
-      var top = new LineSegment(topLeft, topRight);
-      var right = new LineSegment(topRight, bottomRight);
-      var bottom = new LineSegment(bottomRight, bottomLeft);
-      var left = new LineSegment(bottomLeft, topLeft);
-
-      var halfTopRight = new LineSegment(topCenter, topRight);
-      var halfBottomRight = new LineSegment(bottomRight, bottomCenter);
-      var centerVertical = new LineSegment(bottomCenter, topCenter);
-
-      var centerHorizontal = new LineSegment(leftCenter, rightCenter);
-      var halfRightBottom = new LineSegment(rightCenter, bottomRight);
-      var halfLeftBottom = new LineSegment(bottomLeft, leftCenter);
-
-      var slantUp = new LineSegment(bottomLeft, topRight);
-      var slantDown = new LineSegment(bottomRight, topLeft);
-
-      context.LinesDrawn.Add(top);
-      context.LinesDrawn.Add(right);
-      context.LinesDrawn.Add(bottom);
-      context.LinesDrawn.Add(left);
-    }
-
-    public Vector quarterPoint(Vector frompoint, Vector topoint)
-    {
-      var retVector = new Vector();
-      retVector.X = (frompoint.X * 3 + topoint.X) / 4;
-      retVector.Y = (frompoint.Y * 3 + topoint.Y) / 4;
-      return retVector;
     }
 
     public override void Draw(XGraphics graphics, Palette palette, DrawingContext context)
@@ -1213,26 +1201,332 @@ namespace Trizbort
         path.AddLines(yy);
 
         graphics.DrawPath(pen, path);
-
       }
     }
 
-    private void createRoomPath(XGraphicsPath path, LineSegment top, LineSegment left)
+    public List<Connection> GetConnections()
     {
-      path.AddArc(top.Start.X + top.Length - Corners.TopRight * 2, top.Start.Y, Corners.TopRight * 2, Corners.TopRight * 2, 270, 90);
-      path.AddArc(top.Start.X + top.Length - Corners.BottomRight * 2, top.Start.Y + left.Length - Corners.BottomRight * 2, Corners.BottomRight * 2, Corners.BottomRight * 2, 0, 90);
-      path.AddArc(top.Start.X, top.Start.Y + left.Length - Corners.BottomLeft * 2, Corners.BottomLeft * 2, Corners.BottomLeft * 2, 90, 90);
-      path.AddArc(top.Start.X, top.Start.Y, Corners.TopLeft * 2, Corners.TopLeft * 2, 180, 90);
-      path.CloseFigure();
+      return GetConnections(null);
+    }
+
+    public List<Connection> GetConnections(CompassPoint? compassPoint)
+    {
+      var connections = new List<Connection>();
+
+      // TODO: This is needlessly expensive, traversing as it does the entire project's element list.
+      foreach (var element in Project.Current.Elements.OfType<Connection>())
+      {
+        var connection = element;
+        foreach (var vertex in connection.VertexList)
+        {
+          var port = vertex.Port;
+          if (port == null || port.Owner != this || !(port is CompassPort))
+            continue;
+
+          var compassPort = (CompassPort) vertex.Port;
+
+          if (compassPoint == null)
+            connections.Add(connection);
+          else if (compassPort.CompassPoint == compassPoint)
+            connections.Add(connection);
+        }
+      }
+      return connections;
+    }
+
+    public override Vector GetPortPosition(Port port)
+    {
+      // map the compass points onto our bounding rectangle
+      var compass = (CompassPort) port;
+
+      if (Ellipse)
+        return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.Ellipse);
+
+      if (RoundedCorners)
+        return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.RoundedCorners, Corners);
+
+      if (Octagonal)
+        return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.Octagonal, Corners);
+
+      return InnerBounds.GetCorner(compass.CompassPoint, RoomShape.SquareCorners, Corners);
     }
 
 
-    public override Rect UnionBoundsWith(Rect rect, bool includeMargins)
+    public override Vector GetPortStalkPosition(Port port)
     {
-      var bounds = InnerBounds;
-      if (includeMargins)
-        bounds.Inflate(Settings.LineWidth + Settings.ConnectionStalkLength);
-      return rect.Union(bounds);
+      var outerBounds = InnerBounds;
+      outerBounds.Inflate(Settings.ConnectionStalkLength);
+      var compass = (CompassPort) port;
+      var inner = InnerBounds.GetCorner(compass.CompassPoint);
+      var outer = outerBounds.GetCorner(compass.CompassPoint);
+      switch (compass.CompassPoint)
+      {
+        case CompassPoint.EastNorthEast:
+        case CompassPoint.EastSouthEast:
+        case CompassPoint.WestNorthWest:
+        case CompassPoint.WestSouthWest:
+          return new Vector(outer.X, inner.Y);
+        case CompassPoint.NorthNorthEast:
+        case CompassPoint.NorthNorthWest:
+        case CompassPoint.SouthSouthEast:
+        case CompassPoint.SouthSouthWest:
+          return new Vector(inner.X, outer.Y);
+        default:
+          return outer;
+      }
+    }
+
+
+    public override eTooltipColor GetToolTipColor()
+    {
+      return !valid() ? eTooltipColor.Red : eTooltipColor.BlueMist;
+    }
+
+    public override string GetToolTipFooter()
+    {
+      return Objects;
+    }
+
+    public override string GetToolTipHeader()
+    {
+      var sText = $"{Name}{(!isDefaultRegion() ? $" ({Region})" : string.Empty)}";
+      if (!valid())
+      {
+        if (sText.Length > 0) sText += " - ";
+        sText += "Room validation issues:";
+      }
+      return sText;
+    }
+
+    public override string GetToolTipText()
+    {
+      if (!valid())
+      {
+        var sText = "";
+        sText = ValidationState.Aggregate(sText, (current, roomValidationState) => current + roomValidationState.Message + Environment.NewLine);
+        return sText;
+      }
+
+      var sDesc = $"{PrimaryDescription}";
+
+      return sDesc;
+    }
+
+    public override bool HasTooltip()
+    {
+      return true;
+    }
+
+    public override bool Intersects(Rect rect)
+    {
+      return InnerBounds.IntersectsWith(rect);
+    }
+
+    public IList<string> ListOfObjects()
+    {
+      var tObjects = Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|");
+      var objects = tObjects.Split('|').Where(p => p != string.Empty).ToList();
+      return objects;
+    }
+
+
+    public void Load(XmlElementReader element)
+    {
+      Name = element.Attribute("name").Text;
+      SubTitle = element.Attribute("subtitle").Text;
+      ClearDescriptions();
+      AddDescription(element.Attribute("description").Text);
+      Position = new Vector(element.Attribute("x").ToFloat(), element.Attribute("y").ToFloat());
+      Size = new Vector(element.Attribute("w").ToFloat(), element.Attribute("h").ToFloat());
+      Region = element.Attribute("region").Text;
+      IsDark = element.Attribute("isDark").ToBool();
+      IsStartRoom = element.Attribute("isStartRoom").ToBool();
+      IsEndRoom = element.Attribute("isEndRoom").ToBool();
+      ZOrder = element.Attribute("ZOrder").ToInt();
+      if (IsStartRoom)
+        if (Settings.StartRoomLoaded)
+          MessageBox.Show($"{Name} is a duplicate start room. You may need to erase \"isStartRoom=YES\" from the XML.", "Duplicate start room warning");
+        else
+          Settings.StartRoomLoaded = true;
+      if (IsEndRoom)
+        if (Settings.EndRoomLoaded)
+          MessageBox.Show($"{Name} is a duplicate end room. You may need to erase \"isEndRoom=YES\" from the XML.", "Duplicate end room warning");
+        else
+          Settings.EndRoomLoaded = true;
+      //Note: long term, we probably want an app default for this, but for now, let's force a room shape. #93 should fix this code along with #149.
+      //We also should not have two of these at once.
+      if (element.Attribute("roundedCorners").ToBool())
+        Shape = RoomShape.RoundedCorners;
+      else if (element.Attribute("octagonal").ToBool())
+        Shape = RoomShape.Octagonal;
+      else if (element.Attribute("ellipse").ToBool())
+        Shape = RoomShape.Ellipse;
+      else
+        Shape = RoomShape.SquareCorners;
+
+      StraightEdges = element.Attribute("handDrawn").ToBool();
+      AllCornersEqual = element.Attribute("allcornersequal").ToBool();
+
+      Corners = new CornerRadii();
+      Corners.TopLeft = element.Attribute("cornerTopLeft").ToFloat();
+      Corners.TopRight = element.Attribute("cornerTopRight").ToFloat();
+      Corners.BottomLeft = element.Attribute("cornerBottomLeft").ToFloat();
+      Corners.BottomRight = element.Attribute("cornerBottomRight").ToFloat();
+
+
+      if (element.Attribute("borderstyle").Text != "")
+        BorderStyle = (BorderDashStyle) Enum.Parse(typeof(BorderDashStyle), element.Attribute("borderstyle").Text);
+
+      if (Project.Version.CompareTo(new Version(1, 5, 8, 3)) < 0)
+      {
+        if (element.Attribute("roomFill").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomFill = ColorTranslator.FromHtml(element.Attribute("roomFill").Text);
+        if (element.Attribute("secondFill").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") SecondFill = ColorTranslator.FromHtml(element.Attribute("secondFill").Text);
+        if (element.Attribute("secondFillLocation").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") SecondFillLocation = element.Attribute("secondFillLocation").Text;
+        if (element.Attribute("roomBorder").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomBorder = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text);
+        if (element.Attribute("roomLargeText").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomLargeText = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text);
+        if (element.Attribute("roomSmallText").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomSmallText = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text);
+      }
+      else
+      {
+        if (element.Attribute("roomFill").Text != "") RoomFill = ColorTranslator.FromHtml(element.Attribute("roomFill").Text);
+        if (element.Attribute("secondFill").Text != "") SecondFill = ColorTranslator.FromHtml(element.Attribute("secondFill").Text);
+        if (element.Attribute("secondFillLocation").Text != "") SecondFillLocation = element.Attribute("secondFillLocation").Text;
+        if (element.Attribute("roomBorder").Text != "") RoomBorder = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text);
+        if (element.Attribute("roomLargeText").Text != "") RoomLargeText = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text);
+        if (element.Attribute("roomSmallText").Text != "") RoomSmallText = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text);
+      }
+      Objects = element["objects"].Text.Replace("|", "\r\n").Replace("\\\r\n", "|");
+      ObjectsPosition = element["objects"].Attribute("at").ToCompassPoint(ObjectsPosition);
+      ObjectsCustomPosition = element["objects"].Attribute("custom").ToBool();
+      ObjectsCustomPositionRight = element["objects"].Attribute("customRight").ToInt();
+      ObjectsCustomPositionDown = element["objects"].Attribute("customDown").ToInt();
+    }
+
+    public bool MatchDescription(string description)
+    {
+      if (string.IsNullOrEmpty(description))
+        return mDescriptions.Count == 0;
+
+      return mDescriptions.Any(existing => existing == description);
+
+      // no match
+    }
+
+    public Port PortAt(CompassPoint compassPoint)
+    {
+      return PortList.Cast<CompassPort>().FirstOrDefault(port => port.CompassPoint == compassPoint);
+    }
+
+    public override void PreDraw(DrawingContext context)
+    {
+      var topLeft = InnerBounds.GetCorner(CompassPoint.NorthWest);
+      var topRight = InnerBounds.GetCorner(CompassPoint.NorthEast);
+      var bottomLeft = InnerBounds.GetCorner(CompassPoint.SouthWest);
+      var bottomRight = InnerBounds.GetCorner(CompassPoint.SouthEast);
+
+      var topCenter = InnerBounds.GetCorner(CompassPoint.North);
+      var rightCenter = InnerBounds.GetCorner(CompassPoint.East);
+      var bottomCenter = InnerBounds.GetCorner(CompassPoint.South);
+      var leftCenter = InnerBounds.GetCorner(CompassPoint.West);
+
+      var top = new LineSegment(topLeft, topRight);
+      var right = new LineSegment(topRight, bottomRight);
+      var bottom = new LineSegment(bottomRight, bottomLeft);
+      var left = new LineSegment(bottomLeft, topLeft);
+
+      var halfTopRight = new LineSegment(topCenter, topRight);
+      var halfBottomRight = new LineSegment(bottomRight, bottomCenter);
+      var centerVertical = new LineSegment(bottomCenter, topCenter);
+
+      var centerHorizontal = new LineSegment(leftCenter, rightCenter);
+      var halfRightBottom = new LineSegment(rightCenter, bottomRight);
+      var halfLeftBottom = new LineSegment(bottomLeft, leftCenter);
+
+      var slantUp = new LineSegment(bottomLeft, topRight);
+      var slantDown = new LineSegment(bottomRight, topLeft);
+
+      context.LinesDrawn.Add(top);
+      context.LinesDrawn.Add(right);
+      context.LinesDrawn.Add(bottom);
+      context.LinesDrawn.Add(left);
+    }
+
+    public Vector quarterPoint(Vector frompoint, Vector topoint)
+    {
+      var retVector = new Vector();
+      retVector.X = (frompoint.X * 3 + topoint.X) / 4;
+      retVector.Y = (frompoint.Y * 3 + topoint.Y) / 4;
+      return retVector;
+    }
+
+    public void Save(XmlScribe scribe)
+    {
+      scribe.Attribute("name", Name);
+      scribe.Attribute("subtitle", SubTitle);
+      scribe.Attribute("x", Position.X);
+      scribe.Attribute("y", Position.Y);
+      scribe.Attribute("w", Size.X);
+      scribe.Attribute("h", Size.Y);
+      scribe.Attribute("region", string.IsNullOrEmpty(Region) ? Trizbort.Region.DefaultRegion : Region);
+      scribe.Attribute("handDrawn", StraightEdges);
+      scribe.Attribute("allcornersequal", AllCornersEqual);
+      scribe.Attribute("ellipse", Ellipse);
+      scribe.Attribute("roundedCorners", RoundedCorners);
+      scribe.Attribute("octagonal", Octagonal);
+      scribe.Attribute("cornerTopLeft", (float) Corners.TopLeft);
+      scribe.Attribute("cornerTopRight", (float) Corners.TopRight);
+      scribe.Attribute("cornerBottomLeft", (float) Corners.BottomLeft);
+      scribe.Attribute("cornerBottomRight", (float) Corners.BottomRight);
+
+      scribe.Attribute("borderstyle", BorderStyle.ToString());
+      if (IsDark)
+        scribe.Attribute("isDark", IsDark);
+
+      if (IsStartRoom)
+        scribe.Attribute("isStartRoom", IsStartRoom);
+      if (IsEndRoom)
+        scribe.Attribute("isEndRoom", IsEndRoom);
+
+      scribe.Attribute("description", PrimaryDescription);
+
+      var colorValue = Colors.SaveColor(RoomFill);
+      scribe.Attribute("roomFill", colorValue);
+
+      colorValue = Colors.SaveColor(SecondFill);
+      scribe.Attribute("secondFill", colorValue);
+      scribe.Attribute("secondFillLocation", SecondFillLocation);
+
+      colorValue = Colors.SaveColor(RoomBorder);
+      scribe.Attribute("roomBorder", colorValue);
+
+      colorValue = Colors.SaveColor(RoomLargeText);
+      scribe.Attribute("roomLargeText", colorValue);
+
+      colorValue = Colors.SaveColor(RoomSmallText);
+      scribe.Attribute("roomSmallText", colorValue);
+
+      scribe.Attribute("ZOrder", ZOrder);
+
+      // Up to this point was added to turn colors to Hex code for xmpl saving/loading
+
+      if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DEFAULT_OBJECTS_POSITION)
+      {
+        scribe.StartElement("objects");
+
+        if (ObjectsPosition != DEFAULT_OBJECTS_POSITION)
+          scribe.Attribute("at", ObjectsPosition);
+
+        if (ObjectsCustomPosition)
+        {
+          scribe.Attribute("custom", ObjectsCustomPosition);
+          scribe.Attribute("customRight", ObjectsCustomPositionRight);
+          scribe.Attribute("customDown", ObjectsCustomPositionDown);
+        }
+
+        if (!string.IsNullOrEmpty(Objects))
+          scribe.Value(Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|"));
+        scribe.EndElement();
+      }
     }
 
     public void ShowDialog(PropertiesStartType startPoint)
@@ -1244,6 +1538,90 @@ namespace Trizbort
     public override void ShowDialog()
     {
       showRoomDialog();
+    }
+
+    public override string ToString()
+    {
+      var sText = $"Room: {Name}";
+      return sText;
+    }
+
+
+    public override Rect UnionBoundsWith(Rect rect, bool includeMargins)
+    {
+      var bounds = InnerBounds;
+      if (includeMargins)
+        bounds.Inflate(Settings.LineWidth + Settings.ConnectionStalkLength);
+      return rect.Union(bounds);
+    }
+
+    private void addPortsToRoom()
+    {
+      PortList.Add(new CompassPort(CompassPoint.North, this));
+      PortList.Add(new CompassPort(CompassPoint.NorthNorthEast, this));
+      PortList.Add(new CompassPort(CompassPoint.NorthEast, this));
+      PortList.Add(new CompassPort(CompassPoint.EastNorthEast, this));
+      PortList.Add(new CompassPort(CompassPoint.East, this));
+      PortList.Add(new CompassPort(CompassPoint.EastSouthEast, this));
+      PortList.Add(new CompassPort(CompassPoint.SouthEast, this));
+      PortList.Add(new CompassPort(CompassPoint.SouthSouthEast, this));
+      PortList.Add(new CompassPort(CompassPoint.South, this));
+      PortList.Add(new CompassPort(CompassPoint.SouthSouthWest, this));
+      PortList.Add(new CompassPort(CompassPoint.SouthWest, this));
+      PortList.Add(new CompassPort(CompassPoint.WestSouthWest, this));
+      PortList.Add(new CompassPort(CompassPoint.West, this));
+      PortList.Add(new CompassPort(CompassPoint.WestNorthWest, this));
+      PortList.Add(new CompassPort(CompassPoint.NorthWest, this));
+      PortList.Add(new CompassPort(CompassPoint.NorthNorthWest, this));
+    }
+
+    private void createRoomPath(XGraphicsPath path, LineSegment top, LineSegment left)
+    {
+      path.AddArc(top.Start.X + top.Length - Corners.TopRight * 2, top.Start.Y, Corners.TopRight * 2, Corners.TopRight * 2, 270, 90);
+      path.AddArc(top.Start.X + top.Length - Corners.BottomRight * 2, top.Start.Y + left.Length - Corners.BottomRight * 2, Corners.BottomRight * 2, Corners.BottomRight * 2, 0, 90);
+      path.AddArc(top.Start.X, top.Start.Y + left.Length - Corners.BottomLeft * 2, Corners.BottomLeft * 2, Corners.BottomLeft * 2, 90, 90);
+      path.AddArc(top.Start.X, top.Start.Y, Corners.TopLeft * 2, Corners.TopLeft * 2, 180, 90);
+      path.CloseFigure();
+    }
+
+    private bool isDefaultRegion()
+    {
+      return Region == Trizbort.Region.DefaultRegion || string.IsNullOrEmpty(Region);
+    }
+
+    private void setRoomShape(RoomShape pShape)
+    {
+      switch (pShape)
+      {
+        case RoomShape.SquareCorners:
+          StraightEdges = !StraightEdges;
+          Ellipse = false;
+          RoundedCorners = false;
+          Octagonal = false;
+          break;
+        case RoomShape.RoundedCorners:
+          RoundedCorners = true;
+          Ellipse = false;
+          StraightEdges = false;
+          if (Corners.TopRight == 0.0 && Corners.TopLeft == 0.0 && Corners.BottomRight == 0.0 && Corners.BottomLeft == 0.0)
+            Corners = new CornerRadii();
+          Octagonal = false;
+          break;
+        case RoomShape.Ellipse:
+          Ellipse = true;
+          RoundedCorners = false;
+          StraightEdges = false;
+          Octagonal = false;
+          break;
+        case RoomShape.Octagonal:
+          Octagonal = true;
+          Ellipse = false;
+          StraightEdges = false;
+          RoundedCorners = false;
+          break;
+        default:
+          throw new ArgumentOutOfRangeException(nameof(pShape), pShape, null);
+      }
     }
 
     private void showRoomDialog(PropertiesStartType start = PropertiesStartType.RoomName)
@@ -1322,401 +1700,9 @@ namespace Trizbort
       }
     }
 
-    public void Save(XmlScribe scribe)
+    private bool valid()
     {
-      scribe.Attribute("name", Name);
-      scribe.Attribute("subtitle", SubTitle);
-      scribe.Attribute("x", Position.X);
-      scribe.Attribute("y", Position.Y);
-      scribe.Attribute("w", Size.X);
-      scribe.Attribute("h", Size.Y);
-      scribe.Attribute("region", string.IsNullOrEmpty(Region) ? Trizbort.Region.DefaultRegion : Region);
-      scribe.Attribute("handDrawn", StraightEdges);
-      scribe.Attribute("allcornersequal", AllCornersEqual);
-      scribe.Attribute("ellipse", Ellipse);
-      scribe.Attribute("roundedCorners", RoundedCorners);
-      scribe.Attribute("octagonal", Octagonal);
-      scribe.Attribute("cornerTopLeft", (float) Corners.TopLeft);
-      scribe.Attribute("cornerTopRight", (float) Corners.TopRight);
-      scribe.Attribute("cornerBottomLeft", (float) Corners.BottomLeft);
-      scribe.Attribute("cornerBottomRight", (float) Corners.BottomRight);
-
-      scribe.Attribute("borderstyle", BorderStyle.ToString());
-      if (IsDark)
-        scribe.Attribute("isDark", IsDark);
-
-      if (IsStartRoom)
-        scribe.Attribute("isStartRoom", IsStartRoom);
-      if (IsEndRoom)
-        scribe.Attribute("isEndRoom", IsEndRoom);
-
-      scribe.Attribute("description", PrimaryDescription);
-
-      var colorValue = Colors.SaveColor(RoomFill);
-      scribe.Attribute("roomFill", colorValue);
-
-      colorValue = Colors.SaveColor(SecondFill);
-      scribe.Attribute("secondFill", colorValue);
-      scribe.Attribute("secondFillLocation", SecondFillLocation);
-
-      colorValue = Colors.SaveColor(RoomBorder);
-      scribe.Attribute("roomBorder", colorValue);
-
-      colorValue = Colors.SaveColor(RoomLargeText);
-      scribe.Attribute("roomLargeText", colorValue);
-
-      colorValue = Colors.SaveColor(RoomSmallText);
-      scribe.Attribute("roomSmallText", colorValue);
-
-      scribe.Attribute("ZOrder", ZOrder);
-
-      // Up to this point was added to turn colors to Hex code for xmpl saving/loading
-
-      if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DEFAULT_OBJECTS_POSITION)
-      {
-        scribe.StartElement("objects");
-
-        if (ObjectsPosition != DEFAULT_OBJECTS_POSITION)
-          scribe.Attribute("at", ObjectsPosition);
-
-        if (ObjectsCustomPosition)
-        {
-          scribe.Attribute("custom", ObjectsCustomPosition);
-          scribe.Attribute("customRight", ObjectsCustomPositionRight);
-          scribe.Attribute("customDown", ObjectsCustomPositionDown);
-        }
-
-        if (!string.IsNullOrEmpty(Objects))
-          scribe.Value(Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|"));
-        scribe.EndElement();
-      }
-    }
-
-
-    public void Load(XmlElementReader element)
-    {
-      Name = element.Attribute("name").Text;
-      SubTitle = element.Attribute("subtitle").Text;
-      ClearDescriptions();
-      AddDescription(element.Attribute("description").Text);
-      Position = new Vector(element.Attribute("x").ToFloat(), element.Attribute("y").ToFloat());
-      Size = new Vector(element.Attribute("w").ToFloat(), element.Attribute("h").ToFloat());
-      Region = element.Attribute("region").Text;
-      IsDark = element.Attribute("isDark").ToBool();
-      IsStartRoom = element.Attribute("isStartRoom").ToBool();
-      IsEndRoom = element.Attribute("isEndRoom").ToBool();
-      ZOrder = element.Attribute("ZOrder").ToInt();
-      if (IsStartRoom)
-        if (Settings.StartRoomLoaded)
-          MessageBox.Show($"{Name} is a duplicate start room. You may need to erase \"isStartRoom=YES\" from the XML.", "Duplicate start room warning");
-        else
-          Settings.StartRoomLoaded = true;
-      if (IsEndRoom)
-        if (Settings.EndRoomLoaded)
-          MessageBox.Show($"{Name} is a duplicate end room. You may need to erase \"isEndRoom=YES\" from the XML.", "Duplicate end room warning");
-        else
-          Settings.EndRoomLoaded = true;
-      //Note: long term, we probably want an app default for this, but for now, let's force a room shape. #93 should fix this code along with #149.
-      //We also should not have two of these at once.
-      if (element.Attribute("roundedCorners").ToBool())
-        Shape = RoomShape.RoundedCorners;
-      else if (element.Attribute("octagonal").ToBool())
-        Shape = RoomShape.Octagonal;
-      else if (element.Attribute("ellipse").ToBool())
-        Shape = RoomShape.Ellipse;
-      else
-        Shape = RoomShape.SquareCorners;
-
-      StraightEdges = element.Attribute("handDrawn").ToBool();
-      AllCornersEqual = element.Attribute("allcornersequal").ToBool();
-
-      Corners = new CornerRadii();
-      Corners.TopLeft = element.Attribute("cornerTopLeft").ToFloat();
-      Corners.TopRight = element.Attribute("cornerTopRight").ToFloat();
-      Corners.BottomLeft = element.Attribute("cornerBottomLeft").ToFloat();
-      Corners.BottomRight = element.Attribute("cornerBottomRight").ToFloat();
-
-
-      if (element.Attribute("borderstyle").Text != "")
-        BorderStyle = (BorderDashStyle) Enum.Parse(typeof(BorderDashStyle), element.Attribute("borderstyle").Text);
-
-      if (Project.Version.CompareTo(new Version(1, 5, 8, 3)) < 0)
-      {
-        if (element.Attribute("roomFill").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomFill = ColorTranslator.FromHtml(element.Attribute("roomFill").Text);
-        if (element.Attribute("secondFill").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") SecondFill = ColorTranslator.FromHtml(element.Attribute("secondFill").Text);
-        if (element.Attribute("secondFillLocation").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") SecondFillLocation = element.Attribute("secondFillLocation").Text;
-        if (element.Attribute("roomBorder").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomBorder = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text);
-        if (element.Attribute("roomLargeText").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomLargeText = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text);
-        if (element.Attribute("roomSmallText").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomSmallText = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text);
-      }
-      else
-      {
-        if (element.Attribute("roomFill").Text != "") RoomFill = ColorTranslator.FromHtml(element.Attribute("roomFill").Text);
-        if (element.Attribute("secondFill").Text != "") SecondFill = ColorTranslator.FromHtml(element.Attribute("secondFill").Text);
-        if (element.Attribute("secondFillLocation").Text != "") SecondFillLocation = element.Attribute("secondFillLocation").Text;
-        if (element.Attribute("roomBorder").Text != "") RoomBorder = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text);
-        if (element.Attribute("roomLargeText").Text != "") RoomLargeText = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text);
-        if (element.Attribute("roomSmallText").Text != "") RoomSmallText = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text);
-      }
-      Objects = element["objects"].Text.Replace("|", "\r\n").Replace("\\\r\n", "|");
-      ObjectsPosition = element["objects"].Attribute("at").ToCompassPoint(ObjectsPosition);
-      ObjectsCustomPosition = element["objects"].Attribute("custom").ToBool();
-      ObjectsCustomPositionRight = element["objects"].Attribute("customRight").ToInt();
-      ObjectsCustomPositionDown = element["objects"].Attribute("customDown").ToInt();
-    }
-
-    public List<Connection> GetConnections()
-    {
-      return GetConnections(null);
-    }
-
-    public List<Connection> GetConnections(CompassPoint? compassPoint)
-    {
-      var connections = new List<Connection>();
-
-      // TODO: This is needlessly expensive, traversing as it does the entire project's element list.
-      foreach (var element in Project.Current.Elements.OfType<Connection>())
-      {
-        var connection = element;
-        foreach (var vertex in connection.VertexList)
-        {
-          var port = vertex.Port;
-          if (port == null || port.Owner != this || !(port is CompassPort))
-            continue;
-
-          var compassPort = (CompassPort) vertex.Port;
-
-          if (compassPoint == null)
-            connections.Add(connection);
-          else if (compassPort.CompassPoint == compassPoint)
-            connections.Add(connection);
-        }
-      }
-      return connections;
-    }
-
-    public IList<string> ListOfObjects()
-    {
-      var tObjects = Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|");
-      var objects = tObjects.Split('|').Where(p => p != string.Empty).ToList();
-      return objects;
-    }
-
-    public void AdjustAllRoomConnections()
-    {
-      var somethingChanged = false;
-      foreach (var element in GetConnections())
-      {
-        if (element.VertexList[0].Port.Owner == element.VertexList[1].Port.Owner) continue;
-
-        var cp = CompassPoint.Min;
-
-        var xDelta = element.VertexList[0].Port.Owner.Position.X - element.VertexList[1].Port.Owner.Position.X;
-        var yDelta = element.VertexList[0].Port.Owner.Position.Y - element.VertexList[1].Port.Owner.Position.Y;
-
-        if (xDelta == 0 && yDelta == 0) continue;
-        if (xDelta == 0) { cp = CompassPoint.North; }
-        else
-        {
-          var slope = yDelta / xDelta;
-          var abSlope = Math.Abs(slope);
-          var isNeg = slope > 0;
-          var isLeft = xDelta > 0;
-          switch (Settings.PortAdjustDetail)
-          {
-            //These numbers are decided as follows: tangent of 45 degrees, then 22.5/67.5, then 11.25/33.75/56.25/78.75
-            case 0: //fourths
-              if (abSlope > 1) { cp = CompassPoint.North; }
-              else
-              {
-                cp = CompassPoint.East;
-                if (isLeft) cp = CompassPoint.West;
-              }
-              break;
-            case 1: //eighths
-              if (abSlope > 2.414) { cp = CompassPoint.North; } //incidentally tan (pi/8) = sqrt 2 - 1. Angle bisector theorem/trig identities prove it.
-              else if (abSlope > 0.414)
-              {
-                cp = CompassPoint.NorthEast;
-                if (isNeg) cp = CompassPoint.NorthWest;
-              }
-              else
-              {
-                cp = CompassPoint.East;
-                if (isLeft) cp = CompassPoint.West;
-              }
-              break;
-            case 2: //sixteenths
-              if (abSlope > 5.03) { cp = CompassPoint.North; }
-              else if (abSlope > 1.49)
-              {
-                cp = CompassPoint.NorthNorthEast;
-                if (isNeg) cp = CompassPoint.NorthNorthWest;
-              }
-              else if (abSlope > 0.668)
-              {
-                cp = CompassPoint.NorthEast;
-                if (isNeg) cp = CompassPoint.NorthWest;
-              }
-              else if (abSlope > 0.197)
-              {
-                cp = CompassPoint.EastNorthEast;
-                if (isNeg) cp = CompassPoint.WestNorthWest;
-              }
-              else
-              {
-                cp = CompassPoint.East;
-                if (isLeft) cp = CompassPoint.West;
-              }
-              break;
-          }
-        }
-        //we need to check we're not totally backwards here. This code appears correct, but I'm defining the boolean in case there's
-        //a special case I forgot.
-        var backwards = yDelta < 0;
-        if (backwards)
-          cp = CompassPointHelper.GetOpposite(cp);
-        var cpInt = (int) cp;
-        if (element.VertexList[0].Port != element.VertexList[0].Port.Owner.Ports[cpInt])
-        {
-          somethingChanged = true;
-          element.VertexList[0].Port = element.VertexList[0].Port.Owner.Ports[cpInt];
-        }
-        var cpIntOpposite = (int) CompassPointHelper.GetOpposite(cp);
-        if (element.VertexList[1].Port != element.VertexList[1].Port.Owner.Ports[cpIntOpposite])
-        {
-          element.VertexList[1].Port = element.VertexList[1].Port.Owner.Ports[cpIntOpposite];
-          somethingChanged = true;
-        }
-      }
-      if (somethingChanged) RaiseChanged();
-    }
-
-    public void DeleteAllRoomConnections()
-    {
-      var zappedOne = false;
-      foreach (var element in GetConnections())
-      {
-        Project.Current.Elements.Remove(element);
-        zappedOne = true;
-      }
-      if (zappedOne) RaiseChanged();
-      else MessageBox.Show("No connections were deleted.", "Nothing to delete");
-
-/*      foreach (var b in this.L)
-      {
-        Project.Current.Elements.Remove(b.);
-      }*/
-    }
-
-    public void ClearDescriptions()
-    {
-      if (mDescriptions.Count > 0)
-      {
-        mDescriptions.Clear();
-        RaiseChanged();
-      }
-    }
-
-    public void AddDescription(string description)
-    {
-      if (string.IsNullOrEmpty(description))
-        return;
-
-      if (mDescriptions.Any(existing => existing == description))
-        return;
-
-      // we don't have this (non-empty) description already; add it
-      mDescriptions.Add(description);
-      RaiseChanged();
-    }
-
-    public bool MatchDescription(string description)
-    {
-      if (string.IsNullOrEmpty(description))
-        return mDescriptions.Count == 0;
-
-      return mDescriptions.Any(existing => existing == description);
-
-      // no match
-    }
-
-    public string ClipboardPrint()
-    {
-      var clipboardText = "";
-      clipboardText += Name + Canvas.CopyDelimiter;
-      clipboardText += Position.X + Canvas.CopyDelimiter;
-      clipboardText += Position.Y + Canvas.CopyDelimiter;
-      clipboardText += Size.X + Canvas.CopyDelimiter;
-      clipboardText += Size.Y + Canvas.CopyDelimiter;
-      clipboardText += IsDark + Canvas.CopyDelimiter;
-      clipboardText += PrimaryDescription + Canvas.CopyDelimiter;
-      clipboardText += Region + Canvas.CopyDelimiter;
-      clipboardText += BorderStyle + Canvas.CopyDelimiter;
-
-      clipboardText += StraightEdges + Canvas.CopyDelimiter;
-      clipboardText += Ellipse + Canvas.CopyDelimiter;
-      clipboardText += RoundedCorners + Canvas.CopyDelimiter;
-      clipboardText += Octagonal + Canvas.CopyDelimiter;
-      clipboardText += Corners.TopRight + Canvas.CopyDelimiter;
-      clipboardText += Corners.TopLeft + Canvas.CopyDelimiter;
-      clipboardText += Corners.BottomRight + Canvas.CopyDelimiter;
-      clipboardText += Corners.BottomLeft + Canvas.CopyDelimiter;
-
-      var colorValue = Colors.SaveColor(RoomFill);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(SecondFill);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-      clipboardText += SecondFillLocation + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomBorder);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomLargeText);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomSmallText);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomBorder);
-      clipboardText += colorValue;
-
-
-      if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DEFAULT_OBJECTS_POSITION)
-      {
-        var objectsDirection = "";
-        CompassPointHelper.ToName(ObjectsPosition, out objectsDirection);
-        clipboardText += Canvas.CopyDelimiter + objectsDirection + Canvas.CopyDelimiter;
-        if (!string.IsNullOrEmpty(Objects))
-          clipboardText += Objects.Replace("\r\n", Canvas.CopyDelimiter);
-      }
-
-      return clipboardText;
-    }
-
-
-    public string ClipboardColorPrint()
-    {
-      var clipboardText = string.Empty;
-
-      var colorValue = Colors.SaveColor(RoomFill);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(SecondFill);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-      clipboardText += SecondFillLocation + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomBorder);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomLargeText);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomSmallText);
-      clipboardText += colorValue;
-
-      return clipboardText;
+      return ValidationState == null || ValidationState.Count == 0;
     }
 
     internal class CompassPort : Port
@@ -1745,10 +1731,10 @@ namespace Trizbort
 
 public class CornerRadii
 {
-  public double TopRight { get; set; } = 15.0;
+  public double BottomLeft { get; set; } = 15.0;
   public double BottomRight { get; set; } = 15.0;
   public double TopLeft { get; set; } = 15.0;
-  public double BottomLeft { get; set; } = 15.0;
+  public double TopRight { get; set; } = 15.0;
 }
 
 public enum RoomShape

@@ -29,6 +29,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Trizbort.Automap;
+using Trizbort.Domain.AppSettings;
 
 namespace Trizbort.Export
 {
@@ -52,7 +53,7 @@ namespace Trizbort.Export
     {
       writer.WriteLine("#charset \"us-ascii\"");
       writer.WriteLine();
-      if (Settings.SaveTadstoAdv3Lite)
+      if (ApplicationSettingsController.AppSettings.SaveTadstoAdv3Lite)
       {
           writer.WriteLine("#include <tads.h>");
           writer.WriteLine("#include \"advlite.h\"");
@@ -87,7 +88,7 @@ namespace Trizbort.Export
 
     protected override void ExportContent(TextWriter writer)
     {
-      if (Settings.SaveTadstoAdv3Lite)
+      if (ApplicationSettingsController.AppSettings.SaveTadstoAdv3Lite)
       foreach (var region in RegionsInExportOrder)
       {
         writer.WriteLine("{0}: Region", region.ExportName);
@@ -101,7 +102,7 @@ namespace Trizbort.Export
         {
           writer.WriteLine("    {0}", toTadsString(location.Room.PrimaryDescription, DOUBLE_QUOTE));
         }
-        if ((Settings.SaveTadstoAdv3Lite) && (location.Room.Region != Region.DefaultRegion))
+        if ((ApplicationSettingsController.AppSettings.SaveTadstoAdv3Lite) && (location.Room.Region != Region.DefaultRegion))
         {
           writer.WriteLine("    regions = [{0}]", location.Room.Region);
         }

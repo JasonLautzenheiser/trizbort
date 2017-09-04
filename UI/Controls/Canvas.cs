@@ -35,6 +35,7 @@ using DevComponents.DotNetBar;
 using Newtonsoft.Json;
 using PdfSharp.Drawing;
 using Trizbort.Domain;
+using Trizbort.Domain.AppSettings;
 using Trizbort.Domain.Controllers;
 using Trizbort.Domain.Enums;
 using Trizbort.Domain.SerializeHelpers;
@@ -503,9 +504,9 @@ namespace Trizbort.UI.Controls
           bounds.Inflate(Settings.DocHorizontalMargin, Settings.DocVerticalMargin);
           return bounds;
         }
-        if (Settings.SpecifyGenMargins)
+        if (ApplicationSettingsController.AppSettings.SpecifyGenMargins)
         {
-          bounds.Inflate(Settings.GenHorizontalMargin, Settings.GenVerticalMargin);
+          bounds.Inflate(ApplicationSettingsController.AppSettings.GenHorizontalMargin, ApplicationSettingsController.AppSettings.GenVerticalMargin);
           return bounds;
         }
         // HACK: fudge the canvas size to allow for overhanging line/object text
@@ -554,7 +555,7 @@ namespace Trizbort.UI.Controls
         graphics.ScaleTransform(ZoomFactor, ZoomFactor);
         graphics.TranslateTransform(-Origin.X, -Origin.Y);
 
-        if (Settings.DebugShowFPS && !finalRender)
+        if (ApplicationSettingsController.AppSettings.DebugShowFPS && !finalRender)
         {
           var canvasBounds = ComputeCanvasBounds(true);
           graphics.DrawRectangle(XPens.Purple, canvasBounds.ToRectangleF());
@@ -579,13 +580,13 @@ namespace Trizbort.UI.Controls
         }
 
         stopwatch.Stop();
-        if (Settings.DebugShowFPS && !finalRender)
+        if (ApplicationSettingsController.AppSettings.DebugShowFPS && !finalRender)
         {
           var fps = 1.0f / (float) (stopwatch.Elapsed.TotalSeconds);
           graphics.Graphics.Transform = new Matrix();
           graphics.DrawString($"{stopwatch.Elapsed.TotalMilliseconds} ms ({fps} fps) {TextBlock.RebuildCount} rebuilds", Settings.RoomNameFont, Brushes.Red, new PointF(10, 20 + Settings.RoomNameFont.GetHeight()));
         }
-        if (Settings.DebugShowMouseCoordinates && !finalRender)
+        if (ApplicationSettingsController.AppSettings.DebugShowMouseCoordinates && !finalRender)
         {
           var mouseCoord = MousePosition;
           graphics.Graphics.Transform = new Matrix();
@@ -621,12 +622,12 @@ namespace Trizbort.UI.Controls
             points.Add(start);
           }
           even = !even;
-          if (Settings.DebugDisableGridPolyline)
+          if (ApplicationSettingsController.AppSettings.DebugDisableGridPolyline)
           {
             graphics.DrawLine(palette.GridPen, start, end);
           }
         }
-        if (!Settings.DebugDisableGridPolyline)
+        if (!ApplicationSettingsController.AppSettings.DebugDisableGridPolyline)
         {
           graphics.DrawLines(palette.GridPen, points.ToArray());
         }
@@ -646,12 +647,12 @@ namespace Trizbort.UI.Controls
             points.Add(start);
           }
           even = !even;
-          if (Settings.DebugDisableGridPolyline)
+          if (ApplicationSettingsController.AppSettings.DebugDisableGridPolyline)
           {
             graphics.DrawLine(palette.GridPen, start, end);
           }
         }
-        if (!Settings.DebugDisableGridPolyline)
+        if (!ApplicationSettingsController.AppSettings.DebugDisableGridPolyline)
         {
           graphics.DrawLines(palette.GridPen, points.ToArray());
         }
@@ -668,7 +669,7 @@ namespace Trizbort.UI.Controls
 
     private void drawElements(XGraphics graphics, Palette palette, bool finalRender)
     {
-      if (Settings.DebugDisableElementRendering)
+      if (ApplicationSettingsController.AppSettings.DebugDisableElementRendering)
         return;
 
       var disabledHandDrawLinesForSpeed = false;
@@ -833,12 +834,12 @@ namespace Trizbort.UI.Controls
 
     private static bool isZoomIn(int delta)
     {
-      return (!Settings.InvertMouseWheel && delta < 0) || (Settings.InvertMouseWheel && delta > 0);
+      return (!ApplicationSettingsController.AppSettings.InvertMouseWheel && delta < 0) || (ApplicationSettingsController.AppSettings.InvertMouseWheel && delta > 0);
     }
 
     private static bool isZoomOut(int delta)
     {
-      return (!Settings.InvertMouseWheel && delta > 0) || (Settings.InvertMouseWheel && delta < 0);
+      return (!ApplicationSettingsController.AppSettings.InvertMouseWheel && delta > 0) || (ApplicationSettingsController.AppSettings.InvertMouseWheel && delta < 0);
     }
 
     protected override void OnMouseWheel(MouseEventArgs e)
@@ -965,7 +966,7 @@ namespace Trizbort.UI.Controls
 
           if (HoverElement == null)
             roomTooltip.HideTooltip();
-          else if (Settings.ShowToolTipsOnObjects && HoverElement.HasTooltip())
+          else if (ApplicationSettingsController.AppSettings.ShowToolTipsOnObjects && HoverElement.HasTooltip())
           {
             {
               if ((roomTooltip.IsTooltipVisible) && (sameElement)) return;
@@ -1216,11 +1217,11 @@ namespace Trizbort.UI.Controls
               desc[0] = "NSEW";
               desc[1] = "diagonals";
               desc[2] = "all ports";
-              Settings.PortAdjustDetail++;
-              Settings.PortAdjustDetail %= 3;
-              int x = 4 << Settings.PortAdjustDetail; // yeah this is cutesy code but it does the job
+              ApplicationSettingsController.AppSettings.PortAdjustDetail++;
+              ApplicationSettingsController.AppSettings.PortAdjustDetail %= 3;
+              int x = 4 << ApplicationSettingsController.AppSettings.PortAdjustDetail; // yeah this is cutesy code but it does the job
               if ((ModifierKeys & Keys.Shift) == Keys.Shift) //Shift pops up current port adjust detail
-                MessageBox.Show($"Available ports for readjustment {((Settings.PortAdjustDetail == 0) ? "de" : "in")}creased to {x} ({desc[Settings.PortAdjustDetail]}).", "Port Detail Adjust");
+                MessageBox.Show($"Available ports for readjustment {((ApplicationSettingsController.AppSettings.PortAdjustDetail == 0) ? "de" : "in")}creased to {x} ({desc[ApplicationSettingsController.AppSettings.PortAdjustDetail]}).", "Port Detail Adjust");
               break;
           }
           break;
@@ -1320,12 +1321,12 @@ namespace Trizbort.UI.Controls
           switch (ModifierKeys)
           {
             case Keys.Control:
-              Settings.DebugShowFPS = !Settings.DebugShowFPS;
+              ApplicationSettingsController.AppSettings.DebugShowFPS = !ApplicationSettingsController.AppSettings.DebugShowFPS;
               Invalidate();
               break;
 
             case Keys.Shift:
-              Settings.DebugShowMouseCoordinates = !Settings.DebugShowMouseCoordinates;
+              ApplicationSettingsController.AppSettings.DebugShowMouseCoordinates = !ApplicationSettingsController.AppSettings.DebugShowMouseCoordinates;
               Invalidate();
               break;
           }
@@ -1335,7 +1336,7 @@ namespace Trizbort.UI.Controls
           switch (ModifierKeys)
           {
             case Keys.Control:
-              Settings.DebugDisableElementRendering = !Settings.DebugDisableElementRendering;
+              ApplicationSettingsController.AppSettings.DebugDisableElementRendering = !ApplicationSettingsController.AppSettings.DebugDisableElementRendering;
               Invalidate();
               break;
           }
@@ -1345,7 +1346,7 @@ namespace Trizbort.UI.Controls
           switch (ModifierKeys)
           {
             case Keys.Control:
-              Settings.DebugDisableLineRendering = !Settings.DebugDisableLineRendering;
+              ApplicationSettingsController.AppSettings.DebugDisableLineRendering = !ApplicationSettingsController.AppSettings.DebugDisableLineRendering;
               Invalidate();
               break;
 
@@ -1365,7 +1366,7 @@ namespace Trizbort.UI.Controls
           switch (ModifierKeys)
           {
             case Keys.Control:
-              Settings.DebugDisableGridPolyline = !Settings.DebugDisableGridPolyline;
+              ApplicationSettingsController.AppSettings.DebugDisableGridPolyline = !ApplicationSettingsController.AppSettings.DebugDisableGridPolyline;
               Invalidate();
               break;
 
@@ -1607,7 +1608,7 @@ namespace Trizbort.UI.Controls
 
     public void ToggleText()
     {
-      Settings.DebugDisableTextRendering = !Settings.DebugDisableTextRendering;
+      ApplicationSettingsController.AppSettings.DebugDisableTextRendering = !ApplicationSettingsController.AppSettings.DebugDisableTextRendering;
       Invalidate();
     }
 
@@ -2785,7 +2786,7 @@ namespace Trizbort.UI.Controls
         clientBounds = new Rect(topLeft.X, topLeft.Y, displaySize.X, displaySize.Y);
       }
 
-      if (!Settings.InfiniteScrollBounds && topLeft.Y <= clientBounds.Top && topLeft.Y + displaySize.Y >= clientBounds.Bottom)
+      if (!ApplicationSettingsController.AppSettings.InfiniteScrollBounds && topLeft.Y <= clientBounds.Top && topLeft.Y + displaySize.Y >= clientBounds.Bottom)
       {
         m_vScrollBar.Enabled = false;
       }
@@ -2799,7 +2800,7 @@ namespace Trizbort.UI.Controls
         m_vScrollBar.SmallChange = (int) (displaySize.Y / 10);
       }
 
-      if (!Settings.InfiniteScrollBounds && topLeft.X <= clientBounds.Left && topLeft.X + displaySize.X >= clientBounds.Right)
+      if (!ApplicationSettingsController.AppSettings.InfiniteScrollBounds && topLeft.X <= clientBounds.Left && topLeft.X + displaySize.X >= clientBounds.Right)
       {
         m_hScrollBar.Enabled = false;
       }
@@ -2827,7 +2828,7 @@ namespace Trizbort.UI.Controls
       mDoNotUpdateScrollBarsNextPaint = true;
 
       var clientDelta = e.NewValue - e.OldValue;
-      if (Settings.InfiniteScrollBounds && e.Type == ScrollEventType.SmallIncrement || e.Type == ScrollEventType.SmallDecrement)
+      if (ApplicationSettingsController.AppSettings.InfiniteScrollBounds && e.Type == ScrollEventType.SmallIncrement || e.Type == ScrollEventType.SmallDecrement)
       {
         // since our canvas is infinite, allow the user to use the
         // scroll bar arrows to keep scrolling past the bounds.
@@ -3158,7 +3159,7 @@ namespace Trizbort.UI.Controls
 
     private void applicationSettingsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Settings.ShowAppDialog();
+      ApplicationSettingsController.ShowAppDialog();
     }
 
     private void joinRoomsToolStripMenuItem_Click(object sender, EventArgs e)

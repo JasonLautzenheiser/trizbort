@@ -31,6 +31,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using Trizbort.Domain.AppSettings;
 using Trizbort.UI;
 
 namespace Trizbort
@@ -74,13 +75,9 @@ namespace Trizbort
       {
         new Region {RegionName = Region.DefaultRegion, RColor = System.Drawing.Color.White}
       };
-      RecentProjects = new MruList();
-      resetApplicationSettings();
-      loadApplicationSettings();
       Reset();
     }
 
-    private static string applicationSettingsPath => Path.Combine(Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Genstein"), "Trizbort"), "Settings.xml");
 
     public static ColorSettings Color { get; }
     public static List<Region> Regions { get; private set; }
@@ -397,204 +394,6 @@ namespace Trizbort
     public static bool StartRoomLoaded { get; set; }
     public static bool EndRoomLoaded { get; set; }
 
-    public static bool DebugShowFPS { get; set; }
-    public static bool DebugShowMouseCoordinates { get; set; }
-    public static bool DebugDisableTextRendering { get; set; }
-    public static bool DebugDisableLineRendering { get; set; }
-    public static bool DebugDisableElementRendering { get; set; }
-    public static bool DebugDisableGridPolyline { get; set; }
-    public static bool SaveAt100 { get; set; }
-    public static int MouseDragButton { get; set; }
-
-    public static bool SaveToPDF { get; set; }
-    public static bool SaveToImage { get; set; }
-    public static bool SaveTadstoAdv3Lite { get; set; }
-    public static bool SpecifyGenMargins { get; set; }
-    public static int GenHorizontalMargin { get; set; }
-    public static int GenVerticalMargin { get; set; }
-    public static int CanvasWidth { get; set; }
-    public static int CanvasHeight { get; set; }
-    public static int PortAdjustDetail { get; set; }
-    public static int DefaultImageType { get; set; }
-    public static string DefaultFontName { get; set; }
-    public static bool HandDrawnGlobal { get; set; }
-    public static bool ShowToolTipsOnObjects { get; set; } = true;
-    public static bool InvertMouseWheel { get; set; }
-    public static Version DontCareAboutVersion { get; set; }
-
-    public static AutomapSettings Automap
-    {
-      get { return sAutomap; }
-      set { sAutomap = value; }
-    }
-
-    public static bool InfiniteScrollBounds { get; set; }
-    public static bool ShowMiniMap { get; set; }
-    public static bool LoadLastProjectOnStart { get; set; }
-    public static string LastProjectFileName { get; set; }
-    public static string LastExportImageFileName { get; set; }
-    public static string LastExportInform7FileName { get; set; }
-    public static string LastExportInform6FileName { get; set; }
-    public static string LastExportTadsFileName { get; set; }
-    public static string LastExportHugoFileName { get; set; }
-    public static string LastExportZilFileName { get; set; }
-    public static string LastExportAlanFileName { get; set; }
-    public static MruList RecentProjects { get; }
-
-    private static void resetApplicationSettings()
-    {
-      DontCareAboutVersion = new Version(0, 0, 0, 0);
-      sAutomap = AutomapSettings.Default;
-      InfiniteScrollBounds = false;
-      ShowMiniMap = true;
-      SaveAt100 = true;
-      SaveToImage = true;
-      SaveToPDF = true;
-      SaveTadstoAdv3Lite = true;
-      RecentProjects.Clear();
-      ShowToolTipsOnObjects = true;
-    }
-
-    private static void loadApplicationSettings()
-    {
-      try
-      {
-        if (File.Exists(applicationSettingsPath))
-        {
-          var doc = new XmlDocument();
-          doc.Load(applicationSettingsPath);
-          var root = new XmlElementReader(doc.DocumentElement);
-          if (root.Name == "settings")
-          {
-            var versionText = root["dontCareAboutVersion"].Text;
-            if (!string.IsNullOrEmpty(versionText))
-            {
-              DontCareAboutVersion = new Version(versionText);
-            }
-            InfiniteScrollBounds = root["infiniteScrollBounds"].ToBool(InfiniteScrollBounds);
-            ShowMiniMap = root["showMiniMap"].ToBool(ShowMiniMap);
-
-            LoadLastProjectOnStart = root["loadLastProjectOnStart"].ToBool(LoadLastProjectOnStart);
-            LastProjectFileName = root["lastProjectFileName"].Text;
-            LastExportImageFileName = root["lastExportedImageFileName"].Text;
-            LastExportInform7FileName = root["lastExportedInform7FileName"].Text;
-            LastExportInform6FileName = root["lastExportedInform6FileName"].Text;
-            LastExportTadsFileName = root["lastExportedTadsFileName"].Text;
-            LastExportHugoFileName = root["lastExportedHugoFileName"].Text;
-            LastExportZilFileName = root["lastExportedZilFileName"].Text;
-
-            InvertMouseWheel = root["invertMouseWheel"].ToBool(InvertMouseWheel);
-            PortAdjustDetail = root["portAdjustDetail"].ToInt(PortAdjustDetail);
-            DefaultFontName = root["defaultFontName"].Text;
-
-            if (DefaultFontName.Length == 0) DefaultFontName = "Arial"; // important for compatibility with 1.5.9.3 and before. Otherwise it's set to MS Sans Serif
-
-            DefaultImageType = root["defaultImageType"].ToInt(DefaultImageType);
-            SaveToImage = root["saveToImage"].ToBool(SaveToImage);
-            SaveToPDF = root["saveToPDF"].ToBool(SaveToPDF);
-            SaveTadstoAdv3Lite = root["saveTADSToADV3Lite"].ToBool(SaveTadstoAdv3Lite);
-            SaveAt100 = root["saveAt100"].ToBool(SaveAt100);
-            SpecifyGenMargins = root["specifyMargins"].ToBool(SpecifyGenMargins);
-            GenHorizontalMargin = root["horizontalMargin"].ToInt(GenHorizontalMargin);
-            GenVerticalMargin = root["verticalMargin"].ToInt(GenVerticalMargin);
-            HandDrawnGlobal = root["handDrawnDefault"].ToBool(HandDrawnGlobal);
-            ShowToolTipsOnObjects = root["showToolTipsOnObjects"].ToBool(true);
-
-            CanvasWidth = root["canvasWidth"].ToInt(CanvasWidth);
-            CanvasHeight = root["canvasHeight"].ToInt(CanvasHeight);
-            if (CanvasWidth == 0) { CanvasWidth = 624; }
-            if (CanvasHeight == 0) { CanvasHeight = 450; }
-
-            var recentProjects = root["recentProjects"];
-            string fileName;
-            var index = 0;
-            do
-            {
-              fileName = recentProjects[$"fileName{index++}"].Text;
-              if (!string.IsNullOrEmpty(fileName))
-              {
-                RecentProjects.Append(fileName);
-              }
-            } while (!string.IsNullOrEmpty(fileName));
-
-            var automap = root["automap"];
-            sAutomap.FileName = automap["transcriptFileName"].ToText(sAutomap.FileName);
-            sAutomap.VerboseTranscript = automap["verboseTranscript"].ToBool(sAutomap.VerboseTranscript);
-            sAutomap.AssumeRoomsWithSameNameAreSameRoom = automap["assumeRoomsWithSameNameAreSameRoom"].ToBool(sAutomap.AssumeRoomsWithSameNameAreSameRoom);
-            sAutomap.GuessExits = automap["guessExits"].ToBool(sAutomap.GuessExits);
-            sAutomap.AddObjectCommand = automap["addObjectCommand"].ToText(sAutomap.AddObjectCommand);
-            sAutomap.AddRegionCommand = automap["addRegionCommand"].ToText(sAutomap.AddRegionCommand);
-          }
-        }
-      }
-      catch (Exception)
-      {
-        // ignored
-      }
-    }
-
-    public static void SaveApplicationSettings()
-    {
-      try
-      {
-        var directoryName = Path.GetDirectoryName(applicationSettingsPath);
-        if (directoryName != null) Directory.CreateDirectory(directoryName);
-        using (var scribe = XmlScribe.Create(applicationSettingsPath))
-        {
-          scribe.StartElement("settings");
-          scribe.Element("dontCareAboutVersion", DontCareAboutVersion.ToString());
-          scribe.Element("infiniteScrollBounds", InfiniteScrollBounds);
-          scribe.Element("showMiniMap", ShowMiniMap);
-          scribe.Element("invertMouseWheel", InvertMouseWheel);
-          scribe.Element("defaultFontName", DefaultFontName);
-          scribe.Element("defaultImageType", DefaultImageType);
-          scribe.Element("portAdjustDetail", PortAdjustDetail);
-          scribe.Element("saveAt100", SaveAt100);
-          scribe.Element("saveToPDF", SaveToPDF);
-          scribe.Element("saveToImage", SaveToImage);
-          scribe.Element("saveTADSToADV3Lite", SaveTadstoAdv3Lite);
-          scribe.Element("verticalMargin", GenVerticalMargin);
-          scribe.Element("horizontalMargin", GenHorizontalMargin);
-          scribe.Element("specifyMargins", SpecifyGenMargins);
-          scribe.Element("handDrawnDefault", HandDrawnGlobal);
-          scribe.Element("showToolTipsOnObjects", ShowToolTipsOnObjects);
-
-          scribe.Element("canvasHeight", CanvasHeight);
-          scribe.Element("canvasWidth", CanvasWidth);
-
-          scribe.Element("loadLastProjectOnStart", LoadLastProjectOnStart);
-          scribe.Element("lastProjectFileName", LastProjectFileName);
-          scribe.Element("lastExportedImageFileName", LastExportImageFileName);
-          scribe.Element("lastExportedInform7FileName", LastExportInform7FileName);
-          scribe.Element("lastExportedInform6FileName", LastExportInform6FileName);
-          scribe.Element("lastExportedTadsFileName", LastExportTadsFileName);
-          scribe.Element("lastExportedHugoFileName", LastExportHugoFileName);
-          scribe.Element("lastExportedZilFileName", LastExportZilFileName);
-
-          scribe.StartElement("recentProjects");
-          var index = 0;
-          foreach (var fileName in RecentProjects)
-          {
-            scribe.Element($"fileName{index++}", fileName);
-          }
-          scribe.EndElement();
-
-          scribe.StartElement("automap");
-          scribe.Element("transcriptFileName", sAutomap.FileName);
-          scribe.Element("verboseTranscript", sAutomap.VerboseTranscript);
-          scribe.Element("assumeRoomsWithSameNameAreSameRoom", sAutomap.AssumeRoomsWithSameNameAreSameRoom);
-          scribe.Element("guessExits", sAutomap.GuessExits);
-          scribe.Element("addObjectCommand", sAutomap.AddObjectCommand);
-          scribe.Element("addRegionCommand", sAutomap.AddRegionCommand);
-          scribe.EndElement();
-        }
-      }
-      catch (Exception)
-      {
-        // ignored
-      }
-    }
-
     public static float Snap(float value)
     {
       float offset = 0;
@@ -784,18 +583,18 @@ namespace Trizbort
 
       Project.Current.Title = Project.Current.Author = Project.Current.History = Project.Current.Description = "";
 
-      RoomNameFont = new Font(DefaultFontName, 13.0f, FontStyle.Regular, GraphicsUnit.World);
-      ObjectFont = new Font(DefaultFontName, 11.0f, FontStyle.Regular, GraphicsUnit.World);
-      SubtitleFont = new Font(DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);
+      RoomNameFont = new Font(ApplicationSettingsController.AppSettings.DefaultFontName, 13.0f, FontStyle.Regular, GraphicsUnit.World);
+      ObjectFont = new Font(ApplicationSettingsController.AppSettings.DefaultFontName, 11.0f, FontStyle.Regular, GraphicsUnit.World);
+      SubtitleFont = new Font(ApplicationSettingsController.AppSettings.DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);
 
 //      HandDrawnDoc = HandDrawnGlobal;
 
-      DocumentSpecificMargins = SpecifyGenMargins;
+      DocumentSpecificMargins = ApplicationSettingsController.AppSettings.SpecifyGenMargins;
 
-      if (SpecifyGenMargins)
+      if (ApplicationSettingsController.AppSettings.SpecifyGenMargins)
       {
-        DocHorizontalMargin = GenHorizontalMargin;
-        DocVerticalMargin = GenVerticalMargin;
+        DocHorizontalMargin = ApplicationSettingsController.AppSettings.GenHorizontalMargin;
+        DocVerticalMargin = ApplicationSettingsController.AppSettings.GenVerticalMargin;
       }
       else
       {
@@ -902,8 +701,6 @@ namespace Trizbort
       scribe.Element("creationModifier", modifierKeysToString(sKeypadNavigationCreationModifier));
       scribe.Element("unexploredModifier", modifierKeysToString(sKeypadNavigationUnexploredModifier));
       scribe.EndElement();
-
-      SaveApplicationSettings();
     }
 
     private static string modifierKeysToString(Keys key)
@@ -1079,44 +876,7 @@ namespace Trizbort
       KeypadNavigationUnexploredModifier = stringToModifierKeys(element["keypadNavigation"]["unexploredModifier"].Text, sKeypadNavigationUnexploredModifier);
     }
 
-    public static void ShowAppDialog()
-    {
-      using (var dialog = new AppSettingsDialog())
-      {
-        dialog.InvertMouseWheel = InvertMouseWheel;
-        dialog.DefaultFontName = DefaultFontName;
-        dialog.DefaultImageType = DefaultImageType;
-        dialog.PortAdjustDetail = PortAdjustDetail;
-        dialog.SaveToImage = SaveToImage;
-        dialog.SaveToPDF = SaveToPDF;
-        dialog.SaveTADSToADV3Lite = SaveTadstoAdv3Lite;
-        dialog.SaveAt100 = SaveAt100;
-        dialog.SpecifyGenMargins = SpecifyGenMargins;
-        dialog.GenHorizontalMargin = GenHorizontalMargin;
-        dialog.GenVerticalMargin = GenVerticalMargin;
-        dialog.LoadLastProjectOnStart = LoadLastProjectOnStart;
-        dialog.HandDrawnGlobal = HandDrawnGlobal;
-        dialog.ShowToolTipsOnObjects = ShowToolTipsOnObjects;
-
-        if (dialog.ShowDialog() == DialogResult.OK)
-        {
-          InvertMouseWheel = dialog.InvertMouseWheel;
-          DefaultFontName = dialog.DefaultFontName;
-          DefaultImageType = dialog.DefaultImageType;
-          PortAdjustDetail = dialog.PortAdjustDetail;
-          SaveAt100 = dialog.SaveAt100;
-          SaveToImage = dialog.SaveToImage;
-          SaveToPDF = dialog.SaveToPDF;
-          SaveTadstoAdv3Lite = dialog.SaveTADSToADV3Lite;
-          SpecifyGenMargins = dialog.SpecifyGenMargins;
-          GenHorizontalMargin = (int)dialog.GenHorizontalMargin;
-          GenVerticalMargin = (int)dialog.GenVerticalMargin;
-          LoadLastProjectOnStart = dialog.LoadLastProjectOnStart;
-          HandDrawnGlobal = dialog.HandDrawnGlobal;
-          ShowToolTipsOnObjects = dialog.ShowToolTipsOnObjects;
-        }
-      }
-    }
+    
 
     public class ColorSettings
     {

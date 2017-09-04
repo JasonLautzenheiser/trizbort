@@ -33,6 +33,7 @@ using DevComponents.DotNetBar;
 using Newtonsoft.Json;
 using PdfSharp.Drawing;
 using Trizbort.Domain;
+using Trizbort.Domain.AppSettings;
 using Trizbort.Domain.Enums;
 using Trizbort.Extensions;
 using Trizbort.UI;
@@ -91,7 +92,7 @@ namespace Trizbort
     public Room(Project project) : base(project)
     {
       Name = Settings.DefaultRoomName;
-      HandDrawnEdges = Settings.HandDrawnGlobal;
+      HandDrawnEdges = ApplicationSettingsController.AppSettings.HandDrawnGlobal;
       Region = Trizbort.Region.DefaultRegion;
       Size = new Vector(3 * Settings.GridSize, 2 * Settings.GridSize);
       Position = new Vector(-Size.X / 2, -Size.Y / 2);
@@ -555,7 +556,7 @@ namespace Trizbort
           var abSlope = Math.Abs(slope);
           var isNeg = slope > 0;
           var isLeft = xDelta > 0;
-          switch (Settings.PortAdjustDetail)
+          switch (ApplicationSettingsController.AppSettings.PortAdjustDetail)
           {
             //These numbers are decided as follows: tangent of 45 degrees, then 22.5/67.5, then 11.25/33.75/56.25/78.75
             case 0: //fourths
@@ -956,7 +957,7 @@ namespace Trizbort
       if (RoomFill != Color.Transparent) brush = new SolidBrush(RoomFill);
 
       // this is the main drawing routine for the actual room borders
-      if (!Settings.DebugDisableLineRendering && BorderStyle != BorderDashStyle.None)
+      if (!ApplicationSettingsController.AppSettings.DebugDisableLineRendering && BorderStyle != BorderDashStyle.None)
       {
         var path = palette.Path();
 
@@ -1113,7 +1114,7 @@ namespace Trizbort
         textBounds.Inflate(-5, -5);
 
       if (textBounds.Width > 0 && textBounds.Height > 0)
-        if (!Settings.DebugDisableTextRendering)
+        if (!ApplicationSettingsController.AppSettings.DebugDisableTextRendering)
         {
           var RoomTextRect = mName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
           var SubtitleTextRect = new Rect(RoomTextRect.Left, RoomTextRect.Bottom, RoomTextRect.Right - RoomTextRect.Left, textBounds.Bottom - RoomTextRect.Bottom);
@@ -1170,7 +1171,7 @@ namespace Trizbort
         }
 
         if (!drawnObjectList)
-          if (!Settings.DebugDisableTextRendering)
+          if (!ApplicationSettingsController.AppSettings.DebugDisableTextRendering)
           {
             var tString = mObjects.Text;
             var displayObjects = new TextBlock {Text = tString};

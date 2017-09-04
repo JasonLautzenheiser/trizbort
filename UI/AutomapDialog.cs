@@ -24,6 +24,7 @@
 
 using System;
 using System.Windows.Forms;
+using Trizbort.Domain.AppSettings;
 
 namespace Trizbort.UI
 {
@@ -37,7 +38,7 @@ namespace Trizbort.UI
 #else
             m_singleStepCheckBox.Visible = false;
 #endif
-      Data = Settings.Automap;
+      Data = ApplicationSettingsController.AppSettings.Automap;
     }
 
     public AutomapSettings Data
@@ -76,7 +77,7 @@ namespace Trizbort.UI
     protected override void OnClosed(EventArgs e)
     {
       if (DialogResult == DialogResult.OK)
-        Settings.Automap = Data;
+        ApplicationSettingsController.AppSettings.Automap = Data;
       base.OnClosed(e);
     }
 

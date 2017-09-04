@@ -32,6 +32,7 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using Newtonsoft.Json;
 using PdfSharp.Drawing;
+using Trizbort.Domain.AppSettings;
 using Trizbort.Properties;
 using Trizbort.UI;
 using Trizbort.UI.Controls;
@@ -404,7 +405,7 @@ namespace Trizbort.Domain
             specialPen.Color = ConnectionColor;
           }
 
-        if (!Settings.DebugDisableLineRendering)
+        if (!ApplicationSettingsController.AppSettings.DebugDisableLineRendering)
           graphics.DrawLine(specialPen ?? pen, lineSegment.Start.ToPointF(), lineSegment.End.ToPointF());
         var delta = lineSegment.Delta;
         if (Flow == ConnectionFlow.OneWay && delta.Length > Settings.ConnectionArrowSize)
@@ -831,7 +832,7 @@ namespace Trizbort.Domain
       }
 
 
-      if (!Settings.DebugDisableTextRendering)
+      if (!ApplicationSettingsController.AppSettings.DebugDisableTextRendering)
         text.Draw(graphics, Settings.SubtitleFont, palette.LineTextBrush, pos, Vector.Zero, format);
     }
 

@@ -29,6 +29,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using Trizbort.Domain.AppSettings;
 
 namespace Trizbort.UI
 {
@@ -41,7 +42,7 @@ namespace Trizbort.UI
 
         public static void Show(Version currentVersion, Version latestVersion, bool alwaysAsk)
         {
-            if (alwaysAsk || Settings.DontCareAboutVersion < latestVersion)
+            if (alwaysAsk || ApplicationSettingsController.AppSettings.DontCareAboutVersion < latestVersion)
             {
                 using (var dialog = new NewVersionDialog())
                 {
@@ -61,7 +62,7 @@ namespace Trizbort.UI
                     }
                     else if (!alwaysAsk && dialog.m_dontCareCheckBox.Checked)
                     {
-                        Settings.DontCareAboutVersion = latestVersion;
+                      ApplicationSettingsController.AppSettings.DontCareAboutVersion = latestVersion;
                     }
                 }
             }

@@ -39,6 +39,7 @@ using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Annotations;
 using Trizbort.Domain;
+using Trizbort.Domain.AppSettings;
 using Trizbort.Domain.Controllers;
 using Trizbort.Domain.Enums;
 using Trizbort.Export;
@@ -88,7 +89,7 @@ namespace Trizbort.UI
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-      Canvas.MinimapVisible = Settings.ShowMiniMap;
+      Canvas.MinimapVisible = ApplicationSettingsController.AppSettings.ShowMiniMap;
       bool projectLoaded = false;
 
       var args = Environment.GetCommandLineArgs();
@@ -101,11 +102,11 @@ namespace Trizbort.UI
         projectLoaded = commandLineActions(result.Value);
       }
 
-      if ((Settings.LoadLastProjectOnStart) && (!projectLoaded))
+      if ((ApplicationSettingsController.AppSettings.LoadLastProjectOnStart) && (!projectLoaded))
       {
         try
         {
-          BeginInvoke((MethodInvoker) delegate { OpenProject(Settings.LastProjectFileName); });
+          BeginInvoke((MethodInvoker) delegate { OpenProject(ApplicationSettingsController.AppSettings.LastProjectFileName); });
         }
         catch (Exception)
         {
@@ -122,7 +123,7 @@ namespace Trizbort.UI
 
       if (options.LoadLastProject)
       {
-        OpenProject(Settings.LastProjectFileName);
+        OpenProject(ApplicationSettingsController.AppSettings.LastProjectFileName);
         projectLoaded = true;
       }
 
@@ -198,7 +199,7 @@ namespace Trizbort.UI
       bool projectLoaded = false;
       try
       {
-        var cmdLineAutomap = Settings.Automap;
+        var cmdLineAutomap = ApplicationSettingsController.AppSettings.Automap;
         cmdLineAutomap.FileName = options.Transcript;
 
         await Canvas.StartAutomapping(cmdLineAutomap,true);
@@ -238,9 +239,9 @@ namespace Trizbort.UI
         return;
       }
 
-      Settings.CanvasHeight = Height - 27;
-      Settings.CanvasWidth = Width - 8;
-      Settings.SaveApplicationSettings();
+      ApplicationSettingsController.AppSettings.CanvasHeight = Height - 27;
+      ApplicationSettingsController.AppSettings.CanvasWidth = Width - 8;
+      ApplicationSettingsController.SaveSettings();
       Canvas.StopAutomapping();
 
       Project.FileWatcher.Dispose();
@@ -288,11 +289,11 @@ namespace Trizbort.UI
 
       using (var dialog = new OpenFileDialog())
       {
-        dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(Settings.LastProjectFileName);
+        dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(ApplicationSettingsController.AppSettings.LastProjectFileName);
         dialog.Filter = $"{Project.FilterString}|All Files|*.*||";
         if (dialog.ShowDialog() == DialogResult.OK)
         {
-          Settings.LastProjectFileName = dialog.FileName;
+          ApplicationSettingsController.AppSettings.LastProjectFileName = dialog.FileName;
           OpenProject(dialog.FileName);
         }
       }
@@ -304,8 +305,8 @@ namespace Trizbort.UI
       if (project.Load())
       {
         Project.Current = project;
-        Settings.LastProjectFileName = fileName;
-        Settings.RecentProjects.Add(fileName);
+        ApplicationSettingsController.AppSettings.LastProjectFileName = fileName;
+        ApplicationSettingsController.AppSettings.RecentProjects.Add(fileName);
         return true;
       }
 
@@ -351,7 +352,7 @@ namespace Trizbort.UI
 
       if (Project.Current.Save())
       {
-        Settings.RecentProjects.Add(Project.Current.FileName);
+        ApplicationSettingsController.AppSettings.RecentProjects.Add(Project.Current.FileName);
         return true;
       }
       return false;
@@ -359,11 +360,11 @@ namespace Trizbort.UI
 
     private void saveAsCmdLineProject(string outfile)
     {
-      Settings.LastProjectFileName = outfile;
+      ApplicationSettingsController.AppSettings.LastProjectFileName = outfile;
       Project.Current.FileName = outfile;
       if (Project.Current.Save())
       {
-        Settings.RecentProjects.Add(Project.Current.FileName);
+        ApplicationSettingsController.AppSettings.RecentProjects.Add(Project.Current.FileName);
         Project.Current.IsDirty = false;
       }
     }
@@ -378,16 +379,16 @@ namespace Trizbort.UI
         }
         else
         {
-          dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(Settings.LastProjectFileName);
+          dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(ApplicationSettingsController.AppSettings.LastProjectFileName);
         }
         dialog.Filter = $"{Project.FilterString}|All Files|*.*||";
         if (dialog.ShowDialog() == DialogResult.OK)
         {
-          Settings.LastProjectFileName = dialog.FileName;
+          ApplicationSettingsController.AppSettings.LastProjectFileName = dialog.FileName;
           Project.Current.FileName = dialog.FileName;
           if (Project.Current.Save())
           {
-            Settings.RecentProjects.Add(Project.Current.FileName);
+            ApplicationSettingsController.AppSettings.RecentProjects.Add(Project.Current.FileName);
             return true;
           }
         }
@@ -419,7 +420,7 @@ namespace Trizbort.UI
     private void smartSave(bool silent = false)
     {
 
-      if (!Settings.SaveToPDF && !Settings.SaveToImage)
+      if (!ApplicationSettingsController.AppSettings.SaveToPDF && !ApplicationSettingsController.AppSettings.SaveToImage)
       {
         if (!silent)
           MessageBox.Show("Your settings are set to not save anything. Please check your App Settings if this is not what you want.");
@@ -446,7 +447,7 @@ namespace Trizbort.UI
         {
           bool bSaveError = false;
           string sPDFFile = string.Empty;
-          if (Settings.SaveToPDF)
+          if (ApplicationSettingsController.AppSettings.SaveToPDF)
           {
             sPDFFile = exportPDF();
             if (sPDFFile == string.Empty)
@@ -456,7 +457,7 @@ namespace Trizbort.UI
             }
           }
           string sImageFile = string.Empty;
-          if (Settings.SaveToImage)
+          if (ApplicationSettingsController.AppSettings.SaveToImage)
           {
             sImageFile = exportImage();
             if (sImageFile == string.Empty)
@@ -470,12 +471,12 @@ namespace Trizbort.UI
           if (!bSaveError)
           {
             string sText = string.Empty;
-            if (Settings.SaveToPDF)
+            if (ApplicationSettingsController.AppSettings.SaveToPDF)
             {
               sText += $"PDF file has been saved to {sPDFFile}";
             }
 
-            if (Settings.SaveToImage)
+            if (ApplicationSettingsController.AppSettings.SaveToImage)
             {
               if (sText != string.Empty)
                 sText += Environment.NewLine;
@@ -494,7 +495,7 @@ namespace Trizbort.UI
 
     private void appSettingsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Settings.ShowAppDialog();
+      ApplicationSettingsController.ShowAppDialog();
     }
 
     private string exportImage()
@@ -521,7 +522,7 @@ namespace Trizbort.UI
     private static string getExtensionForDefaultImageType()
     {
       string extension = ".png";
-      switch (Settings.DefaultImageType)
+      switch (ApplicationSettingsController.AppSettings.DefaultImageType)
       {
         case 0:
           extension = ".png";
@@ -561,7 +562,7 @@ namespace Trizbort.UI
       {
         dialog.Filter = "PDF Files|*.pdf|All Files|*.*||";
         dialog.Title = "Export PDF";
-        dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(Settings.LastExportImageFileName);
+        dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(ApplicationSettingsController.AppSettings.LastExportImageFileName);
         if (dialog.ShowDialog() == DialogResult.OK)
         {
           try
@@ -578,7 +579,7 @@ namespace Trizbort.UI
 
     private void savePDF(string fileName)
     {
-      Settings.LastExportImageFileName = fileName;
+      ApplicationSettingsController.AppSettings.LastExportImageFileName = fileName;
 
       var doc = new PdfDocument();
       doc.Info.Title = Project.Current.Title;
@@ -636,10 +637,10 @@ namespace Trizbort.UI
         dialog.Filter = "PNG Images|*.png|JPEG Images|*.jpg|BMP Images|*.bmp|Enhanced Metafiles (EMF)|*.emf|All Files|*.*||";
         dialog.Title = "Export Image";
         dialog.DefaultExt = getExtensionForDefaultImageType();
-        dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(Settings.LastExportImageFileName);
+        dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(ApplicationSettingsController.AppSettings.LastExportImageFileName);
         if (dialog.ShowDialog() == DialogResult.OK)
         {
-          Settings.LastExportImageFileName = Path.GetDirectoryName(dialog.FileName)+@"\";
+          ApplicationSettingsController.AppSettings.LastExportImageFileName = Path.GetDirectoryName(dialog.FileName)+@"\";
           if (!saveImage(dialog.FileName))
           {
             MessageBox.Show("There was an error saving the image file.  Please make sure the image is not already opened.", "Export Image", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -668,7 +669,7 @@ namespace Trizbort.UI
         format = ImageFormat.Emf;
       }
 
-      var size = Canvas.ComputeCanvasBounds(true).Size*(Settings.SaveAt100 ? 1.0f : Canvas.ZoomFactor);
+      var size = Canvas.ComputeCanvasBounds(true).Size*(ApplicationSettingsController.AppSettings.SaveAt100 ? 1.0f : Canvas.ZoomFactor);
       size.X = Numeric.Clamp(size.X, 16, 8192);
       size.Y = Numeric.Clamp(size.Y, 16, 8192);
 
@@ -738,10 +739,10 @@ namespace Trizbort.UI
 
     private void FileExportInform7MenuItem_Click(object sender, EventArgs e)
     {
-      var fileName = Settings.LastExportInform7FileName;
+      var fileName = ApplicationSettingsController.AppSettings.LastExportInform7FileName;
       if (exportCode<Inform7Exporter>(ref fileName))
       {
-        Settings.LastExportInform7FileName = fileName;
+        ApplicationSettingsController.AppSettings.LastExportInform7FileName = fileName;
       }
     }
 
@@ -753,10 +754,10 @@ namespace Trizbort.UI
 
     private void FileExportInform6MenuItem_Click(object sender, EventArgs e)
     {
-      var fileName = Settings.LastExportInform6FileName;
+      var fileName = ApplicationSettingsController.AppSettings.LastExportInform6FileName;
       if (exportCode<Inform6Exporter>(ref fileName))
       {
-        Settings.LastExportInform6FileName = fileName;
+        ApplicationSettingsController.AppSettings.LastExportInform6FileName = fileName;
       }
     }
 
@@ -767,10 +768,10 @@ namespace Trizbort.UI
 
     private void zILToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      var fileName = Settings.LastExportZilFileName;
+      var fileName = ApplicationSettingsController.AppSettings.LastExportZilFileName;
       if (exportCode<ZilExporter>(ref fileName))
       {
-        Settings.LastExportZilFileName = fileName;
+        ApplicationSettingsController.AppSettings.LastExportZilFileName = fileName;
       }
     }
 
@@ -781,10 +782,10 @@ namespace Trizbort.UI
 
     private void FileExportHugoMenuItem_Click(object sender, EventArgs e)
     {
-        var fileName = Settings.LastExportHugoFileName;
+        var fileName = ApplicationSettingsController.AppSettings.LastExportHugoFileName;
         if (exportCode<HugoExporter>(ref fileName))
         {
-            Settings.LastExportHugoFileName = fileName;
+          ApplicationSettingsController.AppSettings.LastExportHugoFileName = fileName;
         }
     }
 
@@ -795,19 +796,19 @@ namespace Trizbort.UI
 
     private void FileExportTadsMenuItem_Click(object sender, EventArgs e)
     {
-      var fileName = Settings.LastExportTadsFileName;
+      var fileName = ApplicationSettingsController.AppSettings.LastExportTadsFileName;
       if (exportCode<TadsExporter>(ref fileName))
       {
-        Settings.LastExportTadsFileName = fileName;
+        ApplicationSettingsController.AppSettings.LastExportTadsFileName = fileName;
       }
     }
 
     private void FileExportAlanMenuItem_Click(object sender, EventArgs e)
     {
-        var fileName = Settings.LastExportAlanFileName;
+        var fileName = ApplicationSettingsController.AppSettings.LastExportAlanFileName;
         if (exportCode<AlanExporter>(ref fileName))
         {
-            Settings.LastExportAlanFileName = fileName;
+          ApplicationSettingsController.AppSettings.LastExportAlanFileName = fileName;
         }
     }
 
@@ -818,10 +819,10 @@ namespace Trizbort.UI
 
     private void FileExportTADSMenuItem_Click(object sender, EventArgs e)
     {
-      var fileName = Settings.LastExportTadsFileName;
+      var fileName = ApplicationSettingsController.AppSettings.LastExportTadsFileName;
       if (exportCode<TadsExporter>(ref fileName))
       {
-        Settings.LastExportTadsFileName = fileName;
+        ApplicationSettingsController.AppSettings.LastExportTadsFileName = fileName;
       }
     }
 
@@ -1182,7 +1183,7 @@ namespace Trizbort.UI
     private void ViewMinimapMenuItem_Click(object sender, EventArgs e)
     {
       Canvas.MinimapVisible = !Canvas.MinimapVisible;
-      Settings.ShowMiniMap = Canvas.MinimapVisible;
+      ApplicationSettingsController.AppSettings.ShowMiniMap = Canvas.MinimapVisible;
     }
 
     private void FileMenu_DropDownOpening(object sender, EventArgs e)
@@ -1222,7 +1223,7 @@ namespace Trizbort.UI
         existingItem.Click -= FileRecentProject_Click;
         existingItem.Dispose();
       }
-      if (Settings.RecentProjects.Count == 0)
+      if (ApplicationSettingsController.AppSettings.RecentProjects.Count == 0)
       {
         m_fileRecentMapsMenuItem.Enabled = false;
       }
@@ -1231,7 +1232,7 @@ namespace Trizbort.UI
         m_fileRecentMapsMenuItem.Enabled = true;
         var index = 1;
         var removedFiles = new List<string>();
-        foreach (var recentProject in Settings.RecentProjects)
+        foreach (var recentProject in ApplicationSettingsController.AppSettings.RecentProjects)
         {
           if (File.Exists(recentProject))
           {
@@ -1246,7 +1247,7 @@ namespace Trizbort.UI
         }
         if (removedFiles.Any())
         {
-          removedFiles.ForEach(p => Settings.RecentProjects.Remove(p));
+          removedFiles.ForEach(p => ApplicationSettingsController.AppSettings.RecentProjects.Remove(p));
         }
       }
     }

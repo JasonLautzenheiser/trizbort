@@ -124,6 +124,8 @@
     <Compile Include="Domain\RoomValidationState.cs" />
     <Compile Include="Domain\SerializeHelpers\ElementConverter.cs" />
     <Compile Include="Domain\SerializeHelpers\PortConverter.cs" />
+    <Compile Include="Domain\AppSettings\ApplicationSettings.cs" />
+    <Compile Include="Domain\AppSettings\ApplicationSettingsController.cs" />
     <Compile Include="Domain\TrizbortApplication.cs" />
     <Compile Include="Domain\Watchers\TrizbortFileWatcher.cs" />
     <Compile Include="DrawingContext.cs" />

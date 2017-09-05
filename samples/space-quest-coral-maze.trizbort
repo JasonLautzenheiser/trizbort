@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trizbort version="1.6.0.0">
+	<info />
+	<map>
+		<room id="1" name="Maze Start" subtitle="" x="-168" y="-240" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="2" name="T right" subtitle="" x="-168" y="-168" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="3" name="" description="">
+			<dock index="0" id="1" port="s" />
+			<dock index="1" id="2" port="n" />
+		</line>
+		<room id="4" name="Left Right" subtitle="" x="-96" y="-168" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="5" name="" description="">
+			<dock index="0" id="2" port="e" />
+			<dock index="1" id="4" port="w" />
+		</line>
+		<room id="6" name="Up Down" subtitle="" x="-168" y="-96" w="48" h="48" region="Useless" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="7" name="" description="">
+			<dock index="0" id="2" port="s" />
+			<dock index="1" id="6" port="n" />
+		</line>
+		<room id="8" name="T left" subtitle="" x="-168" y="-24" w="48" h="48" region="Useless" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="9" name="" description="">
+			<dock index="0" id="6" port="s" />
+			<dock index="1" id="8" port="n" />
+		</line>
+		<room id="10" name="Dead End" subtitle="" x="-240" y="-24" w="48" h="48" region="Useless" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="11" name="" description="">
+			<dock index="0" id="8" port="w" />
+			<dock index="1" id="10" port="e" />
+		</line>
+		<room id="12" name="T down" subtitle="" x="-24" y="-168" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="13" name="" description="">
+			<dock index="0" id="4" port="e" />
+			<dock index="1" id="12" port="w" />
+		</line>
+		<room id="14" name="Up down" subtitle="" x="-24" y="-96" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="15" name="" description="">
+			<dock index="0" id="12" port="s" />
+			<dock index="1" id="14" port="n" />
+		</line>
+		<room id="16" name="Up Right" subtitle="" x="-24" y="-24" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="17" name="" description="">
+			<dock index="0" id="14" port="s" />
+			<dock index="1" id="16" port="n" />
+		</line>
+		<room id="18" name="Left Right" subtitle="" x="48" y="-24" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="19" name="" description="">
+			<dock index="0" id="16" port="e" />
+			<dock index="1" id="18" port="w" />
+		</line>
+		<room id="20" name="Left Right" subtitle="" x="120" y="-24" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="21" name="" description="">
+			<dock index="0" id="18" port="e" />
+			<dock index="1" id="20" port="w" />
+		</line>
+		<room id="22" name="T down" subtitle="" x="192" y="-24" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="23" name="" description="">
+			<dock index="0" id="20" port="e" />
+			<dock index="1" id="22" port="w" />
+		</line>
+		<room id="24" name="T right" subtitle="" x="192" y="48" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="25" name="" description="">
+			<dock index="0" id="22" port="s" />
+			<dock index="1" id="24" port="n" />
+		</line>
+		<room id="26" name="Cross Roads" subtitle="" x="192" y="120" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="27" name="" description="">
+			<dock index="0" id="24" port="s" />
+			<dock index="1" id="26" port="n" />
+		</line>
+		<room id="28" name="Up Down" subtitle="" x="192" y="192" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="29" name="" description="">
+			<dock index="0" id="26" port="s" />
+			<dock index="1" id="28" port="n" />
+		</line>
+		<room id="30" name="Up Left" subtitle="" x="120" y="192" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="31" name="" description="">
+			<dock index="0" id="28" port="w" />
+			<dock index="1" id="30" port="e" />
+		</line>
+		<room id="32" name="T down" subtitle="" x="48" y="192" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="33" name="" description="">
+			<dock index="0" id="30" port="w" />
+			<dock index="1" id="32" port="e" />
+		</line>
+		<room id="34" name="T left" subtitle="" x="48" y="264" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="35" name="" description="">
+			<dock index="0" id="32" port="s" />
+			<dock index="1" id="34" port="n" />
+		</line>
+		<room id="36" name="Up right" subtitle="" x="48" y="336" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="37" name="" description="">
+			<dock index="0" id="34" port="s" />
+			<dock index="1" id="36" port="n" />
+		</line>
+		<room id="38" name="Panel" subtitle="" x="120" y="336" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n" custom="yes" customRight="-40" customDown="0">Need alien paper|From behind shark</objects>
+		</room>
+		<line id="39" name="" description="">
+			<dock index="0" id="36" port="e" />
+			<dock index="1" id="38" port="w" />
+		</line>
+		<room id="40" name="Green Button" subtitle="" x="192" y="336" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n" custom="yes" customRight="-8" customDown="0">Use panel * 3</objects>
+		</room>
+		<line id="41" name="" description="" style="dashed">
+			<dock index="0" id="38" port="e" />
+			<dock index="1" id="40" port="w" />
+		</line>
+		<room id="42" name="Nice scene" subtitle="" x="264" y="336" w="48" h="48" region="Useless" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="43" name="" description="">
+			<dock index="0" id="40" port="e" />
+			<dock index="1" id="42" port="w" />
+		</line>
+		<room id="44" name="Hall" subtitle="" x="192" y="408" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="45" name="" description="">
+			<dock index="0" id="40" port="s" />
+			<dock index="1" id="44" port="n" />
+		</line>
+		<room id="46" name="Hall" subtitle="" x="192" y="480" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="47" name="" description="">
+			<dock index="0" id="44" port="s" />
+			<dock index="1" id="46" port="n" />
+		</line>
+		<room id="48" name="Ship" subtitle="" x="264" y="480" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="49" name="" description="">
+			<dock index="0" id="46" port="e" />
+			<dock index="1" id="48" port="w" />
+		</line>
+		<room id="50" name="Craft Start" subtitle="" x="120" y="480" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="51" name="R00" subtitle="" x="48" y="480" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="52" name="" description="">
+			<dock index="0" id="50" port="w" />
+			<dock index="1" id="51" port="e" />
+		</line>
+		<room id="53" name="R00" subtitle="" x="-24" y="480" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="54" name="" description="">
+			<dock index="0" id="51" port="w" />
+			<dock index="1" id="53" port="e" />
+		</line>
+		<room id="55" name="R00" subtitle="" x="-96" y="480" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="56" name="" description="">
+			<dock index="0" id="53" port="w" />
+			<dock index="1" id="55" port="e" />
+		</line>
+		<room id="57" name="Other Ship" subtitle="" x="-168" y="480" w="48" h="48" region="Important item" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n" custom="yes" customRight="-40" customDown="0">Box|Need pressure suit</objects>
+		</room>
+		<line id="58" name="" description="">
+			<dock index="0" id="55" port="w" />
+			<dock index="1" id="57" port="e" />
+		</line>
+		<room id="61" name="R00" subtitle="" x="-240" y="480" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="62" name="" description="">
+			<dock index="0" id="57" port="w" />
+			<dock index="1" id="61" port="e" />
+		</line>
+		<room id="59" name="City Entry" subtitle="" x="-240" y="408" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n">USE BOX|EXIT CITY to leave</objects>
+		</room>
+		<line id="60" name="" description="">
+			<dock index="0" id="61" port="n" />
+			<dock index="1" id="59" port="s" />
+		</line>
+		<room id="63" name="Dock Bay" subtitle="" x="-456" y="192" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="64" name="Big Door" subtitle="" x="-384" y="192" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>USE PANEL</objects>
+		</room>
+		<line id="65" name="" description="">
+			<dock index="0" id="63" port="e" />
+			<dock index="1" id="64" port="w" />
+		</line>
+		<room id="66" name="Hall" subtitle="" x="-312" y="120" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="67" name="" description="">
+			<dock index="0" id="64" port="e" />
+			<dock index="1" id="66" port="s" />
+		</line>
+		<room id="68" name="Aliens" subtitle="" x="-384" y="120" w="48" h="48" region="Lethal" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="69" name="" description="">
+			<dock index="0" id="66" port="w" />
+			<dock index="1" id="68" port="e" />
+		</line>
+		<room id="70" name="Hall" subtitle="" x="-240" y="120" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="71" name="" description="">
+			<dock index="0" id="66" port="e" />
+			<dock index="1" id="70" port="w" />
+		</line>
+		<room id="72" name="Hall" subtitle="" x="-240" y="192" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="73" name="" description="">
+			<dock index="0" id="70" port="s" />
+			<dock index="1" id="72" port="n" />
+		</line>
+		<room id="74" name="Stay North" subtitle="" x="-168" y="192" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="#FF8000" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="75" name="" description="">
+			<dock index="0" id="72" port="e" />
+			<dock index="1" id="74" port="w" />
+		</line>
+		<room id="76" name="Hall" subtitle="" x="-96" y="192" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="77" name="" description="">
+			<dock index="0" id="74" port="e" />
+			<dock index="1" id="76" port="w" />
+		</line>
+		<room id="78" name="Aliens" subtitle="" x="-24" y="192" w="48" h="48" region="Lethal" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects custom="yes" customRight="-32" customDown="0">Extra bad|They'll follow</objects>
+		</room>
+		<line id="79" name="" description="">
+			<dock index="0" id="76" port="e" />
+			<dock index="1" id="78" port="w" />
+		</line>
+		<room id="80" name="Hall" subtitle="" x="-96" y="120" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="81" name="" description="">
+			<dock index="0" id="76" port="n" />
+			<dock index="1" id="80" port="s" />
+		</line>
+		<room id="82" name="Hall" subtitle="" x="-96" y="48" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="83" name="" description="">
+			<dock index="0" id="80" port="n" />
+			<dock index="1" id="82" port="s" />
+		</line>
+		<room id="84" name="Hall" subtitle="" x="-24" y="48" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<line id="85" name="" description="">
+			<dock index="0" id="82" port="e" />
+			<dock index="1" id="84" port="w" />
+		</line>
+		<room id="86" name="Mus-eum" subtitle="" x="48" y="48" w="48" h="48" region="Important item" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>MASK|OUTFIT</objects>
+		</room>
+		<line id="87" name="" description="">
+			<dock index="0" id="84" port="e" />
+			<dock index="1" id="86" port="w" />
+		</line>
+		<line id="88" name="" description="" style="dashed">
+			<dock index="0" id="63" port="se" />
+			<dock index="1" id="59" port="nw" />
+		</line>
+		<room id="89" name="Item" subtitle="" x="-384" y="-168" w="48" h="48" region="Important item" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="90" name="Use-less" subtitle="" x="-336" y="-168" w="48" h="48" region="Useless" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="91" name="Death" subtitle="" x="-384" y="-120" w="48" h="48" region="Lethal" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="92" name="Walk Thru" subtitle="" x="-336" y="-120" w="48" h="48" region="Through Way" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+	</map>
+	<settings>
+		<colors>
+			<canvas>White</canvas>
+			<border>MidnightBlue</border>
+			<line>MidnightBlue</line>
+			<selectedLine>Gold</selectedLine>
+			<hoverLine>DarkOrange</hoverLine>
+			<largeText>MidnightBlue</largeText>
+			<smallText>MidnightBlue</smallText>
+			<lineText>MidnightBlue</lineText>
+			<grid>#F5F5F5</grid>
+			<startRoom>GreenYellow</startRoom>
+			<endRoom>Red</endRoom>
+		</colors>
+		<regions>
+			<Important____item Name="Important item" TextColor="Black">Lime</Important____item>
+			<Later Name="Later" TextColor="MidnightBlue">#8080FF</Later>
+			<Lethal Name="Lethal" TextColor="Black">#FF8000</Lethal>
+			<NoRegion Name="NoRegion" TextColor="Black">White</NoRegion>
+			<Through____Way Name="Through Way" TextColor="Black">#FFFF80</Through____Way>
+			<Useless Name="Useless" TextColor="Black">#FF80C0</Useless>
+		</regions>
+		<fonts>
+			<room size="13">Arial</room>
+			<object size="11">Arial</object>
+			<line size="9">Arial</line>
+		</fonts>
+		<grid>
+			<snapTo>yes</snapTo>
+			<visible>yes</visible>
+			<showOrigin>yes</showOrigin>
+			<size>24</size>
+		</grid>
+		<lines>
+			<width>2</width>
+			<arrowSize>12</arrowSize>
+			<textOffset>4</textOffset>
+		</lines>
+		<rooms>
+			<darknessStripeSize>24</darknessStripeSize>
+			<objectListOffset>4</objectListOffset>
+			<connectionStalkLength>8</connectionStalkLength>
+			<preferredDistanceBetweenRooms>24</preferredDistanceBetweenRooms>
+			<defaultRoomName>R00</defaultRoomName>
+		</rooms>
+		<ui>
+			<handleSize>12</handleSize>
+			<snapToElementSize>16</snapToElementSize>
+		</ui>
+		<margins>
+			<documentSpecific>yes</documentSpecific>
+			<horizontal>24</horizontal>
+			<vertical>24</vertical>
+		</margins>
+		<keypadNavigation>
+			<creationModifier>control</creationModifier>
+			<unexploredModifier>alt</unexploredModifier>
+		</keypadNavigation>
+	</settings>
+</trizbort>

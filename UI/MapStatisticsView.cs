@@ -44,6 +44,12 @@ namespace Trizbort.UI
         stats += $"No end room.";
       stats += $"{Environment.NewLine}";
 
+      var canvasBounds = Project.Current.Canvas.ComputeCanvasBounds(true);
+      stats += $"{Environment.NewLine}Dimensions with margins: height {canvasBounds.Bottom - canvasBounds.Top}, width {canvasBounds.Right - canvasBounds.Left}{Environment.NewLine}";
+
+      canvasBounds = Project.Current.Canvas.ComputeCanvasBounds(false);
+      stats += $"Dimensions without margins: height {canvasBounds.Bottom - canvasBounds.Top}, width {canvasBounds.Right - canvasBounds.Left}{Environment.NewLine}";
+
       stats += $"{Environment.NewLine}";
       stats += $"# of Connections: {MapStatistics.NumberOfConnections} total, {MapStatistics.UnlabeledConnections} unlabeled, " +
         $"{MapStatistics.NumberOfOneWayConnections} one-way, {MapStatistics.NumberOfDottedConnections} dashed/dotted, " +

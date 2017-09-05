@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Trizbort.UI.Controls;
 
 namespace Trizbort.UI
 {
@@ -43,6 +44,12 @@ namespace Trizbort.UI
       else
         stats += $"No end room.";
       stats += $"{Environment.NewLine}";
+
+      var canvasBounds = Project.Current.Canvas.ComputeCanvasBounds(true);
+      stats += $"{Environment.NewLine}Dimensions with margins: height {canvasBounds.Bottom - canvasBounds.Top}, width {canvasBounds.Right - canvasBounds.Left}{Environment.NewLine}";
+
+      canvasBounds = Project.Current.Canvas.ComputeCanvasBounds(false);
+      stats += $"Dimensions without margins: height {canvasBounds.Bottom - canvasBounds.Top}, width {canvasBounds.Right - canvasBounds.Left}{Environment.NewLine}";
 
       stats += $"{Environment.NewLine}";
       stats += $"# of Connections: {MapStatistics.NumberOfConnections} total, {MapStatistics.UnlabeledConnections} unlabeled, " +

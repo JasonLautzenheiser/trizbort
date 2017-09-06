@@ -3034,10 +3034,10 @@ namespace Trizbort.UI.Controls
           endRoomToolStripMenuItem.Visible = true;
 
           startRoomToolStripMenuItem.Enabled = HasSingleSelectedElement;
-          endRoomToolStripMenuItem.Enabled = true;
+          endRoomToolStripMenuItem.Enabled = HasSingleSelectedElement;
 
           startRoomToolStripMenuItem.Checked = lastSelectedRoom.IsStartRoom && HasSingleSelectedElement;
-          endRoomToolStripMenuItem.Checked = lastSelectedRoom.IsEndRoom;
+          endRoomToolStripMenuItem.Checked = lastSelectedRoom.IsEndRoom && HasSingleSelectedElement;
 
           sendToBackToolStripMenuItem.Visible = true;
           bringToFrontToolStripMenuItem.Visible = true;

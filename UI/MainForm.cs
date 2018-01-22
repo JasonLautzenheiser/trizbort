@@ -184,6 +184,11 @@ namespace Trizbort.UI
         exportCodeCl<ZilExporter>(options.Zil);
       }
 
+      if (!string.IsNullOrWhiteSpace(options.Quest))
+      {
+        exportCodeCl<QuestExporter>(options.Quest);
+      }
+
       if (options.Exit)
       {
         Close();
@@ -829,6 +834,20 @@ namespace Trizbort.UI
     private void tADSToTextToolStripMenuItem_Click(object sender, EventArgs e)
     {
       exportCode<TadsExporter>();
+    }
+
+    private void FileExportQuestMenuItem_Click(object sender, EventArgs e)
+    {
+        var fileName = ApplicationSettingsController.AppSettings.LastExportQuestFileName;
+        if (exportCode<QuestExporter>(ref fileName))
+        {
+            ApplicationSettingsController.AppSettings.LastExportQuestFileName = fileName;
+        }
+    }
+
+    private void questToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        exportCode<QuestExporter>();
     }
 
     private void exportCodeCl<T>(string exportFile) where T : CodeExporter, new()

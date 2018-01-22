@@ -46,5 +46,8 @@ namespace Trizbort.Domain
 
     [Option("zil", HelpText = "Export to Zil.")]
     public string Zil { get; set; }
+
+    [Option("quest", HelpText = "Export to Quest.")]
+    public string Quest { get; set; }
   }
 }

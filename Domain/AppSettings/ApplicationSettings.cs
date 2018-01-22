@@ -30,6 +30,7 @@ namespace Trizbort.Domain.AppSettings
     public string LastExportInform7FileName { get; set; }
     public string LastExportTadsFileName { get; set; }
     public string LastExportZilFileName { get; set; }
+    public string LastExportQuestFileName { get; set; }
     public string LastProjectFileName { get; set; }
     public bool LoadLastProjectOnStart { get; set; }
     public int MouseDragButton { get; set; }

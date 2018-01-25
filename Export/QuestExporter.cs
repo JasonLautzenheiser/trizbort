@@ -10,12 +10,9 @@ using Trizbort.Domain.AppSettings;
 
 namespace Trizbort.Export
 {
-  internal class QuestExporter : CodeExporter
+  internal class QuestRoomsExporter : CodeExporter
   {
-    private const char SINGLE_QUOTE = '\'';
-    private const char DOUBLE_QUOTE = '"';
-
-    public override string FileDialogTitle => "Export Quest Source Code";
+    public override string FileDialogTitle => "Export Quest Source Code (rooms only)";
 
     public override List<KeyValuePair<string, string>> FileDialogFilters => new List<KeyValuePair<string, string>>
     {
@@ -24,21 +21,9 @@ namespace Trizbort.Export
     };
 
     protected override IEnumerable<string> ReservedWords => new[] {"object", "game", "turnscript"};
-//    protected override Encoding Encoding => Encoding.ASCII;
 
     protected override void ExportHeader(TextWriter writer, string title, string author, string description, string history)
     {
-      writer.WriteLine("<asl version=\"550\">");
-      writer.WriteLine();
-      writer.WriteLine("  <include ref=\"English.aslx\"/>");
-      writer.WriteLine("  <include ref=\"Core.aslx\"/>");
-      writer.WriteLine("  <game name=\"{0}\">", title);
-      writer.WriteLine("    <gameid>{0}</gameid>", System.Guid.NewGuid().ToString());
-      writer.WriteLine("    <version>1.0</version>");
-      writer.WriteLine("    <firstpublished>{0}</firstpublished>", DateTime.Now.Year.ToString());
-      writer.WriteLine("    <description>{0}</description>", description);
-      writer.WriteLine("  </game>");
-      writer.WriteLine();
     }
 
     protected override void ExportContent(TextWriter writer)
@@ -52,6 +37,11 @@ namespace Trizbort.Export
         {
           writer.WriteLine("    <dark />");
         }
+        writer.WriteLine("    <attr name=\"grid_width\" type=\"int\">{0}</attr>", location.Room.Width / 32);
+        writer.WriteLine("    <attr name=\"grid_length\" type=\"int\">{0}</attr>", location.Room.Height / 32);
+        writer.WriteLine("    <attr name=\"grid_fill\">{0}</attr>", System.Drawing.ColorTranslator.ToHtml(location.Room.RoomFill));
+        writer.WriteLine("    <attr name=\"grid_border\">{0}</attr>", System.Drawing.ColorTranslator.ToHtml(location.Room.RoomBorder));
+        writer.WriteLine("    <attr name=\"implementation_notes\">{0}</attr>", location.Room.GetToolTipText());
         if (!string.IsNullOrEmpty(location.Room.PrimaryDescription))
         {
           writer.WriteLine("    <description>{0}</description>", location.Room.PrimaryDescription);
@@ -68,9 +58,54 @@ namespace Trizbort.Export
           }
         }
 
+        if (location.Room.IsStartRoom)
+        {
+          writer.WriteLine("    <object name=\"player\">");
+          writer.WriteLine("      <inherit name=\"editor_object\" />");
+          writer.WriteLine("      <inherit name=\"editor_player\" />");
+          writer.WriteLine("    </object>");
+        }
         foreach (var thing in location.Things) {
           writer.WriteLine("    <object name=\"{0}\">", thing.ExportName);
           writer.WriteLine("      <inherit name=\"editor_object\" />");
+          if (thing.isScenery)
+          {
+            writer.WriteLine("      <scenery />");
+          }
+          if (thing.isContainer)
+          {
+            writer.WriteLine("      <feature_container />");
+            writer.WriteLine("      <inherit name=\"container_closed\" />");
+          }
+          if (thing.forceplural == Thing.Amounts.plural)
+          {
+            writer.WriteLine("      <inherit name=\"plural\" />");
+          }
+          if (thing.isPerson)
+          {
+            if (thing.gender == Thing.ThingGender.female)
+            {
+              if (thing.properNamed)
+              {
+                writer.WriteLine("      <inherit name=\"namedfemale\" />");
+              }
+              else
+              {
+                writer.WriteLine("      <inherit name=\"female\" />");
+              }
+            }
+            else if (thing.gender == Thing.ThingGender.male)
+                        {
+              if (thing.properNamed)
+              {
+                writer.WriteLine("      <inherit name=\"namedmale\" />");
+              }
+              else
+              {
+                writer.WriteLine("      <inherit name=\"male\" />");
+              }
+            }
+          }
           writer.WriteLine("      <alias>{0}</alias>", thing.DisplayName);
           writer.WriteLine("    </object>");
         }
@@ -81,7 +116,6 @@ namespace Trizbort.Export
 
       }
 
-      writer.WriteLine("</asl>");
       writer.WriteLine();
     }
 
@@ -167,5 +201,37 @@ namespace Trizbort.Export
       }
       return result;
     }
+  }
+
+
+  internal class QuestExporter : QuestRoomsExporter
+    {
+    public override string FileDialogTitle => "Export Quest Source Code";
+
+    protected override void ExportHeader(TextWriter writer, string title, string author, string description, string history)
+    {
+      writer.WriteLine("<asl version=\"550\">");
+      writer.WriteLine();
+      writer.WriteLine("  <include ref=\"English.aslx\"/>");
+      writer.WriteLine("  <include ref=\"Core.aslx\"/>");
+      writer.WriteLine("  <game name=\"{0}\">", title);
+      writer.WriteLine("    <gameid>{0}</gameid>", System.Guid.NewGuid().ToString());
+      writer.WriteLine("    <version>1.0</version>");
+      writer.WriteLine("    <firstpublished>{0}</firstpublished>", DateTime.Now.Year.ToString());
+      writer.WriteLine("    <author>{0}</author>", author);
+      writer.WriteLine("    <description>{0}</description>", description);
+      writer.WriteLine("  </game>");
+      writer.WriteLine();
+    }
+
+    protected override void ExportContent(TextWriter writer)
+    {
+      base.ExportContent(writer);
+
+      writer.WriteLine("</asl>");
+      writer.WriteLine();
+    }
+
+
   }
 }

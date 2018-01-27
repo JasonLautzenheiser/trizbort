@@ -135,6 +135,7 @@
     <Compile Include="Export\CodeExporter.cs" />
     <Compile Include="Export\HugoExporter.cs" />
     <Compile Include="Export\Inform6Exporter.cs" />
+    <Compile Include="Export\QuestExporter.cs" />
     <Compile Include="Export\TadsExporter.cs" />
     <Compile Include="Export\ZilExporter.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />

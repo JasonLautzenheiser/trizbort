@@ -75,9 +75,8 @@ namespace Trizbort.UI
       this.m_fileExportInform7MenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_fileExportInform6MenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_fileExportTADSMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.m_fileExportQuestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.m_fileExportQuestRoomsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.zILToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_fileExportQuestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
       this.alanToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.hugoToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -313,7 +312,6 @@ namespace Trizbort.UI
             this.m_fileExportTADSMenuItem,
             this.zILToolStripMenuItem,
             this.m_fileExportQuestMenuItem,
-            this.m_fileExportQuestRoomsMenuItem,
             this.toolStripSeparator13,
             this.alanToTextToolStripMenuItem,
             this.hugoToTextToolStripMenuItem,
@@ -330,28 +328,28 @@ namespace Trizbort.UI
       // m_fileExportPDFMenuItem
       // 
       this.m_fileExportPDFMenuItem.Name = "m_fileExportPDFMenuItem";
-      this.m_fileExportPDFMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.m_fileExportPDFMenuItem.Size = new System.Drawing.Size(304, 22);
       this.m_fileExportPDFMenuItem.Text = "&PDF...";
       this.m_fileExportPDFMenuItem.Click += new System.EventHandler(this.FileExportPDFMenuItem_Click);
       // 
       // m_fileExportImageMenuItem
       // 
       this.m_fileExportImageMenuItem.Name = "m_fileExportImageMenuItem";
-      this.m_fileExportImageMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.m_fileExportImageMenuItem.Size = new System.Drawing.Size(304, 22);
       this.m_fileExportImageMenuItem.Text = "&Image...";
       this.m_fileExportImageMenuItem.Click += new System.EventHandler(this.FileExportImageMenuItem_Click);
       // 
       // toolStripMenuItem9
       // 
       this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-      this.toolStripMenuItem9.Size = new System.Drawing.Size(248, 6);
+      this.toolStripMenuItem9.Size = new System.Drawing.Size(301, 6);
       // 
       // m_fileExportAlanMenuItem
       // 
       this.m_fileExportAlanMenuItem.Name = "m_fileExportAlanMenuItem";
       this.m_fileExportAlanMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.L)));
-      this.m_fileExportAlanMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.m_fileExportAlanMenuItem.Size = new System.Drawing.Size(304, 22);
       this.m_fileExportAlanMenuItem.Text = "&Alan...";
       this.m_fileExportAlanMenuItem.Click += new System.EventHandler(this.FileExportAlanMenuItem_Click);
       // 
@@ -360,7 +358,7 @@ namespace Trizbort.UI
       this.m_fileExportHugoMenuItem.Name = "m_fileExportHugoMenuItem";
       this.m_fileExportHugoMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.H)));
-      this.m_fileExportHugoMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.m_fileExportHugoMenuItem.Size = new System.Drawing.Size(304, 22);
       this.m_fileExportHugoMenuItem.Text = "&Hugo...";
       this.m_fileExportHugoMenuItem.Click += new System.EventHandler(this.FileExportHugoMenuItem_Click);
       // 
@@ -369,7 +367,7 @@ namespace Trizbort.UI
       this.m_fileExportInform7MenuItem.Name = "m_fileExportInform7MenuItem";
       this.m_fileExportInform7MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D7)));
-      this.m_fileExportInform7MenuItem.Size = new System.Drawing.Size(251, 22);
+      this.m_fileExportInform7MenuItem.Size = new System.Drawing.Size(304, 22);
       this.m_fileExportInform7MenuItem.Text = "Inform &7...";
       this.m_fileExportInform7MenuItem.Click += new System.EventHandler(this.FileExportInform7MenuItem_Click);
       // 
@@ -378,7 +376,7 @@ namespace Trizbort.UI
       this.m_fileExportInform6MenuItem.Name = "m_fileExportInform6MenuItem";
       this.m_fileExportInform6MenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D6)));
-      this.m_fileExportInform6MenuItem.Size = new System.Drawing.Size(251, 22);
+      this.m_fileExportInform6MenuItem.Size = new System.Drawing.Size(304, 22);
       this.m_fileExportInform6MenuItem.Text = "Inform &6...";
       this.m_fileExportInform6MenuItem.Click += new System.EventHandler(this.FileExportInform6MenuItem_Click);
       // 
@@ -387,7 +385,7 @@ namespace Trizbort.UI
       this.m_fileExportTADSMenuItem.Name = "m_fileExportTADSMenuItem";
       this.m_fileExportTADSMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.T)));
-      this.m_fileExportTADSMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.m_fileExportTADSMenuItem.Size = new System.Drawing.Size(304, 22);
       this.m_fileExportTADSMenuItem.Text = "&TADS...";
       this.m_fileExportTADSMenuItem.Click += new System.EventHandler(this.FileExportTadsMenuItem_Click);
       // 
@@ -396,7 +394,7 @@ namespace Trizbort.UI
       this.zILToolStripMenuItem.Name = "zILToolStripMenuItem";
       this.zILToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Z)));
-      this.zILToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.zILToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
       this.zILToolStripMenuItem.Text = "ZIL...";
       this.zILToolStripMenuItem.Click += new System.EventHandler(this.zILToolStripMenuItem_Click);
       // 
@@ -405,21 +403,21 @@ namespace Trizbort.UI
       this.m_fileExportQuestMenuItem.Name = "m_fileExportQuestMenuItem";
       this.m_fileExportQuestMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Q)));
-      this.m_fileExportQuestMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.m_fileExportQuestMenuItem.Size = new System.Drawing.Size(304, 22);
       this.m_fileExportQuestMenuItem.Text = "&Quest...";
       this.m_fileExportQuestMenuItem.Click += new System.EventHandler(this.FileExportQuestMenuItem_Click);
       // 
       // toolStripSeparator13
       // 
       this.toolStripSeparator13.Name = "toolStripSeparator13";
-      this.toolStripSeparator13.Size = new System.Drawing.Size(248, 6);
+      this.toolStripSeparator13.Size = new System.Drawing.Size(301, 6);
       // 
       // alanToTextToolStripMenuItem
       // 
       this.alanToTextToolStripMenuItem.Name = "alanToTextToolStripMenuItem";
       this.alanToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.L)));
-      this.alanToTextToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.alanToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
       this.alanToTextToolStripMenuItem.Text = "Alan to Clipboard";
       this.alanToTextToolStripMenuItem.Click += new System.EventHandler(this.alanToTextToolStripMenuItem_Click);
       // 
@@ -428,7 +426,7 @@ namespace Trizbort.UI
       this.hugoToTextToolStripMenuItem.Name = "hugoToTextToolStripMenuItem";
       this.hugoToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.H)));
-      this.hugoToTextToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.hugoToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
       this.hugoToTextToolStripMenuItem.Text = "Hugo to Clipboard";
       this.hugoToTextToolStripMenuItem.Click += new System.EventHandler(this.hugoToTextToolStripMenuItem_Click);
       // 
@@ -437,7 +435,7 @@ namespace Trizbort.UI
       this.inform7ToTextToolStripMenuItem.Name = "inform7ToTextToolStripMenuItem";
       this.inform7ToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.D7)));
-      this.inform7ToTextToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.inform7ToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
       this.inform7ToTextToolStripMenuItem.Text = "Inform 7 to Clipboard";
       this.inform7ToTextToolStripMenuItem.Click += new System.EventHandler(this.inform7ToTextToolStripMenuItem_Click);
       // 
@@ -446,7 +444,7 @@ namespace Trizbort.UI
       this.inform6ToTextToolStripMenuItem.Name = "inform6ToTextToolStripMenuItem";
       this.inform6ToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.D6)));
-      this.inform6ToTextToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.inform6ToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
       this.inform6ToTextToolStripMenuItem.Text = "Inform 6 to Clipboard";
       this.inform6ToTextToolStripMenuItem.Click += new System.EventHandler(this.inform6ToTextToolStripMenuItem_Click);
       // 
@@ -455,7 +453,7 @@ namespace Trizbort.UI
       this.tADSToTextToolStripMenuItem.Name = "tADSToTextToolStripMenuItem";
       this.tADSToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.T)));
-      this.tADSToTextToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.tADSToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
       this.tADSToTextToolStripMenuItem.Text = "TADS to Clipboard";
       this.tADSToTextToolStripMenuItem.Click += new System.EventHandler(this.tADSToTextToolStripMenuItem_Click);
       // 
@@ -464,14 +462,14 @@ namespace Trizbort.UI
       this.zILToClipboardToolStripMenuItem.Name = "zILToClipboardToolStripMenuItem";
       this.zILToClipboardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.Z)));
-      this.zILToClipboardToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.zILToClipboardToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
       this.zILToClipboardToolStripMenuItem.Text = "ZIL to Clipboard";
       this.zILToClipboardToolStripMenuItem.Click += new System.EventHandler(this.zILToClipboardToolStripMenuItem_Click);
       // 
       // questToTextToolStripMenuItem
       // 
       this.questToTextToolStripMenuItem.Name = "questToTextToolStripMenuItem";
-      this.questToTextToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.questToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
       this.questToTextToolStripMenuItem.Text = "Quest to Clipboard";
       this.questToTextToolStripMenuItem.Click += new System.EventHandler(this.questToTextToolStripMenuItem_Click);
       // 
@@ -480,7 +478,7 @@ namespace Trizbort.UI
       this.questRoomsToTextToolStripMenuItem.Name = "questRoomsToTextToolStripMenuItem";
       this.questRoomsToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.Q)));
-      this.questRoomsToTextToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+      this.questRoomsToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
       this.questRoomsToTextToolStripMenuItem.Text = "Quest to Clipboard (no header)";
       this.questRoomsToTextToolStripMenuItem.Click += new System.EventHandler(this.questRoomsToTextToolStripMenuItem_Click);
       // 
@@ -1495,7 +1493,6 @@ namespace Trizbort.UI
         private System.Windows.Forms.ToolStripMenuItem m_fileExportHugoMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_fileExportInform7MenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_fileExportQuestMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem m_fileExportQuestRoomsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_fileRecentMapsMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem m_editSelectAllMenuItem;

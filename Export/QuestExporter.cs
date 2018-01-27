@@ -30,7 +30,7 @@ namespace Trizbort.Export
     {
       foreach (var location in LocationsInExportOrder)
       {
-        writer.WriteLine("  <object name=\"{0}\">", GetExportName(location.Room, null));
+        writer.WriteLine("  <object name=\"{0}\">", location.ExportName);
         writer.WriteLine("    <inherit name=\"editor_room\" />");
         writer.WriteLine("    <alias>{0}</alias>", location.Room.Name);
         if (location.Room.IsDark)
@@ -155,32 +155,24 @@ namespace Trizbort.Export
       }
     }
 
-    protected override string GetExportName(Room room, int? suffix)
-    {
-      var name = stripOddCharacters(room.Name);
-      if (string.IsNullOrEmpty(name))
-      {
-        name = "room";
-      }
-
-      if (suffix != null)
-      {
-        name = $"{name}{suffix}";
-      }
-      return name;
+    protected override string GetExportName(Room room, int? suffix) {
+      return getExportName(room.Name, suffix);
     }
 
-    protected override string GetExportName(string displayName, int? suffix)
-    {
+    protected override string GetExportName(string displayName, int? suffix) {
+      return getExportName(displayName, suffix);
+    }
+
+    private static string getExportName(string displayName, int? suffix) {
       var name = stripOddCharacters(displayName);
-      if (string.IsNullOrEmpty(name))
-      {
+      if (string.IsNullOrEmpty(name)) {
         name = "item";
       }
-      if (suffix != null)
-      {
+
+      if (suffix != null) {
         name = $"{name}{suffix}";
       }
+
       return name;
     }
 

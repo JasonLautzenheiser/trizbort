@@ -72,23 +72,6 @@ namespace Trizbort.UI
       this.cboRegion = new System.Windows.Forms.ComboBox();
       this.label6 = new System.Windows.Forms.Label();
       this.m_tabControl = new DevComponents.DotNetBar.SuperTabControl();
-      this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.chkHandDrawnRoom = new System.Windows.Forms.CheckBox();
-      this.groupRoundedCorners = new DevComponents.DotNetBar.Controls.GroupPanel();
-      this.chkCornersSame = new System.Windows.Forms.CheckBox();
-      this.txtBottomRight = new DevComponents.Editors.DoubleInput();
-      this.txtTopLeft = new DevComponents.Editors.DoubleInput();
-      this.txtBottomLeft = new DevComponents.Editors.DoubleInput();
-      this.txtTopRight = new DevComponents.Editors.DoubleInput();
-      this.cboDrawType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
-      this.itemStraightEdges = new DevComponents.Editors.ComboItem();
-      this.itemRoundedCorners = new DevComponents.Editors.ComboItem();
-      this.itemEllipse = new DevComponents.Editors.ComboItem();
-      this.itemOctagonal = new DevComponents.Editors.ComboItem();
-      this.pnlSampleRoomShape = new System.Windows.Forms.Panel();
-      this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
-      this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.tabRegions = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.m_secondFillTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.m_objectTextTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -119,6 +102,23 @@ namespace Trizbort.UI
       this.tabObjects = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.tabDescription = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.chkHandDrawnRoom = new System.Windows.Forms.CheckBox();
+      this.groupRoundedCorners = new DevComponents.DotNetBar.Controls.GroupPanel();
+      this.chkCornersSame = new System.Windows.Forms.CheckBox();
+      this.txtBottomRight = new DevComponents.Editors.DoubleInput();
+      this.txtTopLeft = new DevComponents.Editors.DoubleInput();
+      this.txtBottomLeft = new DevComponents.Editors.DoubleInput();
+      this.txtTopRight = new DevComponents.Editors.DoubleInput();
+      this.cboDrawType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+      this.itemStraightEdges = new DevComponents.Editors.ComboItem();
+      this.itemRoundedCorners = new DevComponents.Editors.ComboItem();
+      this.itemEllipse = new DevComponents.Editors.ComboItem();
+      this.itemOctagonal = new DevComponents.Editors.ComboItem();
+      this.pnlSampleRoomShape = new System.Windows.Forms.Panel();
+      this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.tabRegions = new DevComponents.DotNetBar.SuperTabItem();
       this.txtName = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.txtSubTitle = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.label7 = new System.Windows.Forms.Label();
@@ -129,13 +129,6 @@ namespace Trizbort.UI
       this.chkEndRoom = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).BeginInit();
       this.m_tabControl.SuspendLayout();
-      this.superTabControlPanel5.SuspendLayout();
-      this.groupRoundedCorners.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.txtBottomRight)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.txtTopLeft)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.txtBottomLeft)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.txtTopRight)).BeginInit();
-      this.superTabControlPanel4.SuspendLayout();
       this.superTabControlPanel3.SuspendLayout();
       this.superTabControlPanel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.txtRight)).BeginInit();
@@ -143,6 +136,13 @@ namespace Trizbort.UI
       this.pnlObjectSyntaxHelp.SuspendLayout();
       this.m_objectsPositionGroupBox.SuspendLayout();
       this.superTabControlPanel2.SuspendLayout();
+      this.superTabControlPanel5.SuspendLayout();
+      this.groupRoundedCorners.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.txtBottomRight)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtTopLeft)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtBottomLeft)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtTopRight)).BeginInit();
+      this.superTabControlPanel4.SuspendLayout();
       this.SuspendLayout();
       // 
       // m_okButton
@@ -372,11 +372,11 @@ namespace Trizbort.UI
       this.m_tabControl.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.m_tabControl.ControlBox.MenuBox,
             this.m_tabControl.ControlBox.CloseBox});
+      this.m_tabControl.Controls.Add(this.superTabControlPanel4);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel5);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel2);
       this.m_tabControl.Controls.Add(this.superTabControlPanel3);
       this.m_tabControl.Controls.Add(this.superTabControlPanel1);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel2);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel5);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel4);
       this.m_tabControl.Location = new System.Drawing.Point(19, 130);
       this.m_tabControl.Name = "m_tabControl";
       this.m_tabControl.ReorderTabsEnabled = true;
@@ -395,235 +395,6 @@ namespace Trizbort.UI
       this.m_tabControl.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.VisualStudio2008Dock;
       this.m_tabControl.SelectedTabChanged += new System.EventHandler<DevComponents.DotNetBar.SuperTabStripSelectedTabChangedEventArgs>(this.m_tabControl_SelectedTabChanged);
       this.m_tabControl.Enter += new System.EventHandler(this.m_tabControl_Enter);
-      // 
-      // superTabControlPanel5
-      // 
-      this.superTabControlPanel5.Controls.Add(this.chkHandDrawnRoom);
-      this.superTabControlPanel5.Controls.Add(this.groupRoundedCorners);
-      this.superTabControlPanel5.Controls.Add(this.cboDrawType);
-      this.superTabControlPanel5.Controls.Add(this.pnlSampleRoomShape);
-      this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
-      this.superTabControlPanel5.Name = "superTabControlPanel5";
-      this.superTabControlPanel5.Size = new System.Drawing.Size(477, 210);
-      this.superTabControlPanel5.TabIndex = 0;
-      this.superTabControlPanel5.TabItem = this.superTabItem1;
-      // 
-      // chkHandDrawnRoom
-      // 
-      this.chkHandDrawnRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.chkHandDrawnRoom.AutoSize = true;
-      this.chkHandDrawnRoom.Location = new System.Drawing.Point(222, 20);
-      this.chkHandDrawnRoom.Name = "chkHandDrawnRoom";
-      this.chkHandDrawnRoom.Size = new System.Drawing.Size(117, 17);
-      this.chkHandDrawnRoom.TabIndex = 8;
-      this.chkHandDrawnRoom.Text = "Hand Drawn Edges";
-      this.chkHandDrawnRoom.UseVisualStyleBackColor = true;
-      this.chkHandDrawnRoom.CheckedChanged += new System.EventHandler(this.chkHandDrawnRoom_CheckedChanged);
-      // 
-      // groupRoundedCorners
-      // 
-      this.groupRoundedCorners.CanvasColor = System.Drawing.SystemColors.Control;
-      this.groupRoundedCorners.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-      this.groupRoundedCorners.Controls.Add(this.chkCornersSame);
-      this.groupRoundedCorners.Controls.Add(this.txtBottomRight);
-      this.groupRoundedCorners.Controls.Add(this.txtTopLeft);
-      this.groupRoundedCorners.Controls.Add(this.txtBottomLeft);
-      this.groupRoundedCorners.Controls.Add(this.txtTopRight);
-      this.groupRoundedCorners.Location = new System.Drawing.Point(8, 44);
-      this.groupRoundedCorners.Name = "groupRoundedCorners";
-      this.groupRoundedCorners.Size = new System.Drawing.Size(208, 126);
-      // 
-      // 
-      // 
-      this.groupRoundedCorners.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-      this.groupRoundedCorners.Style.BackColorGradientAngle = 90;
-      this.groupRoundedCorners.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-      this.groupRoundedCorners.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
-      this.groupRoundedCorners.Style.BorderBottomWidth = 1;
-      this.groupRoundedCorners.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-      this.groupRoundedCorners.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
-      this.groupRoundedCorners.Style.BorderLeftWidth = 1;
-      this.groupRoundedCorners.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
-      this.groupRoundedCorners.Style.BorderRightWidth = 1;
-      this.groupRoundedCorners.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
-      this.groupRoundedCorners.Style.BorderTopWidth = 1;
-      this.groupRoundedCorners.Style.Class = "";
-      this.groupRoundedCorners.Style.CornerDiameter = 4;
-      this.groupRoundedCorners.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
-      this.groupRoundedCorners.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
-      // 
-      // 
-      // 
-      this.groupRoundedCorners.StyleMouseDown.Class = "";
-      this.groupRoundedCorners.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      // 
-      // 
-      // 
-      this.groupRoundedCorners.StyleMouseOver.Class = "";
-      this.groupRoundedCorners.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.groupRoundedCorners.TabIndex = 6;
-      this.groupRoundedCorners.Text = "Rounded Corners";
-      this.groupRoundedCorners.Visible = false;
-      // 
-      // chkCornersSame
-      // 
-      this.chkCornersSame.AutoSize = true;
-      this.chkCornersSame.Checked = true;
-      this.chkCornersSame.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chkCornersSame.Location = new System.Drawing.Point(3, 8);
-      this.chkCornersSame.Name = "chkCornersSame";
-      this.chkCornersSame.Size = new System.Drawing.Size(132, 17);
-      this.chkCornersSame.TabIndex = 4;
-      this.chkCornersSame.Text = "Make all corners equal";
-      this.chkCornersSame.UseVisualStyleBackColor = true;
-      this.chkCornersSame.CheckedChanged += new System.EventHandler(this.chkCornersSame_CheckedChanged);
-      // 
-      // txtBottomRight
-      // 
-      // 
-      // 
-      // 
-      this.txtBottomRight.BackgroundStyle.Class = "DateTimeInputBackground";
-      this.txtBottomRight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.txtBottomRight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-      this.txtBottomRight.Enabled = false;
-      this.txtBottomRight.Increment = 1D;
-      this.txtBottomRight.Location = new System.Drawing.Point(117, 75);
-      this.txtBottomRight.MaxValue = 30D;
-      this.txtBottomRight.MinValue = 1D;
-      this.txtBottomRight.Name = "txtBottomRight";
-      this.txtBottomRight.ShowUpDown = true;
-      this.txtBottomRight.Size = new System.Drawing.Size(80, 21);
-      this.txtBottomRight.TabIndex = 3;
-      this.txtBottomRight.Value = 15D;
-      this.txtBottomRight.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
-      // 
-      // txtTopLeft
-      // 
-      // 
-      // 
-      // 
-      this.txtTopLeft.BackgroundStyle.Class = "DateTimeInputBackground";
-      this.txtTopLeft.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.txtTopLeft.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-      this.txtTopLeft.Increment = 1D;
-      this.txtTopLeft.Location = new System.Drawing.Point(3, 30);
-      this.txtTopLeft.MaxValue = 30D;
-      this.txtTopLeft.MinValue = 1D;
-      this.txtTopLeft.Name = "txtTopLeft";
-      this.txtTopLeft.ShowUpDown = true;
-      this.txtTopLeft.Size = new System.Drawing.Size(80, 21);
-      this.txtTopLeft.TabIndex = 0;
-      this.txtTopLeft.Value = 15D;
-      this.txtTopLeft.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
-      // 
-      // txtBottomLeft
-      // 
-      // 
-      // 
-      // 
-      this.txtBottomLeft.BackgroundStyle.Class = "DateTimeInputBackground";
-      this.txtBottomLeft.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.txtBottomLeft.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-      this.txtBottomLeft.Enabled = false;
-      this.txtBottomLeft.Increment = 1D;
-      this.txtBottomLeft.Location = new System.Drawing.Point(3, 75);
-      this.txtBottomLeft.MaxValue = 30D;
-      this.txtBottomLeft.MinValue = 1D;
-      this.txtBottomLeft.Name = "txtBottomLeft";
-      this.txtBottomLeft.ShowUpDown = true;
-      this.txtBottomLeft.Size = new System.Drawing.Size(80, 21);
-      this.txtBottomLeft.TabIndex = 1;
-      this.txtBottomLeft.Value = 15D;
-      this.txtBottomLeft.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
-      // 
-      // txtTopRight
-      // 
-      // 
-      // 
-      // 
-      this.txtTopRight.BackgroundStyle.Class = "DateTimeInputBackground";
-      this.txtTopRight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.txtTopRight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-      this.txtTopRight.Enabled = false;
-      this.txtTopRight.Increment = 1D;
-      this.txtTopRight.Location = new System.Drawing.Point(117, 30);
-      this.txtTopRight.MaxValue = 30D;
-      this.txtTopRight.MinValue = 1D;
-      this.txtTopRight.Name = "txtTopRight";
-      this.txtTopRight.ShowUpDown = true;
-      this.txtTopRight.Size = new System.Drawing.Size(80, 21);
-      this.txtTopRight.TabIndex = 2;
-      this.txtTopRight.Value = 15D;
-      this.txtTopRight.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
-      // 
-      // cboDrawType
-      // 
-      this.cboDrawType.DisplayMember = "Text";
-      this.cboDrawType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-      this.cboDrawType.FormattingEnabled = true;
-      this.cboDrawType.ItemHeight = 15;
-      this.cboDrawType.Items.AddRange(new object[] {
-            this.itemStraightEdges,
-            this.itemRoundedCorners,
-            this.itemEllipse,
-            this.itemOctagonal});
-      this.cboDrawType.Location = new System.Drawing.Point(8, 17);
-      this.cboDrawType.Name = "cboDrawType";
-      this.cboDrawType.Size = new System.Drawing.Size(203, 21);
-      this.cboDrawType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-      this.cboDrawType.TabIndex = 8;
-      this.cboDrawType.SelectedIndexChanged += new System.EventHandler(this.cboDrawType_SelectedIndexChanged);
-      // 
-      // itemStraightEdges
-      // 
-      this.itemStraightEdges.Text = "Straight Edges";
-      // 
-      // itemRoundedCorners
-      // 
-      this.itemRoundedCorners.Text = "Rounded Corners";
-      // 
-      // itemEllipse
-      // 
-      this.itemEllipse.Text = "Ellipse";
-      // 
-      // itemOctagonal
-      // 
-      this.itemOctagonal.Text = "Octagonal";
-      // 
-      // pnlSampleRoomShape
-      // 
-      this.pnlSampleRoomShape.Location = new System.Drawing.Point(222, 42);
-      this.pnlSampleRoomShape.Name = "pnlSampleRoomShape";
-      this.pnlSampleRoomShape.Size = new System.Drawing.Size(235, 128);
-      this.pnlSampleRoomShape.TabIndex = 4;
-      this.pnlSampleRoomShape.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSampleRoomShape_Paint);
-      // 
-      // superTabItem1
-      // 
-      this.superTabItem1.AttachedControl = this.superTabControlPanel5;
-      this.superTabItem1.GlobalItem = false;
-      this.superTabItem1.Name = "superTabItem1";
-      this.superTabItem1.Text = "Room &Shapes";
-      // 
-      // superTabControlPanel4
-      // 
-      this.superTabControlPanel4.Controls.Add(this.cboRegion);
-      this.superTabControlPanel4.Controls.Add(this.label6);
-      this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
-      this.superTabControlPanel4.Name = "superTabControlPanel4";
-      this.superTabControlPanel4.Size = new System.Drawing.Size(477, 210);
-      this.superTabControlPanel4.TabIndex = 0;
-      this.superTabControlPanel4.TabItem = this.tabRegions;
-      // 
-      // tabRegions
-      // 
-      this.tabRegions.AttachedControl = this.superTabControlPanel4;
-      this.tabRegions.GlobalItem = false;
-      this.tabRegions.Name = "tabRegions";
-      this.tabRegions.Text = "Re&gions";
       // 
       // superTabControlPanel3
       // 
@@ -644,9 +415,9 @@ namespace Trizbort.UI
       this.superTabControlPanel3.Controls.Add(this.label3);
       this.superTabControlPanel3.Controls.Add(this.m_changeRoomTextButton);
       this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 0);
       this.superTabControlPanel3.Name = "superTabControlPanel3";
-      this.superTabControlPanel3.Size = new System.Drawing.Size(477, 184);
+      this.superTabControlPanel3.Size = new System.Drawing.Size(477, 210);
       this.superTabControlPanel3.TabIndex = 0;
       this.superTabControlPanel3.TabItem = this.tabColors;
       // 
@@ -764,9 +535,9 @@ namespace Trizbort.UI
       this.superTabControlPanel1.Controls.Add(this.txtObjects);
       this.superTabControlPanel1.Controls.Add(this.m_objectsPositionGroupBox);
       this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel1.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel1.Location = new System.Drawing.Point(0, 0);
       this.superTabControlPanel1.Name = "superTabControlPanel1";
-      this.superTabControlPanel1.Size = new System.Drawing.Size(477, 184);
+      this.superTabControlPanel1.Size = new System.Drawing.Size(477, 210);
       this.superTabControlPanel1.TabIndex = 1;
       this.superTabControlPanel1.TabItem = this.tabObjects;
       // 
@@ -1054,6 +825,235 @@ namespace Trizbort.UI
       this.tabDescription.Name = "tabDescription";
       this.tabDescription.Text = "D&escription";
       // 
+      // superTabControlPanel5
+      // 
+      this.superTabControlPanel5.Controls.Add(this.chkHandDrawnRoom);
+      this.superTabControlPanel5.Controls.Add(this.groupRoundedCorners);
+      this.superTabControlPanel5.Controls.Add(this.cboDrawType);
+      this.superTabControlPanel5.Controls.Add(this.pnlSampleRoomShape);
+      this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel5.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel5.Name = "superTabControlPanel5";
+      this.superTabControlPanel5.Size = new System.Drawing.Size(477, 184);
+      this.superTabControlPanel5.TabIndex = 0;
+      this.superTabControlPanel5.TabItem = this.superTabItem1;
+      // 
+      // chkHandDrawnRoom
+      // 
+      this.chkHandDrawnRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.chkHandDrawnRoom.AutoSize = true;
+      this.chkHandDrawnRoom.Location = new System.Drawing.Point(222, 20);
+      this.chkHandDrawnRoom.Name = "chkHandDrawnRoom";
+      this.chkHandDrawnRoom.Size = new System.Drawing.Size(117, 17);
+      this.chkHandDrawnRoom.TabIndex = 8;
+      this.chkHandDrawnRoom.Text = "Hand Drawn Edges";
+      this.chkHandDrawnRoom.UseVisualStyleBackColor = true;
+      this.chkHandDrawnRoom.CheckedChanged += new System.EventHandler(this.chkHandDrawnRoom_CheckedChanged);
+      // 
+      // groupRoundedCorners
+      // 
+      this.groupRoundedCorners.CanvasColor = System.Drawing.SystemColors.Control;
+      this.groupRoundedCorners.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
+      this.groupRoundedCorners.Controls.Add(this.chkCornersSame);
+      this.groupRoundedCorners.Controls.Add(this.txtBottomRight);
+      this.groupRoundedCorners.Controls.Add(this.txtTopLeft);
+      this.groupRoundedCorners.Controls.Add(this.txtBottomLeft);
+      this.groupRoundedCorners.Controls.Add(this.txtTopRight);
+      this.groupRoundedCorners.Location = new System.Drawing.Point(8, 44);
+      this.groupRoundedCorners.Name = "groupRoundedCorners";
+      this.groupRoundedCorners.Size = new System.Drawing.Size(208, 126);
+      // 
+      // 
+      // 
+      this.groupRoundedCorners.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+      this.groupRoundedCorners.Style.BackColorGradientAngle = 90;
+      this.groupRoundedCorners.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+      this.groupRoundedCorners.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
+      this.groupRoundedCorners.Style.BorderBottomWidth = 1;
+      this.groupRoundedCorners.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+      this.groupRoundedCorners.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
+      this.groupRoundedCorners.Style.BorderLeftWidth = 1;
+      this.groupRoundedCorners.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
+      this.groupRoundedCorners.Style.BorderRightWidth = 1;
+      this.groupRoundedCorners.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+      this.groupRoundedCorners.Style.BorderTopWidth = 1;
+      this.groupRoundedCorners.Style.Class = "";
+      this.groupRoundedCorners.Style.CornerDiameter = 4;
+      this.groupRoundedCorners.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
+      this.groupRoundedCorners.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+      // 
+      // 
+      // 
+      this.groupRoundedCorners.StyleMouseDown.Class = "";
+      this.groupRoundedCorners.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      // 
+      // 
+      // 
+      this.groupRoundedCorners.StyleMouseOver.Class = "";
+      this.groupRoundedCorners.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.groupRoundedCorners.TabIndex = 6;
+      this.groupRoundedCorners.Text = "Rounded Corners";
+      this.groupRoundedCorners.Visible = false;
+      // 
+      // chkCornersSame
+      // 
+      this.chkCornersSame.AutoSize = true;
+      this.chkCornersSame.Checked = true;
+      this.chkCornersSame.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chkCornersSame.Location = new System.Drawing.Point(3, 8);
+      this.chkCornersSame.Name = "chkCornersSame";
+      this.chkCornersSame.Size = new System.Drawing.Size(132, 17);
+      this.chkCornersSame.TabIndex = 4;
+      this.chkCornersSame.Text = "Make all corners equal";
+      this.chkCornersSame.UseVisualStyleBackColor = true;
+      this.chkCornersSame.CheckedChanged += new System.EventHandler(this.chkCornersSame_CheckedChanged);
+      // 
+      // txtBottomRight
+      // 
+      // 
+      // 
+      // 
+      this.txtBottomRight.BackgroundStyle.Class = "DateTimeInputBackground";
+      this.txtBottomRight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.txtBottomRight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+      this.txtBottomRight.Enabled = false;
+      this.txtBottomRight.Increment = 1D;
+      this.txtBottomRight.Location = new System.Drawing.Point(117, 75);
+      this.txtBottomRight.MaxValue = 30D;
+      this.txtBottomRight.MinValue = 1D;
+      this.txtBottomRight.Name = "txtBottomRight";
+      this.txtBottomRight.ShowUpDown = true;
+      this.txtBottomRight.Size = new System.Drawing.Size(80, 21);
+      this.txtBottomRight.TabIndex = 3;
+      this.txtBottomRight.Value = 15D;
+      this.txtBottomRight.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
+      // 
+      // txtTopLeft
+      // 
+      // 
+      // 
+      // 
+      this.txtTopLeft.BackgroundStyle.Class = "DateTimeInputBackground";
+      this.txtTopLeft.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.txtTopLeft.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+      this.txtTopLeft.Increment = 1D;
+      this.txtTopLeft.Location = new System.Drawing.Point(3, 30);
+      this.txtTopLeft.MaxValue = 30D;
+      this.txtTopLeft.MinValue = 1D;
+      this.txtTopLeft.Name = "txtTopLeft";
+      this.txtTopLeft.ShowUpDown = true;
+      this.txtTopLeft.Size = new System.Drawing.Size(80, 21);
+      this.txtTopLeft.TabIndex = 0;
+      this.txtTopLeft.Value = 15D;
+      this.txtTopLeft.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
+      // 
+      // txtBottomLeft
+      // 
+      // 
+      // 
+      // 
+      this.txtBottomLeft.BackgroundStyle.Class = "DateTimeInputBackground";
+      this.txtBottomLeft.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.txtBottomLeft.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+      this.txtBottomLeft.Enabled = false;
+      this.txtBottomLeft.Increment = 1D;
+      this.txtBottomLeft.Location = new System.Drawing.Point(3, 75);
+      this.txtBottomLeft.MaxValue = 30D;
+      this.txtBottomLeft.MinValue = 1D;
+      this.txtBottomLeft.Name = "txtBottomLeft";
+      this.txtBottomLeft.ShowUpDown = true;
+      this.txtBottomLeft.Size = new System.Drawing.Size(80, 21);
+      this.txtBottomLeft.TabIndex = 1;
+      this.txtBottomLeft.Value = 15D;
+      this.txtBottomLeft.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
+      // 
+      // txtTopRight
+      // 
+      // 
+      // 
+      // 
+      this.txtTopRight.BackgroundStyle.Class = "DateTimeInputBackground";
+      this.txtTopRight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.txtTopRight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+      this.txtTopRight.Enabled = false;
+      this.txtTopRight.Increment = 1D;
+      this.txtTopRight.Location = new System.Drawing.Point(117, 30);
+      this.txtTopRight.MaxValue = 30D;
+      this.txtTopRight.MinValue = 1D;
+      this.txtTopRight.Name = "txtTopRight";
+      this.txtTopRight.ShowUpDown = true;
+      this.txtTopRight.Size = new System.Drawing.Size(80, 21);
+      this.txtTopRight.TabIndex = 2;
+      this.txtTopRight.Value = 15D;
+      this.txtTopRight.ValueChanged += new System.EventHandler(this.redrawSampleOnChange);
+      // 
+      // cboDrawType
+      // 
+      this.cboDrawType.DisplayMember = "Text";
+      this.cboDrawType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+      this.cboDrawType.FormattingEnabled = true;
+      this.cboDrawType.ItemHeight = 15;
+      this.cboDrawType.Items.AddRange(new object[] {
+            this.itemStraightEdges,
+            this.itemRoundedCorners,
+            this.itemEllipse,
+            this.itemOctagonal});
+      this.cboDrawType.Location = new System.Drawing.Point(8, 17);
+      this.cboDrawType.Name = "cboDrawType";
+      this.cboDrawType.Size = new System.Drawing.Size(203, 21);
+      this.cboDrawType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+      this.cboDrawType.TabIndex = 8;
+      this.cboDrawType.SelectedIndexChanged += new System.EventHandler(this.cboDrawType_SelectedIndexChanged);
+      // 
+      // itemStraightEdges
+      // 
+      this.itemStraightEdges.Text = "Straight Edges";
+      // 
+      // itemRoundedCorners
+      // 
+      this.itemRoundedCorners.Text = "Rounded Corners";
+      // 
+      // itemEllipse
+      // 
+      this.itemEllipse.Text = "Ellipse";
+      // 
+      // itemOctagonal
+      // 
+      this.itemOctagonal.Text = "Octagonal";
+      // 
+      // pnlSampleRoomShape
+      // 
+      this.pnlSampleRoomShape.Location = new System.Drawing.Point(222, 42);
+      this.pnlSampleRoomShape.Name = "pnlSampleRoomShape";
+      this.pnlSampleRoomShape.Size = new System.Drawing.Size(235, 128);
+      this.pnlSampleRoomShape.TabIndex = 4;
+      this.pnlSampleRoomShape.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSampleRoomShape_Paint);
+      // 
+      // superTabItem1
+      // 
+      this.superTabItem1.AttachedControl = this.superTabControlPanel5;
+      this.superTabItem1.GlobalItem = false;
+      this.superTabItem1.Name = "superTabItem1";
+      this.superTabItem1.Text = "Room &Shapes";
+      // 
+      // superTabControlPanel4
+      // 
+      this.superTabControlPanel4.Controls.Add(this.cboRegion);
+      this.superTabControlPanel4.Controls.Add(this.label6);
+      this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel4.Name = "superTabControlPanel4";
+      this.superTabControlPanel4.Size = new System.Drawing.Size(477, 184);
+      this.superTabControlPanel4.TabIndex = 0;
+      this.superTabControlPanel4.TabItem = this.tabRegions;
+      // 
+      // tabRegions
+      // 
+      this.tabRegions.AttachedControl = this.superTabControlPanel4;
+      this.tabRegions.GlobalItem = false;
+      this.tabRegions.Name = "tabRegions";
+      this.tabRegions.Text = "Re&gions";
+      // 
       // txtName
       // 
       // 
@@ -1176,16 +1176,6 @@ namespace Trizbort.UI
       this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RoomPropertiesDialog_KeyUp);
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).EndInit();
       this.m_tabControl.ResumeLayout(false);
-      this.superTabControlPanel5.ResumeLayout(false);
-      this.superTabControlPanel5.PerformLayout();
-      this.groupRoundedCorners.ResumeLayout(false);
-      this.groupRoundedCorners.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.txtBottomRight)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.txtTopLeft)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.txtBottomLeft)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.txtTopRight)).EndInit();
-      this.superTabControlPanel4.ResumeLayout(false);
-      this.superTabControlPanel4.PerformLayout();
       this.superTabControlPanel3.ResumeLayout(false);
       this.superTabControlPanel3.PerformLayout();
       this.superTabControlPanel1.ResumeLayout(false);
@@ -1196,6 +1186,16 @@ namespace Trizbort.UI
       this.m_objectsPositionGroupBox.ResumeLayout(false);
       this.superTabControlPanel2.ResumeLayout(false);
       this.superTabControlPanel2.PerformLayout();
+      this.superTabControlPanel5.ResumeLayout(false);
+      this.superTabControlPanel5.PerformLayout();
+      this.groupRoundedCorners.ResumeLayout(false);
+      this.groupRoundedCorners.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.txtBottomRight)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtTopLeft)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtBottomLeft)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtTopRight)).EndInit();
+      this.superTabControlPanel4.ResumeLayout(false);
+      this.superTabControlPanel4.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 

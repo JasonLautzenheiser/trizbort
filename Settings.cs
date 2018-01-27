@@ -393,6 +393,7 @@ namespace Trizbort
 
     public static bool StartRoomLoaded { get; set; }
     public static bool EndRoomLoaded { get; set; }
+    public static RoomShape DefaultRoomShape { get; set; }
 
     public static float Snap(float value)
     {
@@ -481,6 +482,7 @@ namespace Trizbort
         dialog.DocHorizontalMargin = DocHorizontalMargin;
         dialog.DocVerticalMargin = DocVerticalMargin;
         dialog.ConnectionArrowSize = ConnectionArrowSize;
+        dialog.DefaultRoomShape = DefaultRoomShape;
         if (dialog.ShowDialog() == DialogResult.OK)
         {
           for (var index = 0; index < Colors.Count; ++index)
@@ -539,6 +541,8 @@ namespace Trizbort
           DocHorizontalMargin = dialog.DocHorizontalMargin;
           if (DocVerticalMargin != dialog.DocVerticalMargin) { Project.Current.IsDirty = true; }
           DocVerticalMargin = dialog.DocVerticalMargin;
+          if (DefaultRoomShape != dialog.DefaultRoomShape) { Project.Current.IsDirty = true; }
+          DefaultRoomShape = dialog.DefaultRoomShape;
         }
 
         //Note this needs to be done outside of the "if OK button is clicked" loop for now.
@@ -565,6 +569,8 @@ namespace Trizbort
 
       }
     }
+
+
 
     public static void Reset()
     {
@@ -684,6 +690,7 @@ namespace Trizbort
       scribe.Element("connectionStalkLength", sConnectionStalkLength);
       scribe.Element("preferredDistanceBetweenRooms", sPreferredDistanceBetweenRooms);
       scribe.Element("defaultRoomName", DefaultRoomName);
+      scribe.Element("defaultRoomShape", (int)DefaultRoomShape);
       scribe.EndElement();
 
       scribe.StartElement("ui");
@@ -861,6 +868,7 @@ namespace Trizbort
       ConnectionStalkLength = element["rooms"]["connectionStalkLength"].ToFloat(sConnectionStalkLength);
       PreferredDistanceBetweenRooms = element["rooms"]["preferredDistanceBetweenRooms"].ToFloat(sConnectionStalkLength*2); // introduced in v1.2, hence default based on existing setting
 
+      DefaultRoomShape = (RoomShape)element["rooms"]["defaultRoomShape"].ToInt();
       DefaultRoomName = element["rooms"]["defaultRoomName"].Text;
       if (string.IsNullOrEmpty(DefaultRoomName)) 
           DefaultRoomName = "Cave";

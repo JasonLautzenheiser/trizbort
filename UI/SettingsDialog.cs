@@ -154,6 +154,8 @@ namespace Trizbort.UI
 
     public float ConnectionArrowSize { get { return (float) m_arrowSizeUpDown.Value; } set { m_arrowSizeUpDown.Value = (decimal) value; } }
 
+    public RoomShape DefaultRoomShape { get => (RoomShape)cboRoomShape.SelectedIndex; set => cboRoomShape.SelectedIndex = (int)value; }
+
     private void editBoxLeave(object sender, EventArgs e)
     {
       AcceptButton = m_okButton;

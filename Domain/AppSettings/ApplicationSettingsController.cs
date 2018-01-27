@@ -56,6 +56,7 @@ namespace Trizbort.Domain.AppSettings {
     public static void ShowAppDialog() {
       using (var dialog = new AppSettingsDialog()) {
         dialog.InvertMouseWheel = settings.InvertMouseWheel;
+        dialog.ShowFullPathInTitleBar = settings.ShowFullPathInTitleBar;
         dialog.DefaultFontName = settings.DefaultFontName;
         dialog.DefaultImageType = settings.DefaultImageType;
         dialog.PortAdjustDetail = settings.PortAdjustDetail;
@@ -71,20 +72,22 @@ namespace Trizbort.Domain.AppSettings {
         dialog.ShowToolTipsOnObjects = settings.ShowToolTipsOnObjects;
 
         if (dialog.ShowDialog() == DialogResult.OK) {
-         settings.InvertMouseWheel = dialog.InvertMouseWheel;
-         settings.DefaultFontName = dialog.DefaultFontName;
-         settings.DefaultImageType = dialog.DefaultImageType;
-         settings.PortAdjustDetail = dialog.PortAdjustDetail;
-         settings.SaveAt100 = dialog.SaveAt100;
-         settings.SaveToImage = dialog.SaveToImage;
-         settings.SaveToPDF = dialog.SaveToPDF;
-         settings.SaveTadstoAdv3Lite = dialog.SaveTADSToADV3Lite;
-         settings.SpecifyGenMargins = dialog.SpecifyGenMargins;
-         settings.GenHorizontalMargin = (int) dialog.GenHorizontalMargin;
-         settings.GenVerticalMargin = (int) dialog.GenVerticalMargin;
-         settings.LoadLastProjectOnStart = dialog.LoadLastProjectOnStart;
-         settings.HandDrawnGlobal = dialog.HandDrawnGlobal;
-         settings.ShowToolTipsOnObjects = dialog.ShowToolTipsOnObjects;
+          settings.InvertMouseWheel = dialog.InvertMouseWheel;
+          settings.ShowFullPathInTitleBar = dialog.ShowFullPathInTitleBar;
+          settings.DefaultFontName = dialog.DefaultFontName;
+          settings.DefaultImageType = dialog.DefaultImageType;
+          settings.PortAdjustDetail = dialog.PortAdjustDetail;
+          settings.SaveAt100 = dialog.SaveAt100;
+          settings.SaveToImage = dialog.SaveToImage;
+          settings.SaveToPDF = dialog.SaveToPDF;
+          settings.SaveTadstoAdv3Lite = dialog.SaveTADSToADV3Lite;
+          settings.SpecifyGenMargins = dialog.SpecifyGenMargins;
+          settings.GenHorizontalMargin = (int) dialog.GenHorizontalMargin;
+          settings.GenVerticalMargin = (int) dialog.GenVerticalMargin;
+          settings.LoadLastProjectOnStart = dialog.LoadLastProjectOnStart;
+          settings.HandDrawnGlobal = dialog.HandDrawnGlobal;
+          settings.ShowToolTipsOnObjects = dialog.ShowToolTipsOnObjects;
+          SaveSettings();
         }
       }
     }

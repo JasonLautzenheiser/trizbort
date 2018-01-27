@@ -44,8 +44,6 @@ namespace Trizbort.Domain.AppSettings
     public bool ShowMiniMap { get; set; }
     public bool ShowToolTipsOnObjects { get; set; } = true;
     public bool SpecifyGenMargins { get; set; }
-
-
- 
+    public bool ShowFullPathInTitleBar { get; set; }
   }
 }

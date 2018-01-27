@@ -1022,7 +1022,7 @@ namespace Trizbort.UI
     private void updateCommandUI()
     {
       // caption
-      Text = $"{Project.Current.Name}{(Project.Current.IsDirty ? "*" : string.Empty)} - {mCaption} - {System.Windows.Forms.Application.ProductVersion}";
+      Text = $"{(ApplicationSettingsController.AppSettings.ShowFullPathInTitleBar && !string.IsNullOrEmpty(Project.Current.FileName) ? Project.Current.FileName : Project.Current.Name)}{(Project.Current.IsDirty ? "*" : string.Empty)} - {mCaption} - {System.Windows.Forms.Application.ProductVersion}";
 
       // line drawing options
       m_toggleDottedLinesButton.Checked = Canvas.NewConnectionStyle == ConnectionStyle.Dashed;

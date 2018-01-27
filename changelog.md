@@ -6,18 +6,21 @@ All notable changes to this project will be documented in this file.
 ### Added
 - check for new versioned files and show warning when loading map (#353)
 - Trizbort now will detect changes to loaded map from another application and ask to reload the map (#365)
+- Added export for Quest (Thanks to @ThePix for this) (#392)
 
 ### Fixed
 - fixed naming consistency between context menu and main menu and room shape names (#356) 
 - opening zoom is a bit more accurate and better handles margins (#357)
 - Fixed issue where Trizbort wasn't saving the last loaded project if that map was loaded from most recent maps menu (#364)
 - Minor adjustment on alignment of in/out text on rounded and octagonal rooms.  (#378)
+- fixed error with room property dialog and rooms shapes. (#394, #388)
 
 ### Changed
 
 - Refactored the copy / paste giving some code optimizations and fixing some copy bugs where some properties were not getting copied. (#379, TRIZ-145, TRIZ-152, TRIZ-47)
 - Application Settings has been refactored.  App Settings are now stored in an appsettings.json file in the application folder.  The legacy settings.xml stored in the user folder will be read in if it exists and there is no appsettings.json file.  This simplified the code and allows for easier management as we add new options.  Map settings still stored in the map file.
 - moved the revisions.txt to a more standard changelog.md file.
+- added scrollbars to the Map Settings -> Description and History inputs. (#390, #391)
 
 ## [1.5.9.9] - 2017-07-02
 

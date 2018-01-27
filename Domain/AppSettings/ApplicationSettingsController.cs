@@ -115,6 +115,7 @@ namespace Trizbort.Domain.AppSettings {
              settings.LastExportTadsFileName = root["lastExportedTadsFileName"].Text;
              settings.LastExportHugoFileName = root["lastExportedHugoFileName"].Text;
              settings.LastExportZilFileName = root["lastExportedZilFileName"].Text;
+             settings.LastExportQuestFileName = root["lastExportedQuestFileName"].Text;
 
               settings.InvertMouseWheel = root["invertMouseWheel"].ToBool(settings.InvertMouseWheel);
               settings.PortAdjustDetail = root["portAdjustDetail"].ToInt(settings.PortAdjustDetail);

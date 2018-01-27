@@ -644,13 +644,14 @@ namespace Trizbort.UI
       this.m_historyTextBox.Location = new System.Drawing.Point(69, 183);
       this.m_historyTextBox.Multiline = true;
       this.m_historyTextBox.Name = "m_historyTextBox";
-      this.m_historyTextBox.Size = new System.Drawing.Size(265, 82);
+      this.m_historyTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+      this.m_historyTextBox.Size = new System.Drawing.Size(265, 75);
       this.m_historyTextBox.TabIndex = 8;
       // 
       // label15
       // 
       this.label15.AutoSize = true;
-      this.label15.Location = new System.Drawing.Point(3, 98);
+      this.label15.Location = new System.Drawing.Point(3, 102);
       this.label15.Name = "label15";
       this.label15.Size = new System.Drawing.Size(60, 13);
       this.label15.TabIndex = 5;
@@ -659,7 +660,7 @@ namespace Trizbort.UI
       // label14
       // 
       this.label14.AutoSize = true;
-      this.label14.Location = new System.Drawing.Point(25, 72);
+      this.label14.Location = new System.Drawing.Point(25, 74);
       this.label14.Name = "label14";
       this.label14.Size = new System.Drawing.Size(40, 13);
       this.label14.TabIndex = 3;
@@ -671,10 +672,11 @@ namespace Trizbort.UI
       this.m_descriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.m_descriptionTextBox.BackColor = System.Drawing.SystemColors.Window;
-      this.m_descriptionTextBox.Location = new System.Drawing.Point(69, 95);
+      this.m_descriptionTextBox.Location = new System.Drawing.Point(69, 99);
       this.m_descriptionTextBox.Multiline = true;
       this.m_descriptionTextBox.Name = "m_descriptionTextBox";
-      this.m_descriptionTextBox.Size = new System.Drawing.Size(265, 82);
+      this.m_descriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+      this.m_descriptionTextBox.Size = new System.Drawing.Size(265, 75);
       this.m_descriptionTextBox.TabIndex = 6;
       // 
       // label10
@@ -691,7 +693,7 @@ namespace Trizbort.UI
       this.m_authorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.m_authorTextBox.BackColor = System.Drawing.SystemColors.Window;
-      this.m_authorTextBox.Location = new System.Drawing.Point(69, 69);
+      this.m_authorTextBox.Location = new System.Drawing.Point(69, 71);
       this.m_authorTextBox.Name = "m_authorTextBox";
       this.m_authorTextBox.Size = new System.Drawing.Size(265, 21);
       this.m_authorTextBox.TabIndex = 4;

@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Trizbort now will detect changes to loaded map from another application and ask to reload the map (#365)
 - Added export for Quest (Thanks to @ThePix for this) (#392)
 - Added option in AppSettings to show the full file path in the main window caption.
+- Can now set a default room shape for a map in Map Settings (#93)
 
 ### Fixed
 - fixed naming consistency between context menu and main menu and room shape names (#356) 

@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - Fixed issue where Trizbort wasn't saving the last loaded project if that map was loaded from most recent maps menu (#364)
 - Minor adjustment on alignment of in/out text on rounded and octagonal rooms.  (#378)
 - fixed error with room property dialog and rooms shapes. (#394, #388)
+- copy of room now copies the subtitle.
 
 ### Changed
 

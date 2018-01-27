@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - check for new versioned files and show warning when loading map (#353)
 - Trizbort now will detect changes to loaded map from another application and ask to reload the map (#365)
 - Added export for Quest (Thanks to @ThePix for this) (#392)
+- Added option in AppSettings to show the full file path in the main window caption.
 
 ### Fixed
 - fixed naming consistency between context menu and main menu and room shape names (#356) 
@@ -21,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - Application Settings has been refactored.  App Settings are now stored in an appsettings.json file in the application folder.  The legacy settings.xml stored in the user folder will be read in if it exists and there is no appsettings.json file.  This simplified the code and allows for easier management as we add new options.  Map settings still stored in the map file.
 - moved the revisions.txt to a more standard changelog.md file.
 - added scrollbars to the Map Settings -> Description and History inputs. (#390, #391)
+- App settings are now saved on an affirmative close of the app settings dialog.
 
 ## [1.5.9.9] - 2017-07-02
 

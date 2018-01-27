@@ -28,6 +28,7 @@
       this.m_okButton = new System.Windows.Forms.Button();
       this.m_cancelButton = new System.Windows.Forms.Button();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.chkFullPathTitleBar = new System.Windows.Forms.CheckBox();
       this.chkSaveAtZoom = new System.Windows.Forms.CheckBox();
       this.m_invertWheelCheckBox = new System.Windows.Forms.CheckBox();
       this.chkLoadLast = new System.Windows.Forms.CheckBox();
@@ -44,6 +45,7 @@
       this.chkSaveToImage = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.chkSaveToPDF = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
+      this.chkShowTooltips = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.m_preferredHorizontalMargin = new System.Windows.Forms.NumericUpDown();
       this.m_preferredVerticalMargin = new System.Windows.Forms.NumericUpDown();
       this.chkSpecifyMargins = new DevComponents.DotNetBar.Controls.CheckBoxX();
@@ -55,7 +57,6 @@
       this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
       this.tabInform7 = new DevComponents.DotNetBar.SuperTabItem();
-      this.chkShowTooltips = new DevComponents.DotNetBar.Controls.CheckBoxX();
       this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.groupBox3.SuspendLayout();
@@ -70,7 +71,7 @@
       // 
       this.m_okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.m_okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-      this.m_okButton.Location = new System.Drawing.Point(280, 318);
+      this.m_okButton.Location = new System.Drawing.Point(280, 337);
       this.m_okButton.Name = "m_okButton";
       this.m_okButton.Size = new System.Drawing.Size(75, 23);
       this.m_okButton.TabIndex = 4;
@@ -81,7 +82,7 @@
       // 
       this.m_cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.m_cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.m_cancelButton.Location = new System.Drawing.Point(361, 318);
+      this.m_cancelButton.Location = new System.Drawing.Point(361, 337);
       this.m_cancelButton.Name = "m_cancelButton";
       this.m_cancelButton.Size = new System.Drawing.Size(75, 23);
       this.m_cancelButton.TabIndex = 5;
@@ -91,6 +92,7 @@
       // groupBox1
       // 
       this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+      this.groupBox1.Controls.Add(this.chkFullPathTitleBar);
       this.groupBox1.Controls.Add(this.chkSaveAtZoom);
       this.groupBox1.Controls.Add(this.m_invertWheelCheckBox);
       this.groupBox1.Controls.Add(this.chkLoadLast);
@@ -98,10 +100,20 @@
       this.groupBox1.Controls.Add(this.labelG);
       this.groupBox1.Location = new System.Drawing.Point(6, 16);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(400, 64);
+      this.groupBox1.Size = new System.Drawing.Size(400, 83);
       this.groupBox1.TabIndex = 3;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Preferences";
+      // 
+      // chkFullPathTitleBar
+      // 
+      this.chkFullPathTitleBar.AutoSize = true;
+      this.chkFullPathTitleBar.Location = new System.Drawing.Point(23, 60);
+      this.chkFullPathTitleBar.Name = "chkFullPathTitleBar";
+      this.chkFullPathTitleBar.Size = new System.Drawing.Size(149, 17);
+      this.chkFullPathTitleBar.TabIndex = 4;
+      this.chkFullPathTitleBar.Text = "Show Full Path in Title Bar";
+      this.chkFullPathTitleBar.UseVisualStyleBackColor = true;
       // 
       // chkSaveAtZoom
       // 
@@ -117,7 +129,7 @@
       // m_invertWheelCheckBox
       // 
       this.m_invertWheelCheckBox.AutoSize = true;
-      this.m_invertWheelCheckBox.Location = new System.Drawing.Point(23, 43);
+      this.m_invertWheelCheckBox.Location = new System.Drawing.Point(23, 40);
       this.m_invertWheelCheckBox.Name = "m_invertWheelCheckBox";
       this.m_invertWheelCheckBox.Size = new System.Drawing.Size(152, 17);
       this.m_invertWheelCheckBox.TabIndex = 1;
@@ -211,7 +223,7 @@
       this.groupBox2.Controls.Add(this.chkSaveToPDF);
       this.groupBox2.Controls.Add(this.cboImageSaveType);
       this.groupBox2.Controls.Add(this.label2);
-      this.groupBox2.Location = new System.Drawing.Point(6, 78);
+      this.groupBox2.Location = new System.Drawing.Point(6, 105);
       this.groupBox2.Name = "groupBox2";
       this.groupBox2.Size = new System.Drawing.Size(400, 94);
       this.groupBox2.TabIndex = 12;
@@ -281,12 +293,29 @@
       this.groupBox3.Controls.Add(this.txtDefaultFontName);
       this.groupBox3.Controls.Add(this.labelFont);
       this.groupBox3.Controls.Add(this.chkDefaultHandDrawn);
-      this.groupBox3.Location = new System.Drawing.Point(6, 172);
+      this.groupBox3.Location = new System.Drawing.Point(6, 199);
       this.groupBox3.Name = "groupBox3";
-      this.groupBox3.Size = new System.Drawing.Size(400, 90);
+      this.groupBox3.Size = new System.Drawing.Size(400, 89);
       this.groupBox3.TabIndex = 1;
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "App defaults";
+      // 
+      // chkShowTooltips
+      // 
+      // 
+      // 
+      // 
+      this.chkShowTooltips.BackgroundStyle.Class = "";
+      this.chkShowTooltips.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+      this.chkShowTooltips.Checked = true;
+      this.chkShowTooltips.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.chkShowTooltips.CheckValue = "Y";
+      this.chkShowTooltips.Location = new System.Drawing.Point(200, 58);
+      this.chkShowTooltips.Name = "chkShowTooltips";
+      this.chkShowTooltips.Size = new System.Drawing.Size(154, 23);
+      this.chkShowTooltips.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+      this.chkShowTooltips.TabIndex = 12;
+      this.chkShowTooltips.Text = "Show Tooltips on Objects";
       // 
       // m_preferredHorizontalMargin
       // 
@@ -404,7 +433,7 @@
       this.superTabControl1.ReorderTabsEnabled = true;
       this.superTabControl1.SelectedTabFont = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
       this.superTabControl1.SelectedTabIndex = 1;
-      this.superTabControl1.Size = new System.Drawing.Size(432, 300);
+      this.superTabControl1.Size = new System.Drawing.Size(432, 319);
       this.superTabControl1.TabFont = new System.Drawing.Font("Tahoma", 8.25F);
       this.superTabControl1.TabIndex = 7;
       this.superTabControl1.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
@@ -421,7 +450,7 @@
       this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.superTabControlPanel1.Location = new System.Drawing.Point(0, 26);
       this.superTabControlPanel1.Name = "superTabControlPanel1";
-      this.superTabControlPanel1.Size = new System.Drawing.Size(432, 274);
+      this.superTabControlPanel1.Size = new System.Drawing.Size(432, 293);
       this.superTabControlPanel1.TabIndex = 1;
       this.superTabControlPanel1.TabItem = this.superTabItem1;
       // 
@@ -435,9 +464,9 @@
       // superTabControlPanel2
       // 
       this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 0);
       this.superTabControlPanel2.Name = "superTabControlPanel2";
-      this.superTabControlPanel2.Size = new System.Drawing.Size(432, 274);
+      this.superTabControlPanel2.Size = new System.Drawing.Size(432, 319);
       this.superTabControlPanel2.TabIndex = 0;
       this.superTabControlPanel2.TabItem = this.tabInform7;
       // 
@@ -449,30 +478,13 @@
       this.tabInform7.Text = "Inform 7";
       this.tabInform7.Visible = false;
       // 
-      // chkShowTooltips
-      // 
-      // 
-      // 
-      // 
-      this.chkShowTooltips.BackgroundStyle.Class = "";
-      this.chkShowTooltips.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.chkShowTooltips.Checked = true;
-      this.chkShowTooltips.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.chkShowTooltips.CheckValue = "Y";
-      this.chkShowTooltips.Location = new System.Drawing.Point(200, 58);
-      this.chkShowTooltips.Name = "chkShowTooltips";
-      this.chkShowTooltips.Size = new System.Drawing.Size(154, 23);
-      this.chkShowTooltips.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-      this.chkShowTooltips.TabIndex = 12;
-      this.chkShowTooltips.Text = "Show Tooltips on Objects";
-      // 
       // AppSettingsDialog
       // 
       this.AcceptButton = this.m_okButton;
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.m_cancelButton;
-      this.ClientSize = new System.Drawing.Size(446, 350);
+      this.ClientSize = new System.Drawing.Size(446, 369);
       this.Controls.Add(this.superTabControl1);
       this.Controls.Add(this.m_okButton);
       this.Controls.Add(this.m_cancelButton);
@@ -487,7 +499,6 @@
       this.ShowInTaskbar = false;
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
       this.Text = "Application Settings";
-      this.Load += new System.EventHandler(this.AppSettingsDialog_Load);
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
       this.groupBox2.ResumeLayout(false);
@@ -536,5 +547,6 @@
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel1;
         private DevComponents.DotNetBar.SuperTabItem superTabItem1;
     private DevComponents.DotNetBar.Controls.CheckBoxX chkShowTooltips;
+    private System.Windows.Forms.CheckBox chkFullPathTitleBar;
   }
 }

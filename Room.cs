@@ -97,8 +97,7 @@ namespace Trizbort
       Size = new Vector(3 * Settings.GridSize, 2 * Settings.GridSize);
       Position = new Vector(-Size.X / 2, -Size.Y / 2);
       Corners = new CornerRadii();
-      Shape = RoomShape.SquareCorners; //would be nice to make an app default later: issue #93
-//      StraightEdges = true;
+      Shape = Settings.DefaultRoomShape; 
 
       // connections may connect to any of our "corners"
       addPortsToRoom();

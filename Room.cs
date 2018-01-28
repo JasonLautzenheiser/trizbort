@@ -81,6 +81,7 @@ namespace Trizbort
     private Vector mSize;
     private bool mStraightEdges;
 
+    
 
     private RoomShape shape;
 
@@ -133,8 +134,7 @@ namespace Trizbort
 
     public bool ArbitraryAutomappedPosition { get; set; }
 
-    public BorderDashStyle BorderStyle
-    {
+    public BorderDashStyle BorderStyle {
       get => mBorderStyle;
       set
       {
@@ -208,6 +208,10 @@ namespace Trizbort
     public bool HasDescription => mDescriptions.Count > 0;
     public override bool HasDialog => true;
 
+    public bool IsReference => ReferenceRoom != null;
+    public Room ReferenceRoom => Project.Current.Elements.OfType<Room>().FirstOrDefault(p => p.ID == ReferenceRoomId );
+    public int ReferenceRoomId { get; set; } = -1;
+
     [JsonIgnore]
     public bool IsConnected
     {
@@ -265,7 +269,7 @@ namespace Trizbort
     /// </summary>
     public override string Name
     {
-      get => mName.Text;
+      get =>  mName.Text;
       set
       {
         value = value ?? string.Empty;
@@ -837,7 +841,7 @@ namespace Trizbort
       context.LinesDrawn.Add(left);
 
       // if starting room: this is the code to draw a yellow-green boundary around the start room
-      if (IsStartRoom || IsEndRoom)
+      if (IsStartRoom || IsEndRoom || IsReference)
       {
         var tBounds = InnerBounds;
         tBounds.Inflate(5);
@@ -889,7 +893,13 @@ namespace Trizbort
           Drawing.AddLine(pathSelected, bottomSelect, random, StraightEdges);
           Drawing.AddLine(pathSelected, leftSelect, random, StraightEdges);
         }
-        var brushSelected = new SolidBrush(Settings.Color[IsStartRoom ? Colors.StartRoom : Colors.EndRoom]);
+        SolidBrush brushSelected;
+        if (IsReference) {
+          brushSelected = new SolidBrush(Color.LightBlue);
+        } else
+        {
+          brushSelected = new SolidBrush(Settings.Color[IsStartRoom ? Colors.StartRoom : Colors.EndRoom]);
+        }
         graphics.DrawPath(brushSelected, pathSelected);
       }
 
@@ -1090,12 +1100,12 @@ namespace Trizbort
         if (RoomBorder == Color.Transparent)
         {
           var pen = palette.BorderPen;
-          pen.DashStyle = BorderStyle.ConvertToDashStyle();
+          pen.DashStyle = IsReference ? BorderDashStyle.Dot.ConvertToDashStyle() : BorderStyle.ConvertToDashStyle();
           graphics.DrawPath(pen, path);
         }
         else
         {
-          var roomBorderPen = new Pen(RoomBorder, Settings.LineWidth) {StartCap = LineCap.Round, EndCap = LineCap.Round, DashStyle = BorderStyle.ConvertToDashStyle()};
+          var roomBorderPen = new Pen(RoomBorder, Settings.LineWidth) {StartCap = LineCap.Round, EndCap = LineCap.Round, DashStyle = IsReference ? BorderDashStyle.Dot.ConvertToDashStyle() : BorderStyle.ConvertToDashStyle()};
           graphics.DrawPath(roomBorderPen, path);
         }
       }
@@ -1113,11 +1123,12 @@ namespace Trizbort
         textBounds.Inflate(-5, -5);
 
       if (textBounds.Width > 0 && textBounds.Height > 0)
-        if (!ApplicationSettingsController.AppSettings.DebugDisableTextRendering)
-        {
-          var RoomTextRect = mName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
+        if (!ApplicationSettingsController.AppSettings.DebugDisableTextRendering) {
+          TextBlock tName = IsReference ? new TextBlock {Text = "To"} : mName;
+          TextBlock tSubtitle = IsReference ? new TextBlock {Text = ReferenceRoom.Name} : mSubTitle;
+          var RoomTextRect = tName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
           var SubtitleTextRect = new Rect(RoomTextRect.Left, RoomTextRect.Bottom, RoomTextRect.Right - RoomTextRect.Left, textBounds.Bottom - RoomTextRect.Bottom);
-          mSubTitle.Draw(graphics, Settings.SubtitleFont, roombrush, SubtitleTextRect.Position, SubtitleTextRect.Size, XStringFormats.Center);
+          tSubtitle.Draw(graphics, Settings.SubtitleFont, roombrush, SubtitleTextRect.Position, SubtitleTextRect.Size, XStringFormats.Center);
         }
 
       var expandedBounds = InnerBounds;
@@ -1339,6 +1350,7 @@ namespace Trizbort
       Position = new Vector(element.Attribute("x").ToFloat(), element.Attribute("y").ToFloat());
       Size = new Vector(element.Attribute("w").ToFloat(), element.Attribute("h").ToFloat());
       Region = element.Attribute("region").Text;
+      ReferenceRoomId = element.Attribute("referenceRoom").ToInt();
       IsDark = element.Attribute("isDark").ToBool();
       IsStartRoom = element.Attribute("isStartRoom").ToBool();
       IsEndRoom = element.Attribute("isEndRoom").ToBool();
@@ -1468,6 +1480,9 @@ namespace Trizbort
       scribe.Attribute("w", Size.X);
       scribe.Attribute("h", Size.Y);
       scribe.Attribute("region", string.IsNullOrEmpty(Region) ? Trizbort.Region.DefaultRegion : Region);
+      if (ReferenceRoom != null)
+        scribe.Attribute("referenceRoom", ReferenceRoom.ID);
+
       scribe.Attribute("handDrawn", StraightEdges);
       scribe.Attribute("allcornersequal", AllCornersEqual);
       scribe.Attribute("ellipse", Ellipse);
@@ -1649,6 +1664,7 @@ namespace Trizbort
         dialog.RoomTextColor = RoomLargeText;
         dialog.ObjectTextColor = RoomSmallText;
         dialog.RoomRegion = Region;
+        dialog.ReferenceRoom = ReferenceRoom;
         dialog.Corners = Corners;
         dialog.RoundedCorners = RoundedCorners;
         //dialog.Octagonal = Octagonal;
@@ -1689,6 +1705,8 @@ namespace Trizbort
           // Added for Room specific colors
           RoomSmallText = dialog.ObjectTextColor;
           Region = dialog.RoomRegion;
+
+          ReferenceRoomId = dialog.ReferenceRoom?.ID ?? -1;
           Corners = dialog.Corners;
           RoundedCorners = dialog.RoundedCorners;
           Shape = dialog.Shape;

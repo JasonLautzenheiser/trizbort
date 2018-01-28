@@ -964,6 +964,8 @@ namespace Trizbort.UI.Controls
           var sameElement = HoverElement == hoverElement;
           HoverElement = hoverElement;
 
+          Cursor.Current = (hoverElement is Room && ((Room)hoverElement).IsReference && ModifierKeys == Keys.Control) ? Cursors.Hand : Cursors.Default;
+
           if (HoverElement == null)
             roomTooltip.HideTooltip();
           else if (ApplicationSettingsController.AppSettings.ShowToolTipsOnObjects && HoverElement.HasTooltip())
@@ -1012,6 +1014,16 @@ namespace Trizbort.UI.Controls
             Invalidate();
           }
           break;
+      }
+    }
+
+    protected override void OnMouseClick(MouseEventArgs e) {
+      if (e.Button == MouseButtons.Left && ModifierKeys==Keys.Control && (SelectedElement != null && SelectedElement.GetType() == typeof(Room))) {
+        var room = (Room) SelectedElement;
+        if (room.IsReference) {
+          SelectedElement = room.ReferenceRoom;
+          commandController.MakeVisible(room.ReferenceRoom);
+        }
       }
     }
 

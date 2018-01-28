@@ -56,6 +56,11 @@ namespace Trizbort.UI
 
       cboRegion.DrawMode = DrawMode.OwnerDrawFixed;
       cboRegion.DrawItem += RegionListBox_DrawItem;
+
+      cboReference.Items.Add("");
+      foreach (var room in Project.Current.Elements.OfType<Room>().Where(p => p.ID != roomID).OrderBy(p=>p.Name))
+        cboReference.Items.Add(room);
+
       if (Settings.Regions.Count > 0)
         cboRegion.SelectedIndex = 0;
 
@@ -85,25 +90,24 @@ namespace Trizbort.UI
         if (start == PropertiesStartType.RoomName)
           txtName.Focus();
       }
+
+
     }
 
-    public bool RoundedCorners { get { return cboDrawType.SelectedItem == itemRoundedCorners; } set { if (value) cboDrawType.SelectedItem = itemRoundedCorners; } }
-    public bool Ellipse { get { return cboDrawType.SelectedItem == itemEllipse; } set { if (value) cboDrawType.SelectedItem = itemEllipse; } }
-    public bool StraightEdges { get { return cboDrawType.SelectedItem == itemStraightEdges; } set { if (value) cboDrawType.SelectedItem = itemStraightEdges; } }
-    public bool Octagonal { get { return cboDrawType.SelectedItem == itemOctagonal; } set { if (value) cboDrawType.SelectedItem = itemOctagonal; } }
+    public bool RoundedCorners { get => cboDrawType.SelectedItem == itemRoundedCorners; set { if (value) cboDrawType.SelectedItem = itemRoundedCorners; } }
+    public bool Ellipse { get => cboDrawType.SelectedItem == itemEllipse; set { if (value) cboDrawType.SelectedItem = itemEllipse; } }
+    public bool StraightEdges { get => cboDrawType.SelectedItem == itemStraightEdges; set { if (value) cboDrawType.SelectedItem = itemStraightEdges; } }
+    public bool Octagonal { get => cboDrawType.SelectedItem == itemOctagonal; set { if (value) cboDrawType.SelectedItem = itemOctagonal; } }
 
     public CornerRadii Corners
     {
-      get
+      get => new CornerRadii()
       {
-        return new CornerRadii()
-        {
-          BottomLeft = txtBottomLeft.Value,
-          BottomRight = txtBottomRight.Value,
-          TopRight = txtTopRight.Value,
-          TopLeft = txtTopLeft.Value
-        };
-      }
+        BottomLeft = txtBottomLeft.Value,
+        BottomRight = txtBottomRight.Value,
+        TopRight = txtTopRight.Value,
+        TopLeft = txtTopLeft.Value
+      };
       set
       {
         txtBottomRight.Value = value.BottomRight;
@@ -115,67 +119,76 @@ namespace Trizbort.UI
 
     public RoomShape Shape
     {
-      get { return (RoomShape)cboDrawType.SelectedIndex; }
-      set { cboDrawType.SelectedIndex = (int)value; }
+      get => (RoomShape)cboDrawType.SelectedIndex;
+      set => cboDrawType.SelectedIndex = (int)value;
     }
 
     public string RoomName
     {
-      get { return txtName.Text.Trim(); }
-      set { txtName.Text = value; }
+      get => txtName.Text.Trim();
+      set => txtName.Text = value;
     }
 
     public BorderDashStyle BorderStyle
     {
-      get { return (BorderDashStyle)Enum.Parse(typeof(BorderDashStyle), cboBorderStyle.SelectedItem.ToString()); }
-      set { cboBorderStyle.SelectedItem = value.ToString(); }
+      get => (BorderDashStyle)Enum.Parse(typeof(BorderDashStyle), cboBorderStyle.SelectedItem.ToString());
+      set => cboBorderStyle.SelectedItem = value.ToString();
     }
     public string RoomSubTitle
     {
-      get { return txtSubTitle.Text; }
-      set { txtSubTitle.Text = value; }
+      get => txtSubTitle.Text;
+      set => txtSubTitle.Text = value;
     }
 
     public string Description
     {
-      get { return m_descriptionTextBox.Text; }
-      set { m_descriptionTextBox.Text = value; }
+      get => m_descriptionTextBox.Text;
+      set => m_descriptionTextBox.Text = value;
     }
 
     public bool HandDrawnEdges
     {
-      get { return chkHandDrawnRoom.Checked; }
-      set { chkHandDrawnRoom.Checked = value; }
+      get => chkHandDrawnRoom.Checked;
+      set => chkHandDrawnRoom.Checked = value;
     }
 
     public bool IsStartRoom
     {
-      get { return chkStartRoom.Checked; }
-      set { chkStartRoom.Checked = value; }
+      get => chkStartRoom.Checked;
+      set => chkStartRoom.Checked = value;
     }
 
     public bool IsEndRoom
     {
-      get { return chkEndRoom.Checked; }
-      set { chkEndRoom.Checked = value; }
+      get => chkEndRoom.Checked;
+      set => chkEndRoom.Checked = value;
     }
 
     public bool IsDark
     {
-      get { return m_isDarkCheckBox.Checked; }
-      set { m_isDarkCheckBox.Checked = value; }
+      get => m_isDarkCheckBox.Checked;
+      set => m_isDarkCheckBox.Checked = value;
     }
 
     public string Objects
     {
-      get { return txtObjects.Text; }
-      set { txtObjects.Text = value; }
+      get => txtObjects.Text;
+      set => txtObjects.Text = value;
     }
 
     public string RoomRegion
     {
-      get { return cboRegion.SelectedItem?.ToString() ?? string.Empty; }
-      set { cboRegion.SelectedItem = value; }
+      get => cboRegion.SelectedItem?.ToString() ?? string.Empty;
+      set => cboRegion.SelectedItem = value;
+    }
+
+    public bool IsReference => cboReference.SelectedItem?.ToString() != string.Empty;
+    public Room ReferenceRoom {
+      get {
+        if (cboReference.SelectedItem.ToString() != "") return (Room) cboReference.SelectedItem;
+        return null;
+      }
+      set => cboReference.SelectedItem = value;
     }
 
     public CompassPoint ObjectsPosition
@@ -230,10 +243,7 @@ namespace Trizbort.UI
     // Added for Room specific colors
     public Color RoomFillColor
     {
-      get
-      {
-        return m_roomFillTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_roomFillTextBox.BackColor;
-      }
+      get => m_roomFillTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_roomFillTextBox.BackColor;
       set
       {
         if (value == Color.Transparent)

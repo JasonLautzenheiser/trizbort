@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Added export for Quest (Thanks to @ThePix for this) (#392)
 - Added option in AppSettings to show the full file path in the main window caption.
 - Can now set a default room shape for a map in Map Settings (#93)
+- Can add a link to reference another room from a room (done through room properties).  Ctrl-Click on the room with the reference will go to the room being referenced (#370)
 
 ### Fixed
 - fixed naming consistency between context menu and main menu and room shape names (#356) 

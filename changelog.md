@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - Minor adjustment on alignment of in/out text on rounded and octagonal rooms.  (#378)
 - fixed error with room property dialog and rooms shapes. (#394, #388)
 - copy of room now copies the subtitle.
+- default object text color was not respected if object text was inside room and no room specific object text color was chosen. (#402)
 
 ### Changed
 

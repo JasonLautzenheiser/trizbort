@@ -185,7 +185,7 @@ namespace Trizbort.UI
     public bool IsReference => cboReference.SelectedItem?.ToString() != string.Empty;
     public Room ReferenceRoom {
       get {
-        if (cboReference.SelectedItem.ToString() != "") return (Room) cboReference.SelectedItem;
+        if (cboReference.SelectedItem != null && cboReference.SelectedItem.ToString() != "") return (Room) cboReference.SelectedItem;
         return null;
       }
       set => cboReference.SelectedItem = value;

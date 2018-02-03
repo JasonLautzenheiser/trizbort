@@ -1161,7 +1161,8 @@ namespace Trizbort
           format.Alignment = XStringAlignment.Near;
           var height = InnerBounds.Height / 2 - font.Height / 2;
           var bounds = new Rect(InnerBounds.Left + Settings.ObjectListOffsetFromRoom, InnerBounds.Bottom - height, InnerBounds.Width - Settings.ObjectListOffsetFromRoom, height - Settings.ObjectListOffsetFromRoom);
-          brush = bUseObjectRoomBrush ? new SolidBrush(RoomSmallText) : roombrush;
+          if (bUseObjectRoomBrush)
+            brush = new SolidBrush(RoomSmallText);
           pos = bounds.Position;
           pos.X += ObjectsCustomPosition ? ObjectsCustomPositionRight : 0;
           pos.Y += ObjectsCustomPosition ? ObjectsCustomPositionDown : 0;

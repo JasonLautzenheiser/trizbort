@@ -100,14 +100,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Automap\Automap.cs" />
-    <Compile Include="AutomapSettings.cs" />
+    <Compile Include="Automap\AutomapSettings.cs" />
     <Compile Include="Automap\Utility\PeekingStreamReader.cs" />
-    <Compile Include="BorderDashStyle.cs" />
-    <Compile Include="Colors.cs" />
-    <Compile Include="CompassPoint.cs" />
+    <Compile Include="Domain\Enums\BorderDashStyle.cs" />
+    <Compile Include="Domain\Misc\Colors.cs" />
+    <Compile Include="Domain\Misc\CompassPoint.cs" />
     <Compile Include="Domain\Cache\FindCacheItem.cs" />
     <Compile Include="Domain\Cache\Indexer.cs" />
-    <Compile Include="Domain\CommandLineOptions.cs" />
+    <Compile Include="Domain\Application\CommandLineOptions.cs" />
     <Compile Include="Domain\Commands\ICommand.cs" />
     <Compile Include="Domain\Commands\SelectCommand.cs" />
     <Compile Include="Domain\Controllers\CanvasController.cs" />
@@ -117,20 +117,20 @@
     <Compile Include="Domain\Controllers\RoomController.cs" />
     <Compile Include="Domain\Enums\LightingActionType.cs" />
     <Compile Include="Domain\Enums\SelectTypes.cs" />
-    <Compile Include="Domain\Connection.cs" />
-    <Compile Include="Domain\ConnectionIconBlock.cs" />
-    <Compile Include="Domain\Door.cs" />
+    <Compile Include="Domain\Elements\Connection.cs" />
+    <Compile Include="Domain\Misc\ConnectionIconBlock.cs" />
+    <Compile Include="Domain\Elements\Door.cs" />
     <Compile Include="Domain\Enums\ValidationType.cs" />
     <Compile Include="Domain\RoomValidationState.cs" />
     <Compile Include="Domain\SerializeHelpers\ElementConverter.cs" />
     <Compile Include="Domain\SerializeHelpers\PortConverter.cs" />
     <Compile Include="Domain\AppSettings\ApplicationSettings.cs" />
     <Compile Include="Domain\AppSettings\ApplicationSettingsController.cs" />
-    <Compile Include="Domain\TrizbortApplication.cs" />
+    <Compile Include="Domain\Application\TrizbortApplication.cs" />
     <Compile Include="Domain\Watchers\TrizbortFileWatcher.cs" />
-    <Compile Include="DrawingContext.cs" />
-    <Compile Include="Element.cs" />
-    <Compile Include="BoundList.cs" />
+    <Compile Include="Domain\Misc\DrawingContext.cs" />
+    <Compile Include="Domain\Elements\Element.cs" />
+    <Compile Include="Domain\Misc\BoundList.cs" />
     <Compile Include="Export\AlanExporter.cs" />
     <Compile Include="Export\CodeExporter.cs" />
     <Compile Include="Export\HugoExporter.cs" />
@@ -142,26 +142,26 @@
     <Compile Include="Extensions\FileExtensions.cs" />
     <Compile Include="Extensions\RoomExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="IAutomapCanvas.cs" />
-    <Compile Include="IMoveable.cs" />
+    <Compile Include="Automap\IAutomapCanvas.cs" />
+    <Compile Include="Domain\Elements\IMoveable.cs" />
     <Compile Include="Export\Inform7Exporter.cs" />
-    <Compile Include="ISizeable.cs" />
-    <Compile Include="LineSegment.cs" />
-    <Compile Include="MapStatistics.cs" />
-    <Compile Include="MoveablePort.cs" />
-    <Compile Include="MruList.cs" />
-    <Compile Include="Numeric.cs" />
-    <Compile Include="PathHelper.cs" />
-    <Compile Include="Port.cs" />
+    <Compile Include="Domain\Elements\ISizeable.cs" />
+    <Compile Include="Domain\Misc\LineSegment.cs" />
+    <Compile Include="Domain\Application\MapStatistics.cs" />
+    <Compile Include="Domain\Misc\MoveablePort.cs" />
+    <Compile Include="Domain\Application\MruList.cs" />
+    <Compile Include="Domain\Misc\Numeric.cs" />
+    <Compile Include="Util\PathHelper.cs" />
+    <Compile Include="Domain\Misc\Port.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Rect.cs" />
-    <Compile Include="Region.cs" />
-    <Compile Include="Smoothing.cs" />
-    <Compile Include="TextBlock.cs" />
+    <Compile Include="Domain\Misc\Rect.cs" />
+    <Compile Include="Domain\Misc\Region.cs" />
+    <Compile Include="Util\Smoothing.cs" />
+    <Compile Include="Domain\Misc\TextBlock.cs" />
     <Compile Include="UI\AboutDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,12 +261,12 @@
     <Compile Include="UI\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vector.cs" />
-    <Compile Include="Vertex.cs" />
-    <Compile Include="Events.cs" />
-    <Compile Include="Palette.cs" />
+    <Compile Include="Domain\Misc\Vector.cs" />
+    <Compile Include="Domain\Misc\Vertex.cs" />
+    <Compile Include="Domain\Misc\Events.cs" />
+    <Compile Include="Domain\Misc\Palette.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Project.cs" />
+    <Compile Include="Domain\Application\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -327,15 +327,15 @@
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <Compile Include="Drawing.cs" />
-    <Compile Include="ResizeHandle.cs" />
-    <Compile Include="Room.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="StringFormats.cs" />
-    <Compile Include="Depth.cs" />
-    <Compile Include="XmlAttributeReader.cs" />
-    <Compile Include="XmlElementReader.cs" />
-    <Compile Include="XmlScribe.cs" />
+    <Compile Include="Domain\Misc\Drawing.cs" />
+    <Compile Include="Domain\Misc\ResizeHandle.cs" />
+    <Compile Include="Domain\Elements\Room.cs" />
+    <Compile Include="Setup\Settings.cs" />
+    <Compile Include="Util\StringFormats.cs" />
+    <Compile Include="Domain\Misc\Depth.cs" />
+    <Compile Include="Util\XmlAttributeReader.cs" />
+    <Compile Include="Util\XmlElementReader.cs" />
+    <Compile Include="Util\XmlScribe.cs" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -30,11 +30,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Trizbort.Automap;
+using Trizbort.Domain.Application;
 using Trizbort.Domain.AppSettings;
 using Trizbort.Domain.Elements;
 using Trizbort.Domain.Misc;
 using Trizbort.UI;
 using Trizbort.Util;
+using Region = Trizbort.Domain.Misc.Region;
 
 namespace Trizbort.Setup
 {

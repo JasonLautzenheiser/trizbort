@@ -32,10 +32,14 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using Newtonsoft.Json;
 using PdfSharp.Drawing;
+using Trizbort.Domain.Application;
 using Trizbort.Domain.AppSettings;
+using Trizbort.Domain.Misc;
 using Trizbort.Properties;
 using Trizbort.UI;
 using Trizbort.UI.Controls;
+using Trizbort.Util;
+using Settings = Trizbort.Setup.Settings;
 
 namespace Trizbort.Domain.Elements
 {

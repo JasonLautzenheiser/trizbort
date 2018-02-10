@@ -1,4 +1,6 @@
-﻿namespace Trizbort.Domain.Controllers
+﻿using Trizbort.Domain.Elements;
+
+namespace Trizbort.Domain.Controllers
 {
   public class ElementController
   {

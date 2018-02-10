@@ -27,6 +27,10 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using PdfSharp.Drawing;
+using Trizbort.Domain.Application;
+using Trizbort.Domain.Elements;
+using Trizbort.Domain.Misc;
+using Trizbort.Setup;
 
 namespace Trizbort.UI.Controls
 {

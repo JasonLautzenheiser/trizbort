@@ -26,6 +26,8 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Trizbort.Domain;
+using Trizbort.Domain.Elements;
+using Trizbort.Domain.Misc;
 
 namespace Trizbort.UI
 {

@@ -31,6 +31,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Trizbort.Automap;
 using Trizbort.Domain;
+using Trizbort.Domain.Application;
+using Trizbort.Domain.Elements;
+using Trizbort.Domain.Misc;
+using Trizbort.Setup;
+using Trizbort.Util;
 
 namespace Trizbort.Export
 {

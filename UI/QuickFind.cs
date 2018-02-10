@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Trizbort.Domain.Application;
 using Trizbort.Domain.Cache;
 using Trizbort.Domain.Controllers;
+using Trizbort.Domain.Elements;
 
 namespace Trizbort.UI
 {

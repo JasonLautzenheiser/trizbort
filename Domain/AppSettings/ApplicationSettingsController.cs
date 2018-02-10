@@ -3,7 +3,10 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using Newtonsoft.Json;
+using Trizbort.Automap;
+using Trizbort.Domain.Misc;
 using Trizbort.UI;
+using Trizbort.Util;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace Trizbort.Domain.AppSettings {

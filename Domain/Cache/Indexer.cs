@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Trizbort.Domain.Application;
+using Trizbort.Domain.Elements;
 
 namespace Trizbort.Domain.Cache
 {

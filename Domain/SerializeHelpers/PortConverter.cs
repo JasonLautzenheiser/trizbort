@@ -1,6 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Trizbort.Domain.Elements;
+using Trizbort.Domain.Misc;
 
 namespace Trizbort.Domain.SerializeHelpers
 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Trizbort.Domain.Misc;
 
 namespace Trizbort.UI
 {
@@ -20,7 +21,7 @@ namespace Trizbort.UI
       this.regions = regions;
       originalName = RegionToChange.RegionName;
       txtRegionName.Text = RegionToChange.RegionName;
-      if (RegionToChange.RegionName == Trizbort.Region.DefaultRegion)
+      if (RegionToChange.RegionName == Domain.Misc.Region.DefaultRegion)
         txtRegionName.Enabled = false;
       pnlRegionColor.BackColor = RegionToChange.RColor;
       lblTextColor.ForeColor = RegionToChange.TextColor;
@@ -47,7 +48,7 @@ namespace Trizbort.UI
     private void m_okButton_Click(object sender, EventArgs e)
     {
       txtRegionName.Text = txtRegionName.Text.Trim().Replace("\"", "'");
-      if (Trizbort.Region.ValidRegionName(txtRegionName.Text))
+      if (Domain.Misc.Region.ValidRegionName(txtRegionName.Text))
       {
         if (!txtRegionName.Text.Equals(originalName, StringComparison.OrdinalIgnoreCase) && regions.Any(p => p.RegionName.Equals(txtRegionName.Text, StringComparison.OrdinalIgnoreCase)))
         {

@@ -27,6 +27,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Trizbort.Domain.Application;
+using Trizbort.Domain.Elements;
+using Trizbort.Domain.Misc;
+using Trizbort.Setup;
+using Trizbort.Util;
+using Region = Trizbort.Domain.Misc.Region;
 
 namespace Trizbort.UI
 {
@@ -171,7 +177,7 @@ namespace Trizbort.UI
     private void addRegionsToListbox()
     {
       m_RegionListing.Items.Clear();
-      foreach (var region in Regions.OrderBy(p => p.RegionName != Trizbort.Region.DefaultRegion).ThenBy(p => p.RegionName))
+      foreach (var region in Regions.OrderBy(p => p.RegionName != Domain.Misc.Region.DefaultRegion).ThenBy(p => p.RegionName))
       {
         m_RegionListing.Items.Add(region.RegionName);
       }
@@ -326,7 +332,7 @@ namespace Trizbort.UI
     {
       itemSelected = m_RegionListing.SelectedIndex;
 
-      if (m_RegionListing.Items[itemSelected].ToString() == Trizbort.Region.DefaultRegion) return;
+      if (m_RegionListing.Items[itemSelected].ToString() == Domain.Misc.Region.DefaultRegion) return;
 
       var r = m_RegionListing.GetItemRectangle(itemSelected);
       var itemText = m_RegionListing.Items[itemSelected].ToString();
@@ -358,7 +364,7 @@ namespace Trizbort.UI
       {
         bUpdatingRegionText = true;
         editBox.Text = editBox.Text.Trim().Replace("\"", "'");
-        if (Trizbort.Region.ValidRegionName(editBox.Text))
+        if (Domain.Misc.Region.ValidRegionName(editBox.Text))
         {
           if (updateRegionName(editBox.Text, m_RegionListing.Items[itemSelected].ToString()))
           {
@@ -444,10 +450,10 @@ namespace Trizbort.UI
     private void deleteRegion()
     {
       itemSelected = m_RegionListing.SelectedIndex;
-      if (m_RegionListing.Items[itemSelected].ToString() == Trizbort.Region.DefaultRegion) return;
+      if (m_RegionListing.Items[itemSelected].ToString() == Domain.Misc.Region.DefaultRegion) return;
       foreach (var tRoom in Project.Current.Elements.OfType<Room>().Where(tRoom => tRoom.Region == m_RegionListing.Items[itemSelected].ToString()))
       {
-          tRoom.Region = Trizbort.Region.DefaultRegion;
+          tRoom.Region = Domain.Misc.Region.DefaultRegion;
       }
       Regions.RemoveAll(p => p.RegionName == m_RegionListing.Items[itemSelected].ToString());
       addRegionsToListbox();
@@ -460,7 +466,7 @@ namespace Trizbort.UI
     {
       mCurrentRegion = m_RegionListing.SelectedItem == null ? null : Regions.Find(p => p.RegionName == m_RegionListing.SelectedItem.ToString());
 
-      if (m_RegionListing.SelectedItem == null || m_RegionListing.SelectedItem.ToString() == Trizbort.Region.DefaultRegion)
+      if (m_RegionListing.SelectedItem == null || m_RegionListing.SelectedItem.ToString() == Domain.Misc.Region.DefaultRegion)
         btnDeleteRegion.Enabled = false;
       else
         btnDeleteRegion.Enabled = true;

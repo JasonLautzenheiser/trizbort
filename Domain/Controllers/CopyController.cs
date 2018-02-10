@@ -3,6 +3,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using Trizbort.Domain.Elements;
+using Trizbort.Domain.Enums;
+using Trizbort.Domain.Misc;
 
 namespace Trizbort.Domain.Controllers
 {

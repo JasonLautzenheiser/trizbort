@@ -31,6 +31,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Trizbort.Automap.Utility;
+using Trizbort.Domain.Elements;
+using Trizbort.Domain.Misc;
+using Trizbort.Setup;
 using Trizbort.UI;
 
 namespace Trizbort.Automap

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using Trizbort.Automap;
 using Trizbort.Domain.AppSettings;
+using Trizbort.Domain.Elements;
 
 namespace Trizbort.Export
 {

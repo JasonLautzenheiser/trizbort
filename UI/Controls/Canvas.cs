@@ -34,11 +34,17 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using Newtonsoft.Json;
 using PdfSharp.Drawing;
+using Trizbort.Automap;
 using Trizbort.Domain;
+using Trizbort.Domain.Application;
 using Trizbort.Domain.AppSettings;
 using Trizbort.Domain.Controllers;
+using Trizbort.Domain.Elements;
 using Trizbort.Domain.Enums;
+using Trizbort.Domain.Misc;
 using Trizbort.Domain.SerializeHelpers;
+using Trizbort.Setup;
+using Region = Trizbort.Domain.Misc.Region;
 using Timer = System.Threading.Timer;
 
 // ReSharper disable PossibleLossOfFraction
@@ -3024,7 +3030,7 @@ namespace Trizbort.UI.Controls
 
           regionMenu.DropDownItems.Clear();
 
-          foreach (var region in Settings.Regions.OrderBy(p => p.RegionName != Trizbort.Region.DefaultRegion).ThenBy(p => p.RegionName))
+          foreach (var region in Settings.Regions.OrderBy(p => p.RegionName != Domain.Misc.Region.DefaultRegion).ThenBy(p => p.RegionName))
           {
             var item = regionMenu.DropDownItems.Add(region.RegionName, null, regionContextClick);
             item.Image = generateRegionImage(region);

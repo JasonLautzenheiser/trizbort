@@ -30,6 +30,8 @@ using System.Linq;
 using System.Text;
 using Trizbort.Automap;
 using Trizbort.Domain.AppSettings;
+using Trizbort.Domain.Elements;
+using Trizbort.Domain.Misc;
 
 namespace Trizbort.Export
 {

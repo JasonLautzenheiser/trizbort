@@ -3,6 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Trizbort.Domain.Application;
+using Trizbort.Domain.Elements;
+using Trizbort.Setup;
 
 namespace Trizbort.UI
 {
@@ -72,7 +75,7 @@ namespace Trizbort.UI
       if (MapStatistics.NumberOfRegions > 0)
       {
         stats += $"Regions:{Environment.NewLine}";
-        foreach (var region in Settings.Regions.OrderBy(p=>p.RegionName).Where(p=>p.RegionName != Trizbort.Region.DefaultRegion))
+        foreach (var region in Settings.Regions.OrderBy(p=>p.RegionName).Where(p=>p.RegionName != Domain.Misc.Region.DefaultRegion))
         {
           var numberOfRoomsInRegion = MapStatistics.NumberOfRoomsInRegion(region.RegionName);
           stats += string.Format("{2} ({0} {3}){1}", numberOfRoomsInRegion, Environment.NewLine, region.RegionName,numberOfRoomsInRegion==1 ? "room" : "rooms");
@@ -98,7 +101,7 @@ namespace Trizbort.UI
       if (MapStatistics.NumberOfRegions > 0)
       {
         stats += $"{Environment.NewLine}";
-        foreach (var region in Settings.Regions.OrderBy(p=>p.RegionName).Where(p=>p.RegionName != Trizbort.Region.DefaultRegion))
+        foreach (var region in Settings.Regions.OrderBy(p=>p.RegionName).Where(p=>p.RegionName != Domain.Misc.Region.DefaultRegion))
         {
           if (MapStatistics.NumberOfRoomsInRegion(region.RegionName) == 0)
             stats += $"{region.RegionName} has no rooms.";
@@ -115,7 +118,7 @@ namespace Trizbort.UI
       else if (MapStatistics.NumberOfRegions > 1)
       {
         stats += $"{Environment.NewLine}Region Links:{Environment.NewLine}";
-        var allRegions = Settings.Regions.OrderBy(p => p.RegionName).Where(p => p.RegionName != Trizbort.Region.DefaultRegion);
+        var allRegions = Settings.Regions.OrderBy(p => p.RegionName).Where(p => p.RegionName != Domain.Misc.Region.DefaultRegion);
         foreach (var region1 in allRegions)
         {
           var linkedRegions = string.Join(", ", Settings.Regions.OrderBy(p => p.RegionName).ToArray().Where(p => MapStatistics.RegionsLinked(region1, p)).Select(x => x.RegionName));

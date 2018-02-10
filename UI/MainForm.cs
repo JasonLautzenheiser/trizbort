@@ -39,11 +39,16 @@ using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Annotations;
 using Trizbort.Domain;
+using Trizbort.Domain.Application;
 using Trizbort.Domain.AppSettings;
 using Trizbort.Domain.Controllers;
+using Trizbort.Domain.Elements;
 using Trizbort.Domain.Enums;
+using Trizbort.Domain.Misc;
 using Trizbort.Export;
 using Trizbort.Properties;
+using Trizbort.Util;
+using Settings = Trizbort.Setup.Settings;
 
 namespace Trizbort.UI
 {

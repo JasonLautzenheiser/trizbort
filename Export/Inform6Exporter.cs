@@ -28,6 +28,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Trizbort.Automap;
+using Trizbort.Domain.Application;
+using Trizbort.Domain.Elements;
+using Trizbort.Domain.Misc;
 
 namespace Trizbort.Export
 {

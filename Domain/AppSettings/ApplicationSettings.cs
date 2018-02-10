@@ -1,4 +1,6 @@
 ﻿using System;
+using Trizbort.Automap;
+using Trizbort.Domain.Application;
 
 namespace Trizbort.Domain.AppSettings
 {

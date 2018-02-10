@@ -1,4 +1,6 @@
-﻿namespace Trizbort.Domain.Cache
+﻿using Trizbort.Domain.Elements;
+
+namespace Trizbort.Domain.Cache
 {
   public enum FindCacheObjectType
   {

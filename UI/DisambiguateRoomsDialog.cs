@@ -25,6 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Trizbort.Domain.Elements;
 
 namespace Trizbort.UI
 {

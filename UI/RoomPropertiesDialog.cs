@@ -28,6 +28,12 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using Trizbort.Domain.Application;
+using Trizbort.Domain.Elements;
+using Trizbort.Domain.Enums;
+using Trizbort.Domain.Misc;
+using Trizbort.Setup;
+using Trizbort.Util;
 
 namespace Trizbort.UI
 {
@@ -49,7 +55,7 @@ namespace Trizbort.UI
         
       // load regions control
       cboRegion.Items.Clear();
-      foreach (var region in Settings.Regions.OrderBy(p => p.RegionName != Trizbort.Region.DefaultRegion).ThenBy(p => p.RegionName))
+      foreach (var region in Settings.Regions.OrderBy(p => p.RegionName != Domain.Misc.Region.DefaultRegion).ThenBy(p => p.RegionName))
       {
         cboRegion.Items.Add(region.RegionName);
       }

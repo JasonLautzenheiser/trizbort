@@ -74,6 +74,8 @@ namespace Trizbort.UI
       this.label6 = new System.Windows.Forms.Label();
       this.m_gridSizeUpDown = new System.Windows.Forms.NumericUpDown();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.label21 = new System.Windows.Forms.Label();
+      this.cboRoomShape = new System.Windows.Forms.ComboBox();
       this.txtDefaultRoomName = new System.Windows.Forms.TextBox();
       this.label20 = new System.Windows.Forms.Label();
       this.label34 = new System.Windows.Forms.Label();
@@ -132,8 +134,6 @@ namespace Trizbort.UI
       this.m_handleSizeUpDown = new System.Windows.Forms.NumericUpDown();
       this.propertySettings1 = new DevComponents.DotNetBar.PropertySettings();
       this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
-      this.cboRoomShape = new System.Windows.Forms.ComboBox();
-      this.label21 = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.m_lineWidthUpDown)).BeginInit();
       this.m_linesGroupBox.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.m_preferredDistanceBetweenRoomsUpDown)).BeginInit();
@@ -486,6 +486,30 @@ namespace Trizbort.UI
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "&Room";
       // 
+      // label21
+      // 
+      this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.label21.AutoSize = true;
+      this.label21.Location = new System.Drawing.Point(7, 52);
+      this.label21.Name = "label21";
+      this.label21.Size = new System.Drawing.Size(105, 13);
+      this.label21.TabIndex = 9;
+      this.label21.Text = "Default Room Shape";
+      // 
+      // cboRoomShape
+      // 
+      this.cboRoomShape.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cboRoomShape.FormattingEnabled = true;
+      this.cboRoomShape.Items.AddRange(new object[] {
+            "Straight Edges",
+            "Rounded Corners",
+            "Ellipse",
+            "Octagonal"});
+      this.cboRoomShape.Location = new System.Drawing.Point(6, 68);
+      this.cboRoomShape.Name = "cboRoomShape";
+      this.cboRoomShape.Size = new System.Drawing.Size(131, 21);
+      this.cboRoomShape.TabIndex = 8;
+      // 
       // txtDefaultRoomName
       // 
       this.txtDefaultRoomName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -756,6 +780,7 @@ namespace Trizbort.UI
             "End Room"});
       this.m_colorListBox.Location = new System.Drawing.Point(82, 19);
       this.m_colorListBox.Name = "m_colorListBox";
+      this.m_colorListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
       this.m_colorListBox.Size = new System.Drawing.Size(174, 147);
       this.m_colorListBox.TabIndex = 0;
       this.m_colorListBox.DoubleClick += new System.EventHandler(this.onChangeColor);
@@ -1192,30 +1217,6 @@ namespace Trizbort.UI
       // superTooltip1
       // 
       this.superTooltip1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
-      // 
-      // cboRoomShape
-      // 
-      this.cboRoomShape.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.cboRoomShape.FormattingEnabled = true;
-      this.cboRoomShape.Items.AddRange(new object[] {
-            "Straight Edges",
-            "Rounded Corners",
-            "Ellipse",
-            "Octagonal"});
-      this.cboRoomShape.Location = new System.Drawing.Point(6, 68);
-      this.cboRoomShape.Name = "cboRoomShape";
-      this.cboRoomShape.Size = new System.Drawing.Size(131, 21);
-      this.cboRoomShape.TabIndex = 8;
-      // 
-      // label21
-      // 
-      this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.label21.AutoSize = true;
-      this.label21.Location = new System.Drawing.Point(7, 52);
-      this.label21.Name = "label21";
-      this.label21.Size = new System.Drawing.Size(105, 13);
-      this.label21.TabIndex = 9;
-      this.label21.Text = "Default Room Shape";
       // 
       // SettingsDialog
       // 

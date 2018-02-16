@@ -51,7 +51,7 @@ namespace Trizbort.UI
 
     public SettingsDialog()
     {
-      Color = new Color[Colors.Count];
+      ElementColors = new Color[Colors.Count];
       Regions = Settings.Regions;
       InitializeComponent();
 
@@ -80,22 +80,22 @@ namespace Trizbort.UI
       m_documentVerticalMargins.Enabled = m_documentHorizontalMargins.Enabled = m_documentSpecificMargins.Checked;
     }
 
-    public string Title { get { return m_titleTextBox.Text; } set { m_titleTextBox.Text = value; } }
+    public string Title { get => m_titleTextBox.Text; set => m_titleTextBox.Text = value; }
 
-    public string Author { get { return m_authorTextBox.Text; } set { m_authorTextBox.Text = value; } }
+    public string Author { get => m_authorTextBox.Text; set => m_authorTextBox.Text = value; }
 
-    public string Description { get { return m_descriptionTextBox.Text; } set { m_descriptionTextBox.Text = value; } }
+    public string Description { get => m_descriptionTextBox.Text; set => m_descriptionTextBox.Text = value; }
 
-    public string History { get { return m_historyTextBox.Text; } set { m_historyTextBox.Text = value; } }
+    public string History { get => m_historyTextBox.Text; set => m_historyTextBox.Text = value; }
 
-    public Color[] Color { get; }
+    public Color[] ElementColors { get; }
     public List<Region> Regions { get; }
 
-    public string DefaultRoomName { get { return txtDefaultRoomName.Text; } set { txtDefaultRoomName.Text = value; } }
+    public string DefaultRoomName { get => txtDefaultRoomName.Text; set => txtDefaultRoomName.Text = value; }
 
     public Font LargeFont
     {
-      get { return mLargeFont; }
+      get => mLargeFont;
       set
       {
         mLargeFont = value;
@@ -106,7 +106,7 @@ namespace Trizbort.UI
 
     public Font SmallFont
     {
-      get { return mSmallFont; }
+      get => mSmallFont;
       set
       {
         mSmallFont = value;
@@ -117,7 +117,7 @@ namespace Trizbort.UI
 
     public Font LineFont
     {
-      get { return mLineFont; }
+      get => mLineFont;
       set
       {
         mLineFont = value;
@@ -126,39 +126,39 @@ namespace Trizbort.UI
       }
     }
 
-    public bool HandDrawnDoc { get { return m_handDrawnCheckBox.Checked; } set { m_handDrawnCheckBox.Checked = value; } }
+    public bool HandDrawnDoc { get => m_handDrawnCheckBox.Checked; set => m_handDrawnCheckBox.Checked = value; }
 
-    public float LineWidth { get { return (float) m_lineWidthUpDown.Value; } set { m_lineWidthUpDown.Value = (decimal) value; } }
+    public float LineWidth { get => (float) m_lineWidthUpDown.Value; set => m_lineWidthUpDown.Value = (decimal) value; }
 
-    public bool SnapToGrid { get { return m_snapToGridCheckBox.Checked; } set { m_snapToGridCheckBox.Checked = value; } }
+    public bool SnapToGrid { get => m_snapToGridCheckBox.Checked; set => m_snapToGridCheckBox.Checked = value; }
 
-    public float GridSize { get { return (float) m_gridSizeUpDown.Value; } set { m_gridSizeUpDown.Value = (decimal) value; } }
+    public float GridSize { get => (float) m_gridSizeUpDown.Value; set => m_gridSizeUpDown.Value = (decimal) value; }
 
-    public bool IsGridVisible { get { return m_showGridCheckBox.Checked; } set { m_showGridCheckBox.Checked = value; } }
+    public bool IsGridVisible { get => m_showGridCheckBox.Checked; set => m_showGridCheckBox.Checked = value; }
 
-    public bool ShowOrigin { get { return m_showOriginCheckBox.Checked; } set { m_showOriginCheckBox.Checked = value; } }
+    public bool ShowOrigin { get => m_showOriginCheckBox.Checked; set => m_showOriginCheckBox.Checked = value; }
 
-    public float DarknessStripeSize { get { return (float) m_darknessStripeSizeNumericUpDown.Value; } set { m_darknessStripeSizeNumericUpDown.Value = (decimal) value; } }
+    public float DarknessStripeSize { get => (float) m_darknessStripeSizeNumericUpDown.Value; set => m_darknessStripeSizeNumericUpDown.Value = (decimal) value; }
 
-    public float ObjectListOffsetFromRoom { get { return (float) m_objectListOffsetFromRoomNumericUpDown.Value; } set { m_objectListOffsetFromRoomNumericUpDown.Value = (decimal) value; } }
+    public float ObjectListOffsetFromRoom { get => (float) m_objectListOffsetFromRoomNumericUpDown.Value; set => m_objectListOffsetFromRoomNumericUpDown.Value = (decimal) value; }
 
-    public float ConnectionStalkLength { get { return (float) m_connectionStalkLengthUpDown.Value; } set { m_connectionStalkLengthUpDown.Value = (decimal) value; } }
+    public float ConnectionStalkLength { get => (float) m_connectionStalkLengthUpDown.Value; set => m_connectionStalkLengthUpDown.Value = (decimal) value; }
 
-    public float PreferredDistanceBetweenRooms { get { return (float) m_preferredDistanceBetweenRoomsUpDown.Value; } set { m_preferredDistanceBetweenRoomsUpDown.Value = (decimal) value; } }
+    public float PreferredDistanceBetweenRooms { get => (float) m_preferredDistanceBetweenRoomsUpDown.Value; set => m_preferredDistanceBetweenRoomsUpDown.Value = (decimal) value; }
 
-    public float TextOffsetFromConnection { get { return (float) m_textOffsetFromLineUpDown.Value; } set { m_textOffsetFromLineUpDown.Value = (decimal) value; } }
+    public float TextOffsetFromConnection { get => (float) m_textOffsetFromLineUpDown.Value; set => m_textOffsetFromLineUpDown.Value = (decimal) value; }
 
-    public float HandleSize { get { return (float) m_handleSizeUpDown.Value; } set { m_handleSizeUpDown.Value = (decimal) value; } }
+    public float HandleSize { get => (float) m_handleSizeUpDown.Value; set => m_handleSizeUpDown.Value = (decimal) value; }
 
-    public float SnapToElementSize { get { return (float) m_snapToElementDistanceUpDown.Value; } set { m_snapToElementDistanceUpDown.Value = (decimal) value; } }
+    public float SnapToElementSize { get => (float) m_snapToElementDistanceUpDown.Value; set => m_snapToElementDistanceUpDown.Value = (decimal) value; }
 
-    public bool DocumentSpecificMargins { get { return  m_documentSpecificMargins.Checked; } set { m_documentSpecificMargins.Checked = value; } }
+    public bool DocumentSpecificMargins { get => m_documentSpecificMargins.Checked; set => m_documentSpecificMargins.Checked = value; }
 
-    public float DocHorizontalMargin { get { return (float) m_documentHorizontalMargins.Value; } set { m_documentHorizontalMargins.Value = (decimal) value; } }
+    public float DocHorizontalMargin { get => (float) m_documentHorizontalMargins.Value; set => m_documentHorizontalMargins.Value = (decimal) value; }
 
-    public float DocVerticalMargin { get { return (float) m_documentVerticalMargins.Value; } set { m_documentVerticalMargins.Value = (decimal) value; } }
+    public float DocVerticalMargin { get => (float) m_documentVerticalMargins.Value; set => m_documentVerticalMargins.Value = (decimal) value; }
 
-    public float ConnectionArrowSize { get { return (float) m_arrowSizeUpDown.Value; } set { m_arrowSizeUpDown.Value = (decimal) value; } }
+    public float ConnectionArrowSize { get => (float) m_arrowSizeUpDown.Value; set => m_arrowSizeUpDown.Value = (decimal) value; }
 
     public RoomShape DefaultRoomShape { get => (RoomShape)cboRoomShape.SelectedIndex; set => cboRoomShape.SelectedIndex = (int)value; }
 
@@ -215,7 +215,7 @@ namespace Trizbort.UI
         const int width = 24;
         var colorBounds = new Rectangle(e.Bounds.Left + horizontalMargin, e.Bounds.Top + verticalMargin, width, e.Bounds.Height - verticalMargin*2);
         var textBounds = new Rectangle(colorBounds.Right + horizontalMargin, e.Bounds.Top, e.Bounds.Width - colorBounds.Width - horizontalMargin*2, e.Bounds.Height);
-        e.Graphics.FillRectangle(palette.Brush(Color[e.Index]), colorBounds);
+        e.Graphics.FillRectangle(palette.Brush(ElementColors[e.Index]), colorBounds);
         e.Graphics.DrawRectangle(palette.Pen(e.ForeColor, 0), colorBounds);
         var format = new StringFormat {Trimming = StringTrimming.EllipsisCharacter};
         e.Graphics.DrawString(m_colorListBox.Items[e.Index].ToString(), e.Font, palette.Brush(e.ForeColor), textBounds, format);
@@ -224,7 +224,17 @@ namespace Trizbort.UI
 
     private void onChangeColor(object sender, EventArgs e)
     {
-      Color[m_colorListBox.SelectedIndex] = Colors.ShowColorDialog(Color[m_colorListBox.SelectedIndex], this);
+      if (m_colorListBox.SelectedItems.Count == 1) {
+        var color = Colors.ShowColorDialog(ElementColors[m_colorListBox.SelectedIndex], this);
+        if (color != Color.Empty)
+          ElementColors[m_colorListBox.SelectedIndex] = color;
+      } else {
+        var color = Colors.ShowColorDialog(Color.Empty, this);
+        if (color != Color.Empty)
+          foreach (int selectedIndex in m_colorListBox.SelectedIndices) {
+            ElementColors[selectedIndex] = color;
+          }
+      }
       m_colorListBox.Invalidate();
     }
 
@@ -263,7 +273,7 @@ namespace Trizbort.UI
 
     private void btnAddRegion_Click(object sender, EventArgs e)
     {
-      var region = new Region {RegionName = nextAvailableRegionName(), RColor = System.Drawing.Color.White, TextColor = Settings.Color[Colors.LargeText]};
+      var region = new Region {RegionName = nextAvailableRegionName(), RColor = Color.White, TextColor = Settings.Color[Colors.LargeText]};
       Regions.Add(region);
       addRegionsToListbox();
       m_colorListBox.Invalidate();

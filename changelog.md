@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Added option in AppSettings to show the full file path in the main window caption.
 - Can now set a default room shape for a map in Map Settings (#93)
 - Can add a link to reference another room from a room (done through room properties).  Ctrl-Click on the room with the reference will go to the room being referenced (#370)
+- Color picker in map settings now allows setting multiple colors at once.  Just Ctrl or Shift click on the colors to select many and all can be set to same color at once (#108)
 
 ### Fixed
 - fixed naming consistency between context menu and main menu and room shape names (#356) 

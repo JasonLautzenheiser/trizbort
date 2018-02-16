@@ -448,7 +448,7 @@ namespace Trizbort.Setup
       {
         for (var index = 0; index < Colors.Count; ++index)
         {
-          dialog.Color[index] = Color[index];
+          dialog.ElementColors[index] = Color[index];
         }
 
         //below is code for pulling the region names, text color and background color from Settings.Regions.
@@ -491,8 +491,8 @@ namespace Trizbort.Setup
         {
           for (var index = 0; index < Colors.Count; ++index)
           {
-            if (Color[index] != dialog.Color[index]) { Project.Current.IsDirty = true; }
-            Color[index] = dialog.Color[index];
+            if (Color[index] != dialog.ElementColors[index]) { Project.Current.IsDirty = true; }
+            Color[index] = dialog.ElementColors[index];
           }
 
           if (Project.Current.Title != dialog.Title) { Project.Current.IsDirty = true; }

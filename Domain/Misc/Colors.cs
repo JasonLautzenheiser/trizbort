@@ -85,19 +85,13 @@ namespace Trizbort.Domain.Misc
       return false;
     }
 
-    public static Color ShowColorDialog(Color color, Form parent)
-    {
-
+    public static Color ShowColorDialog(Color color, Form parent) {
       using (var dialog = new ColorDialog())
       {
         dialog.Color = color == Color.Transparent ? Color.White : color;
 
-        if (dialog.ShowDialog(parent) == DialogResult.OK)
-        {
-          return dialog.Color;
-        }
+        return dialog.ShowDialog(parent) == DialogResult.OK ? dialog.Color : Color.Empty;
       }
-      return color;
     }
 
     public static string SaveColor(Color colorAttribute)

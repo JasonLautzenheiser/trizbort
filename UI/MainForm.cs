@@ -99,7 +99,8 @@ namespace Trizbort.UI
 
       var args = Environment.GetCommandLineArgs();
 
-      var ext = Parser.Default.ParseArguments<CommandLineOptions>(args);
+      List<Error> parseErrors;
+      var ext = Parser.Default.ParseArguments<CommandLineOptions>(args).WithNotParsed(errors => parseErrors = errors.ToList());
 
       if (ext.Tag == ParserResultType.Parsed)
       {

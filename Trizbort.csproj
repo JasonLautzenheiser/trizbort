@@ -105,6 +105,7 @@
     <Compile Include="Domain\Application\LegacyMapFileEngine.cs" />
     <Compile Include="Domain\Application\MapFileEngine.cs" />
     <Compile Include="Domain\Application\MapLoader.cs" />
+    <Compile Include="Domain\Application\MapSaver.cs" />
     <Compile Include="Domain\Enums\BorderDashStyle.cs" />
     <Compile Include="Domain\Misc\Colors.cs" />
     <Compile Include="Domain\Misc\CompassPoint.cs" />

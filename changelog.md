@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.6.0] - 2018-03-03
+
 ### Added
 - check for new versioned files and show warning when loading map (#353)
 - Trizbort now will detect changes to loaded map from another application and ask to reload the map (#365)
@@ -495,7 +497,8 @@ on github.  Documentation is a little outdated so apologies on that.  Hopefully 
 - In the room properties, you can now assign a room to a region.  This will show the room in the region color assigned to the region.
 - some minor bug fixes.
 
-[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.5.9.9...HEAD
+[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.5.9.9...v1.6.0
 [1.5.9.9]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.5.9.8...v1.5.9.9
 [1.5.9.8]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.5.9.7...v1.5.9.8
 [1.5.9.7]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.5.9.6...v1.5.9.7

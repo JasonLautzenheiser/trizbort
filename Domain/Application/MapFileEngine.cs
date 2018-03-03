@@ -12,7 +12,15 @@
     }
 
     public virtual bool Load(string fileName) {
-      return true;
+      return false;
+    }
+
+    public virtual bool Save() {
+      return Save(fileName);
+    }
+
+    public virtual bool Save(string fileName) {
+      return false;
     }
   }
 }

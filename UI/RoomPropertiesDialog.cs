@@ -818,7 +818,7 @@ namespace Trizbort.UI
         txtName.Focus();
         DialogResult = DialogResult.None;
       }
-      if (!txtName.Text.Any(Char.IsLetter))
+      else if (!txtName.Text.Any(Char.IsLetter))
       {
         MessageBox.Show("The room name must contain one letter.", "Non-alphabetic name", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         txtName.Focus();

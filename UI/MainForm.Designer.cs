@@ -190,17 +190,11 @@ namespace Trizbort.UI
       this.m_toggleDottedLinesButton = new System.Windows.Forms.ToolStripButton();
       this.m_toggleDirectionalLinesButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-      this.bar1 = new DevComponents.DotNetBar.Bar();
-      this.txtZoom = new DevComponents.Editors.IntegerInput();
-      this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
-      this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
       this.Canvas = new Trizbort.UI.Controls.Canvas();
       this.m_automapBar = new Trizbort.UI.Controls.AutomapBar();
+      this.statusBar = new System.Windows.Forms.StatusStrip();
       this.m_menuStrip.SuspendLayout();
       this.m_toolStrip.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
-      this.bar1.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.txtZoom)).BeginInit();
       this.SuspendLayout();
       // 
       // m_menuStrip
@@ -1283,7 +1277,7 @@ namespace Trizbort.UI
       this.m_toolStrip.Location = new System.Drawing.Point(0, 24);
       this.m_toolStrip.Name = "m_toolStrip";
       this.m_toolStrip.Padding = new System.Windows.Forms.Padding(1, 0, 1, 0);
-      this.m_toolStrip.Size = new System.Drawing.Size(38, 978);
+      this.m_toolStrip.Size = new System.Drawing.Size(38, 983);
       this.m_toolStrip.TabIndex = 2;
       // 
       // m_toggleDottedLinesButton
@@ -1319,58 +1313,6 @@ namespace Trizbort.UI
       this.toolStripSeparator4.Name = "toolStripSeparator4";
       this.toolStripSeparator4.Size = new System.Drawing.Size(6, 6);
       // 
-      // bar1
-      // 
-      this.bar1.AntiAlias = true;
-      this.bar1.BarType = DevComponents.DotNetBar.eBarType.StatusBar;
-      this.bar1.Controls.Add(this.txtZoom);
-      this.bar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.labelItem1,
-            this.controlContainerItem1});
-      this.bar1.Location = new System.Drawing.Point(0, 1002);
-      this.bar1.Name = "bar1";
-      this.bar1.Size = new System.Drawing.Size(1928, 27);
-      this.bar1.Stretch = true;
-      this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2000;
-      this.bar1.TabIndex = 5;
-      this.bar1.TabStop = false;
-      this.bar1.Text = "bar1";
-      // 
-      // txtZoom
-      // 
-      this.txtZoom.AllowEmptyState = false;
-      // 
-      // 
-      // 
-      this.txtZoom.BackgroundStyle.Class = "DateTimeInputBackground";
-      this.txtZoom.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.txtZoom.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-      this.txtZoom.Location = new System.Drawing.Point(1869, 2);
-      this.txtZoom.MaxValue = 1000;
-      this.txtZoom.MinValue = 10;
-      this.txtZoom.Name = "txtZoom";
-      this.txtZoom.ShowUpDown = true;
-      this.txtZoom.Size = new System.Drawing.Size(56, 23);
-      this.txtZoom.TabIndex = 6;
-      this.txtZoom.Value = 100;
-      this.txtZoom.ValueChanged += new System.EventHandler(this.txtZoom_ValueChanged);
-      // 
-      // labelItem1
-      // 
-      this.labelItem1.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far;
-      this.labelItem1.Name = "labelItem1";
-      this.labelItem1.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.ShiftAltZ);
-      this.labelItem1.Text = "Zoom %: ";
-      // 
-      // controlContainerItem1
-      // 
-      this.controlContainerItem1.AllowItemResize = false;
-      this.controlContainerItem1.Control = this.txtZoom;
-      this.controlContainerItem1.ItemAlignment = DevComponents.DotNetBar.eItemAlignment.Far;
-      this.controlContainerItem1.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
-      this.controlContainerItem1.Name = "controlContainerItem1";
-      // 
       // Canvas
       // 
       this.Canvas.BackColor = System.Drawing.Color.White;
@@ -1378,7 +1320,7 @@ namespace Trizbort.UI
       this.Canvas.Location = new System.Drawing.Point(38, 24);
       this.Canvas.MinimapVisible = true;
       this.Canvas.Name = "Canvas";
-      this.Canvas.Size = new System.Drawing.Size(1890, 949);
+      this.Canvas.Size = new System.Drawing.Size(1890, 954);
       this.Canvas.TabIndex = 0;
       // 
       // m_automapBar
@@ -1387,13 +1329,21 @@ namespace Trizbort.UI
       this.m_automapBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.m_automapBar.Dock = System.Windows.Forms.DockStyle.Bottom;
       this.m_automapBar.ForeColor = System.Drawing.SystemColors.InfoText;
-      this.m_automapBar.Location = new System.Drawing.Point(38, 973);
+      this.m_automapBar.Location = new System.Drawing.Point(38, 978);
       this.m_automapBar.MaximumSize = new System.Drawing.Size(4096, 29);
       this.m_automapBar.MinimumSize = new System.Drawing.Size(2, 29);
       this.m_automapBar.Name = "m_automapBar";
       this.m_automapBar.Size = new System.Drawing.Size(1890, 29);
       this.m_automapBar.Status = "(Status)";
       this.m_automapBar.TabIndex = 4;
+      // 
+      // statusBar
+      // 
+      this.statusBar.Location = new System.Drawing.Point(0, 1007);
+      this.statusBar.Name = "statusBar";
+      this.statusBar.Size = new System.Drawing.Size(1928, 22);
+      this.statusBar.TabIndex = 5;
+      this.statusBar.Text = "statusStrip1";
       // 
       // MainForm
       // 
@@ -1403,8 +1353,8 @@ namespace Trizbort.UI
       this.Controls.Add(this.Canvas);
       this.Controls.Add(this.m_automapBar);
       this.Controls.Add(this.m_toolStrip);
-      this.Controls.Add(this.bar1);
       this.Controls.Add(this.m_menuStrip);
+      this.Controls.Add(this.statusBar);
       this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MainMenuStrip = this.m_menuStrip;
@@ -1415,9 +1365,6 @@ namespace Trizbort.UI
       this.m_menuStrip.PerformLayout();
       this.m_toolStrip.ResumeLayout(false);
       this.m_toolStrip.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
-      this.bar1.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)(this.txtZoom)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -1509,10 +1456,6 @@ namespace Trizbort.UI
         private System.Windows.Forms.ToolStripMenuItem appSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem smartSaveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_editChangeRegionMenuItem;
-        private DevComponents.DotNetBar.Bar bar1;
-        private DevComponents.Editors.IntegerInput txtZoom;
-        private DevComponents.DotNetBar.ControlContainerItem controlContainerItem1;
-        private DevComponents.DotNetBar.LabelItem labelItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem alanToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hugoToTextToolStripMenuItem;
@@ -1564,6 +1507,7 @@ namespace Trizbort.UI
     private System.Windows.Forms.ToolStripMenuItem startRoomToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
     private System.Windows.Forms.ToolStripMenuItem endRoomToolStripMenuItem;
+    private System.Windows.Forms.StatusStrip statusBar;
   }
 }
 

@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- Fix for two message boxes showing in room properties when room name is empty.
+
 ## [1.6.0] - 2018-03-03
 
 ### Added

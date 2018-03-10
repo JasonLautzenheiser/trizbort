@@ -74,6 +74,7 @@ namespace Trizbort.Domain.Elements {
     private Color mRoomborder = Color.Transparent;
 
     private Color mRoomfill = Color.Transparent;
+    private Color mRoomSubtitleColor = Color.Transparent;
     private Color mRoomlargetext = Color.Transparent;
     private string mRoomRegion;
     private Color mRoomsmalltext = Color.Transparent;
@@ -356,7 +357,7 @@ namespace Trizbort.Domain.Elements {
     }
 
     // Added for Room specific colors
-    public Color RoomBorder
+    public Color RoomBorderColor
     {
       get => mRoomborder;
       set
@@ -370,7 +371,7 @@ namespace Trizbort.Domain.Elements {
     }
 
     // Added for Room specific colors
-    public Color RoomFill
+    public Color RoomFillColor
     {
       get => mRoomfill;
       set
@@ -383,8 +384,21 @@ namespace Trizbort.Domain.Elements {
       }
     }
 
+    public Color RoomSubtitleColor
+    {
+      get => mRoomSubtitleColor;
+      set
+      {
+        if (mRoomSubtitleColor != value)
+        {
+          mRoomSubtitleColor = value;
+          RaiseChanged();
+        }
+      }
+    }
+
     // Added for Room specific colors
-    public Color RoomLargeText
+    public Color RoomNameColor
     {
       get => mRoomlargetext;
       set
@@ -398,7 +412,7 @@ namespace Trizbort.Domain.Elements {
     }
 
     // Added for Room specific colors
-    public Color RoomSmallText
+    public Color RoomObjectTextColor
     {
       get => mRoomsmalltext;
       set
@@ -425,7 +439,7 @@ namespace Trizbort.Domain.Elements {
     }
 
     // Added for Room specific colors
-    public Color SecondFill
+    public Color SecondFillColor
     {
       get => mSecondfill;
       set
@@ -694,82 +708,7 @@ namespace Trizbort.Domain.Elements {
     }
 
 
-    public string ClipboardColorPrint()
-    {
-      var clipboardText = string.Empty;
-
-      var colorValue = Colors.SaveColor(RoomFill);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(SecondFill);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-      clipboardText += SecondFillLocation + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomBorder);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomLargeText);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomSmallText);
-      clipboardText += colorValue;
-
-      return clipboardText;
-    }
-
-    public string ClipboardPrint()
-    {
-      var clipboardText = "";
-      clipboardText += Name + Canvas.CopyDelimiter;
-      clipboardText += Position.X + Canvas.CopyDelimiter;
-      clipboardText += Position.Y + Canvas.CopyDelimiter;
-      clipboardText += Size.X + Canvas.CopyDelimiter;
-      clipboardText += Size.Y + Canvas.CopyDelimiter;
-      clipboardText += IsDark + Canvas.CopyDelimiter;
-      clipboardText += PrimaryDescription + Canvas.CopyDelimiter;
-      clipboardText += Region + Canvas.CopyDelimiter;
-      clipboardText += BorderStyle + Canvas.CopyDelimiter;
-
-      clipboardText += StraightEdges + Canvas.CopyDelimiter;
-      clipboardText += Ellipse + Canvas.CopyDelimiter;
-      clipboardText += RoundedCorners + Canvas.CopyDelimiter;
-      clipboardText += Octagonal + Canvas.CopyDelimiter;
-      clipboardText += Corners.TopRight + Canvas.CopyDelimiter;
-      clipboardText += Corners.TopLeft + Canvas.CopyDelimiter;
-      clipboardText += Corners.BottomRight + Canvas.CopyDelimiter;
-      clipboardText += Corners.BottomLeft + Canvas.CopyDelimiter;
-
-      var colorValue = Colors.SaveColor(RoomFill);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(SecondFill);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-      clipboardText += SecondFillLocation + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomBorder);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomLargeText);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomSmallText);
-      clipboardText += colorValue + Canvas.CopyDelimiter;
-
-      colorValue = Colors.SaveColor(RoomBorder);
-      clipboardText += colorValue;
-
-
-      if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DEFAULT_OBJECTS_POSITION)
-      {
-        var objectsDirection = "";
-        CompassPointHelper.ToName(ObjectsPosition, out objectsDirection);
-        clipboardText += Canvas.CopyDelimiter + objectsDirection + Canvas.CopyDelimiter;
-        if (!string.IsNullOrEmpty(Objects))
-          clipboardText += Objects.Replace("\r\n", Canvas.CopyDelimiter);
-      }
-
-      return clipboardText;
-    }
+    
 
     public void DeleteAllRoomConnections()
     {
@@ -965,7 +904,7 @@ namespace Trizbort.Domain.Elements {
       Brush brush = new SolidBrush(regionColor.RColor);
 
       // Room specific fill brush (White shows global color)
-      if (RoomFill != Color.Transparent) brush = new SolidBrush(RoomFill);
+      if (RoomFillColor != Color.Transparent) brush = new SolidBrush(RoomFillColor);
 
       // this is the main drawing routine for the actual room borders
       if (!ApplicationSettingsController.AppSettings.DebugDisableLineRendering && BorderStyle != BorderDashStyle.None)
@@ -1009,13 +948,13 @@ namespace Trizbort.Domain.Elements {
         graphics.DrawPath(brush, path);
 
         // Second fill for room specific colors with a split option
-        if (SecondFill != Color.Transparent)
+        if (SecondFillColor != Color.Transparent)
         {
           var state = graphics.Save();
           graphics.IntersectClip(path);
 
           // Set the second fill color
-          brush = new SolidBrush(SecondFill);
+          brush = new SolidBrush(SecondFillColor);
 
           // Define the second path based on the second fill location
           var secondPath = palette.Path();
@@ -1099,7 +1038,7 @@ namespace Trizbort.Domain.Elements {
           graphics.Restore(state);
         }
 
-        if (RoomBorder == Color.Transparent)
+        if (RoomBorderColor == Color.Transparent)
         {
           var pen = palette.BorderPen;
           pen.DashStyle = IsReference ? BorderDashStyle.Dot.ConvertToDashStyle() : BorderStyle.ConvertToDashStyle();
@@ -1107,7 +1046,7 @@ namespace Trizbort.Domain.Elements {
         }
         else
         {
-          var roomBorderPen = new Pen(RoomBorder, Settings.LineWidth) {StartCap = LineCap.Round, EndCap = LineCap.Round, DashStyle = IsReference ? BorderDashStyle.Dot.ConvertToDashStyle() : BorderStyle.ConvertToDashStyle()};
+          var roomBorderPen = new Pen(RoomBorderColor, Settings.LineWidth) {StartCap = LineCap.Round, EndCap = LineCap.Round, DashStyle = IsReference ? BorderDashStyle.Dot.ConvertToDashStyle() : BorderStyle.ConvertToDashStyle()};
           graphics.DrawPath(roomBorderPen, path);
         }
       }
@@ -1116,7 +1055,7 @@ namespace Trizbort.Domain.Elements {
       var roombrush = new SolidBrush(regionColor.TextColor);
       // Room specific fill brush (White shows global color)
 
-      if (RoomLargeText != Color.Transparent) roombrush = new SolidBrush(RoomLargeText);
+      if (RoomNameColor != Color.Transparent) roombrush = new SolidBrush(RoomNameColor);
 
       var textBounds = InnerBounds;
       if (Ellipse)
@@ -1131,7 +1070,7 @@ namespace Trizbort.Domain.Elements {
           var RoomTextRect = tName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
           
           // draw subtitle text
-          var subTitleBrush = IsReference ? roombrush : palette.SubtitleTextBrush;
+          var subTitleBrush = IsReference ? roombrush : (RoomSubtitleColor != Color.Transparent ? new SolidBrush(RoomSubtitleColor) : palette.SubtitleTextBrush);
           var SubtitleTextRect = new Rect(RoomTextRect.Left, RoomTextRect.Bottom, RoomTextRect.Right - RoomTextRect.Left, textBounds.Bottom - RoomTextRect.Bottom);
           tSubtitle.Draw(graphics, Settings.SubtitleFont, subTitleBrush, SubtitleTextRect.Position, SubtitleTextRect.Size, XStringFormats.Center);
         }
@@ -1144,10 +1083,10 @@ namespace Trizbort.Domain.Elements {
       brush = palette.SmallTextBrush;
       // Room specific fill brush (White shows global color)
       var bUseObjectRoomBrush = false;
-      if (RoomSmallText != Color.Transparent)
+      if (RoomObjectTextColor != Color.Transparent)
       {
         bUseObjectRoomBrush = true;
-        brush = new SolidBrush(RoomSmallText);
+        brush = new SolidBrush(RoomObjectTextColor);
       }
 
       if (!string.IsNullOrEmpty(Objects))
@@ -1167,7 +1106,7 @@ namespace Trizbort.Domain.Elements {
           var height = InnerBounds.Height / 2 - font.Height / 2;
           var bounds = new Rect(InnerBounds.Left + Settings.ObjectListOffsetFromRoom, InnerBounds.Bottom - height, InnerBounds.Width - Settings.ObjectListOffsetFromRoom, height - Settings.ObjectListOffsetFromRoom);
           if (bUseObjectRoomBrush)
-            brush = new SolidBrush(RoomSmallText);
+            brush = new SolidBrush(RoomObjectTextColor);
           pos = bounds.Position;
           pos.X += ObjectsCustomPosition ? ObjectsCustomPositionRight : 0;
           pos.Y += ObjectsCustomPosition ? ObjectsCustomPositionDown : 0;
@@ -1397,21 +1336,22 @@ namespace Trizbort.Domain.Elements {
 
       if (Project.Version.CompareTo(new Version(1, 5, 8, 3)) < 0)
       {
-        if (element.Attribute("roomFill").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomFill = ColorTranslator.FromHtml(element.Attribute("roomFill").Text);
-        if (element.Attribute("secondFill").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") SecondFill = ColorTranslator.FromHtml(element.Attribute("secondFill").Text);
+        if (element.Attribute("roomFill").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomFillColor = ColorTranslator.FromHtml(element.Attribute("roomFill").Text);
+        if (element.Attribute("secondFill").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") SecondFillColor = ColorTranslator.FromHtml(element.Attribute("secondFill").Text);
         if (element.Attribute("secondFillLocation").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") SecondFillLocation = element.Attribute("secondFillLocation").Text;
-        if (element.Attribute("roomBorder").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomBorder = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text);
-        if (element.Attribute("roomLargeText").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomLargeText = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text);
-        if (element.Attribute("roomSmallText").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomSmallText = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text);
+        if (element.Attribute("roomBorder").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomBorderColor = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text);
+        if (element.Attribute("roomLargeText").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomNameColor = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text);
+        if (element.Attribute("roomSmallText").Text != "" && element.Attribute("roomFill").Text != "#FFFFFF") RoomObjectTextColor = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text);
       }
       else
       {
-        if (element.Attribute("roomFill").Text != "") RoomFill = ColorTranslator.FromHtml(element.Attribute("roomFill").Text);
-        if (element.Attribute("secondFill").Text != "") SecondFill = ColorTranslator.FromHtml(element.Attribute("secondFill").Text);
+        if (element.Attribute("roomFill").Text != "") RoomFillColor = ColorTranslator.FromHtml(element.Attribute("roomFill").Text);
+        if (element.Attribute("secondFill").Text != "") SecondFillColor = ColorTranslator.FromHtml(element.Attribute("secondFill").Text);
         if (element.Attribute("secondFillLocation").Text != "") SecondFillLocation = element.Attribute("secondFillLocation").Text;
-        if (element.Attribute("roomBorder").Text != "") RoomBorder = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text);
-        if (element.Attribute("roomLargeText").Text != "") RoomLargeText = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text);
-        if (element.Attribute("roomSmallText").Text != "") RoomSmallText = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text);
+        if (element.Attribute("roomBorder").Text != "") RoomBorderColor = ColorTranslator.FromHtml(element.Attribute("roomBorder").Text);
+        if (element.Attribute("roomLargeText").Text != "") RoomNameColor = ColorTranslator.FromHtml(element.Attribute("roomLargeText").Text);
+        if (element.Attribute("roomSmallText").Text != "") RoomObjectTextColor = ColorTranslator.FromHtml(element.Attribute("roomSmallText").Text);
+        if (element.Attribute("roomSubtitleColor").Text != "") RoomSubtitleColor = ColorTranslator.FromHtml(element.Attribute("roomSubtitleColor").Text);
       }
       Objects = element["objects"].Text.Replace("|", "\r\n").Replace("\\\r\n", "|");
       ObjectsPosition = element["objects"].Attribute("at").ToCompassPoint(ObjectsPosition);
@@ -1510,20 +1450,23 @@ namespace Trizbort.Domain.Elements {
 
       scribe.Attribute("description", PrimaryDescription);
 
-      var colorValue = Colors.SaveColor(RoomFill);
+      var colorValue = Colors.SaveColor(RoomFillColor);
       scribe.Attribute("roomFill", colorValue);
 
-      colorValue = Colors.SaveColor(SecondFill);
+      colorValue = Colors.SaveColor(SecondFillColor);
       scribe.Attribute("secondFill", colorValue);
       scribe.Attribute("secondFillLocation", SecondFillLocation);
 
-      colorValue = Colors.SaveColor(RoomBorder);
+      colorValue = Colors.SaveColor(RoomBorderColor);
       scribe.Attribute("roomBorder", colorValue);
 
-      colorValue = Colors.SaveColor(RoomLargeText);
+      colorValue = Colors.SaveColor(RoomNameColor);
       scribe.Attribute("roomLargeText", colorValue);
 
-      colorValue = Colors.SaveColor(RoomSmallText);
+      colorValue = Colors.SaveColor(RoomSubtitleColor);
+      scribe.Attribute("roomSubtitleColor", colorValue);
+
+      colorValue = Colors.SaveColor(RoomObjectTextColor);
       scribe.Attribute("roomSmallText", colorValue);
 
       scribe.Attribute("ZOrder", ZOrder);
@@ -1663,12 +1606,13 @@ namespace Trizbort.Domain.Elements {
         dialog.ObjectsCustomPositionRight = ObjectsCustomPositionRight;
         dialog.BorderStyle = BorderStyle;
 
-        dialog.RoomFillColor = RoomFill;
-        dialog.SecondFillColor = SecondFill;
+        dialog.RoomFillColor = RoomFillColor;
+        dialog.SecondFillColor = SecondFillColor;
         dialog.SecondFillLocation = SecondFillLocation;
-        dialog.RoomBorderColor = RoomBorder;
-        dialog.RoomTextColor = RoomLargeText;
-        dialog.ObjectTextColor = RoomSmallText;
+        dialog.RoomBorderColor = RoomBorderColor;
+        dialog.RoomNameColor = RoomNameColor;
+        dialog.ObjectTextColor = RoomObjectTextColor;
+        dialog.RoomSubtitleColor = RoomSubtitleColor;
         dialog.RoomRegion = Region;
         dialog.ReferenceRoom = ReferenceRoom;
         dialog.Corners = Corners;
@@ -1699,17 +1643,15 @@ namespace Trizbort.Domain.Elements {
           ObjectsCustomPositionDown = dialog.ObjectsCustomPositionDown;
           ObjectsCustomPositionRight = dialog.ObjectsCustomPositionRight;
           // Added for Room specific colors
-          RoomFill = dialog.RoomFillColor;
-          // Added for Room specific colors
-          SecondFill = dialog.SecondFillColor;
-          // Added for Room specific colors
+          RoomFillColor = dialog.RoomFillColor;
+          RoomSubtitleColor = dialog.RoomSubtitleColor;
+          SecondFillColor = dialog.SecondFillColor;
           SecondFillLocation = dialog.SecondFillLocation;
-          // Added for Room specific colors
-          RoomBorder = dialog.RoomBorderColor;
-          // Added for Room specific colors
-          RoomLargeText = dialog.RoomTextColor;
-          // Added for Room specific colors
-          RoomSmallText = dialog.ObjectTextColor;
+          RoomBorderColor = dialog.RoomBorderColor;
+          RoomNameColor = dialog.RoomNameColor;
+          RoomObjectTextColor = dialog.ObjectTextColor;
+
+
           Region = dialog.RoomRegion;
 
           ReferenceRoomId = dialog.ReferenceRoom?.ID ?? -1;

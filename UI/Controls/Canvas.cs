@@ -1652,24 +1652,24 @@ namespace Trizbort.UI.Controls
       var room2 = selectedRooms.Last();
 
       var tBs = room1.BorderStyle;
-      var tRb = room1.RoomBorder;
-      var tRf = room1.RoomFill;
-      var tSf = room1.SecondFill;
+      var tRb = room1.RoomBorderColor;
+      var tRf = room1.RoomFillColor;
+      var tSf = room1.SecondFillColor;
       var tSfl = room1.SecondFillLocation;
       var tShape = room1.Shape;
 
       room1.BorderStyle = room2.BorderStyle;
-      room1.RoomBorder = room2.RoomBorder;
-      room1.RoomFill = room2.RoomFill;
+      room1.RoomBorderColor = room2.RoomBorderColor;
+      room1.RoomFillColor = room2.RoomFillColor;
       room1.SecondFillLocation = room2.SecondFillLocation;
-      room1.SecondFill = room2.SecondFill;
+      room1.SecondFillColor = room2.SecondFillColor;
       room1.Shape = room2.Shape;
 
       room2.BorderStyle = tBs;
-      room2.RoomBorder = tRb;
-      room2.RoomFill = tRf;
+      room2.RoomBorderColor = tRb;
+      room2.RoomFillColor = tRf;
       room2.SecondFillLocation = tSfl;
-      room2.SecondFill = tSf;
+      room2.SecondFillColor = tSf;
       room2.Shape = tShape;
     }
 

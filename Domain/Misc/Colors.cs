@@ -89,7 +89,7 @@ namespace Trizbort.Domain.Misc
       {
         dialog.Color = color == Color.Transparent ? Color.White : color;
 
-        return dialog.ShowDialog(parent) == DialogResult.OK ? dialog.Color : Color.Empty;
+        return dialog.ShowDialog(parent) == DialogResult.OK ? dialog.Color : color;
       }
     }
 

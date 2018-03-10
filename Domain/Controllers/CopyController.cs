@@ -119,12 +119,13 @@ namespace Trizbort.Domain.Controllers
       newRoom.IsStartRoom = room.IsStartRoom;
       newRoom.IsEndRoom = room.IsEndRoom;
       newRoom.ArbitraryAutomappedPosition = room.ArbitraryAutomappedPosition;
-      newRoom.RoomFill = room.RoomFill;
-      newRoom.SecondFill = room.SecondFill;
+      newRoom.RoomFillColor = room.RoomFillColor;
+      newRoom.SecondFillColor = room.SecondFillColor;
       newRoom.SecondFillLocation = room.SecondFillLocation;
-      newRoom.RoomBorder = room.RoomBorder;
-      newRoom.RoomLargeText = room.RoomLargeText;
-      newRoom.RoomSmallText = room.RoomSmallText;
+      newRoom.RoomBorderColor = room.RoomBorderColor;
+      newRoom.RoomNameColor = room.RoomNameColor;
+      newRoom.RoomSubtitleColor = room.RoomSubtitleColor;
+      newRoom.RoomObjectTextColor = room.RoomObjectColor;
       newRoom.OldID = room.OldID;
       newRoom.ObjectsCustomPositionDown = room.ObjectsCustomPositionDown;
       newRoom.ObjectsCustomPositionRight = room.ObjectsCustomPositionRight;
@@ -155,12 +156,13 @@ namespace Trizbort.Domain.Controllers
         IsEndRoom = room.IsEndRoom,
         ArbitraryAutomappedPosition = room.ArbitraryAutomappedPosition,
         PrimaryDescription = room.PrimaryDescription,
-        RoomFill = room.RoomFill,
-        SecondFill = room.SecondFill,
+        RoomFillColor = room.RoomFillColor,
+        SecondFillColor = room.SecondFillColor,
         SecondFillLocation = room.SecondFillLocation,
-        RoomBorder = room.RoomBorder,
-        RoomLargeText = room.RoomLargeText,
-        RoomSmallText = room.RoomSmallText,
+        RoomBorderColor = room.RoomBorderColor,
+        RoomNameColor = room.RoomNameColor,
+        RoomSubtitleColor = room.RoomSubtitleColor,
+        RoomObjectColor = room.RoomObjectTextColor,
         OldID = room.ID,
         ObjectsCustomPositionDown = room.ObjectsCustomPositionDown,
         ObjectsCustomPositionRight = room.ObjectsCustomPositionRight,
@@ -264,12 +266,13 @@ namespace Trizbort.Domain.Controllers
       public Vector Position { get; set; }
       public string PrimaryDescription { get; set; }
       public string Region { get; set; }
-      public Color RoomBorder { get; set; }
-      public Color RoomFill { get; set; }
-      public Color RoomLargeText { get; set; }
-      public Color RoomSmallText { get; set; }
+      public Color RoomBorderColor { get; set; }
+      public Color RoomFillColor { get; set; }
+      public Color RoomNameColor { get; set; }
+      public Color RoomObjectColor { get; set; }
+      public Color RoomSubtitleColor { get; set; }
       public bool RoundedCorners { get; set; }
-      public Color SecondFill { get; set; }
+      public Color SecondFillColor { get; set; }
       public string SecondFillLocation { get; set; }
       public RoomShape Shape { get; set; }
       public Vector Size { get; set; }

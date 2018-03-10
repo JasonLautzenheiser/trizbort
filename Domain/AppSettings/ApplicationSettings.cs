@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Trizbort.Automap;
 using Trizbort.Domain.Application;
 
@@ -38,7 +39,7 @@ namespace Trizbort.Domain.AppSettings
     public bool LoadLastProjectOnStart { get; set; }
     public int MouseDragButton { get; set; }
     public int PortAdjustDetail { get; set; }
-    public MruList RecentProjects { get; } = new MruList();
+    public List<string> RecentProjects { get; } = new List<string>();
     public bool SaveAt100 { get; set; }
     public bool SaveTadstoAdv3Lite { get; set; }
     public bool SaveToImage { get; set; }

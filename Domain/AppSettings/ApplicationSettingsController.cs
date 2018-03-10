@@ -153,7 +153,7 @@ namespace Trizbort.Domain.AppSettings {
                 fileName = recentProjects[$"fileName{index++}"].Text;
                 if (!string.IsNullOrEmpty(fileName))
                 {
-                  settings.RecentProjects.Append(fileName);
+                  settings.RecentProjects.Add(fileName);
                 }
               } while (!string.IsNullOrEmpty(fileName));
 
@@ -175,5 +175,23 @@ namespace Trizbort.Domain.AppSettings {
         }
       }
 
+    public static void OpenProject(string fileName) {
+      AppSettings.LastProjectFileName = fileName;
+      if (!AppSettings.RecentProjects.Contains(fileName))
+      {
+        AppSettings.RecentProjects.Insert(0, fileName);
+      }
+      else
+      {
+        AppSettings.RecentProjects.Remove(fileName);
+        AppSettings.RecentProjects.Insert(0, fileName);
+      }
+
+      if (AppSettings.RecentProjects.Count > 4)
+      {
+        AppSettings.RecentProjects.RemoveRange(4, AppSettings.RecentProjects.Count - 4);
+      }
+      SaveSettings();
+    }
   }
 }

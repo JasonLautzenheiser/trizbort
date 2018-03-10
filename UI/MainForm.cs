@@ -99,8 +99,9 @@ namespace Trizbort.UI {
       var project = new Project {FileName = fileName};
       if (project.Load()) {
         Project.Current = project;
-        ApplicationSettingsController.AppSettings.LastProjectFileName = fileName;
-        ApplicationSettingsController.AppSettings.RecentProjects.Add(fileName);
+
+        ApplicationSettingsController.OpenProject(fileName);
+
         return true;
       }
 

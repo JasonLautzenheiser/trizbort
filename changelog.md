@@ -3,8 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- The room subtitle can now have it's own font and color, both in default settings and individual room properties. (#50)
+
 ### Fixed
 - Fix for two message boxes showing in room properties when room name is empty.
+- Fix for two message boxes showing in map properties when default room name is empty.
+- Fix issue where canceling from the color dialog in room properties would change the color to a default color instead of keeping the original color
 
 ## [1.6.0] - 2018-03-03
 

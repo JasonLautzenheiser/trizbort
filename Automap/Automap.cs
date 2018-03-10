@@ -581,7 +581,7 @@ namespace Trizbort.Automap
           // region already exists, just set the room to it
           if (Settings.Regions.Find(p => p.RegionName.Equals(regionName, StringComparison.OrdinalIgnoreCase)) == null)
           {
-            Settings.Regions.Add(new Region { RegionName = regionName, TextColor = Settings.Color[Colors.LargeText], RColor = System.Drawing.Color.White });
+            Settings.Regions.Add(new Region { RegionName = regionName, TextColor = Settings.Color[Colors.Subtitle], RColor = System.Drawing.Color.White });
           }
           m_lastKnownRoom.Region = regionName;
         }

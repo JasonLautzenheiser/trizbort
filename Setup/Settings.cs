@@ -50,6 +50,7 @@ namespace Trizbort.Setup
     private static Font sRoomNameFont;
     private static Font sObjectFont;
     private static Font sSubtitleFont;
+    private static Font sLineFont;
     private static float sLineWidth;
     private static bool sSnapToGrid;
     private static bool sIsGridVisible;
@@ -116,7 +117,7 @@ namespace Trizbort.Setup
 
     public static Font SubtitleFont
     {
-      get { return sSubtitleFont; }
+      get => sSubtitleFont;
       set
       {
         if (!Equals(sSubtitleFont, value))
@@ -127,20 +128,19 @@ namespace Trizbort.Setup
       }
     }
 
-//    public static bool HandDrawnDoc
-//    {
-//      get { return HandDrawnDocUnchecked; }
-//      set
-//      {
-//        if (HandDrawnDocUnchecked != value)
-//        {
-//          HandDrawnDocUnchecked = value;
-//          raiseChanged();
-//        }
-//      }
-//    }
-//
-//    public static bool HandDrawnDocUnchecked { get; set; }
+    public static Font LineFont
+    {
+      get => sLineFont;
+      set
+      {
+        if (!Equals(sLineFont, value))
+        {
+          sLineFont = value;
+          raiseChanged();
+        }
+      }
+    }
+
 
     public static float LineWidth
     {
@@ -468,8 +468,8 @@ namespace Trizbort.Setup
         dialog.DefaultRoomName = DefaultRoomName;
         dialog.LargeFont = RoomNameFont;
         dialog.SmallFont = ObjectFont;
-        dialog.LineFont = SubtitleFont;
-//        dialog.HandDrawnDoc = HandDrawnDoc;
+        dialog.LineFont = LineFont;
+        dialog.SubtitleFont = SubtitleFont;
         dialog.LineWidth = LineWidth;
         dialog.SnapToGrid = SnapToGrid;
         dialog.GridSize = GridSize;
@@ -509,10 +509,10 @@ namespace Trizbort.Setup
           RoomNameFont = dialog.LargeFont;
           if (!Equals(ObjectFont, dialog.SmallFont)) { Project.Current.IsDirty = true; }
           ObjectFont = dialog.SmallFont;
-          if (!Equals(SubtitleFont, dialog.LineFont)) { Project.Current.IsDirty = true; }
-          SubtitleFont = dialog.LineFont;
-//          if (HandDrawnDoc != dialog.HandDrawnDoc) { Project.Current.IsDirty = true; }
-//          HandDrawnDoc = dialog.HandDrawnDoc;
+          if (!Equals(SubtitleFont, dialog.SubtitleFont)) { Project.Current.IsDirty = true; }
+          SubtitleFont = dialog.SubtitleFont;
+          if (!Equals(LineFont, dialog.LineFont)) { Project.Current.IsDirty = true; }
+          LineFont = dialog.LineFont;
           if (LineWidth != dialog.LineWidth) { Project.Current.IsDirty = true; }
           LineWidth = dialog.LineWidth;
           if (SnapToGrid != dialog.SnapToGrid) { Project.Current.IsDirty = true; }
@@ -584,7 +584,7 @@ namespace Trizbort.Setup
       Color[Colors.Line] = System.Drawing.Color.MidnightBlue;
       Color[Colors.HoverLine] = System.Drawing.Color.DarkOrange;
       Color[Colors.SelectedLine] = System.Drawing.Color.Gold;
-      Color[Colors.LargeText] = System.Drawing.Color.MidnightBlue;
+      Color[Colors.Subtitle] = System.Drawing.Color.MidnightBlue;
       Color[Colors.SmallText] = System.Drawing.Color.MidnightBlue;
       Color[Colors.LineText] = System.Drawing.Color.MidnightBlue;
       Color[Colors.Grid] = Drawing.Mix(System.Drawing.Color.White, System.Drawing.Color.Black, 25, 1);
@@ -596,6 +596,7 @@ namespace Trizbort.Setup
       RoomNameFont = new Font(ApplicationSettingsController.AppSettings.DefaultFontName, 13.0f, FontStyle.Regular, GraphicsUnit.World);
       ObjectFont = new Font(ApplicationSettingsController.AppSettings.DefaultFontName, 11.0f, FontStyle.Regular, GraphicsUnit.World);
       SubtitleFont = new Font(ApplicationSettingsController.AppSettings.DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);
+      LineFont = new Font(ApplicationSettingsController.AppSettings.DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);
 
 //      HandDrawnDoc = HandDrawnGlobal;
 
@@ -671,7 +672,8 @@ namespace Trizbort.Setup
       scribe.StartElement("fonts");
       saveFont(scribe, sRoomNameFont, "room");
       saveFont(scribe, sObjectFont, "object");
-      saveFont(scribe, sSubtitleFont, "line");
+      saveFont(scribe, sSubtitleFont, "subTitle");
+      saveFont(scribe, sLineFont, "line");
       scribe.EndElement();
 
       scribe.StartElement("grid");
@@ -851,9 +853,13 @@ namespace Trizbort.Setup
         {
           ObjectFont = new Font(font.ToText(ObjectFont.Name), Numeric.Clamp(font.Attribute("size").ToFloat(ObjectFont.Size), MinFontSize, MaxFontSize), style, GraphicsUnit.World);
         }
+        else if (font.Name == "subTitle")
+        {
+          SubtitleFont = new Font(font.ToText(SubtitleFont.Name), Numeric.Clamp(font.Attribute("size").ToFloat(SubtitleFont.Size), MinFontSize, MaxFontSize), style, GraphicsUnit.World);
+        }
         else if (font.Name == "line")
         {
-          SubtitleFont = new Font(font.ToText(ObjectFont.Name), Numeric.Clamp(font.Attribute("size").ToFloat(SubtitleFont.Size), MinFontSize, MaxFontSize), style, GraphicsUnit.World);
+          LineFont = new Font(font.ToText(LineFont.Name), Numeric.Clamp(font.Attribute("size").ToFloat(LineFont.Size), MinFontSize, MaxFontSize), style, GraphicsUnit.World);
         }
       }
 

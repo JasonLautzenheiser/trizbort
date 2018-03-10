@@ -32,12 +32,11 @@ namespace Trizbort.Domain.Misc
   internal static class Colors
   {
     public static readonly int Canvas = 0;
-    //public static readonly int Fill = 1;
     public static readonly int Border = 1;
     public static readonly int Line = 2;
     public static readonly int SelectedLine = 3;
     public static readonly int HoverLine = 4;
-    public static readonly int LargeText = 5;
+    public static readonly int Subtitle = 5;
     public static readonly int SmallText = 6;
     public static readonly int LineText = 7;
     public static readonly int Grid = 8;
@@ -52,7 +51,7 @@ namespace Trizbort.Domain.Misc
       "line",
       "selectedLine",
       "hoverLine",
-      "largeText",
+      "subTitle",
       "smallText",
       "lineText",
       "grid",

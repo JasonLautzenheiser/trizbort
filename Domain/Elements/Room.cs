@@ -1129,8 +1129,11 @@ namespace Trizbort.Domain.Elements {
           TextBlock tName = IsReference ? new TextBlock {Text = "To"} : mName;
           TextBlock tSubtitle = IsReference ? new TextBlock {Text = ReferenceRoom.Name} : mSubTitle;
           var RoomTextRect = tName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
+          
+          // draw subtitle text
+          var subTitleBrush = IsReference ? roombrush : palette.SubtitleTextBrush;
           var SubtitleTextRect = new Rect(RoomTextRect.Left, RoomTextRect.Bottom, RoomTextRect.Right - RoomTextRect.Left, textBounds.Bottom - RoomTextRect.Bottom);
-          tSubtitle.Draw(graphics, Settings.SubtitleFont, roombrush, SubtitleTextRect.Position, SubtitleTextRect.Size, XStringFormats.Center);
+          tSubtitle.Draw(graphics, Settings.SubtitleFont, subTitleBrush, SubtitleTextRect.Position, SubtitleTextRect.Size, XStringFormats.Center);
         }
 
       var expandedBounds = InnerBounds;

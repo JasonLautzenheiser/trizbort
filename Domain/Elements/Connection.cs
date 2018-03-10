@@ -764,7 +764,7 @@ namespace Trizbort.Domain.Elements
         var totalLength = lineSegments.Sum(lineSegment => lineSegment.Length);
         var middle = totalLength / 2;
         if (lineSegments.Count % 2 == 1) // with default values, middle text is horizontally but not vertically centered
-          middle += 4.0f * Settings.SubtitleFont.Height / 5;
+          middle += 4.0f * Settings.LineFont.Height / 5;
         foreach (var lineSegment in lineSegments)
         {
           var length = lineSegment.Length;
@@ -837,7 +837,7 @@ namespace Trizbort.Domain.Elements
 
 
       if (!ApplicationSettingsController.AppSettings.DebugDisableTextRendering)
-        text.Draw(graphics, Settings.SubtitleFont, palette.LineTextBrush, pos, Vector.Zero, format);
+        text.Draw(graphics, Settings.LineFont, palette.LineTextBrush, pos, Vector.Zero, format);
     }
 
     private Vector roomTypeAdjustments(Vertex vertex)

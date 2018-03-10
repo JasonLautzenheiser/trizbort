@@ -2908,18 +2908,19 @@ namespace Trizbort.UI.Controls
       var controller = new CopyController();
       var objs = controller.PasteElements();
 
-      if (objs.GetType() == typeof(CopyController.CopyObject))
-      {
-        var xx = objs as CopyController.CopyObject;
-        pasteRooms(atCursor, xx, controller);
+      if (objs != null) {
+        if (objs.GetType() == typeof(CopyController.CopyObject))
+        {
+          var xx = objs as CopyController.CopyObject;
+          pasteRooms(atCursor, xx, controller);
 
+        }
+        else if (objs.GetType() == typeof(CopyController.CopyColorsObj))
+        {
+          var xx = objs as CopyController.CopyColorsObj;
+          pasteColors(xx);
+        }
       }
-      else if (objs.GetType() == typeof(CopyController.CopyColorsObj))
-      {
-        var xx = objs as CopyController.CopyColorsObj;
-        pasteColors(xx);
-      }
-
     }
 
     private void pasteColors(CopyController.CopyColorsObj xx)

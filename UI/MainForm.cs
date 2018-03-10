@@ -1070,7 +1070,7 @@ namespace Trizbort.UI {
       m_editSelectAllMenuItem.Enabled = Canvas.SelectedElementCount < Project.Current.Elements.Count;
       m_editCopyMenuItem.Enabled = Canvas.SelectedElement != null;
       m_editCopyColorToolMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
-      m_editPasteMenuItem.Enabled = !string.IsNullOrEmpty(Clipboard.GetText()) && (Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Elements" || Clipboard.GetText().Replace("\r\n", "|").Split('|')[0] == "Colors");
+      m_editPasteMenuItem.Enabled = ClipboardHelper.HasSomethingToPaste();
       if (Canvas.HasSingleSelectedElement) //Allow flipping light in all rooms if 1+ are selected. Issue #138 flicker
         m_editIsDarkMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
       else

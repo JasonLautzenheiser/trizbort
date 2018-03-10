@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -70,16 +71,18 @@ namespace Trizbort.Domain.Controllers
 
     public ICopyObj PasteElements()
     {
-      var clipboardText = Clipboard.GetText();
-
       ICopyObj xx;
-      if (clipboardText.Contains("\"CopyType\": 1"))
-      {
-        xx = JsonConvert.DeserializeObject<CopyColorsObj>(clipboardText);
+      try {
+        var clipboardText = Clipboard.GetText();
+
+        if (clipboardText.Contains("\"CopyType\": 1")) {
+          xx = JsonConvert.DeserializeObject<CopyColorsObj>(clipboardText);
+        } else {
+          xx = JsonConvert.DeserializeObject<CopyObject>(clipboardText);
+        }
       }
-      else
-      {
-        xx = JsonConvert.DeserializeObject<CopyObject>(clipboardText);
+      catch  {
+        xx = null;
       }
 
       return xx;

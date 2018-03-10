@@ -10,7 +10,8 @@ All notable changes to this project will be documented in this file.
 - Fix for two message boxes showing in room properties when room name is empty.
 - Fix for two message boxes showing in map properties when default room name is empty.
 - Fix issue where canceling from the color dialog in room properties would change the color to a default color instead of keeping the original color
-- Fix issue that caused Paste menu item under Edit to not be enabled appropriately.
+- Fix issue that caused Paste menu item under Edit to not be enabled appropriately. (#416)
+- Fix issue where recently opened maps list was not working properly after the 1.6 release. (#418)
 
 ## [1.6.0] - 2018-03-03
 

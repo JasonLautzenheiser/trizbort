@@ -1251,7 +1251,6 @@ namespace Trizbort.UI
       this.m_checkForUpdatesMenuItem.Name = "m_checkForUpdatesMenuItem";
       this.m_checkForUpdatesMenuItem.Size = new System.Drawing.Size(171, 22);
       this.m_checkForUpdatesMenuItem.Text = "Check for &Updates";
-      this.m_checkForUpdatesMenuItem.Visible = false;
       this.m_checkForUpdatesMenuItem.Click += new System.EventHandler(this.CheckForUpdatesMenuItem_Click);
       // 
       // toolStripMenuItem4

@@ -100,6 +100,10 @@ namespace Trizbort.UI
       this.m_colorListBox = new System.Windows.Forms.ListBox();
       this.m_changeColorButton = new System.Windows.Forms.Button();
       this.m_fontsGroupBox = new System.Windows.Forms.GroupBox();
+      this.label22 = new System.Windows.Forms.Label();
+      this.m_subtitleFontSizeTextBox = new System.Windows.Forms.TextBox();
+      this.m_changeSubtitleFontButton = new System.Windows.Forms.Button();
+      this.m_subtitleFontNameTextBox = new System.Windows.Forms.TextBox();
       this.label9 = new System.Windows.Forms.Label();
       this.m_lineFontSizeTextBox = new System.Windows.Forms.TextBox();
       this.m_changeLineFontButton = new System.Windows.Forms.Button();
@@ -595,8 +599,8 @@ namespace Trizbort.UI
       // 
       this.panel1.Controls.Add(this.m_okButton);
       this.panel1.Controls.Add(this.m_cancelButton);
-      this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-      this.panel1.Location = new System.Drawing.Point(10, 327);
+      this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+      this.panel1.Location = new System.Drawing.Point(10, 377);
       this.panel1.Name = "panel1";
       this.panel1.Size = new System.Drawing.Size(363, 35);
       this.panel1.TabIndex = 1;
@@ -612,7 +616,7 @@ namespace Trizbort.UI
       this.tabControl1.Location = new System.Drawing.Point(10, 10);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
-      this.tabControl1.Size = new System.Drawing.Size(363, 317);
+      this.tabControl1.Size = new System.Drawing.Size(363, 361);
       this.tabControl1.TabIndex = 0;
       this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
       // 
@@ -621,7 +625,7 @@ namespace Trizbort.UI
       this.tabPage4.Controls.Add(this.groupBox3);
       this.tabPage4.Location = new System.Drawing.Point(4, 22);
       this.tabPage4.Name = "tabPage4";
-      this.tabPage4.Size = new System.Drawing.Size(355, 291);
+      this.tabPage4.Size = new System.Drawing.Size(355, 335);
       this.tabPage4.TabIndex = 3;
       this.tabPage4.Text = "About";
       this.tabPage4.UseVisualStyleBackColor = true;
@@ -743,7 +747,7 @@ namespace Trizbort.UI
       this.tabPage1.Location = new System.Drawing.Point(4, 22);
       this.tabPage1.Name = "tabPage1";
       this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage1.Size = new System.Drawing.Size(355, 291);
+      this.tabPage1.Size = new System.Drawing.Size(355, 335);
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "Colors and Fonts";
       this.tabPage1.UseVisualStyleBackColor = true;
@@ -756,7 +760,7 @@ namespace Trizbort.UI
       this.m_colorsGroupBox.Controls.Add(this.m_changeColorButton);
       this.m_colorsGroupBox.Location = new System.Drawing.Point(5, 6);
       this.m_colorsGroupBox.Name = "m_colorsGroupBox";
-      this.m_colorsGroupBox.Size = new System.Drawing.Size(343, 172);
+      this.m_colorsGroupBox.Size = new System.Drawing.Size(343, 192);
       this.m_colorsGroupBox.TabIndex = 0;
       this.m_colorsGroupBox.TabStop = false;
       this.m_colorsGroupBox.Text = "&Colors";
@@ -772,7 +776,7 @@ namespace Trizbort.UI
             "Connection",
             "Connection (selected)",
             "Connection (hover)",
-            "Room Text",
+            "Subtitle Text",
             "Object Text",
             "Connection Text",
             "Grid",
@@ -781,7 +785,7 @@ namespace Trizbort.UI
       this.m_colorListBox.Location = new System.Drawing.Point(82, 19);
       this.m_colorListBox.Name = "m_colorListBox";
       this.m_colorListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-      this.m_colorListBox.Size = new System.Drawing.Size(174, 147);
+      this.m_colorListBox.Size = new System.Drawing.Size(174, 160);
       this.m_colorListBox.TabIndex = 0;
       this.m_colorListBox.DoubleClick += new System.EventHandler(this.onChangeColor);
       // 
@@ -798,8 +802,10 @@ namespace Trizbort.UI
       // 
       // m_fontsGroupBox
       // 
-      this.m_fontsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_fontsGroupBox.Controls.Add(this.label22);
+      this.m_fontsGroupBox.Controls.Add(this.m_subtitleFontSizeTextBox);
+      this.m_fontsGroupBox.Controls.Add(this.m_changeSubtitleFontButton);
+      this.m_fontsGroupBox.Controls.Add(this.m_subtitleFontNameTextBox);
       this.m_fontsGroupBox.Controls.Add(this.label9);
       this.m_fontsGroupBox.Controls.Add(this.m_lineFontSizeTextBox);
       this.m_fontsGroupBox.Controls.Add(this.m_changeLineFontButton);
@@ -812,27 +818,69 @@ namespace Trizbort.UI
       this.m_fontsGroupBox.Controls.Add(this.m_largeFontSizeTextBox);
       this.m_fontsGroupBox.Controls.Add(this.m_changeLargeFontButton);
       this.m_fontsGroupBox.Controls.Add(this.m_largeFontNameTextBox);
-      this.m_fontsGroupBox.Location = new System.Drawing.Point(5, 184);
+      this.m_fontsGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+      this.m_fontsGroupBox.Location = new System.Drawing.Point(3, 204);
       this.m_fontsGroupBox.Name = "m_fontsGroupBox";
-      this.m_fontsGroupBox.Size = new System.Drawing.Size(343, 99);
+      this.m_fontsGroupBox.Size = new System.Drawing.Size(349, 128);
       this.m_fontsGroupBox.TabIndex = 1;
       this.m_fontsGroupBox.TabStop = false;
       this.m_fontsGroupBox.Text = "&Fonts";
       // 
+      // label22
+      // 
+      this.label22.AutoSize = true;
+      this.label22.Location = new System.Drawing.Point(29, 100);
+      this.label22.Name = "label22";
+      this.label22.Size = new System.Drawing.Size(47, 13);
+      this.label22.TabIndex = 12;
+      this.label22.Text = "&Subtitle:";
+      // 
+      // m_subtitleFontSizeTextBox
+      // 
+      this.m_subtitleFontSizeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_subtitleFontSizeTextBox.BackColor = System.Drawing.SystemColors.Window;
+      this.m_subtitleFontSizeTextBox.Location = new System.Drawing.Point(231, 97);
+      this.m_subtitleFontSizeTextBox.Name = "m_subtitleFontSizeTextBox";
+      this.m_subtitleFontSizeTextBox.ReadOnly = true;
+      this.m_subtitleFontSizeTextBox.Size = new System.Drawing.Size(31, 21);
+      this.m_subtitleFontSizeTextBox.TabIndex = 14;
+      // 
+      // m_changeSubtitleFontButton
+      // 
+      this.m_changeSubtitleFontButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_changeSubtitleFontButton.Location = new System.Drawing.Point(268, 95);
+      this.m_changeSubtitleFontButton.Name = "m_changeSubtitleFontButton";
+      this.m_changeSubtitleFontButton.Size = new System.Drawing.Size(75, 23);
+      this.m_changeSubtitleFontButton.TabIndex = 15;
+      this.m_changeSubtitleFontButton.Text = "Cha&nge...";
+      this.m_changeSubtitleFontButton.UseVisualStyleBackColor = true;
+      this.m_changeSubtitleFontButton.Click += new System.EventHandler(this.ChangeSubtitleFontButton_Click);
+      // 
+      // m_subtitleFontNameTextBox
+      // 
+      this.m_subtitleFontNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_subtitleFontNameTextBox.BackColor = System.Drawing.SystemColors.Window;
+      this.m_subtitleFontNameTextBox.Location = new System.Drawing.Point(82, 97);
+      this.m_subtitleFontNameTextBox.Name = "m_subtitleFontNameTextBox";
+      this.m_subtitleFontNameTextBox.ReadOnly = true;
+      this.m_subtitleFontNameTextBox.Size = new System.Drawing.Size(143, 21);
+      this.m_subtitleFontNameTextBox.TabIndex = 13;
+      // 
       // label9
       // 
       this.label9.AutoSize = true;
-      this.label9.Location = new System.Drawing.Point(6, 73);
+      this.label9.Location = new System.Drawing.Point(46, 73);
       this.label9.Name = "label9";
-      this.label9.Size = new System.Drawing.Size(70, 13);
+      this.label9.Size = new System.Drawing.Size(30, 13);
       this.label9.TabIndex = 8;
-      this.label9.Text = "&Line/Subtitle:";
+      this.label9.Text = "&Line:";
       // 
       // m_lineFontSizeTextBox
       // 
       this.m_lineFontSizeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.m_lineFontSizeTextBox.BackColor = System.Drawing.SystemColors.Window;
-      this.m_lineFontSizeTextBox.Location = new System.Drawing.Point(225, 70);
+      this.m_lineFontSizeTextBox.Location = new System.Drawing.Point(231, 70);
       this.m_lineFontSizeTextBox.Name = "m_lineFontSizeTextBox";
       this.m_lineFontSizeTextBox.ReadOnly = true;
       this.m_lineFontSizeTextBox.Size = new System.Drawing.Size(31, 21);
@@ -841,7 +889,7 @@ namespace Trizbort.UI
       // m_changeLineFontButton
       // 
       this.m_changeLineFontButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_changeLineFontButton.Location = new System.Drawing.Point(262, 68);
+      this.m_changeLineFontButton.Location = new System.Drawing.Point(268, 68);
       this.m_changeLineFontButton.Name = "m_changeLineFontButton";
       this.m_changeLineFontButton.Size = new System.Drawing.Size(75, 23);
       this.m_changeLineFontButton.TabIndex = 11;
@@ -857,7 +905,7 @@ namespace Trizbort.UI
       this.m_lineFontNameTextBox.Location = new System.Drawing.Point(82, 70);
       this.m_lineFontNameTextBox.Name = "m_lineFontNameTextBox";
       this.m_lineFontNameTextBox.ReadOnly = true;
-      this.m_lineFontNameTextBox.Size = new System.Drawing.Size(137, 21);
+      this.m_lineFontNameTextBox.Size = new System.Drawing.Size(143, 21);
       this.m_lineFontNameTextBox.TabIndex = 9;
       // 
       // label12
@@ -873,7 +921,7 @@ namespace Trizbort.UI
       // 
       this.m_smallFontSizeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.m_smallFontSizeTextBox.BackColor = System.Drawing.SystemColors.Window;
-      this.m_smallFontSizeTextBox.Location = new System.Drawing.Point(225, 44);
+      this.m_smallFontSizeTextBox.Location = new System.Drawing.Point(231, 44);
       this.m_smallFontSizeTextBox.Name = "m_smallFontSizeTextBox";
       this.m_smallFontSizeTextBox.ReadOnly = true;
       this.m_smallFontSizeTextBox.Size = new System.Drawing.Size(31, 21);
@@ -882,7 +930,7 @@ namespace Trizbort.UI
       // m_changeSmallFontButton
       // 
       this.m_changeSmallFontButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_changeSmallFontButton.Location = new System.Drawing.Point(262, 42);
+      this.m_changeSmallFontButton.Location = new System.Drawing.Point(268, 42);
       this.m_changeSmallFontButton.Name = "m_changeSmallFontButton";
       this.m_changeSmallFontButton.Size = new System.Drawing.Size(75, 23);
       this.m_changeSmallFontButton.TabIndex = 7;
@@ -898,7 +946,7 @@ namespace Trizbort.UI
       this.m_smallFontNameTextBox.Location = new System.Drawing.Point(82, 44);
       this.m_smallFontNameTextBox.Name = "m_smallFontNameTextBox";
       this.m_smallFontNameTextBox.ReadOnly = true;
-      this.m_smallFontNameTextBox.Size = new System.Drawing.Size(137, 21);
+      this.m_smallFontNameTextBox.Size = new System.Drawing.Size(143, 21);
       this.m_smallFontNameTextBox.TabIndex = 5;
       // 
       // label11
@@ -914,7 +962,7 @@ namespace Trizbort.UI
       // 
       this.m_largeFontSizeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.m_largeFontSizeTextBox.BackColor = System.Drawing.SystemColors.Window;
-      this.m_largeFontSizeTextBox.Location = new System.Drawing.Point(225, 19);
+      this.m_largeFontSizeTextBox.Location = new System.Drawing.Point(231, 19);
       this.m_largeFontSizeTextBox.Name = "m_largeFontSizeTextBox";
       this.m_largeFontSizeTextBox.ReadOnly = true;
       this.m_largeFontSizeTextBox.Size = new System.Drawing.Size(31, 21);
@@ -923,7 +971,7 @@ namespace Trizbort.UI
       // m_changeLargeFontButton
       // 
       this.m_changeLargeFontButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_changeLargeFontButton.Location = new System.Drawing.Point(262, 16);
+      this.m_changeLargeFontButton.Location = new System.Drawing.Point(268, 16);
       this.m_changeLargeFontButton.Name = "m_changeLargeFontButton";
       this.m_changeLargeFontButton.Size = new System.Drawing.Size(75, 23);
       this.m_changeLargeFontButton.TabIndex = 3;
@@ -939,7 +987,7 @@ namespace Trizbort.UI
       this.m_largeFontNameTextBox.Location = new System.Drawing.Point(82, 18);
       this.m_largeFontNameTextBox.Name = "m_largeFontNameTextBox";
       this.m_largeFontNameTextBox.ReadOnly = true;
-      this.m_largeFontNameTextBox.Size = new System.Drawing.Size(137, 21);
+      this.m_largeFontNameTextBox.Size = new System.Drawing.Size(143, 21);
       this.m_largeFontNameTextBox.TabIndex = 1;
       // 
       // tabPage2
@@ -949,7 +997,7 @@ namespace Trizbort.UI
       this.tabPage2.Location = new System.Drawing.Point(4, 22);
       this.tabPage2.Name = "tabPage2";
       this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage2.Size = new System.Drawing.Size(355, 291);
+      this.tabPage2.Size = new System.Drawing.Size(355, 335);
       this.tabPage2.TabIndex = 1;
       this.tabPage2.Text = "Lines and Grid";
       this.tabPage2.UseVisualStyleBackColor = true;
@@ -964,7 +1012,7 @@ namespace Trizbort.UI
       this.tabRegions.Location = new System.Drawing.Point(4, 22);
       this.tabRegions.Name = "tabRegions";
       this.tabRegions.Padding = new System.Windows.Forms.Padding(3);
-      this.tabRegions.Size = new System.Drawing.Size(355, 291);
+      this.tabRegions.Size = new System.Drawing.Size(355, 335);
       this.tabRegions.TabIndex = 4;
       this.tabRegions.Text = "Regions";
       this.tabRegions.UseVisualStyleBackColor = true;
@@ -1035,7 +1083,7 @@ namespace Trizbort.UI
       this.tabPage3.Controls.Add(this.groupBox1);
       this.tabPage3.Location = new System.Drawing.Point(4, 22);
       this.tabPage3.Name = "tabPage3";
-      this.tabPage3.Size = new System.Drawing.Size(355, 291);
+      this.tabPage3.Size = new System.Drawing.Size(355, 335);
       this.tabPage3.TabIndex = 2;
       this.tabPage3.Text = "Other";
       this.tabPage3.UseVisualStyleBackColor = true;
@@ -1224,7 +1272,7 @@ namespace Trizbort.UI
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.m_cancelButton;
-      this.ClientSize = new System.Drawing.Size(383, 374);
+      this.ClientSize = new System.Drawing.Size(383, 422);
       this.Controls.Add(this.panel1);
       this.Controls.Add(this.tabControl1);
       this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1362,5 +1410,9 @@ namespace Trizbort.UI
     private System.Windows.Forms.Label label20;
     private System.Windows.Forms.Label label21;
     private System.Windows.Forms.ComboBox cboRoomShape;
+    private System.Windows.Forms.Label label22;
+    private System.Windows.Forms.TextBox m_subtitleFontSizeTextBox;
+    private System.Windows.Forms.Button m_changeSubtitleFontButton;
+    private System.Windows.Forms.TextBox m_subtitleFontNameTextBox;
   }
 }

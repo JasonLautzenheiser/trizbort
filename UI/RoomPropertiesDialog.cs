@@ -265,6 +265,24 @@ namespace Trizbort.UI
       }
     }
 
+    public Color RoomSubtitleColor
+    {
+      get => m_subTitleTextTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_subTitleTextTextBox.BackColor;
+      set
+      {
+        if (value == Color.Transparent)
+        {
+          m_subTitleTextTextBox.BackColor = Color.White;
+          m_subTitleTextTextBox.WatermarkText = NO_COLOR_SET;
+        }
+        else
+        {
+          m_subTitleTextTextBox.BackColor = value;
+          m_subTitleTextTextBox.WatermarkText = string.Empty;
+        }
+      }
+    }
+
     // Added for Room specific colors
     public Color SecondFillColor
     {
@@ -372,7 +390,7 @@ namespace Trizbort.UI
     }
 
     // Added for Room specific colors
-    public Color RoomTextColor
+    public Color RoomNameColor
     {
       get
       {
@@ -479,7 +497,7 @@ namespace Trizbort.UI
 
     private void changeRoomTextColor()
     {
-      if (tabColors.IsSelected) RoomTextColor = Colors.ShowColorDialog(RoomTextColor, this);
+      if (tabColors.IsSelected) RoomNameColor = Colors.ShowColorDialog(RoomNameColor, this);
     }
 
     private void changeRoomBorderColor()
@@ -645,7 +663,7 @@ namespace Trizbort.UI
 
     private void m_roomTextTextBox_ButtonCustomClick(object sender, EventArgs e)
     {
-      RoomTextColor = Color.Transparent;
+      RoomNameColor = Color.Transparent;
       m_changeRoomTextButton.Focus();
     }
 
@@ -896,6 +914,31 @@ namespace Trizbort.UI
         else
           chkEndRoom.Checked = false;
       }
+    }
+
+    private void m_subTitleTextTextBox_ButtonCustomClick(object sender, EventArgs e)
+    {
+      RoomSubtitleColor = Color.Transparent;
+      m_changeSubtitleTextButton.Focus();
+    }
+
+    private void m_subTitleTextTextBox_DoubleClick(object sender, EventArgs e)
+    {
+      changeSubtitleColor();
+    }
+
+    private void changeSubtitleColor() {
+      if (tabColors.IsSelected) RoomSubtitleColor = Colors.ShowColorDialog(RoomSubtitleColor, this);
+    }
+
+    private void m_subTitleTextTextBox_Enter(object sender, EventArgs e)
+    {
+      m_changeSubtitleTextButton.Focus();
+    }
+
+    private void m_changeSubtitleTextButton_Click(object sender, EventArgs e)
+    {
+      changeSubtitleColor();
     }
   }
 }

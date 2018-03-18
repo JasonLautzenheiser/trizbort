@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+Future version numbers will conform to the semver style versioning (https://semver.org/)
+
 ### Added
 - The room subtitle can now have it's own font and color, both in default settings and individual room properties. (#50)
 

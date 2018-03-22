@@ -32,6 +32,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommandLine;
@@ -49,6 +50,7 @@ using Trizbort.Properties;
 using Trizbort.UI.Controls;
 using Trizbort.Util;
 using Settings = Trizbort.Setup.Settings;
+using AutoUpdaterDotNET;
 
 namespace Trizbort.UI {
   public partial class MainForm : Form {
@@ -60,6 +62,7 @@ namespace Trizbort.UI {
     private NumericUpDown txtZoom;
     private ToolStripStatusLabel statusLabel;
 
+    string updatePath = "http://www.trizbort.com/trizbortupdate.xml";
 
     private DateTime mLastUpdateUITime;
 
@@ -78,6 +81,7 @@ namespace Trizbort.UI {
       m_automapBar.StopClick += onMAutomapBarOnStopClick;
       Canvas.ZoomChanged += adjustZoomed;
     }
+
 
     public sealed override string Text { get => base.Text; set => base.Text = value; }
 
@@ -166,7 +170,11 @@ namespace Trizbort.UI {
     }
 
     private void CheckForUpdatesMenuItem_Click(object sender, EventArgs e) {
-      NewVersionDialog.CheckForUpdatesAsync(this, true);
+      AutoUpdater.ShowRemindLaterButton = false;
+      AutoUpdater.ShowSkipButton = false;
+      AutoUpdater.ReportErrors = true;
+      AutoUpdater.Mandatory = true;
+      AutoUpdater.Start(updatePath);
     }
 
     private bool checkLoseProject() {
@@ -591,6 +599,12 @@ namespace Trizbort.UI {
     }
 
     private void MainForm_Load(object sender, EventArgs e) {
+//      AutoUpdater.ShowRemindLaterButton = true;
+//      AutoUpdater.ShowSkipButton = true;
+//      AutoUpdater.ReportErrors = true;
+//      AutoUpdater.RunUpdateAsAdmin = false;
+//      AutoUpdater.Start("http://www.trizbort.com/trizbortupdate.xml");
+
       setupStatusBar();
       Canvas.MinimapVisible = ApplicationSettingsController.AppSettings.ShowMiniMap;
       var projectLoaded = false;

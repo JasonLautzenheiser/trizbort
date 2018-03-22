@@ -14,6 +14,7 @@ Future version numbers will conform to the semver style versioning (https://semv
 - Fix issue where canceling from the color dialog in room properties would change the color to a default color instead of keeping the original color
 - Fix issue that caused Paste menu item under Edit to not be enabled appropriately. (#416)
 - Fix issue where recently opened maps list was not working properly after the 1.6 release. (#418)
+- Remove the warning when more than one room was checked as the end room in the room properties.  Opened up the context menu to allow selecting multiple rooms as the end room.  (#413)
 
 ## [1.6.0] - 2018-03-03
 

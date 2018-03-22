@@ -62,6 +62,7 @@ namespace Trizbort.UI {
     private NumericUpDown txtZoom;
     private ToolStripStatusLabel statusLabel;
 
+    string updatePath = "http://www.trizbort.com/trizbortupdate.xml";
 
     private DateTime mLastUpdateUITime;
 
@@ -173,7 +174,7 @@ namespace Trizbort.UI {
       AutoUpdater.ShowSkipButton = false;
       AutoUpdater.ReportErrors = true;
       AutoUpdater.Mandatory = true;
-      AutoUpdater.Start("http://www.trizbort.com/trizbortupdate.xml");
+      AutoUpdater.Start(updatePath);
     }
 
     private bool checkLoseProject() {
@@ -598,11 +599,11 @@ namespace Trizbort.UI {
     }
 
     private void MainForm_Load(object sender, EventArgs e) {
-      AutoUpdater.ShowRemindLaterButton = true;
-      AutoUpdater.ShowSkipButton = true;
-      AutoUpdater.ReportErrors = true;
-      AutoUpdater.RunUpdateAsAdmin = false;
-      AutoUpdater.Start("http://www.trizbort.com/trizbortupdate.xml");
+//      AutoUpdater.ShowRemindLaterButton = true;
+//      AutoUpdater.ShowSkipButton = true;
+//      AutoUpdater.ReportErrors = true;
+//      AutoUpdater.RunUpdateAsAdmin = false;
+//      AutoUpdater.Start("http://www.trizbort.com/trizbortupdate.xml");
 
       setupStatusBar();
       Canvas.MinimapVisible = ApplicationSettingsController.AppSettings.ShowMiniMap;

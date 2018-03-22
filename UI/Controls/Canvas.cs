@@ -179,6 +179,9 @@ namespace Trizbort.UI.Controls
 
     public bool HasSingleSelectedElement => SelectedElementCount == 1;
 
+    public bool HasSelectedRooms => mSelectedElements.OfType<Room>().Any();
+    public bool HasSingleSelectedRoom => mSelectedElements.OfType<Room>().Count() == 1;
+
     public IList<Element> SelectedElements => mSelectedElements;
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -3052,11 +3055,11 @@ namespace Trizbort.UI.Controls
           startRoomToolStripMenuItem.Visible = true;
           endRoomToolStripMenuItem.Visible = true;
 
-          startRoomToolStripMenuItem.Enabled = HasSingleSelectedElement;
-          endRoomToolStripMenuItem.Enabled = HasSingleSelectedElement;
+          startRoomToolStripMenuItem.Enabled = SelectedRooms.Count == 1;
+          endRoomToolStripMenuItem.Enabled = HasSelectedRooms;
 
           startRoomToolStripMenuItem.Checked = lastSelectedRoom.IsStartRoom && HasSingleSelectedElement;
-          endRoomToolStripMenuItem.Checked = lastSelectedRoom.IsEndRoom && HasSingleSelectedElement;
+          endRoomToolStripMenuItem.Checked = HasSelectedRooms && lastSelectedRoom.IsEndRoom;
 
           sendToBackToolStripMenuItem.Visible = true;
           bringToFrontToolStripMenuItem.Visible = true;

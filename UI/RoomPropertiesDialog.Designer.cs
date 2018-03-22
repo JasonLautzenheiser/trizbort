@@ -377,8 +377,8 @@ namespace Trizbort.UI
       this.m_tabControl.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.m_tabControl.ControlBox.MenuBox,
             this.m_tabControl.ControlBox.CloseBox});
-      this.m_tabControl.Controls.Add(this.superTabControlPanel3);
       this.m_tabControl.Controls.Add(this.superTabControlPanel2);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel3);
       this.m_tabControl.Controls.Add(this.superTabControlPanel1);
       this.m_tabControl.Controls.Add(this.superTabControlPanel5);
       this.m_tabControl.Controls.Add(this.superTabControlPanel4);
@@ -423,9 +423,9 @@ namespace Trizbort.UI
       this.superTabControlPanel3.Controls.Add(this.label3);
       this.superTabControlPanel3.Controls.Add(this.m_changeRoomTextButton);
       this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 0);
       this.superTabControlPanel3.Name = "superTabControlPanel3";
-      this.superTabControlPanel3.Size = new System.Drawing.Size(477, 190);
+      this.superTabControlPanel3.Size = new System.Drawing.Size(477, 216);
       this.superTabControlPanel3.TabIndex = 0;
       this.superTabControlPanel3.TabItem = this.tabColors;
       // 
@@ -1188,7 +1188,6 @@ namespace Trizbort.UI
       this.chkEndRoom.TabIndex = 12;
       this.chkEndRoom.Text = "End Room";
       this.chkEndRoom.UseVisualStyleBackColor = true;
-      this.chkEndRoom.CheckedChanged += new System.EventHandler(this.chkEndRoom_CheckedChanged);
       // 
       // cboReference
       // 

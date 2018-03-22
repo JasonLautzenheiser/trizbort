@@ -1100,8 +1100,8 @@ namespace Trizbort.UI {
 
       startRoomToolStripMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
       startRoomToolStripMenuItem.Checked = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room && ((Room) Canvas.SelectedElement).IsStartRoom;
-      endRoomToolStripMenuItem.Enabled = Canvas.SelectedElement is Room;
-      endRoomToolStripMenuItem.Checked = Canvas.SelectedElement is Room && ((Room) Canvas.SelectedElement).IsEndRoom;
+      endRoomToolStripMenuItem.Enabled = Canvas.HasSelectedRooms;
+      endRoomToolStripMenuItem.Checked = Canvas.HasSelectedRooms && (Canvas.SelectedRooms.Any(p=>p.IsEndRoom));
 
 
       roomsMustHaveUniqueNamesToolStripMenuItem.Checked = Project.Current.MustHaveUniqueNames;

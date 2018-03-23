@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -25,30 +25,19 @@
 using System;
 using System.Windows.Forms;
 
-namespace Trizbort.UI.Controls
-{
-    public partial class AutomapBar : UserControl
-    {
-        public AutomapBar()
-        {
-            InitializeComponent();
-        }
-
-        public string Status
-        {
-            get { return m_statusLabel.Text; }
-            set { m_statusLabel.Text = value; }
-        }
-
-        public event EventHandler StopClick;
-
-        private void StopButton_Click(object sender, EventArgs e)
-        {
-            var stopClick = StopClick;
-            if (stopClick != null)
-            {
-                stopClick(this, EventArgs.Empty);
-            }
-        }
+namespace Trizbort.UI.Controls {
+  public partial class AutomapBar : UserControl {
+    public AutomapBar() {
+      InitializeComponent();
     }
+
+    public string Status { set => m_statusLabel.Text = value; }
+
+    public event EventHandler StopClick;
+
+    private void StopButton_Click(object sender, EventArgs e) {
+      var stopClick = StopClick;
+      stopClick?.Invoke(this, EventArgs.Empty);
+    }
+  }
 }

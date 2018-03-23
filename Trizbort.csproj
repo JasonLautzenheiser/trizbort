@@ -156,7 +156,6 @@
     <Compile Include="Domain\Misc\LineSegment.cs" />
     <Compile Include="Domain\Application\MapStatistics.cs" />
     <Compile Include="Domain\Misc\MoveablePort.cs" />
-    <Compile Include="Domain\Application\MruList.cs" />
     <Compile Include="Domain\Misc\Numeric.cs" />
     <Compile Include="Util\ClipboardHelper.cs" />
     <Compile Include="Util\PathHelper.cs" />
@@ -239,12 +238,6 @@
     <Compile Include="UI\MapStatisticsView.Designer.cs">
       <DependentUpon>MapStatisticsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\NewVersionDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\NewVersionDialog.Designer.cs">
-      <DependentUpon>NewVersionDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\QuickFind.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -318,9 +311,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MapStatisticsView.resx">
       <DependentUpon>MapStatisticsView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\NewVersionDialog.resx">
-      <DependentUpon>NewVersionDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\QuickFind.resx">
       <DependentUpon>QuickFind.cs</DependentUpon>

@@ -1,7 +1,5 @@
-﻿namespace Trizbort.Domain.Enums
-{
-  public enum ValidationType
-  {
+﻿namespace Trizbort.Domain.Enums {
+  public enum ValidationType {
     RoomUniqueName,
     RoomDescription,
     RoomSubTitle,

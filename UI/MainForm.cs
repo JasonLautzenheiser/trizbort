@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -31,8 +31,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommandLine;
@@ -62,7 +60,7 @@ namespace Trizbort.UI {
     private NumericUpDown txtZoom;
     private ToolStripStatusLabel statusLabel;
 
-    string updatePath = "http://www.trizbort.com/trizbortupdate.xml";
+    private const string UPDATE_PATH = "http://www.trizbort.com/trizbortupdate.xml";
 
     private DateTime mLastUpdateUITime;
 
@@ -99,17 +97,12 @@ namespace Trizbort.UI {
       }
     }
 
-    public bool OpenProject(string fileName) {
+    public void OpenProject(string fileName) {
       var project = new Project {FileName = fileName};
       if (project.Load()) {
         Project.Current = project;
-
         ApplicationSettingsController.OpenProject(fileName);
-
-        return true;
       }
-
-      return false;
     }
 
     protected override void OnClosing(CancelEventArgs e) {
@@ -126,25 +119,6 @@ namespace Trizbort.UI {
       Project.FileWatcher.Dispose();
 
       base.OnClosing(e);
-    }
-
-    private void aboutMap() {
-      var project = Project.Current;
-      if (!string.IsNullOrEmpty(project.Title) || !string.IsNullOrEmpty(project.Author) || !string.IsNullOrEmpty(project.Description)) {
-        var builder = new StringBuilder();
-        if (!string.IsNullOrEmpty(project.Title)) builder.AppendLine(project.Title);
-        if (!string.IsNullOrEmpty(project.Author)) {
-          if (builder.Length > 0) builder.AppendLine();
-          builder.AppendLine($"by {project.Author}");
-        }
-
-        if (!string.IsNullOrEmpty(project.Description)) {
-          if (builder.Length > 0) builder.AppendLine();
-          builder.AppendLine(project.Description);
-        }
-
-        MessageBox.Show(builder.ToString(), Application.ProductName, MessageBoxButtons.OK);
-      }
     }
 
     private void adjustZoomed(object sender, EventArgs e) {
@@ -174,7 +148,7 @@ namespace Trizbort.UI {
       AutoUpdater.ShowSkipButton = false;
       AutoUpdater.ReportErrors = true;
       AutoUpdater.Mandatory = true;
-      AutoUpdater.Start(updatePath);
+      AutoUpdater.Start(UPDATE_PATH);
     }
 
     private bool checkLoseProject() {
@@ -468,17 +442,7 @@ namespace Trizbort.UI {
       if (exportCode<QuestExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportQuestFileName = fileName;
     }
 
-    private void FileExportQuestRoomsMenuItem_Click(object sender, EventArgs e) {
-      var fileName = ApplicationSettingsController.AppSettings.LastExportQuestRoomsFileName;
-      if (exportCode<QuestRoomsExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportQuestRoomsFileName = fileName;
-    }
-
     private void FileExportTadsMenuItem_Click(object sender, EventArgs e) {
-      var fileName = ApplicationSettingsController.AppSettings.LastExportTadsFileName;
-      if (exportCode<TadsExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportTadsFileName = fileName;
-    }
-
-    private void FileExportTADSMenuItem_Click(object sender, EventArgs e) {
       var fileName = ApplicationSettingsController.AppSettings.LastExportTadsFileName;
       if (exportCode<TadsExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportTadsFileName = fileName;
     }
@@ -552,7 +516,7 @@ namespace Trizbort.UI {
         Process.Start("http://www.trizbort.com/Docs/index.shtml");
       }
       catch (Exception) {
-        NewVersionDialog.CannotLaunchWebSite();
+        // ignored
       }
     }
 
@@ -577,12 +541,9 @@ namespace Trizbort.UI {
     }
 
     private void m_editChangeRegionMenuItem_Click(object sender, EventArgs e) {
-      if (Canvas.HasSingleSelectedElement && Canvas.SelectedElement.HasDialog) {
-        var element = Canvas.SelectedElement as Room;
-        if (element != null) {
-          var room = element;
-          room.ShowDialog(PropertiesStartType.Region);
-        }
+      if (Canvas.HasSingleSelectedElement && Canvas.SelectedElement.HasDialog && Canvas.SelectedElement is Room element) {
+        var room = element;
+        room.ShowDialog(PropertiesStartType.Region);
       }
     }
 
@@ -626,8 +587,6 @@ namespace Trizbort.UI {
         catch (Exception) {
           // ignored
         }
-
-      NewVersionDialog.CheckForUpdatesAsync(this, false);
     }
 
     private void setupStatusBar() {
@@ -649,6 +608,7 @@ namespace Trizbort.UI {
     public void ChangeStatusMessage(string message) {
       statusLabel.Text = message;
     }
+
     private void makeRoomDarkToolStripMenuItem_Click(object sender, EventArgs e) {
       commandController.SetRoomLighting(LightingActionType.ForceDark);
     }

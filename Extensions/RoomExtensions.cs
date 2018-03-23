@@ -2,14 +2,10 @@
 using System.Drawing.Drawing2D;
 using Trizbort.Domain.Enums;
 
-namespace Trizbort.Extensions
-{
-  public static class RoomExtensions
-  {
-    public static DashStyle ConvertToDashStyle(this BorderDashStyle cxx)
-    {
-      switch (cxx)
-      {
+namespace Trizbort.Extensions {
+  public static class RoomExtensions {
+    public static DashStyle ConvertToDashStyle(this BorderDashStyle cxx) {
+      switch (cxx) {
         case BorderDashStyle.Solid:
           return DashStyle.Solid;
         case BorderDashStyle.Dot:
@@ -24,7 +20,7 @@ namespace Trizbort.Extensions
         case BorderDashStyle.None:
           return DashStyle.Custom;
         default:
-          throw new ArgumentOutOfRangeException("cxx", cxx, null);
+          throw new ArgumentOutOfRangeException(nameof(cxx), cxx, null);
       }
     }
   }

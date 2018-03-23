@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -117,7 +117,7 @@ namespace Trizbort.UI
       this.linkLabel1.Text = "Uses PDFsharp v1.32, copyright (c) 2005-2012 empira Software GmbH, Cologne (Germany), w" +
     "ww.pdfsharp.net\r\n";
       this.linkLabel1.UseCompatibleTextRendering = true;
-      this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
+      this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.onLinkClicked);
       // 
       // linkLabel2
       // 
@@ -128,7 +128,7 @@ namespace Trizbort.UI
       this.linkLabel2.TabIndex = 8;
       this.linkLabel2.TabStop = true;
       this.linkLabel2.Text = "www.trizbort.com";
-      this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
+      this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.onLinkClicked);
       // 
       // pictureBox1
       // 
@@ -148,7 +148,7 @@ namespace Trizbort.UI
       this.linkLabel4.TabIndex = 10;
       this.linkLabel4.TabStop = true;
       this.linkLabel4.Text = "github.com/genstein/trizbort";
-      this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
+      this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.onLinkClicked);
       // 
       // textBox1
       // 
@@ -180,7 +180,7 @@ namespace Trizbort.UI
       this.linkLabel3.TabIndex = 13;
       this.linkLabel3.TabStop = true;
       this.linkLabel3.Text = "github.com/JasonLautzenheiser/trizbort";
-      this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
+      this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.onLinkClicked);
       // 
       // AboutDialog
       // 

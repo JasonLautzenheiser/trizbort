@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -101,8 +101,6 @@ namespace Trizbort.UI {
     public Color[] ElementColors { get; }
 
     public float GridSize { get => (float) m_gridSizeUpDown.Value; set => m_gridSizeUpDown.Value = (decimal) value; }
-
-    public bool HandDrawnDoc { get => m_handDrawnCheckBox.Checked; set => m_handDrawnCheckBox.Checked = value; }
 
     public float HandleSize { get => (float) m_handleSizeUpDown.Value; set => m_handleSizeUpDown.Value = (decimal) value; }
 
@@ -228,11 +226,11 @@ namespace Trizbort.UI {
       using (var palette = new Palette()) {
         e.DrawBackground();
 
-        const int horizontalMargin = 2;
-        const int verticalMargin = 2;
-        const int width = 24;
-        var colorBounds = new Rectangle(e.Bounds.Left + horizontalMargin, e.Bounds.Top + verticalMargin, width, e.Bounds.Height - verticalMargin * 2);
-        var textBounds = new Rectangle(colorBounds.Right + horizontalMargin, e.Bounds.Top, e.Bounds.Width - colorBounds.Width - horizontalMargin * 2, e.Bounds.Height);
+        const int COLOR_HORIZONTAL_MARGIN = 2;
+        const int COLOR_VERTICAL_MARGIN = 2;
+        const int COLOR_WIDTH = 24;
+        var colorBounds = new Rectangle(e.Bounds.Left + COLOR_HORIZONTAL_MARGIN, e.Bounds.Top + COLOR_VERTICAL_MARGIN, COLOR_WIDTH, e.Bounds.Height - COLOR_VERTICAL_MARGIN * 2);
+        var textBounds = new Rectangle(colorBounds.Right + COLOR_HORIZONTAL_MARGIN, e.Bounds.Top, e.Bounds.Width - colorBounds.Width - COLOR_HORIZONTAL_MARGIN * 2, e.Bounds.Height);
         e.Graphics.FillRectangle(palette.Brush(ElementColors[e.Index]), colorBounds);
         e.Graphics.DrawRectangle(palette.Pen(e.ForeColor, 0), colorBounds);
         var format = new StringFormat {Trimming = StringTrimming.EllipsisCharacter};
@@ -312,9 +310,7 @@ namespace Trizbort.UI {
         MessageBox.Show("The default room name can't be empty. Please put something in there.", "Empty default name", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         txtDefaultRoomName.Focus();
         DialogResult = DialogResult.None;
-      }
-
-      else if (!txtDefaultRoomName.Text.Any(char.IsLetter)) {
+      } else if (!txtDefaultRoomName.Text.Any(char.IsLetter)) {
         MessageBox.Show("The default room name must contain one letter. Please include a letter.", "Invalid default name", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         txtDefaultRoomName.Focus();
         DialogResult = DialogResult.None;

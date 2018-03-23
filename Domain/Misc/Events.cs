@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -25,32 +25,27 @@
 using System;
 using Trizbort.Domain.Application;
 
-namespace Trizbort.Domain.Misc
-{
-  public class ProjectChangedEventArgs : EventArgs
-    {
-        public ProjectChangedEventArgs(Project oldProject, Project newProject)
-        {
-            OldProject = oldProject;
-            NewProject = newProject;
-        }
-
-        public Project OldProject { get; private set; }
-        public Project NewProject { get; private set; }
+namespace Trizbort.Domain.Misc {
+  public class ProjectChangedEventArgs : EventArgs {
+    public ProjectChangedEventArgs(Project oldProject, Project newProject) {
+      OldProject = oldProject;
+      NewProject = newProject;
     }
 
-  public class ItemEventArgs<T> : EventArgs
-    {
-        public ItemEventArgs(T item)
-        {
-            Item = item;
-        }
+    public Project NewProject { get; }
 
-        public T Item { get; private set; }
+    public Project OldProject { get; }
+  }
+
+  public class ItemEventArgs<T> : EventArgs {
+    public ItemEventArgs(T item) {
+      Item = item;
     }
+
+    public T Item { get; }
+  }
 
   public delegate void ProjectChangedEventHandler(object sender, ProjectChangedEventArgs e);
 
   public delegate void ItemEventHandler<T>(object sender, ItemEventArgs<T> e);
-
 }

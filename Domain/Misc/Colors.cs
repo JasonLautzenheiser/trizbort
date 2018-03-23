@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -27,10 +27,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using Trizbort.Extensions;
 
-namespace Trizbort.Domain.Misc
-{
-  internal static class Colors
-  {
+namespace Trizbort.Domain.Misc {
+  internal static class Colors {
     public static readonly int Canvas = 0;
     public static readonly int Border = 1;
     public static readonly int Line = 2;
@@ -44,8 +42,7 @@ namespace Trizbort.Domain.Misc
     public static readonly int EndRoom = 10;
     public static readonly int Count = 11;
 
-    private static readonly string[] Names =
-    {
+    private static readonly string[] Names = {
       "canvas",
       "border",
       "line",
@@ -59,47 +56,41 @@ namespace Trizbort.Domain.Misc
       "endRoom"
     };
 
-    public static bool ToName(int color, out string name)
-    {
-      if (color >= 0 && color < Names.Length)
-      {
-        name = Names[color];
-        return true;
-      }
-      name = string.Empty;
-      return false;
-    }
-
-    public static bool FromName(string name, out int color)
-    {
-      for (int index = 0; index < Names.Length; ++index)
-      {
-        if (StringComparer.InvariantCultureIgnoreCase.Compare(name ?? string.Empty, Names[index]) == 0)
-        {
+    public static bool FromName(string name, out int color) {
+      for (var index = 0; index < Names.Length; ++index)
+        if (StringComparer.InvariantCultureIgnoreCase.Compare(name ?? string.Empty, Names[index]) == 0) {
           color = index;
           return true;
         }
-      }
+
       color = -1;
       return false;
     }
 
+    public static string SaveColor(Color colorAttribute) {
+      if (colorAttribute == Color.Transparent)
+        return string.Empty;
+
+      var colorValue = colorAttribute.ToHex();
+      return colorValue;
+    }
+
     public static Color ShowColorDialog(Color color, Form parent) {
-      using (var dialog = new ColorDialog())
-      {
+      using (var dialog = new ColorDialog()) {
         dialog.Color = color == Color.Transparent ? Color.White : color;
 
         return dialog.ShowDialog(parent) == DialogResult.OK ? dialog.Color : color;
       }
     }
 
-    public static string SaveColor(Color colorAttribute)
-    {
-      if (colorAttribute == Color.Transparent)
-        return string.Empty;
+    public static bool ToName(int color, out string name) {
+      if (color >= 0 && color < Names.Length) {
+        name = Names[color];
+        return true;
+      }
 
-      var colorValue = colorAttribute.ToHex();
-      return colorValue;
+      name = string.Empty;
+      return false;
     }
   }
 }

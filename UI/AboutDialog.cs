@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -27,31 +27,23 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Trizbort.UI
-{
-    public partial class AboutDialog : Form
-    {
-        public AboutDialog()
-        {
-            InitializeComponent();
-            try
-            {
-                m_versionLabel.Text = string.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString().Trim('.', '0'));
-            }
-            catch (Exception)
-            {
-            }
-        }
-
-        private void OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            var label = (LinkLabel)sender;
-            var url = label.Text.Substring(label.LinkArea.Start, label.LinkArea.Length);
-            if (!url.StartsWith("http"))
-            {
-                url = "http://" + url;
-            }
-            Process.Start(url);
-        }
+namespace Trizbort.UI {
+  public partial class AboutDialog : Form {
+    public AboutDialog() {
+      InitializeComponent();
+      try {
+        m_versionLabel.Text = $"Version {Assembly.GetExecutingAssembly().GetName().Version.ToString().Trim('.', '0')}";
+      }
+      catch (Exception) {
+        // ignored
+      }
     }
+
+    private void onLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+      var label = (LinkLabel) sender;
+      var url = label.Text.Substring(label.LinkArea.Start, label.LinkArea.Length);
+      if (!url.StartsWith("http")) url = "http://" + url;
+      Process.Start(url);
+    }
+  }
 }

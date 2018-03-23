@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -39,6 +39,7 @@ namespace Trizbort.Domain.Misc {
   ///   and then only once.
   /// </remarks>
   public class Palette : IDisposable {
+    private readonly List<IDisposable> m_items = new List<IDisposable>();
     private Brush m_borderBrush;
     private Pen m_borderPen;
     private Brush m_canvasBrush;
@@ -49,10 +50,6 @@ namespace Trizbort.Domain.Misc {
     private Pen m_hoverDashedLinePen;
     private Brush m_hoverLineBrush;
     private Pen m_hoverLinePen;
-
-    private readonly List<IDisposable> m_items = new List<IDisposable>();
-    private Brush m_subTitleTextBrush;
-    private Pen m_subTitleTextPen;
 
     private Brush m_lineBrush;
 
@@ -65,6 +62,8 @@ namespace Trizbort.Domain.Misc {
     private Brush m_selectedLineBrush;
     private Pen m_selectedLinePen;
     private Brush m_smallTextBrush;
+    private Brush m_subTitleTextBrush;
+    private Pen m_subTitleTextPen;
 
     public Brush BorderBrush => m_borderBrush ?? (m_borderBrush = Brush(Settings.Color[Colors.Border]));
 

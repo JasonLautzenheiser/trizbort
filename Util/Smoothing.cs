@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -25,23 +25,19 @@
 using System;
 using PdfSharp.Drawing;
 
-namespace Trizbort.Util
-{
-    internal class Smoothing : IDisposable
-    {
-        public Smoothing(XGraphics graphics, XSmoothingMode mode)
-        {
-            Graphics = graphics;
-            SmoothingMode = graphics.SmoothingMode;
-            graphics.SmoothingMode = mode;
-        }
-
-        public void Dispose()
-        {
-            Graphics.SmoothingMode = SmoothingMode;
-        }
-
-        public XGraphics Graphics { get; private set; }
-        public XSmoothingMode SmoothingMode { get; private set; }
+namespace Trizbort.Util {
+  internal class Smoothing : IDisposable {
+    public Smoothing(XGraphics graphics, XSmoothingMode mode) {
+      Graphics = graphics;
+      SmoothingMode = graphics.SmoothingMode;
+      graphics.SmoothingMode = mode;
     }
+
+    public XGraphics Graphics { get; }
+    public XSmoothingMode SmoothingMode { get; }
+
+    public void Dispose() {
+      Graphics.SmoothingMode = SmoothingMode;
+    }
+  }
 }

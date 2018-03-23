@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -22,106 +22,54 @@
     THE SOFTWARE.
 */
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Trizbort.Automap;
 using Trizbort.Domain.AppSettings;
 using Trizbort.Domain.Elements;
 using Trizbort.Domain.Misc;
 
-namespace Trizbort.Export
-{
-  internal class TadsExporter : CodeExporter
-  {
+namespace Trizbort.Export {
+  internal class TadsExporter : CodeExporter {
     private const char SINGLE_QUOTE = '\'';
     private const char DOUBLE_QUOTE = '"';
 
-    public override string FileDialogTitle => "Export TADS Source Code";
-
-    public override List<KeyValuePair<string, string>> FileDialogFilters => new List<KeyValuePair<string, string>>
-    {
+    public override List<KeyValuePair<string, string>> FileDialogFilters => new List<KeyValuePair<string, string>> {
       new KeyValuePair<string, string>("TADS Source Files", ".t"),
       new KeyValuePair<string, string>("Text Files", ".txt")
     };
 
+    public override string FileDialogTitle => "Export TADS Source Code";
+
     protected override IEnumerable<string> ReservedWords => new[] {"Room", "Actor", "Thing", "Object", "Door", "Chair", "Heavy", "Fixture", "OpenableContainer", "Food", "GameMainDef", "if", "else", "me"};
-//    protected override Encoding Encoding => Encoding.ASCII;
 
-    protected override void ExportHeader(TextWriter writer, string title, string author, string description, string history)
-    {
-      writer.WriteLine("#charset \"us-ascii\"");
-      writer.WriteLine();
+    protected override void ExportContent(TextWriter writer) {
       if (ApplicationSettingsController.AppSettings.SaveTadstoAdv3Lite)
-      {
-          writer.WriteLine("#include <tads.h>");
-          writer.WriteLine("#include \"advlite.h\"");
-      }
-      else
-      {
-          writer.WriteLine("#include <adv3.h>");
-          writer.WriteLine("#include <en_us.h>");
-      }
-      writer.WriteLine();
-      writer.WriteLine("versionInfo : GameID");
-      writer.WriteLine("    name = {0}", toTadsString(title, SINGLE_QUOTE));
-      writer.WriteLine("    byline = {0}", toTadsString($"By {author}", SINGLE_QUOTE));
-      writer.WriteLine("    version = '1'");
-      writer.WriteLine("    desc = {0}", toTadsString(description, SINGLE_QUOTE));
-      if (!string.IsNullOrWhiteSpace(history))
-      {
-        exportHistory(writer, history);
-      }
-      writer.WriteLine(";");
-      writer.WriteLine();
-    }
+        foreach (var region in RegionsInExportOrder) {
+          writer.WriteLine("{0}: Region", region.ExportName);
+          writer.WriteLine(";");
+          writer.WriteLine();
+        }
 
-    private void exportHistory(TextWriter writer, string history)
-    {
-      writer.WriteLine();
-      writer.WriteLine("    showAbout()");
-      writer.WriteLine("    {");
-      writer.WriteLine($"    {DOUBLE_QUOTE}{history}{DOUBLE_QUOTE};");
-      writer.WriteLine("    }");
-    }
-
-    protected override void ExportContent(TextWriter writer)
-    {
-      if (ApplicationSettingsController.AppSettings.SaveTadstoAdv3Lite)
-      foreach (var region in RegionsInExportOrder)
-      {
-        writer.WriteLine("{0}: Region", region.ExportName);
-        writer.WriteLine(";");
-        writer.WriteLine();
-      }
-      foreach (var location in LocationsInExportOrder)
-      {
+      foreach (var location in LocationsInExportOrder) {
         writer.WriteLine("{0}: {1} {2}", location.ExportName, location.Room.IsDark ? "DarkRoom" : "Room", toTadsString(location.Room.Name, SINGLE_QUOTE));
-        if (!string.IsNullOrEmpty(location.Room.PrimaryDescription))
-        {
-          writer.WriteLine("    {0}", toTadsString(location.Room.PrimaryDescription, DOUBLE_QUOTE));
-        }
-        if ((ApplicationSettingsController.AppSettings.SaveTadstoAdv3Lite) && (location.Room.Region != Region.DefaultRegion))
-        {
-          writer.WriteLine("    regions = [{0}]", location.Room.Region);
-        }
+        if (!string.IsNullOrEmpty(location.Room.PrimaryDescription)) writer.WriteLine("    {0}", toTadsString(location.Room.PrimaryDescription, DOUBLE_QUOTE));
+        if (ApplicationSettingsController.AppSettings.SaveTadstoAdv3Lite && location.Room.Region != Region.DefaultRegion) writer.WriteLine("    regions = [{0}]", location.Room.Region);
         var anyExits = false;
-        foreach (var direction in AllDirections)
-        {
+        foreach (var direction in AllDirections) {
           var exit = location.GetBestExit(direction);
-          if (exit != null)
-          {
-            if (!anyExits)
-            {
+          if (exit != null) {
+            if (!anyExits) {
               writer.WriteLine();
               anyExits = true;
             }
+
             writer.WriteLine("    {0} = {1}", toTadsPropertyName(direction), exit.Target.ExportName);
           }
         }
+
         writer.WriteLine(";");
         writer.WriteLine();
 
@@ -129,28 +77,21 @@ namespace Trizbort.Export
       }
 
       writer.WriteLine("me: Actor");
-      if (LocationsInExportOrder.Count > 0)
-      {
-         bool foundStart = false;
-         foreach (var location in LocationsInExportOrder)
-                {
-                    if (location.Room.IsStartRoom)
-                    {
-                        if (foundStart)
-                        {
-                            writer.WriteLine("/( {0} is an extra StartRoom. /*", location.ExportName);
-                        }
-                        writer.WriteLine("    location = {0}", location.ExportName);
-                        foundStart = true;
-                    }
-                }
-         if (!foundStart)
-             writer.WriteLine("    location = {0}", LocationsInExportOrder[0].ExportName);
-      }
-      else
-      {
+      if (LocationsInExportOrder.Count > 0) {
+        var foundStart = false;
+        foreach (var location in LocationsInExportOrder)
+          if (location.Room.IsStartRoom) {
+            if (foundStart) writer.WriteLine("/( {0} is an extra StartRoom. /*", location.ExportName);
+            writer.WriteLine("    location = {0}", location.ExportName);
+            foundStart = true;
+          }
+
+        if (!foundStart)
+          writer.WriteLine("    location = {0}", LocationsInExportOrder[0].ExportName);
+      } else {
         writer.WriteLine("    /* location = ... */");
       }
+
       writer.WriteLine(";");
       writer.WriteLine();
 
@@ -159,9 +100,54 @@ namespace Trizbort.Export
       writer.WriteLine(";");
       writer.WriteLine();
     }
+//    protected override Encoding Encoding => Encoding.ASCII;
 
-    private static void exportThings(TextWriter writer, List<Thing> things, Thing container, int indent)
-    {
+    protected override void ExportHeader(TextWriter writer, string title, string author, string description, string history) {
+      writer.WriteLine("#charset \"us-ascii\"");
+      writer.WriteLine();
+      if (ApplicationSettingsController.AppSettings.SaveTadstoAdv3Lite) {
+        writer.WriteLine("#include <tads.h>");
+        writer.WriteLine("#include \"advlite.h\"");
+      } else {
+        writer.WriteLine("#include <adv3.h>");
+        writer.WriteLine("#include <en_us.h>");
+      }
+
+      writer.WriteLine();
+      writer.WriteLine("versionInfo : GameID");
+      writer.WriteLine("    name = {0}", toTadsString(title, SINGLE_QUOTE));
+      writer.WriteLine("    byline = {0}", toTadsString($"By {author}", SINGLE_QUOTE));
+      writer.WriteLine("    version = '1'");
+      writer.WriteLine("    desc = {0}", toTadsString(description, SINGLE_QUOTE));
+      if (!string.IsNullOrWhiteSpace(history)) exportHistory(writer, history);
+      writer.WriteLine(";");
+      writer.WriteLine();
+    }
+
+    protected override string GetExportName(Room room, int? suffix) {
+      var name = stripOddCharacters(room.Name);
+      if (string.IsNullOrEmpty(name)) name = "room";
+
+      if (suffix != null) name = $"{name}{suffix}";
+      return name;
+    }
+
+    protected override string GetExportName(string displayName, int? suffix) {
+      var name = stripOddCharacters(displayName);
+      if (string.IsNullOrEmpty(name)) name = "item";
+      if (suffix != null) name = $"{name}{suffix}";
+      return name;
+    }
+
+    private void exportHistory(TextWriter writer, string history) {
+      writer.WriteLine();
+      writer.WriteLine("    showAbout()");
+      writer.WriteLine("    {");
+      writer.WriteLine($"    {DOUBLE_QUOTE}{history}{DOUBLE_QUOTE};");
+      writer.WriteLine("    }");
+    }
+
+    private static void exportThings(TextWriter writer, List<Thing> things, Thing container, int indent) {
       foreach (var thing in things.Where(thing => thing.Container == container)) {
         writer.WriteLine("{0} {1}: {3} {2} {2}", repeat('+', indent), thing.ExportName, toTadsString(stripOddCharacters(thing.DisplayName, ' ', '-').Trim(), SINGLE_QUOTE), thing.Contents.Count > 0 ? "Container" : "Thing");
         writer.WriteLine(";");
@@ -171,29 +157,24 @@ namespace Trizbort.Export
       }
     }
 
-    private static string repeat(char c, int times)
-    {
+    private static string repeat(char c, int times) {
       var text = string.Empty;
-      for (var index = 0; index < times; ++index)
-      {
-        text += c;
-      }
+      for (var index = 0; index < times; ++index) text += c;
       return text;
     }
 
-    private static string toTadsString(string text, char quote)
-    {
-      if (text == null)
-      {
-        text = string.Empty;
-      }
-      return string.Format("{1}{0}{1}", text.Replace(quote.ToString(), $@"\{quote}"), quote);
+    private static string stripOddCharacters(string text, params char[] exclude) {
+      var exclusions = new List<char>(exclude);
+      if (string.IsNullOrEmpty(text)) return string.Empty;
+      var result = string.Empty;
+      foreach (var c in text)
+        if (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z' || c >= '0' && c <= '9' || c == '_' || exclusions.Contains(c))
+          result += c;
+      return result;
     }
 
-    private static string toTadsPropertyName(AutomapDirection direction)
-    {
-      switch (direction)
-      {
+    private static string toTadsPropertyName(AutomapDirection direction) {
+      switch (direction) {
         case AutomapDirection.North:
           return "north";
         case AutomapDirection.South:
@@ -224,51 +205,9 @@ namespace Trizbort.Export
       }
     }
 
-    protected override string GetExportName(Room room, int? suffix)
-    {
-      var name = stripOddCharacters(room.Name);
-      if (string.IsNullOrEmpty(name))
-      {
-        name = "room";
-      }
-
-      if (suffix != null)
-      {
-        name = $"{name}{suffix}";
-      }
-      return name;
-    }
-
-    protected override string GetExportName(string displayName, int? suffix)
-    {
-      var name = stripOddCharacters(displayName);
-      if (string.IsNullOrEmpty(name))
-      {
-        name = "item";
-      }
-      if (suffix != null)
-      {
-        name = $"{name}{suffix}";
-      }
-      return name;
-    }
-
-    private static string stripOddCharacters(string text, params char[] exclude)
-    {
-      var exclusions = new List<char>(exclude);
-      if (string.IsNullOrEmpty(text))
-      {
-        return string.Empty;
-      }
-      var result = string.Empty;
-      foreach (var c in text)
-      {
-        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '_' || exclusions.Contains(c))
-        {
-          result += c;
-        }
-      }
-      return result;
+    private static string toTadsString(string text, char quote) {
+      if (text == null) text = string.Empty;
+      return string.Format("{1}{0}{1}", text.Replace(quote.ToString(), $@"\{quote}"), quote);
     }
   }
 }

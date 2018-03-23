@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Trizbort.Domain.Enums;
+using Trizbort.UI.Controls;
 
-namespace Trizbort.Domain.Commands
-{
-  public class SelectCommand : ICanvasCommand<SelectTypes>
-  {
-    public void Execute(UI.Controls.Canvas canvas, SelectTypes value)
-    {
-      switch (value)
-      {
+namespace Trizbort.Domain.Commands {
+  public class SelectCommand : ICanvasCommand<SelectTypes> {
+    public void Execute(Canvas canvas, SelectTypes value) {
+      switch (value) {
         case SelectTypes.None:
           canvas.SelectedElement = null;
           break;
@@ -41,13 +37,11 @@ namespace Trizbort.Domain.Commands
         default:
           throw new ArgumentOutOfRangeException(nameof(value), value, null);
       }
-
     }
 
-    public void Execute(UI.Controls.Canvas canvas, SelectTypes value, object other)
-    {
-      switch (value)
-      {
+
+    public void Execute(Canvas canvas, SelectTypes value, object other) {
+      switch (value) {
         case SelectTypes.Region:
           if (other is IEnumerable<string>)
             canvas.SelectAllRegion((IEnumerable<string>) other);

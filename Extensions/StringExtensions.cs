@@ -1,11 +1,8 @@
 ﻿using System;
 
-namespace Trizbort.Extensions
-{
-  public static class StringExtensions
-  {
-    public static bool StartsWithVowel(this string c )
-    {
+namespace Trizbort.Extensions {
+  public static class StringExtensions {
+    public static bool StartsWithVowel(this string c) {
       if (string.IsNullOrWhiteSpace(c)) return false;
 
       var firstChar = c.Substring(0, 1);

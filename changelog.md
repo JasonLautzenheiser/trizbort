@@ -1,12 +1,13 @@
 ﻿# Change Log
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file.  Version numbers will conform to the semver style versioning (https://semver.org/)
 
 ## [Unreleased]
 
-Future version numbers will conform to the semver style versioning (https://semver.org/)
+## [1.6.1] - 2018-03-22
 
 ### Added
 - The room subtitle can now have it's own font and color, both in default settings and individual room properties. (#50)
+- Check for new Trizbort version now under Help Menu
 
 ### Fixed
 - Fix for two message boxes showing in room properties when room name is empty.
@@ -510,7 +511,8 @@ on github.  Documentation is a little outdated so apologies on that.  Hopefully 
 - In the room properties, you can now assign a room to a region.  This will show the room in the region color assigned to the region.
 - some minor bug fixes.
 
-[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.1...HEAD
+[1.6.1]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.5.9.9...v1.6.0
 [1.5.9.9]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.5.9.8...v1.5.9.9
 [1.5.9.8]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.5.9.7...v1.5.9.8

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -24,12 +24,10 @@
 
 using Trizbort.Domain.Misc;
 
-namespace Trizbort.Domain.Elements
-{
-    internal interface IMoveable
-    {
-        Vector Position { get; set; }
-        float X { get; }
-        float Y { get; }
-    }
+namespace Trizbort.Domain.Elements {
+  internal interface IMoveable {
+    Vector Position { get; set; }
+    float X { get; }
+    float Y { get; }
+  }
 }

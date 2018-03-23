@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -24,35 +24,26 @@
 
 using System.Drawing;
 
-namespace Trizbort.Util
-{
-    internal class StringFormats
-    {
-        static StringFormats()
-        {
-            Center = new StringFormat();
-            Center.Alignment = StringAlignment.Center;
-            Center.LineAlignment = StringAlignment.Center;
-            Center.Trimming = StringTrimming.EllipsisCharacter;
-            Center.FormatFlags = StringFormatFlags.LineLimit;
+namespace Trizbort.Util {
+  internal class StringFormats {
+    static StringFormats() {
+      Center = new StringFormat {
+        Alignment = StringAlignment.Center,
+        LineAlignment = StringAlignment.Center,
+        Trimming = StringTrimming.EllipsisCharacter,
+        FormatFlags = StringFormatFlags.LineLimit
+      };
 
-            Left = new StringFormat();
-            Left.Alignment = StringAlignment.Near;
-            Left.LineAlignment = StringAlignment.Center;
-            Left.Trimming = StringTrimming.EllipsisCharacter;
-            Left.FormatFlags = StringFormatFlags.LineLimit;
-        }
-
-        public static StringFormat Center
-        {
-            get;
-            private set;
-        }
-
-        public static StringFormat Left
-        {
-            get;
-            private set;
-        }
+      Left = new StringFormat {
+        Alignment = StringAlignment.Near,
+        LineAlignment = StringAlignment.Center,
+        Trimming = StringTrimming.EllipsisCharacter,
+        FormatFlags = StringFormatFlags.LineLimit
+      };
     }
+
+    public static StringFormat Center { get; }
+
+    public static StringFormat Left { get; }
+  }
 }

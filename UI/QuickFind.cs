@@ -7,37 +7,40 @@ using Trizbort.Domain.Cache;
 using Trizbort.Domain.Controllers;
 using Trizbort.Domain.Elements;
 
-namespace Trizbort.UI
-{
-  public partial class QuickFind : Form
-  {
+namespace Trizbort.UI {
+  public partial class QuickFind : Form {
     private readonly List<findAutofindCacheItem> cache;
 
-    public QuickFind()
-    {
+    public QuickFind() {
       InitializeComponent();
 
       cache = buildFindCache();
       cache = cache.OrderBy(p => p.Text).ToList();
 
       var source = new AutoCompleteStringCollection();
-      source.AddRange(cache.Select(p=>p.ToString()).ToArray());
+      source.AddRange(cache.Select(p => p.ToString()).ToArray());
       cboFind.AutoCompleteCustomSource = source;
     }
 
-    private List<findAutofindCacheItem> buildFindCache()
-    {
+    private void btnCancel_Click(object sender, EventArgs e) {
+      Close();
+    }
+
+    private void btnFind_Click(object sender, EventArgs e) {
+      doFind();
+    }
+
+    private List<findAutofindCacheItem> buildFindCache() {
       var indexer = new Indexer();
       var findCacheItems = indexer.Index();
 
-      List<findAutofindCacheItem> list = new List<findAutofindCacheItem>();
+      var list = new List<findAutofindCacheItem>();
 
-      foreach (var item in findCacheItems)
-      {
-        var x1 = new findAutofindCacheItem { Room = item.Element, Text = item.Name?.Trim() };
-        var x2 = new findAutofindCacheItem { Room = item.Element, Text = item.Description?.Trim() };
-        var x3 = new findAutofindCacheItem { Room = item.Element, Text = item.Objects?.Trim() };
-        var x4 = new findAutofindCacheItem { Room = item.Element, Text = item.Subtitle?.Trim() };
+      foreach (var item in findCacheItems) {
+        var x1 = new findAutofindCacheItem {Room = item.Element, Text = item.Name?.Trim()};
+        var x2 = new findAutofindCacheItem {Room = item.Element, Text = item.Description?.Trim()};
+        var x3 = new findAutofindCacheItem {Room = item.Element, Text = item.Objects?.Trim()};
+        var x4 = new findAutofindCacheItem {Room = item.Element, Text = item.Subtitle?.Trim()};
 
         list.Add(x1);
         if (!string.IsNullOrEmpty(x2.Text)) list.Add(x2);
@@ -49,24 +52,12 @@ namespace Trizbort.UI
       return list;
     }
 
-    private void QuickFind_Deactivate(object sender, EventArgs e)
-    {
-        Close();
+    private void cboFind_KeyPress(object sender, KeyPressEventArgs e) {
+      if (e.KeyChar == (int) Keys.Enter) doFind();
     }
 
-    private void QuickFind_Activated(object sender, EventArgs e)
-    {
-      cboFind.Focus();
-    }
-
-    private void btnFind_Click(object sender, EventArgs e)
-    {
-      doFind();
-    }
-
-    private void doFind()
-    {
-      string s = cboFind.Text;
+    private void doFind() {
+      var s = cboFind.Text;
       if (string.IsNullOrWhiteSpace(s)) Close();
 
       var found = getResults(s);
@@ -81,41 +72,31 @@ namespace Trizbort.UI
       Close();
     }
 
-    private List<Element> getResults(string s)
-    {
-      var list = cache.Where(xx => (xx.Text?.IndexOf(s,StringComparison.CurrentCultureIgnoreCase) > -1)).Select(p => p.Room).ToList();
+    private List<Element> getResults(string s) {
+      var list = cache.Where(xx => xx.Text?.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) > -1).Select(p => p.Room).ToList();
       return list;
     }
 
-    private void btnCancel_Click(object sender, EventArgs e)
-    {
+    private void QuickFind_Activated(object sender, EventArgs e) {
+      cboFind.Focus();
+    }
+
+    private void QuickFind_Deactivate(object sender, EventArgs e) {
       Close();
     }
 
-    private void cboFind_KeyPress(object sender, KeyPressEventArgs e)
-    {
-      if (e.KeyChar == (int) Keys.Enter)
-      {
-        doFind();
-      }
-
-    }
-
-    private class findAutofindCacheItem
-    {
-      public Element Room {get;set;}
-      public string Text { get; set; }
-
-      public override string ToString()
-      {
-        return $"{Text}";
-      }
-    }
-
-    private void QuickFind_KeyDown(object sender, KeyEventArgs e)
-    {
+    private void QuickFind_KeyDown(object sender, KeyEventArgs e) {
       if (e.KeyCode == Keys.Escape)
         Close();
+    }
+
+    private class findAutofindCacheItem {
+      public Element Room { get; set; }
+      public string Text { get; set; }
+
+      public override string ToString() {
+        return $"{Text}";
+      }
     }
   }
 }

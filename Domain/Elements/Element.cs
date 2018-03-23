@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -30,21 +30,17 @@ using PdfSharp.Drawing;
 using Trizbort.Domain.Application;
 using Trizbort.Domain.Misc;
 
-namespace Trizbort.Domain.Elements
-{
-  public class Element : IComparable<Element>
-  {
-    private int m_id;
+namespace Trizbort.Domain.Elements {
+  public class Element : IComparable<Element> {
+    private int mID;
 
     private int zOrder;
 
-    public Element()
-    {
+    public Element() {
       initElement(null);
     }
 
-    public Element(Project project)
-    {
+    public Element(Project project) {
       initElement(project);
       var id = GetNextID();
       ID = id;
@@ -52,8 +48,7 @@ namespace Trizbort.Domain.Elements
 
     // Added this second constructor to be used when loading a room
     // This constructor is significantly faster as it doesn't look for gap in the element IDs
-    public Element(Project project, int TotalIDs)
-    {
+    public Element(Project project, int TotalIDs) {
       initElement(project);
       ID = TotalIDs;
     }
@@ -79,14 +74,12 @@ namespace Trizbort.Domain.Elements
     /// <summary>
     ///   Get the unique identifier of this element.
     /// </summary>
-    public int ID
-    {
-      get => m_id;
-      set
-      {
+    public int ID {
+      get => mID;
+      set {
         if (Project != null)
           if (!Project.IsElementIDInUse(value))
-            m_id = value;
+            mID = value;
       }
     }
 
@@ -103,11 +96,9 @@ namespace Trizbort.Domain.Elements
     [JsonIgnore]
     public Project Project { get; set; }
 
-    public virtual int ZOrder
-    {
+    public virtual int ZOrder {
       get => zOrder;
-      set
-      {
+      set {
         zOrder = value;
         RaiseChanged();
       }
@@ -128,15 +119,14 @@ namespace Trizbort.Domain.Elements
     ///   guaranteed by using a unique, monotonically increasing sort
     ///   identifier for each element.
     /// </remarks>
-    public int CompareTo(Element element)
-    {
+    public int CompareTo(Element element) {
       var delta = Depth.CompareTo(element.Depth);
-      if (delta == 0)
-      {
+      if (delta == 0) {
         delta = ZOrder.CompareTo(element.ZOrder);
         if (delta == 0)
           delta = ID.CompareTo(element.ID);
       }
+
       return delta;
     }
 
@@ -145,8 +135,7 @@ namespace Trizbort.Domain.Elements
     /// </summary>
     public event EventHandler Changed;
 
-    public virtual void Dispose()
-    {
+    public virtual void Dispose() {
       //There is nothing to clean. 
       Disposed?.Invoke(this, EventArgs.Empty);
     }
@@ -157,8 +146,7 @@ namespace Trizbort.Domain.Elements
     ///   Get the distance from this element to the given point.
     /// </summary>
     /// <param name="includeMargins">True to include suitable margins around elements which need them; false otherwise.</param>
-    public virtual float Distance(Vector pos, bool includeMargins)
-    {
+    public virtual float Distance(Vector pos, bool includeMargins) {
       return 0.0f;
     }
 
@@ -168,12 +156,9 @@ namespace Trizbort.Domain.Elements
     /// <param name="graphics">The graphics with which to draw.</param>
     /// <param name="palette">The palette from which to obtain drawing tools.</param>
     /// <param name="context">The context in which drawing is taking place.</param>
-    public virtual void Draw(XGraphics graphics, Palette palette, DrawingContext context)
-    {
-    }
+    public virtual void Draw(XGraphics graphics, Palette palette, DrawingContext context) { }
 
-    public int GetNextID()
-    {
+    public int GetNextID() {
       var id = 1;
       while (Project.IsElementIDInUse(id))
         ++id;
@@ -185,8 +170,7 @@ namespace Trizbort.Domain.Elements
     /// </summary>
     /// <param name="port">The port in question.</param>
     /// <returns>The position of the port.</returns>
-    public virtual Vector GetPortPosition(Port port)
-    {
+    public virtual Vector GetPortPosition(Port port) {
       return new Vector(0, 0);
     }
 
@@ -195,41 +179,39 @@ namespace Trizbort.Domain.Elements
     /// </summary>
     /// <param name="port">The port in question.</param>
     /// <returns>The position of the end of the stalk, or the port position.</returns>
-    public virtual Vector GetPortStalkPosition(Port port)
-    {
+    public virtual Vector GetPortStalkPosition(Port port) {
       return new Vector(0, 0);
     }
 
-    public virtual eTooltipColor GetToolTipColor()
-    {
+    public RoomShape GetRoomType() {
+      if (this is Room xx) return xx.Shape;
+      return RoomShape.NotARoom;
+    }
+
+    public virtual eTooltipColor GetToolTipColor() {
       return eTooltipColor.Blue;
     }
 
-    public virtual string GetToolTipFooter()
-    {
+    public virtual string GetToolTipFooter() {
       return string.Empty;
     }
 
-    public virtual string GetToolTipHeader()
-    {
+    public virtual string GetToolTipHeader() {
       return string.Empty;
     }
 
-    public virtual string GetToolTipText()
-    {
+    public virtual string GetToolTipText() {
       return string.Empty;
     }
 
-    public virtual bool HasTooltip()
-    {
+    public virtual bool HasTooltip() {
       return false;
     }
 
     /// <summary>
     ///   Get whether this element intersects the given rectangle.
     /// </summary>
-    public virtual bool Intersects(Rect rect)
-    {
+    public virtual bool Intersects(Rect rect) {
       return false;
     }
 
@@ -241,23 +223,17 @@ namespace Trizbort.Domain.Elements
     ///   Elements which wish to add to context.LinesDrawn such that
     ///   Connections lines will detect them may do so here.
     /// </remarks>
-    public virtual void PreDraw(DrawingContext context)
-    {
-    }
+    public virtual void PreDraw(DrawingContext context) { }
 
     /// <summary>
     ///   Recompute any "smart" line segments we use when drawing.
     /// </summary>
-    public virtual void RecomputeSmartLineSegments(DrawingContext context)
-    {
-    }
+    public virtual void RecomputeSmartLineSegments(DrawingContext context) { }
 
     /// <summary>
     ///   Display the element's properties dialog.
     /// </summary>
-    public virtual void ShowDialog()
-    {
-    }
+    public virtual void ShowDialog() { }
 
     /// <summary>
     ///   Enlarge the given rectangle so as to fully incorporate this element.
@@ -271,30 +247,21 @@ namespace Trizbort.Domain.Elements
     ///   For that usage, includeMargins should be set to true.
     ///   For more exacting bounds tests, includeMargins should be set to false.
     /// </remarks>
-    public virtual Rect UnionBoundsWith(Rect rect, bool includeMargins)
-    {
+    public virtual Rect UnionBoundsWith(Rect rect, bool includeMargins) {
       return new Rect();
     }
 
     /// <summary>
     ///   Raise the Changed event.
     /// </summary>
-    protected void RaiseChanged()
-    {
+    protected void RaiseChanged() {
       if (!RaiseChangedEvents) return;
       var changed = Changed;
       changed?.Invoke(this, EventArgs.Empty);
     }
 
-    private void initElement(Project project)
-    {
+    private void initElement(Project project) {
       Project = project;
-    }
-
-    public RoomShape GetRoomType()
-    {
-      if (this is Room xx) return xx.Shape;
-      return RoomShape.NotARoom;
     }
   }
 }

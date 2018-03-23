@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -25,44 +25,33 @@
 using System;
 using System.IO;
 
-namespace Trizbort.Util
-{
-    static class PathHelper
-    {
-        public static string SafeGetDirectoryName(string fileName)
-        {
-            try
-            {
-                return Path.GetDirectoryName(fileName);
-            }
-            catch (Exception)
-            {
-                return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            }
-        }
-
-        public static string SafeGetExtension(string fileName)
-        {
-            try
-            {
-                return Path.GetExtension(fileName);
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
-        }
-
-        public static string SafeGetFilenameWithoutExtension(string fileName)
-        {
-            try
-            {
-                return Path.GetFileNameWithoutExtension(fileName);
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
-        }
+namespace Trizbort.Util {
+  internal static class PathHelper {
+    public static string SafeGetDirectoryName(string fileName) {
+      try {
+        return Path.GetDirectoryName(fileName);
+      }
+      catch (Exception) {
+        return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+      }
     }
+
+    public static string SafeGetExtension(string fileName) {
+      try {
+        return Path.GetExtension(fileName);
+      }
+      catch (Exception) {
+        return string.Empty;
+      }
+    }
+
+    public static string SafeGetFilenameWithoutExtension(string fileName) {
+      try {
+        return Path.GetFileNameWithoutExtension(fileName);
+      }
+      catch (Exception) {
+        return string.Empty;
+      }
+    }
+  }
 }

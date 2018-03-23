@@ -1,7 +1,5 @@
-﻿namespace Trizbort.Domain.Enums
-{
-  public enum LightingActionType
-  {
+﻿namespace Trizbort.Domain.Enums {
+  public enum LightingActionType {
     Toggle,
     ForceLight,
     ForceDark

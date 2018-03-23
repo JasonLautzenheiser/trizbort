@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -22,26 +22,24 @@
     THE SOFTWARE.
 */
 
-namespace Trizbort.Domain.Misc
-{
+namespace Trizbort.Domain.Misc {
+  /// <summary>
+  ///   "Depth" of an element, indicating its drawing order.
+  /// </summary>
+  public enum Depth {
     /// <summary>
-    /// "Depth" of an element, indicating its drawing order.
+    ///   Low depth. Draw before Medium and High.
     /// </summary>
-    public enum Depth
-    {
-        /// <summary>
-        /// Low depth. Draw before Medium and High.
-        /// </summary>
-        Low,
+    Low,
 
-        /// <summary>
-        /// Medium depth. Draw before High.
-        /// </summary>
-        Medium,
+    /// <summary>
+    ///   Medium depth. Draw before High.
+    /// </summary>
+    Medium,
 
-        /// <summary>
-        /// High depth.
-        /// </summary>
-        High,
-    }
+    /// <summary>
+    ///   High depth.
+    /// </summary>
+    High
+  }
 }

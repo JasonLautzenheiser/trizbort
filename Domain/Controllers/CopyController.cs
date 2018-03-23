@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,30 +7,23 @@ using Trizbort.Domain.Elements;
 using Trizbort.Domain.Enums;
 using Trizbort.Domain.Misc;
 
-namespace Trizbort.Domain.Controllers
-{
-  public class CopyController
-  {
-    public enum CopyType
-    {
+namespace Trizbort.Domain.Controllers {
+  public class CopyController {
+    public enum CopyType {
       Rooms,
       Colors
     }
 
-    public enum VertexType
-    {
+    public enum VertexType {
       Dock,
       Point
     }
 
-    public void CopyColors(Room selectedElement)
-    {
+    public void CopyColors(Room selectedElement) {
       var colorProperties = selectedElement.GetType().GetProperties().Where(p => p.PropertyType == typeof(Color));
       var list = new List<CopyColorObj>();
-      foreach (var prop in colorProperties)
-      {
-        var xx = new CopyColorObj
-        {
+      foreach (var prop in colorProperties) {
+        var xx = new CopyColorObj {
           Name = prop.Name,
           Color = (Color) prop.GetValue(selectedElement)
         };
@@ -39,8 +31,7 @@ namespace Trizbort.Domain.Controllers
         list.Add(xx);
       }
 
-      var obj = new CopyColorsObj
-      {
+      var obj = new CopyColorsObj {
         Colors = list,
         SecondFillLocation = selectedElement.SecondFillLocation
       };
@@ -49,18 +40,14 @@ namespace Trizbort.Domain.Controllers
       Clipboard.SetText(clipboardText);
     }
 
-    public void CopyElements(List<Element> mSelectedElements)
-    {
-      var xx = new CopyObject { Rooms = new List<CopyRoomObj>(), Connections = new List<CopyConnectionObj>()};
+    public void CopyElements(List<Element> mSelectedElements) {
+      var xx = new CopyObject {Rooms = new List<CopyRoomObj>(), Connections = new List<CopyConnectionObj>()};
 
       foreach (var element in mSelectedElements)
-        if (element is Room)
-        {
+        if (element is Room) {
           var copy = createCopyObj(element as Room);
           xx.Rooms.Add(copy);
-        }
-        else if (element is Connection)
-        {
+        } else if (element is Connection) {
           var copy = createCopyObj(element as Connection);
           xx.Connections.Add(copy);
         }
@@ -69,27 +56,24 @@ namespace Trizbort.Domain.Controllers
       Clipboard.SetText(clipboardText);
     }
 
-    public ICopyObj PasteElements()
-    {
+    public ICopyObj PasteElements() {
       ICopyObj xx;
       try {
         var clipboardText = Clipboard.GetText();
 
-        if (clipboardText.Contains("\"CopyType\": 1")) {
+        if (clipboardText.Contains("\"CopyType\": 1"))
           xx = JsonConvert.DeserializeObject<CopyColorsObj>(clipboardText);
-        } else {
+        else
           xx = JsonConvert.DeserializeObject<CopyObject>(clipboardText);
-        }
       }
-      catch  {
+      catch {
         xx = null;
       }
 
       return xx;
     }
 
-    public void SetConnection(Connection newConnection, CopyConnectionObj connection)
-    {
+    public void SetConnection(Connection newConnection, CopyConnectionObj connection) {
       newConnection.ConnectionColor = connection.ConnectionColor;
       newConnection.Description = connection.Description;
       newConnection.Door = connection.Door;
@@ -101,8 +85,7 @@ namespace Trizbort.Domain.Controllers
       newConnection.Style = connection.Style;
     }
 
-    public void SetRoom(Room newRoom, CopyRoomObj room)
-    {
+    public void SetRoom(Room newRoom, CopyRoomObj room) {
       newRoom.OldID = room.ID;
       newRoom.AddDescription(room.PrimaryDescription);
       newRoom.Shape = room.Shape;
@@ -136,10 +119,8 @@ namespace Trizbort.Domain.Controllers
       newRoom.Size = room.Size;
     }
 
-    private CopyRoomObj createCopyObj(Room room)
-    {
-      var xx = new CopyRoomObj
-      {
+    private CopyRoomObj createCopyObj(Room room) {
+      var xx = new CopyRoomObj {
 //        ID = room.ID,
         Name = room.Name,
         Shape = room.Shape,
@@ -178,10 +159,8 @@ namespace Trizbort.Domain.Controllers
       return xx;
     }
 
-    private CopyConnectionObj createCopyObj(Connection conn)
-    {
-      var xx = new CopyConnectionObj
-      {
+    private CopyConnectionObj createCopyObj(Connection conn) {
+      var xx = new CopyConnectionObj {
         ConnectionColor = conn.ConnectionColor,
         Description = conn.Description,
         Door = conn.Door,
@@ -195,20 +174,17 @@ namespace Trizbort.Domain.Controllers
       };
 
       var ii = 0;
-      foreach (var vertex in conn.VertexList)
-      {
+      foreach (var vertex in conn.VertexList) {
         var yy = new CopyVertexObj {Index = ii};
-        if (vertex.Port != null)
-        {
+        if (vertex.Port != null) {
           yy.Type = VertexType.Dock;
           yy.OwnerId = vertex.Port.Owner.ID;
           yy.PortId = vertex.Port.ID;
-        }
-        else
-        {
+        } else {
           yy.Type = VertexType.Point;
           yy.Position = vertex.Position;
         }
+
         xx.VertextList.Add(yy);
 
         ii++;
@@ -217,15 +193,12 @@ namespace Trizbort.Domain.Controllers
       return xx;
     }
 
-    public class CopyObject : ICopyObj
-    {
+    public class CopyObject : ICopyObj {
       public List<CopyConnectionObj> Connections;
       public List<CopyRoomObj> Rooms;
-      public CopyType CopyType => CopyType.Rooms;
     }
 
-    public class CopyConnectionObj
-    {
+    public class CopyConnectionObj {
       public Color ConnectionColor { get; set; }
       public string Description { get; set; }
       public Door Door { get; set; }
@@ -238,8 +211,7 @@ namespace Trizbort.Domain.Controllers
       public List<CopyVertexObj> VertextList { get; set; }
     }
 
-    public class CopyVertexObj
-    {
+    public class CopyVertexObj {
       public int Index { get; set; }
       public int OwnerId { get; set; }
       public string PortId { get; set; }
@@ -247,8 +219,7 @@ namespace Trizbort.Domain.Controllers
       public VertexType Type { get; set; }
     }
 
-    public class CopyRoomObj
-    {
+    public class CopyRoomObj {
       public bool AllCornersEqual { get; set; }
       public bool ArbitraryAutomappedPosition { get; set; }
       public BorderDashStyle BorderStyle { get; set; }
@@ -284,23 +255,17 @@ namespace Trizbort.Domain.Controllers
     }
 
 
-    public class CopyColorsObj : ICopyObj
-    {
+    public class CopyColorsObj : ICopyObj {
       public List<CopyColorObj> Colors { get; set; }
       public CopyType CopyType => CopyType.Colors;
       public string SecondFillLocation { get; set; }
     }
 
-    public class CopyColorObj
-    {
+    public class CopyColorObj {
       public Color Color { get; set; }
       public string Name { get; set; }
     }
 
-    public interface ICopyObj
-    {
-      
-    }
-
+    public interface ICopyObj { }
   }
 }

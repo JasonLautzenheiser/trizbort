@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -74,19 +74,19 @@ namespace Trizbort.Domain.Application {
 
     public bool IsDirty { get; set; }
 
-    public bool MustHaveDescription { get; set; } = false;
-    public bool MustHaveNoDanglingConnectors { get; set; } = false;
-    public bool MustHaveSubtitle { get; set; } = false;
-    public bool MustHaveUniqueNames { get; set; } = false;
+    public bool MustHaveDescription { get; set; }
+    public bool MustHaveNoDanglingConnectors { get; set; }
+    public bool MustHaveSubtitle { get; set; }
+    public bool MustHaveUniqueNames { get; set; }
 
     public string Name => !HasFileName ? "Untitled" : Path.GetFileNameWithoutExtension(FileName);
 
     public string Title { get; set; }
 
-    public Version Version { get; set; }
+    public Version Version { get; private set; }
 
     public void Dispose() {
-      FileWatcher.ReloadMap -= ReloadMap;
+      FileWatcher.ReloadMap -= reloadMap;
     }
 
     public bool AreRoomsConnected(List<Room> selectedRooms) {
@@ -114,22 +114,21 @@ namespace Trizbort.Domain.Application {
       return false;
     }
 
-    public bool Backup() {
+    public void Backup() {
       if (HasFileName) {
         var nextAvailableFilename = FileName.NextAvailableFilename();
         File.Copy(FileName, nextAvailableFilename);
         MessageBox.Show($"You project has been backed up to {nextAvailableFilename}.", "Project backed up.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        return true;
+        return;
       }
 
       MessageBox.Show("Your project has not yet been saved to a file. There is nothing to backup.", "Nothing to backup.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-      return false;
     }
 
     public void CheckDocVersion() {
       var appVers = Version.Parse(System.Windows.Forms.Application.ProductVersion);
       var infoList = $"Executable Version = {System.Windows.Forms.Application.ProductVersion}{Environment.NewLine}Document Version = {Version}{Environment.NewLine}{Environment.NewLine}";
-      var newVersionText = $"Visit www.trizbort.com to learn about and download the latest version.";
+      var newVersionText = "Visit www.trizbort.com to learn about and download the latest version.";
 
       if (Version.Major < appVers.Major) return;
       if (Version.Major > appVers.Major) {
@@ -163,17 +162,12 @@ namespace Trizbort.Domain.Application {
       return false;
     }
 
-    public List<Element> GetElementByName(string name) {
-      var list = Elements.Where(p => p.Name == name).ToList();
-      return list;
-    }
-
     public List<Element> GetSelectedElements() {
       return Canvas.SelectedElements.ToList();
     }
 
     public void InitFileWWatcher(string fileName) {
-      FileWatcher.ReloadMap += ReloadMap;
+      FileWatcher.ReloadMap += reloadMap;
       FileWatcher.InitializeWatcher(fileName);
     }
 
@@ -183,7 +177,7 @@ namespace Trizbort.Domain.Application {
     }
 
     public bool Load() {
-      FileWatcher.ReloadMap -= ReloadMap;
+      FileWatcher.ReloadMap -= reloadMap;
 
       var loader = new MapLoader(this);
       return loader.LoadMap(FileName);
@@ -236,7 +230,7 @@ namespace Trizbort.Domain.Application {
       projectChanged?.Invoke(null, new ProjectChangedEventArgs(oldProject, newProject));
     }
 
-    private void ReloadMap(object sender, EventArgs e) {
+    private void reloadMap(object sender, EventArgs e) {
       TrizbortApplication.MainForm.OpenProject(FileName);
     }
   }

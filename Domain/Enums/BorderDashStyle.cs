@@ -1,13 +1,11 @@
-﻿namespace Trizbort.Domain.Enums
-{
-  public enum BorderDashStyle
-  {
+﻿namespace Trizbort.Domain.Enums {
+  public enum BorderDashStyle {
     None,
     Solid,
     Dot,
-    Dash, 
-    DashDot, 
-    DashDotDot, 
+    Dash,
+    DashDot,
+    DashDotDot,
     Custom
   }
 }

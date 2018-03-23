@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -26,13 +26,8 @@ using System;
 using System.Diagnostics;
 using Trizbort.Automap;
 
-namespace Trizbort.Domain.Misc
-{
-  /// <summary>
-  ///   A abstract point on the compass rose.
-  /// </summary>
-  public enum CompassPoint
-  {
+namespace Trizbort.Domain.Misc {
+  public enum CompassPoint {
     North,
     NorthNorthEast,
     NorthEast,
@@ -55,10 +50,8 @@ namespace Trizbort.Domain.Misc
     Max = NorthNorthWest
   }
 
-  internal static class CompassPointHelper
-  {
-    private static readonly string[] Names =
-    {
+  internal static class CompassPointHelper {
+    private static readonly string[] Names = {
       "n",
       "nne",
       "ne",
@@ -78,15 +71,13 @@ namespace Trizbort.Domain.Misc
     };
 
 
-    public static double CalcRadianForEllipse(CompassPoint point, Rect rect)
-    {
+    public static double CalcRadianForEllipse(CompassPoint point, Rect rect) {
       var angleIncrement = 360.0 / 16.0;
       var i = getPointIntegerValue(point);
       return i * angleIncrement * (Math.PI / 180);
     }
 
-    public static CompassPoint DirectionFromAngle(out float angle, Vector delta)
-    {
+    public static CompassPoint DirectionFromAngle(out float angle, Vector delta) {
       angle = (float) -(Math.Atan2(delta.Y, delta.X) / Math.PI * 180.0);
       var compassPoint = CompassPoint.East;
       if (Numeric.InRange(angle, 0, 45))
@@ -108,14 +99,13 @@ namespace Trizbort.Domain.Misc
       return compassPoint;
     }
 
-    public static bool FromName(string name, out CompassPoint point)
-    {
+    public static bool FromName(string name, out CompassPoint point) {
       for (var index = 0; index < Names.Length; ++index)
-        if (StringComparer.InvariantCultureIgnoreCase.Compare(name ?? string.Empty, Names[index]) == 0)
-        {
+        if (StringComparer.InvariantCultureIgnoreCase.Compare(name ?? string.Empty, Names[index]) == 0) {
           point = (CompassPoint) index;
           return true;
         }
+
       point = CompassPoint.North;
       return false;
     }
@@ -128,10 +118,8 @@ namespace Trizbort.Domain.Misc
     ///   Two compass points have the same direction vector if they are mapped
     ///   onto the the same side of a box drawn to represent the room.
     /// </remarks>
-    public static Vector GetAutomapDirectionVector(CompassPoint compassPoint)
-    {
-      switch (compassPoint)
-      {
+    public static Vector GetAutomapDirectionVector(CompassPoint compassPoint) {
+      switch (compassPoint) {
         case CompassPoint.NorthNorthWest:
         case CompassPoint.North:
         case CompassPoint.NorthNorthEast:
@@ -171,10 +159,8 @@ namespace Trizbort.Domain.Misc
     ///   the automap opposite is the corresponding point on the opposite
     ///   side of the box.
     /// </remarks>
-    public static CompassPoint GetAutomapOpposite(CompassPoint point)
-    {
-      switch (point)
-      {
+    public static CompassPoint GetAutomapOpposite(CompassPoint point) {
+      switch (point) {
         case CompassPoint.North:
           return CompassPoint.South;
         case CompassPoint.NorthNorthEast:
@@ -217,10 +203,8 @@ namespace Trizbort.Domain.Misc
     ///   Convert an automap direction into a compass point.
     ///   Compass directions map directly; up/down/in/out are assigned specific other diretions.
     /// </summary>
-    public static CompassPoint GetCompassDirection(AutomapDirection direction)
-    {
-      switch (direction)
-      {
+    public static CompassPoint GetCompassDirection(AutomapDirection direction) {
+      switch (direction) {
         case AutomapDirection.Up:
           return CompassPoint.NorthNorthWest;
         case AutomapDirection.Down:
@@ -251,24 +235,23 @@ namespace Trizbort.Domain.Misc
       }
     }
 
-    public static CompassPoint GetCompassPointFromDirectionVector(Vector vector)
-    {
-      if (vector.X < 0)
-      {
+    public static CompassPoint GetCompassPointFromDirectionVector(Vector vector) {
+      if (vector.X < 0) {
         if (vector.Y < 0)
           return CompassPoint.NorthWest;
         if (vector.Y > 0)
           return CompassPoint.SouthWest;
         return CompassPoint.West;
       }
-      if (vector.X > 0)
-      {
+
+      if (vector.X > 0) {
         if (vector.Y < 0)
           return CompassPoint.NorthEast;
         if (vector.Y > 0)
           return CompassPoint.SouthEast;
         return CompassPoint.East;
       }
+
       if (vector.Y < 0)
         return CompassPoint.North;
       if (vector.Y > 0)
@@ -281,8 +264,7 @@ namespace Trizbort.Domain.Misc
     /// <summary>
     ///   "Round" the compass point to the nearest cardinal or ordinal direction.
     /// </summary>
-    public static CompassPoint GetNearestCardinalOrOrdinal(CompassPoint compassPoint)
-    {
+    public static CompassPoint GetNearestCardinalOrOrdinal(CompassPoint compassPoint) {
       return GetCompassPointFromDirectionVector(GetAutomapDirectionVector(compassPoint));
     }
 
@@ -291,8 +273,7 @@ namespace Trizbort.Domain.Misc
     /// </summary>
     /// <param name="point"></param>
     /// <returns></returns>
-    public static CompassPoint GetOpposite(CompassPoint point)
-    {
+    public static CompassPoint GetOpposite(CompassPoint point) {
       for (var index = 0; index < (CompassPoint.Max - CompassPoint.Min + 1) / 2; ++index)
         point = RotateClockwise(point);
       return point;
@@ -301,10 +282,8 @@ namespace Trizbort.Domain.Misc
     /// <summary>
     ///   Get the literal opposite of any direction.
     /// </summary>
-    public static AutomapDirection GetOpposite(AutomapDirection direction)
-    {
-      switch (direction)
-      {
+    public static AutomapDirection GetOpposite(AutomapDirection direction) {
+      switch (direction) {
         case AutomapDirection.North:
           return AutomapDirection.South;
         case AutomapDirection.South:
@@ -338,8 +317,7 @@ namespace Trizbort.Domain.Misc
     /// <summary>
     ///   Rotate a point anti-clockwise to find its neighbour on that side.
     /// </summary>
-    public static CompassPoint RotateAntiClockwise(CompassPoint point)
-    {
+    public static CompassPoint RotateAntiClockwise(CompassPoint point) {
       point = (CompassPoint) ((int) point - 1);
       if (point < CompassPoint.Min)
         point = CompassPoint.Max;
@@ -349,8 +327,7 @@ namespace Trizbort.Domain.Misc
     /// <summary>
     ///   Rotate a point clockwise to find its neighbour on that side.
     /// </summary>
-    public static CompassPoint RotateClockwise(CompassPoint point)
-    {
+    public static CompassPoint RotateClockwise(CompassPoint point) {
       point = (CompassPoint) ((int) point + 1);
       if (point > CompassPoint.Max)
         point = CompassPoint.Min;
@@ -358,23 +335,20 @@ namespace Trizbort.Domain.Misc
     }
 
 
-    public static bool ToName(CompassPoint point, out string name)
-    {
+    public static bool ToName(CompassPoint point, out string name) {
       var index = (int) point;
-      if (index >= 0 && index < Names.Length)
-      {
+      if (index >= 0 && index < Names.Length) {
         name = Names[index];
         return true;
       }
+
       name = string.Empty;
       return false;
     }
 
 
-    private static int getPointIntegerValue(CompassPoint point)
-    {
-      switch (point)
-      {
+    private static int getPointIntegerValue(CompassPoint point) {
+      switch (point) {
         case CompassPoint.North:
           return 12;
         case CompassPoint.NorthNorthEast:

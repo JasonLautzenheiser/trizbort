@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2015 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 
@@ -24,17 +24,13 @@
 
 using Trizbort.Domain.Elements;
 
-namespace Trizbort.Domain.Misc
-{
-  public abstract class MoveablePort : Port
-  {
-    protected MoveablePort(Element owner): base(owner)
-    {
-    }
+namespace Trizbort.Domain.Misc {
+  public abstract class MoveablePort : Port {
+    protected MoveablePort(Element owner) : base(owner) { }
 
     public abstract Port DockedAt { get; }
+    public abstract void DockAt(Port port);
 
     public abstract void SetPosition(Vector pos);
-    public abstract void DockAt(Port port);
   }
 }

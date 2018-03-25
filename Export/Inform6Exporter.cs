@@ -114,14 +114,14 @@ namespace Trizbort.Export {
     }
 
     protected override string GetExportName(Room room, int? suffix) {
-      var name = deaccent(stripUnaccentedCharacters(room.Name)).Replace(" ", "");
+      var name = Deaccent(stripUnaccentedCharacters(room.Name)).Replace(" ", "");
       if (string.IsNullOrEmpty(name)) name = "room";
       if (suffix != null) name = $"{name}{suffix}";
       return name;
     }
 
     protected override string GetExportName(string displayName, int? suffix) {
-      var name = deaccent(stripUnaccentedCharacters(displayName)).Replace(" ", "");
+      var name = Deaccent(stripUnaccentedCharacters(displayName)).Replace(" ", "");
       if (string.IsNullOrEmpty(name)) name = "item";
       if (suffix != null) name = $"{name}{suffix}";
       return name;
@@ -200,7 +200,7 @@ namespace Trizbort.Export {
       var output = string.Empty;
       foreach (var word in words) {
         if (output.Length > 0) output += ' ';
-        output += toI6String(deaccent(word), SINGLE_QUOTE);
+        output += toI6String(Deaccent(word), SINGLE_QUOTE);
       }
 
       return output;
@@ -210,7 +210,7 @@ namespace Trizbort.Export {
       var oppositeDirection = CompassPointHelper.GetOpposite(direction);
       var reciprocal = exit.Target.GetBestExit(oppositeDirection);
       writer.WriteLine("Object {0} {1}", GetExportName(exit.ConnectionName, null), exit.ConnectionDescription);
-      writer.WriteLine("  with  name {0},", toI6Words(deaccent(stripUnaccentedCharacters(exit.ConnectionName))));
+      writer.WriteLine("  with  name {0},", toI6Words(Deaccent(stripUnaccentedCharacters(exit.ConnectionName))));
       writer.WriteLine("        description {0},", toI6String(exit.ConnectionDescription, DOUBLE_QUOTE));
       writer.WriteLine("        found_in {0} {1},", location.ExportName, exit.Target.ExportName);
       writer.WriteLine("        door_to [; if (self in {0}) return {1}; return {0};],", location.ExportName, exit.Target.ExportName);
@@ -240,7 +240,7 @@ namespace Trizbort.Export {
     private void writeOneThing(TextWriter writer, Thing thing, int indent) {
       writer.WriteLine("Object {0} {1} {2}", repeat("-> ", indent), thing.ExportName, toI6String(stripUnaccentedCharacters(thing.DisplayName).Trim(), DOUBLE_QUOTE));
 
-      writer.Write("  with  name {0}", toI6Words(deaccent(stripUnaccentedCharacters(thing.DisplayName))));
+      writer.Write("  with  name {0}", toI6Words(Deaccent(stripUnaccentedCharacters(thing.DisplayName))));
       writer.Write("        description {0}", toI6String(thing.DisplayName, DOUBLE_QUOTE));
       if (thing.Contents.Count > 0) {
         writer.WriteLine(",");

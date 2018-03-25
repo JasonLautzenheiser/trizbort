@@ -38,9 +38,6 @@ using Trizbort.Util;
 
 namespace Trizbort.Export {
   public abstract class CodeExporter : IDisposable {
-    /// <summary>
-    ///   The collection of locations to export, indexed by their corresponding room.
-    /// </summary>
     private readonly Dictionary<Room, Location> mMapRoomToLocation = new Dictionary<Room, Location>();
 
     protected CodeExporter() {
@@ -58,11 +55,8 @@ namespace Trizbort.Export {
       }
     }
 
-    protected virtual Encoding Encoding => Encoding.UTF8;
+    private Encoding encoding => Encoding.UTF8;
 
-    /// <summary>
-    ///   The collection of locations on the map, in the order in which they should be exported.
-    /// </summary>
     protected List<Location> LocationsInExportOrder { get; }
 
     protected List<ExportRegion> RegionsInExportOrder { get; }
@@ -73,7 +67,7 @@ namespace Trizbort.Export {
       Dispose(true);
     }
 
-    public static string deaccent(string mystr) {
+    protected static string Deaccent(string mystr) {
       var x = "";
       foreach (var c in mystr)
         if (c >= 'à' && c <= 'å')
@@ -138,7 +132,7 @@ namespace Trizbort.Export {
     }
 
     protected virtual StreamWriter Create(string fileName) {
-      return new StreamWriter(fileName, false, Encoding, 2 ^ 16);
+      return new StreamWriter(fileName, false, encoding, 2 ^ 16);
     }
 
     protected virtual void Dispose(bool disposing) { }
@@ -155,17 +149,15 @@ namespace Trizbort.Export {
       // don't decide yet which exit is "the" from a room in a particular direction,
       // since we need to compare all a room's exits for that.
       foreach (var connection in Project.Current.Elements.OfType<Connection>()) {
-        CompassPoint sourceCompassPoint, targetCompassPoint;
-        var sourceRoom = connection.GetSourceRoom(out sourceCompassPoint);
-        var targetRoom = connection.GetTargetRoom(out targetCompassPoint);
+        var sourceRoom = connection.GetSourceRoom(out var sourceCompassPoint);
+        var targetRoom = connection.GetTargetRoom(out var targetCompassPoint);
 
         if (sourceRoom == null || targetRoom == null) continue;
 
         if (sourceRoom == targetRoom && sourceCompassPoint == targetCompassPoint) continue;
 
-        Location sourceLocation, targetLocation;
-        if (mMapRoomToLocation.TryGetValue(sourceRoom, out sourceLocation) &&
-            mMapRoomToLocation.TryGetValue(targetRoom, out targetLocation)) {
+        if (mMapRoomToLocation.TryGetValue(sourceRoom, out var sourceLocation) &&
+            mMapRoomToLocation.TryGetValue(targetRoom, out var targetLocation)) {
           sourceLocation.AddExit(new Exit(sourceLocation, targetLocation, sourceCompassPoint, connection.StartText, connection));
 
           if (connection.Flow == ConnectionFlow.TwoWay) targetLocation.AddExit(new Exit(targetLocation, sourceLocation, targetCompassPoint, connection.EndText, connection));
@@ -301,7 +293,6 @@ namespace Trizbort.Export {
         ExportName = exportName;
       }
 
-      public bool Exported { get; set; }
       public string ExportName { get; }
 
       public Region Region { get; }
@@ -316,7 +307,6 @@ namespace Trizbort.Export {
         ExportName = exportName;
       }
 
-      public bool Exported { get; set; }
       public string ExportName { get; }
 
       public Room Room { get; }
@@ -527,15 +517,15 @@ namespace Trizbort.Export {
 
     protected class Thing {
       public enum Amounts {
-        noforce,
-        singular,
-        plural
+        Noforce,
+        Singular,
+        Plural
       }
 
       public enum ThingGender {
-        neuter,
-        male,
-        female
+        Neuter,
+        Male,
+        Female
       }
 
       public Thing(string displayName, string exportName, Location location, Thing container, int indent, string propString) {
@@ -550,57 +540,57 @@ namespace Trizbort.Export {
         Contents = new List<Thing>();
         PropString = propString;
 
-        var PropRegx = new Regex("[fmp12csu!]");
-        var errString = PropRegx.Replace(PropString, "");
+        var propRegx = new Regex("[fmp12csu!]");
+        var errString = propRegx.Replace(PropString, "");
 
         if (!string.IsNullOrWhiteSpace(errString))
           WarningText += "The properties string " + PropString + " has the invalid character" + (errString.Length == 1 ? "" : "s") + " " + errString + ".\n";
 
         //P defines a neuter person. F female, M male.
         if (propString.Contains("f")) {
-          isPerson = true;
-          gender = ThingGender.female;
+          IsPerson = true;
+          Gender = ThingGender.Female;
         }
 
         if (propString.Contains("m")) {
-          if (isPerson) WarningText += "You defined two different genders: " + Enum.GetName(typeof(ThingGender), gender) + " then male.\n";
-          gender = ThingGender.male;
-          isPerson = true;
+          if (IsPerson) WarningText += "You defined two different genders: " + Enum.GetName(typeof(ThingGender), Gender) + " then male.\n";
+          Gender = ThingGender.Male;
+          IsPerson = true;
         }
 
         if (propString.Contains("p")) {
-          if (isPerson) WarningText += "You defined two different genders: " + Enum.GetName(typeof(ThingGender), gender) + " then neuter.\n";
-          gender = ThingGender.neuter;
-          isPerson = true;
+          if (IsPerson) WarningText += "You defined two different genders: " + Enum.GetName(typeof(ThingGender), Gender) + " then neuter.\n";
+          Gender = ThingGender.Neuter;
+          IsPerson = true;
         }
 
         //We can force plural or singular. Default is let Trizbort decide.
-        forceplural = Amounts.noforce;
-        if (propString.Contains("1")) forceplural = Amounts.singular;
+        Forceplural = Amounts.Noforce;
+        if (propString.Contains("1")) Forceplural = Amounts.Singular;
         if (propString.Contains("2")) {
-          if (forceplural != Amounts.noforce) WarningText += "You defined this object as both singular and plural.\n";
-          forceplural = Amounts.plural;
+          if (Forceplural != Amounts.Noforce) WarningText += "You defined this object as both singular and plural.\n";
+          Forceplural = Amounts.Plural;
         }
 
         //this isn't perfect. If something contains something else, then we need to add that as well.
         if (propString.Contains("c"))
-          if (isPerson)
+          if (IsPerson)
             WarningText += "You defined this as a person and container. This will cause Inform to throw an error.\n";
           else
-            isContainer = true;
+            IsContainer = true;
         if (propString.Contains("s")) {
-          if (isPerson)
+          if (IsPerson)
             WarningText += "You defined this as a person and scenery. Inform allows that, but you may not want to hide this person.\n";
-          isScenery = true;
+          IsScenery = true;
         }
 
         if (propString.Contains("u"))
-          if (isPerson)
+          if (IsPerson)
             WarningText += "You defined this as a person and a supporter. This will cause Inform to throw an error.\n";
           else
-            isSupporter = true;
+            IsSupporter = true;
 
-        if (propString.Contains("!")) properNamed = true;
+        if (propString.Contains("!")) ProperNamed = true;
       }
 
       public Thing Container { get; }
@@ -609,15 +599,15 @@ namespace Trizbort.Export {
 
       public string DisplayName { get; }
       public string ExportName { get; }
-      public Amounts forceplural { get; }
-      public ThingGender gender { get; }
+      public Amounts Forceplural { get; }
+      public ThingGender Gender { get; }
       public int Indent { get; }
-      public bool isContainer { get; }
-      public bool isPerson { get; }
-      public bool isScenery { get; }
-      public bool isSupporter { get; }
+      public bool IsContainer { get; }
+      public bool IsPerson { get; }
+      public bool IsScenery { get; }
+      public bool IsSupporter { get; }
       public Location Location { get; }
-      public bool properNamed { get; }
+      public bool ProperNamed { get; }
 
       public string PropString { get; }
       public string WarningText { get; }

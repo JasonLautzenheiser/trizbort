@@ -140,9 +140,9 @@ namespace Trizbort.Export {
     private string getArticle(Thing myThing) {
       var noun = myThing.ExportName;
 
-      if (myThing.properNamed) return "";
+      if (myThing.ProperNamed) return "";
 
-      if (string.IsNullOrEmpty(noun) || isPlural(noun) || myThing.forceplural == Thing.Amounts.plural) {
+      if (string.IsNullOrEmpty(noun) || isPlural(noun) || myThing.Forceplural == Thing.Amounts.Plural) {
         if (!string.IsNullOrEmpty(noun) && char.IsUpper(noun[0])) return string.Empty;
 
         // e.g. "Some canvas", "Some leaves"
@@ -203,7 +203,7 @@ namespace Trizbort.Export {
     }
 
     private static string isAre(Thing myThing) {
-      if (myThing.forceplural == Thing.Amounts.plural) return "are";
+      if (myThing.Forceplural == Thing.Amounts.Plural) return "are";
       return "is";
     }
 
@@ -213,7 +213,6 @@ namespace Trizbort.Export {
 
     private bool printThisLoc(TextWriter writer, Location location) {
       // remember we've exported this location
-      location.Exported = true;
 
       writer.WriteLine("part {0}", location.ExportName);
       writer.WriteLine();
@@ -327,11 +326,11 @@ namespace Trizbort.Export {
     }
 
     private static string whatItIs(Thing thing) {
-      var whatString = "is a " + (thing.forceplural == Thing.Amounts.plural ? "plural-named " : "") + (thing.properNamed ? "proper-named " : "") + "thing";
-      if (thing.isScenery) whatString += $". {thing.ExportName} is scenery";
-      if (thing.isContainer) whatString += $". {thing.ExportName} is a container";
-      if (thing.isSupporter) whatString += $". {thing.ExportName} is a supporter";
-      if (thing.isPerson) whatString += $". {thing.ExportName} is a " + Enum.GetName(typeof(Thing.ThingGender), thing.gender) + " person";
+      var whatString = "is a " + (thing.Forceplural == Thing.Amounts.Plural ? "plural-named " : "") + (thing.ProperNamed ? "proper-named " : "") + "thing";
+      if (thing.IsScenery) whatString += $". {thing.ExportName} is scenery";
+      if (thing.IsContainer) whatString += $". {thing.ExportName} is a container";
+      if (thing.IsSupporter) whatString += $". {thing.ExportName} is a supporter";
+      if (thing.IsPerson) whatString += $". {thing.ExportName} is a " + Enum.GetName(typeof(Thing.ThingGender), thing.Gender) + " person";
       return whatString;
     }
 

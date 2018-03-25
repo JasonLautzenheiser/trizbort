@@ -29,8 +29,6 @@ namespace Trizbort.Export {
       // export location
       bool needConditionalFunction = false, wroteConditionalFunction = false;
       foreach (var location in LocationsInExportOrder) {
-        location.Exported = true;
-
         writer.WriteLine();
         writer.WriteLine($"<ROOM {location.ExportName}");
         writer.WriteLine($"    (DESC {toZILString(location.Room.Name)})");

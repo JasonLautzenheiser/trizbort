@@ -89,9 +89,8 @@ namespace Trizbort.Export
     private void printThisLoc(TextWriter writer, Location location)
     {
         // remember we've exported this location
-        location.Exported = true;
 
-        writer.WriteLine("The {0} isa location Name '{1}'", location.ExportName, location.Room.Name);
+      writer.WriteLine("The {0} isa location Name '{1}'", location.ExportName, location.Room.Name);
 
         string nowhereExits = "";
 
@@ -155,7 +154,7 @@ namespace Trizbort.Export
 
         foreach (var thing in location.Things)
         {
-          writer.WriteLine("The {0} isa {1} at {2}.", thing.ExportName, thing.isPerson ? "actor" : "thing", location.ExportName);
+          writer.WriteLine("The {0} isa {1} at {2}.", thing.ExportName, thing.IsPerson ? "actor" : "thing", location.ExportName);
           writer.WriteLine("  IsDisplayedAs {0}.", thing.DisplayName);
           writer.WriteLine("End The {0}.", thing.ExportName);
           /*if (!string.IsNullOrWhiteSpace(thing.WarningText))

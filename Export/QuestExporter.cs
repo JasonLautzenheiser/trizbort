@@ -49,21 +49,21 @@ namespace Trizbort.Export {
         foreach (var thing in location.Things) {
           writer.WriteLine("    <object name=\"{0}\">", thing.ExportName);
           writer.WriteLine("      <inherit name=\"editor_object\" />");
-          if (thing.isScenery) writer.WriteLine("      <scenery />");
-          if (thing.isContainer) {
+          if (thing.IsScenery) writer.WriteLine("      <scenery />");
+          if (thing.IsContainer) {
             writer.WriteLine("      <feature_container />");
             writer.WriteLine("      <inherit name=\"container_closed\" />");
           }
 
-          if (thing.forceplural == Thing.Amounts.plural) writer.WriteLine("      <inherit name=\"plural\" />");
-          if (thing.isPerson)
-            if (thing.gender == Thing.ThingGender.female)
-              if (thing.properNamed)
+          if (thing.Forceplural == Thing.Amounts.Plural) writer.WriteLine("      <inherit name=\"plural\" />");
+          if (thing.IsPerson)
+            if (thing.Gender == Thing.ThingGender.Female)
+              if (thing.ProperNamed)
                 writer.WriteLine("      <inherit name=\"namedfemale\" />");
               else
                 writer.WriteLine("      <inherit name=\"female\" />");
-            else if (thing.gender == Thing.ThingGender.male)
-              if (thing.properNamed)
+            else if (thing.Gender == Thing.ThingGender.Male)
+              if (thing.ProperNamed)
                 writer.WriteLine("      <inherit name=\"namedmale\" />");
               else
                 writer.WriteLine("      <inherit name=\"male\" />");

@@ -190,9 +190,10 @@ namespace Trizbort.UI
       this.m_toggleDottedLinesButton = new System.Windows.Forms.ToolStripButton();
       this.m_toggleDirectionalLinesButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+      this.statusBar = new System.Windows.Forms.StatusStrip();
+      this.m_fileOpenFromWebMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.Canvas = new Trizbort.UI.Controls.Canvas();
       this.m_automapBar = new Trizbort.UI.Controls.AutomapBar();
-      this.statusBar = new System.Windows.Forms.StatusStrip();
       this.m_menuStrip.SuspendLayout();
       this.m_toolStrip.SuspendLayout();
       this.SuspendLayout();
@@ -220,6 +221,7 @@ namespace Trizbort.UI
             this.m_fileNewMenuItem,
             this.toolStripSeparator1,
             this.m_fileOpenMenuItem,
+            this.m_fileOpenFromWebMenuItem,
             this.toolStripSeparator9,
             this.m_fileSaveMenuItem,
             this.m_fileSaveAsMenuItem,
@@ -1312,6 +1314,21 @@ namespace Trizbort.UI
       this.toolStripSeparator4.Name = "toolStripSeparator4";
       this.toolStripSeparator4.Size = new System.Drawing.Size(6, 6);
       // 
+      // statusBar
+      // 
+      this.statusBar.Location = new System.Drawing.Point(0, 1007);
+      this.statusBar.Name = "statusBar";
+      this.statusBar.Size = new System.Drawing.Size(1928, 22);
+      this.statusBar.TabIndex = 5;
+      this.statusBar.Text = "statusStrip1";
+      // 
+      // m_fileOpenFromWebMenuItem
+      // 
+      this.m_fileOpenFromWebMenuItem.Name = "m_fileOpenFromWebMenuItem";
+      this.m_fileOpenFromWebMenuItem.Size = new System.Drawing.Size(213, 22);
+      this.m_fileOpenFromWebMenuItem.Text = "Open Map from Web...";
+      this.m_fileOpenFromWebMenuItem.Click += new System.EventHandler(this.m_fileOpenFromWebMenuItem_Click);
+      // 
       // Canvas
       // 
       this.Canvas.BackColor = System.Drawing.Color.White;
@@ -1333,16 +1350,7 @@ namespace Trizbort.UI
       this.m_automapBar.MinimumSize = new System.Drawing.Size(2, 29);
       this.m_automapBar.Name = "m_automapBar";
       this.m_automapBar.Size = new System.Drawing.Size(1890, 29);
-      this.m_automapBar.Status = "(Status)";
       this.m_automapBar.TabIndex = 4;
-      // 
-      // statusBar
-      // 
-      this.statusBar.Location = new System.Drawing.Point(0, 1007);
-      this.statusBar.Name = "statusBar";
-      this.statusBar.Size = new System.Drawing.Size(1928, 22);
-      this.statusBar.TabIndex = 5;
-      this.statusBar.Text = "statusStrip1";
       // 
       // MainForm
       // 
@@ -1507,6 +1515,7 @@ namespace Trizbort.UI
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
     private System.Windows.Forms.ToolStripMenuItem endRoomToolStripMenuItem;
     private System.Windows.Forms.StatusStrip statusBar;
+    private System.Windows.Forms.ToolStripMenuItem m_fileOpenFromWebMenuItem;
   }
 }
 

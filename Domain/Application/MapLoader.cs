@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Trizbort.Setup;
 
 namespace Trizbort.Domain.Application {
@@ -27,7 +28,15 @@ namespace Trizbort.Domain.Application {
     }
 
     private bool isEmptyFile(string fileName) {
+      if (Uri.IsWellFormedUriString(fileName, UriKind.RelativeOrAbsolute))
+        return false;
+
       return new FileInfo(fileName).Length == 0;
+    }
+
+    public bool LoadMap(Uri url) {
+
+      return LoadMap(url.AbsoluteUri);
     }
   }
 }

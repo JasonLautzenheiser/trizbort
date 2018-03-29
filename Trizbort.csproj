@@ -157,6 +157,7 @@
     <Compile Include="Domain\Application\MapStatistics.cs" />
     <Compile Include="Domain\Misc\MoveablePort.cs" />
     <Compile Include="Domain\Misc\Numeric.cs" />
+    <Compile Include="UI\InputDialog.cs" />
     <Compile Include="Util\ClipboardHelper.cs" />
     <Compile Include="Util\PathHelper.cs" />
     <Compile Include="Domain\Misc\Port.cs" />

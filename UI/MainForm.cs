@@ -49,6 +49,7 @@ using Trizbort.UI.Controls;
 using Trizbort.Util;
 using Settings = Trizbort.Setup.Settings;
 using AutoUpdaterDotNET;
+using Trizbort.Extensions;
 
 namespace Trizbort.UI {
   public partial class MainForm : Form {
@@ -94,14 +95,6 @@ namespace Trizbort.UI {
           ApplicationSettingsController.AppSettings.LastProjectFileName = dialog.FileName;
           OpenProject(dialog.FileName);
         }
-      }
-    }
-
-    public void OpenProject(string fileName) {
-      var project = new Project {FileName = fileName};
-      if (project.Load()) {
-        Project.Current = project;
-        ApplicationSettingsController.OpenProject(fileName);
       }
     }
 
@@ -477,7 +470,10 @@ namespace Trizbort.UI {
     }
 
     private void FileSaveMenuItem_Click(object sender, EventArgs e) {
-      saveProject();
+      if (Project.Current.FileName.isUrl())
+        saveAsProject();
+      else
+        saveProject();
     }
 
     private static string getExtensionForDefaultImageType() {
@@ -582,7 +578,8 @@ namespace Trizbort.UI {
 
       if (ApplicationSettingsController.AppSettings.LoadLastProjectOnStart && !projectLoaded)
         try {
-          BeginInvoke((MethodInvoker) delegate { OpenProject(ApplicationSettingsController.AppSettings.LastProjectFileName); });
+          if (ApplicationSettingsController.AppSettings.LastProjectFileName.isUrl() || File.Exists(ApplicationSettingsController.AppSettings.LastProjectFileName))
+            BeginInvoke((MethodInvoker) delegate { OpenProject(ApplicationSettingsController.AppSettings.LastProjectFileName); });
         }
         catch (Exception) {
           // ignored
@@ -709,15 +706,20 @@ namespace Trizbort.UI {
 
     private bool saveAsProject() {
       using (var dialog = new SaveFileDialog()) {
-        if (!string.IsNullOrEmpty(Project.Current.FileName))
-          dialog.FileName = Project.Current.FileName;
-        else
-          dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(ApplicationSettingsController.AppSettings.LastProjectFileName);
+        if (!Project.Current.FileName.isUrl()) {
+          if (!string.IsNullOrEmpty(Project.Current.FileName))
+            dialog.FileName = Project.Current.FileName;
+          else
+            dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(ApplicationSettingsController.AppSettings.LastProjectFileName);
+        } else {
+          dialog.FileName = Path.GetFileName(Project.Current.FileName);
+        }
+
         dialog.Filter = $"{Project.FilterString}|All Files|*.*||";
         if (dialog.ShowDialog() == DialogResult.OK) {
           ApplicationSettingsController.AppSettings.LastProjectFileName = dialog.FileName;
           Project.Current.FileName = dialog.FileName;
-          if (Project.Current.Save()) {
+          if (Project.Current.Save(true)) {
             ApplicationSettingsController.AppSettings.RecentProjects.Add(Project.Current.FileName);
             return true;
           }
@@ -841,6 +843,12 @@ namespace Trizbort.UI {
     }
 
     private bool saveProject() {
+      if (Project.Current.FileName.isUrl())
+      {
+        MessageBox.Show("You are trying to save a map loaded from the web.  Please use the 'Save Map As...' to save the map to your local drive.", "Problem saving map.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        return false;
+      }
+
       if (!Project.Current.HasFileName) return saveAsProject();
 
       if (Project.Current.Save()) {
@@ -911,7 +919,7 @@ namespace Trizbort.UI {
         var index = 1;
         var removedFiles = new List<string>();
         foreach (var recentProject in ApplicationSettingsController.AppSettings.RecentProjects)
-          if (File.Exists(recentProject)) {
+          if (recentProject.isUrl() || File.Exists(recentProject)) {
             var menuItem = new ToolStripMenuItem($"&{index++} {recentProject}") {Tag = recentProject};
             menuItem.Click += FileRecentProject_Click;
             m_fileRecentMapsMenuItem.DropDownItems.Add(menuItem);
@@ -931,8 +939,10 @@ namespace Trizbort.UI {
       }
 
       var mSaved = false;
-      if (!Project.Current.HasFileName || Project.Current.IsDirty) {
-        if (MessageBox.Show("Your project needs to be saved before we can do a SmartSave.  Would you like to save the project now?", "Save Project?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) mSaved = saveProject();
+      if (Project.Current.FileName.isUrl() || (!Project.Current.HasFileName || Project.Current.IsDirty)) {
+        if (MessageBox.Show("Your project needs to be saved before we can do a SmartSave.  Would you like to save the project now?", "Save Project?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+          mSaved = Project.Current.FileName.isUrl() ? saveAsProject() : saveProject();
+        }
       } else {
         mSaved = true;
       }
@@ -1151,6 +1161,46 @@ namespace Trizbort.UI {
     private void zILToolStripMenuItem_Click(object sender, EventArgs e) {
       var fileName = ApplicationSettingsController.AppSettings.LastExportZilFileName;
       if (exportCode<ZilExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportZilFileName = fileName;
+    }
+
+    private void m_fileOpenFromWebMenuItem_Click(object sender, EventArgs e) {
+      string url = string.Empty;
+      InputDialogItem[] items = {
+        new InputDialogItem("URL", url)
+      };
+
+      InputDialog input = InputDialog.Show("Load from Web", items, InputBoxButtons.OKCancel);
+      if (input.Result == InputBoxResult.OK) {
+        openURL(input.Items["URL"]);
+      }
+    }
+
+    private void openURL(string url) {
+      if (!checkLoseProject())
+        return;
+
+      var uri = new Uri(url);
+
+      OpenProjectFromUrl(uri);
+      MessageBox.Show(url);
+    }
+
+    public void OpenProject(string fileName) {
+      var project = new Project {FileName = fileName};
+      if (project.Load()) {
+        Project.Current = project;
+        ApplicationSettingsController.OpenProject(fileName);
+      }
+    }
+
+    private void OpenProjectFromUrl(Uri uri) {
+      var project = new Project { FileName = Path.GetFileName(uri.AbsoluteUri) };
+      if (project.Load(uri))
+      {
+        Project.Current = project;
+        ApplicationSettingsController.OpenProject(uri.AbsoluteUri);
+      }
+
     }
   }
 }

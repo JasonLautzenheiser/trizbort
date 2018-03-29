@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using Trizbort.Domain.Elements;
+using Trizbort.Extensions;
 using Trizbort.Setup;
 using Trizbort.Util;
 
@@ -21,7 +22,7 @@ namespace Trizbort.Domain.Application {
     {
       try
       {
-        if (new FileInfo(fileName).Length == 0)
+        if (!fileName.isUrl() && new FileInfo(fileName).Length == 0)
         {
           // this is an empty file, probably thanks to our Explorer New->Trizbort Map menu option.
           Settings.Reset();
@@ -86,7 +87,9 @@ namespace Trizbort.Domain.Application {
         Settings.Load(root["settings"]);
 
         // setup filewatcher.
-        project.InitFileWWatcher(fileName);
+        if (!fileName.isUrl())
+          project.InitFileWWatcher(fileName);
+
         return true;
       }
       catch (Exception ex)

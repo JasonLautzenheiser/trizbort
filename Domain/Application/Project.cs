@@ -176,21 +176,17 @@ namespace Trizbort.Domain.Application {
       return FindElement(id, out element);
     }
 
-    public bool Load() {
-      FileWatcher.ReloadMap -= reloadMap;
-
-      var loader = new MapLoader(this);
-      return loader.LoadMap(FileName);
-    }
-
     public static event ProjectChangedEventHandler ProjectChanged;
 
-    public bool Save() {
+    public bool Save(bool reload = false) {
       FileWatcher.StopWatcher();
 
       try {
         var saver = new MapSaver(this);
         if (saver.SaveMap(FileName)) {
+          if (reload) {
+            InitFileWWatcher(FileName);
+          }
           IsDirty = false;
           FileWatcher.StartWatcher();
           return true;
@@ -232,6 +228,21 @@ namespace Trizbort.Domain.Application {
 
     private void reloadMap(object sender, EventArgs e) {
       TrizbortApplication.MainForm.OpenProject(FileName);
+    }
+
+    public bool Load() {
+      FileWatcher.ReloadMap -= reloadMap;
+
+      var loader = new MapLoader(this);
+      return loader.LoadMap(FileName);
+    }
+
+    internal bool Load(Uri uri)
+    {
+      FileWatcher.ReloadMap -= reloadMap;
+
+      var loader = new MapLoader(this);
+      return loader.LoadMap(uri);
     }
   }
 }

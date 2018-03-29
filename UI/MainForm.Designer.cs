@@ -61,6 +61,7 @@ namespace Trizbort.UI
       this.m_fileNewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.m_fileOpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.m_fileOpenFromWebMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
       this.m_fileSaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_fileSaveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -190,9 +191,9 @@ namespace Trizbort.UI
       this.m_toggleDottedLinesButton = new System.Windows.Forms.ToolStripButton();
       this.m_toggleDirectionalLinesButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+      this.statusBar = new System.Windows.Forms.StatusStrip();
       this.Canvas = new Trizbort.UI.Controls.Canvas();
       this.m_automapBar = new Trizbort.UI.Controls.AutomapBar();
-      this.statusBar = new System.Windows.Forms.StatusStrip();
       this.m_menuStrip.SuspendLayout();
       this.m_toolStrip.SuspendLayout();
       this.SuspendLayout();
@@ -220,6 +221,7 @@ namespace Trizbort.UI
             this.m_fileNewMenuItem,
             this.toolStripSeparator1,
             this.m_fileOpenMenuItem,
+            this.m_fileOpenFromWebMenuItem,
             this.toolStripSeparator9,
             this.m_fileSaveMenuItem,
             this.m_fileSaveAsMenuItem,
@@ -239,34 +241,43 @@ namespace Trizbort.UI
       // 
       this.m_fileNewMenuItem.Name = "m_fileNewMenuItem";
       this.m_fileNewMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-      this.m_fileNewMenuItem.Size = new System.Drawing.Size(213, 22);
+      this.m_fileNewMenuItem.Size = new System.Drawing.Size(270, 22);
       this.m_fileNewMenuItem.Text = "&New Map";
       this.m_fileNewMenuItem.Click += new System.EventHandler(this.FileNewMenuItem_Click);
       // 
       // toolStripSeparator1
       // 
       this.toolStripSeparator1.Name = "toolStripSeparator1";
-      this.toolStripSeparator1.Size = new System.Drawing.Size(210, 6);
+      this.toolStripSeparator1.Size = new System.Drawing.Size(267, 6);
       // 
       // m_fileOpenMenuItem
       // 
       this.m_fileOpenMenuItem.Name = "m_fileOpenMenuItem";
       this.m_fileOpenMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-      this.m_fileOpenMenuItem.Size = new System.Drawing.Size(213, 22);
+      this.m_fileOpenMenuItem.Size = new System.Drawing.Size(270, 22);
       this.m_fileOpenMenuItem.Text = "&Open Map...";
       this.m_fileOpenMenuItem.Click += new System.EventHandler(this.FileOpenMenuItem_Click);
+      // 
+      // m_fileOpenFromWebMenuItem
+      // 
+      this.m_fileOpenFromWebMenuItem.Name = "m_fileOpenFromWebMenuItem";
+      this.m_fileOpenFromWebMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.O)));
+      this.m_fileOpenFromWebMenuItem.Size = new System.Drawing.Size(270, 22);
+      this.m_fileOpenFromWebMenuItem.Text = "Open Map from Web...";
+      this.m_fileOpenFromWebMenuItem.Click += new System.EventHandler(this.m_fileOpenFromWebMenuItem_Click);
       // 
       // toolStripSeparator9
       // 
       this.toolStripSeparator9.Name = "toolStripSeparator9";
-      this.toolStripSeparator9.Size = new System.Drawing.Size(210, 6);
+      this.toolStripSeparator9.Size = new System.Drawing.Size(267, 6);
       // 
       // m_fileSaveMenuItem
       // 
       this.m_fileSaveMenuItem.Name = "m_fileSaveMenuItem";
       this.m_fileSaveMenuItem.ShortcutKeyDisplayString = "";
       this.m_fileSaveMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-      this.m_fileSaveMenuItem.Size = new System.Drawing.Size(213, 22);
+      this.m_fileSaveMenuItem.Size = new System.Drawing.Size(270, 22);
       this.m_fileSaveMenuItem.Text = "&Save Map";
       this.m_fileSaveMenuItem.Click += new System.EventHandler(this.FileSaveMenuItem_Click);
       // 
@@ -275,7 +286,7 @@ namespace Trizbort.UI
       this.m_fileSaveAsMenuItem.Name = "m_fileSaveAsMenuItem";
       this.m_fileSaveAsMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.S)));
-      this.m_fileSaveAsMenuItem.Size = new System.Drawing.Size(213, 22);
+      this.m_fileSaveAsMenuItem.Size = new System.Drawing.Size(270, 22);
       this.m_fileSaveAsMenuItem.Text = "Save Map &As...";
       this.m_fileSaveAsMenuItem.Click += new System.EventHandler(this.FileSaveAsMenuItem_Click);
       // 
@@ -284,14 +295,14 @@ namespace Trizbort.UI
       this.smartSaveToolStripMenuItem.Name = "smartSaveToolStripMenuItem";
       this.smartSaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-      this.smartSaveToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+      this.smartSaveToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
       this.smartSaveToolStripMenuItem.Text = "S&mart Save";
       this.smartSaveToolStripMenuItem.Click += new System.EventHandler(this.smartSaveToolStripMenuItem_Click);
       // 
       // toolStripSeparator10
       // 
       this.toolStripSeparator10.Name = "toolStripSeparator10";
-      this.toolStripSeparator10.Size = new System.Drawing.Size(210, 6);
+      this.toolStripSeparator10.Size = new System.Drawing.Size(267, 6);
       // 
       // m_fileExportMenu
       // 
@@ -316,7 +327,7 @@ namespace Trizbort.UI
             this.questToTextToolStripMenuItem,
             this.questRoomsToTextToolStripMenuItem});
       this.m_fileExportMenu.Name = "m_fileExportMenu";
-      this.m_fileExportMenu.Size = new System.Drawing.Size(213, 22);
+      this.m_fileExportMenu.Size = new System.Drawing.Size(270, 22);
       this.m_fileExportMenu.Text = "&Export";
       // 
       // m_fileExportPDFMenuItem
@@ -479,23 +490,23 @@ namespace Trizbort.UI
       // toolStripSeparator12
       // 
       this.toolStripSeparator12.Name = "toolStripSeparator12";
-      this.toolStripSeparator12.Size = new System.Drawing.Size(210, 6);
+      this.toolStripSeparator12.Size = new System.Drawing.Size(267, 6);
       // 
       // m_fileRecentMapsMenuItem
       // 
       this.m_fileRecentMapsMenuItem.Name = "m_fileRecentMapsMenuItem";
-      this.m_fileRecentMapsMenuItem.Size = new System.Drawing.Size(213, 22);
+      this.m_fileRecentMapsMenuItem.Size = new System.Drawing.Size(270, 22);
       this.m_fileRecentMapsMenuItem.Text = "&Recent Maps";
       // 
       // toolStripMenuItem7
       // 
       this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-      this.toolStripMenuItem7.Size = new System.Drawing.Size(210, 6);
+      this.toolStripMenuItem7.Size = new System.Drawing.Size(267, 6);
       // 
       // m_fileExitMenuItem
       // 
       this.m_fileExitMenuItem.Name = "m_fileExitMenuItem";
-      this.m_fileExitMenuItem.Size = new System.Drawing.Size(213, 22);
+      this.m_fileExitMenuItem.Size = new System.Drawing.Size(270, 22);
       this.m_fileExitMenuItem.Text = "E&xit";
       this.m_fileExitMenuItem.Click += new System.EventHandler(this.FileExitMenuItem_Click);
       // 
@@ -1312,6 +1323,14 @@ namespace Trizbort.UI
       this.toolStripSeparator4.Name = "toolStripSeparator4";
       this.toolStripSeparator4.Size = new System.Drawing.Size(6, 6);
       // 
+      // statusBar
+      // 
+      this.statusBar.Location = new System.Drawing.Point(0, 1007);
+      this.statusBar.Name = "statusBar";
+      this.statusBar.Size = new System.Drawing.Size(1928, 22);
+      this.statusBar.TabIndex = 5;
+      this.statusBar.Text = "statusStrip1";
+      // 
       // Canvas
       // 
       this.Canvas.BackColor = System.Drawing.Color.White;
@@ -1333,16 +1352,7 @@ namespace Trizbort.UI
       this.m_automapBar.MinimumSize = new System.Drawing.Size(2, 29);
       this.m_automapBar.Name = "m_automapBar";
       this.m_automapBar.Size = new System.Drawing.Size(1890, 29);
-      this.m_automapBar.Status = "(Status)";
       this.m_automapBar.TabIndex = 4;
-      // 
-      // statusBar
-      // 
-      this.statusBar.Location = new System.Drawing.Point(0, 1007);
-      this.statusBar.Name = "statusBar";
-      this.statusBar.Size = new System.Drawing.Size(1928, 22);
-      this.statusBar.TabIndex = 5;
-      this.statusBar.Text = "statusStrip1";
       // 
       // MainForm
       // 
@@ -1507,6 +1517,7 @@ namespace Trizbort.UI
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
     private System.Windows.Forms.ToolStripMenuItem endRoomToolStripMenuItem;
     private System.Windows.Forms.StatusStrip statusBar;
+    private System.Windows.Forms.ToolStripMenuItem m_fileOpenFromWebMenuItem;
   }
 }
 

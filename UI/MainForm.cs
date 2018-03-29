@@ -1182,7 +1182,6 @@ namespace Trizbort.UI {
       var uri = new Uri(url);
 
       OpenProjectFromUrl(uri);
-      MessageBox.Show(url);
     }
 
     public void OpenProject(string fileName) {

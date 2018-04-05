@@ -17,7 +17,7 @@ We thank all our contributors for all the hard work whether pull requests or sim
 - [dfabulich](https://github.com/dfabulich) - fixed some issues in documentation
 - [taradinoc](https://github.com/taradinoc) - tweaks to the ZIL exporter
 
-The prmary developer on this is [Jason Lautzenheiser](https://github.com/JasonLautzenheiser)
+The primary developer on this is [Jason Lautzenheiser](https://github.com/JasonLautzenheiser)
 
 ## Contribute
 Feel free to dive in!  [Open an issue](https://github.com/JasonLautzenheiser/trizbort/issues/new) or submit PRs.

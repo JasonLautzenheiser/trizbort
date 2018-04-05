@@ -31,6 +31,7 @@ Trizbort follows the [Contributor Covenant Code of Conduct](https://github.com/J
 This software uses PdfSharp, copyright (c) 2005-2007 empira Software GmbH, Cologne (Germany). See PdfSharp.License.txt.
 
 ## Special Thanks
-![Resharper](http://www.trizbort.com/img/logo_resharper.png)
+[![Resharper](http://www.trizbort.com/img/logo_resharper.png)](https://www.jetbrains.com/resharper/)
 
-![Ozcode](https://www.oz-code.com/Content/Images/header/ozcode_logo_long.svg)
+[<img src="https://www.oz-code.com/Content/Images/header/ozcode_logo_long.svg" width="100">](https://www.oz-code.com/)
+

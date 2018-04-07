@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.  Version nu
 ### Added
 - User can now load trizbort maps from the web.  File-->Open Map from Url... (Ctrl-Shift-O) brings up dialog to enter url to trizbort file to load.
 
+### Fixed
+- saving new map for the first time was throwing an error.  (#427)
+
 ## [1.6.1] - 2018-03-22
 
 ### Added

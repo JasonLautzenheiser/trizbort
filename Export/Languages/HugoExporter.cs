@@ -27,10 +27,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Trizbort.Automap;
+using Trizbort.Domain;
 using Trizbort.Domain.Elements;
+using Trizbort.Domain.Enums;
 using Trizbort.Domain.Misc;
+using Trizbort.Export.Domain;
 
-namespace Trizbort.Export {
+namespace Trizbort.Export.Languages {
   internal class HugoExporter : CodeExporter {
     private const char SINGLE_QUOTE = '\'';
     private const char DOUBLE_QUOTE = '"';
@@ -62,7 +65,7 @@ namespace Trizbort.Export {
         }
 
         writer.WriteLine();
-        foreach (var direction in AllDirections) {
+        foreach (var direction in Directions.AllDirections) {
           var exit = location.GetBestExit(direction);
           if (exit != null) writer.WriteLine($"\t{toHugoPropertyName(direction)} {exit.Target.ExportName}");
         }
@@ -182,31 +185,31 @@ namespace Trizbort.Export {
       return result;
     }
 
-    private static string toHugoPropertyName(AutomapDirection direction) {
+    private static string toHugoPropertyName(MappableDirection direction) {
       switch (direction) {
-        case AutomapDirection.North:
+        case MappableDirection.North:
           return "n_to";
-        case AutomapDirection.South:
+        case MappableDirection.South:
           return "s_to";
-        case AutomapDirection.East:
+        case MappableDirection.East:
           return "e_to";
-        case AutomapDirection.West:
+        case MappableDirection.West:
           return "w_to";
-        case AutomapDirection.NorthEast:
+        case MappableDirection.NorthEast:
           return "ne_to";
-        case AutomapDirection.NorthWest:
+        case MappableDirection.NorthWest:
           return "nw_to";
-        case AutomapDirection.SouthEast:
+        case MappableDirection.SouthEast:
           return "se_to";
-        case AutomapDirection.SouthWest:
+        case MappableDirection.SouthWest:
           return "sw_to";
-        case AutomapDirection.Up:
+        case MappableDirection.Up:
           return "u_to";
-        case AutomapDirection.Down:
+        case MappableDirection.Down:
           return "d_to";
-        case AutomapDirection.In:
+        case MappableDirection.In:
           return "in_to";
-        case AutomapDirection.Out:
+        case MappableDirection.Out:
           return "out_to";
         default:
           Debug.Assert(false, "Unrecognised automap direction.");

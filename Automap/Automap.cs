@@ -32,29 +32,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Trizbort.Automap.Utility;
 using Trizbort.Domain.Elements;
+using Trizbort.Domain.Enums;
 using Trizbort.Domain.Misc;
 using Trizbort.Setup;
 using Trizbort.UI;
 
 namespace Trizbort.Automap
 {
-  public enum AutomapDirection
-  {
-    North,
-    South,
-    East,
-    West,
-    NorthEast,
-    SouthEast,
-    SouthWest,
-    NorthWest,
-    Up,
-    Down,
-    In,
-    Out,
-    None
-  };
-
   public sealed class Automap
   {
     public bool UseDottedConnection { get; set; } = false;
@@ -716,7 +700,7 @@ namespace Trizbort.Automap
               if (words.Count > 2)
               {
                 var direction = getDirection(words[2]);
-                if (direction != AutomapDirection.None)
+                if (direction != MappableDirection.None)
                   m_canvas.AddExitStub(m_lastKnownRoom, direction);
               }
             }
@@ -726,7 +710,7 @@ namespace Trizbort.Automap
               if (words.Count > 2)
               {
                 var direction = getDirection(words[2]);
-                if (direction != AutomapDirection.None)
+                if (direction != MappableDirection.None)
                   m_canvas.RemoveExitStub(m_lastKnownRoom, direction);
               }
             }
@@ -772,7 +756,7 @@ namespace Trizbort.Automap
       // the word wasn't for a direction after all.
     }
 
-    private AutomapDirection getDirection(string possibleDirection)
+    private MappableDirection getDirection(string possibleDirection)
     {
       foreach (var pair in s_namesForMovementCommands)
       {
@@ -786,7 +770,7 @@ namespace Trizbort.Automap
           }
         }
       }
-      return AutomapDirection.None;
+      return MappableDirection.None;
     }
 
 
@@ -796,7 +780,7 @@ namespace Trizbort.Automap
     private bool m_firstRoom = true;
     private string m_gameName = string.Empty;
 
-    private AutomapDirection? m_lastMoveDirection;
+    private MappableDirection? m_lastMoveDirection;
 
     private IAutomapCanvas m_canvas;
 
@@ -815,35 +799,35 @@ namespace Trizbort.Automap
     private static readonly string[] s_wordsToStripFromCommands = { "the", "a", "to", "on" };
     private static readonly string[] s_wordsMeaningGo = { "go", "walk", "move" };
 
-    private static readonly Dictionary<AutomapDirection, List<string>> s_namesForMovementCommands = new Dictionary<AutomapDirection, List<string>>
+    private static readonly Dictionary<MappableDirection, List<string>> s_namesForMovementCommands = new Dictionary<MappableDirection, List<string>>
     {
-      {AutomapDirection.North, new List<string> {"north", "n", "fore", "f"}},
-      {AutomapDirection.South, new List<string> {"south", "s", "aft", "a"}},
-      {AutomapDirection.East, new List<string> {"east", "e", "starboard", "sb"}},
-      {AutomapDirection.West, new List<string> {"west", "w", "port", "p"}},
-      {AutomapDirection.NorthEast, new List<string> {"northeast", "ne"}},
-      {AutomapDirection.SouthEast, new List<string> {"southeast", "se"}},
-      {AutomapDirection.SouthWest, new List<string> {"southwest", "sw"}},
-      {AutomapDirection.NorthWest, new List<string> {"northwest", "nw"}},
-      {AutomapDirection.Up, new List<string> {"up", "u"}},
-      {AutomapDirection.Down, new List<string> {"down", "d"}},
-      {AutomapDirection.In, new List<string> {"in", "inside"}},
-      {AutomapDirection.Out, new List<string> {"out", "outside"}}
+      {MappableDirection.North, new List<string> {"north", "n", "fore", "f"}},
+      {MappableDirection.South, new List<string> {"south", "s", "aft", "a"}},
+      {MappableDirection.East, new List<string> {"east", "e", "starboard", "sb"}},
+      {MappableDirection.West, new List<string> {"west", "w", "port", "p"}},
+      {MappableDirection.NorthEast, new List<string> {"northeast", "ne"}},
+      {MappableDirection.SouthEast, new List<string> {"southeast", "se"}},
+      {MappableDirection.SouthWest, new List<string> {"southwest", "sw"}},
+      {MappableDirection.NorthWest, new List<string> {"northwest", "nw"}},
+      {MappableDirection.Up, new List<string> {"up", "u"}},
+      {MappableDirection.Down, new List<string> {"down", "d"}},
+      {MappableDirection.In, new List<string> {"in", "inside"}},
+      {MappableDirection.Out, new List<string> {"out", "outside"}}
     };
 
-    private static readonly Dictionary<List<AutomapDirection>, List<string>> s_namesForExitsInRoomDescriptions = new Dictionary<List<AutomapDirection>, List<string>>
+    private static readonly Dictionary<List<MappableDirection>, List<string>> s_namesForExitsInRoomDescriptions = new Dictionary<List<MappableDirection>, List<string>>
     {
-      {new List<AutomapDirection> {AutomapDirection.North}, new List<string> {"north", "northward", "fore", "northern"}},
-      {new List<AutomapDirection> {AutomapDirection.South}, new List<string> {"south", "southward", "aft", "southern"}},
-      {new List<AutomapDirection> {AutomapDirection.East}, new List<string> {"east", "eastward", "starboard", "eastern"}},
-      {new List<AutomapDirection> {AutomapDirection.West}, new List<string> {"west", "westward", "port", "western"}},
-      {new List<AutomapDirection> {AutomapDirection.NorthEast}, new List<string> {"northeast", "northeastward", "northeastern"}},
-      {new List<AutomapDirection> {AutomapDirection.SouthEast}, new List<string> {"southeast", "southeastward", "southeastern"}},
-      {new List<AutomapDirection> {AutomapDirection.SouthWest}, new List<string> {"southwest", "southwestward", "southwestern"}},
-      {new List<AutomapDirection> {AutomapDirection.NorthWest}, new List<string> {"northwest", "northwest", "northwestern"}},
-      {new List<AutomapDirection> {AutomapDirection.Up}, new List<string> {"up", "upward", "upwards", "ascend", "above"}},
-      {new List<AutomapDirection> {AutomapDirection.Down}, new List<string> {"down", "downward", "downwards", "descend", "below"}},
-      {new List<AutomapDirection> {AutomapDirection.North, AutomapDirection.South, AutomapDirection.East, AutomapDirection.West, AutomapDirection.NorthEast, AutomapDirection.NorthWest, AutomapDirection.SouthEast, AutomapDirection.SouthWest}, new List<string> {"all directions", "every direction"}}
+      {new List<MappableDirection> {MappableDirection.North}, new List<string> {"north", "northward", "fore", "northern"}},
+      {new List<MappableDirection> {MappableDirection.South}, new List<string> {"south", "southward", "aft", "southern"}},
+      {new List<MappableDirection> {MappableDirection.East}, new List<string> {"east", "eastward", "starboard", "eastern"}},
+      {new List<MappableDirection> {MappableDirection.West}, new List<string> {"west", "westward", "port", "western"}},
+      {new List<MappableDirection> {MappableDirection.NorthEast}, new List<string> {"northeast", "northeastward", "northeastern"}},
+      {new List<MappableDirection> {MappableDirection.SouthEast}, new List<string> {"southeast", "southeastward", "southeastern"}},
+      {new List<MappableDirection> {MappableDirection.SouthWest}, new List<string> {"southwest", "southwestward", "southwestern"}},
+      {new List<MappableDirection> {MappableDirection.NorthWest}, new List<string> {"northwest", "northwest", "northwestern"}},
+      {new List<MappableDirection> {MappableDirection.Up}, new List<string> {"up", "upward", "upwards", "ascend", "above"}},
+      {new List<MappableDirection> {MappableDirection.Down}, new List<string> {"down", "downward", "downwards", "descend", "below"}},
+      {new List<MappableDirection> {MappableDirection.North, MappableDirection.South, MappableDirection.East, MappableDirection.West, MappableDirection.NorthEast, MappableDirection.NorthWest, MappableDirection.SouthEast, MappableDirection.SouthWest}, new List<string> {"all directions", "every direction"}}
     };
 
     #endregion

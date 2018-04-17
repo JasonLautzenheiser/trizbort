@@ -30,6 +30,7 @@ using System.Windows.Forms;
 using Trizbort.Automap;
 using Trizbort.Domain.Application;
 using Trizbort.Domain.Elements;
+using Trizbort.Domain.Enums;
 using Trizbort.Domain.Misc;
 using Trizbort.Setup;
 
@@ -43,22 +44,22 @@ namespace Trizbort.UI.Controls {
 
     public bool IsAutomapping => mAutomap.Running;
 
-    void IAutomapCanvas.AddExitStub(Room room, AutomapDirection direction) {
+    void IAutomapCanvas.AddExitStub(Room room, MappableDirection direction) {
       if (!Project.Current.Elements.Contains(room)) return;
 
       var sourceCompassPoint = CompassPointHelper.GetCompassDirection(direction);
       var connection = addConnection(room, sourceCompassPoint, room, sourceCompassPoint);
       switch (direction) {
-        case AutomapDirection.Up:
+        case MappableDirection.Up:
           connection.StartText = Connection.Up;
           break;
-        case AutomapDirection.Down:
+        case MappableDirection.Down:
           connection.StartText = Connection.Down;
           break;
       }
     }
 
-    void IAutomapCanvas.Connect(Room source, AutomapDirection directionFromSource, Room target, bool assumeTwoWayConnections) {
+    void IAutomapCanvas.Connect(Room source, MappableDirection directionFromSource, Room target, bool assumeTwoWayConnections) {
       if (!Project.Current.Elements.Contains(source) || !Project.Current.Elements.Contains(target)) return;
 
       // work out the correct compass point to use for the given direction
@@ -69,10 +70,10 @@ namespace Trizbort.UI.Controls {
       var sourceCompassPoint = CompassPointHelper.GetCompassDirection(directionFromSource);
       CompassPoint? acceptableSourceCompassPoint;
       switch (directionFromSource) {
-        case AutomapDirection.Up:
-        case AutomapDirection.Down:
-        case AutomapDirection.In:
-        case AutomapDirection.Out:
+        case MappableDirection.Up:
+        case MappableDirection.Down:
+        case MappableDirection.In:
+        case MappableDirection.Out:
           acceptableSourceCompassPoint = null; // any existing connection will do
           break;
         default:
@@ -112,22 +113,22 @@ namespace Trizbort.UI.Controls {
       // if this is an up/down/in/out connection, mark it as such;
       // but don't override any existing text.
       switch (directionFromSource) {
-        case AutomapDirection.Up:
-        case AutomapDirection.Down:
-        case AutomapDirection.In:
-        case AutomapDirection.Out:
+        case MappableDirection.Up:
+        case MappableDirection.Down:
+        case MappableDirection.In:
+        case MappableDirection.Out:
           if (string.IsNullOrEmpty(connection.StartText) && string.IsNullOrEmpty(connection.EndText))
             switch (directionFromSource) {
-              case AutomapDirection.Up:
+              case MappableDirection.Up:
                 connection.SetText(wrongWay ? ConnectionLabel.Down : ConnectionLabel.Up);
                 break;
-              case AutomapDirection.Down:
+              case MappableDirection.Down:
                 connection.SetText(wrongWay ? ConnectionLabel.Up : ConnectionLabel.Down);
                 break;
-              case AutomapDirection.In:
+              case MappableDirection.In:
                 connection.SetText(wrongWay ? ConnectionLabel.Out : ConnectionLabel.In);
                 break;
-              case AutomapDirection.Out:
+              case MappableDirection.Out:
                 connection.SetText(wrongWay ? ConnectionLabel.In : ConnectionLabel.Out);
                 break;
             }
@@ -172,7 +173,7 @@ namespace Trizbort.UI.Controls {
       return room;
     }
 
-    Room IAutomapCanvas.CreateRoom(Room existing, AutomapDirection directionFromExisting, string roomName, string line) {
+    Room IAutomapCanvas.CreateRoom(Room existing, MappableDirection directionFromExisting, string roomName, string line) {
       if (!Project.Current.Elements.Contains(existing)) return null;
 
       var room = new Room(Project.Current) {Name = roomName};
@@ -221,7 +222,7 @@ namespace Trizbort.UI.Controls {
       }
     }
 
-    void IAutomapCanvas.RemoveExitStub(Room room, AutomapDirection direction) {
+    void IAutomapCanvas.RemoveExitStub(Room room, MappableDirection direction) {
       if (!Project.Current.Elements.Contains(room)) return;
 
       var compassPoint = CompassPointHelper.GetCompassDirection(direction);
@@ -382,14 +383,14 @@ namespace Trizbort.UI.Controls {
         mCanvas = canvas;
       }
 
-      public void AddExitStub(Room room, AutomapDirection direction) {
+      public void AddExitStub(Room room, MappableDirection direction) {
         try { mControl.Invoke((MethodInvoker) delegate { mCanvas.AddExitStub(room, direction); }); }
         catch (Exception) {
           // ignored
         }
       }
 
-      public void Connect(Room source, AutomapDirection directionFromSource, Room target, bool assumeTwoWayConnections) {
+      public void Connect(Room source, MappableDirection directionFromSource, Room target, bool assumeTwoWayConnections) {
         try { mControl.Invoke((MethodInvoker) delegate { mCanvas.Connect(source, directionFromSource, target, assumeTwoWayConnections); }); }
         catch (Exception) {
           // ignored
@@ -406,7 +407,7 @@ namespace Trizbort.UI.Controls {
         return room;
       }
 
-      public Room CreateRoom(Room existing, AutomapDirection directionFromExisting, string roomName, string line) {
+      public Room CreateRoom(Room existing, MappableDirection directionFromExisting, string roomName, string line) {
         Room room = null;
         try { mControl.Invoke((MethodInvoker) delegate { room = mCanvas.CreateRoom(existing, directionFromExisting, roomName, line); }); }
         catch (Exception) {
@@ -426,7 +427,7 @@ namespace Trizbort.UI.Controls {
         return room;
       }
 
-      public void RemoveExitStub(Room room, AutomapDirection direction) {
+      public void RemoveExitStub(Room room, MappableDirection direction) {
         try { mControl.Invoke((MethodInvoker) delegate { mCanvas.RemoveExitStub(room, direction); }); }
         catch (Exception) {
           // ignored

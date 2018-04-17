@@ -25,6 +25,7 @@
 using System;
 using System.Diagnostics;
 using Trizbort.Automap;
+using Trizbort.Domain.Enums;
 
 namespace Trizbort.Domain.Misc {
   public enum CompassPoint {
@@ -203,31 +204,31 @@ namespace Trizbort.Domain.Misc {
     ///   Convert an automap direction into a compass point.
     ///   Compass directions map directly; up/down/in/out are assigned specific other diretions.
     /// </summary>
-    public static CompassPoint GetCompassDirection(AutomapDirection direction) {
+    public static CompassPoint GetCompassDirection(MappableDirection direction) {
       switch (direction) {
-        case AutomapDirection.Up:
+        case MappableDirection.Up:
           return CompassPoint.NorthNorthWest;
-        case AutomapDirection.Down:
+        case MappableDirection.Down:
           return CompassPoint.SouthSouthWest;
-        case AutomapDirection.In:
+        case MappableDirection.In:
           return CompassPoint.EastNorthEast;
-        case AutomapDirection.Out:
+        case MappableDirection.Out:
           return CompassPoint.WestNorthWest;
-        case AutomapDirection.North:
+        case MappableDirection.North:
           return CompassPoint.North;
-        case AutomapDirection.South:
+        case MappableDirection.South:
           return CompassPoint.South;
-        case AutomapDirection.East:
+        case MappableDirection.East:
           return CompassPoint.East;
-        case AutomapDirection.West:
+        case MappableDirection.West:
           return CompassPoint.West;
-        case AutomapDirection.NorthEast:
+        case MappableDirection.NorthEast:
           return CompassPoint.NorthEast;
-        case AutomapDirection.NorthWest:
+        case MappableDirection.NorthWest:
           return CompassPoint.NorthWest;
-        case AutomapDirection.SouthEast:
+        case MappableDirection.SouthEast:
           return CompassPoint.SouthEast;
-        case AutomapDirection.SouthWest:
+        case MappableDirection.SouthWest:
           return CompassPoint.SouthWest;
         default:
           Debug.Assert(false, "Couldn't work out the compass direction for the given automap direction.");
@@ -282,35 +283,35 @@ namespace Trizbort.Domain.Misc {
     /// <summary>
     ///   Get the literal opposite of any direction.
     /// </summary>
-    public static AutomapDirection GetOpposite(AutomapDirection direction) {
+    public static MappableDirection GetOpposite(MappableDirection direction) {
       switch (direction) {
-        case AutomapDirection.North:
-          return AutomapDirection.South;
-        case AutomapDirection.South:
-          return AutomapDirection.North;
-        case AutomapDirection.East:
-          return AutomapDirection.West;
-        case AutomapDirection.West:
-          return AutomapDirection.East;
-        case AutomapDirection.NorthEast:
-          return AutomapDirection.SouthWest;
-        case AutomapDirection.NorthWest:
-          return AutomapDirection.SouthEast;
-        case AutomapDirection.SouthEast:
-          return AutomapDirection.NorthWest;
-        case AutomapDirection.SouthWest:
-          return AutomapDirection.NorthEast;
-        case AutomapDirection.Up:
-          return AutomapDirection.Down;
-        case AutomapDirection.Down:
-          return AutomapDirection.Up;
-        case AutomapDirection.In:
-          return AutomapDirection.Out;
-        case AutomapDirection.Out:
-          return AutomapDirection.In;
+        case MappableDirection.North:
+          return MappableDirection.South;
+        case MappableDirection.South:
+          return MappableDirection.North;
+        case MappableDirection.East:
+          return MappableDirection.West;
+        case MappableDirection.West:
+          return MappableDirection.East;
+        case MappableDirection.NorthEast:
+          return MappableDirection.SouthWest;
+        case MappableDirection.NorthWest:
+          return MappableDirection.SouthEast;
+        case MappableDirection.SouthEast:
+          return MappableDirection.NorthWest;
+        case MappableDirection.SouthWest:
+          return MappableDirection.NorthEast;
+        case MappableDirection.Up:
+          return MappableDirection.Down;
+        case MappableDirection.Down:
+          return MappableDirection.Up;
+        case MappableDirection.In:
+          return MappableDirection.Out;
+        case MappableDirection.Out:
+          return MappableDirection.In;
         default:
           Debug.Assert(false, "Couldn't work out the opposite of the given direction.");
-          return AutomapDirection.North;
+          return MappableDirection.North;
       }
     }
 

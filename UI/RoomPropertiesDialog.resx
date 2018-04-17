@@ -120,6 +120,20 @@
   <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="label9.Text" xml:space="preserve">
+    <value>[m] = male person
+[f] = female person
+[p] = neuter person
+[!] = proper-named 
+[s] = scenery
+[u] = supporter
+[c] = container
+[h] = has / part of
+[w] = worn by
+[1] = singular-named
+[2] = plural-named
+</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

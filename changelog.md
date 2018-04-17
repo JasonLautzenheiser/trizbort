@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ## [Unreleased]
 
+## [1.7.0] - 2018-04-17
+
 ### Added
 - User can now load trizbort maps from the web.  File-->Open Map from Url... (Ctrl-Shift-O) brings up dialog to enter url to trizbort file to load.
 - Objects in room, added 'w' to indicate something is worn by an object, added 'h' to indicate that an object is a part of it's parent.
@@ -522,7 +524,8 @@ on github.  Documentation is a little outdated so apologies on that.  Hopefully 
 - In the room properties, you can now assign a room to a region.  This will show the room in the region color assigned to the region.
 - some minor bug fixes.
 
-[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.1...HEAD
+[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.1...v1.7.0
 [1.6.1]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.5.9.9...v1.6.0
 [1.5.9.9]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.5.9.8...v1.5.9.9

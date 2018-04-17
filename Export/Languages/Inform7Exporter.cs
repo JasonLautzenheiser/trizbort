@@ -369,7 +369,7 @@ namespace Trizbort.Export.Languages {
     private static string whatItIs(Thing thing) {
       var whatString = string.Empty;
       if (thing.IsPerson) {
-        whatString += $"{thing.ExportName} is a " + Enum.GetName(typeof(Thing.ThingGender), thing.Gender.ToString().ToLower()) + " person";
+        whatString += $"{thing.ExportName} is a " + Enum.GetName(typeof(Thing.ThingGender), thing.Gender) + " person";
       }
       else if (thing.PartOf) {
         whatString += " is ";

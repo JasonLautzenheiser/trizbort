@@ -1,4 +1,4 @@
-/*
+﻿/*
     Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
@@ -22,31 +22,20 @@
     THE SOFTWARE.
 */
 
-using Trizbort.Domain.Elements;
-using Trizbort.Domain.Enums;
+using Trizbort.Domain.Misc;
 
-namespace Trizbort.Automap
+namespace Trizbort.Export.Domain
 {
-  internal interface IAutomapCanvas
+  public class ExportRegion
   {
-    /// <summary>
-    ///   Find a room matching the given name and, if the given description isn't null, the given description.
-    /// </summary>
-    Room FindRoom(string roomName, string roomDescription, string line, RoomMatcher matcher);
+    public ExportRegion(Region region, string exportName)
+    {
+      Region = region;
+      ExportName = exportName;
+    }
 
-    Room CreateRoom(Room existing, string name);
+    public string ExportName { get; }
 
-    Room CreateRoom(Room existing, MappableDirection directionFromExisting, string roomName, string line);
-
-    void Connect(Room source, MappableDirection directionFromSource, Room target, bool assumeTwoWayConnections);
-
-    void AddExitStub(Room room, MappableDirection direction);
-
-    void RemoveExitStub(Room room, MappableDirection direction);
-
-    void SelectRoom(Room room);
-    void RemoveRoom(Room mOtherRoom);
+    public Region Region { get; }
   }
-
-  internal delegate bool? RoomMatcher(string roomName, string roomDescription, Room room);
 }

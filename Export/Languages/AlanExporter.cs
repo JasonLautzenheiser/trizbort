@@ -27,9 +27,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Trizbort.Automap;
+using Trizbort.Domain;
 using Trizbort.Domain.Elements;
+using Trizbort.Domain.Enums;
+using Trizbort.Export.Domain;
 
-namespace Trizbort.Export
+namespace Trizbort.Export.Languages
 {
   internal class AlanExporter : CodeExporter
   {
@@ -103,7 +106,7 @@ namespace Trizbort.Export
         else
           writer.WriteLine("  Description \"\"");
 
-        foreach (var direction in AllDirections)
+        foreach (var direction in Directions.AllDirections)
         {
           var exit = location.GetBestExit(direction);
 
@@ -205,7 +208,7 @@ namespace Trizbort.Export
 
     private static bool containsWord(string text, IEnumerable<string> words)
     {
-      return words.Any(word => containsWord(text, word));
+      return words.Any(word => containsWord(text, (string) word));
     }
 
     private static bool containsWord(string text, string word)
@@ -230,33 +233,33 @@ namespace Trizbort.Export
       return string.IsNullOrEmpty(newText) ? "object" : newText;
     }
 
-    private static string getAlanName(AutomapDirection direction)
+    private static string getAlanName(MappableDirection direction)
     {
       switch (direction)
       {
-        case AutomapDirection.North:
+        case MappableDirection.North:
           return "North";
-        case AutomapDirection.South:
+        case MappableDirection.South:
           return "South";
-        case AutomapDirection.East:
+        case MappableDirection.East:
           return "East";
-        case AutomapDirection.West:
+        case MappableDirection.West:
           return "West";
-        case AutomapDirection.NorthEast:
+        case MappableDirection.NorthEast:
           return "Northeast";
-        case AutomapDirection.SouthEast:
+        case MappableDirection.SouthEast:
           return "Southeast";
-        case AutomapDirection.NorthWest:
+        case MappableDirection.NorthWest:
           return "Northwest";
-        case AutomapDirection.SouthWest:
+        case MappableDirection.SouthWest:
           return "Southwest";
-        case AutomapDirection.Up:
+        case MappableDirection.Up:
           return "Up";
-        case AutomapDirection.Down:
+        case MappableDirection.Down:
           return "Down";
-        case AutomapDirection.In:
+        case MappableDirection.In:
           return "Inside";
-        case AutomapDirection.Out:
+        case MappableDirection.Out:
           return "Outside";
         default:
           return "";

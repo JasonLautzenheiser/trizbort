@@ -6,8 +6,12 @@ All notable changes to this project will be documented in this file.  Version nu
 ### Added
 - User can now load trizbort maps from the web.  File-->Open Map from Url... (Ctrl-Shift-O) brings up dialog to enter url to trizbort file to load.
 
+### Refactor
+- refactored some of the exporting code.
+
 ### Fixed
 - saving new map for the first time was throwing an error.  (#427)
+- fixed some object issues for people, worn items, part of items (#259)
 
 ## [1.6.1] - 2018-03-22
 

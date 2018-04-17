@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ### Added
 - User can now load trizbort maps from the web.  File-->Open Map from Url... (Ctrl-Shift-O) brings up dialog to enter url to trizbort file to load.
+- Objects in room, added 'w' to indicate something is worn by an object, added 'h' to indicate that an object is a part of it's parent.
 
 ### Refactor
 - refactored some of the exporting code.

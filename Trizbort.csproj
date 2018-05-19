@@ -48,6 +48,7 @@
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
@@ -163,6 +164,9 @@
     <Compile Include="Domain\Application\MapStatistics.cs" />
     <Compile Include="Domain\Misc\MoveablePort.cs" />
     <Compile Include="Domain\Misc\Numeric.cs" />
+    <Compile Include="UI\Controls\TrizbortTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\InputDialog.cs" />
     <Compile Include="Util\ClipboardHelper.cs" />
     <Compile Include="Util\PathHelper.cs" />

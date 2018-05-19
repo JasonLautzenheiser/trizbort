@@ -70,7 +70,6 @@ namespace Trizbort.UI
       this.m_duRadioButton = new System.Windows.Forms.RadioButton();
       this.m_udRadioButton = new System.Windows.Forms.RadioButton();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
-      this.connectionColorBox = new DevComponents.DotNetBar.Controls.TextBoxX();
       this.connectionColorChange = new System.Windows.Forms.Button();
       this.label11 = new System.Windows.Forms.Label();
       this.chkDoor = new System.Windows.Forms.CheckBox();
@@ -82,6 +81,8 @@ namespace Trizbort.UI
       this.chkOpenable = new System.Windows.Forms.CheckBox();
       this.label4 = new System.Windows.Forms.Label();
       this.txtDescription = new System.Windows.Forms.TextBox();
+      this.connectionColorClear = new System.Windows.Forms.Button();
+      this.connectionColorBox = new Trizbort.UI.Controls.TrizbortTextBox();
       this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.SuspendLayout();
@@ -121,7 +122,7 @@ namespace Trizbort.UI
       // m_dottedCheckBox
       // 
       this.m_dottedCheckBox.AutoSize = true;
-      this.m_dottedCheckBox.Location = new System.Drawing.Point(10, 21);
+      this.m_dottedCheckBox.Location = new System.Drawing.Point(10, 22);
       this.m_dottedCheckBox.Name = "m_dottedCheckBox";
       this.m_dottedCheckBox.Size = new System.Drawing.Size(59, 17);
       this.m_dottedCheckBox.TabIndex = 0;
@@ -255,6 +256,7 @@ namespace Trizbort.UI
       // 
       // groupBox2
       // 
+      this.groupBox2.Controls.Add(this.connectionColorClear);
       this.groupBox2.Controls.Add(this.connectionColorBox);
       this.groupBox2.Controls.Add(this.connectionColorChange);
       this.groupBox2.Controls.Add(this.label11);
@@ -267,28 +269,10 @@ namespace Trizbort.UI
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "&Style";
       // 
-      // connectionColorBox
-      // 
-      // 
-      // 
-      // 
-      this.connectionColorBox.Border.Class = "TextBoxBorder";
-      this.connectionColorBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.connectionColorBox.ButtonCustom.Text = "Clear";
-      this.connectionColorBox.ButtonCustom.Visible = true;
-      this.connectionColorBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.connectionColorBox.Location = new System.Drawing.Point(233, 18);
-      this.connectionColorBox.Name = "connectionColorBox";
-      this.connectionColorBox.ReadOnly = true;
-      this.connectionColorBox.Size = new System.Drawing.Size(133, 21);
-      this.connectionColorBox.TabIndex = 24;
-      this.connectionColorBox.ButtonCustomClick += new System.EventHandler(this.connectionColorBox_ButtonCustomClick);
-      this.connectionColorBox.DoubleClick += new System.EventHandler(this.connectionColorBox_DoubleClick);
-      // 
       // connectionColorChange
       // 
       this.connectionColorChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.connectionColorChange.Location = new System.Drawing.Point(372, 17);
+      this.connectionColorChange.Location = new System.Drawing.Point(372, 19);
       this.connectionColorChange.Name = "connectionColorChange";
       this.connectionColorChange.Size = new System.Drawing.Size(29, 23);
       this.connectionColorChange.TabIndex = 23;
@@ -300,7 +284,7 @@ namespace Trizbort.UI
       // 
       this.label11.AutoSize = true;
       this.label11.BackColor = System.Drawing.Color.Transparent;
-      this.label11.Location = new System.Drawing.Point(195, 22);
+      this.label11.Location = new System.Drawing.Point(195, 24);
       this.label11.Name = "label11";
       this.label11.Size = new System.Drawing.Size(32, 13);
       this.label11.TabIndex = 22;
@@ -390,6 +374,32 @@ namespace Trizbort.UI
       this.txtDescription.Size = new System.Drawing.Size(401, 63);
       this.txtDescription.TabIndex = 14;
       // 
+      // connectionColorClear
+      // 
+      this.connectionColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.connectionColorClear.Image = ((System.Drawing.Image)(resources.GetObject("connectionColorClear.Image")));
+      this.connectionColorClear.Location = new System.Drawing.Point(342, 19);
+      this.connectionColorClear.Name = "connectionColorClear";
+      this.connectionColorClear.Size = new System.Drawing.Size(28, 23);
+      this.connectionColorClear.TabIndex = 26;
+      this.connectionColorClear.Text = "...";
+      this.connectionColorClear.UseVisualStyleBackColor = true;
+      this.connectionColorClear.Click += new System.EventHandler(this.connectionColorClear_Click);
+      // 
+      // connectionColorBox
+      // 
+      this.connectionColorBox.BackColor = System.Drawing.SystemColors.Control;
+      this.connectionColorBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.connectionColorBox.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+      this.connectionColorBox.Location = new System.Drawing.Point(233, 20);
+      this.connectionColorBox.Name = "connectionColorBox";
+      this.connectionColorBox.ReadOnly = true;
+      this.connectionColorBox.Size = new System.Drawing.Size(107, 21);
+      this.connectionColorBox.TabIndex = 25;
+      this.connectionColorBox.Watermark = "testing";
+      this.connectionColorBox.DoubleClick += new System.EventHandler(this.connectionColorBox_DoubleClick);
+      this.connectionColorBox.Enter += new System.EventHandler(this.connectionColorBox_Enter);
+      // 
       // ConnectionPropertiesDialog
       // 
       this.AcceptButton = this.m_okButton;
@@ -447,7 +457,6 @@ namespace Trizbort.UI
         private System.Windows.Forms.TextBox m_middleTextBox;
         private System.Windows.Forms.TextBox m_startTextBox;
         private System.Windows.Forms.GroupBox groupBox2;
-        private DevComponents.DotNetBar.Controls.TextBoxX connectionColorBox;
         private System.Windows.Forms.Button connectionColorChange;
         private System.Windows.Forms.Label label11;
     private System.Windows.Forms.CheckBox chkDoor;
@@ -459,5 +468,7 @@ namespace Trizbort.UI
     private System.Windows.Forms.CheckBox chkOpenable;
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.TextBox txtDescription;
+    private Controls.TrizbortTextBox connectionColorBox;
+    private System.Windows.Forms.Button connectionColorClear;
   }
 }

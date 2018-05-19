@@ -32,19 +32,21 @@ namespace Trizbort.UI {
   public partial class ConnectionPropertiesDialog : Form {
     private const string NO_COLOR_SET = "No Color Set";
 
+
+    
     public ConnectionPropertiesDialog() {
       InitializeComponent();
     }
 
     public Color ConnectionColor {
-      get => connectionColorBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : connectionColorBox.BackColor;
+      get => connectionColorBox.Text == NO_COLOR_SET ? Color.Transparent : connectionColorBox.BackColor;
       set {
         if (value == Color.Transparent) {
           connectionColorBox.BackColor = Color.White;
-          connectionColorBox.WatermarkText = NO_COLOR_SET;
+          connectionColorBox.Text = NO_COLOR_SET;
         } else {
           connectionColorBox.BackColor = value;
-          connectionColorBox.WatermarkText = string.Empty;
+          connectionColorBox.Text = string.Empty;
         }
       }
     }
@@ -118,10 +120,6 @@ namespace Trizbort.UI {
       chkOpenable.Enabled = chkDoor.Checked;
     }
 
-    private void connectionColorBox_ButtonCustomClick(object sender, EventArgs e) {
-      ConnectionColor = Color.Transparent;
-      connectionColorChange.Focus();
-    }
 
     private void connectionColorBox_DoubleClick(object sender, EventArgs e) {
       changeConnectionColor();
@@ -163,6 +161,15 @@ namespace Trizbort.UI {
         m_oiRadioButton.Checked = true;
       else
         m_customRadioButton.Checked = true;
+    }
+
+    private void connectionColorClear_Click(object sender, EventArgs e)
+    {
+      ConnectionColor = Color.Transparent;
+    }
+
+    private void connectionColorBox_Enter(object sender, EventArgs e) {
+      connectionColorChange.Focus();
     }
   }
 }

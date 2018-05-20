@@ -440,9 +440,10 @@ namespace Trizbort.Automap
               var mOtherRoom = m_lastKnownRoom.GetConnections(CompassPointHelper.GetCompassDirection(m_lastMoveDirection.Value)).FirstOrDefault()?.GetTargetRoom();
               if (mOtherRoom != null)
               {
-                var frm = new AutomapRoomSameDirectionDialog();
-                frm.Room1 = mOtherRoom;
-                frm.Room2 = roomName;
+                var frm = new AutomapRoomSameDirectionDialog {
+                  Room1 = mOtherRoom,
+                  Room2 = roomName
+                };
                 frm.ShowDialog();
 
                 switch (frm.Result)

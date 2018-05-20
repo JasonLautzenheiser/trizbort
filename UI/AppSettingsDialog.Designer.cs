@@ -52,11 +52,11 @@
       this.labelH = new System.Windows.Forms.Label();
       this.labelV = new System.Windows.Forms.Label();
       this.chkDefaultHandDrawn = new System.Windows.Forms.CheckBox();
-      this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
-      this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
-      this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.tabInform7 = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControl1 = new System.Windows.Forms.TabControl();
+      // this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.superTabItem1 = new System.Windows.Forms.TabPage();
+      // this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.tabInform7 = new System.Windows.Forms.TabPage();
       this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.groupBox3.SuspendLayout();
@@ -64,7 +64,6 @@
       ((System.ComponentModel.ISupportInitialize)(this.m_preferredVerticalMargin)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
       this.superTabControl1.SuspendLayout();
-      this.superTabControlPanel1.SuspendLayout();
       this.SuspendLayout();
       // 
       // m_okButton
@@ -394,63 +393,46 @@
       // 
       // 
       // 
-      this.superTabControl1.ControlBox.CloseBox.Name = "";
-      // 
-      // 
-      // 
-      this.superTabControl1.ControlBox.MenuBox.Name = "";
-      this.superTabControl1.ControlBox.Name = "";
-      this.superTabControl1.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.superTabControl1.ControlBox.MenuBox,
-            this.superTabControl1.ControlBox.CloseBox});
-      this.superTabControl1.Controls.Add(this.superTabControlPanel1);
-      this.superTabControl1.Controls.Add(this.superTabControlPanel2);
+      // this.superTabControl1.Controls.Add(this.superTabItem1);
+      // this.superTabControl1.Controls.Add(this.tabInform7);
       this.superTabControl1.Location = new System.Drawing.Point(7, 13);
       this.superTabControl1.Name = "superTabControl1";
-      this.superTabControl1.ReorderTabsEnabled = true;
-      this.superTabControl1.SelectedTabFont = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-      this.superTabControl1.SelectedTabIndex = 1;
+      this.superTabControl1.SelectedIndex = 1;
       this.superTabControl1.Size = new System.Drawing.Size(432, 319);
-      this.superTabControl1.TabFont = new System.Drawing.Font("Tahoma", 8.25F);
+      this.superTabControl1.Font = new System.Drawing.Font("Tahoma", 8.25F);
       this.superTabControl1.TabIndex = 7;
-      this.superTabControl1.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.superTabItem1,
-            this.tabInform7});
-      this.superTabControl1.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.VisualStudio2008Dock;
+      // this.superTabControl1.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+      //       this.superTabItem1,
+      //       this.tabInform7});
+      // this.superTabControl1.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.VisualStudio2008Dock;
       this.superTabControl1.Text = "superTabControl1";
       // 
       // superTabControlPanel1
       // 
-      this.superTabControlPanel1.Controls.Add(this.groupBox1);
-      this.superTabControlPanel1.Controls.Add(this.groupBox2);
-      this.superTabControlPanel1.Controls.Add(this.groupBox3);
-      this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel1.Location = new System.Drawing.Point(0, 26);
-      this.superTabControlPanel1.Name = "superTabControlPanel1";
-      this.superTabControlPanel1.Size = new System.Drawing.Size(432, 293);
-      this.superTabControlPanel1.TabIndex = 1;
-      this.superTabControlPanel1.TabItem = this.superTabItem1;
+      this.superTabItem1.Controls.Add(this.groupBox1);
+      this.superTabItem1.Controls.Add(this.groupBox2);
+      this.superTabItem1.Controls.Add(this.groupBox3);
+      this.superTabItem1.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabItem1.Location = new System.Drawing.Point(0, 26);
+      this.superTabItem1.Name = "superTabControlPanel1";
+      this.superTabItem1.Size = new System.Drawing.Size(432, 293);
+      this.superTabItem1.TabIndex = 1;
       // 
       // superTabItem1
       // 
-      this.superTabItem1.AttachedControl = this.superTabControlPanel1;
-      this.superTabItem1.GlobalItem = false;
       this.superTabItem1.Name = "superTabItem1";
       this.superTabItem1.Text = "General";
       // 
       // superTabControlPanel2
       // 
-      this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 0);
-      this.superTabControlPanel2.Name = "superTabControlPanel2";
-      this.superTabControlPanel2.Size = new System.Drawing.Size(432, 319);
-      this.superTabControlPanel2.TabIndex = 0;
-      this.superTabControlPanel2.TabItem = this.tabInform7;
+      this.tabInform7.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.tabInform7.Location = new System.Drawing.Point(0, 0);
+      this.tabInform7.Name = "superTabControlPanel2";
+      this.tabInform7.Size = new System.Drawing.Size(432, 319);
+      this.tabInform7.TabIndex = 0;
       // 
       // tabInform7
       // 
-      this.tabInform7.AttachedControl = this.superTabControlPanel2;
-      this.tabInform7.GlobalItem = false;
       this.tabInform7.Name = "tabInform7";
       this.tabInform7.Text = "Inform 7";
       this.tabInform7.Visible = false;
@@ -486,7 +468,6 @@
       ((System.ComponentModel.ISupportInitialize)(this.m_preferredVerticalMargin)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
       this.superTabControl1.ResumeLayout(false);
-      this.superTabControlPanel1.ResumeLayout(false);
       this.ResumeLayout(false);
 
 		}
@@ -519,11 +500,11 @@
         private System.Windows.Forms.NumericUpDown m_preferredVerticalMargin;
         private System.Windows.Forms.Label labelV;
         
-        private DevComponents.DotNetBar.SuperTabControl superTabControl1;
-        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel2;
-        private DevComponents.DotNetBar.SuperTabItem tabInform7;
-        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel1;
-        private DevComponents.DotNetBar.SuperTabItem superTabItem1;
+        private System.Windows.Forms.TabControl superTabControl1;
+        // private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel2;
+        private System.Windows.Forms.TabPage tabInform7;
+        // private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel1;
+        private System.Windows.Forms.TabPage superTabItem1;
     private System.Windows.Forms.CheckBox chkShowTooltips;
     private System.Windows.Forms.CheckBox chkFullPathTitleBar;
   }

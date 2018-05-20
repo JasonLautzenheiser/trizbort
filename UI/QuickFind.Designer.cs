@@ -28,23 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-      this.labelX1 = new DevComponents.DotNetBar.LabelX();
+      this.labelX1 = new System.Windows.Forms.Label();
       this.btnFind = new System.Windows.Forms.Button();
       this.btnCancel = new System.Windows.Forms.Button();
-      this.cboFind = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+      this.txtFind = new System.Windows.Forms.TextBox();
       this.SuspendLayout();
       // 
       // labelX1
       // 
       this.labelX1.AutoSize = true;
-      // 
-      // 
-      // 
-      this.labelX1.BackgroundStyle.Class = "";
-      this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
       this.labelX1.Location = new System.Drawing.Point(11, 6);
       this.labelX1.Name = "labelX1";
-      this.labelX1.Size = new System.Drawing.Size(200, 15);
+      this.labelX1.Size = new System.Drawing.Size(196, 13);
       this.labelX1.TabIndex = 2;
       this.labelX1.Text = "Enter room name, description, or objects";
       // 
@@ -69,23 +64,16 @@
       this.btnCancel.UseVisualStyleBackColor = true;
       this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
       // 
-      // cboFind
+      // txtFind
       // 
-      this.cboFind.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-      this.cboFind.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-      this.cboFind.DisplayMember = "Text";
-      this.cboFind.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-      this.cboFind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-      this.cboFind.FocusHighlightEnabled = true;
-      this.cboFind.FormattingEnabled = true;
-      this.cboFind.ItemHeight = 14;
-      this.cboFind.Location = new System.Drawing.Point(11, 27);
-      this.cboFind.Name = "cboFind";
-      this.cboFind.PreventEnterBeep = true;
-      this.cboFind.Size = new System.Drawing.Size(394, 20);
-      this.cboFind.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-      this.cboFind.TabIndex = 5;
-      this.cboFind.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboFind_KeyPress);
+      this.txtFind.AcceptsReturn = true;
+      this.txtFind.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+      this.txtFind.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+      this.txtFind.Location = new System.Drawing.Point(12, 22);
+      this.txtFind.Name = "txtFind";
+      this.txtFind.Size = new System.Drawing.Size(394, 20);
+      this.txtFind.TabIndex = 6;
+      this.txtFind.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFind_KeyPress);
       // 
       // QuickFind
       // 
@@ -95,7 +83,7 @@
       this.BackColor = System.Drawing.SystemColors.Control;
       this.CancelButton = this.btnCancel;
       this.ClientSize = new System.Drawing.Size(414, 109);
-      this.Controls.Add(this.cboFind);
+      this.Controls.Add(this.txtFind);
       this.Controls.Add(this.btnCancel);
       this.Controls.Add(this.btnFind);
       this.Controls.Add(this.labelX1);
@@ -116,9 +104,9 @@
         }
 
     #endregion
-    private DevComponents.DotNetBar.LabelX labelX1;
+    private System.Windows.Forms.Label labelX1;
     private System.Windows.Forms.Button btnFind;
     private System.Windows.Forms.Button btnCancel;
-    private DevComponents.DotNetBar.Controls.ComboBoxEx cboFind;
+    private System.Windows.Forms.TextBox txtFind;
   }
 }

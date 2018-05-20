@@ -19,7 +19,7 @@ namespace Trizbort.UI {
 
       var source = new AutoCompleteStringCollection();
       source.AddRange(cache.Select(p => p.ToString()).ToArray());
-      cboFind.AutoCompleteCustomSource = source;
+      txtFind.AutoCompleteCustomSource = source;
     }
 
     private void btnCancel_Click(object sender, EventArgs e) {
@@ -52,12 +52,8 @@ namespace Trizbort.UI {
       return list;
     }
 
-    private void cboFind_KeyPress(object sender, KeyPressEventArgs e) {
-      if (e.KeyChar == (int) Keys.Enter) doFind();
-    }
-
     private void doFind() {
-      var s = cboFind.Text;
+      var s = txtFind.Text;
       if (string.IsNullOrWhiteSpace(s)) Close();
 
       var found = getResults(s);
@@ -78,7 +74,7 @@ namespace Trizbort.UI {
     }
 
     private void QuickFind_Activated(object sender, EventArgs e) {
-      cboFind.Focus();
+      txtFind.Focus();
     }
 
     private void QuickFind_Deactivate(object sender, EventArgs e) {
@@ -97,6 +93,11 @@ namespace Trizbort.UI {
       public override string ToString() {
         return $"{Text}";
       }
+    }
+
+    private void txtFind_KeyPress(object sender, KeyPressEventArgs e)
+    {
+      if (e.KeyChar == (int) Keys.Enter) doFind();
     }
   }
 }

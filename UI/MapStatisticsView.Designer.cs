@@ -28,14 +28,12 @@
     /// </summary>
     private void InitializeComponent()
     {
-      this.txtStats = new DevComponents.DotNetBar.Controls.TextBoxX();
+      this.txtStats = new System.Windows.Forms.TextBox();
       this.SuspendLayout();
       // 
       // txtStats
       // 
-      // 
-      // 
-      // 
+      this.txtStats.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.txtStats.Location = new System.Drawing.Point(13, 13);
       this.txtStats.Multiline = true;
       this.txtStats.Name = "txtStats";
@@ -58,6 +56,7 @@
       this.Text = "Map Statistics";
       this.Load += new System.EventHandler(this.MapStatisticsView_Load);
       this.ResumeLayout(false);
+      this.PerformLayout();
 
     }
 

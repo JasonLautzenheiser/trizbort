@@ -37,7 +37,7 @@
       this.btnRegionTextColor = new System.Windows.Forms.Button();
       this.pnlRegionColor = new System.Windows.Forms.Panel();
       this.lblTextColor = new System.Windows.Forms.Label();
-      this.txtRegionName = new DevComponents.DotNetBar.Controls.TextBoxX();
+      this.txtRegionName = new System.Windows.Forms.TextBox();
       this.pnlRegionColor.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -137,8 +137,6 @@
       // 
       // 
       // 
-      this.txtRegionName.Border.Class = "TextBoxBorder";
-      this.txtRegionName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
       this.txtRegionName.Location = new System.Drawing.Point(90, 6);
       this.txtRegionName.Name = "txtRegionName";
       this.txtRegionName.Size = new System.Drawing.Size(187, 20);
@@ -186,6 +184,6 @@
         private System.Windows.Forms.Button btnRegionTextColor;
         private System.Windows.Forms.Panel pnlRegionColor;
         private System.Windows.Forms.Label lblTextColor;
-        private DevComponents.DotNetBar.Controls.TextBoxX txtRegionName;
+        private System.Windows.Forms.TextBox txtRegionName;
     }
 }

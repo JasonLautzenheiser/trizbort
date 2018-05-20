@@ -36,8 +36,6 @@
       // 
       // 
       // 
-      this.txtStats.Border.Class = "TextBoxBorder";
-      this.txtStats.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
       this.txtStats.Location = new System.Drawing.Point(13, 13);
       this.txtStats.Multiline = true;
       this.txtStats.Name = "txtStats";
@@ -65,6 +63,6 @@
 
     #endregion
 
-    private DevComponents.DotNetBar.Controls.TextBoxX txtStats;
+    private System.Windows.Forms.TextBox txtStats;
   }
 }

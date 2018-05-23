@@ -167,6 +167,9 @@
     <Compile Include="UI\Controls\TrizbortTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\Controls\TrizbortToolTip.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\InputDialog.cs" />
     <Compile Include="Util\ClipboardHelper.cs" />
     <Compile Include="Util\PathHelper.cs" />

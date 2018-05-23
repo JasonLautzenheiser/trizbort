@@ -45,6 +45,9 @@ namespace Trizbort.UI.Controls
       this.m_cornerPanel = new System.Windows.Forms.Panel();
       this.ctxCanvasMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
       this.addRoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+      this.sendToBackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.bringToFrontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
       this.m_lineStylesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_plainLinesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,11 +86,8 @@ namespace Trizbort.UI.Controls
       this.mapSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.applicationSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.lblZoom = new System.Windows.Forms.Label();
-      this.roomTooltip = new DevComponents.DotNetBar.SuperTooltip();
       this.m_minimap = new Trizbort.UI.Controls.Minimap();
-      this.bringToFrontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.sendToBackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+      this.trizbortToolTip1 = new Trizbort.UI.Controls.TrizbortToolTip();
       this.ctxCanvasMenu.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -146,7 +146,7 @@ namespace Trizbort.UI.Controls
             this.mapSettingsToolStripMenuItem,
             this.applicationSettingsToolStripMenuItem});
       this.ctxCanvasMenu.Name = "ctxCanvasMenu";
-      this.ctxCanvasMenu.Size = new System.Drawing.Size(190, 420);
+      this.ctxCanvasMenu.Size = new System.Drawing.Size(190, 398);
       this.ctxCanvasMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxCanvasMenu_Opening);
       // 
       // addRoomToolStripMenuItem
@@ -156,6 +156,26 @@ namespace Trizbort.UI.Controls
       this.addRoomToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
       this.addRoomToolStripMenuItem.Text = "Add &Room";
       this.addRoomToolStripMenuItem.Click += new System.EventHandler(this.addRoomToolStripMenuItem_Click);
+      // 
+      // toolStripSeparator7
+      // 
+      this.toolStripSeparator7.ForeColor = System.Drawing.SystemColors.ControlText;
+      this.toolStripSeparator7.Name = "toolStripSeparator7";
+      this.toolStripSeparator7.Size = new System.Drawing.Size(186, 6);
+      // 
+      // sendToBackToolStripMenuItem
+      // 
+      this.sendToBackToolStripMenuItem.Name = "sendToBackToolStripMenuItem";
+      this.sendToBackToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.sendToBackToolStripMenuItem.Text = "Send to Back";
+      this.sendToBackToolStripMenuItem.Click += new System.EventHandler(this.sendToBackToolStripMenuItem_Click);
+      // 
+      // bringToFrontToolStripMenuItem
+      // 
+      this.bringToFrontToolStripMenuItem.Name = "bringToFrontToolStripMenuItem";
+      this.bringToFrontToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+      this.bringToFrontToolStripMenuItem.Text = "Bring to Front";
+      this.bringToFrontToolStripMenuItem.Click += new System.EventHandler(this.bringToFrontToolStripMenuItem_Click);
       // 
       // toolStripSeparator3
       // 
@@ -462,12 +482,6 @@ namespace Trizbort.UI.Controls
       this.lblZoom.TabIndex = 7;
       this.lblZoom.Text = "Zoom";
       // 
-      // roomTooltip
-      // 
-      this.roomTooltip.CheckTooltipPosition = false;
-      this.roomTooltip.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
-      this.roomTooltip.PositionBelowControl = false;
-      // 
       // m_minimap
       // 
       this.m_minimap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -479,25 +493,9 @@ namespace Trizbort.UI.Controls
       this.m_minimap.TabIndex = 6;
       this.m_minimap.TabStop = false;
       // 
-      // bringToFrontToolStripMenuItem
+      // trizbortToolTip1
       // 
-      this.bringToFrontToolStripMenuItem.Name = "bringToFrontToolStripMenuItem";
-      this.bringToFrontToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-      this.bringToFrontToolStripMenuItem.Text = "Bring to Front";
-      this.bringToFrontToolStripMenuItem.Click += new System.EventHandler(this.bringToFrontToolStripMenuItem_Click);
-      // 
-      // sendToBackToolStripMenuItem
-      // 
-      this.sendToBackToolStripMenuItem.Name = "sendToBackToolStripMenuItem";
-      this.sendToBackToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-      this.sendToBackToolStripMenuItem.Text = "Send to Back";
-      this.sendToBackToolStripMenuItem.Click += new System.EventHandler(this.sendToBackToolStripMenuItem_Click);
-      // 
-      // toolStripSeparator7
-      // 
-      this.toolStripSeparator7.ForeColor = System.Drawing.SystemColors.ControlText;
-      this.toolStripSeparator7.Name = "toolStripSeparator7";
-      this.toolStripSeparator7.Size = new System.Drawing.Size(186, 6);
+      this.trizbortToolTip1.OwnerDraw = true;
       // 
       // Canvas
       // 
@@ -527,7 +525,6 @@ namespace Trizbort.UI.Controls
         private System.Windows.Forms.ToolStripMenuItem regionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;
         private System.Windows.Forms.Label lblZoom;
-        private DevComponents.DotNetBar.SuperTooltip roomTooltip;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem roomPropertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
@@ -567,5 +564,6 @@ namespace Trizbort.UI.Controls
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
     private System.Windows.Forms.ToolStripMenuItem sendToBackToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem bringToFrontToolStripMenuItem;
+    private TrizbortToolTip trizbortToolTip1;
   }
 }

@@ -2426,7 +2426,7 @@ namespace Trizbort.UI.Controls {
       mNewRoomObjectsPosition = CompassPoint.South;
       requestRecomputeSmartSegments();
       StopAutomapping();
-      roomTooltip.SetSuperTooltip(this, null);
+      // roomTooltip.SetSuperTooltip(this, null);
     }
 
     private void resizeRoom(Keys keyCode) {
@@ -2652,32 +2652,36 @@ namespace Trizbort.UI.Controls {
           Cursor.Current = hoverElement is Room && ((Room) hoverElement).IsReference && ModifierKeys == Keys.Control ? Cursors.Hand : Cursors.Default;
 
           if (HoverElement == null) {
-            roomTooltip.HideTooltip();
+            trizbortToolTip1.Hide(FromHandle(Handle));
           } else if (ApplicationSettingsController.AppSettings.ShowToolTipsOnObjects && HoverElement.HasTooltip()) {
-            if (roomTooltip.IsTooltipVisible && sameElement) return;
 
-            if (HoverElement.GetToolTipHeader() == string.Empty && HoverElement.GetToolTipText() == string.Empty) return;
-            var toolTip = new SuperTooltipInfo(HoverElement.GetToolTipHeader(), HoverElement.GetToolTipFooter(), HoverElement.GetToolTipText(), null, null, HoverElement.GetToolTipColor());
+            if (trizbortToolTip1.Active && sameElement) return;
+            if (hoverElement.GetToolTipHeader() == string.Empty && hoverElement.GetToolTipText() == string.Empty) return;
 
-            roomTooltip.SetSuperTooltip(this, toolTip);
+            trizbortToolTip1.BodyText = hoverElement.GetToolTipText();
+            trizbortToolTip1.FooterText = hoverElement.GetToolTipFooter();
+            trizbortToolTip1.TitleText = hoverElement.GetToolTipHeader();
 
             var tPoint = new Vector();
             if (hoverElement is Room) {
+              trizbortToolTip1.BackColor = Color.LightBlue;
               var tRoom = (Room) hoverElement;
               tPoint = tRoom.Position;
-              tPoint.Y += tRoom.Height + 10;
-              tPoint.X -= 10;
+              // tPoint.Y += tRoom.Height + 10;
+              // tPoint.X -= 10;
             } else if (hoverElement is Connection) {
+              trizbortToolTip1.BackColor = Color.LemonChiffon;
               var tConnection = (Connection) hoverElement;
+              tConnection.MidText = "";
               tPoint = tConnection.VertexList[0].Position;
-              tPoint.Y += 10;
-              tPoint.X -= 10;
+              // tPoint.Y -= 10;
+              // tPoint.X -= 10;
             }
 
             var xxttPoint = CanvasToClient(tPoint);
             var newPoint = PointToScreen(new Point((int) xxttPoint.X, (int) xxttPoint.Y));
 
-            roomTooltip.ShowTooltip(this, newPoint);
+            this.trizbortToolTip1.Show(trizbortToolTip1.TitleText, FromHandle(Handle), newPoint);
           }
 
           break;

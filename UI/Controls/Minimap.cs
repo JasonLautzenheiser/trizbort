@@ -54,7 +54,7 @@ namespace Trizbort.UI.Controls {
       DoubleBuffered = true;
     }
 
-    public Canvas Canvas { private get; set; }
+    public Canvas Canvas {  get; set; }
 
     public bool IsMouseOverMe() {
       return ClientRectangle.Contains(PointToClient(MousePosition));

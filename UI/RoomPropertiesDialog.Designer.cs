@@ -22,7 +22,9 @@
     THE SOFTWARE.
 */
 
+using System.Drawing;
 using DevComponents.DotNetBar.Controls;
+using Trizbort.UI.Controls;
 
 namespace Trizbort.UI
 {
@@ -74,41 +76,16 @@ namespace Trizbort.UI
       this.cboRegion = new System.Windows.Forms.ComboBox();
       this.label6 = new System.Windows.Forms.Label();
       this.m_tabControl = new DevComponents.DotNetBar.SuperTabControl();
-      this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.chkHandDrawnRoom = new System.Windows.Forms.CheckBox();
-      this.groupRoundedCorners = new System.Windows.Forms.Panel();
-      this.chkCornersSame = new System.Windows.Forms.CheckBox();
-      this.txtBottomRight = new System.Windows.Forms.NumericUpDown();
-      this.txtTopLeft = new System.Windows.Forms.NumericUpDown();
-      this.txtBottomLeft = new System.Windows.Forms.NumericUpDown();
-      this.txtTopRight = new System.Windows.Forms.NumericUpDown();
-      this.cboDrawType = new System.Windows.Forms.ComboBox();
-      this.pnlSampleRoomShape = new System.Windows.Forms.Panel();
-      this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
-      this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.tabRegions = new DevComponents.DotNetBar.SuperTabItem();
-      this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.tabDescription = new DevComponents.DotNetBar.SuperTabItem();
-      this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.m_subTitleTextTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.label14 = new System.Windows.Forms.Label();
-      this.m_changeSubtitleTextButton = new System.Windows.Forms.Button();
-      this.m_secondFillTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.m_objectTextTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.m_roomTextTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.m_roomBorderTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.m_roomFillTextBox = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.tabColors = new DevComponents.DotNetBar.SuperTabItem();
       this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
-      this.txtRight = new DevComponents.Editors.IntegerInput();
-      this.txtDown = new DevComponents.Editors.IntegerInput();
+      this.txtRight = new System.Windows.Forms.NumericUpDown();
+      this.txtDown = new System.Windows.Forms.NumericUpDown();
       this.label12 = new System.Windows.Forms.Label();
       this.label10 = new System.Windows.Forms.Label();
       this.chkCustomPosition = new System.Windows.Forms.CheckBox();
       this.pnlObjectSyntaxHelp = new System.Windows.Forms.Panel();
       this.label9 = new System.Windows.Forms.Label();
       this.lblObjectSyntaxHelp = new System.Windows.Forms.Label();
-      this.txtObjects = new DevComponents.DotNetBar.Controls.TextBoxX();
+      this.txtObjects = new Trizbort.UI.Controls.TrizbortTextBox();
       this.m_objectsPositionGroupBox = new System.Windows.Forms.GroupBox();
       this.m_cCheckBox = new System.Windows.Forms.CheckBox();
       this.m_nwCheckBox = new System.Windows.Forms.CheckBox();
@@ -120,32 +97,63 @@ namespace Trizbort.UI
       this.m_wCheckBox = new System.Windows.Forms.CheckBox();
       this.m_eCheckBox = new System.Windows.Forms.CheckBox();
       this.tabObjects = new DevComponents.DotNetBar.SuperTabItem();
-      this.txtName = new DevComponents.DotNetBar.Controls.TextBoxX();
-      this.txtSubTitle = new DevComponents.DotNetBar.Controls.TextBoxX();
+      this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.tabDescription = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.m_subTitleTextTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
+      this.label14 = new System.Windows.Forms.Label();
+      this.m_changeSubtitleTextButton = new System.Windows.Forms.Button();
+      this.m_secondFillTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
+      this.m_objectTextTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
+      this.m_roomTextTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
+      this.m_roomBorderTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
+      this.m_roomFillTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
+      this.tabColors = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.tabRegions = new DevComponents.DotNetBar.SuperTabItem();
+      this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
+      this.chkHandDrawnRoom = new System.Windows.Forms.CheckBox();
+      this.groupRoundedCorners = new System.Windows.Forms.Panel();
+      this.chkCornersSame = new System.Windows.Forms.CheckBox();
+      this.txtBottomRight = new System.Windows.Forms.NumericUpDown();
+      this.txtTopLeft = new System.Windows.Forms.NumericUpDown();
+      this.txtBottomLeft = new System.Windows.Forms.NumericUpDown();
+      this.txtTopRight = new System.Windows.Forms.NumericUpDown();
+      this.cboDrawType = new System.Windows.Forms.ComboBox();
+      this.pnlSampleRoomShape = new System.Windows.Forms.Panel();
+      this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
+      this.txtName = new Trizbort.UI.Controls.TrizbortTextBox();
+      this.txtSubTitle = new Trizbort.UI.Controls.TrizbortTextBox();
       this.label7 = new System.Windows.Forms.Label();
       this.cboBorderStyle = new System.Windows.Forms.ComboBox();
       this.label8 = new System.Windows.Forms.Label();
       this.chkStartRoom = new System.Windows.Forms.CheckBox();
-      this.toolTip = new DevComponents.DotNetBar.SuperTooltip();
+      this.toolTip = new Trizbort.UI.Controls.TrizbortToolTip();
       this.chkEndRoom = new System.Windows.Forms.CheckBox();
       this.cboReference = new System.Windows.Forms.ComboBox();
       this.label13 = new System.Windows.Forms.Label();
+      this.roomColorClear = new System.Windows.Forms.Button();
+      this.secondColorClear = new System.Windows.Forms.Button();
+      this.roomBorderColorClear = new System.Windows.Forms.Button();
+      this.roomTextColorClear = new System.Windows.Forms.Button();
+      this.objectColorClear = new System.Windows.Forms.Button();
+      this.subtitleColorClear = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).BeginInit();
       this.m_tabControl.SuspendLayout();
+      this.superTabControlPanel1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.txtRight)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtDown)).BeginInit();
+      this.pnlObjectSyntaxHelp.SuspendLayout();
+      this.m_objectsPositionGroupBox.SuspendLayout();
+      this.superTabControlPanel2.SuspendLayout();
+      this.superTabControlPanel3.SuspendLayout();
+      this.superTabControlPanel4.SuspendLayout();
       this.superTabControlPanel5.SuspendLayout();
       this.groupRoundedCorners.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.txtBottomRight)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtTopLeft)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtBottomLeft)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtTopRight)).BeginInit();
-      this.superTabControlPanel4.SuspendLayout();
-      this.superTabControlPanel2.SuspendLayout();
-      this.superTabControlPanel3.SuspendLayout();
-      this.superTabControlPanel1.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.txtRight)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.txtDown)).BeginInit();
-      this.pnlObjectSyntaxHelp.SuspendLayout();
-      this.m_objectsPositionGroupBox.SuspendLayout();
       this.SuspendLayout();
       // 
       // m_okButton
@@ -237,7 +245,7 @@ namespace Trizbort.UI
       // m_changeSecondFillButton
       // 
       this.m_changeSecondFillButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_changeSecondFillButton.Location = new System.Drawing.Point(395, 39);
+      this.m_changeSecondFillButton.Location = new System.Drawing.Point(395, 41);
       this.m_changeSecondFillButton.Name = "m_changeSecondFillButton";
       this.m_changeSecondFillButton.Size = new System.Drawing.Size(75, 23);
       this.m_changeSecondFillButton.TabIndex = 16;
@@ -258,7 +266,7 @@ namespace Trizbort.UI
       // m_changeObjectTextButton
       // 
       this.m_changeObjectTextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_changeObjectTextButton.Location = new System.Drawing.Point(395, 126);
+      this.m_changeObjectTextButton.Location = new System.Drawing.Point(395, 128);
       this.m_changeObjectTextButton.Name = "m_changeObjectTextButton";
       this.m_changeObjectTextButton.Size = new System.Drawing.Size(75, 23);
       this.m_changeObjectTextButton.TabIndex = 19;
@@ -279,7 +287,7 @@ namespace Trizbort.UI
       // m_changeRoomTextButton
       // 
       this.m_changeRoomTextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_changeRoomTextButton.Location = new System.Drawing.Point(395, 97);
+      this.m_changeRoomTextButton.Location = new System.Drawing.Point(395, 99);
       this.m_changeRoomTextButton.Name = "m_changeRoomTextButton";
       this.m_changeRoomTextButton.Size = new System.Drawing.Size(75, 23);
       this.m_changeRoomTextButton.TabIndex = 18;
@@ -300,7 +308,7 @@ namespace Trizbort.UI
       // m_changeRoomBorderButton
       // 
       this.m_changeRoomBorderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_changeRoomBorderButton.Location = new System.Drawing.Point(395, 68);
+      this.m_changeRoomBorderButton.Location = new System.Drawing.Point(395, 70);
       this.m_changeRoomBorderButton.Name = "m_changeRoomBorderButton";
       this.m_changeRoomBorderButton.Size = new System.Drawing.Size(75, 23);
       this.m_changeRoomBorderButton.TabIndex = 17;
@@ -321,7 +329,7 @@ namespace Trizbort.UI
       // m_changeRoomFillButton
       // 
       this.m_changeRoomFillButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_changeRoomFillButton.Location = new System.Drawing.Point(395, 10);
+      this.m_changeRoomFillButton.Location = new System.Drawing.Point(395, 12);
       this.m_changeRoomFillButton.Name = "m_changeRoomFillButton";
       this.m_changeRoomFillButton.Size = new System.Drawing.Size(75, 23);
       this.m_changeRoomFillButton.TabIndex = 14;
@@ -375,11 +383,11 @@ namespace Trizbort.UI
       this.m_tabControl.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.m_tabControl.ControlBox.MenuBox,
             this.m_tabControl.ControlBox.CloseBox});
-      this.m_tabControl.Controls.Add(this.superTabControlPanel5);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel2);
-      this.m_tabControl.Controls.Add(this.superTabControlPanel4);
       this.m_tabControl.Controls.Add(this.superTabControlPanel3);
       this.m_tabControl.Controls.Add(this.superTabControlPanel1);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel2);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel4);
+      this.m_tabControl.Controls.Add(this.superTabControlPanel5);
       this.m_tabControl.Location = new System.Drawing.Point(19, 180);
       this.m_tabControl.Name = "m_tabControl";
       this.m_tabControl.ReorderTabsEnabled = true;
@@ -399,6 +407,443 @@ namespace Trizbort.UI
       this.m_tabControl.SelectedTabChanged += new System.EventHandler<DevComponents.DotNetBar.SuperTabStripSelectedTabChangedEventArgs>(this.m_tabControl_SelectedTabChanged);
       this.m_tabControl.Enter += new System.EventHandler(this.m_tabControl_Enter);
       // 
+      // superTabControlPanel1
+      // 
+      this.superTabControlPanel1.Controls.Add(this.txtRight);
+      this.superTabControlPanel1.Controls.Add(this.txtDown);
+      this.superTabControlPanel1.Controls.Add(this.label12);
+      this.superTabControlPanel1.Controls.Add(this.label10);
+      this.superTabControlPanel1.Controls.Add(this.chkCustomPosition);
+      this.superTabControlPanel1.Controls.Add(this.pnlObjectSyntaxHelp);
+      this.superTabControlPanel1.Controls.Add(this.lblObjectSyntaxHelp);
+      this.superTabControlPanel1.Controls.Add(this.txtObjects);
+      this.superTabControlPanel1.Controls.Add(this.m_objectsPositionGroupBox);
+      this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel1.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel1.Name = "superTabControlPanel1";
+      this.superTabControlPanel1.Size = new System.Drawing.Size(477, 190);
+      this.superTabControlPanel1.TabIndex = 1;
+      this.superTabControlPanel1.TabItem = this.tabObjects;
+      // 
+      // txtRight
+      // 
+      // 
+      // 
+      // 
+      this.txtRight.Location = new System.Drawing.Point(415, 160);
+      this.txtRight.Name = "txtRight";
+          this.txtRight.DecimalPlaces = 0;
+      this.txtRight.Size = new System.Drawing.Size(55, 21);
+      this.txtRight.TabIndex = 25;
+      // 
+      // txtDown
+      // 
+      // 
+      // 
+      // 
+      this.txtDown.Location = new System.Drawing.Point(415, 138);
+      this.txtDown.Name = "txtDown";
+          this.txtRight.DecimalPlaces = 0;
+      this.txtDown.Size = new System.Drawing.Size(55, 21);
+      this.txtDown.TabIndex = 24;
+      // 
+      // label12
+      // 
+      this.label12.AutoSize = true;
+      this.label12.BackColor = System.Drawing.Color.Transparent;
+      this.label12.Location = new System.Drawing.Point(373, 163);
+      this.label12.Name = "label12";
+      this.label12.Size = new System.Drawing.Size(36, 13);
+      this.label12.TabIndex = 23;
+      this.label12.Text = "Right:";
+      // 
+      // label10
+      // 
+      this.label10.AutoSize = true;
+      this.label10.BackColor = System.Drawing.Color.Transparent;
+      this.label10.Location = new System.Drawing.Point(371, 144);
+      this.label10.Name = "label10";
+      this.label10.Size = new System.Drawing.Size(38, 13);
+      this.label10.TabIndex = 22;
+      this.label10.Text = "Down:";
+      // 
+      // chkCustomPosition
+      // 
+      this.chkCustomPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.chkCustomPosition.AutoSize = true;
+      this.chkCustomPosition.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+      this.chkCustomPosition.Location = new System.Drawing.Point(368, 122);
+      this.chkCustomPosition.Name = "chkCustomPosition";
+      this.chkCustomPosition.Size = new System.Drawing.Size(102, 17);
+      this.chkCustomPosition.TabIndex = 21;
+      this.chkCustomPosition.Text = "Custom Position";
+      this.chkCustomPosition.UseVisualStyleBackColor = true;
+      // 
+      // pnlObjectSyntaxHelp
+      // 
+      this.pnlObjectSyntaxHelp.BackColor = System.Drawing.Color.LightCyan;
+      this.pnlObjectSyntaxHelp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.pnlObjectSyntaxHelp.Controls.Add(this.label9);
+      this.pnlObjectSyntaxHelp.Location = new System.Drawing.Point(209, 24);
+      this.pnlObjectSyntaxHelp.Name = "pnlObjectSyntaxHelp";
+      this.pnlObjectSyntaxHelp.Size = new System.Drawing.Size(154, 157);
+      this.pnlObjectSyntaxHelp.TabIndex = 20;
+      this.pnlObjectSyntaxHelp.Visible = false;
+      // 
+      // label9
+      // 
+      this.label9.Location = new System.Drawing.Point(6, 3);
+      this.label9.Name = "label9";
+      this.label9.Size = new System.Drawing.Size(143, 143);
+      this.label9.TabIndex = 3;
+      this.label9.Text = resources.GetString("label9.Text");
+      // 
+      // lblObjectSyntaxHelp
+      // 
+      this.lblObjectSyntaxHelp.AutoSize = true;
+      this.lblObjectSyntaxHelp.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.lblObjectSyntaxHelp.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lblObjectSyntaxHelp.ForeColor = System.Drawing.Color.Blue;
+      this.lblObjectSyntaxHelp.Location = new System.Drawing.Point(5, 8);
+      this.lblObjectSyntaxHelp.Name = "lblObjectSyntaxHelp";
+      this.lblObjectSyntaxHelp.Size = new System.Drawing.Size(76, 13);
+      this.lblObjectSyntaxHelp.TabIndex = 19;
+      this.lblObjectSyntaxHelp.Text = "Object Syntax";
+      this.lblObjectSyntaxHelp.Click += new System.EventHandler(this.lblObjectSyntaxHelp_Click);
+      // 
+      // txtObjects
+      // 
+      this.txtObjects.AcceptsReturn = true;
+      this.txtObjects.Location = new System.Drawing.Point(4, 24);
+      this.txtObjects.Multiline = true;
+      this.txtObjects.Name = "txtObjects";
+      this.txtObjects.Size = new System.Drawing.Size(359, 157);
+      this.txtObjects.TabIndex = 5;
+      this.txtObjects.Watermark = "Enter objects, each on a new line.";
+      this.txtObjects.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtObjects_KeyDown);
+      // 
+      // m_objectsPositionGroupBox
+      // 
+      this.m_objectsPositionGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_objectsPositionGroupBox.BackColor = System.Drawing.Color.Transparent;
+      this.m_objectsPositionGroupBox.Controls.Add(this.m_cCheckBox);
+      this.m_objectsPositionGroupBox.Controls.Add(this.m_nwCheckBox);
+      this.m_objectsPositionGroupBox.Controls.Add(this.m_seCheckBox);
+      this.m_objectsPositionGroupBox.Controls.Add(this.m_nCheckBox);
+      this.m_objectsPositionGroupBox.Controls.Add(this.m_sCheckBox);
+      this.m_objectsPositionGroupBox.Controls.Add(this.m_neCheckBox);
+      this.m_objectsPositionGroupBox.Controls.Add(this.m_swCheckBox);
+      this.m_objectsPositionGroupBox.Controls.Add(this.m_wCheckBox);
+      this.m_objectsPositionGroupBox.Controls.Add(this.m_eCheckBox);
+      this.m_objectsPositionGroupBox.Location = new System.Drawing.Point(374, 4);
+      this.m_objectsPositionGroupBox.Name = "m_objectsPositionGroupBox";
+      this.m_objectsPositionGroupBox.Size = new System.Drawing.Size(102, 114);
+      this.m_objectsPositionGroupBox.TabIndex = 18;
+      this.m_objectsPositionGroupBox.TabStop = false;
+      this.m_objectsPositionGroupBox.Text = "&Position";
+      // 
+      // m_cCheckBox
+      // 
+      this.m_cCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+      this.m_cCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+      this.m_cCheckBox.Location = new System.Drawing.Point(38, 48);
+      this.m_cCheckBox.Name = "m_cCheckBox";
+      this.m_cCheckBox.Size = new System.Drawing.Size(26, 26);
+      this.m_cCheckBox.TabIndex = 12;
+      this.m_cCheckBox.Tag = "Position";
+      this.m_cCheckBox.Text = "o";
+      this.m_cCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      this.m_cCheckBox.UseVisualStyleBackColor = true;
+      this.m_cCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
+      // 
+      // m_nwCheckBox
+      // 
+      this.m_nwCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+      this.m_nwCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+      this.m_nwCheckBox.Location = new System.Drawing.Point(6, 16);
+      this.m_nwCheckBox.Name = "m_nwCheckBox";
+      this.m_nwCheckBox.Size = new System.Drawing.Size(26, 26);
+      this.m_nwCheckBox.TabIndex = 8;
+      this.m_nwCheckBox.Tag = "Position";
+      this.m_nwCheckBox.Text = "ã";
+      this.m_nwCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      this.m_nwCheckBox.UseVisualStyleBackColor = true;
+      this.m_nwCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
+      // 
+      // m_seCheckBox
+      // 
+      this.m_seCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+      this.m_seCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+      this.m_seCheckBox.Location = new System.Drawing.Point(70, 80);
+      this.m_seCheckBox.Name = "m_seCheckBox";
+      this.m_seCheckBox.Size = new System.Drawing.Size(26, 26);
+      this.m_seCheckBox.TabIndex = 16;
+      this.m_seCheckBox.Tag = "Position";
+      this.m_seCheckBox.Text = "æ";
+      this.m_seCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      this.m_seCheckBox.UseVisualStyleBackColor = true;
+      this.m_seCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
+      // 
+      // m_nCheckBox
+      // 
+      this.m_nCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+      this.m_nCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+      this.m_nCheckBox.Location = new System.Drawing.Point(38, 16);
+      this.m_nCheckBox.Name = "m_nCheckBox";
+      this.m_nCheckBox.Size = new System.Drawing.Size(26, 26);
+      this.m_nCheckBox.TabIndex = 9;
+      this.m_nCheckBox.Tag = "Position";
+      this.m_nCheckBox.Text = "á";
+      this.m_nCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      this.m_nCheckBox.UseVisualStyleBackColor = true;
+      this.m_nCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
+      // 
+      // m_sCheckBox
+      // 
+      this.m_sCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+      this.m_sCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+      this.m_sCheckBox.Location = new System.Drawing.Point(38, 80);
+      this.m_sCheckBox.Name = "m_sCheckBox";
+      this.m_sCheckBox.Size = new System.Drawing.Size(26, 26);
+      this.m_sCheckBox.TabIndex = 15;
+      this.m_sCheckBox.Tag = "Position";
+      this.m_sCheckBox.Text = "â";
+      this.m_sCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      this.m_sCheckBox.UseVisualStyleBackColor = true;
+      this.m_sCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
+      // 
+      // m_neCheckBox
+      // 
+      this.m_neCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+      this.m_neCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+      this.m_neCheckBox.Location = new System.Drawing.Point(70, 16);
+      this.m_neCheckBox.Name = "m_neCheckBox";
+      this.m_neCheckBox.Size = new System.Drawing.Size(26, 26);
+      this.m_neCheckBox.TabIndex = 10;
+      this.m_neCheckBox.Tag = "Position";
+      this.m_neCheckBox.Text = "ä";
+      this.m_neCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      this.m_neCheckBox.UseVisualStyleBackColor = true;
+      this.m_neCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
+      // 
+      // m_swCheckBox
+      // 
+      this.m_swCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+      this.m_swCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+      this.m_swCheckBox.Location = new System.Drawing.Point(6, 80);
+      this.m_swCheckBox.Name = "m_swCheckBox";
+      this.m_swCheckBox.Size = new System.Drawing.Size(26, 26);
+      this.m_swCheckBox.TabIndex = 14;
+      this.m_swCheckBox.Tag = "Position";
+      this.m_swCheckBox.Text = "å";
+      this.m_swCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      this.m_swCheckBox.UseVisualStyleBackColor = true;
+      this.m_swCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
+      // 
+      // m_wCheckBox
+      // 
+      this.m_wCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+      this.m_wCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+      this.m_wCheckBox.Location = new System.Drawing.Point(6, 48);
+      this.m_wCheckBox.Name = "m_wCheckBox";
+      this.m_wCheckBox.Size = new System.Drawing.Size(26, 26);
+      this.m_wCheckBox.TabIndex = 11;
+      this.m_wCheckBox.Tag = "Position";
+      this.m_wCheckBox.Text = "ß";
+      this.m_wCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      this.m_wCheckBox.UseVisualStyleBackColor = true;
+      this.m_wCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
+      // 
+      // m_eCheckBox
+      // 
+      this.m_eCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+      this.m_eCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+      this.m_eCheckBox.Location = new System.Drawing.Point(70, 48);
+      this.m_eCheckBox.Name = "m_eCheckBox";
+      this.m_eCheckBox.Size = new System.Drawing.Size(26, 26);
+      this.m_eCheckBox.TabIndex = 13;
+      this.m_eCheckBox.Tag = "Position";
+      this.m_eCheckBox.Text = "à";
+      this.m_eCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      this.m_eCheckBox.UseVisualStyleBackColor = true;
+      this.m_eCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
+      // 
+      // tabObjects
+      // 
+      this.tabObjects.AttachedControl = this.superTabControlPanel1;
+      this.tabObjects.GlobalItem = false;
+      this.tabObjects.Name = "tabObjects";
+      this.tabObjects.Text = "&Objects";
+      // 
+      // superTabControlPanel2
+      // 
+      this.superTabControlPanel2.Controls.Add(this.m_descriptionTextBox);
+      this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel2.Name = "superTabControlPanel2";
+      this.superTabControlPanel2.Size = new System.Drawing.Size(477, 190);
+      this.superTabControlPanel2.TabIndex = 0;
+      this.superTabControlPanel2.TabItem = this.tabDescription;
+      // 
+      // tabDescription
+      // 
+      this.tabDescription.AttachedControl = this.superTabControlPanel2;
+      this.tabDescription.GlobalItem = false;
+      this.tabDescription.Name = "tabDescription";
+      this.tabDescription.Text = "D&escription";
+      // 
+      // superTabControlPanel3
+      // 
+      this.superTabControlPanel3.Controls.Add(this.subtitleColorClear);
+      this.superTabControlPanel3.Controls.Add(this.objectColorClear);
+      this.superTabControlPanel3.Controls.Add(this.roomTextColorClear);
+      this.superTabControlPanel3.Controls.Add(this.roomBorderColorClear);
+      this.superTabControlPanel3.Controls.Add(this.secondColorClear);
+      this.superTabControlPanel3.Controls.Add(this.roomColorClear);
+      this.superTabControlPanel3.Controls.Add(this.m_subTitleTextTextBox);
+      this.superTabControlPanel3.Controls.Add(this.label14);
+      this.superTabControlPanel3.Controls.Add(this.m_changeSubtitleTextButton);
+      this.superTabControlPanel3.Controls.Add(this.m_secondFillTextBox);
+      this.superTabControlPanel3.Controls.Add(this.m_objectTextTextBox);
+      this.superTabControlPanel3.Controls.Add(this.m_roomTextTextBox);
+      this.superTabControlPanel3.Controls.Add(this.m_roomBorderTextBox);
+      this.superTabControlPanel3.Controls.Add(this.m_roomFillTextBox);
+      this.superTabControlPanel3.Controls.Add(this.comboBox1);
+      this.superTabControlPanel3.Controls.Add(this.label5);
+      this.superTabControlPanel3.Controls.Add(this.m_changeRoomFillButton);
+      this.superTabControlPanel3.Controls.Add(this.m_changeSecondFillButton);
+      this.superTabControlPanel3.Controls.Add(this.label11);
+      this.superTabControlPanel3.Controls.Add(this.label4);
+      this.superTabControlPanel3.Controls.Add(this.m_changeRoomBorderButton);
+      this.superTabControlPanel3.Controls.Add(this.m_changeObjectTextButton);
+      this.superTabControlPanel3.Controls.Add(this.label2);
+      this.superTabControlPanel3.Controls.Add(this.label3);
+      this.superTabControlPanel3.Controls.Add(this.m_changeRoomTextButton);
+      this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel3.Name = "superTabControlPanel3";
+      this.superTabControlPanel3.Size = new System.Drawing.Size(477, 190);
+      this.superTabControlPanel3.TabIndex = 0;
+      this.superTabControlPanel3.TabItem = this.tabColors;
+      // 
+      // m_subTitleTextTextBox
+      // 
+      this.m_subTitleTextTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.m_subTitleTextTextBox.Location = new System.Drawing.Point(80, 157);
+      this.m_subTitleTextTextBox.Name = "m_subTitleTextTextBox";
+      this.m_subTitleTextTextBox.ReadOnly = true;
+      this.m_subTitleTextTextBox.Size = new System.Drawing.Size(278, 21);
+      this.m_subTitleTextTextBox.TabIndex = 28;
+      this.m_subTitleTextTextBox.Watermark = null;
+      this.m_subTitleTextTextBox.DoubleClick += new System.EventHandler(this.m_subTitleTextTextBox_DoubleClick);
+      this.m_subTitleTextTextBox.Enter += new System.EventHandler(this.m_subTitleTextTextBox_Enter);
+      // 
+      // label14
+      // 
+      this.label14.AutoSize = true;
+      this.label14.BackColor = System.Drawing.Color.Transparent;
+      this.label14.Location = new System.Drawing.Point(5, 160);
+      this.label14.Name = "label14";
+      this.label14.Size = new System.Drawing.Size(68, 13);
+      this.label14.TabIndex = 26;
+      this.label14.Text = "Su&btitle Text";
+      // 
+      // m_changeSubtitleTextButton
+      // 
+      this.m_changeSubtitleTextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.m_changeSubtitleTextButton.Location = new System.Drawing.Point(395, 157);
+      this.m_changeSubtitleTextButton.Name = "m_changeSubtitleTextButton";
+      this.m_changeSubtitleTextButton.Size = new System.Drawing.Size(75, 23);
+      this.m_changeSubtitleTextButton.TabIndex = 27;
+      this.m_changeSubtitleTextButton.Text = "Change...";
+      this.m_changeSubtitleTextButton.UseVisualStyleBackColor = true;
+      this.m_changeSubtitleTextButton.Click += new System.EventHandler(this.m_changeSubtitleTextButton_Click);
+      // 
+      // m_secondFillTextBox
+      // 
+      this.m_secondFillTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.m_secondFillTextBox.Location = new System.Drawing.Point(207, 41);
+      this.m_secondFillTextBox.Name = "m_secondFillTextBox";
+      this.m_secondFillTextBox.ReadOnly = true;
+      this.m_secondFillTextBox.Size = new System.Drawing.Size(151, 21);
+      this.m_secondFillTextBox.TabIndex = 25;
+      this.m_secondFillTextBox.Watermark = null;
+      this.m_secondFillTextBox.DoubleClick += new System.EventHandler(this.m_secondFillTextBox_DoubleClick);
+      this.m_secondFillTextBox.Enter += new System.EventHandler(this.m_secondFillTextBox_Enter);
+      // 
+      // m_objectTextTextBox
+      // 
+      this.m_objectTextTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.m_objectTextTextBox.Location = new System.Drawing.Point(80, 128);
+      this.m_objectTextTextBox.Name = "m_objectTextTextBox";
+      this.m_objectTextTextBox.ReadOnly = true;
+      this.m_objectTextTextBox.Size = new System.Drawing.Size(278, 21);
+      this.m_objectTextTextBox.TabIndex = 24;
+      this.m_objectTextTextBox.Watermark = null;
+      this.m_objectTextTextBox.DoubleClick += new System.EventHandler(this.m_objectTextTextBox_DoubleClick);
+      this.m_objectTextTextBox.Enter += new System.EventHandler(this.m_objectTextTextBox_Enter);
+      // 
+      // m_roomTextTextBox
+      // 
+      this.m_roomTextTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.m_roomTextTextBox.Location = new System.Drawing.Point(80, 99);
+      this.m_roomTextTextBox.Name = "m_roomTextTextBox";
+      this.m_roomTextTextBox.ReadOnly = true;
+      this.m_roomTextTextBox.Size = new System.Drawing.Size(278, 21);
+      this.m_roomTextTextBox.TabIndex = 23;
+      this.m_roomTextTextBox.Watermark = null;
+      this.m_roomTextTextBox.DoubleClick += new System.EventHandler(this.m_roomTextTextBox_DoubleClick);
+      this.m_roomTextTextBox.Enter += new System.EventHandler(this.m_roomTextTextBox_Enter);
+      // 
+      // m_roomBorderTextBox
+      // 
+      this.m_roomBorderTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.m_roomBorderTextBox.Location = new System.Drawing.Point(80, 70);
+      this.m_roomBorderTextBox.Name = "m_roomBorderTextBox";
+      this.m_roomBorderTextBox.ReadOnly = true;
+      this.m_roomBorderTextBox.Size = new System.Drawing.Size(278, 21);
+      this.m_roomBorderTextBox.TabIndex = 22;
+      this.m_roomBorderTextBox.Watermark = null;
+      this.m_roomBorderTextBox.DoubleClick += new System.EventHandler(this.m_roomBorderTextBox_DoubleClick);
+      this.m_roomBorderTextBox.Enter += new System.EventHandler(this.m_roomBorderTextBox_Enter);
+      // 
+      // m_roomFillTextBox
+      // 
+      this.m_roomFillTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+      this.m_roomFillTextBox.Location = new System.Drawing.Point(80, 12);
+      this.m_roomFillTextBox.Name = "m_roomFillTextBox";
+      this.m_roomFillTextBox.ReadOnly = true;
+      this.m_roomFillTextBox.Size = new System.Drawing.Size(278, 21);
+      this.m_roomFillTextBox.TabIndex = 6;
+      this.m_roomFillTextBox.Watermark = null;
+      this.m_roomFillTextBox.DoubleClick += new System.EventHandler(this.m_roomFillTextBox_DoubleClick);
+      this.m_roomFillTextBox.Enter += new System.EventHandler(this.m_roomFillTextBox_Enter);
+      // 
+      // tabColors
+      // 
+      this.tabColors.AttachedControl = this.superTabControlPanel3;
+      this.tabColors.GlobalItem = false;
+      this.tabColors.Name = "tabColors";
+      this.tabColors.Text = "&Colors";
+      // 
+      // superTabControlPanel4
+      // 
+      this.superTabControlPanel4.Controls.Add(this.cboRegion);
+      this.superTabControlPanel4.Controls.Add(this.label6);
+      this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
+      this.superTabControlPanel4.Name = "superTabControlPanel4";
+      this.superTabControlPanel4.Size = new System.Drawing.Size(477, 216);
+      this.superTabControlPanel4.TabIndex = 0;
+      this.superTabControlPanel4.TabItem = this.tabRegions;
+      // 
+      // tabRegions
+      // 
+      this.tabRegions.AttachedControl = this.superTabControlPanel4;
+      this.tabRegions.GlobalItem = false;
+      this.tabRegions.Name = "tabRegions";
+      this.tabRegions.Text = "Re&gions";
+      // 
       // superTabControlPanel5
       // 
       this.superTabControlPanel5.Controls.Add(this.chkHandDrawnRoom);
@@ -406,9 +851,9 @@ namespace Trizbort.UI
       this.superTabControlPanel5.Controls.Add(this.cboDrawType);
       this.superTabControlPanel5.Controls.Add(this.pnlSampleRoomShape);
       this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel5.Location = new System.Drawing.Point(0, 26);
+      this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
       this.superTabControlPanel5.Name = "superTabControlPanel5";
-      this.superTabControlPanel5.Size = new System.Drawing.Size(477, 190);
+      this.superTabControlPanel5.Size = new System.Drawing.Size(477, 216);
       this.superTabControlPanel5.TabIndex = 0;
       this.superTabControlPanel5.TabItem = this.superTabItem1;
       // 
@@ -585,517 +1030,21 @@ namespace Trizbort.UI
       this.superTabItem1.Name = "superTabItem1";
       this.superTabItem1.Text = "Room &Shapes";
       // 
-      // superTabControlPanel4
-      // 
-      this.superTabControlPanel4.Controls.Add(this.cboRegion);
-      this.superTabControlPanel4.Controls.Add(this.label6);
-      this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
-      this.superTabControlPanel4.Name = "superTabControlPanel4";
-      this.superTabControlPanel4.Size = new System.Drawing.Size(477, 216);
-      this.superTabControlPanel4.TabIndex = 0;
-      this.superTabControlPanel4.TabItem = this.tabRegions;
-      // 
-      // tabRegions
-      // 
-      this.tabRegions.AttachedControl = this.superTabControlPanel4;
-      this.tabRegions.GlobalItem = false;
-      this.tabRegions.Name = "tabRegions";
-      this.tabRegions.Text = "Re&gions";
-      // 
-      // superTabControlPanel2
-      // 
-      this.superTabControlPanel2.Controls.Add(this.m_descriptionTextBox);
-      this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel2.Location = new System.Drawing.Point(0, 26);
-      this.superTabControlPanel2.Name = "superTabControlPanel2";
-      this.superTabControlPanel2.Size = new System.Drawing.Size(477, 190);
-      this.superTabControlPanel2.TabIndex = 0;
-      this.superTabControlPanel2.TabItem = this.tabDescription;
-      // 
-      // tabDescription
-      // 
-      this.tabDescription.AttachedControl = this.superTabControlPanel2;
-      this.tabDescription.GlobalItem = false;
-      this.tabDescription.Name = "tabDescription";
-      this.tabDescription.Text = "D&escription";
-      // 
-      // superTabControlPanel3
-      // 
-      this.superTabControlPanel3.Controls.Add(this.m_subTitleTextTextBox);
-      this.superTabControlPanel3.Controls.Add(this.label14);
-      this.superTabControlPanel3.Controls.Add(this.m_changeSubtitleTextButton);
-      this.superTabControlPanel3.Controls.Add(this.m_secondFillTextBox);
-      this.superTabControlPanel3.Controls.Add(this.m_objectTextTextBox);
-      this.superTabControlPanel3.Controls.Add(this.m_roomTextTextBox);
-      this.superTabControlPanel3.Controls.Add(this.m_roomBorderTextBox);
-      this.superTabControlPanel3.Controls.Add(this.m_roomFillTextBox);
-      this.superTabControlPanel3.Controls.Add(this.comboBox1);
-      this.superTabControlPanel3.Controls.Add(this.label5);
-      this.superTabControlPanel3.Controls.Add(this.m_changeRoomFillButton);
-      this.superTabControlPanel3.Controls.Add(this.m_changeSecondFillButton);
-      this.superTabControlPanel3.Controls.Add(this.label11);
-      this.superTabControlPanel3.Controls.Add(this.label4);
-      this.superTabControlPanel3.Controls.Add(this.m_changeRoomBorderButton);
-      this.superTabControlPanel3.Controls.Add(this.m_changeObjectTextButton);
-      this.superTabControlPanel3.Controls.Add(this.label2);
-      this.superTabControlPanel3.Controls.Add(this.label3);
-      this.superTabControlPanel3.Controls.Add(this.m_changeRoomTextButton);
-      this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel3.Location = new System.Drawing.Point(0, 0);
-      this.superTabControlPanel3.Name = "superTabControlPanel3";
-      this.superTabControlPanel3.Size = new System.Drawing.Size(477, 216);
-      this.superTabControlPanel3.TabIndex = 0;
-      this.superTabControlPanel3.TabItem = this.tabColors;
-      // 
-      // m_subTitleTextTextBox
-      // 
-      // 
-      // 
-      // 
-      this.m_subTitleTextTextBox.Border.Class = "TextBoxBorder";
-      this.m_subTitleTextTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.m_subTitleTextTextBox.ButtonCustom.Text = "Clear";
-      this.m_subTitleTextTextBox.ButtonCustom.Visible = true;
-      this.m_subTitleTextTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.m_subTitleTextTextBox.Location = new System.Drawing.Point(80, 157);
-      this.m_subTitleTextTextBox.Name = "m_subTitleTextTextBox";
-      this.m_subTitleTextTextBox.ReadOnly = true;
-      this.m_subTitleTextTextBox.Size = new System.Drawing.Size(304, 21);
-      this.m_subTitleTextTextBox.TabIndex = 28;
-      this.m_subTitleTextTextBox.ButtonCustomClick += new System.EventHandler(this.m_subTitleTextTextBox_ButtonCustomClick);
-      this.m_subTitleTextTextBox.DoubleClick += new System.EventHandler(this.m_subTitleTextTextBox_DoubleClick);
-      this.m_subTitleTextTextBox.Enter += new System.EventHandler(this.m_subTitleTextTextBox_Enter);
-      // 
-      // label14
-      // 
-      this.label14.AutoSize = true;
-      this.label14.BackColor = System.Drawing.Color.Transparent;
-      this.label14.Location = new System.Drawing.Point(5, 160);
-      this.label14.Name = "label14";
-      this.label14.Size = new System.Drawing.Size(68, 13);
-      this.label14.TabIndex = 26;
-      this.label14.Text = "Su&btitle Text";
-      // 
-      // m_changeSubtitleTextButton
-      // 
-      this.m_changeSubtitleTextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_changeSubtitleTextButton.Location = new System.Drawing.Point(395, 155);
-      this.m_changeSubtitleTextButton.Name = "m_changeSubtitleTextButton";
-      this.m_changeSubtitleTextButton.Size = new System.Drawing.Size(75, 23);
-      this.m_changeSubtitleTextButton.TabIndex = 27;
-      this.m_changeSubtitleTextButton.Text = "Change...";
-      this.m_changeSubtitleTextButton.UseVisualStyleBackColor = true;
-      this.m_changeSubtitleTextButton.Click += new System.EventHandler(this.m_changeSubtitleTextButton_Click);
-      // 
-      // m_secondFillTextBox
-      // 
-      // 
-      // 
-      // 
-      this.m_secondFillTextBox.Border.Class = "TextBoxBorder";
-      this.m_secondFillTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.m_secondFillTextBox.ButtonCustom.Text = "Clear";
-      this.m_secondFillTextBox.ButtonCustom.Visible = true;
-      this.m_secondFillTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.m_secondFillTextBox.Location = new System.Drawing.Point(207, 41);
-      this.m_secondFillTextBox.Name = "m_secondFillTextBox";
-      this.m_secondFillTextBox.ReadOnly = true;
-      this.m_secondFillTextBox.Size = new System.Drawing.Size(177, 21);
-      this.m_secondFillTextBox.TabIndex = 25;
-      this.m_secondFillTextBox.ButtonCustomClick += new System.EventHandler(this.m_secondFillTextBox_ButtonCustomClick);
-      this.m_secondFillTextBox.DoubleClick += new System.EventHandler(this.m_secondFillTextBox_DoubleClick);
-      this.m_secondFillTextBox.Enter += new System.EventHandler(this.m_secondFillTextBox_Enter);
-      // 
-      // m_objectTextTextBox
-      // 
-      // 
-      // 
-      // 
-      this.m_objectTextTextBox.Border.Class = "TextBoxBorder";
-      this.m_objectTextTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.m_objectTextTextBox.ButtonCustom.Text = "Clear";
-      this.m_objectTextTextBox.ButtonCustom.Visible = true;
-      this.m_objectTextTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.m_objectTextTextBox.Location = new System.Drawing.Point(80, 128);
-      this.m_objectTextTextBox.Name = "m_objectTextTextBox";
-      this.m_objectTextTextBox.ReadOnly = true;
-      this.m_objectTextTextBox.Size = new System.Drawing.Size(304, 21);
-      this.m_objectTextTextBox.TabIndex = 24;
-      this.m_objectTextTextBox.ButtonCustomClick += new System.EventHandler(this.m_objectTextTextBox_ButtonCustomClick);
-      this.m_objectTextTextBox.DoubleClick += new System.EventHandler(this.m_objectTextTextBox_DoubleClick);
-      this.m_objectTextTextBox.Enter += new System.EventHandler(this.m_objectTextTextBox_Enter);
-      // 
-      // m_roomTextTextBox
-      // 
-      // 
-      // 
-      // 
-      this.m_roomTextTextBox.Border.Class = "TextBoxBorder";
-      this.m_roomTextTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.m_roomTextTextBox.ButtonCustom.Text = "Clear";
-      this.m_roomTextTextBox.ButtonCustom.Visible = true;
-      this.m_roomTextTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.m_roomTextTextBox.Location = new System.Drawing.Point(80, 99);
-      this.m_roomTextTextBox.Name = "m_roomTextTextBox";
-      this.m_roomTextTextBox.ReadOnly = true;
-      this.m_roomTextTextBox.Size = new System.Drawing.Size(304, 21);
-      this.m_roomTextTextBox.TabIndex = 23;
-      this.m_roomTextTextBox.ButtonCustomClick += new System.EventHandler(this.m_roomTextTextBox_ButtonCustomClick);
-      this.m_roomTextTextBox.DoubleClick += new System.EventHandler(this.m_roomTextTextBox_DoubleClick);
-      this.m_roomTextTextBox.Enter += new System.EventHandler(this.m_roomTextTextBox_Enter);
-      // 
-      // m_roomBorderTextBox
-      // 
-      // 
-      // 
-      // 
-      this.m_roomBorderTextBox.Border.Class = "TextBoxBorder";
-      this.m_roomBorderTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.m_roomBorderTextBox.ButtonCustom.Text = "Clear";
-      this.m_roomBorderTextBox.ButtonCustom.Visible = true;
-      this.m_roomBorderTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.m_roomBorderTextBox.Location = new System.Drawing.Point(80, 70);
-      this.m_roomBorderTextBox.Name = "m_roomBorderTextBox";
-      this.m_roomBorderTextBox.ReadOnly = true;
-      this.m_roomBorderTextBox.Size = new System.Drawing.Size(304, 21);
-      this.m_roomBorderTextBox.TabIndex = 22;
-      this.m_roomBorderTextBox.ButtonCustomClick += new System.EventHandler(this.m_roomBorderTextBox_ButtonCustomClick);
-      this.m_roomBorderTextBox.DoubleClick += new System.EventHandler(this.m_roomBorderTextBox_DoubleClick);
-      this.m_roomBorderTextBox.Enter += new System.EventHandler(this.m_roomBorderTextBox_Enter);
-      // 
-      // m_roomFillTextBox
-      // 
-      // 
-      // 
-      // 
-      this.m_roomFillTextBox.Border.Class = "TextBoxBorder";
-      this.m_roomFillTextBox.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.m_roomFillTextBox.ButtonCustom.Text = "Clear";
-      this.m_roomFillTextBox.ButtonCustom.Visible = true;
-      this.m_roomFillTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-      this.m_roomFillTextBox.Location = new System.Drawing.Point(80, 12);
-      this.m_roomFillTextBox.Name = "m_roomFillTextBox";
-      this.m_roomFillTextBox.ReadOnly = true;
-      this.m_roomFillTextBox.Size = new System.Drawing.Size(304, 21);
-      this.m_roomFillTextBox.TabIndex = 6;
-      this.m_roomFillTextBox.ButtonCustomClick += new System.EventHandler(this.m_roomFillTextBox_ButtonCustomClick);
-      this.m_roomFillTextBox.DoubleClick += new System.EventHandler(this.m_roomFillTextBox_DoubleClick);
-      this.m_roomFillTextBox.Enter += new System.EventHandler(this.m_roomFillTextBox_Enter);
-      // 
-      // tabColors
-      // 
-      this.tabColors.AttachedControl = this.superTabControlPanel3;
-      this.tabColors.GlobalItem = false;
-      this.tabColors.Name = "tabColors";
-      this.tabColors.Text = "&Colors";
-      // 
-      // superTabControlPanel1
-      // 
-      this.superTabControlPanel1.Controls.Add(this.txtRight);
-      this.superTabControlPanel1.Controls.Add(this.txtDown);
-      this.superTabControlPanel1.Controls.Add(this.label12);
-      this.superTabControlPanel1.Controls.Add(this.label10);
-      this.superTabControlPanel1.Controls.Add(this.chkCustomPosition);
-      this.superTabControlPanel1.Controls.Add(this.pnlObjectSyntaxHelp);
-      this.superTabControlPanel1.Controls.Add(this.lblObjectSyntaxHelp);
-      this.superTabControlPanel1.Controls.Add(this.txtObjects);
-      this.superTabControlPanel1.Controls.Add(this.m_objectsPositionGroupBox);
-      this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.superTabControlPanel1.Location = new System.Drawing.Point(0, 0);
-      this.superTabControlPanel1.Name = "superTabControlPanel1";
-      this.superTabControlPanel1.Size = new System.Drawing.Size(477, 216);
-      this.superTabControlPanel1.TabIndex = 1;
-      this.superTabControlPanel1.TabItem = this.tabObjects;
-      // 
-      // txtRight
-      // 
-      // 
-      // 
-      // 
-      this.txtRight.BackgroundStyle.Class = "DateTimeInputBackground";
-      this.txtRight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.txtRight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-      this.txtRight.Location = new System.Drawing.Point(415, 160);
-      this.txtRight.Name = "txtRight";
-      this.txtRight.ShowUpDown = true;
-      this.txtRight.Size = new System.Drawing.Size(55, 21);
-      this.toolTip.SetSuperTooltip(this.txtRight, new DevComponents.DotNetBar.SuperTooltipInfo("", "", "These values are in pixels.  Positive numbers move to the right and down.  To giv" +
-            "e some reference, the grid size is set to {gridsize}.", null, null, DevComponents.DotNetBar.eTooltipColor.BlueMist));
-      this.txtRight.TabIndex = 25;
-      // 
-      // txtDown
-      // 
-      // 
-      // 
-      // 
-      this.txtDown.BackgroundStyle.Class = "DateTimeInputBackground";
-      this.txtDown.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.txtDown.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-      this.txtDown.Location = new System.Drawing.Point(415, 138);
-      this.txtDown.Name = "txtDown";
-      this.txtDown.ShowUpDown = true;
-      this.txtDown.Size = new System.Drawing.Size(55, 21);
-      this.toolTip.SetSuperTooltip(this.txtDown, new DevComponents.DotNetBar.SuperTooltipInfo("", "", "These values are in pixels.  Positive numbers move to the right and down.  To giv" +
-            "e some reference, the grid size is set to {gridsize}.", null, null, DevComponents.DotNetBar.eTooltipColor.BlueMist));
-      this.txtDown.TabIndex = 24;
-      // 
-      // label12
-      // 
-      this.label12.AutoSize = true;
-      this.label12.BackColor = System.Drawing.Color.Transparent;
-      this.label12.Location = new System.Drawing.Point(373, 163);
-      this.label12.Name = "label12";
-      this.label12.Size = new System.Drawing.Size(36, 13);
-      this.label12.TabIndex = 23;
-      this.label12.Text = "Right:";
-      // 
-      // label10
-      // 
-      this.label10.AutoSize = true;
-      this.label10.BackColor = System.Drawing.Color.Transparent;
-      this.label10.Location = new System.Drawing.Point(371, 144);
-      this.label10.Name = "label10";
-      this.label10.Size = new System.Drawing.Size(38, 13);
-      this.label10.TabIndex = 22;
-      this.label10.Text = "Down:";
-      // 
-      // chkCustomPosition
-      // 
-      this.chkCustomPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.chkCustomPosition.AutoSize = true;
-      this.chkCustomPosition.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-      this.chkCustomPosition.Location = new System.Drawing.Point(368, 122);
-      this.chkCustomPosition.Name = "chkCustomPosition";
-      this.chkCustomPosition.Size = new System.Drawing.Size(102, 17);
-      this.chkCustomPosition.TabIndex = 21;
-      this.chkCustomPosition.Text = "Custom Position";
-      this.chkCustomPosition.UseVisualStyleBackColor = true;
-      // 
-      // pnlObjectSyntaxHelp
-      // 
-      this.pnlObjectSyntaxHelp.BackColor = System.Drawing.Color.LightCyan;
-      this.pnlObjectSyntaxHelp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.pnlObjectSyntaxHelp.Controls.Add(this.label9);
-      this.pnlObjectSyntaxHelp.Location = new System.Drawing.Point(209, 24);
-      this.pnlObjectSyntaxHelp.Name = "pnlObjectSyntaxHelp";
-      this.pnlObjectSyntaxHelp.Size = new System.Drawing.Size(154, 157);
-      this.pnlObjectSyntaxHelp.TabIndex = 20;
-      this.pnlObjectSyntaxHelp.Visible = false;
-      // 
-      // label9
-      // 
-      this.label9.Location = new System.Drawing.Point(6, 3);
-      this.label9.Name = "label9";
-      this.label9.Size = new System.Drawing.Size(143, 143);
-      this.label9.TabIndex = 3;
-      this.label9.Text = resources.GetString("label9.Text");
-      // 
-      // lblObjectSyntaxHelp
-      // 
-      this.lblObjectSyntaxHelp.AutoSize = true;
-      this.lblObjectSyntaxHelp.Cursor = System.Windows.Forms.Cursors.Hand;
-      this.lblObjectSyntaxHelp.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.lblObjectSyntaxHelp.ForeColor = System.Drawing.Color.Blue;
-      this.lblObjectSyntaxHelp.Location = new System.Drawing.Point(5, 8);
-      this.lblObjectSyntaxHelp.Name = "lblObjectSyntaxHelp";
-      this.lblObjectSyntaxHelp.Size = new System.Drawing.Size(76, 13);
-      this.lblObjectSyntaxHelp.TabIndex = 19;
-      this.lblObjectSyntaxHelp.Text = "Object Syntax";
-      this.lblObjectSyntaxHelp.Click += new System.EventHandler(this.lblObjectSyntaxHelp_Click);
-      // 
-      // txtObjects
-      // 
-      this.txtObjects.AcceptsReturn = true;
-      // 
-      // 
-      // 
-      this.txtObjects.Border.Class = "TextBoxBorder";
-      this.txtObjects.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-      this.txtObjects.Location = new System.Drawing.Point(4, 24);
-      this.txtObjects.Multiline = true;
-      this.txtObjects.Name = "txtObjects";
-      this.txtObjects.Size = new System.Drawing.Size(359, 157);
-      this.txtObjects.TabIndex = 5;
-      this.txtObjects.WatermarkText = "Enter objects, each on a new line.";
-      this.txtObjects.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtObjects_KeyDown);
-      // 
-      // m_objectsPositionGroupBox
-      // 
-      this.m_objectsPositionGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.m_objectsPositionGroupBox.BackColor = System.Drawing.Color.Transparent;
-      this.m_objectsPositionGroupBox.Controls.Add(this.m_cCheckBox);
-      this.m_objectsPositionGroupBox.Controls.Add(this.m_nwCheckBox);
-      this.m_objectsPositionGroupBox.Controls.Add(this.m_seCheckBox);
-      this.m_objectsPositionGroupBox.Controls.Add(this.m_nCheckBox);
-      this.m_objectsPositionGroupBox.Controls.Add(this.m_sCheckBox);
-      this.m_objectsPositionGroupBox.Controls.Add(this.m_neCheckBox);
-      this.m_objectsPositionGroupBox.Controls.Add(this.m_swCheckBox);
-      this.m_objectsPositionGroupBox.Controls.Add(this.m_wCheckBox);
-      this.m_objectsPositionGroupBox.Controls.Add(this.m_eCheckBox);
-      this.m_objectsPositionGroupBox.Location = new System.Drawing.Point(374, 4);
-      this.m_objectsPositionGroupBox.Name = "m_objectsPositionGroupBox";
-      this.m_objectsPositionGroupBox.Size = new System.Drawing.Size(102, 114);
-      this.m_objectsPositionGroupBox.TabIndex = 18;
-      this.m_objectsPositionGroupBox.TabStop = false;
-      this.m_objectsPositionGroupBox.Text = "&Position";
-      // 
-      // m_cCheckBox
-      // 
-      this.m_cCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-      this.m_cCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-      this.m_cCheckBox.Location = new System.Drawing.Point(38, 48);
-      this.m_cCheckBox.Name = "m_cCheckBox";
-      this.m_cCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_cCheckBox.TabIndex = 12;
-      this.m_cCheckBox.Tag = "Position";
-      this.m_cCheckBox.Text = "o";
-      this.m_cCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      this.m_cCheckBox.UseVisualStyleBackColor = true;
-      this.m_cCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
-      // 
-      // m_nwCheckBox
-      // 
-      this.m_nwCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-      this.m_nwCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-      this.m_nwCheckBox.Location = new System.Drawing.Point(6, 16);
-      this.m_nwCheckBox.Name = "m_nwCheckBox";
-      this.m_nwCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_nwCheckBox.TabIndex = 8;
-      this.m_nwCheckBox.Tag = "Position";
-      this.m_nwCheckBox.Text = "ã";
-      this.m_nwCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      this.m_nwCheckBox.UseVisualStyleBackColor = true;
-      this.m_nwCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
-      // 
-      // m_seCheckBox
-      // 
-      this.m_seCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-      this.m_seCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-      this.m_seCheckBox.Location = new System.Drawing.Point(70, 80);
-      this.m_seCheckBox.Name = "m_seCheckBox";
-      this.m_seCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_seCheckBox.TabIndex = 16;
-      this.m_seCheckBox.Tag = "Position";
-      this.m_seCheckBox.Text = "æ";
-      this.m_seCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      this.m_seCheckBox.UseVisualStyleBackColor = true;
-      this.m_seCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
-      // 
-      // m_nCheckBox
-      // 
-      this.m_nCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-      this.m_nCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-      this.m_nCheckBox.Location = new System.Drawing.Point(38, 16);
-      this.m_nCheckBox.Name = "m_nCheckBox";
-      this.m_nCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_nCheckBox.TabIndex = 9;
-      this.m_nCheckBox.Tag = "Position";
-      this.m_nCheckBox.Text = "á";
-      this.m_nCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      this.m_nCheckBox.UseVisualStyleBackColor = true;
-      this.m_nCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
-      // 
-      // m_sCheckBox
-      // 
-      this.m_sCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-      this.m_sCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-      this.m_sCheckBox.Location = new System.Drawing.Point(38, 80);
-      this.m_sCheckBox.Name = "m_sCheckBox";
-      this.m_sCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_sCheckBox.TabIndex = 15;
-      this.m_sCheckBox.Tag = "Position";
-      this.m_sCheckBox.Text = "â";
-      this.m_sCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      this.m_sCheckBox.UseVisualStyleBackColor = true;
-      this.m_sCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
-      // 
-      // m_neCheckBox
-      // 
-      this.m_neCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-      this.m_neCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-      this.m_neCheckBox.Location = new System.Drawing.Point(70, 16);
-      this.m_neCheckBox.Name = "m_neCheckBox";
-      this.m_neCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_neCheckBox.TabIndex = 10;
-      this.m_neCheckBox.Tag = "Position";
-      this.m_neCheckBox.Text = "ä";
-      this.m_neCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      this.m_neCheckBox.UseVisualStyleBackColor = true;
-      this.m_neCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
-      // 
-      // m_swCheckBox
-      // 
-      this.m_swCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-      this.m_swCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-      this.m_swCheckBox.Location = new System.Drawing.Point(6, 80);
-      this.m_swCheckBox.Name = "m_swCheckBox";
-      this.m_swCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_swCheckBox.TabIndex = 14;
-      this.m_swCheckBox.Tag = "Position";
-      this.m_swCheckBox.Text = "å";
-      this.m_swCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      this.m_swCheckBox.UseVisualStyleBackColor = true;
-      this.m_swCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
-      // 
-      // m_wCheckBox
-      // 
-      this.m_wCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-      this.m_wCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-      this.m_wCheckBox.Location = new System.Drawing.Point(6, 48);
-      this.m_wCheckBox.Name = "m_wCheckBox";
-      this.m_wCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_wCheckBox.TabIndex = 11;
-      this.m_wCheckBox.Tag = "Position";
-      this.m_wCheckBox.Text = "ß";
-      this.m_wCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      this.m_wCheckBox.UseVisualStyleBackColor = true;
-      this.m_wCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
-      // 
-      // m_eCheckBox
-      // 
-      this.m_eCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-      this.m_eCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-      this.m_eCheckBox.Location = new System.Drawing.Point(70, 48);
-      this.m_eCheckBox.Name = "m_eCheckBox";
-      this.m_eCheckBox.Size = new System.Drawing.Size(26, 26);
-      this.m_eCheckBox.TabIndex = 13;
-      this.m_eCheckBox.Tag = "Position";
-      this.m_eCheckBox.Text = "à";
-      this.m_eCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      this.m_eCheckBox.UseVisualStyleBackColor = true;
-      this.m_eCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
-      // 
-      // tabObjects
-      // 
-      this.tabObjects.AttachedControl = this.superTabControlPanel1;
-      this.tabObjects.GlobalItem = false;
-      this.tabObjects.Name = "tabObjects";
-      this.tabObjects.Text = "&Objects";
-      // 
       // txtName
       // 
-      // 
-      // 
-      // 
-      this.txtName.Border.Class = "TextBoxBorder";
-      this.txtName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
       this.txtName.Location = new System.Drawing.Point(15, 28);
       this.txtName.Name = "txtName";
       this.txtName.Size = new System.Drawing.Size(474, 21);
       this.txtName.TabIndex = 1;
+      this.txtName.Watermark = null;
       // 
       // txtSubTitle
       // 
-      // 
-      // 
-      // 
-      this.txtSubTitle.Border.Class = "TextBoxBorder";
-      this.txtSubTitle.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
       this.txtSubTitle.Location = new System.Drawing.Point(15, 68);
       this.txtSubTitle.Name = "txtSubTitle";
       this.txtSubTitle.Size = new System.Drawing.Size(426, 21);
       this.txtSubTitle.TabIndex = 3;
+      this.txtSubTitle.Watermark = null;
       // 
       // label7
       // 
@@ -1146,8 +1095,13 @@ namespace Trizbort.UI
       // 
       // toolTip
       // 
-      this.toolTip.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
-      this.toolTip.BeforeTooltipDisplay += new DevComponents.DotNetBar.SuperTooltipEventHandler(this.toolTip_BeforeTooltipDisplay);
+      this.toolTip.BackColor = System.Drawing.Color.LightBlue;
+      this.toolTip.BodyText = null;
+      this.toolTip.FooterText = null;
+      this.toolTip.ForeColor = System.Drawing.Color.Black;
+      this.toolTip.GradientColor = System.Drawing.Color.Empty;
+      this.toolTip.OwnerDraw = true;
+      this.toolTip.TitleText = null;
       // 
       // chkEndRoom
       // 
@@ -1180,6 +1134,78 @@ namespace Trizbort.UI
       this.label13.Size = new System.Drawing.Size(61, 13);
       this.label13.TabIndex = 99;
       this.label13.Text = "Reference:";
+      // 
+      // roomColorClear
+      // 
+      this.roomColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.roomColorClear.Image = ((System.Drawing.Image)(resources.GetObject("roomColorClear.Image")));
+      this.roomColorClear.Location = new System.Drawing.Point(364, 12);
+      this.roomColorClear.Name = "roomColorClear";
+      this.roomColorClear.Size = new System.Drawing.Size(28, 23);
+      this.roomColorClear.TabIndex = 29;
+      this.roomColorClear.Text = "...";
+      this.roomColorClear.UseVisualStyleBackColor = true;
+      this.roomColorClear.Click += new System.EventHandler(this.m_roomFillTextBox_ButtonCustomClick);
+      // 
+      // secondColorClear
+      // 
+      this.secondColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.secondColorClear.Image = ((System.Drawing.Image)(resources.GetObject("secondColorClear.Image")));
+      this.secondColorClear.Location = new System.Drawing.Point(364, 41);
+      this.secondColorClear.Name = "secondColorClear";
+      this.secondColorClear.Size = new System.Drawing.Size(28, 23);
+      this.secondColorClear.TabIndex = 30;
+      this.secondColorClear.Text = "...";
+      this.secondColorClear.UseVisualStyleBackColor = true;
+      this.secondColorClear.Click += new System.EventHandler(this.m_secondFillTextBox_ButtonCustomClick);
+      // 
+      // roomBorderColorClear
+      // 
+      this.roomBorderColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.roomBorderColorClear.Image = ((System.Drawing.Image)(resources.GetObject("roomBorderColorClear.Image")));
+      this.roomBorderColorClear.Location = new System.Drawing.Point(364, 70);
+      this.roomBorderColorClear.Name = "roomBorderColorClear";
+      this.roomBorderColorClear.Size = new System.Drawing.Size(28, 23);
+      this.roomBorderColorClear.TabIndex = 31;
+      this.roomBorderColorClear.Text = "...";
+      this.roomBorderColorClear.UseVisualStyleBackColor = true;
+      this.roomBorderColorClear.Click += new System.EventHandler(this.m_roomBorderTextBox_ButtonCustomClick);
+      // 
+      // roomTextColorClear
+      // 
+      this.roomTextColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.roomTextColorClear.Image = ((System.Drawing.Image)(resources.GetObject("roomTextColorClear.Image")));
+      this.roomTextColorClear.Location = new System.Drawing.Point(364, 99);
+      this.roomTextColorClear.Name = "roomTextColorClear";
+      this.roomTextColorClear.Size = new System.Drawing.Size(28, 23);
+      this.roomTextColorClear.TabIndex = 32;
+      this.roomTextColorClear.Text = "...";
+      this.roomTextColorClear.UseVisualStyleBackColor = true;
+      this.roomTextColorClear.Click += new System.EventHandler(this.m_roomTextTextBox_ButtonCustomClick);
+      // 
+      // objectColorClear
+      // 
+      this.objectColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.objectColorClear.Image = ((System.Drawing.Image)(resources.GetObject("objectColorClear.Image")));
+      this.objectColorClear.Location = new System.Drawing.Point(364, 128);
+      this.objectColorClear.Name = "objectColorClear";
+      this.objectColorClear.Size = new System.Drawing.Size(28, 23);
+      this.objectColorClear.TabIndex = 33;
+      this.objectColorClear.Text = "...";
+      this.objectColorClear.UseVisualStyleBackColor = true;
+      this.objectColorClear.Click += new System.EventHandler(this.m_objectTextTextBox_ButtonCustomClick);
+      // 
+      // subtitleColorClear
+      // 
+      this.subtitleColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.subtitleColorClear.Image = ((System.Drawing.Image)(resources.GetObject("subtitleColorClear.Image")));
+      this.subtitleColorClear.Location = new System.Drawing.Point(364, 157);
+      this.subtitleColorClear.Name = "subtitleColorClear";
+      this.subtitleColorClear.Size = new System.Drawing.Size(28, 23);
+      this.subtitleColorClear.TabIndex = 34;
+      this.subtitleColorClear.Text = "...";
+      this.subtitleColorClear.UseVisualStyleBackColor = true;
+      this.subtitleColorClear.Click += new System.EventHandler(this.m_subTitleTextTextBox_ButtonCustomClick);
       // 
       // RoomPropertiesDialog
       // 
@@ -1217,6 +1243,18 @@ namespace Trizbort.UI
       this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RoomPropertiesDialog_KeyUp);
       ((System.ComponentModel.ISupportInitialize)(this.m_tabControl)).EndInit();
       this.m_tabControl.ResumeLayout(false);
+      this.superTabControlPanel1.ResumeLayout(false);
+      this.superTabControlPanel1.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.txtRight)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.txtDown)).EndInit();
+      this.pnlObjectSyntaxHelp.ResumeLayout(false);
+      this.m_objectsPositionGroupBox.ResumeLayout(false);
+      this.superTabControlPanel2.ResumeLayout(false);
+      this.superTabControlPanel2.PerformLayout();
+      this.superTabControlPanel3.ResumeLayout(false);
+      this.superTabControlPanel3.PerformLayout();
+      this.superTabControlPanel4.ResumeLayout(false);
+      this.superTabControlPanel4.PerformLayout();
       this.superTabControlPanel5.ResumeLayout(false);
       this.superTabControlPanel5.PerformLayout();
       this.groupRoundedCorners.ResumeLayout(false);
@@ -1225,18 +1263,6 @@ namespace Trizbort.UI
       ((System.ComponentModel.ISupportInitialize)(this.txtTopLeft)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtBottomLeft)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtTopRight)).EndInit();
-      this.superTabControlPanel4.ResumeLayout(false);
-      this.superTabControlPanel4.PerformLayout();
-      this.superTabControlPanel2.ResumeLayout(false);
-      this.superTabControlPanel2.PerformLayout();
-      this.superTabControlPanel3.ResumeLayout(false);
-      this.superTabControlPanel3.PerformLayout();
-      this.superTabControlPanel1.ResumeLayout(false);
-      this.superTabControlPanel1.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.txtRight)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.txtDown)).EndInit();
-      this.pnlObjectSyntaxHelp.ResumeLayout(false);
-      this.m_objectsPositionGroupBox.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -1271,8 +1297,8 @@ namespace Trizbort.UI
         private DevComponents.DotNetBar.SuperTabItem tabRegions;
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel2;
         private DevComponents.DotNetBar.SuperTabItem tabDescription;
-        private DevComponents.DotNetBar.Controls.TextBoxX txtName;
-        private DevComponents.DotNetBar.Controls.TextBoxX txtObjects;
+        private TrizbortTextBox txtName;
+        private TrizbortTextBox txtObjects;
         private System.Windows.Forms.GroupBox m_objectsPositionGroupBox;
         private System.Windows.Forms.CheckBox m_cCheckBox;
         private System.Windows.Forms.CheckBox m_nwCheckBox;
@@ -1283,13 +1309,13 @@ namespace Trizbort.UI
         private System.Windows.Forms.CheckBox m_swCheckBox;
         private System.Windows.Forms.CheckBox m_wCheckBox;
         private System.Windows.Forms.CheckBox m_eCheckBox;
-        private DevComponents.DotNetBar.Controls.TextBoxX txtSubTitle;
+        private TrizbortTextBox txtSubTitle;
         private System.Windows.Forms.Label label7;
-        private DevComponents.DotNetBar.Controls.TextBoxX m_roomFillTextBox;
-        private DevComponents.DotNetBar.Controls.TextBoxX m_secondFillTextBox;
-        private DevComponents.DotNetBar.Controls.TextBoxX m_objectTextTextBox;
-        private DevComponents.DotNetBar.Controls.TextBoxX m_roomTextTextBox;
-        private DevComponents.DotNetBar.Controls.TextBoxX m_roomBorderTextBox;
+        private TrizbortTextBox m_roomFillTextBox;
+        private TrizbortTextBox m_secondFillTextBox;
+        private TrizbortTextBox m_objectTextTextBox;
+        private TrizbortTextBox m_roomTextTextBox;
+        private TrizbortTextBox m_roomBorderTextBox;
         private System.Windows.Forms.ComboBox cboBorderStyle;
         private System.Windows.Forms.Label label8;
     private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel5;
@@ -1310,14 +1336,20 @@ namespace Trizbort.UI
     private System.Windows.Forms.Label label12;
     private System.Windows.Forms.Label label10;
     private System.Windows.Forms.CheckBox chkCustomPosition;
-    private DevComponents.Editors.IntegerInput txtRight;
-    private DevComponents.Editors.IntegerInput txtDown;
-    private DevComponents.DotNetBar.SuperTooltip toolTip;
+    private System.Windows.Forms.NumericUpDown txtRight;
+    private System.Windows.Forms.NumericUpDown txtDown;
+    private TrizbortToolTip toolTip;
     private System.Windows.Forms.CheckBox chkEndRoom;
     private System.Windows.Forms.ComboBox cboReference;
     private System.Windows.Forms.Label label13;
-    private DevComponents.DotNetBar.Controls.TextBoxX m_subTitleTextTextBox;
+    private TrizbortTextBox m_subTitleTextTextBox;
     private System.Windows.Forms.Label label14;
     private System.Windows.Forms.Button m_changeSubtitleTextButton;
+    private System.Windows.Forms.Button subtitleColorClear;
+    private System.Windows.Forms.Button objectColorClear;
+    private System.Windows.Forms.Button roomTextColorClear;
+    private System.Windows.Forms.Button roomBorderColorClear;
+    private System.Windows.Forms.Button secondColorClear;
+    private System.Windows.Forms.Button roomColorClear;
   }
 }

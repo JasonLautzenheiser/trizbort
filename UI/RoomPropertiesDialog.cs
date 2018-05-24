@@ -130,8 +130,8 @@ namespace Trizbort.UI {
     public string Objects { get => txtObjects.Text; set => txtObjects.Text = value; }
 
     public bool ObjectsCustomPosition { get => chkCustomPosition.Checked; set => chkCustomPosition.Checked = value; }
-    public int ObjectsCustomPositionDown { get => txtDown.Value; set => txtDown.Value = value; }
-    public int ObjectsCustomPositionRight { get => txtRight.Value; set => txtRight.Value = value; }
+    public int ObjectsCustomPositionDown { get => (int) txtDown.Value; set => txtDown.Value = value; }
+    public int ObjectsCustomPositionRight { get => (int) txtRight.Value; set => txtRight.Value = value; }
 
     public CompassPoint ObjectsPosition {
       get {
@@ -180,14 +180,14 @@ namespace Trizbort.UI {
 
     // Added for Room specific colors
     public Color ObjectTextColor {
-      get => m_objectTextTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_objectTextTextBox.BackColor;
+      get => m_objectTextTextBox.Watermark == NO_COLOR_SET ? Color.Transparent : m_objectTextTextBox.BackColor;
       set {
         if (value == Color.Transparent) {
           m_objectTextTextBox.BackColor = Color.White;
-          m_objectTextTextBox.WatermarkText = NO_COLOR_SET;
+          m_objectTextTextBox.Watermark = NO_COLOR_SET;
         } else {
           m_objectTextTextBox.BackColor = value;
-          m_objectTextTextBox.WatermarkText = string.Empty;
+          m_objectTextTextBox.Watermark = string.Empty;
         }
       }
     }
@@ -209,28 +209,28 @@ namespace Trizbort.UI {
 
     // Added for Room specific colors
     public Color RoomBorderColor {
-      get => m_roomBorderTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_roomBorderTextBox.BackColor;
+      get => m_roomBorderTextBox.Watermark == NO_COLOR_SET ? Color.Transparent : m_roomBorderTextBox.BackColor;
       set {
         if (value == Color.Transparent) {
           m_roomBorderTextBox.BackColor = Color.White;
-          m_roomBorderTextBox.WatermarkText = NO_COLOR_SET;
+          m_roomBorderTextBox.Watermark = NO_COLOR_SET;
         } else {
           m_roomBorderTextBox.BackColor = value;
-          m_roomBorderTextBox.WatermarkText = string.Empty;
+          m_roomBorderTextBox.Watermark = string.Empty;
         }
       }
     }
 
     // Added for Room specific colors
     public Color RoomFillColor {
-      get => m_roomFillTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_roomFillTextBox.BackColor;
+      get => m_roomFillTextBox.Watermark == NO_COLOR_SET ? Color.Transparent : m_roomFillTextBox.BackColor;
       set {
         if (value == Color.Transparent) {
           m_roomFillTextBox.BackColor = Color.White;
-          m_roomFillTextBox.WatermarkText = NO_COLOR_SET;
+          m_roomFillTextBox.Watermark = NO_COLOR_SET;
         } else {
           m_roomFillTextBox.BackColor = value;
-          m_roomFillTextBox.WatermarkText = string.Empty;
+          m_roomFillTextBox.Watermark = string.Empty;
         }
       }
     }
@@ -239,14 +239,14 @@ namespace Trizbort.UI {
 
     // Added for Room specific colors
     public Color RoomNameColor {
-      get => m_roomTextTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_roomTextTextBox.BackColor;
+      get => m_roomTextTextBox.Watermark == NO_COLOR_SET ? Color.Transparent : m_roomTextTextBox.BackColor;
       set {
         if (value == Color.Transparent) {
           m_roomTextTextBox.BackColor = Color.White;
-          m_roomTextTextBox.WatermarkText = NO_COLOR_SET;
+          m_roomTextTextBox.Watermark = NO_COLOR_SET;
         } else {
           m_roomTextTextBox.BackColor = value;
-          m_roomTextTextBox.WatermarkText = string.Empty;
+          m_roomTextTextBox.Watermark = string.Empty;
         }
       }
     }
@@ -256,14 +256,14 @@ namespace Trizbort.UI {
     public string RoomSubTitle { get => txtSubTitle.Text; set => txtSubTitle.Text = value; }
 
     public Color RoomSubtitleColor {
-      get => m_subTitleTextTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_subTitleTextTextBox.BackColor;
+      get => m_subTitleTextTextBox.Watermark == NO_COLOR_SET ? Color.Transparent : m_subTitleTextTextBox.BackColor;
       set {
         if (value == Color.Transparent) {
           m_subTitleTextTextBox.BackColor = Color.White;
-          m_subTitleTextTextBox.WatermarkText = NO_COLOR_SET;
+          m_subTitleTextTextBox.Watermark = NO_COLOR_SET;
         } else {
           m_subTitleTextTextBox.BackColor = value;
-          m_subTitleTextTextBox.WatermarkText = string.Empty;
+          m_subTitleTextTextBox.Watermark = string.Empty;
         }
       }
     }
@@ -277,14 +277,14 @@ namespace Trizbort.UI {
 
     // Added for Room specific colors
     public Color SecondFillColor {
-      get => m_secondFillTextBox.WatermarkText == NO_COLOR_SET ? Color.Transparent : m_secondFillTextBox.BackColor;
+      get => m_secondFillTextBox.Watermark == NO_COLOR_SET ? Color.Transparent : m_secondFillTextBox.BackColor;
       set {
         if (value == Color.Transparent) {
           m_secondFillTextBox.BackColor = Color.White;
-          m_secondFillTextBox.WatermarkText = NO_COLOR_SET;
+          m_secondFillTextBox.Watermark = NO_COLOR_SET;
         } else {
           m_secondFillTextBox.BackColor = value;
-          m_secondFillTextBox.WatermarkText = string.Empty;
+          m_secondFillTextBox.Watermark = string.Empty;
         }
       }
     }
@@ -735,11 +735,6 @@ namespace Trizbort.UI {
     private void setRegionsTabFocus() {
       cboRegion.Focus();
     }
-
-    private void toolTip_BeforeTooltipDisplay(object sender, SuperTooltipEventArgs e) {
-      e.TooltipInfo.BodyText = e.TooltipInfo.BodyText.Replace("{gridsize}", Settings.GridSize.ToString(CultureInfo.CurrentCulture));
-    }
-
 
     private void txtObjects_KeyDown(object sender, KeyEventArgs e) {
       SelectAllHandler(sender, e);

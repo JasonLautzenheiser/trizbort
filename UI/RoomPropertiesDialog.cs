@@ -95,25 +95,25 @@ namespace Trizbort.UI {
 
     public CornerRadii Corners {
       get => new CornerRadii {
-        BottomLeft = txtBottomLeft.Value,
-        BottomRight = txtBottomRight.Value,
-        TopRight = txtTopRight.Value,
-        TopLeft = txtTopLeft.Value
+        BottomLeft = (double) txtBottomLeft.Value,
+        BottomRight = (double) txtBottomRight.Value,
+        TopRight = (double) txtTopRight.Value,
+        TopLeft = (double) txtTopLeft.Value
       };
       set {
-        txtBottomRight.Value = value.BottomRight;
-        txtTopLeft.Value = value.TopLeft;
-        txtBottomLeft.Value = value.BottomLeft;
-        txtTopRight.Value = value.TopRight;
+        txtBottomRight.Value = new decimal(value.BottomRight);
+        txtTopLeft.Value = new decimal(value.TopLeft);
+        txtBottomLeft.Value = new decimal(value.BottomLeft);
+        txtTopRight.Value = new decimal(value.TopRight);
       }
     }
 
     public string Description { get => m_descriptionTextBox.Text; set => m_descriptionTextBox.Text = value; }
 
     public bool Ellipse {
-      get => cboDrawType.SelectedItem == itemEllipse;
+      get => cboDrawType.SelectedItem.ToString() == "Ellipse";
       set {
-        if (value) cboDrawType.SelectedItem = itemEllipse;
+        if (value) cboDrawType.SelectedItem = "Ellipse";
       }
     }
 
@@ -193,9 +193,9 @@ namespace Trizbort.UI {
     }
 
     public bool Octagonal {
-      get => cboDrawType.SelectedItem == itemOctagonal;
+      get => cboDrawType.SelectedItem.ToString() == "Octagonal";
       set {
-        if (value) cboDrawType.SelectedItem = itemOctagonal;
+        if (value) cboDrawType.SelectedItem = "Octagonal";
       }
     }
 
@@ -269,9 +269,9 @@ namespace Trizbort.UI {
     }
 
     public bool RoundedCorners {
-      get => cboDrawType.SelectedItem == itemRoundedCorners;
+      get => cboDrawType.SelectedItem.ToString() == "Rounded Corners";
       set {
-        if (value) cboDrawType.SelectedItem = itemRoundedCorners;
+        if (value) cboDrawType.SelectedItem = "Rounded Corners";
       }
     }
 
@@ -349,9 +349,9 @@ namespace Trizbort.UI {
     public RoomShape Shape { get => (RoomShape) cboDrawType.SelectedIndex; set => cboDrawType.SelectedIndex = (int) value; }
 
     public bool StraightEdges {
-      get => cboDrawType.SelectedItem == itemStraightEdges;
+      get => cboDrawType.SelectedItem.ToString() == "Straight Edges";
       set {
-        if (value) cboDrawType.SelectedItem = itemStraightEdges;
+        if (value) cboDrawType.SelectedItem = "Straight Edges";
       }
     }
 
@@ -371,9 +371,9 @@ namespace Trizbort.UI {
     }
 
     private void cboDrawType_SelectedIndexChanged(object sender, EventArgs e) {
-      if (cboDrawType.SelectedItem == itemEllipse) {
+      if (cboDrawType.SelectedItem.ToString() == "Ellipse") {
         groupRoundedCorners.Visible = false;
-      } else if (cboDrawType.SelectedItem == itemRoundedCorners) {
+      } else if (cboDrawType.SelectedItem.ToString() == "Rounded Corners") {
         groupRoundedCorners.Location = new Point(8, 44);
         groupRoundedCorners.Visible = true;
       } else {
@@ -588,12 +588,12 @@ namespace Trizbort.UI {
 
       var rect = new RectangleF(10, 10, 3 * Settings.GridSize, 2 * Settings.GridSize);
 
-      if (cboDrawType.SelectedItem == itemRoundedCorners) {
+      if (cboDrawType.SelectedItem.ToString() == "Rounded Corners") {
         var corners = new CornerRadii {
-          BottomLeft = txtBottomLeft.Value,
-          BottomRight = txtBottomRight.Value,
-          TopRight = txtTopRight.Value,
-          TopLeft = txtTopLeft.Value
+          BottomLeft = (double) txtBottomLeft.Value,
+          BottomRight = (double) txtBottomRight.Value,
+          TopRight = (double) txtTopRight.Value,
+          TopLeft = (double) txtTopLeft.Value
         };
 
         path.AddArc(rect.X + rect.Width - (float) corners.TopRight * 2, rect.Y, (float) corners.TopRight * 2, (float) corners.TopRight * 2, 270, 90);
@@ -601,9 +601,9 @@ namespace Trizbort.UI {
         path.AddArc(rect.X, rect.Y + rect.Height - (float) corners.BottomLeft * 2, (float) corners.BottomLeft * 2, (float) corners.BottomLeft * 2, 90, 90);
         path.AddArc(rect.X, rect.Y, (float) corners.TopLeft * 2, (float) corners.TopLeft * 2, 180, 90);
         path.CloseFigure();
-      } else if (cboDrawType.SelectedItem == itemEllipse) {
+      } else if (cboDrawType.SelectedItem.ToString() == "Ellipse") {
         path.AddEllipse(new RectangleF(rect.X, rect.Y, rect.Width, rect.Height));
-      } else if (cboDrawType.SelectedItem == itemOctagonal) {
+      } else if (cboDrawType.SelectedItem.ToString() == "Octagonal") {
         path.AddLine(rect.X, rect.Y + rect.Height / 4, rect.X, rect.Y + 3 * rect.Height / 4);
         path.AddLine(rect.X, rect.Y + 3 * rect.Height / 4, rect.X + rect.Width / 4, rect.Y + rect.Height);
         path.AddLine(rect.X + rect.Width / 4, rect.Y + rect.Height, rect.X + 3 * rect.Width / 4, rect.Y + rect.Height);
@@ -612,7 +612,7 @@ namespace Trizbort.UI {
         path.AddLine(rect.X + rect.Width, rect.Y + rect.Height / 4, rect.X + 3 * rect.Width / 4, rect.Y);
         path.AddLine(rect.X + 3 * rect.Width / 4, rect.Y, rect.X + rect.Width / 4, rect.Y);
         path.AddLine(rect.X + rect.Width / 4, rect.Y, rect.X, rect.Y + rect.Height / 4);
-      } else if (cboDrawType.SelectedItem == itemStraightEdges) {
+      } else if (cboDrawType.SelectedItem.ToString() == "Straight Edges") {
         path.AddRectangle(rect);
       }
 

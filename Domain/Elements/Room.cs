@@ -1503,10 +1503,46 @@ namespace Trizbort.Domain.Elements {
   }
 
   public class CornerRadii {
-    public double BottomLeft { get; set; } = 15.0;
-    public double BottomRight { get; set; } = 15.0;
-    public double TopLeft { get; set; } = 15.0;
-    public double TopRight { get; set; } = 15.0;
+    private double bottomLeft = 15.0;
+    private double bottomRight = 15.0;
+    private double topLeft = 15.0;
+    private double topRight = 15.0;
+
+    public double BottomLeft {
+      get => bottomLeft;
+      set {
+        if (value < 1) bottomLeft = 1;
+        else if (value > 30) bottomLeft = 30;
+        else bottomLeft = value;
+      }
+    }
+
+    public double BottomRight {
+      get => bottomRight;
+      set {
+        if (value < 1) bottomRight = 1;
+        else if (value > 30) bottomRight = 30;
+        else bottomRight = value;
+      }
+    }
+
+    public double TopLeft {
+      get => topLeft;
+      set {
+        if (value < 1) topLeft = 1;
+        else if (value > 30) topLeft = 30;
+        else topLeft = value;
+      }
+    }
+
+    public double TopRight {
+      get => topRight;
+      set {
+        if (value < 1) topRight = 1;
+        else if (value > 30) topRight = 30;
+        else topRight = value;
+      }
+    }
   }
 
   public enum RoomShape {

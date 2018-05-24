@@ -136,8 +136,6 @@ namespace Trizbort.UI
       this.m_snapToElementDistanceUpDown = new System.Windows.Forms.NumericUpDown();
       this.label2 = new System.Windows.Forms.Label();
       this.m_handleSizeUpDown = new System.Windows.Forms.NumericUpDown();
-      this.propertySettings1 = new DevComponents.DotNetBar.PropertySettings();
-      this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
       ((System.ComponentModel.ISupportInitialize)(this.m_lineWidthUpDown)).BeginInit();
       this.m_linesGroupBox.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.m_preferredDistanceBetweenRoomsUpDown)).BeginInit();
@@ -198,9 +196,6 @@ namespace Trizbort.UI
       this.m_handDrawnCheckBox.Location = new System.Drawing.Point(48, 20);
       this.m_handDrawnCheckBox.Name = "m_handDrawnCheckBox";
       this.m_handDrawnCheckBox.Size = new System.Drawing.Size(93, 17);
-      this.superTooltip1.SetSuperTooltip(this.m_handDrawnCheckBox, new DevComponents.DotNetBar.SuperTooltipInfo("Hand-drawn", "", "Trizbort can give lines a \"hand drawn\" appearance. If you prefer straight lines, " +
-            "you can uncheck this box. This applies to connections\' lines, the border of a ro" +
-            "om, and dividing fill lines.", null, null, DevComponents.DotNetBar.eTooltipColor.Orange));
       this.m_handDrawnCheckBox.TabIndex = 0;
       this.m_handDrawnCheckBox.Text = "\"&Hand-drawn\"";
       this.m_handDrawnCheckBox.UseVisualStyleBackColor = true;
@@ -234,8 +229,6 @@ namespace Trizbort.UI
       this.label5.Location = new System.Drawing.Point(201, 21);
       this.label5.Name = "label5";
       this.label5.Size = new System.Drawing.Size(35, 13);
-      this.superTooltip1.SetSuperTooltip(this.label5, new DevComponents.DotNetBar.SuperTooltipInfo("Line Width", "", "The width of lines, in pixels. This applies to both connections\' lines and the bo" +
-            "rder of a room.", null, null, DevComponents.DotNetBar.eTooltipColor.Orange));
       this.label5.TabIndex = 1;
       this.label5.Text = "&Width";
       // 
@@ -269,7 +262,6 @@ namespace Trizbort.UI
       this.label18.Location = new System.Drawing.Point(62, 100);
       this.label18.Name = "label18";
       this.label18.Size = new System.Drawing.Size(177, 13);
-      this.superTooltip1.SetSuperTooltip(this.label18, new DevComponents.DotNetBar.SuperTooltipInfo("Preferred Distance Between Rooms", "", resources.GetString("label18.SuperTooltip"), null, null, DevComponents.DotNetBar.eTooltipColor.Orange));
       this.label18.TabIndex = 7;
       this.label18.Text = "&Preferred Distance Between Rooms";
       // 
@@ -301,8 +293,6 @@ namespace Trizbort.UI
       this.label8.Location = new System.Drawing.Point(127, 127);
       this.label8.Name = "label8";
       this.label8.Size = new System.Drawing.Size(112, 13);
-      this.superTooltip1.SetSuperTooltip(this.label8, new DevComponents.DotNetBar.SuperTooltipInfo("Text Offset From Line", "", "Trizbort automatically adds a gap between a connection\'s line and any labels on t" +
-            "hat line. This setting controls how large that gap is.", null, null, DevComponents.DotNetBar.eTooltipColor.Orange));
       this.label8.TabIndex = 9;
       this.label8.Text = "&Text Offset From Line";
       // 
@@ -334,7 +324,6 @@ namespace Trizbort.UI
       this.label1.Location = new System.Drawing.Point(111, 73);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(128, 13);
-      this.superTooltip1.SetSuperTooltip(this.label1, new DevComponents.DotNetBar.SuperTooltipInfo("Room Arrow Stalk Length", "", resources.GetString("label1.SuperTooltip"), null, null, DevComponents.DotNetBar.eTooltipColor.Orange));
       this.label1.TabIndex = 5;
       this.label1.Text = "&Room Arrow Stalk Length";
       // 
@@ -366,7 +355,6 @@ namespace Trizbort.UI
       this.label4.Location = new System.Drawing.Point(179, 47);
       this.label4.Name = "label4";
       this.label4.Size = new System.Drawing.Size(58, 13);
-      this.superTooltip1.SetSuperTooltip(this.label4, new DevComponents.DotNetBar.SuperTooltipInfo("Arrow Size", "", "The pixel size of the base of arrows drawn on one way connections.", null, null, DevComponents.DotNetBar.eTooltipColor.Orange));
       this.label4.TabIndex = 3;
       this.label4.Text = "&Arrow Size";
       // 
@@ -1257,15 +1245,6 @@ namespace Trizbort.UI
             0,
             0});
       // 
-      // propertySettings1
-      // 
-      this.propertySettings1.DisplayName = "Region1";
-      this.propertySettings1.PropertyName = "";
-      // 
-      // superTooltip1
-      // 
-      this.superTooltip1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
-      // 
       // SettingsDialog
       // 
       this.AcceptButton = this.m_okButton;
@@ -1404,8 +1383,6 @@ namespace Trizbort.UI
         private System.Windows.Forms.Button btnChange;
         private System.Windows.Forms.Button btnDeleteRegion;
         private System.Windows.Forms.Label label19;
-        private DevComponents.DotNetBar.PropertySettings propertySettings1;
-        private DevComponents.DotNetBar.SuperTooltip superTooltip1;
     private System.Windows.Forms.TextBox txtDefaultRoomName;
     private System.Windows.Forms.Label label20;
     private System.Windows.Forms.Label label21;

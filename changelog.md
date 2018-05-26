@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ## [Unreleased]
 
+### Add
+- add filename to the invalid trizbort file on open of file.  There is a bug coming where this message is showing after restart on update of Trizbort and this will help debug this.
+
 ## [1.7.1] - 2018-05-26
 
 ### Refactor

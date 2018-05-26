@@ -25,7 +25,7 @@ namespace Trizbort.Domain.Application {
         return loader.Load(fileName);
       }
 
-      MessageBox.Show("This is not a known Trizbort file.", "Not a valid file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+      MessageBox.Show($"'{fileName}' is not a known Trizbort file.", "Not a valid file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
       return false;
     }
 

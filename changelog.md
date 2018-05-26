@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ## [Unreleased]
 
+### Refactor
+- removed dependency on DotNetBar.  Hopefully this clears up the issues with running on Macs and perhaps even allow compilation in Linux (or at least moves us closer to that).
+
 ## [1.7.0] - 2018-04-17
 
 ### Added

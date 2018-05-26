@@ -2,15 +2,15 @@
 <trizbort version="1.7.0.0">
 	<info />
 	<map>
-		<room id="1" name="Mountainside" subtitle="" x="0" y="0" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
-		<room id="2" name="Foot of the Mountain S" subtitle="" x="0" y="128" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="1" name="Mountainside" subtitle="" x="0" y="0" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="2" name="Foot of the Mountain S" subtitle="" x="0" y="128" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Pole</objects>
 		</room>
 		<line id="3" name="" description="">
 			<dock index="0" id="1" port="s" />
 			<dock index="1" id="2" port="n" />
 		</line>
-		<room id="4" name="Foot of the Mountain W" subtitle="" x="-160" y="128" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="4" name="Foot of the Mountain W" subtitle="" x="-160" y="128" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="5" name="" description="">
 			<dock index="0" id="2" port="w" />
 			<dock index="1" id="4" port="e" />
@@ -20,94 +20,94 @@
 			<dock index="0" id="2" port="e" />
 			<dock index="1" id="6" port="w" />
 		</line>
-		<room id="8" name="On the Cloud" subtitle="" x="320" y="0" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="8" name="On the Cloud" subtitle="" x="320" y="0" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="9" name="" description="" startText="in" endText="out">
 			<dock index="0" id="6" port="ne" />
 			<dock index="1" id="8" port="sw" />
 		</line>
-		<room id="13" name="Platform" subtitle="" x="-160" y="768" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
-		<room id="14" name="Machine Room: West" subtitle="" x="0" y="768" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="13" name="Platform" subtitle="" x="-160" y="768" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="14" name="Machine Room: West" subtitle="" x="0" y="768" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>(put pole in recess)</objects>
 		</room>
 		<line id="15" name="" description="">
 			<dock index="0" id="13" port="e" />
 			<dock index="1" id="14" port="w" />
 		</line>
-		<room id="16" name="Fall to Carriage" subtitle="" x="-160" y="640" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
-		<room id="17" name="Fall to Carriage" subtitle="" x="-320" y="768" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
-		<room id="18" name="Fall to Carriage" subtitle="" x="-160" y="896" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
-		<room id="19" name="Machine Room: Central" subtitle="" x="160" y="768" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="16" name="Fall to Carriage" subtitle="" x="-160" y="640" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="17" name="Fall to Carriage" subtitle="" x="-320" y="768" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="18" name="Fall to Carriage" subtitle="" x="-160" y="896" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="19" name="Machine Room: Central" subtitle="" x="160" y="768" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Crystal</objects>
 		</room>
 		<line id="20" name="" description="">
 			<dock index="0" id="14" port="e" />
 			<dock index="1" id="19" port="w" />
 		</line>
-		<room id="21" name="Machine Room: East" subtitle="" x="320" y="768" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="21" name="Machine Room: East" subtitle="" x="320" y="768" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="22" name="" description="">
 			<dock index="0" id="19" port="e" />
 			<dock index="1" id="21" port="w" />
 		</line>
-		<room id="23" name="Beneath the Pipe" subtitle="" x="160" y="640" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="23" name="Beneath the Pipe" subtitle="" x="160" y="640" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Crystal</objects>
 		</room>
 		<line id="24" name="" description="" startText="up" endText="down">
 			<dock index="0" id="14" port="ne" />
 			<dock index="1" id="23" port="sw" />
 		</line>
-		<room id="25" name="Church Isle" subtitle="" x="160" y="256" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="25" name="Church Isle" subtitle="" x="160" y="256" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Page</objects>
 		</room>
 		<line id="26" name="" description="">
 			<dock index="0" id="2" port="se" />
 			<dock index="1" id="25" port="nw" />
 		</line>
-		<room id="27" name="Fall to Carriage" subtitle="" x="320" y="512" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="27" name="Fall to Carriage" subtitle="" x="320" y="512" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="None" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="28" name="" description="" startText="down" endText="up">
 			<dock index="0" id="27" port="sw" />
 			<dock index="1" id="23" port="ne" />
 		</line>
-		<room id="29" name="Over the Gap" subtitle="" x="0" y="640" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="29" name="Over the Gap" subtitle="" x="0" y="640" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Crystal</objects>
 		</room>
 		<line id="30" name="" description="" style="dashed">
 			<dock index="0" id="14" port="n" />
 			<dock index="1" id="29" port="s" />
 		</line>
-		<room id="31" name="Scrap Room" subtitle="" x="0" y="512" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="31" name="Scrap Room" subtitle="" x="0" y="512" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Phone/crystal</objects>
 		</room>
 		<line id="32" name="" description="" style="dashed">
 			<dock index="0" id="29" port="n" />
 			<dock index="1" id="31" port="s" />
 		</line>
-		<room id="33" name="Coast" subtitle="" x="-320" y="128" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="33" name="Coast" subtitle="" x="-320" y="128" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Page</objects>
 		</room>
 		<line id="34" name="" description="" style="dashed">
 			<dock index="0" id="4" port="w" />
 			<dock index="1" id="33" port="e" />
 		</line>
-		<room id="35" name="Cave" subtitle="" x="-320" y="256" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="35" name="Cave" subtitle="" x="-320" y="256" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="36" name="" description="" style="dashed" startText="up" endText="down">
 			<dock index="0" id="33" port="s" />
 			<dock index="1" id="35" port="n" />
 		</line>
-		<room id="37" name="Attic" subtitle="" x="-320" y="384" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="37" name="Attic" subtitle="" x="-320" y="384" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Stuff (page)|Laptop</objects>
 		</room>
 		<line id="38" name="" description="">
 			<dock index="0" id="35" port="s" />
 			<dock index="1" id="37" port="n" />
 		</line>
-		<room id="39" name="Tomb" subtitle="" x="-480" y="256" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="39" name="Tomb" subtitle="" x="-480" y="256" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Coffin (page)</objects>
 		</room>
 		<line id="40" name="" description="" style="dashed">
 			<dock index="0" id="35" port="w" />
 			<dock index="1" id="39" port="e" />
 		</line>
-		<room id="10" name="Carriage" subtitle="" x="-160" y="448" w="96" h="64" region="Both" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="10" name="Carriage" subtitle="" x="-160" y="448" w="96" h="64" region="Both" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="11" name="" description="" style="dashed" flow="oneWay" startText="sleep (Ross)">
 			<dock index="0" id="10" port="se" />
 			<dock index="1" id="14" port="nw" />
@@ -116,43 +116,43 @@
 			<dock index="0" id="10" port="ne" />
 			<dock index="1" id="1" port="sw" />
 		</line>
-		<room id="41" name="Underground Line" subtitle="" x="-480" y="128" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="Made in Twine, Men Don't Play With Dolls is an intimate and painful look into the beginnings of a lifelong struggle with addiction. Memories like these are not easily escaped." roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="41" name="Underground Line" subtitle="" x="-480" y="128" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="30" cornerTopRight="30" cornerBottomLeft="30" cornerBottomRight="30" borderstyle="Solid" description="Made in Twine, Men Don't Play With Dolls is an intimate and painful look into the beginnings of a lifelong struggle with addiction. Memories like these are not easily escaped." roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Hat|Cat</objects>
 		</room>
 		<line id="42" name="" description="" flow="oneWay">
 			<dock index="0" id="41" port="s" />
 			<dock index="1" id="39" port="n" />
 		</line>
-		<room id="43" name="Hospital Room" subtitle="" x="320" y="640" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="43" name="Hospital Room" subtitle="" x="320" y="640" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="44" name="" description="" startText="down" endText="south">
 			<dock index="0" id="21" port="n" />
 			<dock index="1" id="43" port="s" />
 		</line>
-		<room id="45" name="Reth's Den" subtitle="" x="160" y="512" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="45" name="Reth's Den" subtitle="" x="160" y="512" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Box (Soul)</objects>
 		</room>
 		<line id="46" name="" description="">
 			<dock index="0" id="31" port="e" />
 			<dock index="1" id="45" port="w" />
 		</line>
-		<room id="47" name="Underground Line" subtitle="" x="160" y="384" w="96" h="64" region="Both" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="47" name="Underground Line" subtitle="" x="160" y="384" w="96" h="64" region="Both" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="48" name="" description="" flow="oneWay" midText="Ross only">
 			<dock index="0" id="47" port="s" />
 			<dock index="1" id="45" port="n" />
 		</line>
-		<room id="49" name="Summit" subtitle="" x="0" y="384" w="96" h="64" region="Both" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="49" name="Summit" subtitle="" x="0" y="384" w="96" h="64" region="Both" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="50" name="" description="" startText="down" endText="west">
 			<dock index="0" id="49" port="e" />
 			<dock index="1" id="47" port="w" />
 		</line>
-		<room id="51" name="Vat" subtitle="" x="320" y="384" w="96" h="64" region="Both" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="51" name="Vat" subtitle="" x="320" y="384" w="96" h="64" region="Both" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>Syringe</objects>
 		</room>
 		<line id="52" name="" description="" flow="oneWay">
 			<dock index="0" id="47" port="e" />
 			<dock index="1" id="51" port="w" />
 		</line>
-		<room id="53" name="Train Wreck" subtitle="" x="320" y="256" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="53" name="Train Wreck" subtitle="" x="320" y="256" w="96" h="64" region="Ross" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="54" name="" description="" startText="in" endText="out">
 			<dock index="0" id="47" port="ne" />
 			<dock index="1" id="53" port="sw" />

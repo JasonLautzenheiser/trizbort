@@ -24,7 +24,7 @@
 
 using System;
 using System.Collections.Generic;
-using DevComponents.DotNetBar;
+using System.Drawing;
 using Newtonsoft.Json;
 using PdfSharp.Drawing;
 using Trizbort.Domain.Application;
@@ -188,8 +188,8 @@ namespace Trizbort.Domain.Elements {
       return RoomShape.NotARoom;
     }
 
-    public virtual eTooltipColor GetToolTipColor() {
-      return eTooltipColor.Blue;
+    public virtual Color GetToolTipColor() {
+      return Color.Blue;
     }
 
     public virtual string GetToolTipFooter() {

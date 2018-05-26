@@ -31,7 +31,6 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using DevComponents.DotNetBar;
 using PdfSharp.Drawing;
 using Trizbort.Automap;
 using Trizbort.Domain.Application;

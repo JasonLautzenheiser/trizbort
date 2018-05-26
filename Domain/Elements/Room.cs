@@ -29,7 +29,6 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using DevComponents.DotNetBar;
 using Newtonsoft.Json;
 using PdfSharp.Drawing;
 using Trizbort.Domain.Application;
@@ -1076,8 +1075,8 @@ namespace Trizbort.Domain.Elements {
     }
 
 
-    public override eTooltipColor GetToolTipColor() {
-      return !valid() ? eTooltipColor.Red : eTooltipColor.BlueMist;
+    public override Color GetToolTipColor() {
+      return !valid() ? Color.Red : Color.LightBlue;
     }
 
     public override string GetToolTipFooter() {

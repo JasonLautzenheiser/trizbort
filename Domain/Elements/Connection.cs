@@ -29,7 +29,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using DevComponents.DotNetBar;
 using Newtonsoft.Json;
 using PdfSharp.Drawing;
 using Trizbort.Domain.Application;
@@ -415,8 +414,8 @@ namespace Trizbort.Domain.Elements {
       }
     }
 
-    public override eTooltipColor GetToolTipColor() {
-      return Door == null ? eTooltipColor.Lemon : eTooltipColor.Apple;
+    public override Color GetToolTipColor() {
+      return Door == null ? Color.Yellow : Color.GreenYellow;
     }
 
     public override string GetToolTipFooter() {

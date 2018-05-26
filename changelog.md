@@ -3,8 +3,10 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ## [Unreleased]
 
+## [1.7.1] - 2018-05-26
+
 ### Refactor
-- removed dependency on DotNetBar.  Hopefully this clears up the issues with running on Macs and perhaps even allow compilation in Linux (or at least moves us closer to that). (#437)
+- removed dependency on DotNetBar.  Good in general, but should move us closer to a version that will run cross-platform. (#437)
 
 ## [1.7.0] - 2018-04-17
 
@@ -527,7 +529,8 @@ on github.  Documentation is a little outdated so apologies on that.  Hopefully 
 - In the room properties, you can now assign a room to a region.  This will show the room in the region color assigned to the region.
 - some minor bug fixes.
 
-[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.1...HEAD
+[1.7.1]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.1...v1.7.0
 [1.6.1]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.5.9.9...v1.6.0

@@ -90,7 +90,10 @@ namespace Trizbort.UI {
         return;
 
       using (var dialog = new OpenFileDialog()) {
-        dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(ApplicationSettingsController.AppSettings.LastProjectFileName);
+        var lastProjectName = ApplicationSettingsController.AppSettings.LastProjectFileName;
+        if (!Uri.IsWellFormedUriString(lastProjectName, UriKind.RelativeOrAbsolute))
+          dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(lastProjectName);
+
         dialog.Filter = $"{Project.FilterString}|All Files|*.*||";
         if (dialog.ShowDialog() == DialogResult.OK) {
           ApplicationSettingsController.AppSettings.LastProjectFileName = dialog.FileName;

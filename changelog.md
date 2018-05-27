@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.  Version nu
 ### Add
 - add filename to the invalid trizbort file on open of file.  There is a bug coming where this message is showing after restart on update of Trizbort and this will help debug this.
 
+### Fix
+- Attempting to open an invalid trizbort file was still marking it as the last loaded project, which could cause it to try and load it again when trizbort reopened.  (#442)
+- If the last loaded project was from the web, doing a file open (Ctrl-O) would throw up an invalid path error when opening the file open dialog.  (#443)
+
 ## [1.7.1] - 2018-05-26
 
 ### Refactor

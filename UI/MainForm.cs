@@ -96,7 +96,6 @@ namespace Trizbort.UI {
 
         dialog.Filter = $"{Project.FilterString}|All Files|*.*||";
         if (dialog.ShowDialog() == DialogResult.OK) {
-          ApplicationSettingsController.AppSettings.LastProjectFileName = dialog.FileName;
           OpenProject(dialog.FileName);
         }
       }

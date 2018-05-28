@@ -118,7 +118,7 @@ namespace Trizbort.UI {
     }
 
     private void adjustZoomed(object sender, EventArgs e) {
-      txtZoom.Value = (int) (Canvas.ZoomFactor * 100.0f);
+      txtZoom.Value = (decimal)Numeric.Clamp((Canvas.ZoomFactor * 100.0f),10.0f,100.0f);
     }
 
     private void alanToTextToolStripMenuItem_Click(object sender, EventArgs e) {

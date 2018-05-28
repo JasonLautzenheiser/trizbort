@@ -56,6 +56,7 @@ namespace Trizbort.Domain.Misc {
       return Math.Max(min, Math.Min(max, value));
     }
 
+
     /// <summary>
     ///   Get the absolute distance between two numbers.
     /// </summary>

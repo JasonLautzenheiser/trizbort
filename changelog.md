@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.  Version nu
 ### Fix
 - Attempting to open an invalid trizbort file was still marking it as the last loaded project, which could cause it to try and load it again when trizbort reopened.  (#442)
 - If the last loaded project was from the web, doing a file open (Ctrl-O) would throw up an invalid path error when opening the file open dialog.  (#443)
+- fix error when zooming in or out too far.  (#447)
 
 ## [1.7.1] - 2018-05-26
 

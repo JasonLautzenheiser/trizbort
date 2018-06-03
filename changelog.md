@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ### Add
 - add filename to the invalid trizbort file on open of file.  There is a bug coming where this message is showing after restart on update of Trizbort and this will help debug this.
+- improved the statusbar to make it more extensible in the future.  
+- simplified how the zoom widget in the statusbar functions
+- added caps and num lock indicators to statusbar.
 
 ### Fix
 - Attempting to open an invalid trizbort file was still marking it as the last loaded project, which could cause it to try and load it again when trizbort reopened.  (#442)

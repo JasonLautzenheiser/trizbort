@@ -134,6 +134,11 @@
     <Compile Include="Domain\AppSettings\ApplicationSettings.cs" />
     <Compile Include="Domain\AppSettings\ApplicationSettingsController.cs" />
     <Compile Include="Domain\Application\TrizbortApplication.cs" />
+    <Compile Include="Domain\StatusBar\ZoomStatusWidget.cs" />
+    <Compile Include="Domain\StatusBar\NumLockStatusWidget.cs" />
+    <Compile Include="Domain\StatusBar\CapsLockStatusWidget.cs" />
+    <Compile Include="Domain\StatusBar\Status.cs" />
+    <Compile Include="Domain\StatusBar\IStatusWidget.cs" />
     <Compile Include="Domain\Watchers\TrizbortFileWatcher.cs" />
     <Compile Include="Domain\Misc\DrawingContext.cs" />
     <Compile Include="Domain\Elements\Element.cs" />
@@ -169,6 +174,7 @@
     </Compile>
     <Compile Include="UI\InputDialog.cs" />
     <Compile Include="Util\ClipboardHelper.cs" />
+    <Compile Include="Util\KeyboardHelper.cs" />
     <Compile Include="Util\PathHelper.cs" />
     <Compile Include="Domain\Misc\Port.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

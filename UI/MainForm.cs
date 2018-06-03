@@ -31,6 +31,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommandLine;
@@ -49,6 +50,7 @@ using Trizbort.UI.Controls;
 using Trizbort.Util;
 using Settings = Trizbort.Setup.Settings;
 using AutoUpdaterDotNET;
+using Trizbort.Domain.StatusBar;
 using Trizbort.Export.Languages;
 using Trizbort.Extensions;
 
@@ -61,14 +63,16 @@ namespace Trizbort.UI {
 
     private NumericUpDown txtZoom;
     private ToolStripStatusLabel statusLabel;
+    private Status trizStatusBar;
 
     private const string UPDATE_PATH = "http://www.trizbort.com/trizbortupdate.xml";
 
     private DateTime mLastUpdateUITime;
+    private SynchronizationContext synchronizationContext;
 
     public MainForm() {
       InitializeComponent();
-
+      synchronizationContext = SynchronizationContext.Current;
       TrizbortApplication.MainForm = this;
 
       commandController = new CommandController(Canvas);
@@ -118,7 +122,9 @@ namespace Trizbort.UI {
     }
 
     private void adjustZoomed(object sender, EventArgs e) {
-      txtZoom.Value = (decimal)Numeric.Clamp((Canvas.ZoomFactor * 100.0f),10.0f,100.0f);
+      
+
+      // txtZoom.Value = (decimal)Numeric.Clamp((Canvas.ZoomFactor * 100.0f),10.0f,100.0f);
     }
 
     private void alanToTextToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -590,23 +596,26 @@ namespace Trizbort.UI {
     }
 
     private void setupStatusBar() {
-      txtZoom = new NumericUpDown {
-        TextAlign = HorizontalAlignment.Right,
-        Value = 100,
-        Maximum = 1000,
-        Minimum = 10
-      };
-      txtZoom.ValueChanged += txtZoom_ValueChanged;
+      trizStatusBar = new Status(statusBar);
+      trizStatusBar.UpdateStatusBar();
 
-      statusLabel = new ToolStripStatusLabel {Spring = true};
-      statusBar.Items.Add(statusLabel);
-      
-      statusBar.Items.Add(new ToolStripLabel("Zoom %"));
-      statusBar.Items.Add(new ToolStripControlHost(txtZoom));
-    }
 
-    public void ChangeStatusMessage(string message) {
-      statusLabel.Text = message;
+      // txtZoom = new NumericUpDown {
+      //   TextAlign = HorizontalAlignment.Right,
+      //   Value = 100,
+      //   Maximum = 1000,
+      //   Minimum = 10
+      // };
+      // txtZoom.ValueChanged += txtZoom_ValueChanged;
+
+      // statusLabel = new ToolStripStatusLabel {Spring = true};
+      // statusBar.Items.Add(statusLabel);
+      //
+      // statusBar.Items.Add(new ToolStripLabel("Zoom %"));
+      // statusBar.Items.Add(new ToolStripControlHost(txtZoom));
+
+      // statusBar.Items.Add(pnlZoom);
+
     }
 
     private void makeRoomDarkToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -636,7 +645,7 @@ namespace Trizbort.UI {
       var now = DateTime.Now;
       if (now - mLastUpdateUITime > idleProcessingEveryNSeconds) {
         mLastUpdateUITime = now;
-        updateCommandUI();
+        Task.Run(() => { updateCommandUI();});
       }
     }
 
@@ -1036,70 +1045,77 @@ namespace Trizbort.UI {
     }
 
     private void updateCommandUI() {
-      // caption
-      Text = $"{(ApplicationSettingsController.AppSettings.ShowFullPathInTitleBar && !string.IsNullOrEmpty(Project.Current.FileName) ? Project.Current.FileName : Project.Current.Name)}{(Project.Current.IsDirty ? "*" : string.Empty)} - {mCaption} - {Application.ProductVersion}";
 
-      // line drawing options
-      m_toggleDottedLinesButton.Checked = Canvas.NewConnectionStyle == ConnectionStyle.Dashed;
-      m_toggleDottedLinesMenuItem.Checked = m_toggleDottedLinesButton.Checked;
-      m_toggleDirectionalLinesButton.Checked = Canvas.NewConnectionFlow == ConnectionFlow.OneWay;
-      m_toggleDirectionalLinesMenuItem.Checked = m_toggleDirectionalLinesButton.Checked;
-      m_plainLinesMenuItem.Checked = !m_toggleDirectionalLinesMenuItem.Checked && !m_toggleDottedLinesMenuItem.Checked && Canvas.NewConnectionLabel == ConnectionLabel.None;
-      m_upLinesMenuItem.Checked = Canvas.NewConnectionLabel == ConnectionLabel.Up;
-      m_downLinesMenuItem.Checked = Canvas.NewConnectionLabel == ConnectionLabel.Down;
-      m_inLinesMenuItem.Checked = Canvas.NewConnectionLabel == ConnectionLabel.In;
-      m_outLinesMenuItem.Checked = Canvas.NewConnectionLabel == ConnectionLabel.Out;
+      synchronizationContext.Post(o => {
+        // caption
+        Text = $"{(ApplicationSettingsController.AppSettings.ShowFullPathInTitleBar && !string.IsNullOrEmpty(Project.Current.FileName) ? Project.Current.FileName : Project.Current.Name)}{(Project.Current.IsDirty ? "*" : string.Empty)} - {mCaption} - {Application.ProductVersion}";
+        trizStatusBar.UpdateStatusBar();
 
-      // selection-specific commands
-      var hasSelectedElement = Canvas.SelectedElement != null;
-      m_editDeleteMenuItem.Enabled = hasSelectedElement;
-      m_editPropertiesMenuItem.Enabled = Canvas.HasSingleSelectedElement;
-      m_editSelectNoneMenuItem.Enabled = hasSelectedElement;
-      m_editSelectAllMenuItem.Enabled = Canvas.SelectedElementCount < Project.Current.Elements.Count;
-      m_editCopyMenuItem.Enabled = Canvas.SelectedElement != null;
-      m_editCopyColorToolMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
-      m_editPasteMenuItem.Enabled = ClipboardHelper.HasSomethingToPaste();
-      if (Canvas.HasSingleSelectedElement) //Allow flipping light in all rooms if 1+ are selected. Issue #138 flicker
-        m_editIsDarkMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
-      else
-        m_editIsDarkMenuItem.Enabled = hasSelectedElement;
-      m_editIsDarkMenuItem.Checked = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room && ((Room) Canvas.SelectedElement).IsDark;
-      m_editRenameMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
-      joinRoomsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2 && !Project.Current.AreRoomsConnected(Canvas.SelectedRooms);
-      swapObjectsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
-      swapNamesToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
-      swapFormatsFillsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
-      swapRegionsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+        // line drawing options
+        m_toggleDottedLinesButton.Checked = Canvas.NewConnectionStyle == ConnectionStyle.Dashed;
+        m_toggleDottedLinesMenuItem.Checked = m_toggleDottedLinesButton.Checked;
+        m_toggleDirectionalLinesButton.Checked = Canvas.NewConnectionFlow == ConnectionFlow.OneWay;
+        m_toggleDirectionalLinesMenuItem.Checked = m_toggleDirectionalLinesButton.Checked;
+        m_plainLinesMenuItem.Checked = !m_toggleDirectionalLinesMenuItem.Checked && !m_toggleDottedLinesMenuItem.Checked && Canvas.NewConnectionLabel == ConnectionLabel.None;
+        m_upLinesMenuItem.Checked = Canvas.NewConnectionLabel == ConnectionLabel.Up;
+        m_downLinesMenuItem.Checked = Canvas.NewConnectionLabel == ConnectionLabel.Down;
+        m_inLinesMenuItem.Checked = Canvas.NewConnectionLabel == ConnectionLabel.In;
+        m_outLinesMenuItem.Checked = Canvas.NewConnectionLabel == ConnectionLabel.Out;
 
-      startRoomToolStripMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
-      startRoomToolStripMenuItem.Checked = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room && ((Room) Canvas.SelectedElement).IsStartRoom;
-      endRoomToolStripMenuItem.Enabled = Canvas.HasSelectedRooms;
-      endRoomToolStripMenuItem.Checked = Canvas.HasSelectedRooms && (Canvas.SelectedRooms.Any(p=>p.IsEndRoom));
+        // selection-specific commands
+        var hasSelectedElement = Canvas.SelectedElement != null;
+        m_editDeleteMenuItem.Enabled = hasSelectedElement;
+        m_editPropertiesMenuItem.Enabled = Canvas.HasSingleSelectedElement;
+        m_editSelectNoneMenuItem.Enabled = hasSelectedElement;
+        m_editSelectAllMenuItem.Enabled = Canvas.SelectedElementCount < Project.Current.Elements.Count;
+        m_editCopyMenuItem.Enabled = Canvas.SelectedElement != null;
+        m_editCopyColorToolMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
+        m_editPasteMenuItem.Enabled = ClipboardHelper.HasSomethingToPaste();
+        if (Canvas.HasSingleSelectedElement) //Allow flipping light in all rooms if 1+ are selected. Issue #138 flicker
+          m_editIsDarkMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
+        else
+          m_editIsDarkMenuItem.Enabled = hasSelectedElement;
+        m_editIsDarkMenuItem.Checked = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room && ((Room) Canvas.SelectedElement).IsDark;
+        m_editRenameMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
+        joinRoomsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2 && !Project.Current.AreRoomsConnected(Canvas.SelectedRooms);
+        swapObjectsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+        swapNamesToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+        swapFormatsFillsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+        swapRegionsToolStripMenuItem.Enabled = Canvas.SelectedRooms.Count == 2;
+
+        startRoomToolStripMenuItem.Enabled = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room;
+        startRoomToolStripMenuItem.Checked = Canvas.HasSingleSelectedElement && Canvas.SelectedElement is Room && ((Room) Canvas.SelectedElement).IsStartRoom;
+        endRoomToolStripMenuItem.Enabled = Canvas.HasSelectedRooms;
+        endRoomToolStripMenuItem.Checked = Canvas.HasSelectedRooms && (Canvas.SelectedRooms.Any(p=>p.IsEndRoom));
 
 
-      roomsMustHaveUniqueNamesToolStripMenuItem.Checked = Project.Current.MustHaveUniqueNames;
-      roomsMustHaveADescriptionToolStripMenuItem.Checked = Project.Current.MustHaveDescription;
-      roomsMustHaveASubtitleToolStripMenuItem.Checked = Project.Current.MustHaveSubtitle;
-      roomsMustNotHaveADanglingConnectionToolStripMenuItem.Checked = Project.Current.MustHaveNoDanglingConnectors;
+        roomsMustHaveUniqueNamesToolStripMenuItem.Checked = Project.Current.MustHaveUniqueNames;
+        roomsMustHaveADescriptionToolStripMenuItem.Checked = Project.Current.MustHaveDescription;
+        roomsMustHaveASubtitleToolStripMenuItem.Checked = Project.Current.MustHaveSubtitle;
+        roomsMustNotHaveADanglingConnectionToolStripMenuItem.Checked = Project.Current.MustHaveNoDanglingConnectors;
 
-      m_editChangeRegionMenuItem.Enabled = Canvas.SelectedRooms.Any() && Settings.Regions.Count > 1;
-      handDrawnToolStripMenuItem.Enabled = Canvas.SelectedRooms.Any();
-      ellipseToolStripMenuItem.Enabled = Canvas.SelectedRooms.Any();
-      roundedEdgesToolStripMenuItem.Enabled = Canvas.SelectedRooms.Any();
-      octagonalEdgesToolStripMenuItem.Enabled = Canvas.SelectedRooms.Any();
-      m_reverseLineMenuItem.Enabled = Canvas.HasSelectedElement<Connection>();
+        m_editChangeRegionMenuItem.Enabled = Canvas.SelectedRooms.Any() && Settings.Regions.Count > 1;
+        handDrawnToolStripMenuItem.Enabled = Canvas.SelectedRooms.Any();
+        ellipseToolStripMenuItem.Enabled = Canvas.SelectedRooms.Any();
+        roundedEdgesToolStripMenuItem.Enabled = Canvas.SelectedRooms.Any();
+        octagonalEdgesToolStripMenuItem.Enabled = Canvas.SelectedRooms.Any();
+        m_reverseLineMenuItem.Enabled = Canvas.HasSelectedElement<Connection>();
 
-      // automapping
-      m_automapStartMenuItem.Enabled = !Canvas.IsAutomapping;
-      m_automapStopMenuItem.Enabled = Canvas.IsAutomapping;
-      m_automapBar.Visible = Canvas.IsAutomapping;
-      m_automapBar.Status = Canvas.AutomappingStatus;
+        // automapping
+        m_automapStartMenuItem.Enabled = !Canvas.IsAutomapping;
+        m_automapStopMenuItem.Enabled = Canvas.IsAutomapping;
+        m_automapBar.Visible = Canvas.IsAutomapping;
+        m_automapBar.Status = Canvas.AutomappingStatus;
 
-      // minimap
-      m_viewMinimapMenuItem.Checked = Canvas.MinimapVisible;
+        // minimap
+        m_viewMinimapMenuItem.Checked = Canvas.MinimapVisible;
 
-      updateToolStripImages();
-      Canvas.UpdateScrollBars();
+        updateToolStripImages();
+        Canvas.UpdateScrollBars();
+
+
+      }, null);
+
     }
 
     private void updateToolStripImages() {

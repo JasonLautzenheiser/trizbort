@@ -124,6 +124,7 @@ namespace Trizbort.UI
       this.btnChange = new System.Windows.Forms.Button();
       this.m_RegionListing = new System.Windows.Forms.ListBox();
       this.tabPage3 = new System.Windows.Forms.TabPage();
+      this.m_wrapTextAtDashes = new System.Windows.Forms.CheckBox();
       this.groupBox4 = new System.Windows.Forms.GroupBox();
       this.label4b = new System.Windows.Forms.Label();
       this.label4c = new System.Windows.Forms.Label();
@@ -1076,8 +1077,19 @@ namespace Trizbort.UI
       this.tabPage3.Text = "Other";
       this.tabPage3.UseVisualStyleBackColor = true;
       // 
+      // m_wrapTextAtDashes
+      // 
+      this.m_wrapTextAtDashes.AutoSize = true;
+      this.m_wrapTextAtDashes.Location = new System.Drawing.Point(6, 48);
+      this.m_wrapTextAtDashes.Name = "m_wrapTextAtDashes";
+      this.m_wrapTextAtDashes.Size = new System.Drawing.Size(128, 17);
+      this.m_wrapTextAtDashes.TabIndex = 2;
+      this.m_wrapTextAtDashes.Text = "Wrap Text at Dashes";
+      this.m_wrapTextAtDashes.UseVisualStyleBackColor = true;
+      // 
       // groupBox4
       // 
+      this.groupBox4.Controls.Add(this.m_wrapTextAtDashes);
       this.groupBox4.Controls.Add(this.label4b);
       this.groupBox4.Controls.Add(this.label4c);
       this.groupBox4.Controls.Add(this.m_documentSpecificMargins);
@@ -1391,5 +1403,6 @@ namespace Trizbort.UI
     private System.Windows.Forms.TextBox m_subtitleFontSizeTextBox;
     private System.Windows.Forms.Button m_changeSubtitleFontButton;
     private System.Windows.Forms.TextBox m_subtitleFontNameTextBox;
+        private System.Windows.Forms.CheckBox m_wrapTextAtDashes;
   }
 }

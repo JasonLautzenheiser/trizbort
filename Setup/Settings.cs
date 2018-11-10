@@ -66,6 +66,8 @@ namespace Trizbort.Setup {
     private static bool sDocSpecificMargins;
     private static float sDocHorizontalMargin;
     private static float sDocVerticalMargin;
+    private static bool sWrapTextAtDashes;
+    private static bool sWrappingChanged;
     private static float sDragDistanceToInitiateNewConnection;
     private static float sConnectionArrowSize;
     private static Keys sKeypadNavigationCreationModifier;
@@ -147,6 +149,23 @@ namespace Trizbort.Setup {
         }
       }
     }
+
+    public static bool WrapTextAtDashes {
+      get => sWrapTextAtDashes;
+      set {
+        if (sWrapTextAtDashes == value) return;
+        sWrapTextAtDashes = value;
+        sWrappingChanged = true;
+        raiseChanged();
+      }
+    }
+
+    public static bool WrappingChanged {
+      get => sWrappingChanged;
+      set {
+        sWrappingChanged = value;
+      }//
+    }//
 
     public static float DragDistanceToInitiateNewConnection {
       get => sDragDistanceToInitiateNewConnection;
@@ -400,6 +419,7 @@ namespace Trizbort.Setup {
       DocumentSpecificMargins = element["margins"]["documentSpecific"].ToBool(sDocSpecificMargins);
       DocHorizontalMargin = element["margins"]["horizontal"].ToFloat(sDocHorizontalMargin);
       DocVerticalMargin = element["margins"]["vertical"].ToFloat(sDocVerticalMargin);
+      WrapTextAtDashes = element["margins"]["wrapDashes"].ToBool(true); // maybe should be somewhere else
 
       KeypadNavigationCreationModifier = stringToModifierKeys(element["keypadNavigation"]["creationModifier"].Text, sKeypadNavigationCreationModifier);
       KeypadNavigationUnexploredModifier = stringToModifierKeys(element["keypadNavigation"]["unexploredModifier"].Text, sKeypadNavigationUnexploredModifier);
@@ -437,6 +457,8 @@ namespace Trizbort.Setup {
       } else {
         DocHorizontalMargin = DocVerticalMargin = 0;
       }
+
+      WrapTextAtDashes = ApplicationSettingsController.AppSettings.SpecifyWrapping;
 
       LineWidth = 2.0f;
 
@@ -527,6 +549,7 @@ namespace Trizbort.Setup {
       scribe.Element("documentSpecific", sDocSpecificMargins);
       scribe.Element("horizontal", sDocHorizontalMargin);
       scribe.Element("vertical", sDocVerticalMargin);
+      scribe.Element("wrapDashes", sWrapTextAtDashes); // maybe should be somewhere else
       scribe.EndElement();
 
       scribe.StartElement("keypadNavigation");
@@ -573,6 +596,7 @@ namespace Trizbort.Setup {
         dialog.DocumentSpecificMargins = DocumentSpecificMargins;
         dialog.DocHorizontalMargin = DocHorizontalMargin;
         dialog.DocVerticalMargin = DocVerticalMargin;
+        dialog.WrapTextAtDashes = WrapTextAtDashes;
         dialog.ConnectionArrowSize = ConnectionArrowSize;
         dialog.DefaultRoomShape = DefaultRoomShape;
         if (dialog.ShowDialog() == DialogResult.OK) {
@@ -631,6 +655,8 @@ namespace Trizbort.Setup {
           DocHorizontalMargin = dialog.DocHorizontalMargin;
           if (DocVerticalMargin != dialog.DocVerticalMargin) Project.Current.IsDirty = true;
           DocVerticalMargin = dialog.DocVerticalMargin;
+          if (WrapTextAtDashes != dialog.WrapTextAtDashes) Project.Current.IsDirty = true;
+          WrapTextAtDashes = dialog.WrapTextAtDashes;
           if (DefaultRoomShape != dialog.DefaultRoomShape) Project.Current.IsDirty = true;
           DefaultRoomShape = dialog.DefaultRoomShape;
         }

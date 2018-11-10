@@ -1200,6 +1200,12 @@ namespace Trizbort.Domain.Elements {
       // no match
     }
 
+    public void MarkNameInvalid() {
+      // it might be a better idea to make that change via public method
+      System.Reflection.FieldInfo fi = mName.GetType().GetField("m_invalidLayout", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+      fi.SetValue(mName, true);
+    }
+
     public Port PortAt(CompassPoint compassPoint) {
       return PortList.Cast<CompassPort>().FirstOrDefault(port => port.CompassPoint == compassPoint);
     }

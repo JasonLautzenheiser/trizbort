@@ -1545,7 +1545,7 @@ namespace Trizbort.UI.Controls {
     }
 
     private void ctxCanvasMenu_Opening(object sender, CancelEventArgs e) {
-      if (m_minimap.Visible && m_minimap.IsMouseOverMe())
+      if ((m_minimap.Visible && m_minimap.IsMouseOverMe()) || dragMode == DragModes.Pan)
         e.Cancel = true;
 
       var clientPos = new PointF(mLastMouseDownPosition.X, mLastMouseDownPosition.Y);

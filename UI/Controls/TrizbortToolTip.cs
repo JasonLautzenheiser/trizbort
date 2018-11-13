@@ -9,6 +9,10 @@ namespace Trizbort.UI.Controls {
     public string TitleText { get; set; }
     public string BodyText { get; set; }
     public string FooterText { get; set; }
+    public bool IsShown { get; set; }
+    public IWin32Window LastOwner { get; set; }
+    public Point LastPosition { get; private set; }
+    public object HoverElement { get; set; }
 
     public Color GradientColor { get; set; } = Color.Empty;
 
@@ -101,6 +105,57 @@ namespace Trizbort.UI.Controls {
       }
 
       b.Dispose();
+    }
+
+    public bool IsPositionChanged(Point position) {
+      return position.X != LastPosition.X || position.Y != LastPosition.Y;
+    }
+
+    public new void Show(string text, IWin32Window window) {
+      LastOwner = window;
+      base.Show(text, window);
+      IsShown = true;
+    }
+
+    public new void Show(string text, IWin32Window window, int duration) {
+      LastOwner = window;
+      base.Show(text, window, duration);
+      IsShown = true;
+    }
+
+    public new void Show(string text, IWin32Window window, Point point) {
+      LastOwner = window;
+      LastPosition = point;
+      base.Show(text, window, point);
+      IsShown = true;
+    }
+
+    public new void Show(string text, IWin32Window window, int x, int y) {
+      LastOwner = window;
+      LastPosition = new Point(x, y);
+      base.Show(text, window, x, y);
+      IsShown = true;
+    }
+
+    public new void Show(string text, IWin32Window window, Point point, int duration) {
+      LastOwner = window;
+      LastPosition = point;
+      base.Show(text, window, point, duration);
+      IsShown = true;
+    }
+
+    public new void Show(string text, IWin32Window window, int x, int y, int duration) {
+      LastOwner = window;
+      LastPosition = new Point(x, y);
+      base.Show(text, window, x, y, duration);
+      IsShown = true;
+    }
+
+    public new void Hide(IWin32Window win) {
+      LastOwner = null;    // not really necessary
+      HoverElement = null; // as above - this one is being set outside of the class
+      base.Hide(win);
+      IsShown = false;
     }
   }
 }

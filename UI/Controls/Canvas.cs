@@ -1751,7 +1751,7 @@ namespace Trizbort.UI.Controls {
         if (trizbortToolTip1.IsPositionChanged(newPoint)) // not really necessary as panning always changes the position
           trizbortToolTip1.Show(trizbortToolTip1.TitleText, trizbortToolTip1.LastOwner, newPoint);
       }
-     }
+    }
 
     private void drawElements(XGraphics graphics, Palette palette, bool finalRender) {
       if (ApplicationSettingsController.AppSettings.DebugDisableElementRendering)

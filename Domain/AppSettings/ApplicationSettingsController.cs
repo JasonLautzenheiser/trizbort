@@ -11,6 +11,7 @@ using Formatting = Newtonsoft.Json.Formatting;
 
 namespace Trizbort.Domain.AppSettings {
   public static class ApplicationSettingsController {
+    public const int RECENT_PROJECTS_MAX_COUNT = 4;
     private const string AppSettingsFileName = @".\appsettings.json";
     private static readonly string legacyAppSettingsPath = Path.Combine(Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Genstein"), "Trizbort"), "Settings.xml");
 
@@ -177,19 +178,13 @@ namespace Trizbort.Domain.AppSettings {
 
     public static void OpenProject(string fileName) {
       AppSettings.LastProjectFileName = fileName;
-      if (!AppSettings.RecentProjects.Contains(fileName))
-      {
-        AppSettings.RecentProjects.Insert(0, fileName);
-      }
-      else
-      {
+      if (AppSettings.RecentProjects.Contains(fileName)) {
         AppSettings.RecentProjects.Remove(fileName);
-        AppSettings.RecentProjects.Insert(0, fileName);
       }
+      AppSettings.RecentProjects.Insert(0, fileName);
 
-      if (AppSettings.RecentProjects.Count > 4)
-      {
-        AppSettings.RecentProjects.RemoveRange(4, AppSettings.RecentProjects.Count - 4);
+      if (AppSettings.RecentProjects.Count > ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT) {
+        AppSettings.RecentProjects.RemoveRange(ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT, AppSettings.RecentProjects.Count - ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT);
       }
       SaveSettings();
     }

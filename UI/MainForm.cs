@@ -711,7 +711,13 @@ namespace Trizbort.UI {
       ApplicationSettingsController.AppSettings.LastProjectFileName = outfile;
       Project.Current.FileName = outfile;
       if (Project.Current.Save()) {
-        ApplicationSettingsController.AppSettings.RecentProjects.Add(Project.Current.FileName);
+        if (ApplicationSettingsController.AppSettings.RecentProjects.Contains(Project.Current.FileName)) {
+          ApplicationSettingsController.AppSettings.RecentProjects.Remove(Project.Current.FileName);
+        }
+        ApplicationSettingsController.AppSettings.RecentProjects.Insert(0, Project.Current.FileName);
+        if (ApplicationSettingsController.AppSettings.RecentProjects.Count > ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT) {
+          ApplicationSettingsController.AppSettings.RecentProjects.RemoveRange(ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT, ApplicationSettingsController.AppSettings.RecentProjects.Count - ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT);
+        }
         Project.Current.IsDirty = false;
       }
     }
@@ -732,7 +738,13 @@ namespace Trizbort.UI {
           ApplicationSettingsController.AppSettings.LastProjectFileName = dialog.FileName;
           Project.Current.FileName = dialog.FileName;
           if (Project.Current.Save(true)) {
-            ApplicationSettingsController.AppSettings.RecentProjects.Add(Project.Current.FileName);
+            if (ApplicationSettingsController.AppSettings.RecentProjects.Contains(Project.Current.FileName)) {
+              ApplicationSettingsController.AppSettings.RecentProjects.Remove(Project.Current.FileName);
+            }
+            ApplicationSettingsController.AppSettings.RecentProjects.Insert(0, Project.Current.FileName);
+            if (ApplicationSettingsController.AppSettings.RecentProjects.Count > ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT) {
+              ApplicationSettingsController.AppSettings.RecentProjects.RemoveRange(ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT, ApplicationSettingsController.AppSettings.RecentProjects.Count - ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT);
+            }
             return true;
           }
         }
@@ -864,7 +876,13 @@ namespace Trizbort.UI {
       if (!Project.Current.HasFileName) return saveAsProject();
 
       if (Project.Current.Save()) {
-        ApplicationSettingsController.AppSettings.RecentProjects.Add(Project.Current.FileName);
+        if (ApplicationSettingsController.AppSettings.RecentProjects.Contains(Project.Current.FileName)) {
+          ApplicationSettingsController.AppSettings.RecentProjects.Remove(Project.Current.FileName);
+        }
+        ApplicationSettingsController.AppSettings.RecentProjects.Insert(0, Project.Current.FileName);
+        if (ApplicationSettingsController.AppSettings.RecentProjects.Count > ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT) {
+          ApplicationSettingsController.AppSettings.RecentProjects.RemoveRange(ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT, ApplicationSettingsController.AppSettings.RecentProjects.Count - ApplicationSettingsController.RECENT_PROJECTS_MAX_COUNT);
+        }
         return true;
       }
 

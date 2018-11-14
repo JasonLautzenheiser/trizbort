@@ -1128,6 +1128,8 @@ namespace Trizbort.UI {
         // minimap
         m_viewMinimapMenuItem.Checked = Canvas.MinimapVisible;
 
+        m_viewShowGridMenuItem.Checked = Settings.IsGridVisible;
+
         updateToolStripImages();
         Canvas.UpdateScrollBars();
 
@@ -1157,6 +1159,12 @@ namespace Trizbort.UI {
     private void ViewMinimapMenuItem_Click(object sender, EventArgs e) {
       Canvas.MinimapVisible = !Canvas.MinimapVisible;
       ApplicationSettingsController.AppSettings.ShowMiniMap = Canvas.MinimapVisible;
+    }
+
+    private void ViewShowGridMenuItem_Click(object sender, EventArgs e) {
+      m_viewShowGridMenuItem.Checked = !m_viewShowGridMenuItem.Checked;
+      Settings.IsGridVisible = m_viewShowGridMenuItem.Checked;
+      Project.Current.IsDirty = true;
     }
 
     private void ViewResetMenuItem_Click(object sender, EventArgs e) {

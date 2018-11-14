@@ -632,8 +632,12 @@ namespace Trizbort.Domain.Elements {
       RoomShape roomType;
       switch (alignment) {
         default:
-          roomType = VertexList[0].Port.Owner.GetRoomType();
-          if (roomType == RoomShape.Ellipse || roomType == RoomShape.Octagonal) roomTypeAdjustments = this.roomTypeAdjustments(VertexList[0]);
+          // detached vertex has no port, so need to check if it exists
+          if (VertexList[0].Port != null) {
+            roomType = VertexList[0].Port.Owner.GetRoomType();
+            if (roomType == RoomShape.Ellipse || roomType == RoomShape.Octagonal)
+              roomTypeAdjustments = this.roomTypeAdjustments(VertexList[0]);
+          }
           point = lineSegment.Start + roomTypeAdjustments;
           delta.Negate();
           break;
@@ -641,8 +645,12 @@ namespace Trizbort.Domain.Elements {
           point = lineSegment.Mid;
           break;
         case StringAlignment.Far:
-          roomType = VertexList[1].Port.Owner.GetRoomType();
-          if (roomType == RoomShape.Ellipse || roomType == RoomShape.Octagonal) roomTypeAdjustments = this.roomTypeAdjustments(VertexList[1]);
+          // detached vertex has no port, so need to check if it exists
+          if (VertexList[1].Port != null) {
+            roomType = VertexList[1].Port.Owner.GetRoomType();
+            if (roomType == RoomShape.Ellipse || roomType == RoomShape.Octagonal)
+              roomTypeAdjustments = this.roomTypeAdjustments(VertexList[1]);
+          }
           point = lineSegment.End + roomTypeAdjustments;
           break;
       }

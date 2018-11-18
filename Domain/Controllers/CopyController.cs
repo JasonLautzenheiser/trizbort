@@ -102,8 +102,9 @@ namespace Trizbort.Domain.Controllers {
       newRoom.Ellipse = room.Ellipse;
       newRoom.StraightEdges = room.StraightEdges;
       newRoom.AllCornersEqual = room.AllCornersEqual;
-      newRoom.IsStartRoom = room.IsStartRoom;
-      newRoom.IsEndRoom = room.IsEndRoom;
+      // the below will cause the project to have potentially more than 1 start/end rooms
+      //newRoom.IsStartRoom = room.IsStartRoom;
+      //newRoom.IsEndRoom = room.IsEndRoom;
       newRoom.ArbitraryAutomappedPosition = room.ArbitraryAutomappedPosition;
       newRoom.RoomFillColor = room.RoomFillColor;
       newRoom.SecondFillColor = room.SecondFillColor;

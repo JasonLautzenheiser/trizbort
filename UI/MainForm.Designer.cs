@@ -194,6 +194,8 @@ namespace Trizbort.UI
       this.statusBar = new System.Windows.Forms.StatusStrip();
       this.Canvas = new Trizbort.UI.Controls.Canvas();
       this.m_automapBar = new Trizbort.UI.Controls.AutomapBar();
+      this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
+      this.m_viewShowGridMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_menuStrip.SuspendLayout();
       this.m_toolStrip.SuspendLayout();
       this.SuspendLayout();
@@ -212,7 +214,7 @@ namespace Trizbort.UI
             this.m_helpMenu});
       this.m_menuStrip.Location = new System.Drawing.Point(0, 0);
       this.m_menuStrip.Name = "m_menuStrip";
-      this.m_menuStrip.Size = new System.Drawing.Size(1928, 24);
+      this.m_menuStrip.Size = new System.Drawing.Size(1924, 24);
       this.m_menuStrip.TabIndex = 1;
       // 
       // m_fileMenu
@@ -916,7 +918,7 @@ namespace Trizbort.UI
             this.m_outLinesMenuItem});
       this.m_lineStylesMenuItem.Name = "m_lineStylesMenuItem";
       this.m_lineStylesMenuItem.ShortcutKeyDisplayString = "";
-      this.m_lineStylesMenuItem.Size = new System.Drawing.Size(153, 22);
+      this.m_lineStylesMenuItem.Size = new System.Drawing.Size(180, 22);
       this.m_lineStylesMenuItem.Text = "&Line Styles";
       // 
       // m_plainLinesMenuItem
@@ -994,7 +996,7 @@ namespace Trizbort.UI
       // 
       this.m_reverseLineMenuItem.Name = "m_reverseLineMenuItem";
       this.m_reverseLineMenuItem.ShortcutKeyDisplayString = "V";
-      this.m_reverseLineMenuItem.Size = new System.Drawing.Size(153, 22);
+      this.m_reverseLineMenuItem.Size = new System.Drawing.Size(180, 22);
       this.m_reverseLineMenuItem.Text = "Re&verse Line";
       this.m_reverseLineMenuItem.Click += new System.EventHandler(this.ReverseLineMenuItem_Click);
       // 
@@ -1006,7 +1008,7 @@ namespace Trizbort.UI
             this.roomsMustHaveASubtitleToolStripMenuItem,
             this.roomsMustNotHaveADanglingConnectionToolStripMenuItem});
       this.validationToolStripMenuItem.Name = "validationToolStripMenuItem";
-      this.validationToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+      this.validationToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
       this.validationToolStripMenuItem.Text = "Validation";
       // 
       // roomsMustHaveUniqueNamesToolStripMenuItem
@@ -1044,7 +1046,9 @@ namespace Trizbort.UI
             this.m_viewEntireMapMenuItem,
             this.m_viewResetMenuItem,
             this.toolStripMenuItem6,
-            this.m_viewMinimapMenuItem});
+            this.m_viewMinimapMenuItem,
+            this.toolStripSeparator21,
+            this.m_viewShowGridMenuItem});
       this.m_viewMenu.Name = "m_viewMenu";
       this.m_viewMenu.Size = new System.Drawing.Size(44, 20);
       this.m_viewMenu.Text = "&View";
@@ -1190,7 +1194,7 @@ namespace Trizbort.UI
             this.mapStatisticsToolStripMenuItem,
             this.mapStatisticsExportToolStripMenuItem});
       this.m_projectMenu.Name = "m_projectMenu";
-      this.m_projectMenu.Size = new System.Drawing.Size(47, 20);
+      this.m_projectMenu.Size = new System.Drawing.Size(48, 20);
       this.m_projectMenu.Text = "&Tools";
       // 
       // m_projectSettingsMenuItem
@@ -1327,7 +1331,7 @@ namespace Trizbort.UI
       // 
       this.statusBar.Location = new System.Drawing.Point(0, 1007);
       this.statusBar.Name = "statusBar";
-      this.statusBar.Size = new System.Drawing.Size(1928, 22);
+      this.statusBar.Size = new System.Drawing.Size(1924, 22);
       this.statusBar.TabIndex = 5;
       this.statusBar.Text = "statusStrip1";
       // 
@@ -1338,7 +1342,7 @@ namespace Trizbort.UI
       this.Canvas.Location = new System.Drawing.Point(38, 24);
       this.Canvas.MinimapVisible = true;
       this.Canvas.Name = "Canvas";
-      this.Canvas.Size = new System.Drawing.Size(1890, 954);
+      this.Canvas.Size = new System.Drawing.Size(1886, 954);
       this.Canvas.TabIndex = 0;
       // 
       // m_automapBar
@@ -1351,14 +1355,26 @@ namespace Trizbort.UI
       this.m_automapBar.MaximumSize = new System.Drawing.Size(4096, 29);
       this.m_automapBar.MinimumSize = new System.Drawing.Size(2, 29);
       this.m_automapBar.Name = "m_automapBar";
-      this.m_automapBar.Size = new System.Drawing.Size(1890, 29);
+      this.m_automapBar.Size = new System.Drawing.Size(1886, 29);
       this.m_automapBar.TabIndex = 4;
+      // 
+      // toolStripSeparator21
+      // 
+      this.toolStripSeparator21.Name = "toolStripSeparator21";
+      this.toolStripSeparator21.Size = new System.Drawing.Size(201, 6);
+      // 
+      // m_viewShowGridMenuItem
+      // 
+      this.m_viewShowGridMenuItem.Name = "m_viewShowGridMenuItem";
+      this.m_viewShowGridMenuItem.Size = new System.Drawing.Size(204, 22);
+      this.m_viewShowGridMenuItem.Text = "Show &Grid";
+      this.m_viewShowGridMenuItem.Click += new System.EventHandler(this.ViewShowGridMenuItem_Click);
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(1928, 1029);
+      this.ClientSize = new System.Drawing.Size(1924, 1029);
       this.Controls.Add(this.Canvas);
       this.Controls.Add(this.m_automapBar);
       this.Controls.Add(this.m_toolStrip);
@@ -1518,6 +1534,8 @@ namespace Trizbort.UI
     private System.Windows.Forms.ToolStripMenuItem endRoomToolStripMenuItem;
     private System.Windows.Forms.StatusStrip statusBar;
     private System.Windows.Forms.ToolStripMenuItem m_fileOpenFromWebMenuItem;
+    private System.Windows.Forms.ToolStripSeparator toolStripSeparator21;
+    private System.Windows.Forms.ToolStripMenuItem m_viewShowGridMenuItem;
   }
 }
 

@@ -8,11 +8,17 @@ All notable changes to this project will be documented in this file.  Version nu
 - improved the statusbar to make it more extensible in the future.  
 - simplified how the zoom widget in the statusbar functions
 - added caps and num lock indicators to statusbar.
+- added the option to have text break or not break on dashes.  (#456)
+- added menu item in the View menu to toggle the background map grid (#452)
 
 ### Fix
 - Attempting to open an invalid trizbort file was still marking it as the last loaded project, which could cause it to try and load it again when trizbort reopened.  (#442)
 - If the last loaded project was from the web, doing a file open (Ctrl-O) would throw up an invalid path error when opening the file open dialog.  (#443)
 - fix error when zooming in or out too far.  (#447)
+- start/end room properties will not be copied when copying a room, this fixes the issue where we could have more than one start room. (#460)
+- shift - right-clck allows panning of the map.  The context menu no longer shows when releasing the mouse (#455)
+- fixed issue when saving a file many times in succession can temporarily corrupt the recent map menu list.  (#454)
+
 
 ## [1.7.1] - 2018-05-26
 

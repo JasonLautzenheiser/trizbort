@@ -267,6 +267,47 @@ namespace Trizbort.UI.Controls {
 
     private static float snapToElementSizeAtCurrentZoomFactor => Settings.SnapToElementSize;
 
+    public void RedrawAllRoomsWithDashes() {
+      var rooms = Project.Current.Elements.OfType<Room>().ToList();
+      if (rooms.Count == 0) return;
+
+      DrawingContext context = new DrawingContext(ZoomFactor) {
+        Selected = false,
+        Hover = false
+      };
+      Palette palette = new Palette();
+
+      // this is the only way I know of to redraw the room
+      // if some other way is easier, best to implement Redraw method in the Room object
+      var size = this.ComputeCanvasBounds(true).Size * (ApplicationSettingsController.AppSettings.SaveAt100 ? 1.0f : this.ZoomFactor);
+      size.X = Numeric.Clamp(size.X, 16, 8192);
+      size.Y = Numeric.Clamp(size.Y, 16, 8192);
+      using (var nativeGraphics = Graphics.FromHwnd(this.Handle)) {
+        using (var stream = new System.IO.MemoryStream()) {
+          try {
+            var dc = nativeGraphics.GetHdc();
+            using (var metafile = new System.Drawing.Imaging.Metafile(stream, dc)) {
+              using (var imageGraphics = Graphics.FromImage(metafile)) {
+                using (var graphics = XGraphics.FromGraphics(imageGraphics, new XSize(size.X, size.Y))) {
+                  foreach (var room in rooms) {
+                    if (room.Name.Contains("-")) {
+                      room.MarkNameInvalid();
+                      room.Draw(graphics, palette, context);
+                    }
+                  }
+                }
+              }
+            }
+          }
+          catch {
+          }
+          finally {
+            nativeGraphics.ReleaseHdc();
+          }
+        }
+      }
+    }
+
     public void RemoveRoom(Room mOtherRoom) {
       Project.Current.Elements.Remove(mOtherRoom);
     }
@@ -2247,6 +2288,10 @@ namespace Trizbort.UI.Controls {
 
     private void onSettingsChanged(object sender, EventArgs e) {
       requestRecomputeSmartSegments();
+      if (Settings.WrappingChanged) {
+        RedrawAllRoomsWithDashes();
+        Settings.WrappingChanged = false; // might as well go at the end of the RedrawAllRoomsWithDashes method
+      }
       BackColor = Settings.Color[Colors.Canvas];
       Invalidate();
     }

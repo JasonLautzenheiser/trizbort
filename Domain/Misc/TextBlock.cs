@@ -147,14 +147,15 @@ namespace Trizbort.Domain.Misc {
           wordsStep1.Add(new Word(word, (float) graphics.MeasureString(word, font).Width));
         }
 
+        bool isSplitDash = Setup.Settings.WrapTextAtDashes;
         var words = new List<Word>();
-        foreach (var splits in wordsStep1.Where(p => !string.IsNullOrWhiteSpace(p.Text)).Select(word => word.Text.Split('-')))
+        foreach (var splits in wordsStep1.Where(p => !string.IsNullOrWhiteSpace(p.Text)).Select(word => isSplitDash ? word.Text.Split('-') : new string[] { word.Text }))
           if (splits.Count() > 1) {
             var tWordList = new List<Word>();
             foreach (var tWord in splits) {
               if (words.Count != 0 && tWordList.Count == 0)
                 tWordList.Add(new Word(" ", spaceLength));
-              else if (tWordList.Count != 0)
+              else if (tWordList.Count != 0 && isSplitDash)
                 tWordList.Add(new Word("-", hyphenLength));
 
               tWordList.Add(new Word(tWord, (float) graphics.MeasureString(tWord, font).Width));

@@ -96,6 +96,8 @@ namespace Trizbort.UI {
 
     public bool DocumentSpecificMargins { get => m_documentSpecificMargins.Checked; set => m_documentSpecificMargins.Checked = value; }
 
+    public bool WrapTextAtDashes { get => m_wrapTextAtDashes.Checked; set => m_wrapTextAtDashes.Checked = value; }
+
     public float DocVerticalMargin { get => (float) m_documentVerticalMargins.Value; set => m_documentVerticalMargins.Value = (decimal) value; }
 
     public Color[] ElementColors { get; }

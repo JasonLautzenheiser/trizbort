@@ -1744,13 +1744,16 @@ namespace Trizbort.UI.Controls {
       delta = Drawing.Divide(delta, ZoomFactor);
       Origin = new Vector(Origin.X + delta.X, Origin.Y + delta.Y);
       mPanPosition = clientPos;
-      // if tooltip is already shown, move it with the element
-      // the below code causes tooltip to flicker when panning
-      if (trizbortToolTip1.IsShown && trizbortToolTip1.HoverElement is Element element) {
-        var newPoint = GetTooltipPositionFromElement(element);
-        if (trizbortToolTip1.IsPositionChanged(newPoint)) // not really necessary as panning always changes the position
-          trizbortToolTip1.Show(trizbortToolTip1.TitleText, trizbortToolTip1.LastOwner, newPoint);
+      if (trizbortToolTip1.IsShown) {
+        trizbortToolTip1.Hide(trizbortToolTip1.LastOwner);
       }
+      //// if tooltip is already shown, move it with the element
+      //// the below code causes tooltip to flicker when panning
+      //if (trizbortToolTip1.IsShown && trizbortToolTip1.HoverElement is Element element) {
+      //  var newPoint = GetTooltipPositionFromElement(element);
+      //  if (trizbortToolTip1.IsPositionChanged(newPoint)) // not really necessary as panning always changes the position
+      //    trizbortToolTip1.Show(trizbortToolTip1.TitleText, trizbortToolTip1.LastOwner, newPoint);
+      //}
     }
 
     private void drawElements(XGraphics graphics, Palette palette, bool finalRender) {
@@ -2198,13 +2201,16 @@ namespace Trizbort.UI.Controls {
       // move any selected moveable elements
       if (element is IMoveable moveable) {
         moveable.Position += delta;
-        // if tooltip is already shown, move it with the element
-        // the below code causes tooltip to flicker when moving the element and grid snapping is off
-        if (trizbortToolTip1.IsShown && element == trizbortToolTip1.HoverElement) {
-          var newPoint = GetTooltipPositionFromElement(element);
-          if (trizbortToolTip1.IsPositionChanged(newPoint))
-            trizbortToolTip1.Show(trizbortToolTip1.TitleText, trizbortToolTip1.LastOwner, newPoint);
+        if (trizbortToolTip1.IsShown) {
+          trizbortToolTip1.Hide(trizbortToolTip1.LastOwner);
         }
+        //// if tooltip is already shown, move it with the element
+        //// the below code causes tooltip to flicker when moving the element and grid snapping is off
+        //if (trizbortToolTip1.IsShown && element == trizbortToolTip1.HoverElement) {
+        //  var newPoint = GetTooltipPositionFromElement(element);
+        //  if (trizbortToolTip1.IsPositionChanged(newPoint))
+        //    trizbortToolTip1.Show(trizbortToolTip1.TitleText, trizbortToolTip1.LastOwner, newPoint);
+        //}
       }
 
       if (element is Connection) {

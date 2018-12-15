@@ -122,7 +122,7 @@ namespace Trizbort.UI {
 
       stats += $"{MapStatistics.UpDown} up-down connection{plur(MapStatistics.UpDown)}{Environment.NewLine}";
       stats += $"{MapStatistics.InOut} in-out connection{plur(MapStatistics.InOut)}{Environment.NewLine}";
-      stats += $"{MapStatistics.CustomConnections} custom {plur(MapStatistics.CustomConnections)}connection{Environment.NewLine}";
+      stats += $"{MapStatistics.CustomConnections} custom connection{plur(MapStatistics.CustomConnections)}{Environment.NewLine}";
       stats += $"{MapStatistics.DiagonalConnections(2)} diagonal connection{plur(MapStatistics.DiagonalConnections(2))} (2-way){Environment.NewLine}";
       stats += $"{MapStatistics.DiagonalConnections(1)} diagonal connection{plur(MapStatistics.DiagonalConnections(1))} (1-way){Environment.NewLine}";
       stats += $"{MapStatistics.HasMiddleText} connection{plur(MapStatistics.HasMiddleText)} with middle text{Environment.NewLine}";

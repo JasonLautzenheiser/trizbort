@@ -430,6 +430,9 @@ namespace Trizbort.UI {
         groupRoundedCorners.Visible = false;
       }
 
+      // Hand drawn style is currently only implemented for "Straight Edges" line style.
+      chkHandDrawnRoom.Enabled = (cboDrawType.SelectedItem.ToString() == "Straight Edges");
+
       pnlSampleRoomShape.Invalidate();
     }
 

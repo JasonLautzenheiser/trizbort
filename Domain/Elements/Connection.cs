@@ -607,8 +607,6 @@ namespace Trizbort.Domain.Elements {
       if (!string.IsNullOrEmpty(MidText)) {
         var totalLength = lineSegments.Sum(lineSegment => lineSegment.Length);
         var middle = totalLength / 2;
-        if (lineSegments.Count % 2 == 1) // with default values, middle text is horizontally but not vertically centered
-          middle += 4.0f * Settings.LineFont.Height / 5;
         foreach (var lineSegment in lineSegments) {
           var length = lineSegment.Length;
           if (middle > length) {
@@ -663,6 +661,14 @@ namespace Trizbort.Domain.Elements {
       var pos = bounds.GetCorner(compassPoint);
       var format = new XStringFormat();
       Drawing.SetAlignmentFromCardinalOrOrdinalDirection(format, compassPoint);
+
+      if (alignment == StringAlignment.Center && (Math.Abs(angle) == 90)) {
+        // HACK: Adjust the anchoring for mid-line text for vertical lines to push
+        // the start of the label a bit off the connection line.
+        pos = bounds.GetCorner(CompassPoint.East);
+        format.LineAlignment = XLineAlignment.Center;
+      }
+
       if (alignment == StringAlignment.Center && Numeric.InRange(angle, -10, 10)) {
         // HACK: if the line segment is pretty horizontal and we're drawing mid-line text,
         // move text below the line to get it out of the way of any labels at the ends,

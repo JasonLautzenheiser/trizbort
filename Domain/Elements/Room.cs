@@ -1154,7 +1154,7 @@ namespace Trizbort.Domain.Elements {
       else
         Shape = RoomShape.SquareCorners;
 
-      StraightEdges = element.Attribute("handDrawn").ToBool();
+      HandDrawnEdges = element.Attribute("handDrawn").ToBool();
       AllCornersEqual = element.Attribute("allcornersequal").ToBool();
 
       Corners = new CornerRadii();
@@ -1261,7 +1261,7 @@ namespace Trizbort.Domain.Elements {
       if (ReferenceRoom != null)
         scribe.Attribute("referenceRoom", ReferenceRoom.ID);
 
-      scribe.Attribute("handDrawn", StraightEdges);
+      scribe.Attribute("handDrawn", HandDrawnEdges);
       scribe.Attribute("allcornersequal", AllCornersEqual);
       scribe.Attribute("ellipse", Ellipse);
       scribe.Attribute("roundedCorners", RoundedCorners);

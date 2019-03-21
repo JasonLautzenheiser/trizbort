@@ -1095,14 +1095,21 @@ namespace Trizbort.Domain.Elements {
 
     public override string GetToolTipText() {
       if (!valid()) {
-        var sText = "";
-        sText = ValidationState.Aggregate(sText, (current, roomValidationState) => current + roomValidationState.Message + Environment.NewLine);
-        return sText;
+        var text = "";
+        text = ValidationState.Aggregate(text, (current, roomValidationState) => current + roomValidationState.Message + Environment.NewLine);
+        return text;
       }
 
-      var sDesc = $"{PrimaryDescription}";
+      var desc = $"{PrimaryDescription}";
+      var charsToShow = ApplicationSettingsController.AppSettings.ToolTipRoomDescriptionCharactersToShow;
+      if (ApplicationSettingsController.AppSettings.LimitRoomDescriptionCharactersInTooltip & (desc.Length >= charsToShow))
+      {
+        desc = desc.Substring(0, charsToShow);
+        desc = desc + "...";
+      }
 
-      return sDesc;
+
+      return desc;
     }
 
     public override bool HasTooltip() {

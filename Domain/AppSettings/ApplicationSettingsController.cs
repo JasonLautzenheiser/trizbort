@@ -74,6 +74,10 @@ namespace Trizbort.Domain.AppSettings {
         dialog.LoadLastProjectOnStart = settings.LoadLastProjectOnStart;
         dialog.HandDrawnGlobal = settings.HandDrawnGlobal;
         dialog.ShowToolTipsOnObjects = settings.ShowToolTipsOnObjects;
+        dialog.LimitConnectionDescriptionCharactersInTooltip = settings.LimitConnectionDescriptionCharactersInTooltip;
+        dialog.ToolTipConnectionDescriptionCharactersToShow = settings.ToolTipConnectionDescriptionCharactersToShow;        
+        dialog.LimitRoomDescriptionCharactersInTooltip = settings.LimitRoomDescriptionCharactersInTooltip;
+        dialog.ToolTipRoomDescriptionCharactersToShow = settings.ToolTipRoomDescriptionCharactersToShow;
 
         if (dialog.ShowDialog() == DialogResult.OK) {
           settings.InvertMouseWheel = dialog.InvertMouseWheel;
@@ -91,6 +95,10 @@ namespace Trizbort.Domain.AppSettings {
           settings.LoadLastProjectOnStart = dialog.LoadLastProjectOnStart;
           settings.HandDrawnGlobal = dialog.HandDrawnGlobal;
           settings.ShowToolTipsOnObjects = dialog.ShowToolTipsOnObjects;
+          settings.ToolTipConnectionDescriptionCharactersToShow = dialog.ToolTipConnectionDescriptionCharactersToShow;
+          settings.LimitConnectionDescriptionCharactersInTooltip = dialog.LimitConnectionDescriptionCharactersInTooltip;  
+          settings.ToolTipRoomDescriptionCharactersToShow = dialog.ToolTipRoomDescriptionCharactersToShow;
+          settings.LimitRoomDescriptionCharactersInTooltip = dialog.LimitRoomDescriptionCharactersInTooltip;
           SaveSettings();
         }
       }

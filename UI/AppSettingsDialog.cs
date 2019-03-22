@@ -33,7 +33,8 @@ namespace Trizbort.UI {
 
     public bool ShowFullPathInTitleBar { get => chkFullPathTitleBar.Checked; set => chkFullPathTitleBar.Checked = value; }
 
-    public bool ShowToolTipsOnObjects { get => chkShowTooltips.Checked; set => chkShowTooltips.Checked = value; }
+    public bool ShowDescriptionsInTooltip { get => chkShowDescriptionsInTooltip.Checked; set => chkShowDescriptionsInTooltip.Checked = value; }
+    public bool ShowObjectsInTooltip { get => chkShowObjectsInTooltip.Checked; set => chkShowObjectsInTooltip.Checked = value; }
 
     public bool SpecifyGenMargins { get => chkSpecifyMargins.Checked; set => chkSpecifyMargins.Checked = value; }
 
@@ -77,20 +78,22 @@ namespace Trizbort.UI {
 
     private void SetTooltipRoomDesciptionLimitUI(bool areWeLimiting)
     {
+      chkLimitRoomDescriptionTooltipChars.Enabled = areWeLimiting;
       lblCharactersToShowRoom.Enabled = areWeLimiting;
       txtNumOfRoomDescriptionChars.Enabled = areWeLimiting;
     }    
     
     private void SetTooltipConnectionDesciptionLimitUI(bool areWeLimiting)
     {
+      chkLimitConnectionDescriptionTooltipChars.Enabled = areWeLimiting;
       lblCharactersToShowConnection.Enabled = areWeLimiting;
       txtNumOfConnectionDescriptionChars.Enabled = areWeLimiting;
     }
 
     private void AppSettingsDialog_Load(object sender, EventArgs e)
     {
-      SetTooltipRoomDesciptionLimitUI(LimitRoomDescriptionCharactersInTooltip);
-      SetTooltipConnectionDesciptionLimitUI(LimitConnectionDescriptionCharactersInTooltip);
+      SetTooltipRoomDesciptionLimitUI(chkShowDescriptionsInTooltip.Checked);
+      SetTooltipConnectionDesciptionLimitUI(chkShowDescriptionsInTooltip.Checked);
     }
 
 		private void chkLimitConnectionDescriptionTooltipChars_CheckedChanged(object sender, EventArgs e)
@@ -98,6 +101,12 @@ namespace Trizbort.UI {
       var checkBox = (CheckBox)sender;
 
       SetTooltipConnectionDesciptionLimitUI(checkBox.Checked);
+		}
+
+		private void chkShowDescriptionsInTooltip_CheckedChanged(object sender, EventArgs e)
+    {
+      SetTooltipRoomDesciptionLimitUI(chkShowDescriptionsInTooltip.Checked);
+      SetTooltipConnectionDesciptionLimitUI(chkShowDescriptionsInTooltip.Checked);
 		}
 	}
 }

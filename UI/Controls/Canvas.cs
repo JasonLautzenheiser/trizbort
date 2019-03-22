@@ -2716,7 +2716,7 @@ namespace Trizbort.UI.Controls {
 
           if (HoverElement == null) {
             trizbortToolTip1.Hide(FromHandle(Handle));
-          } else if (ApplicationSettingsController.AppSettings.ShowToolTipsOnObjects && HoverElement.HasTooltip()) {
+          } else if (ApplicationSettingsController.AppSettings.ShowTooltips && HoverElement.HasTooltip()) {
 
             if (trizbortToolTip1.Active && sameElement) return;
             if (hoverElement.GetToolTipHeader() == string.Empty && hoverElement.GetToolTipText() == string.Empty) return;

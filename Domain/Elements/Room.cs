@@ -1079,8 +1079,9 @@ namespace Trizbort.Domain.Elements {
       return !valid() ? Color.Red : Color.LightBlue;
     }
 
-    public override string GetToolTipFooter() {
-      return Objects;
+    public override string GetToolTipFooter()
+    {
+      return ApplicationSettingsController.AppSettings.ShowObjectsInTooltips ? Objects : string.Empty;
     }
 
     public override string GetToolTipHeader() {
@@ -1100,12 +1101,16 @@ namespace Trizbort.Domain.Elements {
         return text;
       }
 
-      var desc = $"{PrimaryDescription}";
-      var charsToShow = ApplicationSettingsController.AppSettings.ToolTipRoomDescriptionCharactersToShow;
-      if (ApplicationSettingsController.AppSettings.LimitRoomDescriptionCharactersInTooltip & (desc.Length >= charsToShow))
+      string desc = string.Empty;
+      if (ApplicationSettingsController.AppSettings.ShowDescriptionsInTooltips)
       {
-        desc = desc.Substring(0, charsToShow);
-        desc = desc + "...";
+        desc = $"{PrimaryDescription}";
+        var charsToShow = ApplicationSettingsController.AppSettings.ToolTipRoomDescriptionCharactersToShow;
+        if (ApplicationSettingsController.AppSettings.LimitRoomDescriptionCharactersInTooltip & (desc.Length >= charsToShow))
+        {
+          desc = desc.Substring(0, charsToShow);
+          desc = desc + "...";
+        }
       }
 
 

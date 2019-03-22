@@ -60,7 +60,9 @@
 			this.txtNumOfRoomDescriptionChars = new System.Windows.Forms.NumericUpDown();
 			this.lblCharactersToShowRoom = new System.Windows.Forms.Label();
 			this.chkLimitRoomDescriptionTooltipChars = new System.Windows.Forms.CheckBox();
-			this.chkShowTooltips = new System.Windows.Forms.CheckBox();
+			this.chkShowDescriptionsInTooltip = new System.Windows.Forms.CheckBox();
+			this.chkShowObjectsInTooltip = new System.Windows.Forms.CheckBox();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -71,6 +73,7 @@
 			this.tabToolTips.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.txtNumOfConnectionDescriptionChars)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtNumOfRoomDescriptionChars)).BeginInit();
+			this.groupBox4.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// m_okButton
@@ -385,13 +388,8 @@
 			// 
 			// tabToolTips
 			// 
-			this.tabToolTips.Controls.Add(this.txtNumOfConnectionDescriptionChars);
-			this.tabToolTips.Controls.Add(this.lblCharactersToShowConnection);
-			this.tabToolTips.Controls.Add(this.chkLimitConnectionDescriptionTooltipChars);
-			this.tabToolTips.Controls.Add(this.txtNumOfRoomDescriptionChars);
-			this.tabToolTips.Controls.Add(this.lblCharactersToShowRoom);
-			this.tabToolTips.Controls.Add(this.chkLimitRoomDescriptionTooltipChars);
-			this.tabToolTips.Controls.Add(this.chkShowTooltips);
+			this.tabToolTips.Controls.Add(this.groupBox4);
+			this.tabToolTips.Controls.Add(this.chkShowObjectsInTooltip);
 			this.tabToolTips.Location = new System.Drawing.Point(4, 22);
 			this.tabToolTips.Name = "tabToolTips";
 			this.tabToolTips.Padding = new System.Windows.Forms.Padding(3);
@@ -404,7 +402,7 @@
 			// 
 			this.txtNumOfConnectionDescriptionChars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtNumOfConnectionDescriptionChars.DecimalPlaces = 1;
-			this.txtNumOfConnectionDescriptionChars.Location = new System.Drawing.Point(136, 131);
+			this.txtNumOfConnectionDescriptionChars.Location = new System.Drawing.Point(148, 116);
 			this.txtNumOfConnectionDescriptionChars.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -424,7 +422,7 @@
 			// 
 			this.lblCharactersToShowConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblCharactersToShowConnection.AutoSize = true;
-			this.lblCharactersToShowConnection.Location = new System.Drawing.Point(24, 133);
+			this.lblCharactersToShowConnection.Location = new System.Drawing.Point(36, 118);
 			this.lblCharactersToShowConnection.Name = "lblCharactersToShowConnection";
 			this.lblCharactersToShowConnection.Size = new System.Drawing.Size(106, 13);
 			this.lblCharactersToShowConnection.TabIndex = 19;
@@ -432,7 +430,7 @@
 			// 
 			// chkLimitConnectionDescriptionTooltipChars
 			// 
-			this.chkLimitConnectionDescriptionTooltipChars.Location = new System.Drawing.Point(7, 101);
+			this.chkLimitConnectionDescriptionTooltipChars.Location = new System.Drawing.Point(21, 86);
 			this.chkLimitConnectionDescriptionTooltipChars.Name = "chkLimitConnectionDescriptionTooltipChars";
 			this.chkLimitConnectionDescriptionTooltipChars.Size = new System.Drawing.Size(229, 23);
 			this.chkLimitConnectionDescriptionTooltipChars.TabIndex = 18;
@@ -443,7 +441,7 @@
 			// 
 			this.txtNumOfRoomDescriptionChars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtNumOfRoomDescriptionChars.DecimalPlaces = 1;
-			this.txtNumOfRoomDescriptionChars.Location = new System.Drawing.Point(136, 65);
+			this.txtNumOfRoomDescriptionChars.Location = new System.Drawing.Point(148, 50);
 			this.txtNumOfRoomDescriptionChars.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -463,7 +461,7 @@
 			// 
 			this.lblCharactersToShowRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblCharactersToShowRoom.AutoSize = true;
-			this.lblCharactersToShowRoom.Location = new System.Drawing.Point(24, 67);
+			this.lblCharactersToShowRoom.Location = new System.Drawing.Point(36, 52);
 			this.lblCharactersToShowRoom.Name = "lblCharactersToShowRoom";
 			this.lblCharactersToShowRoom.Size = new System.Drawing.Size(106, 13);
 			this.lblCharactersToShowRoom.TabIndex = 16;
@@ -471,22 +469,50 @@
 			// 
 			// chkLimitRoomDescriptionTooltipChars
 			// 
-			this.chkLimitRoomDescriptionTooltipChars.Location = new System.Drawing.Point(7, 35);
+			this.chkLimitRoomDescriptionTooltipChars.Location = new System.Drawing.Point(21, 20);
 			this.chkLimitRoomDescriptionTooltipChars.Name = "chkLimitRoomDescriptionTooltipChars";
 			this.chkLimitRoomDescriptionTooltipChars.Size = new System.Drawing.Size(209, 23);
 			this.chkLimitRoomDescriptionTooltipChars.TabIndex = 14;
 			this.chkLimitRoomDescriptionTooltipChars.Text = "Limit Characters of Room Description";
 			this.chkLimitRoomDescriptionTooltipChars.CheckedChanged += new System.EventHandler(this.chkLimitDescriptionTooltipChars_CheckedChanged);
 			// 
-			// chkShowTooltips
+			// chkShowDescriptionsInTooltip
 			// 
-			this.chkShowTooltips.Checked = true;
-			this.chkShowTooltips.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.chkShowTooltips.Location = new System.Drawing.Point(6, 6);
-			this.chkShowTooltips.Name = "chkShowTooltips";
-			this.chkShowTooltips.Size = new System.Drawing.Size(154, 23);
-			this.chkShowTooltips.TabIndex = 13;
-			this.chkShowTooltips.Text = "Show Tooltips on Objects";
+			this.chkShowDescriptionsInTooltip.BackColor = System.Drawing.Color.White;
+			this.chkShowDescriptionsInTooltip.Checked = true;
+			this.chkShowDescriptionsInTooltip.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkShowDescriptionsInTooltip.Location = new System.Drawing.Point(6, -4);
+			this.chkShowDescriptionsInTooltip.Name = "chkShowDescriptionsInTooltip";
+			this.chkShowDescriptionsInTooltip.Size = new System.Drawing.Size(168, 23);
+			this.chkShowDescriptionsInTooltip.TabIndex = 21;
+			this.chkShowDescriptionsInTooltip.Text = "Show Descriptions in Tooltip";
+			this.chkShowDescriptionsInTooltip.UseVisualStyleBackColor = false;
+			this.chkShowDescriptionsInTooltip.CheckedChanged += new System.EventHandler(this.chkShowDescriptionsInTooltip_CheckedChanged);
+			// 
+			// chkShowObjectsInTooltip
+			// 
+			this.chkShowObjectsInTooltip.Checked = true;
+			this.chkShowObjectsInTooltip.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkShowObjectsInTooltip.Location = new System.Drawing.Point(13, 10);
+			this.chkShowObjectsInTooltip.Name = "chkShowObjectsInTooltip";
+			this.chkShowObjectsInTooltip.Size = new System.Drawing.Size(168, 23);
+			this.chkShowObjectsInTooltip.TabIndex = 22;
+			this.chkShowObjectsInTooltip.Text = "Show Objects in Tooltip";
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.chkLimitRoomDescriptionTooltipChars);
+			this.groupBox4.Controls.Add(this.lblCharactersToShowRoom);
+			this.groupBox4.Controls.Add(this.chkShowDescriptionsInTooltip);
+			this.groupBox4.Controls.Add(this.txtNumOfRoomDescriptionChars);
+			this.groupBox4.Controls.Add(this.txtNumOfConnectionDescriptionChars);
+			this.groupBox4.Controls.Add(this.chkLimitConnectionDescriptionTooltipChars);
+			this.groupBox4.Controls.Add(this.lblCharactersToShowConnection);
+			this.groupBox4.Location = new System.Drawing.Point(7, 39);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(300, 147);
+			this.groupBox4.TabIndex = 23;
+			this.groupBox4.TabStop = false;
 			// 
 			// AppSettingsDialog
 			// 
@@ -521,9 +547,10 @@
 			this.tabControl1.ResumeLayout(false);
 			this.tabGeneral.ResumeLayout(false);
 			this.tabToolTips.ResumeLayout(false);
-			this.tabToolTips.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.txtNumOfConnectionDescriptionChars)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtNumOfRoomDescriptionChars)).EndInit();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -563,9 +590,11 @@
 		private System.Windows.Forms.NumericUpDown txtNumOfRoomDescriptionChars;
 		private System.Windows.Forms.Label lblCharactersToShowRoom;
 		private System.Windows.Forms.CheckBox chkLimitRoomDescriptionTooltipChars;
-		private System.Windows.Forms.CheckBox chkShowTooltips;
 		private System.Windows.Forms.NumericUpDown txtNumOfConnectionDescriptionChars;
 		private System.Windows.Forms.Label lblCharactersToShowConnection;
 		private System.Windows.Forms.CheckBox chkLimitConnectionDescriptionTooltipChars;
+		private System.Windows.Forms.GroupBox groupBox4;
+		private System.Windows.Forms.CheckBox chkShowDescriptionsInTooltip;
+		private System.Windows.Forms.CheckBox chkShowObjectsInTooltip;
 	}
 }

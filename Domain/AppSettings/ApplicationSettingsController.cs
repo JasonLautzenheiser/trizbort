@@ -49,7 +49,8 @@ namespace Trizbort.Domain.AppSettings {
       settings.SaveToPDF = true;
       settings.SaveTadstoAdv3Lite = true;
       settings.RecentProjects.Clear();
-      settings.ShowToolTipsOnObjects = true;
+      settings.ShowObjectsInTooltips = true;
+      settings.ShowDescriptionsInTooltips = true;
     }
 
     public static void SaveSettings() {
@@ -73,7 +74,12 @@ namespace Trizbort.Domain.AppSettings {
         dialog.GenVerticalMargin = settings.GenVerticalMargin;
         dialog.LoadLastProjectOnStart = settings.LoadLastProjectOnStart;
         dialog.HandDrawnGlobal = settings.HandDrawnGlobal;
-        dialog.ShowToolTipsOnObjects = settings.ShowToolTipsOnObjects;
+        dialog.ShowDescriptionsInTooltip = settings.ShowDescriptionsInTooltips;
+        dialog.ShowObjectsInTooltip = settings.ShowObjectsInTooltips;
+        dialog.LimitConnectionDescriptionCharactersInTooltip = settings.LimitConnectionDescriptionCharactersInTooltip;
+        dialog.ToolTipConnectionDescriptionCharactersToShow = settings.ToolTipConnectionDescriptionCharactersToShow;        
+        dialog.LimitRoomDescriptionCharactersInTooltip = settings.LimitRoomDescriptionCharactersInTooltip;
+        dialog.ToolTipRoomDescriptionCharactersToShow = settings.ToolTipRoomDescriptionCharactersToShow;
 
         if (dialog.ShowDialog() == DialogResult.OK) {
           settings.InvertMouseWheel = dialog.InvertMouseWheel;
@@ -90,7 +96,12 @@ namespace Trizbort.Domain.AppSettings {
           settings.GenVerticalMargin = (int) dialog.GenVerticalMargin;
           settings.LoadLastProjectOnStart = dialog.LoadLastProjectOnStart;
           settings.HandDrawnGlobal = dialog.HandDrawnGlobal;
-          settings.ShowToolTipsOnObjects = dialog.ShowToolTipsOnObjects;
+          settings.ShowDescriptionsInTooltips = dialog.ShowDescriptionsInTooltip;
+          settings.ShowObjectsInTooltips = dialog.ShowObjectsInTooltip;
+          settings.ToolTipConnectionDescriptionCharactersToShow = dialog.ToolTipConnectionDescriptionCharactersToShow;
+          settings.LimitConnectionDescriptionCharactersInTooltip = dialog.LimitConnectionDescriptionCharactersInTooltip;  
+          settings.ToolTipRoomDescriptionCharactersToShow = dialog.ToolTipRoomDescriptionCharactersToShow;
+          settings.LimitRoomDescriptionCharactersInTooltip = dialog.LimitRoomDescriptionCharactersInTooltip;
           SaveSettings();
         }
       }
@@ -139,7 +150,8 @@ namespace Trizbort.Domain.AppSettings {
               settings.GenHorizontalMargin = root["horizontalMargin"].ToInt(settings.GenHorizontalMargin);
               settings.GenVerticalMargin = root["verticalMargin"].ToInt(settings.GenVerticalMargin);
               settings.HandDrawnGlobal = root["handDrawnDefault"].ToBool(settings.HandDrawnGlobal);
-              settings.ShowToolTipsOnObjects = root["showToolTipsOnObjects"].ToBool(true);
+              settings.ShowObjectsInTooltips = root["showObjectsInTooltips"].ToBool(true);
+              settings.ShowDescriptionsInTooltips = root["showDescriptionsInTooltips"].ToBool(true);
 
               settings.CanvasWidth = root["canvasWidth"].ToInt(settings.CanvasWidth);
               settings.CanvasHeight = root["canvasHeight"].ToInt(settings.CanvasHeight);

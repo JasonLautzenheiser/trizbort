@@ -2716,7 +2716,7 @@ namespace Trizbort.UI.Controls {
 
           if (HoverElement == null) {
             trizbortToolTip1.Hide(FromHandle(Handle));
-          } else if (ApplicationSettingsController.AppSettings.ShowToolTipsOnObjects && HoverElement.HasTooltip()) {
+          } else if (ApplicationSettingsController.AppSettings.ShowTooltips && HoverElement.HasTooltip()) {
 
             if (trizbortToolTip1.Active && sameElement) return;
             if (hoverElement.GetToolTipHeader() == string.Empty && hoverElement.GetToolTipText() == string.Empty) return;
@@ -2727,13 +2727,9 @@ namespace Trizbort.UI.Controls {
 
             if (hoverElement is Room tRoom) {
               trizbortToolTip1.BackColor = Color.LightBlue;
-              // tPoint.Y += tRoom.Height + 10;
-              // tPoint.X -= 10;
             } else if (hoverElement is Connection tConnection) {
               trizbortToolTip1.BackColor = Color.LemonChiffon;
               tConnection.MidText = "";
-              // tPoint.Y -= 10;
-              // tPoint.X -= 10;
             }
 
             var newPoint = GetTooltipPositionFromElement(hoverElement);

@@ -427,7 +427,18 @@ namespace Trizbort.Domain.Elements {
     }
 
     public override string GetToolTipText() {
-      return Description;
+      string desc = string.Empty;
+      if (ApplicationSettingsController.AppSettings.ShowDescriptionsInTooltips)
+      {
+        desc = $"{Description}";
+        var charsToShow = ApplicationSettingsController.AppSettings.ToolTipConnectionDescriptionCharactersToShow;
+        if (ApplicationSettingsController.AppSettings.LimitConnectionDescriptionCharactersInTooltip & (desc.Length >= charsToShow))
+        {
+          desc = desc.Substring(0, charsToShow);
+          desc = desc + "...";
+        }
+      }
+			return desc;
     }
 
     public override bool HasTooltip() {

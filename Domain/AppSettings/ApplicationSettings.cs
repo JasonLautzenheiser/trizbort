@@ -45,9 +45,16 @@ namespace Trizbort.Domain.AppSettings
     public bool SaveToImage { get; set; }
     public bool SaveToPDF { get; set; }
     public bool ShowMiniMap { get; set; }
-    public bool ShowToolTipsOnObjects { get; set; } = true;
-    public bool SpecifyGenMargins { get; set; }
+    public bool ShowObjectsInTooltips { get; set; } = true;
+    public bool ShowDescriptionsInTooltips { get; set; } = true;
+    public bool LimitRoomDescriptionCharactersInTooltip { get; set; } = false;
+    public int ToolTipRoomDescriptionCharactersToShow { get; set; } = 50;
+    public bool LimitConnectionDescriptionCharactersInTooltip { get; set; } = false;
+    public int ToolTipConnectionDescriptionCharactersToShow { get; set; } = 50;
+		public bool SpecifyGenMargins { get; set; }
     public bool SpecifyWrapping { get; set; }
     public bool ShowFullPathInTitleBar { get; set; }
+
+    public bool ShowTooltips => ShowDescriptionsInTooltips || ShowObjectsInTooltips;
   }
 }

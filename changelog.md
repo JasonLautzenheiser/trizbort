@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ## [Unreleased]
 
+## [1.7.2] - 2019-03-23
+
 ### Add
 - add filename to the invalid trizbort file on open of file.  There is a bug coming where this message is showing after restart on update of Trizbort and this will help debug this.
 - improved the statusbar to make it more extensible in the future.  
@@ -550,7 +552,8 @@ on github.  Documentation is a little outdated so apologies on that.  Hopefully 
 - In the room properties, you can now assign a room to a region.  This will show the room in the region color assigned to the region.
 - some minor bug fixes.
 
-[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.1...HEAD
+[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.2...HEAD
+[1.7.2]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.1...v1.7.2
 [1.7.1]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.1...v1.7.0
 [1.6.1]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.0...v1.6.1

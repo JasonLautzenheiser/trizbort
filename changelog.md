@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.  Version nu
 - added caps and num lock indicators to statusbar.
 - added the option to have text break or not break on dashes.  (#456)
 - added menu item in the View menu to toggle the background map grid (#452)
+- Added app settings to control what displays in the tooltip.  Can show/hide descriptions and objects.  Also can limit how many characters to display in the descriptions (#467)
 
 ### Fix
 - Attempting to open an invalid trizbort file was still marking it as the last loaded project, which could cause it to try and load it again when trizbort reopened.  (#442)
@@ -18,6 +19,9 @@ All notable changes to this project will be documented in this file.  Version nu
 - start/end room properties will not be copied when copying a room, this fixes the issue where we could have more than one start room. (#460)
 - shift - right-clck allows panning of the map.  The context menu no longer shows when releasing the mouse (#455)
 - fixed issue when saving a file many times in succession can temporarily corrupt the recent map menu list.  (#454)
+- fixed issues with the handling of "Hand Drawn Edges" and improved the handling of the UI in regards to this setting.
+- middle text alignment should now be handled more consistantly.  (#473)
+- Handle tooltips better when they are displayed and panning the page or moving the room. (#459)
 
 
 ## [1.7.1] - 2018-05-26

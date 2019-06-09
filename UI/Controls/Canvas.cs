@@ -636,7 +636,7 @@ namespace Trizbort.UI.Controls {
 
     public void ResetZoomOrigin() {
       Origin = ComputeCanvasBounds(false).Center;
-      ZoomFactor = 1.0f;
+      ZoomFactor = 2.0f;
     }
 
     public void ReverseLineDirection() {

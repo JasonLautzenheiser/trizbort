@@ -31,14 +31,7 @@ namespace Trizbort.Properties {
                 return ((long)(this["SettingsLastTabIndex"]));
             }
             set {
-                try
-                {
-                    this["SettingsLastTabIndex"] = value;
-                }
-                catch
-                {
-                    System.Console.WriteLine("Herp");
-                }
+                this["SettingsLastTabIndex"] = value;
             }
         }
     }

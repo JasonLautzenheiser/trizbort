@@ -68,15 +68,15 @@ namespace Trizbort.UI
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(481, 57);
             this.label1.TabIndex = 0;
             this.label1.Text = "Trizbort isn\'t sure which room the transcript is referring to.\r\n\r\nEither several " +
-                "rooms have the same name but different descriptions, or the room description has" +
-                " changed during play.\r\n";
+    "rooms have the same name but different descriptions, or the room description has" +
+    " changed during play.\r\n";
             // 
             // label2
             // 
@@ -89,8 +89,8 @@ namespace Trizbort.UI
             // 
             // m_transcriptContextTextBox
             // 
-            this.m_transcriptContextTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_transcriptContextTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_transcriptContextTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_transcriptContextTextBox.Location = new System.Drawing.Point(43, 108);
             this.m_transcriptContextTextBox.Multiline = true;
@@ -111,8 +111,8 @@ namespace Trizbort.UI
             // 
             // m_roomNamesListBox
             // 
-            this.m_roomNamesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.m_roomNamesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.m_roomNamesListBox.FormattingEnabled = true;
             this.m_roomNamesListBox.Location = new System.Drawing.Point(43, 248);
             this.m_roomNamesListBox.Name = "m_roomNamesListBox";
@@ -140,9 +140,9 @@ namespace Trizbort.UI
             // 
             // m_roomDescriptionTextBox
             // 
-            this.m_roomDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_roomDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_roomDescriptionTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_roomDescriptionTextBox.Location = new System.Drawing.Point(210, 248);
             this.m_roomDescriptionTextBox.Multiline = true;
@@ -188,8 +188,8 @@ namespace Trizbort.UI
             // DisambiguateRoomsDialog
             // 
             this.AcceptButton = this.m_thisRoomButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(506, 398);
             this.Controls.Add(this.m_AutoChooseTheRestButton);
             this.Controls.Add(this.m_newRoomButton);

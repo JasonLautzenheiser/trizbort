@@ -118,16 +118,16 @@ namespace Trizbort.UI
             this.m_tabControl = new System.Windows.Forms.TabControl();
             this.tabDescription = new System.Windows.Forms.TabPage();
             this.tabObjects = new System.Windows.Forms.TabPage();
-            this.tabColors = new System.Windows.Forms.TabPage();
-            this.tabRegions = new System.Windows.Forms.TabPage();
-            this.tabRoomShapes = new System.Windows.Forms.TabPage();
             this.txtObjects = new Trizbort.UI.Controls.TrizbortTextBox();
+            this.tabColors = new System.Windows.Forms.TabPage();
             this.m_roomFillTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
             this.m_subTitleTextTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
             this.m_secondFillTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
             this.m_objectTextTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
             this.m_roomTextTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
             this.m_roomBorderTextBox = new Trizbort.UI.Controls.TrizbortTextBox();
+            this.tabRegions = new System.Windows.Forms.TabPage();
+            this.tabRoomShapes = new System.Windows.Forms.TabPage();
             this.txtSubTitle = new Trizbort.UI.Controls.TrizbortTextBox();
             this.txtName = new Trizbort.UI.Controls.TrizbortTextBox();
             this.toolTip = new Trizbort.UI.Controls.TrizbortToolTip();
@@ -153,7 +153,7 @@ namespace Trizbort.UI
             this.m_okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.m_okButton.Location = new System.Drawing.Point(688, 778);
-            this.m_okButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_okButton.Margin = new System.Windows.Forms.Padding(6);
             this.m_okButton.Name = "m_okButton";
             this.m_okButton.Size = new System.Drawing.Size(150, 46);
             this.m_okButton.TabIndex = 97;
@@ -166,7 +166,7 @@ namespace Trizbort.UI
             this.m_cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.m_cancelButton.Location = new System.Drawing.Point(850, 778);
-            this.m_cancelButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_cancelButton.Margin = new System.Windows.Forms.Padding(6);
             this.m_cancelButton.Name = "m_cancelButton";
             this.m_cancelButton.Size = new System.Drawing.Size(150, 46);
             this.m_cancelButton.TabIndex = 98;
@@ -176,10 +176,10 @@ namespace Trizbort.UI
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 24);
+            this.label1.Location = new System.Drawing.Point(26, 18);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 27);
+            this.label1.Size = new System.Drawing.Size(79, 32);
             this.label1.TabIndex = 0;
             this.label1.Text = "&Name";
             // 
@@ -187,10 +187,10 @@ namespace Trizbort.UI
             // 
             this.m_isDarkCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_isDarkCheckBox.AutoSize = true;
-            this.m_isDarkCheckBox.Location = new System.Drawing.Point(884, 198);
-            this.m_isDarkCheckBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_isDarkCheckBox.Location = new System.Drawing.Point(878, 196);
+            this.m_isDarkCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_isDarkCheckBox.Name = "m_isDarkCheckBox";
-            this.m_isDarkCheckBox.Size = new System.Drawing.Size(90, 31);
+            this.m_isDarkCheckBox.Size = new System.Drawing.Size(96, 36);
             this.m_isDarkCheckBox.TabIndex = 13;
             this.m_isDarkCheckBox.Text = "&Dark";
             this.m_isDarkCheckBox.UseVisualStyleBackColor = true;
@@ -200,10 +200,10 @@ namespace Trizbort.UI
             this.m_descriptionTextBox.AcceptsReturn = true;
             this.m_descriptionTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_descriptionTextBox.Location = new System.Drawing.Point(6, 6);
-            this.m_descriptionTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_descriptionTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_descriptionTextBox.Multiline = true;
             this.m_descriptionTextBox.Name = "m_descriptionTextBox";
-            this.m_descriptionTextBox.Size = new System.Drawing.Size(948, 371);
+            this.m_descriptionTextBox.Size = new System.Drawing.Size(948, 366);
             this.m_descriptionTextBox.TabIndex = 4;
             this.m_descriptionTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.m_descriptionTextBox_KeyDown);
             // 
@@ -223,19 +223,19 @@ namespace Trizbort.UI
             "TopLeft",
             "Top"});
             this.comboBox1.Location = new System.Drawing.Point(164, 70);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(6);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(238, 35);
+            this.comboBox1.Size = new System.Drawing.Size(238, 40);
             this.comboBox1.TabIndex = 15;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Location = new System.Drawing.Point(14, 76);
+            this.label5.Location = new System.Drawing.Point(7, 76);
             this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(115, 27);
+            this.label5.Size = new System.Drawing.Size(131, 32);
             this.label5.TabIndex = 9;
             this.label5.Text = "&Second Fill";
             // 
@@ -243,7 +243,7 @@ namespace Trizbort.UI
             // 
             this.m_changeSecondFillButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_changeSecondFillButton.Location = new System.Drawing.Point(794, 70);
-            this.m_changeSecondFillButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_changeSecondFillButton.Margin = new System.Windows.Forms.Padding(6);
             this.m_changeSecondFillButton.Name = "m_changeSecondFillButton";
             this.m_changeSecondFillButton.Size = new System.Drawing.Size(150, 46);
             this.m_changeSecondFillButton.TabIndex = 16;
@@ -255,10 +255,10 @@ namespace Trizbort.UI
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Location = new System.Drawing.Point(14, 250);
+            this.label4.Location = new System.Drawing.Point(7, 250);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(125, 27);
+            this.label4.Size = new System.Drawing.Size(135, 32);
             this.label4.TabIndex = 19;
             this.label4.Text = "Ob&ject Text";
             // 
@@ -266,7 +266,7 @@ namespace Trizbort.UI
             // 
             this.m_changeObjectTextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_changeObjectTextButton.Location = new System.Drawing.Point(794, 244);
-            this.m_changeObjectTextButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_changeObjectTextButton.Margin = new System.Windows.Forms.Padding(6);
             this.m_changeObjectTextButton.Name = "m_changeObjectTextButton";
             this.m_changeObjectTextButton.Size = new System.Drawing.Size(150, 46);
             this.m_changeObjectTextButton.TabIndex = 19;
@@ -278,10 +278,10 @@ namespace Trizbort.UI
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(14, 192);
+            this.label3.Location = new System.Drawing.Point(7, 192);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 27);
+            this.label3.Size = new System.Drawing.Size(127, 32);
             this.label3.TabIndex = 16;
             this.label3.Text = "Room &Text";
             // 
@@ -289,7 +289,7 @@ namespace Trizbort.UI
             // 
             this.m_changeRoomTextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_changeRoomTextButton.Location = new System.Drawing.Point(794, 186);
-            this.m_changeRoomTextButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_changeRoomTextButton.Margin = new System.Windows.Forms.Padding(6);
             this.m_changeRoomTextButton.Name = "m_changeRoomTextButton";
             this.m_changeRoomTextButton.Size = new System.Drawing.Size(150, 46);
             this.m_changeRoomTextButton.TabIndex = 18;
@@ -301,10 +301,10 @@ namespace Trizbort.UI
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(14, 134);
+            this.label2.Location = new System.Drawing.Point(7, 134);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 27);
+            this.label2.Size = new System.Drawing.Size(155, 32);
             this.label2.TabIndex = 13;
             this.label2.Text = "Room &Border";
             // 
@@ -312,7 +312,7 @@ namespace Trizbort.UI
             // 
             this.m_changeRoomBorderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_changeRoomBorderButton.Location = new System.Drawing.Point(794, 128);
-            this.m_changeRoomBorderButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_changeRoomBorderButton.Margin = new System.Windows.Forms.Padding(6);
             this.m_changeRoomBorderButton.Name = "m_changeRoomBorderButton";
             this.m_changeRoomBorderButton.Size = new System.Drawing.Size(150, 46);
             this.m_changeRoomBorderButton.TabIndex = 17;
@@ -324,10 +324,10 @@ namespace Trizbort.UI
             // 
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Location = new System.Drawing.Point(14, 18);
+            this.label11.Location = new System.Drawing.Point(7, 18);
             this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(101, 27);
+            this.label11.Size = new System.Drawing.Size(114, 32);
             this.label11.TabIndex = 10;
             this.label11.Text = "Room &Fill";
             // 
@@ -335,7 +335,7 @@ namespace Trizbort.UI
             // 
             this.m_changeRoomFillButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_changeRoomFillButton.Location = new System.Drawing.Point(794, 12);
-            this.m_changeRoomFillButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_changeRoomFillButton.Margin = new System.Windows.Forms.Padding(6);
             this.m_changeRoomFillButton.Name = "m_changeRoomFillButton";
             this.m_changeRoomFillButton.Size = new System.Drawing.Size(150, 46);
             this.m_changeRoomFillButton.TabIndex = 14;
@@ -353,9 +353,9 @@ namespace Trizbort.UI
             "Right",
             "TopRight"});
             this.cboRegion.Location = new System.Drawing.Point(138, 34);
-            this.cboRegion.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cboRegion.Margin = new System.Windows.Forms.Padding(6);
             this.cboRegion.Name = "cboRegion";
-            this.cboRegion.Size = new System.Drawing.Size(368, 35);
+            this.cboRegion.Size = new System.Drawing.Size(368, 40);
             this.cboRegion.TabIndex = 7;
             // 
             // label6
@@ -365,7 +365,7 @@ namespace Trizbort.UI
             this.label6.Location = new System.Drawing.Point(32, 40);
             this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(94, 27);
+            this.label6.Size = new System.Drawing.Size(101, 32);
             this.label6.TabIndex = 21;
             this.label6.Text = "Region: ";
             // 
@@ -374,7 +374,7 @@ namespace Trizbort.UI
             this.subtitleColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.subtitleColorClear.Image = ((System.Drawing.Image)(resources.GetObject("subtitleColorClear.Image")));
             this.subtitleColorClear.Location = new System.Drawing.Point(732, 302);
-            this.subtitleColorClear.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.subtitleColorClear.Margin = new System.Windows.Forms.Padding(6);
             this.subtitleColorClear.Name = "subtitleColorClear";
             this.subtitleColorClear.Size = new System.Drawing.Size(56, 46);
             this.subtitleColorClear.TabIndex = 34;
@@ -387,7 +387,7 @@ namespace Trizbort.UI
             this.objectColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.objectColorClear.Image = ((System.Drawing.Image)(resources.GetObject("objectColorClear.Image")));
             this.objectColorClear.Location = new System.Drawing.Point(732, 244);
-            this.objectColorClear.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.objectColorClear.Margin = new System.Windows.Forms.Padding(6);
             this.objectColorClear.Name = "objectColorClear";
             this.objectColorClear.Size = new System.Drawing.Size(56, 46);
             this.objectColorClear.TabIndex = 33;
@@ -400,7 +400,7 @@ namespace Trizbort.UI
             this.roomTextColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.roomTextColorClear.Image = ((System.Drawing.Image)(resources.GetObject("roomTextColorClear.Image")));
             this.roomTextColorClear.Location = new System.Drawing.Point(732, 186);
-            this.roomTextColorClear.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.roomTextColorClear.Margin = new System.Windows.Forms.Padding(6);
             this.roomTextColorClear.Name = "roomTextColorClear";
             this.roomTextColorClear.Size = new System.Drawing.Size(56, 46);
             this.roomTextColorClear.TabIndex = 32;
@@ -413,7 +413,7 @@ namespace Trizbort.UI
             this.roomBorderColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.roomBorderColorClear.Image = ((System.Drawing.Image)(resources.GetObject("roomBorderColorClear.Image")));
             this.roomBorderColorClear.Location = new System.Drawing.Point(732, 128);
-            this.roomBorderColorClear.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.roomBorderColorClear.Margin = new System.Windows.Forms.Padding(6);
             this.roomBorderColorClear.Name = "roomBorderColorClear";
             this.roomBorderColorClear.Size = new System.Drawing.Size(56, 46);
             this.roomBorderColorClear.TabIndex = 31;
@@ -426,7 +426,7 @@ namespace Trizbort.UI
             this.secondColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.secondColorClear.Image = ((System.Drawing.Image)(resources.GetObject("secondColorClear.Image")));
             this.secondColorClear.Location = new System.Drawing.Point(732, 70);
-            this.secondColorClear.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.secondColorClear.Margin = new System.Windows.Forms.Padding(6);
             this.secondColorClear.Name = "secondColorClear";
             this.secondColorClear.Size = new System.Drawing.Size(56, 46);
             this.secondColorClear.TabIndex = 30;
@@ -439,7 +439,7 @@ namespace Trizbort.UI
             this.roomColorClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.roomColorClear.Image = ((System.Drawing.Image)(resources.GetObject("roomColorClear.Image")));
             this.roomColorClear.Location = new System.Drawing.Point(732, 12);
-            this.roomColorClear.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.roomColorClear.Margin = new System.Windows.Forms.Padding(6);
             this.roomColorClear.Name = "roomColorClear";
             this.roomColorClear.Size = new System.Drawing.Size(56, 46);
             this.roomColorClear.TabIndex = 29;
@@ -451,10 +451,10 @@ namespace Trizbort.UI
             // 
             this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.Location = new System.Drawing.Point(14, 308);
+            this.label14.Location = new System.Drawing.Point(7, 308);
             this.label14.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(134, 27);
+            this.label14.Size = new System.Drawing.Size(147, 32);
             this.label14.TabIndex = 26;
             this.label14.Text = "Su&btitle Text";
             // 
@@ -462,7 +462,7 @@ namespace Trizbort.UI
             // 
             this.m_changeSubtitleTextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_changeSubtitleTextButton.Location = new System.Drawing.Point(794, 302);
-            this.m_changeSubtitleTextButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_changeSubtitleTextButton.Margin = new System.Windows.Forms.Padding(6);
             this.m_changeSubtitleTextButton.Name = "m_changeSubtitleTextButton";
             this.m_changeSubtitleTextButton.Size = new System.Drawing.Size(150, 46);
             this.m_changeSubtitleTextButton.TabIndex = 27;
@@ -473,27 +473,27 @@ namespace Trizbort.UI
             // txtRight
             // 
             this.txtRight.Location = new System.Drawing.Point(836, 326);
-            this.txtRight.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtRight.Margin = new System.Windows.Forms.Padding(6);
             this.txtRight.Name = "txtRight";
-            this.txtRight.Size = new System.Drawing.Size(110, 34);
+            this.txtRight.Size = new System.Drawing.Size(110, 39);
             this.txtRight.TabIndex = 25;
             // 
             // txtDown
             // 
             this.txtDown.Location = new System.Drawing.Point(836, 282);
-            this.txtDown.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtDown.Margin = new System.Windows.Forms.Padding(6);
             this.txtDown.Name = "txtDown";
-            this.txtDown.Size = new System.Drawing.Size(110, 34);
+            this.txtDown.Size = new System.Drawing.Size(110, 39);
             this.txtDown.TabIndex = 24;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Transparent;
-            this.label12.Location = new System.Drawing.Point(752, 332);
+            this.label12.Location = new System.Drawing.Point(752, 329);
             this.label12.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(70, 27);
+            this.label12.Size = new System.Drawing.Size(76, 32);
             this.label12.TabIndex = 23;
             this.label12.Text = "Right:";
             // 
@@ -501,10 +501,10 @@ namespace Trizbort.UI
             // 
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Location = new System.Drawing.Point(748, 294);
+            this.label10.Location = new System.Drawing.Point(748, 285);
             this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(75, 27);
+            this.label10.Size = new System.Drawing.Size(82, 32);
             this.label10.TabIndex = 22;
             this.label10.Text = "Down:";
             // 
@@ -513,10 +513,10 @@ namespace Trizbort.UI
             this.chkCustomPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCustomPosition.AutoSize = true;
             this.chkCustomPosition.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkCustomPosition.Location = new System.Drawing.Point(746, 250);
-            this.chkCustomPosition.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkCustomPosition.Location = new System.Drawing.Point(728, 238);
+            this.chkCustomPosition.Margin = new System.Windows.Forms.Padding(6);
             this.chkCustomPosition.Name = "chkCustomPosition";
-            this.chkCustomPosition.Size = new System.Drawing.Size(198, 31);
+            this.chkCustomPosition.Size = new System.Drawing.Size(220, 36);
             this.chkCustomPosition.TabIndex = 21;
             this.chkCustomPosition.Text = "Custom Position";
             this.chkCustomPosition.UseVisualStyleBackColor = true;
@@ -527,18 +527,19 @@ namespace Trizbort.UI
             this.pnlObjectSyntaxHelp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlObjectSyntaxHelp.Controls.Add(this.label9);
             this.pnlObjectSyntaxHelp.Location = new System.Drawing.Point(424, 54);
-            this.pnlObjectSyntaxHelp.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pnlObjectSyntaxHelp.Margin = new System.Windows.Forms.Padding(6);
             this.pnlObjectSyntaxHelp.Name = "pnlObjectSyntaxHelp";
-            this.pnlObjectSyntaxHelp.Size = new System.Drawing.Size(306, 312);
+            this.pnlObjectSyntaxHelp.Size = new System.Drawing.Size(300, 312);
             this.pnlObjectSyntaxHelp.TabIndex = 20;
             this.pnlObjectSyntaxHelp.Visible = false;
             // 
             // label9
             // 
+            this.label9.Font = new System.Drawing.Font("Consolas", 8F);
             this.label9.Location = new System.Drawing.Point(12, 6);
             this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(286, 286);
+            this.label9.Size = new System.Drawing.Size(280, 286);
             this.label9.TabIndex = 3;
             this.label9.Text = resources.GetString("label9.Text");
             // 
@@ -569,10 +570,10 @@ namespace Trizbort.UI
             this.m_objectsPositionGroupBox.Controls.Add(this.m_swCheckBox);
             this.m_objectsPositionGroupBox.Controls.Add(this.m_wCheckBox);
             this.m_objectsPositionGroupBox.Controls.Add(this.m_eCheckBox);
-            this.m_objectsPositionGroupBox.Location = new System.Drawing.Point(752, 14);
-            this.m_objectsPositionGroupBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_objectsPositionGroupBox.Location = new System.Drawing.Point(736, 12);
+            this.m_objectsPositionGroupBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_objectsPositionGroupBox.Name = "m_objectsPositionGroupBox";
-            this.m_objectsPositionGroupBox.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_objectsPositionGroupBox.Padding = new System.Windows.Forms.Padding(6);
             this.m_objectsPositionGroupBox.Size = new System.Drawing.Size(204, 228);
             this.m_objectsPositionGroupBox.TabIndex = 18;
             this.m_objectsPositionGroupBox.TabStop = false;
@@ -583,7 +584,7 @@ namespace Trizbort.UI
             this.m_cCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.m_cCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_cCheckBox.Location = new System.Drawing.Point(76, 96);
-            this.m_cCheckBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_cCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_cCheckBox.Name = "m_cCheckBox";
             this.m_cCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_cCheckBox.TabIndex = 12;
@@ -598,7 +599,7 @@ namespace Trizbort.UI
             this.m_nwCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.m_nwCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_nwCheckBox.Location = new System.Drawing.Point(12, 32);
-            this.m_nwCheckBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_nwCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_nwCheckBox.Name = "m_nwCheckBox";
             this.m_nwCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_nwCheckBox.TabIndex = 8;
@@ -613,7 +614,7 @@ namespace Trizbort.UI
             this.m_seCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.m_seCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_seCheckBox.Location = new System.Drawing.Point(140, 160);
-            this.m_seCheckBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_seCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_seCheckBox.Name = "m_seCheckBox";
             this.m_seCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_seCheckBox.TabIndex = 16;
@@ -628,7 +629,7 @@ namespace Trizbort.UI
             this.m_nCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.m_nCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_nCheckBox.Location = new System.Drawing.Point(76, 32);
-            this.m_nCheckBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_nCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_nCheckBox.Name = "m_nCheckBox";
             this.m_nCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_nCheckBox.TabIndex = 9;
@@ -643,7 +644,7 @@ namespace Trizbort.UI
             this.m_sCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.m_sCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_sCheckBox.Location = new System.Drawing.Point(76, 160);
-            this.m_sCheckBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_sCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_sCheckBox.Name = "m_sCheckBox";
             this.m_sCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_sCheckBox.TabIndex = 15;
@@ -658,7 +659,7 @@ namespace Trizbort.UI
             this.m_neCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.m_neCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_neCheckBox.Location = new System.Drawing.Point(140, 32);
-            this.m_neCheckBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_neCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_neCheckBox.Name = "m_neCheckBox";
             this.m_neCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_neCheckBox.TabIndex = 10;
@@ -673,7 +674,7 @@ namespace Trizbort.UI
             this.m_swCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.m_swCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_swCheckBox.Location = new System.Drawing.Point(12, 160);
-            this.m_swCheckBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_swCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_swCheckBox.Name = "m_swCheckBox";
             this.m_swCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_swCheckBox.TabIndex = 14;
@@ -688,7 +689,7 @@ namespace Trizbort.UI
             this.m_wCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.m_wCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_wCheckBox.Location = new System.Drawing.Point(12, 96);
-            this.m_wCheckBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_wCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_wCheckBox.Name = "m_wCheckBox";
             this.m_wCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_wCheckBox.TabIndex = 11;
@@ -703,7 +704,7 @@ namespace Trizbort.UI
             this.m_eCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.m_eCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_eCheckBox.Location = new System.Drawing.Point(140, 96);
-            this.m_eCheckBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_eCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_eCheckBox.Name = "m_eCheckBox";
             this.m_eCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_eCheckBox.TabIndex = 13;
@@ -717,10 +718,10 @@ namespace Trizbort.UI
             // 
             this.chkHandDrawnRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkHandDrawnRoom.AutoSize = true;
-            this.chkHandDrawnRoom.Location = new System.Drawing.Point(444, 36);
-            this.chkHandDrawnRoom.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkHandDrawnRoom.Location = new System.Drawing.Point(520, 32);
+            this.chkHandDrawnRoom.Margin = new System.Windows.Forms.Padding(6);
             this.chkHandDrawnRoom.Name = "chkHandDrawnRoom";
-            this.chkHandDrawnRoom.Size = new System.Drawing.Size(230, 31);
+            this.chkHandDrawnRoom.Size = new System.Drawing.Size(249, 36);
             this.chkHandDrawnRoom.TabIndex = 8;
             this.chkHandDrawnRoom.Text = "Hand Drawn Edges";
             this.chkHandDrawnRoom.UseVisualStyleBackColor = true;
@@ -729,15 +730,15 @@ namespace Trizbort.UI
             // groupRoundedCorners
             // 
             this.groupRoundedCorners.BackColor = System.Drawing.SystemColors.Control;
-            this.groupRoundedCorners.Controls.Add(this.chkCornersSame);
             this.groupRoundedCorners.Controls.Add(this.txtBottomRight);
+            this.groupRoundedCorners.Controls.Add(this.chkCornersSame);
             this.groupRoundedCorners.Controls.Add(this.txtTopLeft);
             this.groupRoundedCorners.Controls.Add(this.txtBottomLeft);
             this.groupRoundedCorners.Controls.Add(this.txtTopRight);
-            this.groupRoundedCorners.Location = new System.Drawing.Point(12, 84);
-            this.groupRoundedCorners.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupRoundedCorners.Location = new System.Drawing.Point(12, 82);
+            this.groupRoundedCorners.Margin = new System.Windows.Forms.Padding(6);
             this.groupRoundedCorners.Name = "groupRoundedCorners";
-            this.groupRoundedCorners.Size = new System.Drawing.Size(416, 252);
+            this.groupRoundedCorners.Size = new System.Drawing.Size(470, 252);
             this.groupRoundedCorners.TabIndex = 6;
             this.groupRoundedCorners.Text = "Rounded Corners";
             this.groupRoundedCorners.Visible = false;
@@ -747,10 +748,10 @@ namespace Trizbort.UI
             this.chkCornersSame.AutoSize = true;
             this.chkCornersSame.Checked = true;
             this.chkCornersSame.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCornersSame.Location = new System.Drawing.Point(6, 16);
-            this.chkCornersSame.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkCornersSame.Location = new System.Drawing.Point(103, 19);
+            this.chkCornersSame.Margin = new System.Windows.Forms.Padding(6);
             this.chkCornersSame.Name = "chkCornersSame";
-            this.chkCornersSame.Size = new System.Drawing.Size(264, 31);
+            this.chkCornersSame.Size = new System.Drawing.Size(288, 36);
             this.chkCornersSame.TabIndex = 4;
             this.chkCornersSame.Text = "Make all corners equal";
             this.chkCornersSame.UseVisualStyleBackColor = true;
@@ -760,8 +761,8 @@ namespace Trizbort.UI
             // 
             this.txtBottomRight.DecimalPlaces = 2;
             this.txtBottomRight.Enabled = false;
-            this.txtBottomRight.Location = new System.Drawing.Point(234, 150);
-            this.txtBottomRight.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtBottomRight.Location = new System.Drawing.Point(242, 176);
+            this.txtBottomRight.Margin = new System.Windows.Forms.Padding(6);
             this.txtBottomRight.Maximum = new decimal(new int[] {
             30,
             0,
@@ -773,7 +774,7 @@ namespace Trizbort.UI
             0,
             0});
             this.txtBottomRight.Name = "txtBottomRight";
-            this.txtBottomRight.Size = new System.Drawing.Size(160, 34);
+            this.txtBottomRight.Size = new System.Drawing.Size(160, 39);
             this.txtBottomRight.TabIndex = 3;
             this.txtBottomRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtBottomRight.Value = new decimal(new int[] {
@@ -786,8 +787,8 @@ namespace Trizbort.UI
             // txtTopLeft
             // 
             this.txtTopLeft.DecimalPlaces = 2;
-            this.txtTopLeft.Location = new System.Drawing.Point(6, 60);
-            this.txtTopLeft.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtTopLeft.Location = new System.Drawing.Point(14, 86);
+            this.txtTopLeft.Margin = new System.Windows.Forms.Padding(6);
             this.txtTopLeft.Maximum = new decimal(new int[] {
             30,
             0,
@@ -799,7 +800,7 @@ namespace Trizbort.UI
             0,
             0});
             this.txtTopLeft.Name = "txtTopLeft";
-            this.txtTopLeft.Size = new System.Drawing.Size(160, 34);
+            this.txtTopLeft.Size = new System.Drawing.Size(160, 39);
             this.txtTopLeft.TabIndex = 0;
             this.txtTopLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtTopLeft.Value = new decimal(new int[] {
@@ -813,8 +814,8 @@ namespace Trizbort.UI
             // 
             this.txtBottomLeft.DecimalPlaces = 2;
             this.txtBottomLeft.Enabled = false;
-            this.txtBottomLeft.Location = new System.Drawing.Point(6, 150);
-            this.txtBottomLeft.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtBottomLeft.Location = new System.Drawing.Point(14, 176);
+            this.txtBottomLeft.Margin = new System.Windows.Forms.Padding(6);
             this.txtBottomLeft.Maximum = new decimal(new int[] {
             30,
             0,
@@ -826,7 +827,7 @@ namespace Trizbort.UI
             0,
             0});
             this.txtBottomLeft.Name = "txtBottomLeft";
-            this.txtBottomLeft.Size = new System.Drawing.Size(160, 34);
+            this.txtBottomLeft.Size = new System.Drawing.Size(160, 39);
             this.txtBottomLeft.TabIndex = 1;
             this.txtBottomLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtBottomLeft.Value = new decimal(new int[] {
@@ -840,8 +841,8 @@ namespace Trizbort.UI
             // 
             this.txtTopRight.DecimalPlaces = 2;
             this.txtTopRight.Enabled = false;
-            this.txtTopRight.Location = new System.Drawing.Point(234, 60);
-            this.txtTopRight.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtTopRight.Location = new System.Drawing.Point(242, 86);
+            this.txtTopRight.Margin = new System.Windows.Forms.Padding(6);
             this.txtTopRight.Maximum = new decimal(new int[] {
             30,
             0,
@@ -853,7 +854,7 @@ namespace Trizbort.UI
             0,
             0});
             this.txtTopRight.Name = "txtTopRight";
-            this.txtTopRight.Size = new System.Drawing.Size(160, 34);
+            this.txtTopRight.Size = new System.Drawing.Size(160, 39);
             this.txtTopRight.TabIndex = 2;
             this.txtTopRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtTopRight.Value = new decimal(new int[] {
@@ -866,35 +867,35 @@ namespace Trizbort.UI
             // cboDrawType
             // 
             this.cboDrawType.FormattingEnabled = true;
-            this.cboDrawType.ItemHeight = 27;
+            this.cboDrawType.ItemHeight = 32;
             this.cboDrawType.Items.AddRange(new object[] {
             "Straight Edges",
             "Rounded Corners",
             "Ellipse",
             "Octagonal"});
             this.cboDrawType.Location = new System.Drawing.Point(12, 30);
-            this.cboDrawType.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cboDrawType.Margin = new System.Windows.Forms.Padding(6);
             this.cboDrawType.Name = "cboDrawType";
-            this.cboDrawType.Size = new System.Drawing.Size(402, 35);
+            this.cboDrawType.Size = new System.Drawing.Size(470, 40);
             this.cboDrawType.TabIndex = 8;
             this.cboDrawType.SelectedIndexChanged += new System.EventHandler(this.cboDrawType_SelectedIndexChanged);
             // 
             // pnlSampleRoomShape
             // 
-            this.pnlSampleRoomShape.Location = new System.Drawing.Point(440, 80);
-            this.pnlSampleRoomShape.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pnlSampleRoomShape.Location = new System.Drawing.Point(520, 82);
+            this.pnlSampleRoomShape.Margin = new System.Windows.Forms.Padding(6);
             this.pnlSampleRoomShape.Name = "pnlSampleRoomShape";
-            this.pnlSampleRoomShape.Size = new System.Drawing.Size(470, 256);
+            this.pnlSampleRoomShape.Size = new System.Drawing.Size(416, 252);
             this.pnlSampleRoomShape.TabIndex = 4;
             this.pnlSampleRoomShape.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSampleRoomShape_Paint);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(24, 104);
+            this.label7.Location = new System.Drawing.Point(26, 98);
             this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(84, 27);
+            this.label7.Size = new System.Drawing.Size(97, 32);
             this.label7.TabIndex = 2;
             this.label7.Text = "S&ubtitle";
             // 
@@ -909,20 +910,20 @@ namespace Trizbort.UI
             "DashDotDot",
             "Dot",
             "None"});
-            this.cboBorderStyle.Location = new System.Drawing.Point(184, 190);
-            this.cboBorderStyle.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cboBorderStyle.Location = new System.Drawing.Point(192, 190);
+            this.cboBorderStyle.Margin = new System.Windows.Forms.Padding(6);
             this.cboBorderStyle.Name = "cboBorderStyle";
-            this.cboBorderStyle.Size = new System.Drawing.Size(314, 35);
+            this.cboBorderStyle.Size = new System.Drawing.Size(314, 40);
             this.cboBorderStyle.TabIndex = 10;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Location = new System.Drawing.Point(32, 196);
+            this.label8.Location = new System.Drawing.Point(30, 196);
             this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(139, 27);
+            this.label8.Size = new System.Drawing.Size(149, 32);
             this.label8.TabIndex = 9;
             this.label8.Text = "Border St&yle:";
             // 
@@ -930,10 +931,10 @@ namespace Trizbort.UI
             // 
             this.chkStartRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkStartRoom.AutoSize = true;
-            this.chkStartRoom.Location = new System.Drawing.Point(541, 196);
-            this.chkStartRoom.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkStartRoom.Location = new System.Drawing.Point(530, 196);
+            this.chkStartRoom.Margin = new System.Windows.Forms.Padding(6);
             this.chkStartRoom.Name = "chkStartRoom";
-            this.chkStartRoom.Size = new System.Drawing.Size(153, 31);
+            this.chkStartRoom.Size = new System.Drawing.Size(164, 36);
             this.chkStartRoom.TabIndex = 11;
             this.chkStartRoom.Text = "Start Room";
             this.chkStartRoom.UseVisualStyleBackColor = true;
@@ -943,10 +944,10 @@ namespace Trizbort.UI
             // 
             this.chkEndRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkEndRoom.AutoSize = true;
-            this.chkEndRoom.Location = new System.Drawing.Point(723, 198);
-            this.chkEndRoom.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkEndRoom.Location = new System.Drawing.Point(710, 196);
+            this.chkEndRoom.Margin = new System.Windows.Forms.Padding(6);
             this.chkEndRoom.Name = "chkEndRoom";
-            this.chkEndRoom.Size = new System.Drawing.Size(143, 31);
+            this.chkEndRoom.Size = new System.Drawing.Size(156, 36);
             this.chkEndRoom.TabIndex = 12;
             this.chkEndRoom.Text = "End Room";
             this.chkEndRoom.UseVisualStyleBackColor = true;
@@ -956,10 +957,10 @@ namespace Trizbort.UI
             this.cboReference.DisplayMember = "Name";
             this.cboReference.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboReference.FormattingEnabled = true;
-            this.cboReference.Location = new System.Drawing.Point(184, 262);
-            this.cboReference.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cboReference.Location = new System.Drawing.Point(192, 262);
+            this.cboReference.Margin = new System.Windows.Forms.Padding(6);
             this.cboReference.Name = "cboReference";
-            this.cboReference.Size = new System.Drawing.Size(314, 35);
+            this.cboReference.Size = new System.Drawing.Size(314, 40);
             this.cboReference.TabIndex = 100;
             this.cboReference.ValueMember = "ID";
             // 
@@ -967,10 +968,10 @@ namespace Trizbort.UI
             // 
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.Location = new System.Drawing.Point(48, 268);
+            this.label13.Location = new System.Drawing.Point(53, 268);
             this.label13.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(119, 27);
+            this.label13.Size = new System.Drawing.Size(126, 32);
             this.label13.TabIndex = 99;
             this.label13.Text = "Reference:";
             // 
@@ -982,7 +983,7 @@ namespace Trizbort.UI
             this.m_tabControl.Controls.Add(this.tabRegions);
             this.m_tabControl.Controls.Add(this.tabRoomShapes);
             this.m_tabControl.Location = new System.Drawing.Point(30, 334);
-            this.m_tabControl.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.m_tabControl.Margin = new System.Windows.Forms.Padding(6);
             this.m_tabControl.Name = "m_tabControl";
             this.m_tabControl.SelectedIndex = 0;
             this.m_tabControl.Size = new System.Drawing.Size(976, 432);
@@ -992,11 +993,11 @@ namespace Trizbort.UI
             // tabDescription
             // 
             this.tabDescription.Controls.Add(this.m_descriptionTextBox);
-            this.tabDescription.Location = new System.Drawing.Point(8, 41);
-            this.tabDescription.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tabDescription.Location = new System.Drawing.Point(8, 46);
+            this.tabDescription.Margin = new System.Windows.Forms.Padding(6);
             this.tabDescription.Name = "tabDescription";
-            this.tabDescription.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.tabDescription.Size = new System.Drawing.Size(960, 383);
+            this.tabDescription.Padding = new System.Windows.Forms.Padding(6);
+            this.tabDescription.Size = new System.Drawing.Size(960, 378);
             this.tabDescription.TabIndex = 0;
             this.tabDescription.Text = "Description";
             this.tabDescription.UseVisualStyleBackColor = true;
@@ -1012,14 +1013,26 @@ namespace Trizbort.UI
             this.tabObjects.Controls.Add(this.pnlObjectSyntaxHelp);
             this.tabObjects.Controls.Add(this.chkCustomPosition);
             this.tabObjects.Controls.Add(this.txtObjects);
-            this.tabObjects.Location = new System.Drawing.Point(8, 41);
-            this.tabObjects.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tabObjects.Location = new System.Drawing.Point(8, 46);
+            this.tabObjects.Margin = new System.Windows.Forms.Padding(6);
             this.tabObjects.Name = "tabObjects";
-            this.tabObjects.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.tabObjects.Size = new System.Drawing.Size(960, 383);
+            this.tabObjects.Padding = new System.Windows.Forms.Padding(6);
+            this.tabObjects.Size = new System.Drawing.Size(960, 378);
             this.tabObjects.TabIndex = 1;
             this.tabObjects.Text = "Objects";
             this.tabObjects.UseVisualStyleBackColor = true;
+            // 
+            // txtObjects
+            // 
+            this.txtObjects.AcceptsReturn = true;
+            this.txtObjects.Location = new System.Drawing.Point(14, 54);
+            this.txtObjects.Margin = new System.Windows.Forms.Padding(6);
+            this.txtObjects.Multiline = true;
+            this.txtObjects.Name = "txtObjects";
+            this.txtObjects.Size = new System.Drawing.Size(710, 312);
+            this.txtObjects.TabIndex = 5;
+            this.txtObjects.Watermark = "Enter objects, each on a new line.";
+            this.txtObjects.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtObjects_KeyDown);
             // 
             // tabColors
             // 
@@ -1048,54 +1061,14 @@ namespace Trizbort.UI
             this.tabColors.Controls.Add(this.m_objectTextTextBox);
             this.tabColors.Controls.Add(this.m_roomTextTextBox);
             this.tabColors.Controls.Add(this.m_roomBorderTextBox);
-            this.tabColors.Location = new System.Drawing.Point(8, 41);
-            this.tabColors.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tabColors.Location = new System.Drawing.Point(8, 46);
+            this.tabColors.Margin = new System.Windows.Forms.Padding(6);
             this.tabColors.Name = "tabColors";
-            this.tabColors.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.tabColors.Size = new System.Drawing.Size(960, 383);
+            this.tabColors.Padding = new System.Windows.Forms.Padding(6);
+            this.tabColors.Size = new System.Drawing.Size(960, 378);
             this.tabColors.TabIndex = 2;
             this.tabColors.Text = "Colors";
             this.tabColors.UseVisualStyleBackColor = true;
-            // 
-            // tabRegions
-            // 
-            this.tabRegions.Controls.Add(this.cboRegion);
-            this.tabRegions.Controls.Add(this.label6);
-            this.tabRegions.Location = new System.Drawing.Point(8, 41);
-            this.tabRegions.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.tabRegions.Name = "tabRegions";
-            this.tabRegions.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.tabRegions.Size = new System.Drawing.Size(960, 383);
-            this.tabRegions.TabIndex = 3;
-            this.tabRegions.Text = "Regions";
-            this.tabRegions.UseVisualStyleBackColor = true;
-            // 
-            // tabRoomShapes
-            // 
-            this.tabRoomShapes.Controls.Add(this.chkHandDrawnRoom);
-            this.tabRoomShapes.Controls.Add(this.cboDrawType);
-            this.tabRoomShapes.Controls.Add(this.groupRoundedCorners);
-            this.tabRoomShapes.Controls.Add(this.pnlSampleRoomShape);
-            this.tabRoomShapes.Location = new System.Drawing.Point(8, 41);
-            this.tabRoomShapes.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.tabRoomShapes.Name = "tabRoomShapes";
-            this.tabRoomShapes.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.tabRoomShapes.Size = new System.Drawing.Size(960, 383);
-            this.tabRoomShapes.TabIndex = 4;
-            this.tabRoomShapes.Text = "Room Shapes";
-            this.tabRoomShapes.UseVisualStyleBackColor = true;
-            // 
-            // txtObjects
-            // 
-            this.txtObjects.AcceptsReturn = true;
-            this.txtObjects.Location = new System.Drawing.Point(14, 54);
-            this.txtObjects.Margin = new System.Windows.Forms.Padding(6);
-            this.txtObjects.Multiline = true;
-            this.txtObjects.Name = "txtObjects";
-            this.txtObjects.Size = new System.Drawing.Size(714, 310);
-            this.txtObjects.TabIndex = 5;
-            this.txtObjects.Watermark = "Enter objects, each on a new line.";
-            this.txtObjects.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtObjects_KeyDown);
             // 
             // m_roomFillTextBox
             // 
@@ -1104,7 +1077,7 @@ namespace Trizbort.UI
             this.m_roomFillTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_roomFillTextBox.Name = "m_roomFillTextBox";
             this.m_roomFillTextBox.ReadOnly = true;
-            this.m_roomFillTextBox.Size = new System.Drawing.Size(552, 34);
+            this.m_roomFillTextBox.Size = new System.Drawing.Size(552, 39);
             this.m_roomFillTextBox.TabIndex = 6;
             this.m_roomFillTextBox.Watermark = null;
             this.m_roomFillTextBox.DoubleClick += new System.EventHandler(this.m_roomFillTextBox_DoubleClick);
@@ -1117,7 +1090,7 @@ namespace Trizbort.UI
             this.m_subTitleTextTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_subTitleTextTextBox.Name = "m_subTitleTextTextBox";
             this.m_subTitleTextTextBox.ReadOnly = true;
-            this.m_subTitleTextTextBox.Size = new System.Drawing.Size(552, 34);
+            this.m_subTitleTextTextBox.Size = new System.Drawing.Size(552, 39);
             this.m_subTitleTextTextBox.TabIndex = 28;
             this.m_subTitleTextTextBox.Watermark = null;
             this.m_subTitleTextTextBox.DoubleClick += new System.EventHandler(this.m_subTitleTextTextBox_DoubleClick);
@@ -1130,7 +1103,7 @@ namespace Trizbort.UI
             this.m_secondFillTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_secondFillTextBox.Name = "m_secondFillTextBox";
             this.m_secondFillTextBox.ReadOnly = true;
-            this.m_secondFillTextBox.Size = new System.Drawing.Size(298, 34);
+            this.m_secondFillTextBox.Size = new System.Drawing.Size(298, 39);
             this.m_secondFillTextBox.TabIndex = 25;
             this.m_secondFillTextBox.Watermark = null;
             this.m_secondFillTextBox.DoubleClick += new System.EventHandler(this.m_secondFillTextBox_DoubleClick);
@@ -1143,7 +1116,7 @@ namespace Trizbort.UI
             this.m_objectTextTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_objectTextTextBox.Name = "m_objectTextTextBox";
             this.m_objectTextTextBox.ReadOnly = true;
-            this.m_objectTextTextBox.Size = new System.Drawing.Size(552, 34);
+            this.m_objectTextTextBox.Size = new System.Drawing.Size(552, 39);
             this.m_objectTextTextBox.TabIndex = 24;
             this.m_objectTextTextBox.Watermark = null;
             this.m_objectTextTextBox.DoubleClick += new System.EventHandler(this.m_objectTextTextBox_DoubleClick);
@@ -1156,7 +1129,7 @@ namespace Trizbort.UI
             this.m_roomTextTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_roomTextTextBox.Name = "m_roomTextTextBox";
             this.m_roomTextTextBox.ReadOnly = true;
-            this.m_roomTextTextBox.Size = new System.Drawing.Size(552, 34);
+            this.m_roomTextTextBox.Size = new System.Drawing.Size(552, 39);
             this.m_roomTextTextBox.TabIndex = 23;
             this.m_roomTextTextBox.Watermark = null;
             this.m_roomTextTextBox.DoubleClick += new System.EventHandler(this.m_roomTextTextBox_DoubleClick);
@@ -1169,18 +1142,46 @@ namespace Trizbort.UI
             this.m_roomBorderTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_roomBorderTextBox.Name = "m_roomBorderTextBox";
             this.m_roomBorderTextBox.ReadOnly = true;
-            this.m_roomBorderTextBox.Size = new System.Drawing.Size(552, 34);
+            this.m_roomBorderTextBox.Size = new System.Drawing.Size(552, 39);
             this.m_roomBorderTextBox.TabIndex = 22;
             this.m_roomBorderTextBox.Watermark = null;
             this.m_roomBorderTextBox.DoubleClick += new System.EventHandler(this.m_roomBorderTextBox_DoubleClick);
             this.m_roomBorderTextBox.Enter += new System.EventHandler(this.m_roomBorderTextBox_Enter);
+            // 
+            // tabRegions
+            // 
+            this.tabRegions.Controls.Add(this.cboRegion);
+            this.tabRegions.Controls.Add(this.label6);
+            this.tabRegions.Location = new System.Drawing.Point(8, 46);
+            this.tabRegions.Margin = new System.Windows.Forms.Padding(6);
+            this.tabRegions.Name = "tabRegions";
+            this.tabRegions.Padding = new System.Windows.Forms.Padding(6);
+            this.tabRegions.Size = new System.Drawing.Size(960, 378);
+            this.tabRegions.TabIndex = 3;
+            this.tabRegions.Text = "Regions";
+            this.tabRegions.UseVisualStyleBackColor = true;
+            // 
+            // tabRoomShapes
+            // 
+            this.tabRoomShapes.Controls.Add(this.chkHandDrawnRoom);
+            this.tabRoomShapes.Controls.Add(this.groupRoundedCorners);
+            this.tabRoomShapes.Controls.Add(this.cboDrawType);
+            this.tabRoomShapes.Controls.Add(this.pnlSampleRoomShape);
+            this.tabRoomShapes.Location = new System.Drawing.Point(8, 46);
+            this.tabRoomShapes.Margin = new System.Windows.Forms.Padding(6);
+            this.tabRoomShapes.Name = "tabRoomShapes";
+            this.tabRoomShapes.Padding = new System.Windows.Forms.Padding(6);
+            this.tabRoomShapes.Size = new System.Drawing.Size(960, 378);
+            this.tabRoomShapes.TabIndex = 4;
+            this.tabRoomShapes.Text = "Room Shapes";
+            this.tabRoomShapes.UseVisualStyleBackColor = true;
             // 
             // txtSubTitle
             // 
             this.txtSubTitle.Location = new System.Drawing.Point(30, 136);
             this.txtSubTitle.Margin = new System.Windows.Forms.Padding(6);
             this.txtSubTitle.Name = "txtSubTitle";
-            this.txtSubTitle.Size = new System.Drawing.Size(848, 34);
+            this.txtSubTitle.Size = new System.Drawing.Size(944, 39);
             this.txtSubTitle.TabIndex = 3;
             this.txtSubTitle.Watermark = null;
             // 
@@ -1189,7 +1190,7 @@ namespace Trizbort.UI
             this.txtName.Location = new System.Drawing.Point(30, 56);
             this.txtName.Margin = new System.Windows.Forms.Padding(6);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(944, 34);
+            this.txtName.Size = new System.Drawing.Size(944, 39);
             this.txtName.TabIndex = 1;
             this.txtName.Watermark = null;
             // 
@@ -1228,11 +1229,11 @@ namespace Trizbort.UI
             this.Controls.Add(this.label1);
             this.Controls.Add(this.m_cancelButton);
             this.Controls.Add(this.m_okButton);
-            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(500, 515);

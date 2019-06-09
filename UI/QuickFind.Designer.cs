@@ -37,17 +37,19 @@
             // labelX1
             // 
             this.labelX1.AutoSize = true;
-            this.labelX1.Location = new System.Drawing.Point(11, 6);
+            this.labelX1.Location = new System.Drawing.Point(22, 12);
+            this.labelX1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(196, 13);
+            this.labelX1.Size = new System.Drawing.Size(448, 32);
             this.labelX1.TabIndex = 2;
             this.labelX1.Text = "Enter room name, description, or objects";
             // 
             // btnFind
             // 
-            this.btnFind.Location = new System.Drawing.Point(252, 74);
+            this.btnFind.Location = new System.Drawing.Point(504, 148);
+            this.btnFind.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(75, 23);
+            this.btnFind.Size = new System.Drawing.Size(150, 46);
             this.btnFind.TabIndex = 3;
             this.btnFind.Text = "Find";
             this.btnFind.UseVisualStyleBackColor = true;
@@ -56,9 +58,10 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(330, 74);
+            this.btnCancel.Location = new System.Drawing.Point(660, 148);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(150, 46);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -69,26 +72,29 @@
             this.txtFind.AcceptsReturn = true;
             this.txtFind.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtFind.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtFind.Location = new System.Drawing.Point(12, 22);
+            this.txtFind.Location = new System.Drawing.Point(29, 65);
+            this.txtFind.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtFind.Name = "txtFind";
-            this.txtFind.Size = new System.Drawing.Size(394, 20);
+            this.txtFind.Size = new System.Drawing.Size(784, 39);
             this.txtFind.TabIndex = 6;
             this.txtFind.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFind_KeyPress);
             // 
             // QuickFind
             // 
             this.AcceptButton = this.btnFind;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(414, 109);
+            this.ClientSize = new System.Drawing.Size(828, 218);
             this.Controls.Add(this.txtFind);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnFind);
             this.Controls.Add(this.labelX1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "QuickFind";

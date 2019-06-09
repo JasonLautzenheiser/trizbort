@@ -469,5 +469,5 @@ namespace Trizbort.UI {
       m_RegionListing.Items[itemSelected] = pNew;
       return true;
     }
-  }
+    }
 }

@@ -44,9 +44,10 @@
             // m_okButton
             // 
             this.m_okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_okButton.Location = new System.Drawing.Point(120, 82);
+            this.m_okButton.Location = new System.Drawing.Point(240, 164);
+            this.m_okButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.m_okButton.Name = "m_okButton";
-            this.m_okButton.Size = new System.Drawing.Size(75, 23);
+            this.m_okButton.Size = new System.Drawing.Size(150, 46);
             this.m_okButton.TabIndex = 6;
             this.m_okButton.Text = "OK";
             this.m_okButton.UseVisualStyleBackColor = true;
@@ -56,9 +57,10 @@
             // 
             this.m_cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_cancelButton.Location = new System.Drawing.Point(201, 82);
+            this.m_cancelButton.Location = new System.Drawing.Point(402, 164);
+            this.m_cancelButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.m_cancelButton.Name = "m_cancelButton";
-            this.m_cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.m_cancelButton.Size = new System.Drawing.Size(150, 46);
             this.m_cancelButton.TabIndex = 7;
             this.m_cancelButton.Text = "Cancel";
             this.m_cancelButton.UseVisualStyleBackColor = true;
@@ -67,9 +69,10 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(43, 9);
+            this.label5.Location = new System.Drawing.Point(86, 18);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.Size = new System.Drawing.Size(84, 32);
             this.label5.TabIndex = 0;
             this.label5.Text = "&Name:";
             // 
@@ -77,9 +80,10 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 33);
+            this.label1.Location = new System.Drawing.Point(20, 66);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.Size = new System.Drawing.Size(158, 32);
             this.label1.TabIndex = 2;
             this.label1.Text = "&Region Color:";
             // 
@@ -87,17 +91,19 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 56);
+            this.label2.Location = new System.Drawing.Point(46, 112);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.Size = new System.Drawing.Size(127, 32);
             this.label2.TabIndex = 4;
             this.label2.Text = "&Text Color:";
             // 
             // btnRegionColor
             // 
-            this.btnRegionColor.Location = new System.Drawing.Point(90, 28);
+            this.btnRegionColor.Location = new System.Drawing.Point(180, 58);
+            this.btnRegionColor.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnRegionColor.Name = "btnRegionColor";
-            this.btnRegionColor.Size = new System.Drawing.Size(24, 23);
+            this.btnRegionColor.Size = new System.Drawing.Size(48, 46);
             this.btnRegionColor.TabIndex = 3;
             this.btnRegionColor.Text = "...";
             this.btnRegionColor.UseVisualStyleBackColor = true;
@@ -106,9 +112,10 @@
             // btnRegionTextColor
             // 
             this.btnRegionTextColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRegionTextColor.Location = new System.Drawing.Point(90, 51);
+            this.btnRegionTextColor.Location = new System.Drawing.Point(180, 105);
+            this.btnRegionTextColor.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnRegionTextColor.Name = "btnRegionTextColor";
-            this.btnRegionTextColor.Size = new System.Drawing.Size(24, 23);
+            this.btnRegionTextColor.Size = new System.Drawing.Size(48, 46);
             this.btnRegionTextColor.TabIndex = 5;
             this.btnRegionTextColor.Text = "...";
             this.btnRegionTextColor.UseVisualStyleBackColor = true;
@@ -117,36 +124,39 @@
             // pnlRegionColor
             // 
             this.pnlRegionColor.Controls.Add(this.lblTextColor);
-            this.pnlRegionColor.Location = new System.Drawing.Point(120, 29);
+            this.pnlRegionColor.Location = new System.Drawing.Point(240, 58);
+            this.pnlRegionColor.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pnlRegionColor.Name = "pnlRegionColor";
-            this.pnlRegionColor.Size = new System.Drawing.Size(157, 44);
+            this.pnlRegionColor.Size = new System.Drawing.Size(310, 93);
             this.pnlRegionColor.TabIndex = 8;
             // 
             // lblTextColor
             // 
             this.lblTextColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTextColor.AutoSize = true;
-            this.lblTextColor.Location = new System.Drawing.Point(43, 16);
+            this.lblTextColor.Location = new System.Drawing.Point(82, 32);
+            this.lblTextColor.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblTextColor.Name = "lblTextColor";
-            this.lblTextColor.Size = new System.Drawing.Size(71, 13);
+            this.lblTextColor.Size = new System.Drawing.Size(158, 32);
             this.lblTextColor.TabIndex = 3;
             this.lblTextColor.Text = "&Region Color:";
             // 
             // txtRegionName
             // 
-            this.txtRegionName.Location = new System.Drawing.Point(90, 6);
+            this.txtRegionName.Location = new System.Drawing.Point(180, 12);
+            this.txtRegionName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtRegionName.Name = "txtRegionName";
-            this.txtRegionName.Size = new System.Drawing.Size(187, 20);
+            this.txtRegionName.Size = new System.Drawing.Size(370, 39);
             this.txtRegionName.TabIndex = 9;
             this.txtRegionName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRegionName_KeyPress);
             // 
             // RegionSettings
             // 
             this.AcceptButton = this.m_okButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.m_cancelButton;
-            this.ClientSize = new System.Drawing.Size(288, 117);
+            this.ClientSize = new System.Drawing.Size(576, 234);
             this.Controls.Add(this.txtRegionName);
             this.Controls.Add(this.pnlRegionColor);
             this.Controls.Add(this.btnRegionTextColor);
@@ -156,7 +166,9 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.m_okButton);
             this.Controls.Add(this.m_cancelButton);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RegionSettings";

@@ -216,7 +216,7 @@ namespace Trizbort.UI
             this.m_helpMenu});
             this.m_menuStrip.Location = new System.Drawing.Point(0, 0);
             this.m_menuStrip.Name = "m_menuStrip";
-            this.m_menuStrip.Size = new System.Drawing.Size(1069, 44);
+            this.m_menuStrip.Size = new System.Drawing.Size(2200, 46);
             this.m_menuStrip.TabIndex = 1;
             // 
             // m_fileMenu
@@ -1303,10 +1303,10 @@ namespace Trizbort.UI
             this.m_toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.m_toggleDottedLinesButton,
             this.m_toggleDirectionalLinesButton});
-            this.m_toolStrip.Location = new System.Drawing.Point(0, 44);
+            this.m_toolStrip.Location = new System.Drawing.Point(0, 46);
             this.m_toolStrip.Name = "m_toolStrip";
             this.m_toolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.m_toolStrip.Size = new System.Drawing.Size(76, 643);
+            this.m_toolStrip.Size = new System.Drawing.Size(76, 936);
             this.m_toolStrip.TabIndex = 2;
             // 
             // m_toggleDottedLinesButton
@@ -1345,10 +1345,10 @@ namespace Trizbort.UI
             // statusBar
             // 
             this.statusBar.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.statusBar.Location = new System.Drawing.Point(0, 687);
+            this.statusBar.Location = new System.Drawing.Point(0, 982);
             this.statusBar.Name = "statusBar";
             this.statusBar.Padding = new System.Windows.Forms.Padding(2, 0, 28, 0);
-            this.statusBar.Size = new System.Drawing.Size(1069, 22);
+            this.statusBar.Size = new System.Drawing.Size(2200, 22);
             this.statusBar.TabIndex = 5;
             this.statusBar.Text = "statusStrip1";
             // 
@@ -1356,11 +1356,11 @@ namespace Trizbort.UI
             // 
             this.Canvas.BackColor = System.Drawing.Color.White;
             this.Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Canvas.Location = new System.Drawing.Point(76, 44);
+            this.Canvas.Location = new System.Drawing.Point(76, 46);
             this.Canvas.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
             this.Canvas.MinimapVisible = true;
             this.Canvas.Name = "Canvas";
-            this.Canvas.Size = new System.Drawing.Size(993, 591);
+            this.Canvas.Size = new System.Drawing.Size(2124, 884);
             this.Canvas.TabIndex = 0;
             // 
             // m_automapBar
@@ -1368,27 +1368,27 @@ namespace Trizbort.UI
             this.m_automapBar.BackColor = System.Drawing.SystemColors.Info;
             this.m_automapBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.m_automapBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.m_automapBar.Font = new System.Drawing.Font("Segoe UI", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_automapBar.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.m_automapBar.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.m_automapBar.Location = new System.Drawing.Point(76, 635);
+            this.m_automapBar.Location = new System.Drawing.Point(76, 930);
             this.m_automapBar.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
             this.m_automapBar.MaximumSize = new System.Drawing.Size(8190, 52);
             this.m_automapBar.MinimumSize = new System.Drawing.Size(2, 52);
             this.m_automapBar.Name = "m_automapBar";
-            this.m_automapBar.Size = new System.Drawing.Size(993, 52);
+            this.m_automapBar.Size = new System.Drawing.Size(2124, 52);
             this.m_automapBar.TabIndex = 4;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1069, 709);
+            this.ClientSize = new System.Drawing.Size(2200, 1004);
             this.Controls.Add(this.Canvas);
             this.Controls.Add(this.m_automapBar);
             this.Controls.Add(this.m_toolStrip);
             this.Controls.Add(this.m_menuStrip);
             this.Controls.Add(this.statusBar);
-            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.m_menuStrip;
             this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);

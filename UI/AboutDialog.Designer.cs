@@ -70,53 +70,56 @@ namespace Trizbort.UI
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.label1.Location = new System.Drawing.Point(376, 18);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 27);
+            this.label1.Size = new System.Drawing.Size(106, 32);
             this.label1.TabIndex = 1;
             this.label1.Text = "Trizbort";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label2.Location = new System.Drawing.Point(376, 50);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(265, 27);
+            this.label2.Size = new System.Drawing.Size(294, 32);
             this.label2.TabIndex = 2;
             this.label2.Text = "Interactive Fiction Mapper";
             // 
             // m_versionLabel
             // 
             this.m_versionLabel.AutoSize = true;
+            this.m_versionLabel.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.m_versionLabel.Location = new System.Drawing.Point(376, 106);
             this.m_versionLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.m_versionLabel.Name = "m_versionLabel";
-            this.m_versionLabel.Size = new System.Drawing.Size(180, 27);
+            this.m_versionLabel.Size = new System.Drawing.Size(201, 32);
             this.m_versionLabel.TabIndex = 3;
             this.m_versionLabel.Text = "Version Unknown";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.label4.Location = new System.Drawing.Point(376, 150);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(143, 27);
+            this.label4.Size = new System.Drawing.Size(150, 32);
             this.label4.TabIndex = 4;
             this.label4.Text = "By Genstein";
             // 
             // linkLabel1
             // 
             this.linkLabel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.linkLabel1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(86, 16);
-            this.linkLabel1.Location = new System.Drawing.Point(382, 550);
+            this.linkLabel1.Location = new System.Drawing.Point(382, 542);
             this.linkLabel1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(618, 60);
+            this.linkLabel1.Size = new System.Drawing.Size(618, 77);
             this.linkLabel1.TabIndex = 6;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Uses PDFsharp v1.32, copyright (c) 2005-2012 empira Software GmbH, Cologne (Germa" +
@@ -127,10 +130,11 @@ namespace Trizbort.UI
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.linkLabel2.Location = new System.Drawing.Point(376, 290);
             this.linkLabel2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(183, 27);
+            this.linkLabel2.Size = new System.Drawing.Size(199, 32);
             this.linkLabel2.TabIndex = 8;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "www.trizbort.com";
@@ -138,21 +142,24 @@ namespace Trizbort.UI
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.Image = global::Trizbort.Properties.Resources.Wizard4;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(330, 628);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // linkLabel4
             // 
             this.linkLabel4.AutoSize = true;
+            this.linkLabel4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.linkLabel4.Location = new System.Drawing.Point(376, 176);
             this.linkLabel4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(286, 27);
+            this.linkLabel4.Size = new System.Drawing.Size(323, 32);
             this.linkLabel4.TabIndex = 10;
             this.linkLabel4.TabStop = true;
             this.linkLabel4.Text = "github.com/genstein/trizbort";
@@ -160,34 +167,36 @@ namespace Trizbort.UI
             // 
             // textBox1
             // 
+            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBox1.Location = new System.Drawing.Point(382, 322);
             this.textBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(614, 218);
+            this.textBox1.Size = new System.Drawing.Size(614, 205);
             this.textBox1.TabIndex = 11;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.label3.Location = new System.Drawing.Point(376, 216);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(438, 27);
+            this.label3.Size = new System.Drawing.Size(451, 32);
             this.label3.TabIndex = 12;
             this.label3.Text = "Enhancements by Jason Lautzenheiser";
             // 
             // linkLabel3
             // 
             this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.linkLabel3.Location = new System.Drawing.Point(376, 242);
             this.linkLabel3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(394, 27);
+            this.linkLabel3.Size = new System.Drawing.Size(437, 32);
             this.linkLabel3.TabIndex = 13;
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Text = "github.com/JasonLautzenheiser/trizbort";
@@ -210,7 +219,7 @@ namespace Trizbort.UI
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
-            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);

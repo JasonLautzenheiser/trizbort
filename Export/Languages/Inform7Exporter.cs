@@ -94,7 +94,7 @@ namespace Trizbort.Export.Languages {
 
     protected override void ExportHeader(TextWriter writer, string title, string author, string description,
                                          string history) {
-      writer.WriteLine("\"{0}\" by {1}", title, author);
+      writer.WriteLine("\"{0}\" by \"{1}\"", title, author);
       writer.WriteLine();
 
       if (!string.IsNullOrEmpty(description)) {

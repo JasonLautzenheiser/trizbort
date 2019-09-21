@@ -13,8 +13,7 @@
     <AssemblyName>Trizbort</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Map.ico</ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -73,6 +72,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Trizbort.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoUpdater.NET, Version=1.4.7.0, Culture=neutral, PublicKeyToken=942f95247e354701, processorArchitecture=MSIL">
@@ -375,6 +377,7 @@
     <Content Include="Images\MoveLineInverted.cur" />
     <Content Include="Images\ToolStripBackground.png" />
     <Content Include="Images\ToolStripBackground2.png" />
+    <Content Include="Map.ico" />
     <Content Include="Setup\Wizard4.bmp" />
   </ItemGroup>
   <ItemGroup>

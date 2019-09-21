@@ -495,7 +495,7 @@ namespace Trizbort.UI.Controls {
       }
 
       using (var palette = new Palette()) {
-        if (finalRender) graphics.Clear(Settings.Color[Colors.Canvas]);
+        if (finalRender) graphics.Graphics.Clear(Settings.Color[Colors.Canvas]);
 
         if (!finalRender) drawGrid(graphics, palette);
 

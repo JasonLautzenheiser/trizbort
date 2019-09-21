@@ -77,7 +77,8 @@ namespace Trizbort.Domain.Misc {
       // do a quick test to see if text is going to get drawn at the same size as last time;
       // if so, assume we don't need to recompute our layout for that reason.
       var sizeChecker = graphics.MeasureString("M q", font);
-      if (sizeChecker != m_sizeChecker || pos != m_pos || m_size != size || m_requestedFormat.Alignment != format.Alignment || m_requestedFormat.LineAlignment != format.LineAlignment || m_requestedFormat.FormatFlags != format.FormatFlags) m_invalidLayout = true;
+//    if (sizeChecker != m_sizeChecker || pos != m_pos || m_size != size || m_requestedFormat.Alignment != format.Alignment || m_requestedFormat.LineAlignment != format.LineAlignment || m_requestedFormat.FormatFlags != format.FormatFlags) m_invalidLayout = true;
+      if (sizeChecker != m_sizeChecker || pos != m_pos || m_size != size || m_requestedFormat.Alignment != format.Alignment || m_requestedFormat.LineAlignment != format.LineAlignment) m_invalidLayout = true;
       m_sizeChecker = sizeChecker;
 
       if (m_invalidLayout) {
@@ -124,11 +125,11 @@ namespace Trizbort.Domain.Misc {
       // store current settings to help us tell if we need a rebuild next time around
       m_requestedFormat = new XStringFormat();
       m_requestedFormat.Alignment = baseFormat.Alignment;
-      m_requestedFormat.FormatFlags = baseFormat.FormatFlags;
+      // m_requestedFormat.FormatFlags = baseFormat.FormatFlags;
       m_requestedFormat.LineAlignment = baseFormat.LineAlignment;
       m_actualFormat = new XStringFormat();
       m_actualFormat.Alignment = baseFormat.Alignment;
-      m_actualFormat.FormatFlags = baseFormat.FormatFlags;
+      // m_actualFormat.FormatFlags = baseFormat.FormatFlags;
       m_actualFormat.LineAlignment = baseFormat.LineAlignment;
       m_pos = pos;
       m_size = size;

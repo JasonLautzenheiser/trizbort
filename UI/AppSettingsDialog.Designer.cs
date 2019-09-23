@@ -289,6 +289,7 @@
             // m_preferredHorizontalMargin
             // 
             this.m_preferredHorizontalMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_preferredHorizontalMargin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.m_preferredHorizontalMargin.DecimalPlaces = 1;
             this.m_preferredHorizontalMargin.Location = new System.Drawing.Point(78, 27);
             this.m_preferredHorizontalMargin.Maximum = new decimal(new int[] {
@@ -309,6 +310,7 @@
             // m_preferredVerticalMargin
             // 
             this.m_preferredVerticalMargin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_preferredVerticalMargin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.m_preferredVerticalMargin.DecimalPlaces = 1;
             this.m_preferredVerticalMargin.Location = new System.Drawing.Point(78, 55);
             this.m_preferredVerticalMargin.Maximum = new decimal(new int[] {
@@ -440,6 +442,7 @@
             // txtNumOfRoomDescriptionChars
             // 
             this.txtNumOfRoomDescriptionChars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNumOfRoomDescriptionChars.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNumOfRoomDescriptionChars.DecimalPlaces = 1;
             this.txtNumOfRoomDescriptionChars.Location = new System.Drawing.Point(346, 31);
             this.txtNumOfRoomDescriptionChars.Maximum = new decimal(new int[] {
@@ -460,6 +463,7 @@
             // txtNumOfConnectionDescriptionChars
             // 
             this.txtNumOfConnectionDescriptionChars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNumOfConnectionDescriptionChars.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNumOfConnectionDescriptionChars.DecimalPlaces = 1;
             this.txtNumOfConnectionDescriptionChars.Location = new System.Drawing.Point(346, 71);
             this.txtNumOfConnectionDescriptionChars.Maximum = new decimal(new int[] {

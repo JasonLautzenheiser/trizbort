@@ -217,7 +217,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 53);
+            this.label2.Location = new System.Drawing.Point(36, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(141, 15);
             this.label2.TabIndex = 8;
@@ -385,7 +385,7 @@
             this.tabGeneral.Controls.Add(this.groupBox1);
             this.tabGeneral.Location = new System.Drawing.Point(4, 24);
             this.tabGeneral.Name = "tabGeneral";
-            this.tabGeneral.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
             this.tabGeneral.Size = new System.Drawing.Size(424, 288);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
@@ -397,7 +397,7 @@
             this.tabToolTips.Controls.Add(this.chkShowObjectsInTooltip);
             this.tabToolTips.Location = new System.Drawing.Point(4, 24);
             this.tabToolTips.Name = "tabToolTips";
-            this.tabToolTips.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabToolTips.Padding = new System.Windows.Forms.Padding(3);
             this.tabToolTips.Size = new System.Drawing.Size(424, 288);
             this.tabToolTips.TabIndex = 1;
             this.tabToolTips.Text = "ToolTips";
@@ -517,7 +517,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AppSettingsDialog";
-            this.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.Padding = new System.Windows.Forms.Padding(10);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

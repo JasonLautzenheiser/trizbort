@@ -79,14 +79,12 @@ namespace Trizbort.UI {
     private void SetTooltipRoomDesciptionLimitUI(bool areWeLimiting)
     {
       chkLimitRoomDescriptionTooltipChars.Enabled = areWeLimiting;
-      lblCharactersToShowRoom.Enabled = areWeLimiting;
       txtNumOfRoomDescriptionChars.Enabled = areWeLimiting;
     }    
     
     private void SetTooltipConnectionDesciptionLimitUI(bool areWeLimiting)
     {
       chkLimitConnectionDescriptionTooltipChars.Enabled = areWeLimiting;
-      lblCharactersToShowConnection.Enabled = areWeLimiting;
       txtNumOfConnectionDescriptionChars.Enabled = areWeLimiting;
     }
 
@@ -108,5 +106,10 @@ namespace Trizbort.UI {
       SetTooltipRoomDesciptionLimitUI(chkShowDescriptionsInTooltip.Checked);
       SetTooltipConnectionDesciptionLimitUI(chkShowDescriptionsInTooltip.Checked);
 		}
-	}
+
+        private void ChkDefaultHandDrawn_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

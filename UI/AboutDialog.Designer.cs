@@ -115,15 +115,15 @@ namespace Trizbort.UI
             // 
             this.linkLabel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.linkLabel1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(86, 16);
+            this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(91, 16);
             this.linkLabel1.Location = new System.Drawing.Point(382, 542);
             this.linkLabel1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(618, 77);
+            this.linkLabel1.Size = new System.Drawing.Size(614, 106);
             this.linkLabel1.TabIndex = 6;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Uses PDFsharp v1.32, copyright (c) 2005-2012 empira Software GmbH, Cologne (Germa" +
-    "ny), www.pdfsharp.net\r\n";
+            this.linkLabel1.Text = "Uses PDFsharp v1.50.5147, copyright (c) 2005-2012 empira Software GmbH, Cologne (" +
+    "Germany), www.pdfsharp.net\r\n";
             this.linkLabel1.UseCompatibleTextRendering = true;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.onLinkClicked);
             // 
@@ -142,12 +142,14 @@ namespace Trizbort.UI
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.Image = global::Trizbort.Properties.Resources.Wizard4;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(330, 628);
+            this.pictureBox1.Size = new System.Drawing.Size(364, 663);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -169,7 +171,7 @@ namespace Trizbort.UI
             // 
             this.textBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBox1.Location = new System.Drawing.Point(382, 322);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(6);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -207,7 +209,7 @@ namespace Trizbort.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1024, 628);
+            this.ClientSize = new System.Drawing.Size(1024, 664);
             this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox1);
@@ -222,7 +224,7 @@ namespace Trizbort.UI
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutDialog";

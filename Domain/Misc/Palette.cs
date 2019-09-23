@@ -45,7 +45,7 @@ namespace Trizbort.Domain.Misc {
     private Brush m_canvasBrush;
     private Pen m_dashedLinePen;
     private Brush m_fillBrush;
-    private Pen m_fillPen;
+    // TODO: private Pen m_fillPen;
     private Pen m_gridPen;
     private Pen m_hoverDashedLinePen;
     private Brush m_hoverLineBrush;
@@ -63,7 +63,7 @@ namespace Trizbort.Domain.Misc {
     private Pen m_selectedLinePen;
     private Brush m_smallTextBrush;
     private Brush m_subTitleTextBrush;
-    private Pen m_subTitleTextPen;
+    // TODO: private Pen m_subTitleTextPen;
 
     public Brush BorderBrush => m_borderBrush ?? (m_borderBrush = Brush(Settings.Color[Colors.Border]));
 

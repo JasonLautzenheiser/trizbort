@@ -75,7 +75,7 @@ namespace Trizbort.Setup {
     private static Keys sKeypadNavigationUnexploredModifier;
 
     // application settings, saved for the user
-    private static AutomapSettings sAutomap;
+    // TODO: private static AutomapSettings sAutomap;
 
     static Settings() {
       Color = new ColorSettings();

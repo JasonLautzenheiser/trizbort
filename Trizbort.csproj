@@ -13,8 +13,7 @@
     <AssemblyName>Trizbort</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Map.ico</ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -392,6 +391,7 @@
     <Content Include="Images\MoveLineInverted.cur" />
     <Content Include="Images\ToolStripBackground.png" />
     <Content Include="Images\ToolStripBackground2.png" />
+    <Content Include="Map.ico" />
     <Content Include="Setup\Wizard4.bmp" />
   </ItemGroup>
   <ItemGroup>

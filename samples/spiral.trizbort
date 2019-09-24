@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<trizbort version="1.7.0.0">
-	<info />
+<trizbort version="1.7.2.0">
+	<info>
+		<author>J. Lautzenheiser</author>
+	</info>
 	<map>
 		<room id="1" name="Mountainside" subtitle="" x="0" y="0" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<room id="2" name="Foot of the Mountain S" subtitle="" x="0" y="128" w="96" h="64" region="Helen" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
@@ -211,6 +213,7 @@
 			<documentSpecific>yes</documentSpecific>
 			<horizontal>96</horizontal>
 			<vertical>96</vertical>
+			<wrapDashes>yes</wrapDashes>
 		</margins>
 		<keypadNavigation>
 			<creationModifier>control</creationModifier>

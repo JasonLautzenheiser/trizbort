@@ -34,7 +34,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Trizbort")]
-[assembly: AssemblyCopyright("Copyright © 2010-2018 by Genstein and Jason Lautzenheiser")]
+[assembly: AssemblyCopyright("Copyright © 2010-2019 by Genstein and Jason Lautzenheiser")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

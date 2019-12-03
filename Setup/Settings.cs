@@ -75,7 +75,7 @@ namespace Trizbort.Setup {
     private static Keys sKeypadNavigationUnexploredModifier;
 
     // application settings, saved for the user
-    private static AutomapSettings sAutomap;
+    // TODO: private static AutomapSettings sAutomap;
 
     static Settings() {
       Color = new ColorSettings();
@@ -436,7 +436,7 @@ namespace Trizbort.Setup {
       Color[Colors.Subtitle] = System.Drawing.Color.MidnightBlue;
       Color[Colors.SmallText] = System.Drawing.Color.MidnightBlue;
       Color[Colors.LineText] = System.Drawing.Color.MidnightBlue;
-      Color[Colors.Grid] = Drawing.Mix(System.Drawing.Color.White, System.Drawing.Color.Black, 25, 1);
+      Color[Colors.Grid] = Drawing.Mix(System.Drawing.Color.White, System.Drawing.Color.Black, 10, 1);
       Color[Colors.StartRoom] = System.Drawing.Color.GreenYellow;
       Color[Colors.EndRoom] = System.Drawing.Color.Red;
 

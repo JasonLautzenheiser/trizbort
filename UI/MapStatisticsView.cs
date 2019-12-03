@@ -144,7 +144,7 @@ namespace Trizbort.UI {
       string outFile;
 
       if (string.IsNullOrEmpty(curFile)) {
-        outFile = "c:\\temp\\default-log.txt";
+        outFile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\trizbort.log";
       } else {
         if (curFile.Contains(".trizbort"))
           outFile = curFile.Replace(".trizbort", ".log");

@@ -62,7 +62,7 @@ namespace Trizbort.UI {
     public Canvas Canvas;
 
     private NumericUpDown txtZoom;
-    private ToolStripStatusLabel statusLabel;
+    // TODO: private ToolStripStatusLabel statusLabel;
     private Status trizStatusBar;
 
     private const string UPDATE_PATH = "http://www.trizbort.com/trizbortupdate.xml";

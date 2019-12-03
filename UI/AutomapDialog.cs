@@ -101,5 +101,10 @@ namespace Trizbort.UI
       m_roomsWithSameNameAreSameRoomCheckBox.Enabled = m_verboseTranscriptCheckBox.Checked;
       m_roomsWithSameNameAreSameRoomCheckBox.Checked = !m_verboseTranscriptCheckBox.Checked;
     }
-  }
+
+        private void Label5_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

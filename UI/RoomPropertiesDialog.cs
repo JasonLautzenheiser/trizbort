@@ -424,7 +424,7 @@ namespace Trizbort.UI {
       if (cboDrawType.SelectedItem.ToString() == "Ellipse") {
         groupRoundedCorners.Visible = false;
       } else if (cboDrawType.SelectedItem.ToString() == "Rounded Corners") {
-        groupRoundedCorners.Location = new Point(8, 44);
+        groupRoundedCorners.Location = new Point(cboDrawType.Left, cboDrawType.Bottom + 20);
         groupRoundedCorners.Visible = true;
       } else {
         groupRoundedCorners.Visible = false;

@@ -495,7 +495,7 @@ namespace Trizbort.UI.Controls {
       }
 
       using (var palette = new Palette()) {
-        if (finalRender) graphics.Clear(Settings.Color[Colors.Canvas]);
+        if (finalRender) graphics.Graphics.Clear(Settings.Color[Colors.Canvas]);
 
         if (!finalRender) drawGrid(graphics, palette);
 
@@ -636,7 +636,7 @@ namespace Trizbort.UI.Controls {
 
     public void ResetZoomOrigin() {
       Origin = ComputeCanvasBounds(false).Center;
-      ZoomFactor = 1.0f;
+      ZoomFactor = 2.0f;
     }
 
     public void ReverseLineDirection() {

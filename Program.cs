@@ -43,7 +43,7 @@ namespace Trizbort
       System.Windows.Forms.Application.EnableVisualStyles();
       System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
-      
+      Console.WriteLine(AppDomain.CurrentDomain.SetupInformation.TargetFrameworkName);
 
       using (var form = new MainForm())
       {

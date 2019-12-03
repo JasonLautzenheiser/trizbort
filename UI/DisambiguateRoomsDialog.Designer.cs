@@ -68,97 +68,107 @@ namespace Trizbort.UI
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Location = new System.Drawing.Point(26, 26);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(481, 57);
+            this.label1.Size = new System.Drawing.Size(962, 114);
             this.label1.TabIndex = 0;
             this.label1.Text = "Trizbort isn\'t sure which room the transcript is referring to.\r\n\r\nEither several " +
-                "rooms have the same name but different descriptions, or the room description has" +
-                " changed during play.\r\n";
+    "rooms have the same name but different descriptions, or the room description has" +
+    " changed during play.\r\n";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 92);
+            this.label2.Location = new System.Drawing.Point(26, 153);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 13);
+            this.label2.Size = new System.Drawing.Size(282, 32);
             this.label2.TabIndex = 1;
             this.label2.Text = "When the transcript says:";
             // 
             // m_transcriptContextTextBox
             // 
-            this.m_transcriptContextTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_transcriptContextTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_transcriptContextTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.m_transcriptContextTextBox.Location = new System.Drawing.Point(43, 108);
+            this.m_transcriptContextTextBox.Location = new System.Drawing.Point(86, 216);
+            this.m_transcriptContextTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.m_transcriptContextTextBox.Multiline = true;
             this.m_transcriptContextTextBox.Name = "m_transcriptContextTextBox";
             this.m_transcriptContextTextBox.ReadOnly = true;
             this.m_transcriptContextTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.m_transcriptContextTextBox.Size = new System.Drawing.Size(451, 88);
+            this.m_transcriptContextTextBox.Size = new System.Drawing.Size(898, 172);
             this.m_transcriptContextTextBox.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 208);
+            this.label3.Location = new System.Drawing.Point(32, 416);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(132, 13);
+            this.label3.Size = new System.Drawing.Size(303, 32);
             this.label3.TabIndex = 3;
             this.label3.Text = "Which room does it mean?";
             // 
             // m_roomNamesListBox
             // 
-            this.m_roomNamesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.m_roomNamesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.m_roomNamesListBox.FormattingEnabled = true;
-            this.m_roomNamesListBox.Location = new System.Drawing.Point(43, 248);
+            this.m_roomNamesListBox.ItemHeight = 32;
+            this.m_roomNamesListBox.Location = new System.Drawing.Point(86, 518);
+            this.m_roomNamesListBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.m_roomNamesListBox.Name = "m_roomNamesListBox";
-            this.m_roomNamesListBox.Size = new System.Drawing.Size(161, 95);
+            this.m_roomNamesListBox.Size = new System.Drawing.Size(318, 164);
             this.m_roomNamesListBox.TabIndex = 5;
             this.m_roomNamesListBox.SelectedIndexChanged += new System.EventHandler(this.RoomNamesListBox_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(43, 229);
+            this.label4.Location = new System.Drawing.Point(86, 480);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 13);
+            this.label4.Size = new System.Drawing.Size(77, 32);
             this.label4.TabIndex = 4;
             this.label4.Text = "&Room";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(207, 229);
+            this.label5.Location = new System.Drawing.Point(414, 480);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 13);
+            this.label5.Size = new System.Drawing.Size(136, 32);
             this.label5.TabIndex = 6;
             this.label5.Text = "&Description";
             // 
             // m_roomDescriptionTextBox
             // 
-            this.m_roomDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_roomDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_roomDescriptionTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.m_roomDescriptionTextBox.Location = new System.Drawing.Point(210, 248);
+            this.m_roomDescriptionTextBox.Location = new System.Drawing.Point(420, 518);
+            this.m_roomDescriptionTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.m_roomDescriptionTextBox.Multiline = true;
             this.m_roomDescriptionTextBox.Name = "m_roomDescriptionTextBox";
             this.m_roomDescriptionTextBox.ReadOnly = true;
             this.m_roomDescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.m_roomDescriptionTextBox.Size = new System.Drawing.Size(284, 95);
+            this.m_roomDescriptionTextBox.Size = new System.Drawing.Size(564, 164);
             this.m_roomDescriptionTextBox.TabIndex = 7;
             // 
             // m_thisRoomButton
             // 
             this.m_thisRoomButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_thisRoomButton.DialogResult = System.Windows.Forms.DialogResult.Yes;
-            this.m_thisRoomButton.Location = new System.Drawing.Point(65, 362);
+            this.m_thisRoomButton.Location = new System.Drawing.Point(130, 724);
+            this.m_thisRoomButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.m_thisRoomButton.Name = "m_thisRoomButton";
-            this.m_thisRoomButton.Size = new System.Drawing.Size(139, 24);
+            this.m_thisRoomButton.Size = new System.Drawing.Size(278, 48);
             this.m_thisRoomButton.TabIndex = 8;
             this.m_thisRoomButton.Text = "&This Room";
             this.m_thisRoomButton.UseVisualStyleBackColor = true;
@@ -167,9 +177,10 @@ namespace Trizbort.UI
             // 
             this.m_newRoomButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_newRoomButton.DialogResult = System.Windows.Forms.DialogResult.No;
-            this.m_newRoomButton.Location = new System.Drawing.Point(210, 362);
+            this.m_newRoomButton.Location = new System.Drawing.Point(420, 724);
+            this.m_newRoomButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.m_newRoomButton.Name = "m_newRoomButton";
-            this.m_newRoomButton.Size = new System.Drawing.Size(139, 24);
+            this.m_newRoomButton.Size = new System.Drawing.Size(278, 48);
             this.m_newRoomButton.TabIndex = 9;
             this.m_newRoomButton.Text = "A &New Room";
             this.m_newRoomButton.UseVisualStyleBackColor = true;
@@ -178,9 +189,10 @@ namespace Trizbort.UI
             // 
             this.m_AutoChooseTheRestButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_AutoChooseTheRestButton.DialogResult = System.Windows.Forms.DialogResult.Abort;
-            this.m_AutoChooseTheRestButton.Location = new System.Drawing.Point(355, 362);
+            this.m_AutoChooseTheRestButton.Location = new System.Drawing.Point(710, 724);
+            this.m_AutoChooseTheRestButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.m_AutoChooseTheRestButton.Name = "m_AutoChooseTheRestButton";
-            this.m_AutoChooseTheRestButton.Size = new System.Drawing.Size(139, 24);
+            this.m_AutoChooseTheRestButton.Size = new System.Drawing.Size(278, 48);
             this.m_AutoChooseTheRestButton.TabIndex = 10;
             this.m_AutoChooseTheRestButton.Text = "&Auto-Choose the Rest";
             this.m_AutoChooseTheRestButton.UseVisualStyleBackColor = true;
@@ -188,9 +200,9 @@ namespace Trizbort.UI
             // DisambiguateRoomsDialog
             // 
             this.AcceptButton = this.m_thisRoomButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 398);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(1012, 796);
             this.Controls.Add(this.m_AutoChooseTheRestButton);
             this.Controls.Add(this.m_newRoomButton);
             this.Controls.Add(this.m_thisRoomButton);
@@ -202,11 +214,12 @@ namespace Trizbort.UI
             this.Controls.Add(this.m_transcriptContextTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(514, 425);
+            this.MinimumSize = new System.Drawing.Size(1002, 779);
             this.Name = "DisambiguateRoomsDialog";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

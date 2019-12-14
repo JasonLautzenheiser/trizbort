@@ -131,7 +131,13 @@ namespace Trizbort.UI {
       exportCode<AlanExporter>();
     }
 
-    private void appSettingsToolStripMenuItem_Click(object sender, EventArgs e) {
+    private void adventuronToTextToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        exportCode<Trizbort.Export.Languages.AdventuronExporter>();
+    }
+
+
+        private void appSettingsToolStripMenuItem_Click(object sender, EventArgs e) {
       ApplicationSettingsController.ShowAppDialog();
     }
 
@@ -395,6 +401,12 @@ namespace Trizbort.UI {
       if (exportCode<AlanExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportAlanFileName = fileName;
     }
 
+    private void FileExportAdventuronMenuItem_Click(object sender, EventArgs e)
+    {
+        var fileName = ApplicationSettingsController.AppSettings.LastExportAlanFileName;
+        if (exportCode<Trizbort.Export.Languages.AdventuronExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportAdventuronFileName = fileName;
+    }
+
     private void FileExportHugoMenuItem_Click(object sender, EventArgs e) {
       var fileName = ApplicationSettingsController.AppSettings.LastExportHugoFileName;
       if (exportCode<HugoExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportHugoFileName = fileName;
@@ -449,7 +461,8 @@ namespace Trizbort.UI {
       if (exportCode<TadsExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportTadsFileName = fileName;
     }
 
-    private void FileMenu_DropDownOpening(object sender, EventArgs e) {
+
+        private void FileMenu_DropDownOpening(object sender, EventArgs e) {
       setupMRUMenu();
 
       setupExportMenu();

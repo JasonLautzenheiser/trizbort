@@ -45,7 +45,7 @@ namespace Trizbort.Export.Languages
             {
                 if  (location.ExportName.Length > maxLen)
                 {
-                    maxLen = location.ExportName.Length;
+                    maxLen = escapeAdventuronId(location.ExportName).Length;
                 }
             }
 
@@ -56,16 +56,17 @@ namespace Trizbort.Export.Languages
                     startRoom = location.ExportName;
                 }
 
-                String subtitle = string.IsNullOrEmpty(location.Room.SubTitle) ? null : location.Room.SubTitle;
+                //String subtitle = string.IsNullOrEmpty(location.Room.SubTitle) ? null : location.Room.SubTitle;
 
                 String roomDescription = string.IsNullOrEmpty(location.Room.PrimaryDescription) ? "" : escapeAdventuronText(location.Room.PrimaryDescription);
-                locationsSB.Append("   " + padRight(location.ExportName, maxLen) + " : location \""+ roomDescription + "\" "+(subtitle == null ? "" : ("header = \""+ escapeAdventuronText(subtitle) + "\" ")) +"; // " + location.Room.Name  + "\n");
+                String headerDescription = string.IsNullOrEmpty(location.Room.Name) ? "" : (" header = \""+ escapeAdventuronText(location.Room.Name) + "\"");
+                locationsSB.Append("   " + padRight(escapeAdventuronId(location.ExportName), maxLen) + " : location \""+ roomDescription + "\"" + headerDescription + ";\n");
                 foreach (var direction in Directions.AllDirections)
                 {
                     var exit = location.GetBestExit(direction);
                     if (exit != null)
                     {
-                        connectionsSB.Append("      " + location.ExportName + ", " + toAdventuronDirectionName(direction) + ", " + exit.Target.ExportName + ",\n");
+                        connectionsSB.Append("      " + escapeAdventuronId(location.ExportName) + ", " + toAdventuronDirectionName(direction) + ", " + escapeAdventuronId(exit.Target.ExportName) + ",\n");
                     }
                 }
                 isFirst = false;
@@ -95,12 +96,57 @@ namespace Trizbort.Export.Languages
                 return sb.ToString();
             }
         }
+
+        private static String escapeAdventuronId(String input)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var c in input.ToCharArray())
+            {
+                if (c == ' ' || c == '_')
+                {
+                    if (sb.Length > 0 && sb[sb.Length - 1] != '_')
+                    {
+                        sb.Append("_");
+                    }
+                }
+                else if (c == '\'')
+                {
+                    // Ignore
+                }
+                else if (
+                    (c >= 'a' && c <= 'z')    ||
+                    (c >= 'A' && c <= 'Z')    ||
+                    (c >= '0' && c <= '9')    ||
+                    (c >= 160 && c <= 8231)   ||
+                    (c >= 8234 && c <= 55295) ||
+                    (c >= 57344 && c <= 65533)
+                )
+                {
+                    sb.Append(c);
+                }
+                else
+                {
+                    // Do nothing
+                }
+            }
+
+            return sb.ToString();
+        }
+
         private static String escapeAdventuronText(String input) {
             StringBuilder sb = new StringBuilder();
-            foreach(var c in input.ToCharArray()) {
-                if (c == '\n') {
+            foreach (var c in input.ToCharArray())
+            {
+                if (c == '\n')
+                {
                     sb.Append("\\n");
-                } else if (c == '$') {
+                }
+                else if (c == '\r')
+                {
+                    // Ignore
+                }
+                else if (c == '$')
+                {
                     sb.Append("$$");
                 }
                 else if (c == '\\')
@@ -191,7 +237,7 @@ namespace Trizbort.Export.Languages
                 case MappableDirection.Up: return "up_oneway";
                 case MappableDirection.Down: return "down_oneway";
                 case MappableDirection.In: return "enter_oneway";
-                case MappableDirection.Out: return "exit_oneway";
+                case MappableDirection.Out: return "leave_oneway";
                 default:
                     throw new InvalidOperationException("Cannot convert a direction to its Adventuron version.");
             }

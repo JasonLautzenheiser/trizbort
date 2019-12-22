@@ -403,7 +403,7 @@ namespace Trizbort.UI {
 
     private void FileExportAdventuronMenuItem_Click(object sender, EventArgs e)
     {
-        var fileName = ApplicationSettingsController.AppSettings.LastExportAlanFileName;
+        var fileName = ApplicationSettingsController.AppSettings.LastExportAdventuronFileName;
         if (exportCode<Trizbort.Export.Languages.AdventuronExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportAdventuronFileName = fileName;
     }
 

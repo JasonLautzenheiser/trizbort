@@ -26,6 +26,7 @@ namespace Trizbort.Domain.AppSettings
     public bool HandDrawnGlobal { get; set; }
     public bool InfiniteScrollBounds { get; set; }
     public bool InvertMouseWheel { get; set; }
+    public string LastExportAdventuronFileName { get; set; }
     public string LastExportAlanFileName { get; set; }
     public string LastExportHugoFileName { get; set; }
     public string LastExportImageFileName { get; set; }

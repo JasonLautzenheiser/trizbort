@@ -72,6 +72,7 @@ namespace Trizbort.UI
             this.m_fileExportImageMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
             this.m_fileExportAlanMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_fileExportAdventuronMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_fileExportHugoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_fileExportInform7MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_fileExportInform6MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,6 +81,7 @@ namespace Trizbort.UI
             this.m_fileExportQuestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.alanToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adventuronToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hugoToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inform7ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inform6ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -315,6 +317,7 @@ namespace Trizbort.UI
             this.m_fileExportImageMenuItem,
             this.toolStripMenuItem9,
             this.m_fileExportAlanMenuItem,
+            this.m_fileExportAdventuronMenuItem,
             this.m_fileExportHugoMenuItem,
             this.m_fileExportInform7MenuItem,
             this.m_fileExportInform6MenuItem,
@@ -323,6 +326,7 @@ namespace Trizbort.UI
             this.m_fileExportQuestMenuItem,
             this.toolStripSeparator13,
             this.alanToTextToolStripMenuItem,
+            this.adventuronToTextToolStripMenuItem,
             this.hugoToTextToolStripMenuItem,
             this.inform7ToTextToolStripMenuItem,
             this.inform6ToTextToolStripMenuItem,
@@ -361,6 +365,14 @@ namespace Trizbort.UI
             this.m_fileExportAlanMenuItem.Size = new System.Drawing.Size(612, 44);
             this.m_fileExportAlanMenuItem.Text = "&Alan...";
             this.m_fileExportAlanMenuItem.Click += new System.EventHandler(this.FileExportAlanMenuItem_Click);
+            // 
+            // m_fileExportAdventuronMenuItem
+            // 
+            this.m_fileExportAdventuronMenuItem.Name = "m_fileExportAdventuronMenuItem";
+            this.m_fileExportAdventuronMenuItem.Size = new System.Drawing.Size(612, 44);
+            this.m_fileExportAdventuronMenuItem.Text = "&Adventuron...";
+            this.m_fileExportAdventuronMenuItem.Click += new System.EventHandler(this.FileExportAdventuronMenuItem_Click);
+            // 
             // 
             // m_fileExportHugoMenuItem
             // 
@@ -429,6 +441,14 @@ namespace Trizbort.UI
             this.alanToTextToolStripMenuItem.Size = new System.Drawing.Size(612, 44);
             this.alanToTextToolStripMenuItem.Text = "Alan to Clipboard";
             this.alanToTextToolStripMenuItem.Click += new System.EventHandler(this.alanToTextToolStripMenuItem_Click);
+            // 
+            // adventuronToTextToolStripMenuItem
+            // 
+            this.adventuronToTextToolStripMenuItem.Name = "adventuronToTextToolStripMenuItem";
+            this.adventuronToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) | System.Windows.Forms.Keys.A)));
+            this.adventuronToTextToolStripMenuItem.Size = new System.Drawing.Size(612, 44);
+            this.adventuronToTextToolStripMenuItem.Text = "Adventuron to Clipboard";
+            this.adventuronToTextToolStripMenuItem.Click += new System.EventHandler(this.adventuronToTextToolStripMenuItem_Click) ;
             // 
             // hugoToTextToolStripMenuItem
             // 
@@ -1471,6 +1491,7 @@ namespace Trizbort.UI
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem m_viewMinimapMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_fileExportAlanMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_fileExportAdventuronMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_fileExportHugoMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_fileExportInform7MenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_fileExportQuestMenuItem;
@@ -1492,6 +1513,7 @@ namespace Trizbort.UI
         private System.Windows.Forms.ToolStripMenuItem m_editChangeRegionMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem alanToTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem adventuronToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hugoToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inform7ToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inform6ToTextToolStripMenuItem;

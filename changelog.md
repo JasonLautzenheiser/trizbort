@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ## [Unreleased]
 
+### Add
+Thanks to [ccp-codex](https://github.com/ccp-codex) for all the work on the following items
+- added HiDPI support
+- modernized the font and appearance of the forms slightly, helping with the HiDPI support.
+- updated some 3rd party packages and updated project to .net 4.8
+
+Thanks to [ainslec](https://github.com/ainslec) for adding exporting of code support for his [Adventuron Text Adventure Creation System](https://adventuron.io/)
+
+
+### Fix
+- issue with periods in the author field when compiling exported I7 code (#480 - thanks to [no1453](https://github.com/no1453) for reporting this)
+- fixed issue with the minor adjustments on setting object text location was no longer accepting negative numbers.
+
 ## [1.7.2] - 2019-03-23
 
 ### Add

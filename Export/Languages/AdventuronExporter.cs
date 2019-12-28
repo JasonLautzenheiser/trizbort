@@ -14,6 +14,8 @@ namespace Trizbort.Export.Languages
 {
     internal class AdventuronExporter : CodeExporter
     {
+        // Adventuron limits headers to 25 characters
+        private const int MaximumHeaderLength = 25;
 
         public override List<KeyValuePair<string, string>> FileDialogFilters => new List<KeyValuePair<string, string>> {
       new KeyValuePair<string, string>("Adventuron Source Files", ".adv"),
@@ -22,7 +24,7 @@ namespace Trizbort.Export.Languages
 
         public override string FileDialogTitle => "Adventuron Source Code (rooms only)";
 
-        protected override IEnumerable<string> ReservedWords => new[] { "ether", "objects", "inventory", "root" };
+        protected override IEnumerable<string> ReservedWords => new[] { "ether", "objects", "inventory", "root", "player" };
 
         protected override void ExportContent(TextWriter writer)
         {
@@ -59,7 +61,16 @@ namespace Trizbort.Export.Languages
                 //String subtitle = string.IsNullOrEmpty(location.Room.SubTitle) ? null : location.Room.SubTitle;
 
                 String roomDescription = string.IsNullOrEmpty(location.Room.PrimaryDescription) ? "" : escapeAdventuronText(location.Room.PrimaryDescription);
-                String headerDescription = string.IsNullOrEmpty(location.Room.Name) ? "" : (" header = \""+ escapeAdventuronText(location.Room.Name) + "\"");
+                String locationRoomName = string.IsNullOrEmpty(location.Room.Name) ? "" : location.Room.Name;
+
+                if (locationRoomName.Length > MaximumHeaderLength)
+                {
+                    // Limit to 'MaximumHeaderLength' characters before escaping !
+                    locationRoomName = locationRoomName.Substring(0, MaximumHeaderLength);
+                }
+
+                String headerDescNormalized = escapeAdventuronText(locationRoomName);
+                String headerDescription = (" header = \""+ headerDescNormalized + "\"");
                 locationsSB.Append("   " + padRight(escapeAdventuronId(location.ExportName), maxLen) + " : location \""+ roomDescription + "\"" + headerDescription + ";\n");
                 foreach (var direction in Directions.AllDirections)
                 {

@@ -57,6 +57,7 @@ namespace Trizbort.Export.Domain {
     public bool Worn { get; }
     public bool PartOf { get; }
     public string PropString { get; }
+    public int Points { get; }
     public string WarningText { get; }
     
     public Thing(string displayName, string exportName, Location location, Thing container, int indent,
@@ -76,7 +77,7 @@ namespace Trizbort.Export.Domain {
 
       
 
-      var propRegx = new Regex("[fmp12csuwh!]");
+      var propRegx = new Regex("[fmp1234567890csuwh!]");
       var errString = propRegx.Replace(PropString, "");
 
       if (!string.IsNullOrWhiteSpace(errString))
@@ -115,6 +116,11 @@ namespace Trizbort.Export.Domain {
       if (propString.Contains("2")) {
         if (Forceplural != Amounts.Noforce) WarningText += "You defined this object as both singular and plural.\n";
         Forceplural = Amounts.Plural;
+      }
+
+      if (int.TryParse(propString, out var points))
+      {
+        Points = points;
       }
 
       //this isn't perfect. If something contains something else, then we need to add that as well.

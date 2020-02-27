@@ -80,6 +80,7 @@ namespace Trizbort.UI
       this.m_fileExportQuestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
       this.alanToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.a3ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.hugoToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.inform7ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.inform6ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -321,6 +322,7 @@ namespace Trizbort.UI
             this.m_fileExportQuestMenuItem,
             this.toolStripSeparator13,
             this.alanToTextToolStripMenuItem,
+            this.a3ToTextToolStripMenuItem,
             this.hugoToTextToolStripMenuItem,
             this.inform7ToTextToolStripMenuItem,
             this.inform6ToTextToolStripMenuItem,
@@ -427,6 +429,15 @@ namespace Trizbort.UI
       this.alanToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
       this.alanToTextToolStripMenuItem.Text = "Alan to Clipboard";
       this.alanToTextToolStripMenuItem.Click += new System.EventHandler(this.alanToTextToolStripMenuItem_Click);
+      // 
+      // a3ToTextToolStripMenuItem
+      // 
+      this.a3ToTextToolStripMenuItem.Name = "a3ToTextToolStripMenuItem";
+      this.a3ToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+                                                                                  | System.Windows.Forms.Keys.A)));
+      this.a3ToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
+      this.a3ToTextToolStripMenuItem.Text = "A3 to Clipboard";
+      this.a3ToTextToolStripMenuItem.Click += new System.EventHandler(this.a3ToTextToolStripMenuItem_Click);
       // 
       // hugoToTextToolStripMenuItem
       // 
@@ -1483,6 +1494,7 @@ namespace Trizbort.UI
         private System.Windows.Forms.ToolStripMenuItem m_editChangeRegionMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem alanToTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem a3ToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hugoToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inform7ToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inform6ToTextToolStripMenuItem;

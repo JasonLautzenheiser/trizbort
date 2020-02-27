@@ -43,6 +43,7 @@ namespace Trizbort.Export
     private readonly Dictionary<Room, Location> mMapRoomToLocation = new Dictionary<Room, Location>();
 
     protected CodeExporter() {
+      ExitsInExportOrder = new List<Exit>();
       LocationsInExportOrder = new List<Location>();
       RegionsInExportOrder = new List<ExportRegion>();
     }
@@ -55,6 +56,7 @@ namespace Trizbort.Export
 
     private Encoding encoding => Encoding.UTF8;
 
+    protected List<Exit> ExitsInExportOrder { get; }
     protected List<Location> LocationsInExportOrder { get; }
 
     protected List<ExportRegion> RegionsInExportOrder { get; }
@@ -157,7 +159,7 @@ namespace Trizbort.Export
         if (mMapRoomToLocation.TryGetValue(sourceRoom, out var sourceLocation) &&
             mMapRoomToLocation.TryGetValue(targetRoom, out var targetLocation)) {
           sourceLocation.AddExit(new Exit(sourceLocation, targetLocation, sourceCompassPoint, connection.StartText, connection));
-
+          ExitsInExportOrder.Add(new Exit(sourceLocation, targetLocation, sourceCompassPoint, connection.StartText, connection));
           if (connection.Flow == ConnectionFlow.TwoWay) targetLocation.AddExit(new Exit(targetLocation, sourceLocation, targetCompassPoint, connection.EndText, connection));
         }
       }

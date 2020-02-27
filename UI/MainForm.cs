@@ -130,6 +130,10 @@ namespace Trizbort.UI {
     private void alanToTextToolStripMenuItem_Click(object sender, EventArgs e) {
       exportCode<AlanExporter>();
     }
+    
+    private void a3ToTextToolStripMenuItem_Click(object sender, EventArgs e) {
+      exportCode<A3Exporter>();
+    }
 
     private void appSettingsToolStripMenuItem_Click(object sender, EventArgs e) {
       ApplicationSettingsController.ShowAppDialog();

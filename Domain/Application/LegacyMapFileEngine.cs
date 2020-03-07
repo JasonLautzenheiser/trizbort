@@ -22,7 +22,7 @@ namespace Trizbort.Domain.Application {
     {
       try
       {
-        if (!fileName.isUrl() && new FileInfo(fileName).Length == 0)
+        if (!fileName.IsUrl() && new FileInfo(fileName).Length == 0)
         {
           // this is an empty file, probably thanks to our Explorer New->Trizbort Map menu option.
           Settings.Reset();
@@ -87,7 +87,7 @@ namespace Trizbort.Domain.Application {
         Settings.Load(root["settings"]);
 
         // setup filewatcher.
-        if (!fileName.isUrl())
+        if (!fileName.IsUrl())
           project.InitFileWWatcher(fileName);
 
         return true;

@@ -50,9 +50,7 @@ namespace Trizbort.Export.Domain
       }
 
       public Exit GetBestExit(MappableDirection direction) {
-        Exit exit;
-        if (mMapDirectionToBestExit.TryGetValue(direction, out exit)) return exit;
-        return null;
+        return mMapDirectionToBestExit.TryGetValue(direction, out var exit) ? exit : null;
       }
 
       public void PickBestExits() {

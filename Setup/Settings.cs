@@ -29,7 +29,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Trizbort.Automap;
 using Trizbort.Domain.Application;
 using Trizbort.Domain.AppSettings;
 using Trizbort.Domain.Elements;
@@ -162,11 +161,8 @@ namespace Trizbort.Setup {
 
     public static bool WrappingChanged {
       get => sWrappingChanged;
-      set {
-        sWrappingChanged = value;
-      }//
-    }//
-
+      set => sWrappingChanged = value;  
+    }
     public static float DragDistanceToInitiateNewConnection {
       get => sDragDistanceToInitiateNewConnection;
       set {
@@ -398,8 +394,7 @@ namespace Trizbort.Setup {
       GridSize = element["grid"]["size"].ToFloat(sGridSize);
       ShowOrigin = element["grid"]["showOrigin"].ToBool(sShowOrigin);
 
-      LineWidth = element["lines"]["width"].ToFloat(sLineWidth);
-//      HandDrawnDoc = element["lines"]["handDrawn"].ToBool(HandDrawnDocUnchecked);
+      LineWidth = element["lines"]["width"].ToFloat(sLineWidth);DrawnDocUnchecked);
       ConnectionArrowSize = element["lines"]["arrowSize"].ToFloat(sConnectionArrowSize);
       TextOffsetFromConnection = element["lines"]["textOffset"].ToFloat(sTextOffsetFromConnection);
 
@@ -446,8 +441,6 @@ namespace Trizbort.Setup {
       ObjectFont = new Font(ApplicationSettingsController.AppSettings.DefaultFontName, 11.0f, FontStyle.Regular, GraphicsUnit.World);
       SubtitleFont = new Font(ApplicationSettingsController.AppSettings.DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);
       LineFont = new Font(ApplicationSettingsController.AppSettings.DefaultFontName, 9.0f, FontStyle.Regular, GraphicsUnit.World);
-
-//      HandDrawnDoc = HandDrawnGlobal;
 
       DocumentSpecificMargins = ApplicationSettingsController.AppSettings.SpecifyGenMargins;
 
@@ -526,7 +519,6 @@ namespace Trizbort.Setup {
 
       scribe.StartElement("lines");
       scribe.Element("width", sLineWidth);
-//      scribe.Element("handDrawn", HandDrawnDocUnchecked);
       scribe.Element("arrowSize", sConnectionArrowSize);
       scribe.Element("textOffset", sTextOffsetFromConnection);
       scribe.EndElement();

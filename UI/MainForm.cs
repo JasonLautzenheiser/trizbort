@@ -492,7 +492,7 @@ namespace Trizbort.UI {
     }
 
     private void FileSaveMenuItem_Click(object sender, EventArgs e) {
-      if (Project.Current.FileName.isUrl())
+      if (Project.Current.FileName.IsUrl())
         saveAsProject();
       else
         saveProject();
@@ -600,7 +600,7 @@ namespace Trizbort.UI {
 
       if (ApplicationSettingsController.AppSettings.LoadLastProjectOnStart && !projectLoaded)
         try {
-          if (ApplicationSettingsController.AppSettings.LastProjectFileName.isUrl() || File.Exists(ApplicationSettingsController.AppSettings.LastProjectFileName))
+          if (ApplicationSettingsController.AppSettings.LastProjectFileName.IsUrl() || File.Exists(ApplicationSettingsController.AppSettings.LastProjectFileName))
             BeginInvoke((MethodInvoker) delegate { OpenProject(ApplicationSettingsController.AppSettings.LastProjectFileName); });
         }
         catch (Exception) {
@@ -737,7 +737,7 @@ namespace Trizbort.UI {
 
     private bool saveAsProject() {
       using (var dialog = new SaveFileDialog()) {
-        if (!Project.Current.FileName.isUrl()) {
+        if (!Project.Current.FileName.IsUrl()) {
           if (!string.IsNullOrEmpty(Project.Current.FileName))
             dialog.FileName = Project.Current.FileName;
           else
@@ -880,7 +880,7 @@ namespace Trizbort.UI {
     }
 
     private bool saveProject() {
-      if (Project.Current.FileName.isUrl())
+      if (Project.Current.FileName.IsUrl())
       {
         MessageBox.Show("You are trying to save a map loaded from the web.  Please use the 'Save Map As...' to save the map to your local drive.", "Problem saving map.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         return false;
@@ -962,7 +962,7 @@ namespace Trizbort.UI {
         var index = 1;
         var removedFiles = new List<string>();
         foreach (var recentProject in ApplicationSettingsController.AppSettings.RecentProjects)
-          if (recentProject.isUrl() || File.Exists(recentProject)) {
+          if (recentProject.IsUrl() || File.Exists(recentProject)) {
             var menuItem = new ToolStripMenuItem($"&{index++} {recentProject}") {Tag = recentProject};
             menuItem.Click += FileRecentProject_Click;
             m_fileRecentMapsMenuItem.DropDownItems.Add(menuItem);
@@ -982,9 +982,9 @@ namespace Trizbort.UI {
       }
 
       var mSaved = false;
-      if (Project.Current.FileName.isUrl() || (!Project.Current.HasFileName || Project.Current.IsDirty)) {
+      if (Project.Current.FileName.IsUrl() || (!Project.Current.HasFileName || Project.Current.IsDirty)) {
         if (MessageBox.Show("Your project needs to be saved before we can do a SmartSave.  Would you like to save the project now?", "Save Project?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
-          mSaved = Project.Current.FileName.isUrl() ? saveAsProject() : saveProject();
+          mSaved = Project.Current.FileName.IsUrl() ? saveAsProject() : saveProject();
         }
       } else {
         mSaved = true;

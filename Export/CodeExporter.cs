@@ -28,10 +28,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Trizbort.Automap;
 using Trizbort.Domain.Application;
 using Trizbort.Domain.Elements;
-using Trizbort.Domain.Enums;
 using Trizbort.Domain.Misc;
 using Trizbort.Export.Domain;
 using Trizbort.Setup;
@@ -50,8 +48,6 @@ namespace Trizbort.Export
     public abstract List<KeyValuePair<string, string>> FileDialogFilters { get; }
 
     public abstract string FileDialogTitle { get; }
-
- 
 
     private Encoding encoding => Encoding.UTF8;
 

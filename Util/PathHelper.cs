@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
+    Copyright (c) 2010-2020 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
 

@@ -65,8 +65,6 @@ namespace Trizbort.Export.Domain {
       ExportName = exportName;
       Location = location;
       Container = container;
-      Debug.Assert(container == null || container.Location == location,
-        "Thing's container is not located in the same room as the thing.");
       container?.Contents.Add(this);
       Indent = indent;
       WarningText = "";

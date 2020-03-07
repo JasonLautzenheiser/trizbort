@@ -11,7 +11,7 @@ namespace Trizbort.Extensions {
       return isVowel;
     }
 
-    public static bool isUrl(this string c) {
+    public static bool IsUrl(this string c) {
       return Uri.IsWellFormedUriString(c, UriKind.RelativeOrAbsolute);
     }
   }

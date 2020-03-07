@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Trizbort.Automap;
 using Trizbort.Domain;
 using Trizbort.Domain.Elements;
 using Trizbort.Domain.Enums;
@@ -191,14 +190,12 @@ namespace Trizbort.Export.Languages
 
     private string getExportName(string name, int? suffix)
     {
-      var spaceless = true;
+      bool spaceless = true;
 
       if (containsOddCharacters(name))
         name = stripOddCharacters(name);
 
-      if (containsWord(name, ReservedWords))
-        if (suffix == null)
-          suffix = 1;
+      if (containsWord(name, ReservedWords) && suffix == null) suffix = 1;
 
       if (suffix != null)
         name = $"{name}{(spaceless ? string.Empty : " ")}{suffix}";

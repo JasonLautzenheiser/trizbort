@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
-using Trizbort.Automap;
 using Trizbort.Domain;
 using Trizbort.Domain.Elements;
 using Trizbort.Domain.Enums;
-using Trizbort.Export.Domain;
 
 namespace Trizbort.Export.Languages
 {
@@ -17,10 +14,11 @@ namespace Trizbort.Export.Languages
         // Adventuron limits headers to 25 characters
         private const int MaximumHeaderLength = 25;
 
-        public override List<KeyValuePair<string, string>> FileDialogFilters => new List<KeyValuePair<string, string>> {
-      new KeyValuePair<string, string>("Adventuron Source Files", ".adv"),
-      new KeyValuePair<string, string>("Text Files",              ".txt")
-    };
+        public override List<KeyValuePair<string, string>> FileDialogFilters => 
+          new List<KeyValuePair<string, string>> {
+            new KeyValuePair<string, string>("Adventuron Source Files", ".adv"), 
+            new KeyValuePair<string, string>("Text Files", ".txt")
+          };
 
         public override string FileDialogTitle => "Adventuron Source Code (rooms only)";
 
@@ -38,17 +36,13 @@ namespace Trizbort.Export.Languages
             connectionsSB.Append("   from, direction, to = [\n");
 
             StringBuilder footerSB = new StringBuilder();
-            String startRoom = null;
-            Boolean isFirst = true;
+            string startRoom = null;
+            bool isFirst = true;
 
             int maxLen = -1;
 
-            foreach (var location in LocationsInExportOrder)
-            {
-                if  (location.ExportName.Length > maxLen)
-                {
-                    maxLen = escapeAdventuronId(location.ExportName).Length;
-                }
+            foreach (var location in LocationsInExportOrder.Where(location => location.ExportName.Length > maxLen)) {
+              maxLen = escapeAdventuronId(location.ExportName).Length;
             }
 
             foreach (var location in LocationsInExportOrder)
@@ -60,8 +54,8 @@ namespace Trizbort.Export.Languages
 
                 //String subtitle = string.IsNullOrEmpty(location.Room.SubTitle) ? null : location.Room.SubTitle;
 
-                String roomDescription = string.IsNullOrEmpty(location.Room.PrimaryDescription) ? "" : escapeAdventuronText(location.Room.PrimaryDescription);
-                String locationRoomName = string.IsNullOrEmpty(location.Room.Name) ? "" : location.Room.Name;
+                string roomDescription = string.IsNullOrEmpty(location.Room.PrimaryDescription) ? "" : escapeAdventuronText(location.Room.PrimaryDescription);
+                string locationRoomName = string.IsNullOrEmpty(location.Room.Name) ? "" : location.Room.Name;
 
                 if (locationRoomName.Length > MaximumHeaderLength)
                 {
@@ -69,8 +63,8 @@ namespace Trizbort.Export.Languages
                     locationRoomName = locationRoomName.Substring(0, MaximumHeaderLength);
                 }
 
-                String headerDescNormalized = escapeAdventuronText(locationRoomName);
-                String headerDescription = (" header = \""+ headerDescNormalized + "\"");
+                string headerDescNormalized = escapeAdventuronText(locationRoomName);
+                string headerDescription = (" header = \""+ headerDescNormalized + "\"");
                 locationsSB.Append("   " + padRight(escapeAdventuronId(location.ExportName), maxLen) + " : location \""+ roomDescription + "\"" + headerDescription + ";\n");
                 foreach (var direction in Directions.AllDirections)
                 {
@@ -92,120 +86,101 @@ namespace Trizbort.Export.Languages
             writer.WriteLine(connectionsSB.ToString());
             writer.WriteLine(footerSB.ToString());
         }
-        private static String padRight (String inputString, int maxLen)
+        private static string padRight (string inputString, int maxLen)
         {
             if (maxLen == inputString.Length) {
                 return inputString;
-            } else
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append(inputString);
-                for (int i=0; i < maxLen - inputString.Length; i++)
-                {
-                    sb.Append(" ");
-                }
-                return sb.ToString();
             }
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(inputString);
+            for (int i=0; i < maxLen - inputString.Length; i++)
+            {
+              sb.Append(" ");
+            }
+            return sb.ToString();
         }
 
-        private static String escapeAdventuronId(String input)
+        private static string escapeAdventuronId(string input)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var c in input.ToCharArray())
-            {
-                if (c == ' ' || c == '_')
-                {
-                    if (sb.Length > 0 && sb[sb.Length - 1] != '_')
-                    {
-                        sb.Append("_");
-                    }
+            foreach (var c in input.ToCharArray()) {
+              switch (c) {
+                case ' ':
+                case '_': {
+                  if (sb.Length > 0 && sb[sb.Length - 1] != '_')
+                  {
+                    sb.Append("_");
+                  }
+
+                  break;
                 }
-                else if (c == '\'')
-                {
-                    // Ignore
-                }
-                else if (
-                    (c >= 'a' && c <= 'z')    ||
-                    (c >= 'A' && c <= 'Z')    ||
-                    (c >= '0' && c <= '9')    ||
-                    (c >= 160 && c <= 8231)   ||
+                case '\'':
+                  break;
+                default: {
+                  if (
+                    (c >= 'a' && c <= 'z') ||
+                    (c >= 'A' && c <= 'Z') ||
+                    (c >= '0' && c <= '9') ||
+                    (c >= 160 && c <= 8231) ||
                     (c >= 8234 && c <= 55295) ||
                     (c >= 57344 && c <= 65533)
-                )
-                {
+                  ) {
                     sb.Append(c);
+                  }
+
+                  break;
                 }
-                else
-                {
-                    // Do nothing
-                }
+              }
             }
 
             return sb.ToString();
         }
 
-        private static String escapeAdventuronText(String input) {
+        private static string escapeAdventuronText(string input) {
             StringBuilder sb = new StringBuilder();
-            foreach (var c in input.ToCharArray())
-            {
-                if (c == '\n')
-                {
-                    sb.Append("\\n");
-                }
-                else if (c == '\r')
-                {
-                    // Ignore
-                }
-                else if (c == '$')
-                {
-                    sb.Append("$$");
-                }
-                else if (c == '\\')
-                {
-                    sb.Append("\\\\");
-
-                }
-                else if (c == '[')
-                {
-                    sb.Append("[[");
-
-                }
-                else if (c == ']')
-                {
-                    sb.Append("]]");
-
-                }
-                else if (c == '{')
-                {
-                    sb.Append("{{");
-
-                }
-                else if (c == '}')
-                {
-                    sb.Append("}}");
-
-                }
-                else if (c == '\"')
-                {
-                    sb.Append("\\\"");
-
-                }
-                else if (c == '~')
-                {
-                    sb.Append("~~");
-                }
-                else if (c == '<')
-                {
-                    sb.Append("<<");
-                }
-                else if (c == '>')
-                {
-                    sb.Append(">>");
-                }
-                else
-                {
-                    sb.Append(c);
-                }
+            foreach (var c in input.ToCharArray()) {
+              switch (c) {
+                case '\n':
+                  sb.Append("\\n");
+                  break;
+                case '\r':
+                  // Ignore
+                  break;
+                case '$':
+                  sb.Append("$$");
+                  break;
+                case '\\':
+                  sb.Append("\\\\");
+                  break;
+                case '[':
+                  sb.Append("[[");
+                  break;
+                case ']':
+                  sb.Append("]]");
+                  break;
+                case '{':
+                  sb.Append("{{");
+                  break;
+                case '}':
+                  sb.Append("}}");
+                  break;
+                case '\"':
+                  sb.Append("\\\"");
+                  break;
+                case '~':
+                  sb.Append("~~");
+                  break;
+                case '<':
+                  sb.Append("<<");
+                  break;
+                case '>':
+                  sb.Append(">>");
+                  break;
+                default:
+                  sb.Append(c);
+                  break;
+              }
             }
 
             return sb.ToString();

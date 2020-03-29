@@ -394,7 +394,7 @@ namespace Trizbort.Setup {
       GridSize = element["grid"]["size"].ToFloat(sGridSize);
       ShowOrigin = element["grid"]["showOrigin"].ToBool(sShowOrigin);
 
-      LineWidth = element["lines"]["width"].ToFloat(sLineWidth);DrawnDocUnchecked);
+      LineWidth = element["lines"]["width"].ToFloat(sLineWidth);
       ConnectionArrowSize = element["lines"]["arrowSize"].ToFloat(sConnectionArrowSize);
       TextOffsetFromConnection = element["lines"]["textOffset"].ToFloat(sTextOffsetFromConnection);
 

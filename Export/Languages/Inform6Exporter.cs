@@ -117,14 +117,14 @@ namespace Trizbort.Export.Languages {
     }
 
     protected override string GetExportName(Room room, int? suffix) {
-      var name = Deaccent(stripUnaccentedCharacters(room.Name)).Replace(" ", "");
+      var name = Deaccent(stripUnaccentedCharacters(room.Name)).Replace(" ", "").Replace("-","");
       if (string.IsNullOrEmpty(name)) name = "room";
       if (suffix != null) name = $"{name}{suffix}";
       return name;
     }
 
     protected override string GetExportName(string displayName, int? suffix) {
-      var name = Deaccent(stripUnaccentedCharacters(displayName)).Replace(" ", "");
+      var name = Deaccent(stripUnaccentedCharacters(displayName)).Replace(" ", "").Replace("-","");
       if (string.IsNullOrEmpty(name)) name = "item";
       if (suffix != null) name = $"{name}{suffix}";
       return name;

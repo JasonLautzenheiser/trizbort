@@ -117,14 +117,14 @@ namespace Trizbort.Export.Languages {
     }
 
     protected override string GetExportName(Room room, int? suffix) {
-      var name = Deaccent(stripUnaccentedCharacters(room.Name)).Replace(" ", "");
+      var name = Deaccent(stripUnaccentedCharacters(room.Name)).Replace(" ", "").Replace("-","");
       if (string.IsNullOrEmpty(name)) name = "room";
       if (suffix != null) name = $"{name}{suffix}";
       return name;
     }
 
     protected override string GetExportName(string displayName, int? suffix) {
-      var name = Deaccent(stripUnaccentedCharacters(displayName)).Replace(" ", "");
+      var name = Deaccent(stripUnaccentedCharacters(displayName)).Replace(" ", "").Replace("-","");
       if (string.IsNullOrEmpty(name)) name = "item";
       if (suffix != null) name = $"{name}{suffix}";
       return name;
@@ -243,7 +243,7 @@ namespace Trizbort.Export.Languages {
     private void writeOneThing(TextWriter writer, Thing thing, int indent) {
       writer.WriteLine("Object {0} {1} {2}", repeat("-> ", indent), thing.ExportName, toI6String(stripUnaccentedCharacters(thing.DisplayName).Trim(), DOUBLE_QUOTE));
 
-      writer.Write("  with  name {0}", toI6Words(Deaccent(stripUnaccentedCharacters(thing.DisplayName))));
+      writer.WriteLine("  with  name {0},", toI6Words(Deaccent(stripUnaccentedCharacters(thing.DisplayName))));
       writer.Write("        description {0}", toI6String(thing.DisplayName, DOUBLE_QUOTE));
       if (thing.Contents.Count > 0) {
         writer.WriteLine(",");

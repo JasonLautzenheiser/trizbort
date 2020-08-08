@@ -230,7 +230,6 @@ namespace Trizbort.UI.Controls {
         if (mZoomFactor != value) {
           mZoomFactor = value;
           lblZoom.Text = mZoomFactor.ToString("p0");
-          raiseZoomed();
           Invalidate();
         }
       }
@@ -868,8 +867,6 @@ namespace Trizbort.UI.Controls {
 
       mUpdatingScrollBars = false;
     }
-
-    public event EventHandler ZoomChanged;
 
     public void ZoomIn() {
       if (ZoomFactor < 100.0f) ZoomFactor *= 1.25f;
@@ -2401,11 +2398,6 @@ namespace Trizbort.UI.Controls {
     private void raiseNewConnectionStyleChanged() {
       var changed = NewConnectionStyleChanged;
       changed?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void raiseZoomed() {
-      var zoomed = ZoomChanged;
-      zoomed?.Invoke(this, EventArgs.Empty);
     }
 
     private void recreateHandles() {

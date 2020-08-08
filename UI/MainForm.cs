@@ -61,7 +61,6 @@ namespace Trizbort.UI {
     private readonly string mCaption;
     public Canvas Canvas;
 
-    private NumericUpDown txtZoom;
     // TODO: private ToolStripStatusLabel statusLabel;
     private Status trizStatusBar;
 
@@ -83,7 +82,6 @@ namespace Trizbort.UI {
       mLastUpdateUITime = DateTime.MinValue;
 
       m_automapBar.StopClick += onMAutomapBarOnStopClick;
-      Canvas.ZoomChanged += adjustZoomed;
     }
 
 
@@ -119,12 +117,6 @@ namespace Trizbort.UI {
       Project.FileWatcher.Dispose();
 
       base.OnClosing(e);
-    }
-
-    private void adjustZoomed(object sender, EventArgs e) {
-      
-
-      // txtZoom.Value = (decimal)Numeric.Clamp((Canvas.ZoomFactor * 100.0f),10.0f,100.0f);
     }
 
     private void alanToTextToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -611,24 +603,6 @@ namespace Trizbort.UI {
     private void setupStatusBar() {
       trizStatusBar = new Status(statusBar);
       trizStatusBar.UpdateStatusBar();
-
-
-      // txtZoom = new NumericUpDown {
-      //   TextAlign = HorizontalAlignment.Right,
-      //   Value = 100,
-      //   Maximum = 1000,
-      //   Minimum = 10
-      // };
-      // txtZoom.ValueChanged += txtZoom_ValueChanged;
-
-      // statusLabel = new ToolStripStatusLabel {Spring = true};
-      // statusBar.Items.Add(statusLabel);
-      //
-      // statusBar.Items.Add(new ToolStripLabel("Zoom %"));
-      // statusBar.Items.Add(new ToolStripControlHost(txtZoom));
-
-      // statusBar.Items.Add(pnlZoom);
-
     }
 
     private void makeRoomDarkToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -658,7 +632,7 @@ namespace Trizbort.UI {
       var now = DateTime.Now;
       if (now - mLastUpdateUITime > idleProcessingEveryNSeconds) {
         mLastUpdateUITime = now;
-        Task.Run(() => { updateCommandUI();});
+        Task.Run(updateCommandUI);
       }
     }
 
@@ -1068,11 +1042,6 @@ namespace Trizbort.UI {
 
     private void toggleTextToolStripMenuItem_Click(object sender, EventArgs e) {
       Canvas.ToggleText();
-    }
-
-    private void txtZoom_ValueChanged(object sender, EventArgs e) {
-      if (txtZoom.Value <= 0) txtZoom.Value = 10;
-      Canvas.ChangeZoom((float) Convert.ToDouble(txtZoom.Value) / 100.0f);
     }
 
     private void updateCommandUI() {

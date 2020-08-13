@@ -2,6 +2,8 @@
 
 Trizbort is a simple tool used to create maps for interactive fiction. First developed by genstein back in 2010, he continued to update until March, 2013 when he open-sourced the code and uploaded it here to Github. Fast forward to 2015 when I picked up the development and along with Andrew Schultz (focused on documentation and testing) we continue to improve this great software. Follow our blog for announcements and updates (https://lautzofif.wordpress.com/tag/trizbort/)
 
+![Mark stale issues and pull requests](https://github.com/JasonLautzenheiser/trizbort/workflows/Mark%20stale%20issues%20and%20pull%20requests/badge.svg)
+
 ## Links
 - [Documentation](http://www.trizbort.com/Docs/index.shtml)
 - [Release Notes](https://github.com/JasonLautzenheiser/trizbort/blob/master/changelog.md)

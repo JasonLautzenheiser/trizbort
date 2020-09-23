@@ -35,5 +35,5 @@ This software uses PdfSharp, copyright (c) 2005-2007 empira Software GmbH, Colog
 ## Special Thanks
 [![Resharper](http://www.trizbort.com/img/logo_resharper.png)](https://www.jetbrains.com/resharper/)
 
-[<img src="https://www.oz-code.com/Content/Images/header/ozcode_logo_long.svg" width="100">](https://www.oz-code.com/)
+[<img src="https://oz-code.com/wp-content/uploads/2020/01/oz-code-logo.svg" width="100">](https://www.oz-code.com/)
 

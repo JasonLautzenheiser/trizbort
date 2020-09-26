@@ -15,6 +15,7 @@ Thanks to [ainslec](https://github.com/ainslec) for adding exporting of code sup
 ### Fix
 - issue with periods in the author field when compiling exported I7 code (#480 - thanks to [no1453](https://github.com/no1453) for reporting this)
 - fixed issue with the minor adjustments on setting object text location was no longer accepting negative numbers.
+- Reference Room property was not being copied when you copied a room (#503).
 
 ## [1.7.2] - 2019-03-23
 

@@ -102,9 +102,6 @@ namespace Trizbort.Domain.Controllers {
       newRoom.Ellipse = room.Ellipse;
       newRoom.StraightEdges = room.StraightEdges;
       newRoom.AllCornersEqual = room.AllCornersEqual;
-      // the below will cause the project to have potentially more than 1 start/end rooms
-      //newRoom.IsStartRoom = room.IsStartRoom;
-      //newRoom.IsEndRoom = room.IsEndRoom;
       newRoom.ArbitraryAutomappedPosition = room.ArbitraryAutomappedPosition;
       newRoom.RoomFillColor = room.RoomFillColor;
       newRoom.SecondFillColor = room.SecondFillColor;
@@ -118,11 +115,11 @@ namespace Trizbort.Domain.Controllers {
       newRoom.ObjectsCustomPositionRight = room.ObjectsCustomPositionRight;
       newRoom.ObjectsCustomPosition = room.ObjectsCustomPosition;
       newRoom.Size = room.Size;
+      newRoom.ReferenceRoomId = room.ReferenceRoomId;
     }
 
     private CopyRoomObj createCopyObj(Room room) {
       var xx = new CopyRoomObj {
-//        ID = room.ID,
         Name = room.Name,
         Shape = room.Shape,
         SubTitle = room.SubTitle,
@@ -153,7 +150,8 @@ namespace Trizbort.Domain.Controllers {
         ObjectsCustomPositionRight = room.ObjectsCustomPositionRight,
         ObjectsCustomPosition = room.ObjectsCustomPosition,
         Position = room.Position,
-        Size = room.Size
+        Size = room.Size,
+        ReferenceRoomId = room.ReferenceRoomId 
       };
 
 
@@ -253,6 +251,7 @@ namespace Trizbort.Domain.Controllers {
       public Vector Size { get; set; }
       public bool StraightEdges { get; set; }
       public string SubTitle { get; set; }
+      public int ReferenceRoomId { get; set; }
     }
 
 

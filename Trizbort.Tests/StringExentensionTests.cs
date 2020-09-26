@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Shouldly;
 using Trizbort.Extensions;
 
 namespace Trizbort.Tests
@@ -10,25 +11,25 @@ namespace Trizbort.Tests
     [Test]
     public void StartsWithVowel_EmptyString_ReturnsFalse()
     {
-      Assert.AreEqual(false, "".StartsWithVowel());
+      "".StartsWithVowel().ShouldBeFalse();
     }
 
     [Test]
     public void StartsWithVowel_Null_ReturnsFalse()
     {
-      Assert.AreEqual(false, ((string)null).StartsWithVowel());
+      ((string)null).StartsWithVowel().ShouldBeFalse();
     }
 
     [Test]
     public void StartsWithVowel_StartsWithConsonant_ReturnsFalse()
     {
-      Assert.AreEqual(false, "trizbort".StartsWithVowel());
+      "trizbort".StartsWithVowel().ShouldBeFalse();
     }
 
     [Test]
     public void StartsWithVowel_StartsWithVowel_ReturnsFalse()
     {
-      Assert.AreEqual(true, "apple".StartsWithVowel());
+      "apple".StartsWithVowel().ShouldBeTrue();
     }
 
   }

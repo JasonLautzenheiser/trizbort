@@ -8,6 +8,7 @@ Thanks to [ccp-codex](https://github.com/ccp-codex) for all the work on the foll
 - added HiDPI support
 - modernized the font and appearance of the forms slightly, helping with the HiDPI support.
 - updated some 3rd party packages and updated project to .net 4.8
+- Added shortcuts to Map Settings (Ctrl+Comma) and App Settings (Alt+Shift+S) (#504)
 
 Thanks to [ainslec](https://github.com/ainslec) for adding exporting of code support for his [Adventuron Text Adventure Creation System](https://adventuron.io/)
 

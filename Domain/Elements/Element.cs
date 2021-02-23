@@ -29,6 +29,7 @@ using Newtonsoft.Json;
 using PdfSharp.Drawing;
 using Trizbort.Domain.Application;
 using Trizbort.Domain.Misc;
+using Trizbort.Util;
 
 namespace Trizbort.Domain.Elements {
   public class Element : IComparable<Element> {
@@ -90,6 +91,8 @@ namespace Trizbort.Domain.Elements {
     /// </summary>
     [JsonIgnore]
     public List<Port> PortList { get; set; } = new List<Port>();
+
+    public virtual List<CustomAttribute> CustomAttributes { get; set; } = new List<CustomAttribute>();
 
     public virtual Vector Position { get; set; }
 
@@ -249,6 +252,43 @@ namespace Trizbort.Domain.Elements {
     /// </remarks>
     public virtual Rect UnionBoundsWith(Rect rect, bool includeMargins) {
       return new Rect();
+    }
+
+    public virtual void LoadCustomAttributes(XmlElementReader element)
+    {
+        if (element == null)
+        {
+            return;
+        }
+
+        CustomAttributes.Clear();
+
+        foreach (var childElement in element.Children)
+        {
+            CustomAttributes.Add(new CustomAttribute
+            {
+                Name = childElement.Attribute("name").Text,
+                DataType = childElement.Attribute("dataType").Text,
+                Value = childElement.Attribute("value").Text,
+            });
+        }
+    }
+
+    public virtual void SaveCustomAttributes(XmlScribe scribe)
+    {
+        if (CustomAttributes == null)
+        {
+            return;
+        }
+
+        scribe.StartElement("customAttributes");
+        
+        CustomAttributes.ForEach((ca) =>
+        {
+            ca.Save(scribe);
+        });
+
+        scribe.EndElement();
     }
 
     /// <summary>

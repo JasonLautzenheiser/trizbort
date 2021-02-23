@@ -348,6 +348,8 @@ namespace Trizbort.Setup {
       }
     }
 
+    public static List<CustomAttributeDefinition> CustomAttributeDefinitions { get; set; } = new List<CustomAttributeDefinition>();
+
     public static event EventHandler Changed;
 
     public static void Load(XmlElementReader element) {
@@ -418,6 +420,19 @@ namespace Trizbort.Setup {
 
       KeypadNavigationCreationModifier = stringToModifierKeys(element["keypadNavigation"]["creationModifier"].Text, sKeypadNavigationCreationModifier);
       KeypadNavigationUnexploredModifier = stringToModifierKeys(element["keypadNavigation"]["unexploredModifier"].Text, sKeypadNavigationUnexploredModifier);
+
+      var attributeDefinitions = element["customAttributeDefinitions"];
+      if (attributeDefinitions != null)
+      {
+        CustomAttributeDefinitions.Clear();
+
+        foreach (var childElement in attributeDefinitions.Children)
+        {
+          var definition = new CustomAttributeDefinition();
+          definition.Load(childElement);
+          CustomAttributeDefinitions.Add(definition);
+        }
+      }
     }
 
 
@@ -548,6 +563,12 @@ namespace Trizbort.Setup {
       scribe.Element("creationModifier", modifierKeysToString(sKeypadNavigationCreationModifier));
       scribe.Element("unexploredModifier", modifierKeysToString(sKeypadNavigationUnexploredModifier));
       scribe.EndElement();
+
+      scribe.StartElement("customAttributeDefinitions");
+      foreach (var cad in CustomAttributeDefinitions) {
+        cad.Save(scribe);
+      }
+      scribe.EndElement();
     }
 
     public static void ShowMapDialog() {
@@ -591,6 +612,7 @@ namespace Trizbort.Setup {
         dialog.WrapTextAtDashes = WrapTextAtDashes;
         dialog.ConnectionArrowSize = ConnectionArrowSize;
         dialog.DefaultRoomShape = DefaultRoomShape;
+        dialog.CustomAttributeDefinitions = CustomAttributeDefinitions;
         if (dialog.ShowDialog() == DialogResult.OK) {
           for (var index = 0; index < Colors.Count; ++index) {
             if (Color[index] != dialog.ElementColors[index]) Project.Current.IsDirty = true;
@@ -669,6 +691,10 @@ namespace Trizbort.Setup {
             if (regNameList[index] != newReg[index].RegionName)
               Project.Current.IsDirty = true;
           }
+
+        // Custom Attribute Definitions take effect even if we Cancel out since elements are updated immediately.
+        if (!Enumerable.SequenceEqual(CustomAttributeDefinitions, dialog.CustomAttributeDefinitions)) Project.Current.IsDirty = true;
+        CustomAttributeDefinitions = dialog.CustomAttributeDefinitions;
       }
     }
 

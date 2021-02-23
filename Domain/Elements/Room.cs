@@ -1201,6 +1201,8 @@ namespace Trizbort.Domain.Elements {
       ObjectsCustomPosition = element["objects"].Attribute("custom").ToBool();
       ObjectsCustomPositionRight = element["objects"].Attribute("customRight").ToInt();
       ObjectsCustomPositionDown = element["objects"].Attribute("customDown").ToInt();
+
+      LoadCustomAttributes(element["customAttributes"]);
     }
 
     public bool MatchDescription(string description) {
@@ -1333,6 +1335,8 @@ namespace Trizbort.Domain.Elements {
           scribe.Value(Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|"));
         scribe.EndElement();
       }
+
+      SaveCustomAttributes(scribe);
     }
 
     public void ShowDialog(PropertiesStartType startPoint) {
@@ -1453,6 +1457,7 @@ namespace Trizbort.Domain.Elements {
         dialog.StraightEdges = StraightEdges;
         dialog.AllCornersEqual = AllCornersEqual;
         dialog.Shape = Shape;
+        dialog.LoadCustomAttributes(CustomAttributes);
 
         if (dialog.ShowDialog(Project.Canvas) == DialogResult.OK) {
           Name = dialog.RoomName;
@@ -1492,6 +1497,9 @@ namespace Trizbort.Domain.Elements {
           Ellipse = dialog.Ellipse;
           StraightEdges = dialog.StraightEdges;
           AllCornersEqual = dialog.AllCornersEqual;
+
+          CustomAttributes.Clear();
+          CustomAttributes.AddRange(dialog.GetCustomAttributes());
         }
       }
     }

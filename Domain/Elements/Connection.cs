@@ -251,6 +251,8 @@ namespace Trizbort.Domain.Elements {
           VertexList.Add(vertex);
         }
 
+      LoadCustomAttributes(element["customAttributes"]);
+
       return vertexElementList;
     }
 
@@ -325,7 +327,7 @@ namespace Trizbort.Domain.Elements {
     }
 
     public void EndLoad(object state) {
-      var elements = (List<XmlElementReader>) state;
+      var elements = ((List<XmlElementReader>) state).Where((w) => w.HasName("dock")).ToList();
       for (var index = 0; index < elements.Count; ++index) {
         var element = elements[index];
         if (element.HasName("dock"))
@@ -559,6 +561,8 @@ namespace Trizbort.Domain.Elements {
 
         ++index;
       }
+
+      SaveCustomAttributes(scribe);
     }
 
     public void SetText(string start, string mid, string end) {
@@ -583,6 +587,7 @@ namespace Trizbort.Domain.Elements {
         dialog.EndText = EndText;
         dialog.ConnectionColor = ConnectionColor;
         dialog.Door = Door;
+        dialog.LoadCustomAttributes(CustomAttributes);
         if (dialog.ShowDialog(Project.Canvas) == DialogResult.OK) {
           Name = dialog.ConnectionName;
           Description = dialog.ConnectionDescription;
@@ -593,6 +598,8 @@ namespace Trizbort.Domain.Elements {
           MidText = dialog.MidText;
           EndText = dialog.EndText;
           Door = dialog.Door;
+          CustomAttributes.Clear();
+          CustomAttributes.AddRange(dialog.GetCustomAttributes());
         }
       }
     }

@@ -23,6 +23,8 @@
 */
 
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using Trizbort.Domain.Elements;
@@ -32,10 +34,21 @@ namespace Trizbort.UI {
   public partial class ConnectionPropertiesDialog : Form {
     private const string NO_COLOR_SET = "No Color Set";
 
-
-    
     public ConnectionPropertiesDialog() {
       InitializeComponent();
+
+      // DataGrid columns
+      var customAttributeNameCol = new DataGridViewTextBoxColumn();
+      customAttributeNameCol.HeaderText = "Name";
+      customAttributeNameCol.DataPropertyName = "Name";
+      customAttributeNameCol.ReadOnly = false;
+      dgvCustomAttributes.Columns.Insert(0, customAttributeNameCol);
+
+      var customAttributeValueCol = new DataGridViewTextBoxColumn();
+      customAttributeValueCol.HeaderText = "Value";
+      customAttributeValueCol.DataPropertyName = "Value";
+      customAttributeValueCol.ReadOnly = false;
+      dgvCustomAttributes.Columns.Insert(1, customAttributeValueCol);
     }
 
     public Color ConnectionColor {
@@ -111,6 +124,40 @@ namespace Trizbort.UI {
 
     private void changeConnectionColor() {
       ConnectionColor = Colors.ShowColorDialog(ConnectionColor, this);
+    }
+
+    public void LoadCustomAttributes(IList<CustomAttribute> customAttributes)
+    {
+      dgvCustomAttributes.AutoGenerateColumns = false;
+      //CustomAttributeBindingSource = new BindingSource(new BindingList<CustomAttribute>(customAttributes), null);
+      var dataTable = new DataTable();
+      dataTable.Columns.Add("Name", typeof(String));
+      dataTable.Columns.Add("Value", typeof(String));
+
+      foreach (var ca in customAttributes)
+      {
+        dataTable.Rows.Add(ca.Name, ca.Value);
+      }
+
+      dgvCustomAttributes.DataSource = dataTable;
+    }
+
+    public IReadOnlyList<CustomAttribute> GetCustomAttributes()
+    {
+      var dataTable = dgvCustomAttributes.DataSource as DataTable;
+      var list = new List<CustomAttribute>(dataTable.Rows.Count);
+
+      foreach (DataRow row in dataTable.Rows)
+      {
+        list.Add(new CustomAttribute
+        {
+          DataType = "String",
+          Name = row["Name"] as string,
+          Value = row["Value"] as string,
+        });
+      }
+
+      return list.AsReadOnly();
     }
 
     private void chkDoor_CheckedChanged(object sender, EventArgs e) {

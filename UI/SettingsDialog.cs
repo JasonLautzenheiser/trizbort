@@ -25,6 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Trizbort.Domain.Application;
@@ -34,7 +35,8 @@ using Trizbort.Setup;
 using Trizbort.Util;
 using Region = Trizbort.Domain.Misc.Region;
 
-namespace Trizbort.UI {
+namespace Trizbort.UI
+{
   public partial class SettingsDialog : Form {
     private const int HORIZONTAL_MARGIN = 2;
     private const int VERTICAL_MARGIN = 2;
@@ -47,6 +49,7 @@ namespace Trizbort.UI {
     private Font mLineFont;
     private Font mSmallFont;
     private Font mSubtitleFont;
+    private List<CustomAttributeDefinition> mCustomAttributeDefinitions;
 
     public SettingsDialog() {
       ElementColors = new Color[Colors.Count];
@@ -76,6 +79,8 @@ namespace Trizbort.UI {
       m_RegionListing.SelectedIndex = 0;
 
       m_documentVerticalMargins.Enabled = m_documentHorizontalMargins.Enabled = m_documentSpecificMargins.Checked;
+
+      mCustomAttributeDefinitions = new List<CustomAttributeDefinition>();
     }
 
     public string Author { get => m_authorTextBox.Text; set => m_authorTextBox.Text = value; }
@@ -109,6 +114,33 @@ namespace Trizbort.UI {
     public string History { get => m_historyTextBox.Text; set => m_historyTextBox.Text = value; }
 
     public bool IsGridVisible { get => m_showGridCheckBox.Checked; set => m_showGridCheckBox.Checked = value; }
+
+    public List<CustomAttributeDefinition> CustomAttributeDefinitions
+    {
+      get
+      {
+        return new List<CustomAttributeDefinition>(mCustomAttributeDefinitions);
+      }
+      set
+      {
+        mCustomAttributeDefinitions.Clear();
+        mCustomAttributeDefinitions.AddRange(value);
+
+        foreach (var cad in mCustomAttributeDefinitions)
+        {
+          switch (cad.ObjectType)
+          {
+            case "room":
+              lstCustomAttributeDefinitionsRoom.Items.Add(cad.Name);
+              break;
+
+            case "connection":
+              lstCustomAttributeDefinitionsConnection.Items.Add(cad.Name);
+              break;
+          }
+        }
+      }
+    } 
 
     public Font LargeFont {
       get => mLargeFont;
@@ -469,5 +501,273 @@ namespace Trizbort.UI {
       m_RegionListing.Items[itemSelected] = pNew;
       return true;
     }
+
+    private void btnCustomAttributeDefinitionAdd_Click(object sender, EventArgs e)
+    {
+      InputDialogItem[] items = {
+        new InputDialogItem("Attribute Name")
+      };
+
+      InputDialog input = InputDialog.Show("Custom Room Attribute", items, InputBoxButtons.OKCancel);
+
+      if (input.Result == InputBoxResult.OK)
+      {
+        var button = sender as Button;
+        var newAttribName = input.Items["Attribute Name"].Trim();
+
+        if (String.IsNullOrWhiteSpace(newAttribName))
+        {
+          return;
+        }
+
+        string objectType;
+        ListBox targetListBox;
+        IList<Element> targetElements;
+
+        switch (button.Name)
+        {
+          case "btnCustomAttributeDefinitionRoomAdd":
+            objectType = "room";
+            targetListBox = lstCustomAttributeDefinitionsRoom;
+            targetElements = Project.Current.Elements.OfType<Room>().Cast<Element>().ToList();
+            break;
+
+          case "btnCustomAttributeDefinitionConnectionAdd":
+            objectType = "connection";
+            targetListBox = lstCustomAttributeDefinitionsConnection;
+            targetElements = Project.Current.Elements.OfType<Connection>().Cast<Element>().ToList();
+            break;
+
+          default:
+            return;
+        }
+
+        // Check for duplicate
+        if (CustomAttributeDefinitions.Any((x) => x.ObjectType == objectType && x.Name.Equals(newAttribName, StringComparison.CurrentCultureIgnoreCase)))
+        {
+          MessageBox.Show("That name is already in use.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+          return;
+        }
+
+        mCustomAttributeDefinitions.Add(new CustomAttributeDefinition
+        {
+          DataType = "String",
+          ObjectType = objectType,
+          Name = newAttribName,
+        });
+
+        targetListBox.Items.Add(newAttribName);
+
+        foreach (var targetElement in targetElements)
+        {
+          if (!targetElement.CustomAttributes.Any((a) => a.Name == newAttribName))
+          {
+            targetElement.CustomAttributes.Add(new CustomAttribute
+            {
+              Name = newAttribName,
+              DataType = "String",
+              Value = ""
+            });
+
+            Project.Current.IsDirty = true;
+          }
+        }
+      }
     }
+
+    private void btnCustomAttributeDefinitionDelete_Click(object sender, EventArgs e)
+    {
+      var button = sender as Button;
+      string objectType;
+      ListBox targetListBox;
+      IList<Element> targetElements;
+
+      switch (button.Name)
+      {
+        case "btnCustomAttributeDefinitionRoomDelete":
+          objectType = "room";
+          targetListBox = lstCustomAttributeDefinitionsRoom;
+          targetElements = Project.Current.Elements.OfType<Room>().Cast<Element>().ToList();
+          break;
+
+        case "btnCustomAttributeDefinitionConnectionDelete":
+          objectType = "connection";
+          targetListBox = lstCustomAttributeDefinitionsConnection;
+          targetElements = Project.Current.Elements.OfType<Connection>().Cast<Element>().ToList();
+          break;
+
+        default:
+          return;
+      }
+
+      if (targetListBox.Items.Count == 0)
+      {
+        return;
+      }
+
+      var doomedItems = new List<string>(targetListBox.SelectedItems.Cast<string>());
+
+      var affectedItems = targetElements.Where((c) => c.CustomAttributes.Count((x) => doomedItems.Contains(x.Name) && !String.IsNullOrWhiteSpace(x.Value)) > 0).ToList();
+
+      if (affectedItems.Count > 0) {
+        var msg = $"There are {affectedItems.Count} {objectType}(s) using one or more attributes set for deletion. Proceed?";
+        if (MessageBox.Show(msg, "Confirm Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+        {
+          return;
+        }
+      }
+
+      foreach (var doomedItem in doomedItems)
+      {
+        mCustomAttributeDefinitions.RemoveAll((r) => r.Name == doomedItem && r.ObjectType == objectType);
+
+        targetListBox.Items.Remove(doomedItem);
+
+        foreach (var affectedItem in affectedItems)
+        {
+          affectedItem.CustomAttributes.RemoveAll((r) => r.Name == doomedItem);
+
+          Project.Current.IsDirty = true;
+        }
+      }
+    }
+
+    private void lstCustomAttributeDefinitionsConnection_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      var target = sender as ListBox;
+      btnCustomAttributeDefinitionConnectionDelete.Enabled = (target.SelectedIndices.Count > 0);
+    }
+
+    private void lstCustomAttributeDefinitionsRoom_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      var target = sender as ListBox;
+      btnCustomAttributeDefinitionRoomDelete.Enabled = (target.SelectedIndices.Count > 0);
+    }
+
+    private void btnCustomAttributionDefinitionExport_Click(object sender, EventArgs e)
+    {
+      if (!mCustomAttributeDefinitions.Any())
+      {
+        MessageBox.Show("There are no Custom Attribute Definitions to Export!", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        return;
+      }
+
+      var saveFileDialog = new SaveFileDialog
+      {
+        Filter = "Text File|*.txt",
+        Title = "Export Custom Attributes"
+      };
+
+      saveFileDialog.ShowDialog();
+
+      if (String.IsNullOrWhiteSpace(saveFileDialog.FileName))
+      {
+        return;
+      }
+
+      try
+      {
+        File.WriteAllLines(saveFileDialog.FileName, mCustomAttributeDefinitions.Select((x) => x.ToExportFileLine()));
+      }
+      catch
+      {
+        MessageBox.Show("There was an error while attempting to create the export file.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
+
+      MessageBox.Show("Custom Attributes were successfully exported.", "File Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+    private void btnCustomAttributionDefinitionImport_Click(object sender, EventArgs e)
+    {
+      if (mCustomAttributeDefinitions.Any())
+      {
+        MessageBox.Show("There are already Custom Attributes defined. Please delete existing Custom Attributes before importing.", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        return;
+      }
+
+      var openFileDialog = new OpenFileDialog
+      {
+        Filter = "Text File|*.txt",
+        Title = "Import Custom Attributes"
+      };
+
+      openFileDialog.ShowDialog();
+
+      if (String.IsNullOrWhiteSpace(openFileDialog.FileName))
+      {
+        return;
+      }
+
+      string[] lines;
+      try
+      {
+        lines = File.ReadAllLines(openFileDialog.FileName);
+      }
+      catch
+      {
+        MessageBox.Show("There was an error while attempting to read the import file.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
+
+      int lineNum = 0;
+      var newItems = new List<CustomAttributeDefinition>();
+
+      foreach (var line in lines)
+      {
+        lineNum++;
+
+        if (line.StartsWith("#"))
+        {
+          continue;
+        }
+
+        var newDef = CustomAttributeDefinition.FromImportFileLine(line);
+
+        if (newDef == null)
+        {
+          MessageBox.Show($"There was an error on line #{lineNum} of the import file.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+          return;
+        }
+
+        newItems.Add(newDef);
+      }
+
+      CustomAttributeDefinitions = newItems;
+
+      // Apply new Custom Attributes to Rooms
+      foreach (var targetElement in Project.Current.Elements.OfType<Room>().Cast<Element>())
+      {
+        foreach (var cad in mCustomAttributeDefinitions.Where((w) => w.ObjectType == "room"))
+        {
+          targetElement.CustomAttributes.Add(new CustomAttribute
+          {
+            Name = cad.Name,
+            DataType = cad.DataType,
+            Value = ""
+          });
+
+          Project.Current.IsDirty = true;
+        }
+      }
+
+      // Apply new Custom Attributes to Connections
+      foreach (var targetElement in Project.Current.Elements.OfType<Connection>().Cast<Element>())
+      {
+        foreach (var cad in mCustomAttributeDefinitions.Where((w) => w.ObjectType == "connection"))
+        {
+          targetElement.CustomAttributes.Add(new CustomAttribute
+          {
+            Name = cad.Name,
+            DataType = cad.DataType,
+            Value = ""
+          });
+
+          Project.Current.IsDirty = true;
+        }
+      }
+
+      MessageBox.Show($"{newItems.Count} Custom Attributes were successfully imported.", "File Import", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+  }
 }

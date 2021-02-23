@@ -147,6 +147,8 @@
     <Compile Include="Domain\Misc\ConnectionIconBlock.cs" />
     <Compile Include="Domain\Elements\Door.cs" />
     <Compile Include="Domain\Enums\ValidationType.cs" />
+    <Compile Include="Domain\Misc\CustomAttribute.cs" />
+    <Compile Include="Domain\Misc\CustomAttributeDefinition.cs" />
     <Compile Include="Domain\RoomValidationState.cs" />
     <Compile Include="Domain\SerializeHelpers\ElementConverter.cs" />
     <Compile Include="Domain\SerializeHelpers\PortConverter.cs" />

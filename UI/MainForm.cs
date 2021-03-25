@@ -406,7 +406,12 @@ namespace Trizbort.UI {
 
     private void FileExportImageMenuItem_Click(object sender, EventArgs e) {
       using (var dialog = new SaveFileDialog()) {
-        dialog.Filter = "PNG Images|*.png|JPEG Images|*.jpg|BMP Images|*.bmp|Enhanced Metafiles (EMF)|*.emf|All Files|*.*||";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+          dialog.Filter = "PNG Images|*.png|JPEG Images|*.jpg|BMP Images|*.bmp|Enhanced Metafiles (EMF)|*.emf|All Files|*.*||";
+        }
+        else {
+	  dialog.Filter = "PNG Images|*.png|JPEG Images|*.jpg|BMP Images|*.bmp|All Files|*.*||";
+        }
         dialog.Title = "Export Image";
         dialog.DefaultExt = getExtensionForDefaultImageType();
         dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(ApplicationSettingsController.AppSettings.LastExportImageFileName);
@@ -750,7 +755,9 @@ namespace Trizbort.UI {
         format = ImageFormat.Jpeg;
       else if (StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".bmp") == 0)
         format = ImageFormat.Bmp;
-      else if (StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".emf") == 0) format = ImageFormat.Emf;
+      else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+               && StringComparer.InvariantCultureIgnoreCase.Compare(ext, ".emf") == 0)
+	format = ImageFormat.Emf;
 
       var size = Canvas.ComputeCanvasBounds(true).Size * (ApplicationSettingsController.AppSettings.SaveAt100 ? 1.0f : Canvas.ZoomFactor);
       size.X = Numeric.Clamp(size.X, 16, 8192);

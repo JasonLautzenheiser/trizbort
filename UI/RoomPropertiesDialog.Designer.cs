@@ -582,7 +582,7 @@ namespace Trizbort.UI
             // m_cCheckBox
             // 
             this.m_cCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.m_cCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.m_cCheckBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_cCheckBox.Location = new System.Drawing.Point(76, 96);
             this.m_cCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_cCheckBox.Name = "m_cCheckBox";
@@ -597,14 +597,14 @@ namespace Trizbort.UI
             // m_nwCheckBox
             // 
             this.m_nwCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.m_nwCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.m_nwCheckBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_nwCheckBox.Location = new System.Drawing.Point(12, 32);
             this.m_nwCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_nwCheckBox.Name = "m_nwCheckBox";
             this.m_nwCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_nwCheckBox.TabIndex = 8;
             this.m_nwCheckBox.Tag = "Position";
-            this.m_nwCheckBox.Text = "ã";
+            this.m_nwCheckBox.Text = "🡼";
             this.m_nwCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_nwCheckBox.UseVisualStyleBackColor = true;
             this.m_nwCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -612,14 +612,14 @@ namespace Trizbort.UI
             // m_seCheckBox
             // 
             this.m_seCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.m_seCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.m_seCheckBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_seCheckBox.Location = new System.Drawing.Point(140, 160);
             this.m_seCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_seCheckBox.Name = "m_seCheckBox";
             this.m_seCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_seCheckBox.TabIndex = 16;
             this.m_seCheckBox.Tag = "Position";
-            this.m_seCheckBox.Text = "æ";
+            this.m_seCheckBox.Text = "🡾";
             this.m_seCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_seCheckBox.UseVisualStyleBackColor = true;
             this.m_seCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -627,14 +627,14 @@ namespace Trizbort.UI
             // m_nCheckBox
             // 
             this.m_nCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.m_nCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.m_nCheckBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_nCheckBox.Location = new System.Drawing.Point(76, 32);
             this.m_nCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_nCheckBox.Name = "m_nCheckBox";
             this.m_nCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_nCheckBox.TabIndex = 9;
             this.m_nCheckBox.Tag = "Position";
-            this.m_nCheckBox.Text = "á";
+            this.m_nCheckBox.Text = "🡹";
             this.m_nCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_nCheckBox.UseVisualStyleBackColor = true;
             this.m_nCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -642,14 +642,14 @@ namespace Trizbort.UI
             // m_sCheckBox
             // 
             this.m_sCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.m_sCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.m_sCheckBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_sCheckBox.Location = new System.Drawing.Point(76, 160);
             this.m_sCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_sCheckBox.Name = "m_sCheckBox";
             this.m_sCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_sCheckBox.TabIndex = 15;
             this.m_sCheckBox.Tag = "Position";
-            this.m_sCheckBox.Text = "â";
+            this.m_sCheckBox.Text = "🡻";
             this.m_sCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_sCheckBox.UseVisualStyleBackColor = true;
             this.m_sCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -657,14 +657,14 @@ namespace Trizbort.UI
             // m_neCheckBox
             // 
             this.m_neCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.m_neCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.m_neCheckBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_neCheckBox.Location = new System.Drawing.Point(140, 32);
             this.m_neCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_neCheckBox.Name = "m_neCheckBox";
             this.m_neCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_neCheckBox.TabIndex = 10;
             this.m_neCheckBox.Tag = "Position";
-            this.m_neCheckBox.Text = "ä";
+            this.m_neCheckBox.Text = "🡽";
             this.m_neCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_neCheckBox.UseVisualStyleBackColor = true;
             this.m_neCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -672,14 +672,14 @@ namespace Trizbort.UI
             // m_swCheckBox
             // 
             this.m_swCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.m_swCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.m_swCheckBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_swCheckBox.Location = new System.Drawing.Point(12, 160);
             this.m_swCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_swCheckBox.Name = "m_swCheckBox";
             this.m_swCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_swCheckBox.TabIndex = 14;
             this.m_swCheckBox.Tag = "Position";
-            this.m_swCheckBox.Text = "å";
+            this.m_swCheckBox.Text = "🡿";
             this.m_swCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_swCheckBox.UseVisualStyleBackColor = true;
             this.m_swCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -687,14 +687,14 @@ namespace Trizbort.UI
             // m_wCheckBox
             // 
             this.m_wCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.m_wCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.m_wCheckBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_wCheckBox.Location = new System.Drawing.Point(12, 96);
             this.m_wCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_wCheckBox.Name = "m_wCheckBox";
             this.m_wCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_wCheckBox.TabIndex = 11;
             this.m_wCheckBox.Tag = "Position";
-            this.m_wCheckBox.Text = "ß";
+            this.m_wCheckBox.Text = "🡸";
             this.m_wCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_wCheckBox.UseVisualStyleBackColor = true;
             this.m_wCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -702,14 +702,14 @@ namespace Trizbort.UI
             // m_eCheckBox
             // 
             this.m_eCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.m_eCheckBox.Font = new System.Drawing.Font("Wingdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.m_eCheckBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.m_eCheckBox.Location = new System.Drawing.Point(140, 96);
             this.m_eCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.m_eCheckBox.Name = "m_eCheckBox";
             this.m_eCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_eCheckBox.TabIndex = 13;
             this.m_eCheckBox.Tag = "Position";
-            this.m_eCheckBox.Text = "à";
+            this.m_eCheckBox.Text = "🡺";
             this.m_eCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_eCheckBox.UseVisualStyleBackColor = true;
             this.m_eCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);

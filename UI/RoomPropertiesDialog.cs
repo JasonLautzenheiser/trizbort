@@ -89,6 +89,14 @@ namespace Trizbort.UI {
         if (start == PropertiesStartType.RoomName)
           txtName.Focus();
       }
+      Console.WriteLine(m_neCheckBox.Text);
+      Console.WriteLine(m_seCheckBox.Text);
+      Console.WriteLine(m_nwCheckBox.Text);
+      Console.WriteLine(m_swCheckBox.Text);
+      Console.WriteLine(m_nCheckBox.Text);
+      Console.WriteLine(m_sCheckBox.Text);
+      Console.WriteLine(m_eCheckBox.Text);
+      Console.WriteLine(m_wCheckBox.Text);
     }
 
     public bool AllCornersEqual {

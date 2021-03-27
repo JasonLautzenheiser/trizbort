@@ -589,7 +589,7 @@ namespace Trizbort.UI
             this.m_cCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_cCheckBox.TabIndex = 12;
             this.m_cCheckBox.Tag = "Position";
-            this.m_cCheckBox.Text = "o";
+            this.m_cCheckBox.Text = "\uD83D\uDF8E";
             this.m_cCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_cCheckBox.UseVisualStyleBackColor = true;
             this.m_cCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -604,7 +604,7 @@ namespace Trizbort.UI
             this.m_nwCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_nwCheckBox.TabIndex = 8;
             this.m_nwCheckBox.Tag = "Position";
-            this.m_nwCheckBox.Text = "🡼";
+            this.m_nwCheckBox.Text = "\uD83E\uDC75";
             this.m_nwCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_nwCheckBox.UseVisualStyleBackColor = true;
             this.m_nwCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -619,7 +619,7 @@ namespace Trizbort.UI
             this.m_seCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_seCheckBox.TabIndex = 16;
             this.m_seCheckBox.Tag = "Position";
-            this.m_seCheckBox.Text = "🡾";
+            this.m_seCheckBox.Text = "\uD83E\uDC76";
             this.m_seCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_seCheckBox.UseVisualStyleBackColor = true;
             this.m_seCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -634,7 +634,7 @@ namespace Trizbort.UI
             this.m_nCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_nCheckBox.TabIndex = 9;
             this.m_nCheckBox.Tag = "Position";
-            this.m_nCheckBox.Text = "🡹";
+            this.m_nCheckBox.Text = "\uD83E\uDC79";
             this.m_nCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_nCheckBox.UseVisualStyleBackColor = true;
             this.m_nCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -649,7 +649,7 @@ namespace Trizbort.UI
             this.m_sCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_sCheckBox.TabIndex = 15;
             this.m_sCheckBox.Tag = "Position";
-            this.m_sCheckBox.Text = "🡻";
+            this.m_sCheckBox.Text = "\uD83E\uDC7B";
             this.m_sCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_sCheckBox.UseVisualStyleBackColor = true;
             this.m_sCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -664,7 +664,7 @@ namespace Trizbort.UI
             this.m_neCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_neCheckBox.TabIndex = 10;
             this.m_neCheckBox.Tag = "Position";
-            this.m_neCheckBox.Text = "🡽";
+            this.m_neCheckBox.Text = "\uD83E\uDC75";
             this.m_neCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_neCheckBox.UseVisualStyleBackColor = true;
             this.m_neCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -679,7 +679,7 @@ namespace Trizbort.UI
             this.m_swCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_swCheckBox.TabIndex = 14;
             this.m_swCheckBox.Tag = "Position";
-            this.m_swCheckBox.Text = "🡿";
+            this.m_swCheckBox.Text = "\uD83E\uDC77";
             this.m_swCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_swCheckBox.UseVisualStyleBackColor = true;
             this.m_swCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -694,7 +694,7 @@ namespace Trizbort.UI
             this.m_wCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_wCheckBox.TabIndex = 11;
             this.m_wCheckBox.Tag = "Position";
-            this.m_wCheckBox.Text = "🡸";
+            this.m_wCheckBox.Text = "\uD83E\uDC70";
             this.m_wCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_wCheckBox.UseVisualStyleBackColor = true;
             this.m_wCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);
@@ -709,7 +709,7 @@ namespace Trizbort.UI
             this.m_eCheckBox.Size = new System.Drawing.Size(52, 52);
             this.m_eCheckBox.TabIndex = 13;
             this.m_eCheckBox.Tag = "Position";
-            this.m_eCheckBox.Text = "🡺";
+            this.m_eCheckBox.Text = "\uD83E\uDC72";
             this.m_eCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.m_eCheckBox.UseVisualStyleBackColor = true;
             this.m_eCheckBox.CheckedChanged += new System.EventHandler(this.PositionCheckBox_CheckedChanged);

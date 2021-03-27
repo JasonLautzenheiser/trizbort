@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using PdfSharp.Drawing;
+using System.Runtime.InteropServices;
 
 namespace Trizbort.Domain.Misc {
   internal class TextBlock {
@@ -45,8 +46,36 @@ namespace Trizbort.Domain.Misc {
     private Vector m_size;
     private XSize m_sizeChecker;
     private string m_text = string.Empty;
+    // This provides a perhaps more useful/educational exception.
+    // It appears that PDFSharp still has Windows dependencies?
+    // private XFont initialXFont = new XFont("Arial", 12F);
 
     public static int RebuildCount => s_rebuildCount;
+
+    private XSize BrokenMeasureString(XGraphics graphics, String str, Font font) {
+       if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+         return graphics.MeasureString(str, font);
+       }
+       else {
+	 Console.WriteLine(String.Format("Measured string '{0}' as ({1}, {2})",
+           str, str.Length * 9F, font.Height));
+         return new XSize(str.Length * 9F, font.Height);
+       }
+    }
+
+    private void BrokenDrawString(XGraphics graphics, String str, Font font, Brush brush,
+           double x, double y, XStringFormat fmt) {
+       if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+         graphics.DrawString(str, font, brush, x, y, fmt);
+       }
+       else {
+         Console.WriteLine("Not drawing string: " + str);
+         // graphics.DrawString(str, font, brush, x, y, fmt); // Crash!
+         // XFont xfont = font;  // Crash!
+         // XFont xfont = new XFont("Arial", 9F); // Crash!
+         // XBrush xbrush = brush; // Does NOT crash.
+       }
+    }
 
     public string Text {
       get => m_text;
@@ -76,7 +105,7 @@ namespace Trizbort.Domain.Misc {
     public Rect Draw(XGraphics graphics, Font font, Brush brush, Vector pos, Vector size, XStringFormat format) {
       // do a quick test to see if text is going to get drawn at the same size as last time;
       // if so, assume we don't need to recompute our layout for that reason.
-      var sizeChecker = graphics.MeasureString("M q", font);
+      var sizeChecker = BrokenMeasureString(graphics, "M q", font);
             if (sizeChecker != m_sizeChecker ||
                 pos != m_pos ||
                 m_size != size ||
@@ -117,7 +146,7 @@ namespace Trizbort.Domain.Misc {
         graphics.SmoothingMode = XSmoothingMode.HighQuality;
 
 
-        graphics.DrawString(line, font, brush, origin.X, origin.Y, m_actualFormat);
+        BrokenDrawString(graphics, line, font, brush, origin.X, origin.Y, m_actualFormat);
         origin += m_delta;
         size.Y -= m_lineHeight;
       }
@@ -146,17 +175,17 @@ namespace Trizbort.Domain.Misc {
       m_size = size;
 
       var text = m_text;
-      if (text.IndexOf('\n') == -1 && size.X > 0 && size.Y > 0 && graphics.MeasureString(text, font).Width > size.X) {
+      if (text.IndexOf('\n') == -1 && size.X > 0 && size.Y > 0 && BrokenMeasureString(graphics, text, font).Width > size.X) {
         // wrap single-line text to fit in rectangle
 
         // measure a space, countering the APIs unwillingness to measure spaces
-        var spaceLength = (float) (graphics.MeasureString("M M", font).Width - graphics.MeasureString("M", font).Width * 2);
-        var hyphenLength = (float) graphics.MeasureString("-", font).Width;
+        var spaceLength = (float) (BrokenMeasureString(graphics, "M M", font).Width - BrokenMeasureString(graphics, "M", font).Width * 2);
+        var hyphenLength = (float) BrokenMeasureString(graphics, "-", font).Width;
 
         var wordsStep1 = new List<Word>();
         foreach (var word in text.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries)) {
           if (wordsStep1.Count != 0) wordsStep1.Add(new Word(" ", spaceLength));
-          wordsStep1.Add(new Word(word, (float) graphics.MeasureString(word, font).Width));
+          wordsStep1.Add(new Word(word, (float) BrokenMeasureString(graphics, word, font).Width));
         }
 
         bool isSplitDash = Setup.Settings.WrapTextAtDashes;
@@ -170,14 +199,14 @@ namespace Trizbort.Domain.Misc {
               else if (tWordList.Count != 0 && isSplitDash)
                 tWordList.Add(new Word("-", hyphenLength));
 
-              tWordList.Add(new Word(tWord, (float) graphics.MeasureString(tWord, font).Width));
+              tWordList.Add(new Word(tWord, (float) BrokenMeasureString(graphics, tWord, font).Width));
             }
 
             words.AddRange(tWordList);
           } else {
             if (words.Count != 0)
               words.Add(new Word(" ", spaceLength));
-            words.Add(new Word(splits[0], (float) graphics.MeasureString(splits[0], font).Width));
+            words.Add(new Word(splits[0], (float) BrokenMeasureString(graphics, splits[0], font).Width));
           }
 
         var lineLength = 0.0f;

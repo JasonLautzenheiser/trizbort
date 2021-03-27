@@ -1778,13 +1778,8 @@ namespace Trizbort.UI.Controls {
         context.Hover = !context.Selected && element == HoverElement && !finalRender;
         if (context.Hover && dragMode == DragModes.MovePort) context.Hover = false;
 
-        try {
-          var elementBounds = element.UnionBoundsWith(Rect.Empty, true).ToRectangleF();
-          if (finalRender || clipToScreen.IntersectsWith(elementBounds)) element.Draw(graphics, palette, context);
-        }
-        catch (Exception) {
-          // avoid GDI+ exceptions (vast shapes, etc.) taking down the canvas
-        }
+        var elementBounds = element.UnionBoundsWith(Rect.Empty, true).ToRectangleF();
+        if (finalRender || clipToScreen.IntersectsWith(elementBounds)) element.Draw(graphics, palette, context);
       }
     }
 

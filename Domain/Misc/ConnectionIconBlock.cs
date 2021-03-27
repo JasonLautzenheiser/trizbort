@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using System.Runtime.InteropServices;
+using System.IO;
 using PdfSharp.Drawing;
 
 namespace Trizbort.Domain.Misc {
@@ -84,7 +86,15 @@ namespace Trizbort.Domain.Misc {
 //
 
 
-      graphics.DrawImage(Image, pos.ToPointF() + offsets);
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+        graphics.DrawImage(Image, pos.ToPointF() + offsets);
+      }
+      else {
+        MemoryStream strm = new MemoryStream();
+        Image.Save(strm, System.Drawing.Imaging.ImageFormat.Png);
+        XImage ximg = XImage.FromStream(strm);
+        graphics.DrawImage(ximg, pos.ToPointF() + offsets);
+      }
     }
   }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace Trizbort.Domain.StatusBar {
   public enum StatusItems {
@@ -92,12 +93,22 @@ namespace Trizbort.Domain.StatusBar {
     }
 
     private void setDefaultItems() {
-      Items = new List<StatusItem> {
-        new StatusItem {Id = StatusItems.tsb_Info, Show = true},
-        new StatusItem {Id = StatusItems.tsb_CapsLock, Show = true, Widget = new CapsLockStatusWidget()},
-        new StatusItem {Id = StatusItems.tsb_NumLock, Show = true, Widget = new NumLockStatusWidget()}, 
-        new StatusItem {Id = StatusItems.tsb_Zoom, Show = true, Widget = new ZoomStatusWidget()}
-      };
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+        Items = new List<StatusItem> {
+          new StatusItem {Id = StatusItems.tsb_Info, Show = true},
+          new StatusItem {Id = StatusItems.tsb_CapsLock, Show = true, Widget = new CapsLockStatusWidget()},
+          new StatusItem {Id = StatusItems.tsb_NumLock, Show = true, Widget = new NumLockStatusWidget()},
+          new StatusItem {Id = StatusItems.tsb_Zoom, Show = true, Widget = new ZoomStatusWidget()}
+        };
+      }
+      // Is KeyLocked() is not supported in Mono on Linux and MacOS yet.
+      // https://github.com/mono/mono/blob/main/mcs/class/System.Windows.Forms/System.Windows.Forms/Control.cs#L3487
+      else {
+        Items = new List<StatusItem> {
+          new StatusItem {Id = StatusItems.tsb_Info, Show = true},
+          new StatusItem {Id = StatusItems.tsb_Zoom, Show = true, Widget = new ZoomStatusWidget()}
+        };
+      }
     }
   }
 }

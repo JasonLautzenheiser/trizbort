@@ -245,11 +245,57 @@ namespace Trizbort.Export.Languages {
 
       writer.WriteLine("  with  name {0},", toI6Words(Deaccent(stripUnaccentedCharacters(thing.DisplayName))));
       writer.Write("        description {0}", toI6String(thing.DisplayName, DOUBLE_QUOTE));
+      List<string> attributes = new List<string>();
       if (thing.Contents.Count > 0) {
-        writer.WriteLine(",");
-        writer.WriteLine("   has open container;");
-      } else {
+        attributes.Add("open");
+        attributes.Add("container");
+      }
+      if (thing.ProperNamed)
+            {
+                attributes.Add("proper");
+            }
+      switch (thing.Gender)
+            {
+                case Thing.ThingGender.Female:
+                    attributes.Add("female");
+                    break;
+                case Thing.ThingGender.Male:
+                    attributes.Add("male");
+                    break;
+                case Thing.ThingGender.Neuter:
+                    attributes.Add("neuter");
+                    break;
+            }
+      if (thing.IsPerson)
+            {
+                attributes.Add("animate");
+            }
+      if (thing.IsScenery)
+            {
+                attributes.Add("scenery");
+            }
+      if (thing.IsSupporter)
+            {
+                attributes.Add("supporter");
+            }
+      if (thing.IsContainer && !attributes.Contains("container")) {
+                attributes.Add("container");
+            }
+      if (thing.Forceplural == Thing.Amounts.Plural)
+            {
+                attributes.Add("pluralname");
+            }
+      if (thing.Worn)
+            {
+                attributes.Add("worn");
+            }
+      if (attributes.Count == 0)
+            {
         writer.WriteLine(";");
+            } else
+            {
+                writer.WriteLine();
+                writer.WriteLine("  has "+String.Join(" ", attributes)+";");
       }
 
       writer.WriteLine();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Trizbort.Extensions {
   public static class StringExtensions {
@@ -13,6 +14,10 @@ namespace Trizbort.Extensions {
 
     public static bool IsUrl(this string c) {
       return Uri.IsWellFormedUriString(c, UriKind.RelativeOrAbsolute);
+    }
+
+    public static string Repeat(this string s, int count) {
+      return new StringBuilder(s.Length * count).Insert(0, s, count).ToString();
     }
   }
 }

@@ -361,7 +361,6 @@
     <EmbeddedResource Include="UI\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include=".editorconfig" />
     <None Include="app.config" />
     <Compile Include="Domain\Misc\Drawing.cs" />
     <Compile Include="Domain\Misc\ResizeHandle.cs" />

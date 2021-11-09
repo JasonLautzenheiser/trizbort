@@ -35,8 +35,7 @@ using Trizbort.Export.Domain;
 using Trizbort.Setup;
 using Trizbort.Util;
 
-namespace Trizbort.Export
-{
+namespace Trizbort.Export {
   public abstract partial class CodeExporter : IDisposable {
     private readonly Dictionary<Room, Location> mMapRoomToLocation = new Dictionary<Room, Location>();
 
@@ -48,8 +47,6 @@ namespace Trizbort.Export
     public abstract List<KeyValuePair<string, string>> FileDialogFilters { get; }
 
     public abstract string FileDialogTitle { get; }
-
-    private Encoding encoding => Encoding.UTF8;
 
     protected List<Location> LocationsInExportOrder { get; }
 
@@ -126,14 +123,16 @@ namespace Trizbort.Export
     }
 
     protected virtual StreamWriter Create(string fileName) {
-      return new StreamWriter(fileName, false, encoding, 2 ^ 16);
+      return new StreamWriter(fileName, false, Encoding.ASCII, 2 ^ 16);
     }
 
     protected virtual void Dispose(bool disposing) { }
 
     protected abstract void ExportContent(TextWriter writer);
 
-    protected abstract void ExportHeader(TextWriter writer, string title, string author, string description, string history);
+    protected abstract void ExportHeader(TextWriter writer, string title, string author, string description,
+                                         string history);
+
     protected abstract string GetExportName(Room room, int? suffix);
     protected abstract string GetExportName(string displayName, int? suffix);
 
@@ -152,9 +151,12 @@ namespace Trizbort.Export
 
         if (mMapRoomToLocation.TryGetValue(sourceRoom, out var sourceLocation) &&
             mMapRoomToLocation.TryGetValue(targetRoom, out var targetLocation)) {
-          sourceLocation.AddExit(new Exit(sourceLocation, targetLocation, sourceCompassPoint, connection.StartText, connection));
+          sourceLocation.AddExit(new Exit(sourceLocation, targetLocation, sourceCompassPoint, connection.StartText,
+            connection));
 
-          if (connection.Flow == ConnectionFlow.TwoWay) targetLocation.AddExit(new Exit(targetLocation, sourceLocation, targetCompassPoint, connection.EndText, connection));
+          if (connection.Flow == ConnectionFlow.TwoWay)
+            targetLocation.AddExit(new Exit(targetLocation, sourceLocation, targetCompassPoint, connection.EndText,
+              connection));
         }
       }
     }
@@ -218,7 +220,8 @@ namespace Trizbort.Export
         var objectsText = location.Room.Objects;
         if (string.IsNullOrEmpty(objectsText)) continue;
 
-        var objectNames = objectsText.Replace("\r", string.Empty).Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
+        var objectNames = objectsText.Replace("\r", string.Empty)
+                                     .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
         foreach (var objectName in objectNames) {
           // the display name is simply the object name without indentation and without and trailing []
           var displayName = objectName.Trim();

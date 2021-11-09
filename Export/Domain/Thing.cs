@@ -24,7 +24,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Trizbort.Export.Domain {
@@ -58,7 +57,7 @@ namespace Trizbort.Export.Domain {
     public bool PartOf { get; }
     public string PropString { get; }
     public string WarningText { get; }
-    
+
     public Thing(string displayName, string exportName, Location location, Thing container, int indent,
                  string propString) {
       DisplayName = displayName;
@@ -71,8 +70,6 @@ namespace Trizbort.Export.Domain {
       Contents = new List<Thing>();
       PropString = propString;
 
-
-      
 
       var propRegx = new Regex("[fmp12csuwh!]");
       var errString = propRegx.Replace(PropString, "");
@@ -136,6 +133,5 @@ namespace Trizbort.Export.Domain {
 
       if (propString.Contains("!")) ProperNamed = true;
     }
-
   }
 }

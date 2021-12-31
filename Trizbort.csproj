@@ -1,26 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <PlatformTarget>x86</PlatformTarget>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F462E085-AFBE-46EC-936E-AEF63C83A796}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Trizbort</RootNamespace>
-    <AssemblyName>Trizbort</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <ApplicationIcon>Map.ico</ApplicationIcon>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkProfile />
     <PublishUrl>D:\Projects\trizbort-publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -38,28 +22,11 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <Prefer32Bit>false</Prefer32Bit>
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <Prefer32Bit>false</Prefer32Bit>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>71A85D8D5FAB2D322CD5C932858769833F7E8882</ManifestCertificateThumbprint>
@@ -77,15 +44,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Release\</OutputPath>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Trizbort.Program</StartupObject>
@@ -95,308 +57,29 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\AutoUpdater.NET.dll</HintPath>
     </Reference>
-    <Reference Include="CommandLine, Version=2.8.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
-      <HintPath>packages\CommandLineParser.2.8.0\lib\net461\CommandLine.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PdfSharp-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>packages\PDFsharp-gdi.1.50.5147\lib\net20\PdfSharp-gdi.dll</HintPath>
-    </Reference>
-    <Reference Include="PdfSharp.Charting-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>packages\PDFsharp-gdi.1.50.5147\lib\net20\PdfSharp.Charting-gdi.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Automap\Automap.cs" />
-    <Compile Include="Domain\Directions.cs" />
-    <Compile Include="Domain\Enums\MappableDirection.cs" />
-    <Compile Include="Automap\AutomapSettings.cs" />
-    <Compile Include="Automap\Utility\PeekingStreamReader.cs" />
-    <Compile Include="Domain\Application\LegacyMapFileEngine.cs" />
-    <Compile Include="Domain\Application\MapFileEngine.cs" />
-    <Compile Include="Domain\Application\MapLoader.cs" />
-    <Compile Include="Domain\Application\MapSaver.cs" />
-    <Compile Include="Domain\Enums\BorderDashStyle.cs" />
-    <Compile Include="Domain\Misc\Colors.cs" />
-    <Compile Include="Domain\Misc\CompassPoint.cs" />
-    <Compile Include="Domain\Cache\FindCacheItem.cs" />
-    <Compile Include="Domain\Cache\Indexer.cs" />
-    <Compile Include="Domain\Application\CommandLineOptions.cs" />
-    <Compile Include="Domain\Commands\ICommand.cs" />
-    <Compile Include="Domain\Commands\SelectCommand.cs" />
-    <Compile Include="Domain\Controllers\CanvasController.cs" />
-    <Compile Include="Domain\Controllers\CopyController.cs" />
-    <Compile Include="Domain\Controllers\CommandController.cs" />
-    <Compile Include="Domain\Controllers\ElementController.cs" />
-    <Compile Include="Domain\Controllers\RoomController.cs" />
-    <Compile Include="Domain\Enums\LightingActionType.cs" />
-    <Compile Include="Domain\Enums\SelectTypes.cs" />
-    <Compile Include="Domain\Elements\Connection.cs" />
-    <Compile Include="Domain\Misc\ConnectionIconBlock.cs" />
-    <Compile Include="Domain\Elements\Door.cs" />
-    <Compile Include="Domain\Enums\ValidationType.cs" />
-    <Compile Include="Domain\RoomValidationState.cs" />
-    <Compile Include="Domain\SerializeHelpers\ElementConverter.cs" />
-    <Compile Include="Domain\SerializeHelpers\PortConverter.cs" />
-    <Compile Include="Domain\AppSettings\ApplicationSettings.cs" />
-    <Compile Include="Domain\AppSettings\ApplicationSettingsController.cs" />
-    <Compile Include="Domain\Application\TrizbortApplication.cs" />
-    <Compile Include="Domain\StatusBar\ZoomStatusWidget.cs" />
-    <Compile Include="Domain\StatusBar\NumLockStatusWidget.cs" />
-    <Compile Include="Domain\StatusBar\CapsLockStatusWidget.cs" />
-    <Compile Include="Domain\StatusBar\Status.cs" />
-    <Compile Include="Domain\StatusBar\IStatusWidget.cs" />
-    <Compile Include="Domain\Watchers\TrizbortFileWatcher.cs" />
-    <Compile Include="Domain\Misc\DrawingContext.cs" />
-    <Compile Include="Domain\Elements\Element.cs" />
-    <Compile Include="Domain\Misc\BoundList.cs" />
-    <Compile Include="Export\Domain\ExportRegion.cs" />
-    <Compile Include="Export\Languages\AdventuronExporter.cs" />
-    <Compile Include="Export\Languages\AlanExporter.cs" />
-    <Compile Include="Export\CodeExporter.cs" />
-    <Compile Include="Export\Domain\Exit.cs" />
-    <Compile Include="Export\Languages\HugoExporter.cs" />
-    <Compile Include="Export\Languages\Inform6Exporter.cs" />
-    <Compile Include="Export\Domain\Location.cs" />
-    <Compile Include="Export\Languages\QuestExporter.cs" />
-    <Compile Include="Export\Languages\TadsExporter.cs" />
-    <Compile Include="Export\Domain\Thing.cs" />
-    <Compile Include="Export\Languages\ZilExporter.cs" />
-    <Compile Include="Extensions\ColorExtensions.cs" />
-    <Compile Include="Extensions\FileExtensions.cs" />
-    <Compile Include="Extensions\RoomExtensions.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Automap\IAutomapCanvas.cs" />
-    <Compile Include="Domain\Elements\IMoveable.cs" />
-    <Compile Include="Export\Languages\Inform7Exporter.cs" />
-    <Compile Include="Domain\Elements\ISizeable.cs" />
-    <Compile Include="Domain\Misc\LineSegment.cs" />
-    <Compile Include="Domain\Application\MapStatistics.cs" />
-    <Compile Include="Domain\Misc\MoveablePort.cs" />
-    <Compile Include="Domain\Misc\Numeric.cs" />
-    <Compile Include="UI\Controls\TrizbortTextBox.cs">
+    <Compile Update="UI\Controls\TrizbortTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Controls\TrizbortToolTip.cs">
+    <Compile Update="UI\Controls\TrizbortToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\InputDialog.cs" />
-    <Compile Include="Util\ClipboardHelper.cs" />
-    <Compile Include="Util\KeyboardHelper.cs" />
-    <Compile Include="Util\PathHelper.cs" />
-    <Compile Include="Domain\Misc\Port.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\Misc\Rect.cs" />
-    <Compile Include="Domain\Misc\Region.cs" />
-    <Compile Include="Util\Smoothing.cs" />
-    <Compile Include="Domain\Misc\TextBlock.cs" />
-    <Compile Include="UI\AboutDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\AboutDialog.Designer.cs">
-      <DependentUpon>AboutDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\AppSettingsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\AppSettingsDialog.Designer.cs">
-      <DependentUpon>AppSettingsDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\AutomapDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\AutomapDialog.Designer.cs">
-      <DependentUpon>AutomapDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\AutomapRoomSameDirectionDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\AutomapRoomSameDirectionDialog.Designer.cs">
-      <DependentUpon>AutomapRoomSameDirectionDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ConnectionPropertiesDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ConnectionPropertiesDialog.Designer.cs">
-      <DependentUpon>ConnectionPropertiesDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controls\AutomapBar.cs">
+    <Compile Update="UI\Controls\AutomapBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Controls\AutomapBar.Designer.cs">
-      <DependentUpon>AutomapBar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controls\Canvas.Automap.cs">
+    <Compile Update="UI\Controls\Canvas.Automap.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Controls\Canvas.cs">
+    <Compile Update="UI\Controls\Canvas.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Controls\Canvas.Designer.cs">
-      <DependentUpon>Canvas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controls\Minimap.cs">
+    <Compile Update="UI\Controls\Minimap.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Controls\Minimap.Designer.cs">
-      <DependentUpon>Minimap.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\DisambiguateRoomsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DisambiguateRoomsDialog.Designer.cs">
-      <DependentUpon>DisambiguateRoomsDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MapStatisticsView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\MapStatisticsView.Designer.cs">
-      <DependentUpon>MapStatisticsView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\QuickFind.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\QuickFind.Designer.cs">
-      <DependentUpon>QuickFind.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\RegionSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\RegionSettings.Designer.cs">
-      <DependentUpon>RegionSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\RoomPropertiesDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\RoomPropertiesDialog.Designer.cs">
-      <DependentUpon>RoomPropertiesDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SettingsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\SettingsDialog.Designer.cs">
-      <DependentUpon>SettingsDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\Misc\Vector.cs" />
-    <Compile Include="Domain\Misc\Vertex.cs" />
-    <Compile Include="Domain\Misc\Events.cs" />
-    <Compile Include="Domain\Misc\Palette.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Domain\Application\Project.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="UI\AboutDialog.resx">
-      <DependentUpon>AboutDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\AppSettingsDialog.resx">
-      <DependentUpon>AppSettingsDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\AutomapDialog.resx">
-      <DependentUpon>AutomapDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\AutomapRoomSameDirectionDialog.resx">
-      <DependentUpon>AutomapRoomSameDirectionDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ConnectionPropertiesDialog.resx">
-      <DependentUpon>ConnectionPropertiesDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Controls\AutomapBar.resx">
-      <DependentUpon>AutomapBar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Controls\Canvas.resx">
-      <DependentUpon>Canvas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Controls\Minimap.resx">
-      <DependentUpon>Minimap.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\DisambiguateRoomsDialog.resx">
-      <DependentUpon>DisambiguateRoomsDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MapStatisticsView.resx">
-      <DependentUpon>MapStatisticsView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\QuickFind.resx">
-      <DependentUpon>QuickFind.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\RegionSettings.resx">
-      <DependentUpon>RegionSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\RoomPropertiesDialog.resx">
-      <DependentUpon>RoomPropertiesDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingsDialog.resx">
-      <DependentUpon>SettingsDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="app.config" />
-    <Compile Include="Domain\Misc\Drawing.cs" />
-    <Compile Include="Domain\Misc\ResizeHandle.cs" />
-    <Compile Include="Domain\Elements\Room.cs" />
-    <Compile Include="Setup\Settings.cs" />
-    <Compile Include="Util\StringFormats.cs" />
-    <Compile Include="Domain\Misc\Depth.cs" />
-    <Compile Include="Util\XmlAttributeReader.cs" />
-    <Compile Include="Util\XmlElementReader.cs" />
-    <Compile Include="Util\XmlScribe.cs" />
-    <None Include="app.manifest" />
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\Arrow.png" />
-    <Content Include="Images\Blank.png" />
-    <Content Include="Images\door.png" />
-    <Content Include="Images\door_in.png" />
-    <Content Include="Images\DrawLine.cur" />
-    <Content Include="Images\DrawLine.png" />
-    <Content Include="Images\DrawLineInverted.cur" />
-    <Content Include="Images\LineDirection.png" />
-    <Content Include="Images\LineStyle.png" />
-    <Content Include="Images\lock.png" />
-    <Content Include="Images\lock_unlock.png" />
-    <Content Include="Images\Map.ico" />
-    <Content Include="Images\MoveLine.cur" />
-    <Content Include="Images\MoveLineInverted.cur" />
-    <Content Include="Images\ToolStripBackground.png" />
-    <Content Include="Images\ToolStripBackground2.png" />
-    <Content Include="Map.ico" />
-    <Content Include="Setup\Wizard4.bmp" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -420,17 +103,22 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="PDFsharp-gdi" Version="1.50.5147" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.256001">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Trizbort.Tests\Properties\AssemblyInfo.cs" />
+    <Compile Remove="Trizbort.Tests\StringExentensionTests.cs" />
+  </ItemGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 </Project>

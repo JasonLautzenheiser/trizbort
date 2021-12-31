@@ -3,12 +3,18 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ## [Unreleased]
 
+### Update
+- Update Trizbort to use .NET 6
+- 
+
 ### Add
 Thanks to [ccp-codex](https://github.com/ccp-codex) for all the work on the following items
 - added HiDPI support
 - modernized the font and appearance of the forms slightly, helping with the HiDPI support.
 - updated some 3rd party packages and updated project to .net 4.8
 - Added shortcuts to Map Settings (Ctrl+Comma) and App Settings (Alt+Shift+S) (#504)
+- Added some better support for I6 export (Gender, ProperName, animate objects, scenery, supporters, containers)
+- Added a zork sample map to the samples folder.
 
 Thanks to [ainslec](https://github.com/ainslec) for adding exporting of code support for his [Adventuron Text Adventure Creation System](https://adventuron.io/)
 
@@ -17,6 +23,9 @@ Thanks to [ainslec](https://github.com/ainslec) for adding exporting of code sup
 - issue with periods in the author field when compiling exported I7 code (#480 - thanks to [no1453](https://github.com/no1453) for reporting this)
 - fixed issue with the minor adjustments on setting object text location was no longer accepting negative numbers.
 - Reference Room property was not being copied when you copied a room (#503).
+- Fixed some issues with I6 export
+	- Gender stuff only applies to animate objects now
+	- Uses PartOf attribute to set the transparent attribute (#499)
 
 ## [1.7.2] - 2019-03-23
 

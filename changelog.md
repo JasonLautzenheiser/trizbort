@@ -3,9 +3,12 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ## [Unreleased]
 
-### Update
-- Update Trizbort to use .NET 6
-- 
+## [1.7.3] - 2022-02-12
+
+No this project hasn't died.  It's still being updated. It has just been awhile.  I've got some updates coming down the road that I'm hoping opens the application up for Linux users.
+
+### Known Issues
+- Currently exporting the map to PDF is broken.  I'm working on a fix for this.
 
 ### Add
 Thanks to [ccp-codex](https://github.com/ccp-codex) for all the work on the following items
@@ -576,7 +579,8 @@ on github.  Documentation is a little outdated so apologies on that.  Hopefully 
 - In the room properties, you can now assign a room to a region.  This will show the room in the region color assigned to the region.
 - some minor bug fixes.
 
-[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.2...HEAD
+[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.3...HEAD
+[1.7.3]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.2...v1.7.3
 [1.7.2]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.1...v1.7.2
 [1.7.1]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.6.1...v1.7.0

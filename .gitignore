@@ -12,7 +12,6 @@ TestResults
 *.suo
 *.user
 *.sln.docstates
-*.idea
 
 # Build results
 [Dd]ebug/
@@ -114,5 +113,3 @@ UpgradeLog*.XML
 /*.DotSettings
 /.vs/Trizbort/v15/sqlite3/storage.ide
 .vs
-.upgrade-assistant
-/upgrade-assistant.clef

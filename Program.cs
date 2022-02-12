@@ -1,4 +1,4 @@
-﻿/*
+/*
     Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
 
     This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
@@ -41,7 +41,6 @@ namespace Trizbort
     private static void Main(string[] args)
     {
       System.Windows.Forms.Application.EnableVisualStyles();
-      Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
       System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
       Console.WriteLine(AppDomain.CurrentDomain.SetupInformation.TargetFrameworkName);

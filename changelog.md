@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.  Version numbers will conform to the semver style versioning (https://semver.org/)
 
 ## [Unreleased]
+ - Update to .net 6
 
 ## [1.7.3] - 2022-02-12
 

@@ -122,7 +122,6 @@ namespace Trizbort.UI.Controls
             // 
             // ctxCanvasMenu
             // 
-            this.ctxCanvasMenu.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.ctxCanvasMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addRoomToolStripMenuItem,
             this.toolStripSeparator7,

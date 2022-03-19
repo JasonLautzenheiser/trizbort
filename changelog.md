@@ -2,7 +2,9 @@
 All notable changes to this project will be documented in this file.  Version numbers will conform to the semver style versioning (https://semver.org/)
 
 ## [Unreleased]
- 
+
+## [1.7.4] - 2022-03-19
+
  ### Fix
  - Mini-map was broken and didn't display (#548)
  - Menu item checkboxes were visually too small and messing up the look of the menus. (#549)
@@ -584,7 +586,8 @@ on github.  Documentation is a little outdated so apologies on that.  Hopefully 
 - In the room properties, you can now assign a room to a region.  This will show the room in the region color assigned to the region.
 - some minor bug fixes.
 
-[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.3...HEAD
+[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.4...HEAD
+[1.7.4]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.3...v1.7.4
 [1.7.3]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.2...v1.7.3
 [1.7.2]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.1...v1.7.2
 [1.7.1]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.0...v1.7.1

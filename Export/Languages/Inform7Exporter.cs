@@ -77,8 +77,8 @@ namespace Trizbort.Export.Languages {
         writer.WriteLine();
         // export each location
         foreach (var location in LocationsInExportOrder) {
-          if (location.Room.Region != region.ExportName) continue;
-          anyConditionalExits |= printThisLoc(writer, location);
+          if ((location.Room.Region == region.Region.RegionName) ||(location.Room.Region == region.ExportName))
+            anyConditionalExits |= printThisLoc(writer, location);
         }
       }
 

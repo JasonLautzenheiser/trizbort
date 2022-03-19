@@ -1,4 +1,4 @@
-Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
+Copyright (c) 2010-2022 by Genstein and Jason Lautzenheiser.
 
 Trizbort, the Interactive Fiction Mapper.
 

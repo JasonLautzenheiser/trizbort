@@ -4,8 +4,9 @@ All notable changes to this project will be documented in this file.  Version nu
 ## [Unreleased]
  
  ### Fix
- - Mini-map was broken and didn't display
- - Menu item checkboxes were visually too small and messing up the look of the menus.
+ - Mini-map was broken and didn't display (#548)
+ - Menu item checkboxes were visually too small and messing up the look of the menus. (#549)
+ - When exporting to I7 and using regions, rooms are ignored if region is named a reserved word. (#506)
 
 ## [1.7.3] - 2022-02-12
 

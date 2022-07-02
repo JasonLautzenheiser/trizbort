@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using PdfSharp.Drawing;
 
 namespace Trizbort.Domain.Misc {
   public class ConnectionIconBlock {
@@ -20,7 +19,7 @@ namespace Trizbort.Domain.Misc {
 
     public LineSegment Segment { get; set; }
 
-    public void DrawBlock(XGraphics graphics) {
+    public void DrawBlock(Graphics graphics) {
       var bounds = new Rect(Segment.Start, Vector.Zero);
 
       var compassPoint = CompassPointHelper.GetCompassPointFromDirectionVector(Segment.Delta);

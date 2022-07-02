@@ -1,27 +1,3 @@
-/*
-    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
-   
-    This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +7,6 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using PdfSharp.Drawing;
 using Trizbort.Automap;
 using Trizbort.Domain.Application;
 using Trizbort.Domain.AppSettings;
@@ -287,12 +262,10 @@ namespace Trizbort.UI.Controls {
             var dc = nativeGraphics.GetHdc();
             using (var metafile = new System.Drawing.Imaging.Metafile(stream, dc)) {
               using (var imageGraphics = Graphics.FromImage(metafile)) {
-                using (var graphics = XGraphics.FromGraphics(imageGraphics, new XSize(size.X, size.Y))) {
-                  foreach (var room in rooms) {
-                    if (room.Name.Contains("-")) {
-                      room.MarkNameInvalid();
-                      room.Draw(graphics, palette, context);
-                    }
+                foreach (var room in rooms) {
+                  if (room.Name.Contains("-")) {
+                    room.MarkNameInvalid();
+                    room.Draw(imageGraphics, palette, context);
                   }
                 }
               }
@@ -480,7 +453,7 @@ namespace Trizbort.UI.Controls {
     /// <param name="finalRender">True if rendering to PDF, an image, etc.; false if rendering to a window.</param>
     /// <param name="width">The width of the drawing area.</param>
     /// <param name="height">The height of the drawing area.</param>
-    public void Draw(XGraphics graphics, bool finalRender, float width, float height) {
+    public void Draw(Graphics graphics, bool finalRender, float width, float height) {
       var stopwatch = new Stopwatch();
       stopwatch.Start();
 
@@ -494,7 +467,7 @@ namespace Trizbort.UI.Controls {
       }
 
       using (var palette = new Palette()) {
-        if (finalRender) graphics.Graphics.Clear(Settings.Color[Colors.Canvas]);
+        if (finalRender) graphics.Clear(Settings.Color[Colors.Canvas]);
 
         if (!finalRender) drawGrid(graphics, palette);
 
@@ -504,7 +477,7 @@ namespace Trizbort.UI.Controls {
 
         if (ApplicationSettingsController.AppSettings.DebugShowFPS && !finalRender) {
           var canvasBounds = ComputeCanvasBounds(true);
-          graphics.DrawRectangle(XPens.Purple, canvasBounds.ToRectangleF());
+          graphics.DrawRectangle(Pens.Purple, canvasBounds.ToRectangle());
         }
 
         if (Settings.ShowOrigin && !finalRender) {
@@ -514,7 +487,7 @@ namespace Trizbort.UI.Controls {
           graphics.DrawLine(pen, 0, -n, 0, n);
         }
 
-        graphics.SmoothingMode = XSmoothingMode.AntiAlias;
+        graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
         drawElements(graphics, palette, finalRender);
         if (!finalRender) {
@@ -526,13 +499,13 @@ namespace Trizbort.UI.Controls {
         stopwatch.Stop();
         if (ApplicationSettingsController.AppSettings.DebugShowFPS && !finalRender) {
           var fps = 1.0f / (float) stopwatch.Elapsed.TotalSeconds;
-          graphics.Graphics.Transform = new Matrix();
+          graphics.Transform = new Matrix();
           graphics.DrawString($"{stopwatch.Elapsed.TotalMilliseconds} ms ({fps} fps) {TextBlock.RebuildCount} rebuilds", Settings.RoomNameFont, Brushes.Red, new PointF(10, 20 + Settings.RoomNameFont.GetHeight()));
         }
 
         if (ApplicationSettingsController.AppSettings.DebugShowMouseCoordinates && !finalRender) {
           var mouseCoord = MousePosition;
-          graphics.Graphics.Transform = new Matrix();
+          graphics.Transform = new Matrix();
           graphics.DrawString($"X:{mouseCoord.X}  Y:{mouseCoord.Y}", Settings.RoomNameFont, Brushes.Green, new PointF(10, 40 + Settings.RoomNameFont.GetHeight()));
           graphics.DrawString(HoverElement == null ? new Point(0, 0).ToString() : PointToClient(HoverElement.Position.ToPoint()).ToString(), Settings.RoomNameFont, new SolidBrush(Color.YellowGreen), new PointF(10, 60 + Settings.RoomNameFont.GetHeight()));
         }
@@ -1323,9 +1296,7 @@ namespace Trizbort.UI.Controls {
       }
 
       using (var nativeGraphics = Graphics.FromHdc(e.Graphics.GetHdc())) {
-        using (var graphics = XGraphics.FromGraphics(nativeGraphics, new XSize(Width, Height))) {
-          Draw(graphics, false, Width, Height);
-        }
+        Draw(nativeGraphics, false, Width, Height);
       }
 
       e.Graphics.ReleaseHdc();
@@ -1753,7 +1724,7 @@ namespace Trizbort.UI.Controls {
       //}
     }
 
-    private void drawElements(XGraphics graphics, Palette palette, bool finalRender) {
+    private void drawElements(Graphics graphics, Palette palette, bool finalRender) {
       if (ApplicationSettingsController.AppSettings.DebugDisableElementRendering)
         return;
 
@@ -1788,7 +1759,7 @@ namespace Trizbort.UI.Controls {
       }
     }
 
-    private void drawGrid(XGraphics graphics, Palette palette) {
+    private void drawGrid(Graphics graphics, Palette palette) {
       if (Settings.IsGridVisible && Settings.GridSize * ZoomFactor > 10) {
         var topLeft = Settings.Snap(ClientToCanvas(new PointF(-Settings.GridSize * ZoomFactor, -Settings.GridSize * ZoomFactor)));
         var bottomRight = Settings.Snap(ClientToCanvas(new PointF(Width + Settings.GridSize * ZoomFactor, Height + Settings.GridSize * ZoomFactor)));
@@ -1830,7 +1801,7 @@ namespace Trizbort.UI.Controls {
       }
     }
 
-    private void drawHandles(XGraphics graphics, Palette palette) {
+    private void drawHandles(Graphics graphics, Palette palette) {
       if (mHandles.Count == 0) return;
 
       var context = new DrawingContext(ZoomFactor);
@@ -1849,11 +1820,11 @@ namespace Trizbort.UI.Controls {
       }
     }
 
-    private void drawMarquee(XGraphics graphics, Palette palette) {
+    private void drawMarquee(Graphics graphics, Palette palette) {
       var marqueeRect = getMarqueeCanvasBounds();
       if (!(marqueeRect.Width > 0) || !(marqueeRect.Height > 0)) return;
 
-      graphics.DrawRectangle(palette.MarqueeFillBrush, marqueeRect.ToRectangleF());
+      graphics.DrawRectangle(new Pen(palette.MarqueeFillBrush), marqueeRect.ToRectangle());
       var topLeft = new PointF(marqueeRect.Left, marqueeRect.Top);
       var topRight = new PointF(marqueeRect.Right, marqueeRect.Top);
       var bottomLeft = new PointF(marqueeRect.Left, marqueeRect.Bottom);
@@ -1864,7 +1835,7 @@ namespace Trizbort.UI.Controls {
       graphics.DrawLine(palette.MarqueeBorderPen, topLeft, bottomLeft);
     }
 
-    private void drawPorts(XGraphics graphics, Palette palette) {
+    private void drawPorts(Graphics graphics, Palette palette) {
       var context = new DrawingContext(ZoomFactor);
 
       // draw all non-selected ports

@@ -1,32 +1,8 @@
-/*
-    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
-
-    This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
-
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
-using PdfSharp.Drawing;
 using Trizbort.Domain.Elements;
 using Trizbort.Properties;
 using Trizbort.UI.Controls;
@@ -39,7 +15,7 @@ namespace Trizbort.Domain.Misc {
     private static readonly Cursor m_drawLineInvertedCursor;
     private static readonly Cursor m_moveLineCursor;
     private static readonly Cursor m_moveLineInvertedCursor;
-    private static XGraphicsPath m_chevronPath;
+    private static GraphicsPath m_chevronPath;
 
     static Drawing() {
       m_drawLineCursor = LoadCursor(Resources.DrawLineCursor);
@@ -52,7 +28,7 @@ namespace Trizbort.Domain.Misc {
 
     public static Cursor MoveLineCursor => IsDark(Settings.Color[Colors.Canvas]) ? m_moveLineInvertedCursor : m_moveLineCursor;
 
-    public static void AddLine(XGraphicsPath path, LineSegment segment, Random random, bool straightEdges) {
+    public static void AddLine(GraphicsPath path, LineSegment segment, Random random, bool straightEdges) {
 //      if (Settings.HandDrawnDoc && !straightEdges)
       if (!straightEdges) {
         var dx = segment.End.X - segment.Start.X;
@@ -89,12 +65,12 @@ namespace Trizbort.Domain.Misc {
       return new PointF(pos.X / scalar, pos.Y / scalar);
     }
 
-    public static void DrawChevron(XGraphics graphics, PointF pos, float angle, float size, Brush fillBrush) {
+    public static void DrawChevron(Graphics graphics, PointF pos, float angle, float size, Brush fillBrush) {
       if (m_chevronPath == null) {
         var apex = new PointF(0.5f, 0);
         var leftCorner = new PointF(-0.5f, 0.5f);
         var rightCorner = new PointF(-0.5f, -0.5f);
-        m_chevronPath = new XGraphicsPath();
+        m_chevronPath = new GraphicsPath();
         m_chevronPath.AddLine(apex, rightCorner);
         m_chevronPath.AddLine(rightCorner, leftCorner);
         m_chevronPath.AddLine(leftCorner, apex);
@@ -104,15 +80,15 @@ namespace Trizbort.Domain.Misc {
       graphics.TranslateTransform(pos.X, pos.Y);
       graphics.RotateTransform(angle);
       graphics.ScaleTransform(size, size);
-      graphics.DrawPath(fillBrush, m_chevronPath);
+      graphics.DrawPath(new Pen(fillBrush), m_chevronPath);
       graphics.Restore(state);
     }
 
-    public static void DrawHandle(Canvas canvas, XGraphics graphics, Palette palette, Rect bounds, DrawingContext context, bool alwaysAlpha, bool round) {
+    public static void DrawHandle(Canvas canvas, Graphics graphics, Palette palette, Rect bounds, DrawingContext context, bool alwaysAlpha, bool round) {
       if (bounds.Width <= 0 || bounds.Height <= 0) return;
 
-      using (var quality = new Smoothing(graphics, XSmoothingMode.Default)) {
-        XBrush brush;
+      using (var quality = new Smoothing(graphics, SmoothingMode.Default)) {
+        Brush brush;
         Pen pen;
         var alpha = 180;
 
@@ -126,12 +102,12 @@ namespace Trizbort.Domain.Misc {
         }
 
         if (round) {
-          graphics.DrawEllipse(brush, bounds.ToRectangleF());
+          graphics.DrawEllipse(new Pen(brush), bounds.ToRectangleF());
 //          graphics.DrawRectangle(new XPen(Color.Red), bounds.ToRectangleF() );
           graphics.DrawEllipse(pen, bounds.ToRectangleF());
         } else {
-          graphics.DrawRectangle(brush, bounds.ToRectangleF());
-          graphics.DrawRectangle(pen, bounds.ToRectangleF());
+          graphics.DrawRectangle(new Pen(brush), bounds.ToRectangle());
+          graphics.DrawRectangle(pen, bounds.ToRectangle());
         }
       }
     }
@@ -152,28 +128,28 @@ namespace Trizbort.Domain.Misc {
                             (byte) ((a.B * propA + b.B * propB) / (propA + propB)));
     }
 
-    public static bool SetAlignmentFromCardinalOrOrdinalDirection(XStringFormat format, CompassPoint compassPoint, RoomShape? rs = null) {
+    public static bool SetAlignmentFromCardinalOrOrdinalDirection(StringFormat format, CompassPoint compassPoint, RoomShape? rs = null) {
       switch (compassPoint) {
         case CompassPoint.North:
         case CompassPoint.NorthEast:
-          format.LineAlignment = XLineAlignment.Far;
-          format.Alignment = XStringAlignment.Near;
+          format.LineAlignment = StringAlignment.Far;
+          format.Alignment = StringAlignment.Near;
           break;
         case CompassPoint.East:
         case CompassPoint.SouthEast:
         case CompassPoint.South:
-          format.LineAlignment = XLineAlignment.Near;
-          format.Alignment = XStringAlignment.Near;
+          format.LineAlignment = StringAlignment.Near;
+          format.Alignment = StringAlignment.Near;
           break;
         case CompassPoint.West:
         case CompassPoint.SouthWest:
-          format.LineAlignment = XLineAlignment.Near;
-          format.Alignment = XStringAlignment.Far;
+          format.LineAlignment = StringAlignment.Near;
+          format.Alignment = StringAlignment.Far;
           break;
         case CompassPoint.NorthWest:
         case CompassPoint.NorthNorthWest:
-          format.LineAlignment = XLineAlignment.Far;
-          format.Alignment = XStringAlignment.Far;
+          format.LineAlignment = StringAlignment.Far;
+          format.Alignment = StringAlignment.Far;
           break;
         default:
           return false;

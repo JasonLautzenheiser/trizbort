@@ -1,27 +1,3 @@
-/*
-    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
-
-    This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,9 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommandLine;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.Annotations;
 using Trizbort.Domain.Application;
 using Trizbort.Domain.AppSettings;
 using Trizbort.Domain.Controllers;
@@ -764,9 +737,7 @@ namespace Trizbort.UI {
                 var dc = nativeGraphics.GetHdc();
                 using (var metafile = new Metafile(stream, dc)) {
                   using (var imageGraphics = Graphics.FromImage(metafile)) {
-                    using (var graphics = XGraphics.FromGraphics(imageGraphics, new XSize(size.X, size.Y))) {
-                      Canvas.Draw(graphics, true, size.X, size.Y);
-                    }
+                    Canvas.Draw(imageGraphics, true, size.X, size.Y);
                   }
 
                   var handle = metafile.GetHenhmetafile();
@@ -788,9 +759,7 @@ namespace Trizbort.UI {
         else
           using (var bitmap = new Bitmap((int) Math.Ceiling(size.X), (int) Math.Ceiling(size.Y))) {
             using (var imageGraphics = Graphics.FromImage(bitmap)) {
-              using (var graphics = XGraphics.FromGraphics(imageGraphics, new XSize(size.X, size.Y))) {
-                Canvas.Draw(graphics, true, size.X, size.Y);
-              }
+              Canvas.Draw(imageGraphics, true, size.X, size.Y);
             }
 
             bitmap.Save(fileName, format);
@@ -804,53 +773,53 @@ namespace Trizbort.UI {
     }
 
     private void savePDF(string fileName) {
-      ApplicationSettingsController.AppSettings.LastExportImageFileName = fileName;
-
-      var doc = new PdfDocument();
-      doc.Info.Title = Project.Current.Title;
-      doc.Info.Author = Project.Current.Author;
-      doc.Info.Creator = Application.ProductName;
-      doc.Info.CreationDate = DateTime.Now;
-      doc.Info.Subject = Project.Current.Description;
-      var page = doc.AddPage();
-
-      var pdfBoundRectangle = Canvas.ComputeCanvasBounds(true);
-      var size = pdfBoundRectangle.Size;
-
-      page.Width = new XUnit(size.X);
-      page.Height = new XUnit(size.Y);
-      using (var graphics = XGraphics.FromPdfPage(page)) {
-        Canvas.Draw(graphics, true, size.X, size.Y);
-      }
-
-      var descripRooms = Project.Current.Elements.OfType<Room>().ToList().Where(p => p.HasDescription);
-
-      foreach (var myroom in descripRooms) {
-        var rect = new XRect();
-        var textAnnot = new PdfTextAnnotation {
-          Contents = myroom.PrimaryDescription,
-          Color = Color.Orange,
-          Icon = PdfTextAnnotationIcon.Note
-        };
-
-        rect.Width = myroom.Width / 4; // first, decide square dimensions
-        rect.Height = myroom.Height / 4;
-        if (rect.Width > rect.Height)
-          rect.Width = rect.Height;
-        else
-          rect.Height = rect.Width;
-
-        if (myroom.Shape == RoomShape.SquareCorners) //Now, place it in the upper left or upper center based on room shape
-          rect.X = myroom.X - pdfBoundRectangle.Left;
-        else
-          rect.X = myroom.X - pdfBoundRectangle.Left + myroom.Width / 2 - rect.Width / 2;
-        rect.Y = pdfBoundRectangle.Height - (myroom.Y - pdfBoundRectangle.Top + rect.Height);
-
-        textAnnot.Rectangle = new PdfRectangle(rect);
-        page.Annotations.Add(textAnnot);
-      }
-
-      doc.Save(fileName);
+      // ApplicationSettingsController.AppSettings.LastExportImageFileName = fileName;
+      //
+      // var doc = new PdfDocument();
+      // doc.Info.Title = Project.Current.Title;
+      // doc.Info.Author = Project.Current.Author;
+      // doc.Info.Creator = Application.ProductName;
+      // doc.Info.CreationDate = DateTime.Now;
+      // doc.Info.Subject = Project.Current.Description;
+      // var page = doc.AddPage();
+      //
+      // var pdfBoundRectangle = Canvas.ComputeCanvasBounds(true);
+      // var size = pdfBoundRectangle.Size;
+      //
+      // page.Width = new XUnit(size.X);
+      // page.Height = new XUnit(size.Y);
+      // using (var graphics = Graphics.FromPdfPage(page)) {
+      //   Canvas.Draw(graphics, true, size.X, size.Y);
+      // }
+      //
+      // var descripRooms = Project.Current.Elements.OfType<Room>().ToList().Where(p => p.HasDescription);
+      //
+      // foreach (var myroom in descripRooms) {
+      //   var rect = new XRect();
+      //   var textAnnot = new PdfTextAnnotation {
+      //     Contents = myroom.PrimaryDescription,
+      //     Color = Color.Orange,
+      //     Icon = PdfTextAnnotationIcon.Note
+      //   };
+      //
+      //   rect.Width = myroom.Width / 4; // first, decide square dimensions
+      //   rect.Height = myroom.Height / 4;
+      //   if (rect.Width > rect.Height)
+      //     rect.Width = rect.Height;
+      //   else
+      //     rect.Height = rect.Width;
+      //
+      //   if (myroom.Shape == RoomShape.SquareCorners) //Now, place it in the upper left or upper center based on room shape
+      //     rect.X = myroom.X - pdfBoundRectangle.Left;
+      //   else
+      //     rect.X = myroom.X - pdfBoundRectangle.Left + myroom.Width / 2 - rect.Width / 2;
+      //   rect.Y = pdfBoundRectangle.Height - (myroom.Y - pdfBoundRectangle.Top + rect.Height);
+      //
+      //   textAnnot.Rectangle = new PdfRectangle(rect);
+      //   page.Annotations.Add(textAnnot);
+      // }
+      //
+      // doc.Save(fileName);
     }
 
     private bool saveProject() {

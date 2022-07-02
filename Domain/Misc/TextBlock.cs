@@ -1,38 +1,14 @@
-/*
-    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
-
-    This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
-using PdfSharp.Drawing;
 
 namespace Trizbort.Domain.Misc {
   internal class TextBlock {
     public static int s_rebuildCount;
     private readonly List<string> m_lines = new List<string>();
-    private XStringFormat m_actualFormat;
+    private StringFormat m_actualFormat;
 
     private Vector m_delta;
 
@@ -41,9 +17,9 @@ namespace Trizbort.Domain.Misc {
     private float m_lineHeight;
     private Vector m_origin;
     private Vector m_pos;
-    private XStringFormat m_requestedFormat;
+    private StringFormat m_requestedFormat;
     private Vector m_size;
-    private XSize m_sizeChecker;
+    private SizeF m_sizeChecker;
     private string m_text = string.Empty;
 
     public static int RebuildCount => s_rebuildCount;
@@ -73,7 +49,7 @@ namespace Trizbort.Domain.Misc {
     ///   This method simulates standard Graphics.DrawString() over PDFsharp.
     ///   It always has the effect of StringFormatFlags.LineLimit (which PDFsharp does not support).
     /// </remarks>
-    public Rect Draw(XGraphics graphics, Font font, Brush brush, Vector pos, Vector size, XStringFormat format) {
+    public Rect Draw(Graphics graphics, Font font, Brush brush, Vector pos, Vector size, StringFormat format) {
       // do a quick test to see if text is going to get drawn at the same size as last time;
       // if so, assume we don't need to recompute our layout for that reason.
       var sizeChecker = graphics.MeasureString("M q", font);
@@ -87,7 +63,7 @@ namespace Trizbort.Domain.Misc {
             }
 
             // TODO: removed || m_requestedFormat.FormatFlags != format.FormatFlags from if check based on error 
-            // error CS1061: 'XStringFormat' does not contain a definition for 'FormatFlags'
+            // error CS1061: 'StringFormat' does not contain a definition for 'FormatFlags'
             // This seems relevant : https://forum.pdfsharp.net/viewtopic.php?f=2&t=3898
 
             m_sizeChecker = sizeChecker;
@@ -105,7 +81,7 @@ namespace Trizbort.Domain.Misc {
       // disable smoothing whilst rendering text;
       // visually this is no different, but is faster
       var smoothingMode = graphics.SmoothingMode;
-      graphics.SmoothingMode = XSmoothingMode.HighSpeed;
+      graphics.SmoothingMode = SmoothingMode.HighSpeed;
 
       var origin = m_origin;
       foreach (var t in m_lines) {
@@ -114,7 +90,7 @@ namespace Trizbort.Domain.Misc {
 
         var line = t;
 
-        graphics.SmoothingMode = XSmoothingMode.HighQuality;
+        graphics.SmoothingMode = SmoothingMode.HighQuality;
 
 
         graphics.DrawString(line, font, brush, origin.X, origin.Y, m_actualFormat);
@@ -129,16 +105,16 @@ namespace Trizbort.Domain.Misc {
       return actualTextRect;
     }
 
-    private void RebuildCachedLayout(XGraphics graphics, Font font, ref Vector pos, ref Vector size, XStringFormat baseFormat) {
+    private void RebuildCachedLayout(Graphics graphics, Font font, ref Vector pos, ref Vector size, StringFormat baseFormat) {
       // for diagnostic purposes
       ++s_rebuildCount;
 
       // store current settings to help us tell if we need a rebuild next time around
-      m_requestedFormat = new XStringFormat();
+      m_requestedFormat = new StringFormat();
       m_requestedFormat.Alignment = baseFormat.Alignment;
       // TODO: m_requestedFormat.FormatFlags = baseFormat.FormatFlags;
       m_requestedFormat.LineAlignment = baseFormat.LineAlignment;
-      m_actualFormat = new XStringFormat();
+      m_actualFormat = new StringFormat();
       m_actualFormat.Alignment = baseFormat.Alignment;
       // TODO: m_actualFormat.FormatFlags = baseFormat.FormatFlags;
       m_actualFormat.LineAlignment = baseFormat.LineAlignment;
@@ -211,12 +187,11 @@ namespace Trizbort.Domain.Misc {
       m_lines.AddRange(text.Split('\n'));
 
       switch (m_actualFormat.LineAlignment) {
-        case XLineAlignment.Near:
-        default:
+        case StringAlignment.Near:
           m_origin = pos;
           m_delta = new Vector(0, m_lineHeight);
           break;
-        case XLineAlignment.Far:
+        case StringAlignment.Far:
           m_origin = new Vector(pos.X, pos.Y + size.Y - m_lineHeight);
           if (size.Y > 0) {
             var count = m_lines.Count;
@@ -227,19 +202,19 @@ namespace Trizbort.Domain.Misc {
 
           m_delta = new Vector(0, m_lineHeight);
           break;
-        case XLineAlignment.Center:
+        case StringAlignment.Center:
           m_origin = new Vector(pos.X, pos.Y + size.Y / 2 - (m_lines.Count - 1) * m_lineHeight / 2 - m_lineHeight / 2);
           m_delta = new Vector(0, m_lineHeight);
           break;
       }
 
-      m_actualFormat.LineAlignment = XLineAlignment.Near;
+      m_actualFormat.LineAlignment = StringAlignment.Near;
 
       switch (m_actualFormat.Alignment) {
-        case XStringAlignment.Far:
+        case StringAlignment.Far:
           m_origin.X = pos.X + size.X;
           break;
-        case XStringAlignment.Center:
+        case StringAlignment.Center:
           m_origin.X = pos.X + size.X / 2;
           break;
       }

@@ -1,27 +1,3 @@
-/*
-    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
-
-    This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -30,7 +6,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using PdfSharp.Drawing;
 using Trizbort.Domain.Application;
 using Trizbort.Domain.AppSettings;
 using Trizbort.Domain.Enums;
@@ -623,7 +598,7 @@ namespace Trizbort.Domain.Elements {
       return pos.DistanceFromRect(bounds);
     }
 
-    public override void Draw(XGraphics graphics, Palette palette, DrawingContext context) {
+    public override void Draw(Graphics graphics, Palette palette, DrawingContext context) {
       CheckValidation();
       //if we are drawing a new room, we need to edit the code at three points:
       //1. if (IsStartRoom) => start room outline
@@ -720,7 +695,7 @@ namespace Trizbort.Domain.Elements {
           brushSelected = new SolidBrush(Color.LightBlue);
         else
           brushSelected = new SolidBrush(Settings.Color[IsStartRoom ? Colors.StartRoom : Colors.EndRoom]);
-        graphics.DrawPath(brushSelected, pathSelected);
+        graphics.DrawPath(new Pen(brushSelected), pathSelected);
       }
 
       //this is the code to draw the yellow boundary around a selected room
@@ -768,7 +743,7 @@ namespace Trizbort.Domain.Elements {
         }
 
         var brushSelected = Project.Current.ActiveSelectedElement?.ID == ID ? new SolidBrush(Color.Gold) : new SolidBrush(Color.Gold);
-        graphics.DrawPath(brushSelected, pathSelected);
+        graphics.DrawPath(new Pen(brushSelected), pathSelected);
       }
 
       // get region color
@@ -810,12 +785,12 @@ namespace Trizbort.Domain.Elements {
           Drawing.AddLine(path, left, random, StraightEdges);
         }
 
-        graphics.DrawPath(brush, path);
+        graphics.DrawPath(new Pen(brush), path);
 
         // Second fill for room specific colors with a split option
         if (SecondFillColor != Color.Transparent) {
           var state = graphics.Save();
-          graphics.IntersectClip(path);
+          graphics.IntersectClip(path.GetBounds());
 
           // Set the second fill color
           brush = new SolidBrush(SecondFillColor);
@@ -872,16 +847,16 @@ namespace Trizbort.Domain.Elements {
           }
 
           // Draw the second fill over the first
-          graphics.DrawPath(brush, secondPath);
+          graphics.DrawPath(new Pen(brush), secondPath);
           graphics.Restore(state);
         }
 
         if (IsDark) {
           var state = graphics.Save();
-          var solidbrush = (SolidBrush) palette.BorderBrush;
+          var solidBrush = (SolidBrush) palette.BorderBrush;
           var darknessXDistance = Settings.DarknessStripeSize;
           var darknessYDistance = Settings.DarknessStripeSize;
-          graphics.IntersectClip(path);
+          graphics.IntersectClip(path.GetBounds());
           if (Ellipse) {
             darknessYDistance = 2 * Height / 5;
             darknessXDistance = 2 * Width / 5;
@@ -893,7 +868,7 @@ namespace Trizbort.Domain.Elements {
             darknessYDistance = Height * 7 / 20;
           }
 
-          graphics.DrawPolygon(solidbrush, new[] {topRight.ToPointF(), new PointF(topRight.X - darknessXDistance, topRight.Y), new PointF(topRight.X, topRight.Y + darknessYDistance)}, XFillMode.Alternate);
+          graphics.DrawPolygon(new Pen(solidBrush), new[] {topRight.ToPointF(), new PointF(topRight.X - darknessXDistance, topRight.Y), new PointF(topRight.X, topRight.Y + darknessYDistance)});
           graphics.Restore(state);
         }
 
@@ -923,12 +898,12 @@ namespace Trizbort.Domain.Elements {
         if (!ApplicationSettingsController.AppSettings.DebugDisableTextRendering) {
           var tName = IsReference ? new TextBlock {Text = "To"} : mName;
           var tSubtitle = IsReference ? new TextBlock {Text = ReferenceRoom.Name} : mSubTitle;
-          var RoomTextRect = tName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, XStringFormats.Center);
+          var RoomTextRect = tName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, StringFormats.Center);
 
           // draw subtitle text
           var subTitleBrush = IsReference ? roombrush : (RoomSubtitleColor != Color.Transparent ? new SolidBrush(RoomSubtitleColor) : palette.SubtitleTextBrush);
           var SubtitleTextRect = new Rect(RoomTextRect.Left, RoomTextRect.Bottom, RoomTextRect.Right - RoomTextRect.Left, textBounds.Bottom - RoomTextRect.Bottom);
-          tSubtitle.Draw(graphics, Settings.SubtitleFont, subTitleBrush, SubtitleTextRect.Position, SubtitleTextRect.Size, XStringFormats.Center);
+          tSubtitle.Draw(graphics, Settings.SubtitleFont, subTitleBrush, SubtitleTextRect.Position, SubtitleTextRect.Size, StringFormats.Center);
         }
 
       var expandedBounds = InnerBounds;
@@ -945,7 +920,7 @@ namespace Trizbort.Domain.Elements {
       }
 
       if (!string.IsNullOrEmpty(Objects)) {
-        var format = new XStringFormat();
+        var format = new StringFormat();
         var pos = expandedBounds.GetCorner(mObjectsPosition);
 
         var tempStr = mObjects.Text;
@@ -954,8 +929,8 @@ namespace Trizbort.Domain.Elements {
 
         if (!Drawing.SetAlignmentFromCardinalOrOrdinalDirection(format, mObjectsPosition)) {
           // object list appears inside the room below its name
-          format.LineAlignment = XLineAlignment.Far;
-          format.Alignment = XStringAlignment.Near;
+          format.LineAlignment = StringAlignment.Far;
+          format.Alignment = StringAlignment.Near;
           var height = InnerBounds.Height / 2 - font.Height / 2;
           var bounds = new Rect(InnerBounds.Left + Settings.ObjectListOffsetFromRoom, InnerBounds.Bottom - height, InnerBounds.Width - Settings.ObjectListOffsetFromRoom, height - Settings.ObjectListOffsetFromRoom);
           if (bUseObjectRoomBrush)
@@ -1376,7 +1351,7 @@ namespace Trizbort.Domain.Elements {
       PortList.Add(new CompassPort(CompassPoint.NorthNorthWest, this));
     }
 
-    private void createRoomPath(XGraphicsPath path, LineSegment top, LineSegment left) {
+    private void createRoomPath(GraphicsPath path, LineSegment top, LineSegment left) {
       path.AddArc(top.Start.X + top.Length - Corners.TopRight * 2, top.Start.Y, Corners.TopRight * 2, Corners.TopRight * 2, 270, 90);
       path.AddArc(top.Start.X + top.Length - Corners.BottomRight * 2, top.Start.Y + left.Length - Corners.BottomRight * 2, Corners.BottomRight * 2, Corners.BottomRight * 2, 0, 90);
       path.AddArc(top.Start.X, top.Start.Y + left.Length - Corners.BottomLeft * 2, Corners.BottomLeft * 2, Corners.BottomLeft * 2, 90, 90);
@@ -1520,12 +1495,12 @@ namespace Trizbort.Domain.Elements {
   }
 
   public class CornerRadii {
-    private double bottomLeft = 15.0;
-    private double bottomRight = 15.0;
-    private double topLeft = 15.0;
-    private double topRight = 15.0;
+    private float bottomLeft = 15.0f;
+    private float bottomRight = 15.0f;
+    private float topLeft = 15.0f;
+    private float topRight = 15.0f;
 
-    public double BottomLeft {
+    public float BottomLeft {
       get => bottomLeft;
       set {
         if (value < 1) bottomLeft = 1;
@@ -1534,7 +1509,7 @@ namespace Trizbort.Domain.Elements {
       }
     }
 
-    public double BottomRight {
+    public float BottomRight {
       get => bottomRight;
       set {
         if (value < 1) bottomRight = 1;
@@ -1543,7 +1518,7 @@ namespace Trizbort.Domain.Elements {
       }
     }
 
-    public double TopLeft {
+    public float TopLeft {
       get => topLeft;
       set {
         if (value < 1) topLeft = 1;
@@ -1552,7 +1527,7 @@ namespace Trizbort.Domain.Elements {
       }
     }
 
-    public double TopRight {
+    public float TopRight {
       get => topRight;
       set {
         if (value < 1) topRight = 1;

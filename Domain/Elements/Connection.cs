@@ -1,27 +1,3 @@
-/*
-    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
-
-    This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -30,7 +6,6 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using PdfSharp.Drawing;
 using Trizbort.Domain.Application;
 using Trizbort.Domain.AppSettings;
 using Trizbort.Domain.Misc;
@@ -286,7 +261,7 @@ namespace Trizbort.Domain.Elements {
       return distance;
     }
 
-    public override void Draw(XGraphics graphics, Palette palette, DrawingContext context) {
+    public override void Draw(Graphics graphics, Palette palette, DrawingContext context) {
       var lineSegments = context.UseSmartLineSegments ? mSmartSegments : getSegments();
 
       foreach (var lineSegment in lineSegments) {
@@ -605,7 +580,7 @@ namespace Trizbort.Domain.Elements {
       return rect;
     }
 
-    private void annotate(XGraphics graphics, Palette palette, List<LineSegment> lineSegments) {
+    private void annotate(Graphics graphics, Palette palette, List<LineSegment> lineSegments) {
       if (lineSegments.Count == 0)
         return;
 
@@ -633,7 +608,7 @@ namespace Trizbort.Domain.Elements {
       }
     }
 
-    private void annotate(XGraphics graphics, Palette palette, LineSegment lineSegment, TextBlock text, StringAlignment alignment) {
+    private void annotate(Graphics graphics, Palette palette, LineSegment lineSegment, TextBlock text, StringAlignment alignment) {
       Vector point;
       var delta = lineSegment.Delta;
       var roomTypeAdjustments = Vector.Zero;
@@ -670,14 +645,14 @@ namespace Trizbort.Domain.Elements {
       var compassPoint = CompassPointHelper.DirectionFromAngle(out var angle, delta);
 
       var pos = bounds.GetCorner(compassPoint);
-      var format = new XStringFormat();
+      var format = new StringFormat();
       Drawing.SetAlignmentFromCardinalOrOrdinalDirection(format, compassPoint);
 
       if (alignment == StringAlignment.Center && (Math.Abs(angle) == 90)) {
         // HACK: Adjust the anchoring for mid-line text for vertical lines to push
         // the start of the label a bit off the connection line.
         pos = bounds.GetCorner(CompassPoint.East);
-        format.LineAlignment = XLineAlignment.Center;
+        format.LineAlignment = StringAlignment.Center;
       }
 
       if (alignment == StringAlignment.Center && Numeric.InRange(angle, -10, 10)) {
@@ -685,8 +660,8 @@ namespace Trizbort.Domain.Elements {
         // move text below the line to get it out of the way of any labels at the ends,
         // and center the text so it fits onto a line between two proximal rooms.
         pos = bounds.GetCorner(CompassPoint.South);
-        format.Alignment = XStringAlignment.Center;
-        format.LineAlignment = XLineAlignment.Near;
+        format.Alignment = StringAlignment.Center;
+        format.LineAlignment = StringAlignment.Near;
       }
 
 
@@ -786,7 +761,7 @@ namespace Trizbort.Domain.Elements {
       return roomTypeAdjustments;
     }
 
-    private void showDoorIcons(XGraphics graphics, LineSegment lineSegment) {
+    private void showDoorIcons(Graphics graphics, LineSegment lineSegment) {
       var doorIcon = door.Open ? new Bitmap(Resources.Door_Open) : new Bitmap(Resources.Door);
       var doorLock = door.Locked ? new Bitmap(Resources.Lock) : new Bitmap(Resources.Unlocked);
       lineSegment.IconBlock1.Image = doorIcon;

@@ -26,7 +26,6 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using PdfSharp.Drawing;
 using Trizbort.Domain.Application;
 using Trizbort.Domain.Elements;
 using Trizbort.Domain.Misc;
@@ -105,41 +104,42 @@ namespace Trizbort.UI.Controls {
       foreach (var element in Canvas.SelectedElements)
         element.Flagged = true;
 
-      using (var nativeGraphics = Graphics.FromHdc(e.Graphics.GetHdc())) {
-        using (var graphics = XGraphics.FromGraphics(nativeGraphics, new XSize(Width, Height))) {
-          using (var palette = new Palette()) {
-            var clientArea = new Rectangle(0, 0, Width, Height);
+      using (var graphics = Graphics.FromHdc(e.Graphics.GetHdc())) {
+        using (var palette = new Palette()) {
+          var clientArea = new Rectangle(0, 0, Width, Height);
 
-            ControlPaint.DrawBorder3D(nativeGraphics, clientArea, Border3DStyle.Raised);
-            clientArea.Inflate(-OUTER_BORDER_SIZE, -OUTER_BORDER_SIZE);
-            nativeGraphics.FillRectangle(SystemBrushes.Control, clientArea);
-            clientArea.Inflate(-OUTER_PADDING, -OUTER_PADDING);
-            ControlPaint.DrawBorder3D(nativeGraphics, clientArea, Border3DStyle.SunkenOuter);
-            clientArea.Inflate(-INNER_BORDER_SIZE, -INNER_BORDER_SIZE);
+          ControlPaint.DrawBorder3D(graphics, clientArea, Border3DStyle.Raised);
+          clientArea.Inflate(-OUTER_BORDER_SIZE, -OUTER_BORDER_SIZE);
+          graphics.FillRectangle(SystemBrushes.Control, clientArea);
+          clientArea.Inflate(-OUTER_PADDING, -OUTER_PADDING);
+          ControlPaint.DrawBorder3D(graphics, clientArea, Border3DStyle.SunkenOuter);
+          clientArea.Inflate(-INNER_BORDER_SIZE, -INNER_BORDER_SIZE);
 
-            nativeGraphics.FillRectangle(palette.CanvasBrush, clientArea);
-            clientArea.Inflate(-INNER_PADDING, -INNER_PADDING);
+          graphics.FillRectangle(palette.CanvasBrush, clientArea);
+          clientArea.Inflate(-INNER_PADDING, -INNER_PADDING);
 
-            //nativeGraphics.FillRectangle(Brushes.Cyan, clientArea);
+          //nativeGraphics.FillRectangle(Brushes.Cyan, clientArea);
 
-            var canvasBounds = (Rect) Canvas?.ComputeCanvasBounds(false);
+          var canvasBounds = (Rect) Canvas?.ComputeCanvasBounds(false);
 
-            foreach (var room in Project.Current.Elements.OfType<Room>()) {
-              var roomBounds = canvasToClient(room.InnerBounds.ToRectangleF(), canvasBounds, clientArea);
+          foreach (var room in Project.Current.Elements.OfType<Room>()) {
+            var roomBounds = canvasToClient(room.InnerBounds.ToRectangle(), canvasBounds, clientArea);
 
-              var borderPen = room.Flagged ? palette.Pen(Settings.Color[Colors.SelectedLine], 0) : palette.Pen(Settings.Color[Colors.Border], 0);
-              var paletteBorderBrush = room.Flagged ? new SolidBrush(Settings.Color[Colors.SelectedLine]) : palette.FillBrush;
-              graphics.DrawRectangle(borderPen, paletteBorderBrush, roomBounds);
-            }
+            var borderPen = room.Flagged
+              ? palette.Pen(Settings.Color[Colors.SelectedLine], 0)
+              : palette.Pen(Settings.Color[Colors.Border], 0);
+            var paletteBorderBrush =
+              room.Flagged ? new SolidBrush(Settings.Color[Colors.SelectedLine]) : palette.FillBrush;
+            graphics.DrawRectangle(borderPen, Rectangle.Round(roomBounds));
+          }
 
-            if (Canvas != null) {
-              // draw the viewport area as a selectable "handle"
-              var viewportBounds = canvasToClient(Canvas.Viewport.ToRectangleF(), canvasBounds, clientArea);
-              viewportBounds.Intersect(clientArea);
-              if (Project.Current.Elements.Count > 0) {
-                var context = new DrawingContext(1f) {Selected = mDraggingViewport};
-                Drawing.DrawHandle(Canvas, graphics, palette, new Rect(viewportBounds), context, true, false);
-              }
+          if (Canvas != null) {
+            // draw the viewport area as a selectable "handle"
+            var viewportBounds = canvasToClient(Canvas.Viewport.ToRectangleF(), canvasBounds, clientArea);
+            viewportBounds.Intersect(clientArea);
+            if (Project.Current.Elements.Count > 0) {
+              var context = new DrawingContext(1f) {Selected = mDraggingViewport};
+              Drawing.DrawHandle(Canvas, graphics, palette, new Rect(viewportBounds), context, true, false);
             }
           }
         }

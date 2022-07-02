@@ -34,7 +34,7 @@ namespace Trizbort.Util;
 /// <summary>
 /// Wrapper around an XmlElement for ease of access.
 /// </summary>
-public class XmlElementReader
+public sealed class XmlElementReader
 {
   public XmlElementReader()
   {

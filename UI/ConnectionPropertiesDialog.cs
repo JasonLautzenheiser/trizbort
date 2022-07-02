@@ -30,7 +30,7 @@ using Trizbort.Domain.Misc;
 
 namespace Trizbort.UI; 
 
-public partial class ConnectionPropertiesDialog : Form {
+public sealed partial class ConnectionPropertiesDialog : Form {
   private const string NO_COLOR_SET = "No Color Set";
 
 

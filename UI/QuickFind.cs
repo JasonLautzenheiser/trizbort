@@ -9,7 +9,7 @@ using Trizbort.Domain.Elements;
 
 namespace Trizbort.UI; 
 
-public partial class QuickFind : Form {
+public sealed partial class QuickFind : Form {
   private readonly List<findAutofindCacheItem> cache;
 
   public QuickFind() {

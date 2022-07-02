@@ -5,7 +5,7 @@ using Trizbort.Setup;
 
 namespace Trizbort.Domain.Application; 
 
-public class MapLoader {
+public sealed class MapLoader {
   private MapFileEngine loader;
   private Project project;
 

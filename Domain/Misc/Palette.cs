@@ -14,7 +14,7 @@ namespace Trizbort.Domain.Misc;
 ///   of their lifetimes and avoids creating them until necessary,
 ///   and then only once.
 /// </remarks>
-public class Palette : IDisposable {
+public sealed class Palette : IDisposable {
   private readonly List<IDisposable> m_items = new List<IDisposable>();
   private Brush m_borderBrush;
   private Pen m_borderPen;

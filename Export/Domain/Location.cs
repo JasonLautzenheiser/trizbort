@@ -30,7 +30,7 @@ using Trizbort.Domain.Enums;
 
 namespace Trizbort.Export.Domain; 
 
-public class Location {
+public sealed class Location {
   private readonly List<Exit> mExits = new List<Exit>();
   private readonly Dictionary<MappableDirection, Exit> mMapDirectionToBestExit = new Dictionary<MappableDirection, Exit>();
 

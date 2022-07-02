@@ -24,7 +24,7 @@
 
 namespace Trizbort.UI
 {
-    partial class DisambiguateRoomsDialog
+  sealed partial class DisambiguateRoomsDialog
     {
         /// <summary>
         /// Required designer variable.

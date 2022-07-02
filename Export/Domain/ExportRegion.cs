@@ -26,7 +26,7 @@ using Trizbort.Domain.Misc;
 
 namespace Trizbort.Export.Domain; 
 
-public class ExportRegion
+public sealed class ExportRegion
 {
   public ExportRegion(Region region, string exportName)
   {

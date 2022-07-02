@@ -5,7 +5,7 @@ using Trizbort.Domain.Elements;
 
 namespace Trizbort.Domain.Cache; 
 
-public class Indexer {
+public sealed class Indexer {
   public List<FindCacheItem> Index() {
     return Project.Current.Elements.OfType<Room>()
                   .Select(room => new FindCacheItem {

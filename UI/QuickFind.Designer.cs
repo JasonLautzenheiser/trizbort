@@ -1,6 +1,6 @@
 ﻿namespace Trizbort.UI
 {
-    partial class QuickFind
+  sealed partial class QuickFind
     {
         /// <summary>
         /// Required designer variable.

@@ -7,7 +7,7 @@ using Trizbort.Util;
 
 namespace Trizbort.Domain.StatusBar; 
 
-public class ZoomStatusWidget : IStatusWidget {
+public sealed class ZoomStatusWidget : IStatusWidget {
   ContextMenuStrip menu;
 
   public StatusItems Id => StatusItems.tsb_CapsLock;

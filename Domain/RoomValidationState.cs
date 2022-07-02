@@ -8,7 +8,7 @@ public enum RoomValidationStatus
   Invalid
 }
 
-public class RoomValidationState
+public sealed class RoomValidationState
 {
   public RoomValidationStatus Status { get; set; }
   public ValidationType Type { get; set; }

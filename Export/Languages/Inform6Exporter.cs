@@ -37,7 +37,7 @@ using Trizbort.Extensions;
 
 namespace Trizbort.Export.Languages; 
 
-internal class Inform6Exporter : CodeExporter {
+internal sealed class Inform6Exporter : CodeExporter {
   private const char SINGLE_QUOTE = '\'';
   private const char DOUBLE_QUOTE = '"';
 

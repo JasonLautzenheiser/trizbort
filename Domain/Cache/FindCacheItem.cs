@@ -2,7 +2,7 @@
 
 namespace Trizbort.Domain.Cache; 
 
-public class FindCacheItem {
+public sealed class FindCacheItem {
   public string Description { get; set; }
   public Element Element { get; set; }
   public string Name { get; set; }

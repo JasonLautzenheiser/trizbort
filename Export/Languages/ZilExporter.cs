@@ -14,7 +14,7 @@ using Trizbort.Extensions;
 
 namespace Trizbort.Export.Languages; 
 
-internal class ZilExporter : CodeExporter {
+internal sealed class ZilExporter : CodeExporter {
   private const char SINGLE_QUOTE = '\'';
   private const char DOUBLE_QUOTE = '"';
   private const char SPACE = ' ';

@@ -24,7 +24,7 @@
 
 namespace Trizbort.UI.Controls
 {
-    partial class AutomapBar
+  sealed partial class AutomapBar
     {
         /// <summary> 
         /// Required designer variable.

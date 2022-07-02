@@ -13,7 +13,7 @@ public enum StatusItems {
   tsb_Zoom
 }
 
-public class StatusItem {
+public sealed class StatusItem {
   public StatusItems Id { get;set; }
   public bool Show { get; set; }
   public ToolStripStatusLabel Control { get; set; }
@@ -22,7 +22,7 @@ public class StatusItem {
 
 
 
-public class Status {
+public sealed class Status {
   public Status(StatusStrip statusBar) {
     this.statusBar = statusBar;
     this.statusBar.MouseLeave += showDefaultInfoMessage;

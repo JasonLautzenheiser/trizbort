@@ -29,7 +29,7 @@ using Trizbort.Extensions;
 
 namespace Trizbort.UI; 
 
-public partial class MainForm : Form {
+public sealed partial class MainForm : Form {
   private static readonly TimeSpan idleProcessingEveryNSeconds = TimeSpan.FromSeconds(0.2);
   private readonly CommandController commandController;
   private readonly string mCaption;

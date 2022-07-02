@@ -9,7 +9,7 @@ using Trizbort.Setup;
 
 namespace Trizbort.UI; 
 
-public partial class MapStatisticsView : Form {
+public sealed partial class MapStatisticsView : Form {
   public MapStatisticsView() {
     InitializeComponent();
   }

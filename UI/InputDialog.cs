@@ -62,7 +62,7 @@ public struct InputDialogItem
 }
 
 
-public class InputDialog
+public sealed class InputDialog
 {
   private InputDialog(dialogForm dialog)
   {

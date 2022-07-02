@@ -10,7 +10,7 @@ public enum AutomapSameDirectionResult
   KeepRoom2,
   KeepBoth
 }
-public partial class AutomapRoomSameDirectionDialog : Form
+public sealed partial class AutomapRoomSameDirectionDialog : Form
 {
     
   public AutomapRoomSameDirectionDialog()

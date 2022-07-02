@@ -30,7 +30,7 @@ using Trizbort.Util;
 
 namespace Trizbort.UI; 
 
-internal partial class AutomapDialog : Form
+internal sealed partial class AutomapDialog : Form
 {
   public AutomapDialog()
   {

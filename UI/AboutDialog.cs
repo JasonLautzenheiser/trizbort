@@ -29,7 +29,7 @@ using System.Windows.Forms;
 
 namespace Trizbort.UI; 
 
-public partial class AboutDialog : Form {
+public sealed partial class AboutDialog : Form {
   public AboutDialog() {
     InitializeComponent();
     try {

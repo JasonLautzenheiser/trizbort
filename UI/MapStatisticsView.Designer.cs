@@ -1,6 +1,6 @@
 ﻿namespace Trizbort.UI
 {
-  partial class MapStatisticsView
+  sealed partial class MapStatisticsView
   {
     /// <summary>
     /// Required designer variable.

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Trizbort.UI; 
 
-public partial class AppSettingsDialog : Form {
+public sealed partial class AppSettingsDialog : Form {
   public AppSettingsDialog() {
     InitializeComponent();
   }

@@ -24,7 +24,7 @@
 
 namespace Trizbort.UI
 {
-    partial class ConnectionPropertiesDialog
+  sealed partial class ConnectionPropertiesDialog
     {
         /// <summary>
         /// Required designer variable.

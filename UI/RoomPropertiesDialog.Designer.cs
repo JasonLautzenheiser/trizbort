@@ -26,7 +26,7 @@ using Trizbort.UI.Controls;
 
 namespace Trizbort.UI
 {
-    partial class RoomPropertiesDialog
+  sealed partial class RoomPropertiesDialog
     {
         /// <summary>
         /// Required designer variable.

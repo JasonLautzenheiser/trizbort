@@ -20,7 +20,7 @@ namespace Trizbort.Domain.Elements;
 /// <summary>
 ///   A room in the project.
 /// </summary>
-public class Room : Element, ISizeable {
+public sealed class Room : Element, ISizeable {
   private const CompassPoint DEFAULT_OBJECTS_POSITION = CompassPoint.South;
   private readonly List<string> mDescriptions = new List<string>();
   private readonly TextBlock mName = new TextBlock();
@@ -1476,7 +1476,7 @@ public class Room : Element, ISizeable {
     return ValidationState == null || ValidationState.Count == 0;
   }
 
-  internal class CompassPort : Port {
+  internal sealed class CompassPort : Port {
     public CompassPort(CompassPoint compassPoint, Room room) : base(room) {
       CompassPoint = compassPoint;
       Room = room;
@@ -1495,7 +1495,7 @@ public class Room : Element, ISizeable {
   }
 }
 
-public class CornerRadii {
+public sealed class CornerRadii {
   private float bottomLeft = 15.0f;
   private float bottomRight = 15.0f;
   private float topLeft = 15.0f;

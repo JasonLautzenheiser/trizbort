@@ -2,7 +2,7 @@
 
 namespace Trizbort.Domain.Application; 
 
-public class MapSaver {
+public sealed class MapSaver {
   private MapFileEngine engine;
   private readonly Project project;
 

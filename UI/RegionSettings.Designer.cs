@@ -1,6 +1,6 @@
 ﻿namespace Trizbort.UI
 {
-    partial class RegionSettings
+  sealed partial class RegionSettings
     {
         /// <summary>
         /// Required designer variable.

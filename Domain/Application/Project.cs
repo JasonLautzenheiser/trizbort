@@ -35,7 +35,7 @@ using Trizbort.UI.Controls;
 
 namespace Trizbort.Domain.Application; 
 
-public class Project : IDisposable {
+public sealed class Project : IDisposable {
   public static readonly string FilterString = "Trizbort Map Files|*.trizbort";
 
   public static readonly TrizbortFileWatcher FileWatcher = new TrizbortFileWatcher();

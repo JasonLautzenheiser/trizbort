@@ -31,7 +31,7 @@ using Trizbort.Domain.Misc;
 
 namespace Trizbort.Export.Domain; 
 
-public class Exit {
+public sealed class Exit {
   // The priority of the this exit's primary direction, compared to other exits which may go in the same direction from
   // the same room.
   // 

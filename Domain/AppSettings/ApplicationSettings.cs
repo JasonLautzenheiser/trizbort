@@ -5,7 +5,7 @@ using Trizbort.Domain.Application;
 
 namespace Trizbort.Domain.AppSettings; 
 
-public class ApplicationSettings
+public sealed class ApplicationSettings
 {
   private const string AppSettingsFileName = @".\appsettings.json";
 

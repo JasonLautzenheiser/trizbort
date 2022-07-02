@@ -9,7 +9,7 @@ namespace Trizbort.Domain.Misc;
 /// <summary>
 ///   A visual handle by which an element may be resized.
 /// </summary>
-internal class ResizeHandle {
+internal sealed class ResizeHandle {
   private readonly CompassPoint mCompassPoint;
   private readonly ISizeable mOwner;
 

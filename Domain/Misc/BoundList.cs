@@ -27,7 +27,7 @@ using System.Collections.ObjectModel;
 
 namespace Trizbort.Domain.Misc; 
 
-public class BoundList<T> : Collection<T> {
+public sealed class BoundList<T> : Collection<T> {
   public event ItemEventHandler<T> Added;
 
   public void AddRange<U>(IEnumerable<U> list) where U : T {

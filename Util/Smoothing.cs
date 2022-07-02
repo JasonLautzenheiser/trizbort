@@ -4,7 +4,7 @@ using System.Drawing.Drawing2D;
 
 namespace Trizbort.Util; 
 
-internal class Smoothing : IDisposable {
+internal sealed class Smoothing : IDisposable {
   public Smoothing(Graphics graphics, SmoothingMode mode) {
     Graphics = graphics;
     SmoothingMode = graphics.SmoothingMode;

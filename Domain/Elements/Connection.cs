@@ -25,7 +25,7 @@ namespace Trizbort.Domain.Elements;
 ///   to an element's port.
 /// </remarks>
 [SuppressMessage("ReSharper", "CanBeReplacedWithTryCastAndCheckForNull")]
-public class Connection : Element {
+public sealed class Connection : Element {
   public const string Up = "up";
   public const string Down = "down";
   public const string In = "in";
@@ -836,7 +836,7 @@ public class Connection : Element {
     return false;
   }
 
-  public class VertexPort : MoveablePort {
+  public sealed class VertexPort : MoveablePort {
     public VertexPort(Vertex vertex, Connection connection) : base(connection) {
       Vertex = vertex;
       Connection = connection;

@@ -7,7 +7,7 @@ using Trizbort.UI.Controls;
 
 namespace Trizbort.Domain.Controllers; 
 
-public class CanvasController {
+public sealed class CanvasController {
   private readonly Canvas canvas;
 
 

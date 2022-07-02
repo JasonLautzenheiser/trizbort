@@ -5,7 +5,7 @@ using Trizbort.UI.Controls;
 
 namespace Trizbort.Domain.Commands; 
 
-public class SelectCommand : ICanvasCommand<SelectTypes> {
+public sealed class SelectCommand : ICanvasCommand<SelectTypes> {
   public void Execute(Canvas canvas, SelectTypes value) {
     switch (value) {
       case SelectTypes.None:

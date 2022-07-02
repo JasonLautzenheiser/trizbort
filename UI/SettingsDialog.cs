@@ -36,7 +36,7 @@ using Region = Trizbort.Domain.Misc.Region;
 
 namespace Trizbort.UI; 
 
-public partial class SettingsDialog : Form {
+public sealed partial class SettingsDialog : Form {
   private const int HORIZONTAL_MARGIN = 2;
   private const int VERTICAL_MARGIN = 2;
   private const int WIDTH = 24;

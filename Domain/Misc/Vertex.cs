@@ -35,7 +35,7 @@ namespace Trizbort.Domain.Misc;
 ///   Each vertex is fixed either to a point in space or
 ///   to an element's port.
 /// </remarks>
-public class Vertex {
+public sealed class Vertex {
   private Port m_port;
 
   private Vector m_position;

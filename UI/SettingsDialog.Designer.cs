@@ -24,7 +24,7 @@
 
 namespace Trizbort.UI
 {
-    partial class SettingsDialog
+  sealed partial class SettingsDialog
     {
         /// <summary>
         /// Required designer variable.

@@ -6,7 +6,7 @@ using Trizbort.Domain.Misc;
 
 namespace Trizbort.UI; 
 
-public partial class RegionSettings : Form {
+public sealed partial class RegionSettings : Form {
   private readonly string originalName;
   private readonly List<Region> regions;
 

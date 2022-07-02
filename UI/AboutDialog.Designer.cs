@@ -24,7 +24,7 @@
 
 namespace Trizbort.UI
 {
-    partial class AboutDialog
+  sealed partial class AboutDialog
     {
         /// <summary>
         /// Required designer variable.

@@ -2,7 +2,7 @@
 
 namespace Trizbort.UI
 {
-  partial class AutomapRoomSameDirectionDialog
+  sealed partial class AutomapRoomSameDirectionDialog
   {
     /// <summary>
     /// Required designer variable.

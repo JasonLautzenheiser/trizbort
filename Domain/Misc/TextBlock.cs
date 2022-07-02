@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Trizbort.Domain.Misc; 
 
-internal class TextBlock {
+internal sealed class TextBlock {
   public static int s_rebuildCount;
   private readonly List<string> m_lines = new List<string>();
   private StringFormat m_actualFormat;

@@ -193,12 +193,12 @@ public class CopyController {
     return xx;
   }
 
-  public class CopyObject : ICopyObj {
+  public sealed class CopyObject : ICopyObj {
     public List<CopyConnectionObj> Connections;
     public List<CopyRoomObj> Rooms;
   }
 
-  public class CopyConnectionObj {
+  public sealed class CopyConnectionObj {
     public Color ConnectionColor { get; set; }
     public string Description { get; set; }
     public Door Door { get; set; }
@@ -211,7 +211,7 @@ public class CopyController {
     public List<CopyVertexObj> VertextList { get; set; }
   }
 
-  public class CopyVertexObj {
+  public sealed class CopyVertexObj {
     public int Index { get; set; }
     public int OwnerId { get; set; }
     public string PortId { get; set; }
@@ -219,7 +219,7 @@ public class CopyController {
     public VertexType Type { get; set; }
   }
 
-  public class CopyRoomObj {
+  public sealed class CopyRoomObj {
     public bool AllCornersEqual { get; set; }
     public bool ArbitraryAutomappedPosition { get; set; }
     public BorderDashStyle BorderStyle { get; set; }
@@ -256,13 +256,13 @@ public class CopyController {
   }
 
 
-  public class CopyColorsObj : ICopyObj {
+  public sealed class CopyColorsObj : ICopyObj {
     public List<CopyColorObj> Colors { get; set; }
     public CopyType CopyType => CopyType.Colors;
     public string SecondFillLocation { get; set; }
   }
 
-  public class CopyColorObj {
+  public sealed class CopyColorObj {
     public Color Color { get; set; }
     public string Name { get; set; }
   }

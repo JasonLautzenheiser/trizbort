@@ -2,7 +2,7 @@
 
 namespace Trizbort.Domain.Misc; 
 
-public class ConnectionIconBlock {
+public sealed class ConnectionIconBlock {
   private const int HORIZONTAL_LINE_OFFSET = 15;
   private const int VERTICAL_STEM_OFFSET = 15;
   private const int VERTICAL_LINE_OFFSET = 5;

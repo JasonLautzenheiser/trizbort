@@ -26,7 +26,7 @@ using Trizbort.UI.Controls;
 
 namespace Trizbort.UI
 {
-  public partial class MainForm
+  public sealed partial class MainForm
     {
         /// <summary>
         /// Required designer variable.

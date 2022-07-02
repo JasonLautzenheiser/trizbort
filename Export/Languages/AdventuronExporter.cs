@@ -9,7 +9,7 @@ using Trizbort.Domain.Enums;
 
 namespace Trizbort.Export.Languages; 
 
-internal class AdventuronExporter : CodeExporter
+internal sealed class AdventuronExporter : CodeExporter
 {
   // Adventuron limits headers to 25 characters
   private const int MaximumHeaderLength = 25;

@@ -27,9 +27,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Trizbort.Domain.Elements;
 
-namespace Trizbort.UI; 
+namespace Trizbort.UI;
 
-partial class DisambiguateRoomsDialog : Form
+sealed partial class DisambiguateRoomsDialog : Form
 {
   public DisambiguateRoomsDialog()
   {

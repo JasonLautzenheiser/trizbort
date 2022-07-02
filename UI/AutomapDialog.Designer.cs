@@ -24,7 +24,7 @@
 
 namespace Trizbort.UI
 {
-    partial class AutomapDialog
+  sealed partial class AutomapDialog
     {
         /// <summary>
         /// Required designer variable.

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Trizbort.UI.Controls; 
 
-public class TrizbortTextBox : TextBox {
+public sealed class TrizbortTextBox : TextBox {
   private string mCue;
 
   public string Watermark {

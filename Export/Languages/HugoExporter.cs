@@ -34,7 +34,7 @@ using Trizbort.Export.Domain;
 
 namespace Trizbort.Export.Languages; 
 
-internal class HugoExporter : CodeExporter {
+internal sealed class HugoExporter : CodeExporter {
   private const char SINGLE_QUOTE = '\'';
   private const char DOUBLE_QUOTE = '"';
 

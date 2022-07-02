@@ -32,7 +32,7 @@ namespace Trizbort.Util;
 /// <summary>
 /// Wrapper around an XML attribute for ease of access.
 /// </summary>
-public class XmlAttributeReader
+public sealed class XmlAttributeReader
 {
   public XmlAttributeReader(string value)
   {

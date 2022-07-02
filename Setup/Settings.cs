@@ -754,7 +754,7 @@ public static class Settings {
   }
 
 
-  public class ColorSettings {
+  public sealed class ColorSettings {
     public Color this[int index] {
       get => sColor[index];
       set {

@@ -28,7 +28,7 @@ using System.Text.RegularExpressions;
 
 namespace Trizbort.Export.Domain; 
 
-public class Thing {
+public sealed class Thing {
   public enum Amounts {
     Noforce,
     Singular,

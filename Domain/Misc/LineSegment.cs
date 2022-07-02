@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace Trizbort.Domain.Misc; 
 
-public class LineSegment {
+public sealed class LineSegment {
   public Vector End;
 
   public ConnectionIconBlock IconBlock1;

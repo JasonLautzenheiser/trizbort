@@ -147,7 +147,7 @@ internal class QuestRoomsExporter : CodeExporter {
 }
 
 
-internal class QuestExporter : QuestRoomsExporter {
+internal sealed class QuestExporter : QuestRoomsExporter {
   public override string FileDialogTitle => "Export Quest Source Code";
 
   protected override void ExportContent(TextWriter writer) {

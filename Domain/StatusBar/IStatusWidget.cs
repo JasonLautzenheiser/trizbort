@@ -1,15 +1,15 @@
 ﻿using System.Drawing;
 
-namespace Trizbort.Domain.StatusBar {
-  public interface IStatusWidget {
-    StatusItems Id { get; }
-    string Name { get; }
-    string MenuName { get; }
-    string HelpText { get;  }
-    Color DisplayColor { get;  }
+namespace Trizbort.Domain.StatusBar; 
 
-    string DisplayText();
+public interface IStatusWidget {
+  StatusItems Id { get; }
+  string Name { get; }
+  string MenuName { get; }
+  string HelpText { get;  }
+  Color DisplayColor { get;  }
 
-    void ClickHandler();
-  }
+  string DisplayText();
+
+  void ClickHandler();
 }

@@ -1,17 +1,16 @@
 ﻿using Trizbort.Domain.Enums;
 
-namespace Trizbort.Domain
-{
-  public enum RoomValidationStatus
-  {
-    Valid,
-    Invalid
-  }
+namespace Trizbort.Domain; 
 
-  public class RoomValidationState
-  {
-    public RoomValidationStatus Status { get; set; }
-    public ValidationType Type { get; set; }
-    public string Message { get; set; }
-  }
+public enum RoomValidationStatus
+{
+  Valid,
+  Invalid
+}
+
+public class RoomValidationState
+{
+  public RoomValidationStatus Status { get; set; }
+  public ValidationType Type { get; set; }
+  public string Message { get; set; }
 }

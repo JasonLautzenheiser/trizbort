@@ -25,19 +25,19 @@
 using System;
 using System.Windows.Forms;
 
-namespace Trizbort.UI.Controls {
-  public partial class AutomapBar : UserControl {
-    public AutomapBar() {
-      InitializeComponent();
-    }
+namespace Trizbort.UI.Controls; 
 
-    public string Status { set => m_statusLabel.Text = value; }
+public partial class AutomapBar : UserControl {
+  public AutomapBar() {
+    InitializeComponent();
+  }
 
-    public event EventHandler StopClick;
+  public string Status { set => m_statusLabel.Text = value; }
 
-    private void StopButton_Click(object sender, EventArgs e) {
-      var stopClick = StopClick;
-      stopClick?.Invoke(this, EventArgs.Empty);
-    }
+  public event EventHandler StopClick;
+
+  private void StopButton_Click(object sender, EventArgs e) {
+    var stopClick = StopClick;
+    stopClick?.Invoke(this, EventArgs.Empty);
   }
 }

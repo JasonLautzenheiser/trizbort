@@ -22,24 +22,24 @@
     THE SOFTWARE.
 */
 
-namespace Trizbort.Domain.Misc {
+namespace Trizbort.Domain.Misc; 
+
+/// <summary>
+///   "Depth" of an element, indicating its drawing order.
+/// </summary>
+public enum Depth {
   /// <summary>
-  ///   "Depth" of an element, indicating its drawing order.
+  ///   Low depth. Draw before Medium and High.
   /// </summary>
-  public enum Depth {
-    /// <summary>
-    ///   Low depth. Draw before Medium and High.
-    /// </summary>
-    Low,
+  Low,
 
-    /// <summary>
-    ///   Medium depth. Draw before High.
-    /// </summary>
-    Medium,
+  /// <summary>
+  ///   Medium depth. Draw before High.
+  /// </summary>
+  Medium,
 
-    /// <summary>
-    ///   High depth.
-    /// </summary>
-    High
-  }
+  /// <summary>
+  ///   High depth.
+  /// </summary>
+  High
 }

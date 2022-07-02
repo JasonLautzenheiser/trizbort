@@ -28,56 +28,55 @@ using Trizbort.Domain;
 using Trizbort.Domain.Elements;
 using Trizbort.Domain.Enums;
 
-namespace Trizbort.Export.Domain
-{
-    public class Location {
-      private readonly List<Exit> mExits = new List<Exit>();
-      private readonly Dictionary<MappableDirection, Exit> mMapDirectionToBestExit = new Dictionary<MappableDirection, Exit>();
+namespace Trizbort.Export.Domain; 
 
-      public Location(Room room, string exportName) {
-        Room = room;
-        ExportName = exportName;
-      }
+public class Location {
+  private readonly List<Exit> mExits = new List<Exit>();
+  private readonly Dictionary<MappableDirection, Exit> mMapDirectionToBestExit = new Dictionary<MappableDirection, Exit>();
 
-      public string ExportName { get; }
+  public Location(Room room, string exportName) {
+    Room = room;
+    ExportName = exportName;
+  }
 
-      public Room Room { get; }
+  public string ExportName { get; }
 
-      public List<Thing> Things { get; } = new List<Thing>();
+  public Room Room { get; }
 
-      public void AddExit(Exit exit) {
-        mExits.Add(exit);
-      }
+  public List<Thing> Things { get; } = new List<Thing>();
 
-      public Exit GetBestExit(MappableDirection direction) {
-        return mMapDirectionToBestExit.TryGetValue(direction, out var exit) ? exit : null;
-      }
+  public void AddExit(Exit exit) {
+    mExits.Add(exit);
+  }
 
-      public void PickBestExits() {
-        mMapDirectionToBestExit.Clear();
-        foreach (var direction in Directions.AllDirections) {
-          var exit = pickBestExit(direction);
-          if (exit != null) mMapDirectionToBestExit.Add(direction, exit);
-        }
-      }
+  public Exit GetBestExit(MappableDirection direction) {
+    return mMapDirectionToBestExit.TryGetValue(direction, out var exit) ? exit : null;
+  }
 
-      private Exit pickBestExit(MappableDirection direction) {
-        // sort exits by priority for this direction only
-        mExits.Sort((a, b) => {
-          var one = a.GetPriority(direction);
-          var two = b.GetPriority(direction);
-          return two - one;
-        });
-
-        // pick the highest priority exit if its direction matches;
-        // if the highest priority exit's direction doesn't match,
-        // there's no exit in this direction.
-        if (mExits.Count > 0) {
-          var exit = mExits[0];
-          if (exit.PrimaryDirection == direction || exit.SecondaryDirection == direction) return exit;
-        }
-
-        return null;
-      }
+  public void PickBestExits() {
+    mMapDirectionToBestExit.Clear();
+    foreach (var direction in Directions.AllDirections) {
+      var exit = pickBestExit(direction);
+      if (exit != null) mMapDirectionToBestExit.Add(direction, exit);
     }
   }
+
+  private Exit pickBestExit(MappableDirection direction) {
+    // sort exits by priority for this direction only
+    mExits.Sort((a, b) => {
+      var one = a.GetPriority(direction);
+      var two = b.GetPriority(direction);
+      return two - one;
+    });
+
+    // pick the highest priority exit if its direction matches;
+    // if the highest priority exit's direction doesn't match,
+    // there's no exit in this direction.
+    if (mExits.Count > 0) {
+      var exit = mExits[0];
+      if (exit.PrimaryDirection == direction || exit.SecondaryDirection == direction) return exit;
+    }
+
+    return null;
+  }
+}

@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
 using Trizbort.Domain.Elements;
 
-namespace Trizbort.Domain.Controllers {
-  public class RoomController {
-    public void ForceDarkness(List<Room> selectedRooms) {
-      selectedRooms.ForEach(room => room.IsDark = true);
-    }
+namespace Trizbort.Domain.Controllers; 
 
-    public void ForceLighted(List<Room> selectedRooms) {
-      selectedRooms.ForEach(room => room.IsDark = false);
-    }
+public class RoomController {
+  public void ForceDarkness(List<Room> selectedRooms) {
+    selectedRooms.ForEach(room => room.IsDark = true);
+  }
 
-    public void SetRoomShape(List<Room> selectedRooms, RoomShape shape) {
-      selectedRooms.ForEach(room => room.Shape = shape);
-    }
+  public void ForceLighted(List<Room> selectedRooms) {
+    selectedRooms.ForEach(room => room.IsDark = false);
+  }
 
-    public void ToggleDarkness(List<Room> selectedRooms) {
-      selectedRooms.ForEach(room => room.IsDark = !room.IsDark);
-    }
+  public void SetRoomShape(List<Room> selectedRooms, RoomShape shape) {
+    selectedRooms.ForEach(room => room.Shape = shape);
+  }
+
+  public void ToggleDarkness(List<Room> selectedRooms) {
+    selectedRooms.ForEach(room => room.IsDark = !room.IsDark);
   }
 }

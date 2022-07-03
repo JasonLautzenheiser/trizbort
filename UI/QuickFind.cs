@@ -10,7 +10,7 @@ using Trizbort.Domain.Elements;
 namespace Trizbort.UI; 
 
 public sealed partial class QuickFind : Form {
-  private readonly List<findAutofindCacheItem> cache;
+  private readonly List<AutoFindCacheItem> cache;
 
   public QuickFind() {
     InitializeComponent();
@@ -31,17 +31,17 @@ public sealed partial class QuickFind : Form {
     doFind();
   }
 
-  private List<findAutofindCacheItem> buildFindCache() {
+  private List<AutoFindCacheItem> buildFindCache() {
     var indexer = new Indexer();
     var findCacheItems = indexer.Index();
 
-    var list = new List<findAutofindCacheItem>();
+    var list = new List<AutoFindCacheItem>();
 
     foreach (var item in findCacheItems) {
-      var x1 = new findAutofindCacheItem {Room = item.Element, Text = item.Name?.Trim()};
-      var x2 = new findAutofindCacheItem {Room = item.Element, Text = item.Description?.Trim()};
-      var x3 = new findAutofindCacheItem {Room = item.Element, Text = item.Objects?.Trim()};
-      var x4 = new findAutofindCacheItem {Room = item.Element, Text = item.Subtitle?.Trim()};
+      var x1 = new AutoFindCacheItem {Room = item.Element, Text = item.Name?.Trim()};
+      var x2 = new AutoFindCacheItem {Room = item.Element, Text = item.Description?.Trim()};
+      var x3 = new AutoFindCacheItem {Room = item.Element, Text = item.Objects?.Trim()};
+      var x4 = new AutoFindCacheItem {Room = item.Element, Text = item.Subtitle?.Trim()};
 
       list.Add(x1);
       if (!string.IsNullOrEmpty(x2.Text)) list.Add(x2);
@@ -87,7 +87,7 @@ public sealed partial class QuickFind : Form {
       Close();
   }
 
-  private class findAutofindCacheItem {
+  private sealed class AutoFindCacheItem {
     public Element Room { get; set; }
     public string Text { get; set; }
 

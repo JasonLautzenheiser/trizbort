@@ -55,7 +55,7 @@ internal sealed class ResizeHandle {
       var tBounds = mOwner.InnerBounds;
 
       var pos = tBounds.GetCorner(mCompassPoint);
-      if (mOwner is Room) pos = tBounds.GetCorner(mCompassPoint, ((Room) mOwner).Shape, ((Room) mOwner).Corners);
+      if (mOwner is Room room) pos = tBounds.GetCorner(mCompassPoint, room.Shape, room.Corners);
       pos.X -= size.X / 2;
       pos.Y -= size.Y / 2;
       return pos;
@@ -84,13 +84,11 @@ internal sealed class ResizeHandle {
       case CompassPoint.West:
       case CompassPoint.WestSouthWest:
       case CompassPoint.SouthWest:
-      default:
         if (mOwner.Width - (value - mOwner.X) >= 1) {
           var old = mOwner.X;
           mOwner.Position = new Vector(value, mOwner.Position.Y);
           mOwner.Size = new Vector(mOwner.Size.X - (mOwner.X - old), mOwner.Size.Y);
         }
-
         break;
       case CompassPoint.NorthEast:
       case CompassPoint.EastNorthEast:

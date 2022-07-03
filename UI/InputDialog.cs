@@ -293,7 +293,7 @@ public sealed class InputDialog
       // 
       for (int i = 0; i < items.Length; i++)
       {
-        textBox[i].Anchor = (AnchorStyles)(AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
+        textBox[i].Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         textBox[i].Location = new Point(12, 25 + (i * 39));
         textBox[i].Name = "textBox[" + i + "]";
         textBox[i].Size = new Size(288, 20);
@@ -307,7 +307,7 @@ public sealed class InputDialog
       // 
       // button1
       // 
-      button1.Anchor = (AnchorStyles)(AnchorStyles.Bottom | AnchorStyles.Right);
+      button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
       button1.Location = new Point(208, 15 + (39 * label.Length));
       button1.Name = "button1";
       button1.Size = new Size(92, 23);
@@ -317,7 +317,7 @@ public sealed class InputDialog
       // 
       // button2
       // 
-      button2.Anchor = (AnchorStyles)(AnchorStyles.Bottom | AnchorStyles.Right);
+      button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
       button2.Location = new Point(110, 15 + (39 * label.Length));
       button2.Name = "button2";
       button2.Size = new Size(92, 23);
@@ -327,7 +327,7 @@ public sealed class InputDialog
       // 
       // button3
       // 
-      button3.Anchor = (AnchorStyles)(AnchorStyles.Bottom | AnchorStyles.Right);
+      button3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
       button3.Location = new Point(12, 15 + (39 * label.Length));
       button3.Name = "button3";
       button3.Size = new Size(92, 23);

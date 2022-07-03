@@ -127,13 +127,13 @@ internal sealed class TextBlock {
       // wrap single-line text to fit in rectangle
 
       // measure a space, countering the APIs unwillingness to measure spaces
-      var spaceLength = (float) (graphics.MeasureString("M M", font).Width - graphics.MeasureString("M", font).Width * 2);
-      var hyphenLength = (float) graphics.MeasureString("-", font).Width;
+      var spaceLength = graphics.MeasureString("M M", font).Width - graphics.MeasureString("M", font).Width * 2;
+      var hyphenLength = graphics.MeasureString("-", font).Width;
 
       var wordsStep1 = new List<Word>();
       foreach (var word in text.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries)) {
         if (wordsStep1.Count != 0) wordsStep1.Add(new Word(" ", spaceLength));
-        wordsStep1.Add(new Word(word, (float) graphics.MeasureString(word, font).Width));
+        wordsStep1.Add(new Word(word, graphics.MeasureString(word, font).Width));
       }
 
       bool isSplitDash = Setup.Settings.WrapTextAtDashes;
@@ -147,14 +147,14 @@ internal sealed class TextBlock {
             else if (tWordList.Count != 0 && isSplitDash)
               tWordList.Add(new Word("-", hyphenLength));
 
-            tWordList.Add(new Word(tWord, (float) graphics.MeasureString(tWord, font).Width));
+            tWordList.Add(new Word(tWord, graphics.MeasureString(tWord, font).Width));
           }
 
           words.AddRange(tWordList);
         } else {
           if (words.Count != 0)
             words.Add(new Word(" ", spaceLength));
-          words.Add(new Word(splits[0], (float) graphics.MeasureString(splits[0], font).Width));
+          words.Add(new Word(splits[0], graphics.MeasureString(splits[0], font).Width));
         }
 
       var lineLength = 0.0f;

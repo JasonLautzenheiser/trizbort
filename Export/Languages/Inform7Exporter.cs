@@ -163,17 +163,13 @@ internal sealed class Inform7Exporter : CodeExporter {
   }
 
   private string getExportName(string name, int? suffix) {
-    var spaceless = true;
-
     if (containsOddCharacters(name))
       name = stripOddCharacters(name);
 
-    if (containsWord(name, ReservedWords))
-      if (suffix == null)
-        suffix = 1;
+    if (containsWord(name, ReservedWords) && suffix == null) suffix = 1;
 
     if (suffix != null)
-      name = $"{name}{(spaceless ? string.Empty : " ")}{suffix}";
+      name = $"{name}{suffix}";
 
     return name;
   }
@@ -296,7 +292,7 @@ internal sealed class Inform7Exporter : CodeExporter {
     foreach (var direction in Directions.AllDirections) {
       var exit = location.GetBestExit(direction);
 
-      if (exit != null && exit.Exported == false) {
+      if (exit is {Exported: false}) {
         // remember we've exported this exit
         exit.Exported = true;
         exportedExits = true;

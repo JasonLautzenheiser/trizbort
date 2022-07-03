@@ -14,7 +14,6 @@ public sealed class MapLoader {
   }
 
   public bool LoadMap(string fileName) {
-      
     // empty file
     if (isEmptyFile(fileName)) {
       Settings.Reset();
@@ -29,7 +28,10 @@ public sealed class MapLoader {
     MessageBox.Show($"'{fileName}' is not a known Trizbort file.", "Not a valid file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
     return false;
   }
-
+  
+  public bool LoadMap(Uri url) {
+    return LoadMap(url.AbsoluteUri);
+  }
   private bool isEmptyFile(string fileName) {
     if (Uri.IsWellFormedUriString(fileName, UriKind.RelativeOrAbsolute))
       return false;
@@ -37,8 +39,5 @@ public sealed class MapLoader {
     return new FileInfo(fileName).Length == 0;
   }
 
-  public bool LoadMap(Uri url) {
 
-    return LoadMap(url.AbsoluteUri);
-  }
 }

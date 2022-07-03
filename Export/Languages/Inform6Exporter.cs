@@ -80,12 +80,12 @@ internal sealed class Inform6Exporter : CodeExporter {
     writer.WriteLine("[ Initialise;");
     if (LocationsInExportOrder.Count > 0) {
       var foundStart = false;
-      foreach (var location in LocationsInExportOrder.Where(location => location.Room.IsStartRoom))
+      foreach (var exportName in LocationsInExportOrder.Where(location => location.Room.IsStartRoom).Select(p=>p.ExportName))
         if (foundStart) {
-          writer.WriteLine("! {0} is a second start-room according to Trizbort.", location.ExportName);
+          writer.WriteLine("! {0} is a second start-room according to Trizbort.", exportName);
         }
         else {
-          writer.WriteLine("    location = {0};", location.ExportName);
+          writer.WriteLine("    location = {0};", exportName);
           foundStart = true;
         }
 

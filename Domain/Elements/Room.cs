@@ -538,35 +538,32 @@ public sealed class Room : Element, ISizeable {
       ValidationState.Add(state);
     }
 
-    if (Project.Current.MustHaveUniqueNames)
-      if (Project.Current.Elements.OfType<Room>().Count(p => p.Name == Name) > 1) {
-        state = new RoomValidationState {
-          Message = "The room name is not unique.",
-          Status = RoomValidationStatus.Invalid,
-          Type = ValidationType.RoomUniqueName
-        };
-        ValidationState.Add(state);
-      }
+    if (Project.Current.MustHaveUniqueNames && Project.Current.Elements.OfType<Room>().Count(p => p.Name == Name) > 1) {
+      state = new RoomValidationState {
+        Message = "The room name is not unique.",
+        Status = RoomValidationStatus.Invalid,
+        Type = ValidationType.RoomUniqueName
+      };
+      ValidationState.Add(state);
+    }
 
-    if (Project.Current.MustHaveNoDanglingConnectors)
-      if (Project.Current.Elements.OfType<Connection>().Count(p => p.GetSourceRoom() == this && p.GetTargetRoom() == null) > 0) {
-        state = new RoomValidationState {
-          Message = "Room has dangling connectors.",
-          Status = RoomValidationStatus.Invalid,
-          Type = ValidationType.RoomUniqueName
-        };
-        ValidationState.Add(state);
-      }
+    if (Project.Current.MustHaveNoDanglingConnectors && Project.Current.Elements.OfType<Connection>().Count(p => p.GetSourceRoom() == this && p.GetTargetRoom() == null) > 0) {
+      state = new RoomValidationState {
+        Message = "Room has dangling connectors.",
+        Status = RoomValidationStatus.Invalid,
+        Type = ValidationType.RoomUniqueName
+      };
+      ValidationState.Add(state);
+    }
 
-    if (Project.Current.MustHaveSubtitle)
-      if (string.IsNullOrWhiteSpace(SubTitle)) {
-        state = new RoomValidationState {
-          Message = "Room must have a subtitle.",
-          Status = RoomValidationStatus.Invalid,
-          Type = ValidationType.RoomUniqueName
-        };
-        ValidationState.Add(state);
-      }
+    if (Project.Current.MustHaveSubtitle && string.IsNullOrWhiteSpace(SubTitle)) {
+      state = new RoomValidationState {
+        Message = "Room must have a subtitle.",
+        Status = RoomValidationStatus.Invalid,
+        Type = ValidationType.RoomUniqueName
+      };
+      ValidationState.Add(state);
+    }
   }
 
   public void ClearDescriptions() {
@@ -895,17 +892,16 @@ public sealed class Room : Element, ISizeable {
     else
       textBounds.Inflate(-5, -5);
 
-    if (textBounds.Width > 0 && textBounds.Height > 0)
-      if (!ApplicationSettingsController.AppSettings.DebugDisableTextRendering) {
-        var tName = IsReference ? new TextBlock {Text = "To"} : mName;
-        var tSubtitle = IsReference ? new TextBlock {Text = ReferenceRoom.Name} : mSubTitle;
-        var RoomTextRect = tName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, StringFormats.Center);
+    if (textBounds.Width > 0 && textBounds.Height > 0 && !ApplicationSettingsController.AppSettings.DebugDisableTextRendering) {
+      var tName = IsReference ? new TextBlock {Text = "To"} : mName;
+      var tSubtitle = IsReference ? new TextBlock {Text = ReferenceRoom.Name} : mSubTitle;
+      var RoomTextRect = tName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, StringFormats.Center);
 
-        // draw subtitle text
-        var subTitleBrush = IsReference ? roombrush : (RoomSubtitleColor != Color.Transparent ? new SolidBrush(RoomSubtitleColor) : palette.SubtitleTextBrush);
-        var SubtitleTextRect = new Rect(RoomTextRect.Left, RoomTextRect.Bottom, RoomTextRect.Right - RoomTextRect.Left, textBounds.Bottom - RoomTextRect.Bottom);
-        tSubtitle.Draw(graphics, Settings.SubtitleFont, subTitleBrush, SubtitleTextRect.Position, SubtitleTextRect.Size, StringFormats.Center);
-      }
+      // draw subtitle text
+      var subTitleBrush = IsReference ? roombrush : RoomSubtitleColor != Color.Transparent ? new SolidBrush(RoomSubtitleColor) : palette.SubtitleTextBrush;
+      var SubtitleTextRect = new Rect(RoomTextRect.Left, RoomTextRect.Bottom, RoomTextRect.Right - RoomTextRect.Left, textBounds.Bottom - RoomTextRect.Bottom);
+      tSubtitle.Draw(graphics, Settings.SubtitleFont, subTitleBrush, SubtitleTextRect.Position, SubtitleTextRect.Size, StringFormats.Center);
+    }
 
     var expandedBounds = InnerBounds;
     expandedBounds.Inflate(Settings.ObjectListOffsetFromRoom, Settings.ObjectListOffsetFromRoom);
@@ -950,13 +946,12 @@ public sealed class Room : Element, ISizeable {
         pos.Y += ObjectsCustomPosition ? ObjectsCustomPositionDown : 0;
       }
 
-      if (!drawnObjectList)
-        if (!ApplicationSettingsController.AppSettings.DebugDisableTextRendering) {
-          var tString = mObjects.Text;
-          var displayObjects = new TextBlock {Text = tString};
+      if (!drawnObjectList && !ApplicationSettingsController.AppSettings.DebugDisableTextRendering) {
+        var tString = mObjects.Text;
+        var displayObjects = new TextBlock {Text = tString};
 
-          var block = displayObjects.Draw(graphics, font, brush, pos, Vector.Zero, format);
-        }
+        var block = displayObjects.Draw(graphics, font, brush, pos, Vector.Zero, format);
+      }
 
       mObjects.Text = tempStr;
     }
@@ -1078,16 +1073,13 @@ public sealed class Room : Element, ISizeable {
     }
 
     string desc = string.Empty;
-    if (ApplicationSettingsController.AppSettings.ShowDescriptionsInTooltips)
-    {
-      desc = $"{PrimaryDescription}";
-      var charsToShow = ApplicationSettingsController.AppSettings.ToolTipRoomDescriptionCharactersToShow;
-      if (ApplicationSettingsController.AppSettings.LimitRoomDescriptionCharactersInTooltip & (desc.Length >= charsToShow))
-      {
-        desc = desc.Substring(0, charsToShow);
-        desc = desc + "...";
-      }
-    }
+    if (!ApplicationSettingsController.AppSettings.ShowDescriptionsInTooltips) return desc;
+    desc = $"{PrimaryDescription}";
+    var charsToShow = ApplicationSettingsController.AppSettings.ToolTipRoomDescriptionCharactersToShow;
+    
+    if (!ApplicationSettingsController.AppSettings.LimitRoomDescriptionCharactersInTooltip || desc.Length < charsToShow) return desc;
+    desc = desc.Substring(0, charsToShow);
+    desc = desc + "...";
 
 
     return desc;

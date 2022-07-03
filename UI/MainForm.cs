@@ -61,22 +61,6 @@ public sealed partial class MainForm : Form {
 
   public sealed override string Text { get => base.Text; set => base.Text = value; }
 
-  public void OpenProject() {
-    if (!checkLoseProject())
-      return;
-
-    using (var dialog = new OpenFileDialog()) {
-      var lastProjectName = ApplicationSettingsController.AppSettings.LastProjectFileName;
-      if (!Uri.IsWellFormedUriString(lastProjectName, UriKind.RelativeOrAbsolute))
-        dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(lastProjectName);
-
-      dialog.Filter = $"{Project.FilterString}|All Files|*.*||";
-      if (dialog.ShowDialog() == DialogResult.OK) {
-        OpenProject(dialog.FileName);
-      }
-    }
-  }
-
   protected override void OnClosing(CancelEventArgs e) {
     if (!checkLoseProject()) {
       e.Cancel = true;
@@ -194,13 +178,12 @@ public sealed partial class MainForm : Form {
     }
 
 
-    if (options.FileName != null)
-      if (!projectLoaded) {
-        OpenProject(options.FileName);
-        projectLoaded = true;
+    if (options.FileName != null && !projectLoaded) {
+      OpenProject(options.FileName);
+      projectLoaded = true;
 
-        if (options.SmartSave) smartSave(true);
-      }
+      if (options.SmartSave) smartSave(true);
+    }
 
     if (!string.IsNullOrWhiteSpace(options.I6)) exportCodeCl<Inform6Exporter>(options.I6);
 
@@ -1186,6 +1169,22 @@ public sealed partial class MainForm : Form {
     if (project.Load()) {
       Project.Current = project;
       ApplicationSettingsController.OpenProject(fileName);
+    }
+  }
+
+  public void OpenProject() {
+    if (!checkLoseProject())
+      return;
+
+    using (var dialog = new OpenFileDialog()) {
+      var lastProjectName = ApplicationSettingsController.AppSettings.LastProjectFileName;
+      if (!Uri.IsWellFormedUriString(lastProjectName, UriKind.RelativeOrAbsolute))
+        dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(lastProjectName);
+
+      dialog.Filter = $"{Project.FilterString}|All Files|*.*||";
+      if (dialog.ShowDialog() == DialogResult.OK) {
+        OpenProject(dialog.FileName);
+      }
     }
   }
 

@@ -44,8 +44,8 @@ public sealed class SelectCommand : ICanvasCommand<SelectTypes> {
   public void Execute(Canvas canvas, SelectTypes value, object other) {
     switch (value) {
       case SelectTypes.Region:
-        if (other is IEnumerable<string>)
-          canvas.SelectAllRegion((IEnumerable<string>) other);
+        if (other is IEnumerable<string> enumerable)
+          canvas.SelectAllRegion(enumerable);
         break;
     }
   }

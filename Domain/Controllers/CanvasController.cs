@@ -35,7 +35,7 @@ public sealed class CanvasController {
       var roomCenter = element.InnerBounds.Center;
       var distance = roomCenter.Distance(viewportCenter);
 
-      if (!(distance < closestDistance)) continue;
+      if (distance >= closestDistance) continue;
       closestRoom = element;
       closestDistance = distance;
     }

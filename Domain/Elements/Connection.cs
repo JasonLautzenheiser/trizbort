@@ -232,7 +232,7 @@ public sealed class Connection : Element {
 
   public int ConnectedRoomToRotate(bool whichRoom) {
     //first, let's take care of cases where the right room is forced, if there is one
-    if (VertexList[0].Port == null && VertexList[0].Port == null) return -1;
+    if (VertexList[0].Port == null && VertexList[1].Port == null) return -1;
     if (VertexList[1].Port == null) return 0;
     if (VertexList[0].Port == null) return 1;
 
@@ -269,11 +269,10 @@ public sealed class Connection : Element {
       var pen = palette.GetLinePen(context.Selected, context.Hover, Style == ConnectionStyle.Dashed);
       Pen specialPen = null;
 
-      if (!context.Hover)
-        if (ConnectionColor != Color.Transparent && !context.Selected) {
-          specialPen = (Pen) pen.Clone();
-          specialPen.Color = ConnectionColor;
-        }
+      if (!context.Hover && ConnectionColor != Color.Transparent && !context.Selected) {
+        specialPen = (Pen) pen.Clone();
+        specialPen.Color = ConnectionColor;
+      }
 
       if (!ApplicationSettingsController.AppSettings.DebugDisableLineRendering)
         graphics.DrawLine(specialPen ?? pen, lineSegment.Start.ToPointF(), lineSegment.End.ToPointF());
@@ -282,11 +281,10 @@ public sealed class Connection : Element {
         var brush = (SolidBrush) palette.GetLineBrush(context.Selected, context.Hover);
         SolidBrush specialBrush = null;
 
-        if (!context.Hover)
-          if (ConnectionColor != Color.Transparent && !context.Selected) {
-            specialBrush = (SolidBrush) brush.Clone();
-            specialBrush.Color = ConnectionColor;
-          }
+        if (!context.Hover && ConnectionColor != Color.Transparent && !context.Selected) {
+          specialBrush = (SolidBrush) brush.Clone();
+          specialBrush.Color = ConnectionColor;
+        }
 
         Drawing.DrawChevron(graphics, lineSegment.Mid.ToPointF(), (float) (Math.Atan2(delta.Y, delta.X) / Math.PI * 180), Settings.ConnectionArrowSize, specialBrush ?? brush);
       }
@@ -304,16 +302,15 @@ public sealed class Connection : Element {
     var elements = (List<XmlElementReader>) state;
     for (var index = 0; index < elements.Count; ++index) {
       var element = elements[index];
-      if (element.HasName("dock"))
-        if (Project.FindElement(element.Attribute("id").ToInt(), out var target)) {
-          var portID = element.Attribute("port").Text;
-          foreach (var port in target.PortList)
-            if (StringComparer.InvariantCultureIgnoreCase.Compare(portID, port.ID) == 0) {
-              var vertex = VertexList[index];
-              vertex.Port = port;
-              break;
-            }
-        }
+      if (element.HasName("dock") && Project.FindElement(element.Attribute("id").ToInt(), out var target)) {
+        var portID = element.Attribute("port").Text;
+        foreach (var port in target.PortList)
+          if (StringComparer.InvariantCultureIgnoreCase.Compare(portID, port.ID) == 0) {
+            var vertex = VertexList[index];
+            vertex.Port = port;
+            break;
+          }
+      }
     }
   }
 
@@ -331,13 +328,10 @@ public sealed class Connection : Element {
   }
 
   public Room GetSourceRoom(out CompassPoint sourceCompassPoint) {
-    if (VertexList.Count > 0) {
-      var port = VertexList[0].Port;
-      if (port is Room.CompassPort) {
-        var compassPort = (Room.CompassPort) port;
-        sourceCompassPoint = compassPort.CompassPoint;
-        return port.Owner as Room;
-      }
+    if (VertexList.Count > 0 && VertexList[0].Port is var port and Room.CompassPort) {
+      var compassPort = (Room.CompassPort) port;
+      sourceCompassPoint = compassPort.CompassPoint;
+      return port.Owner as Room;
     }
 
     sourceCompassPoint = CompassPoint.North;
@@ -350,13 +344,10 @@ public sealed class Connection : Element {
   }
 
   public Room GetTargetRoom(out CompassPoint targetCompassPoint) {
-    if (VertexList.Count > 1) {
-      var port = VertexList[VertexList.Count - 1].Port;
-      if (port is Room.CompassPort) {
-        var compassPort = (Room.CompassPort) port;
-        targetCompassPoint = compassPort.CompassPoint;
-        return compassPort.Owner as Room;
-      }
+    if (VertexList.Count > 1 && VertexList[^1].Port is var port and Room.CompassPort) {
+      var compassPort = (Room.CompassPort) port;
+      targetCompassPoint = compassPort.CompassPoint;
+      return compassPort.Owner as Room;
     }
 
     targetCompassPoint = CompassPoint.North;
@@ -408,7 +399,7 @@ public sealed class Connection : Element {
     {
       desc = $"{Description}";
       var charsToShow = ApplicationSettingsController.AppSettings.ToolTipConnectionDescriptionCharactersToShow;
-      if (ApplicationSettingsController.AppSettings.LimitConnectionDescriptionCharactersInTooltip & (desc.Length >= charsToShow))
+      if (ApplicationSettingsController.AppSettings.LimitConnectionDescriptionCharactersInTooltip && (desc.Length >= charsToShow))
       {
         desc = desc.Substring(0, charsToShow);
         desc = desc + "...";
@@ -422,10 +413,7 @@ public sealed class Connection : Element {
   }
 
   public override bool Intersects(Rect rect) {
-    foreach (var segment in getSegments())
-      if (segment.IntersectsWith(rect))
-        return true;
-    return false;
+    return getSegments().Any(segment => segment.IntersectsWith(rect));
   }
 
   public override void RecomputeSmartLineSegments(DrawingContext context) {
@@ -789,40 +777,36 @@ public sealed class Connection : Element {
           switch (intersect.Type) {
             case LineSegmentIntersectType.MidPointA:
               var one = new LineSegment(lineSegment.Start, intersect.Position);
-              if (one.Shorten(amount))
-                if (!split(one, context, ref newSegments)) {
-                  if (newSegments == null)
-                    newSegments = new List<LineSegment>();
-                  newSegments.Add(one);
-                }
+              if (one.Shorten(amount) && !split(one, context, ref newSegments)) {
+                if (newSegments == null)
+                  newSegments = new List<LineSegment>();
+                newSegments.Add(one);
+              }
 
               var two = new LineSegment(intersect.Position, lineSegment.End);
-              if (two.Forshorten(amount))
-                if (!split(two, context, ref newSegments)) {
-                  if (newSegments == null)
-                    newSegments = new List<LineSegment>();
-                  newSegments.Add(two);
-                }
+              if (two.Forshorten(amount) && !split(two, context, ref newSegments)) {
+                if (newSegments == null)
+                  newSegments = new List<LineSegment>();
+                newSegments.Add(two);
+              }
 
               break;
 
             case LineSegmentIntersectType.StartA:
-              if (lineSegment.Forshorten(amount))
-                if (!split(lineSegment, context, ref newSegments)) {
-                  if (newSegments == null)
-                    newSegments = new List<LineSegment>();
-                  newSegments.Add(lineSegment);
-                }
+              if (lineSegment.Forshorten(amount) && !split(lineSegment, context, ref newSegments)) {
+                if (newSegments == null)
+                  newSegments = new List<LineSegment>();
+                newSegments.Add(lineSegment);
+              }
 
               break;
 
             case LineSegmentIntersectType.EndA:
-              if (lineSegment.Shorten(amount))
-                if (!split(lineSegment, context, ref newSegments)) {
-                  if (newSegments == null)
-                    newSegments = new List<LineSegment>();
-                  newSegments.Add(lineSegment);
-                }
+              if (lineSegment.Shorten(amount) && !split(lineSegment, context, ref newSegments)) {
+                if (newSegments == null)
+                  newSegments = new List<LineSegment>();
+                newSegments.Add(lineSegment);
+              }
 
               break;
           }

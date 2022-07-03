@@ -109,7 +109,7 @@ internal sealed class AlanExporter : CodeExporter
     {
       var exit = location.GetBestExit(direction);
 
-      if ((exit != null) && (exit.Exported == false))
+      if (exit is {Exported: false})
       {
         // remember we've exported this exit
         exit.Exported = true;
@@ -127,7 +127,7 @@ internal sealed class AlanExporter : CodeExporter
         if (string.IsNullOrWhiteSpace(nowhereExits))
           nowhereExits = getAlanName(direction);
         else
-          nowhereExits += " " + getAlanName(direction);
+          nowhereExits += $" {getAlanName(direction)}";
       }
     }
     if (!string.IsNullOrWhiteSpace(nowhereExits))
@@ -190,22 +190,20 @@ internal sealed class AlanExporter : CodeExporter
 
   private string getExportName(string name, int? suffix)
   {
-    bool spaceless = true;
-
     if (containsOddCharacters(name))
       name = stripOddCharacters(name);
 
     if (containsWord(name, ReservedWords) && suffix == null) suffix = 1;
 
     if (suffix != null)
-      name = $"{name}{(spaceless ? string.Empty : " ")}{suffix}";
+      name = $"{name}{suffix}";
 
     return name;
   }
 
   private static bool containsWord(string text, IEnumerable<string> words)
   {
-    return words.Any(word => containsWord(text, (string) word));
+    return words.Any(word => containsWord(text, word));
   }
 
   private static bool containsWord(string text, string word)

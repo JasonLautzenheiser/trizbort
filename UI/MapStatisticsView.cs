@@ -97,8 +97,8 @@ public sealed partial class MapStatisticsView : Form {
         else
           stats += $"List of rooms in {region.RegionName}: ";
 
-        var roomsInRegion = Project.Current.Elements.OfType<Room>().ToArray().OrderBy(p => p.Name).Where(p => p.Region == region.RegionName);
-        stats += string.Join(", ", roomsInRegion.Select(x => x.Name).ToArray()) + Environment.NewLine;
+        var roomsInRegion = Project.Current.Elements.OfType<Room>().OrderBy(p => p.Name).Where(p => p.Region == region.RegionName);
+        stats += string.Join(", ", roomsInRegion.Select(x => x.Name)) + Environment.NewLine;
       }
 
       stats += $"{Environment.NewLine}";
@@ -106,7 +106,7 @@ public sealed partial class MapStatisticsView : Form {
       stats += $"{Environment.NewLine}Region Links:{Environment.NewLine}";
       var allRegions = Settings.Regions.OrderBy(p => p.RegionName).Where(p => p.RegionName != Domain.Misc.Region.DefaultRegion);
       foreach (var region1 in allRegions) {
-        var linkedRegions = string.Join(", ", Settings.Regions.OrderBy(p => p.RegionName).ToArray().Where(p => MapStatistics.RegionsLinked(region1, p)).Select(x => x.RegionName));
+        var linkedRegions = string.Join(", ", Settings.Regions.OrderBy(p => p.RegionName).Where(p => MapStatistics.RegionsLinked(region1, p)).Select(x => x.RegionName));
 
         stats += $"{Environment.NewLine}";
 

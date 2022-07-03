@@ -104,13 +104,13 @@ internal sealed class AdventuronExporter : CodeExporter
   private static string escapeAdventuronId(string input)
   {
     StringBuilder sb = new StringBuilder();
-    foreach (var c in input.ToCharArray()) {
+    foreach (var c in input) {
       switch (c) {
         case ' ':
         case '_': {
-          if (sb.Length > 0 && sb[sb.Length - 1] != '_')
+          if (sb.Length > 0 && sb[^1] != '_')
           {
-            sb.Append("_");
+            sb.Append('_');
           }
 
           break;
@@ -139,7 +139,7 @@ internal sealed class AdventuronExporter : CodeExporter
 
   private static string escapeAdventuronText(string input) {
     StringBuilder sb = new StringBuilder();
-    foreach (var c in input.ToCharArray()) {
+    foreach (var c in input) {
       switch (c) {
         case '\n':
           sb.Append("\\n");

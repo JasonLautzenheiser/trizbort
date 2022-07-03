@@ -614,14 +614,14 @@ internal sealed partial class RoomPropertiesDialog : Form {
         TopLeft = (float) txtTopLeft.Value
       };
 
-      path.AddArc(rect.X + rect.Width - (float) corners.TopRight * 2, rect.Y, (float) corners.TopRight * 2,
-        (float) corners.TopRight * 2, 270, 90);
-      path.AddArc(rect.X + rect.Width - (float) corners.BottomRight * 2,
-        rect.Y + rect.Height - (float) corners.BottomRight * 2, (float) corners.BottomRight * 2,
-        (float) corners.BottomRight * 2, 0, 90);
-      path.AddArc(rect.X, rect.Y + rect.Height - (float) corners.BottomLeft * 2, (float) corners.BottomLeft * 2,
-        (float) corners.BottomLeft * 2, 90, 90);
-      path.AddArc(rect.X, rect.Y, (float) corners.TopLeft * 2, (float) corners.TopLeft * 2, 180, 90);
+      path.AddArc(rect.X + rect.Width - corners.TopRight * 2, rect.Y, corners.TopRight * 2,
+        corners.TopRight * 2, 270, 90);
+      path.AddArc(rect.X + rect.Width - corners.BottomRight * 2,
+        rect.Y + rect.Height - corners.BottomRight * 2, corners.BottomRight * 2,
+        corners.BottomRight * 2, 0, 90);
+      path.AddArc(rect.X, rect.Y + rect.Height - corners.BottomLeft * 2, corners.BottomLeft * 2,
+        corners.BottomLeft * 2, 90, 90);
+      path.AddArc(rect.X, rect.Y, corners.TopLeft * 2, corners.TopLeft * 2, 180, 90);
       path.CloseFigure();
     } else if (cboDrawType.SelectedItem.ToString() == "Ellipse") {
       path.AddEllipse(new RectangleF(rect.X, rect.Y, rect.Width, rect.Height));

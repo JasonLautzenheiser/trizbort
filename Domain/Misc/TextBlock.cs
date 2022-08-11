@@ -163,12 +163,11 @@ internal sealed class TextBlock {
 
       foreach (var word in words)
         if (word.Text != " " && word.Length > Math.Max(0, size.X - lineLength) && lineLength > 0) {
-          if (line.Length > 0) {
-            if (total.Length > 0) total += "\n";
-            total += line;
-            lineLength = word.Length + spaceLength;
-            line = word.Text;
-          }
+          if (line.Length <= 0) continue;
+          if (total.Length > 0) total += "\n";
+          total += line;
+          lineLength = word.Length + spaceLength;
+          line = word.Text;
         } else {
           line += word.Text;
           lineLength += word.Length + spaceLength;

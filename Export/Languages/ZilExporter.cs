@@ -20,8 +20,8 @@ internal sealed class ZilExporter : CodeExporter {
   private const char SPACE = ' ';
 
   public override List<KeyValuePair<string, string>> FileDialogFilters => new List<KeyValuePair<string, string>> {
-    new KeyValuePair<string, string>("ZIL Source File", ".zil"),
-    new KeyValuePair<string, string>("Text Files", ".txt")
+    new("ZIL Source File", ".zil"),
+    new("Text Files", ".txt")
   };
 
   public override string FileDialogTitle => "Export ZIL Source Code";
@@ -52,10 +52,9 @@ internal sealed class ZilExporter : CodeExporter {
           writer.WriteLine();
           writer.Write($"    ({toZILPropertyName(direction)} TO {exit.Target.ExportName})");
           var oppositeDirection = CompassPointHelper.GetOpposite(direction);
-          if (Exit.IsReciprocated(location, direction, exit.Target)) {
-            var reciprocal = exit.Target.GetBestExit(oppositeDirection);
-            reciprocal.Exported = true;
-          }
+          if (!Exit.IsReciprocated(location, direction, exit.Target)) continue;
+          var reciprocal = exit.Target.GetBestExit(oppositeDirection);
+          if (reciprocal != null) reciprocal.Exported = true;
         }
       }
 

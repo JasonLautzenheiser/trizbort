@@ -49,7 +49,7 @@ public sealed class Location {
     mExits.Add(exit);
   }
 
-  public Exit GetBestExit(MappableDirection direction) {
+  public Exit? GetBestExit(MappableDirection direction) {
     return mMapDirectionToBestExit.TryGetValue(direction, out var exit) ? exit : null;
   }
 

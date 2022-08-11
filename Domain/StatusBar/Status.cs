@@ -33,7 +33,7 @@ public sealed class Status {
   }
 
   private StatusStrip statusBar { get; set; }
-  public List<StatusItem> Items { get; set; } = null;
+  public List<StatusItem>? Items { get; set; }
   public string LastStatus { get; set; }
 
   public void UpdateStatusBar() {
@@ -69,27 +69,25 @@ public sealed class Status {
       
   }
 
-  private void handleClick(object sender, EventArgs e) {
+  private void handleClick(object? sender, EventArgs e) {
+    if (sender == null) return;
     var control = (ToolStripStatusLabel) sender;
     var widget = Items.Find(p => p.Id == (StatusItems) control.Tag);
-    widget.Widget.ClickHandler();
+    widget?.Widget.ClickHandler();
   }
 
-  private void showHelp(object sender, EventArgs eventArgs) {
+  private void showHelp(object? sender, EventArgs eventArgs) {
+    if (sender is null) return;
     var control = (ToolStripStatusLabel) sender;
 
     var helpItem = Items.Find(p => p.Id == (StatusItems) control.Tag);
-      
-    updateInfoMessage(helpItem.Widget.HelpText);
+
+    if (helpItem != null) updateInfoMessage(helpItem.Widget.HelpText);
   }
 
   private void updateInfoMessage(string text) {
     var item = Items.Find(p => p.Id == StatusItems.tsb_Info);
-    item.Control.Text = text;
-  }
-
-  private void updateInfoMessage(IStatusWidget helpItem) {
-    updateInfoMessage(helpItem.HelpText);
+    if (item != null) item.Control.Text = text;
   }
 
   private void setDefaultItems() {

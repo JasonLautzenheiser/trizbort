@@ -26,17 +26,16 @@ internal sealed class AdventuronExporter : CodeExporter
 
   protected override void ExportContent(TextWriter writer)
   {
+    var headerSb = new StringBuilder();
+    var locationsSb = new StringBuilder();
+    var connectionsSb = new StringBuilder();
 
-    StringBuilder headerSB = new StringBuilder();
-    StringBuilder locationsSB = new StringBuilder();
-    StringBuilder connectionsSB = new StringBuilder();
+    locationsSb.Append("\nlocations {\n");
+    connectionsSb.Append("\nconnections {\n");
+    connectionsSb.Append("   from, direction, to = [\n");
 
-    locationsSB.Append("\nlocations {\n");
-    connectionsSB.Append("\nconnections {\n");
-    connectionsSB.Append("   from, direction, to = [\n");
-
-    StringBuilder footerSB = new StringBuilder();
-    string startRoom = null;
+    var footerSb = new StringBuilder();
+    string? startRoom = null;
     bool isFirst = true;
 
     int maxLen = -1;
@@ -65,26 +64,28 @@ internal sealed class AdventuronExporter : CodeExporter
 
       string headerDescNormalized = escapeAdventuronText(locationRoomName);
       string headerDescription = (" header = \""+ headerDescNormalized + "\"");
-      locationsSB.Append("   " + padRight(escapeAdventuronId(location.ExportName), maxLen) + " : location \""+ roomDescription + "\"" + headerDescription + ";\n");
+      locationsSb.Append(
+        $"   {padRight(escapeAdventuronId(location.ExportName), maxLen)} : location \"{roomDescription}\"{headerDescription};\n");
       foreach (var direction in Directions.AllDirections)
       {
         var exit = location.GetBestExit(direction);
-        if (exit != null)
+        if (exit is not null)
         {
-          connectionsSB.Append("      " + escapeAdventuronId(location.ExportName) + ", " + toAdventuronDirectionName(direction) + ", " + escapeAdventuronId(exit.Target.ExportName) + ",\n");
+          connectionsSb.Append(
+            $"      {escapeAdventuronId(location.ExportName)}, {toAdventuronDirectionName(direction)}, {escapeAdventuronId(exit.Target.ExportName)},\n");
         }
       }
       isFirst = false;
     }
     writer.WriteLine();
-    headerSB.Append("start_at = " + startRoom);
-    connectionsSB.Append("   ]\n");
-    connectionsSB.Append("}\n");
-    locationsSB.Append("}\n");
-    writer.WriteLine(headerSB.ToString());
-    writer.WriteLine(locationsSB.ToString());
-    writer.WriteLine(connectionsSB.ToString());
-    writer.WriteLine(footerSB.ToString());
+    headerSb.Append("start_at = " + startRoom);
+    connectionsSb.Append("   ]\n");
+    connectionsSb.Append("}\n");
+    locationsSb.Append("}\n");
+    writer.WriteLine(headerSb.ToString());
+    writer.WriteLine(locationsSb.ToString());
+    writer.WriteLine(connectionsSb.ToString());
+    writer.WriteLine(footerSb.ToString());
   }
   private static string padRight (string inputString, int maxLen)
   {
@@ -92,18 +93,18 @@ internal sealed class AdventuronExporter : CodeExporter
       return inputString;
     }
 
-    StringBuilder sb = new StringBuilder();
+    var sb = new StringBuilder();
     sb.Append(inputString);
     for (int i=0; i < maxLen - inputString.Length; i++)
     {
-      sb.Append(" ");
+      sb.Append(' ');
     }
     return sb.ToString();
   }
 
   private static string escapeAdventuronId(string input)
   {
-    StringBuilder sb = new StringBuilder();
+    var sb = new StringBuilder();
     foreach (var c in input) {
       switch (c) {
         case ' ':
@@ -119,12 +120,10 @@ internal sealed class AdventuronExporter : CodeExporter
           break;
         default: {
           if (
-            (c >= 'a' && c <= 'z') ||
-            (c >= 'A' && c <= 'Z') ||
-            (c >= '0' && c <= '9') ||
-            (c >= 160 && c <= 8231) ||
-            (c >= 8234 && c <= 55295) ||
-            (c >= 57344 && c <= 65533)
+            c is >= 'a' and <= 'z' or >= 'A' and <= 'Z' or >= '0' and <= '9' ||
+            c >= 160 && c <= 8231 ||
+            c >= 8234 && c <= 55295 ||
+            c >= 57344 && c <= 65533
           ) {
             sb.Append(c);
           }

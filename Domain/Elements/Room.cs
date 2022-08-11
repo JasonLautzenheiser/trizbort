@@ -275,7 +275,7 @@ public sealed class Room : Element, ISizeable {
     }
   }
 
-  public Room ReferenceRoom => Project.Current.Elements.OfType<Room>().FirstOrDefault(p => p.ID == ReferenceRoomId);
+  public Room? ReferenceRoom => Project.Current.Elements.OfType<Room>().FirstOrDefault(p => p.ID == ReferenceRoomId);
   public int ReferenceRoomId { get; set; } = -1;
 
   public string Region {
@@ -406,7 +406,7 @@ public sealed class Room : Element, ISizeable {
     }
   }
 
-  public List<RoomValidationState> ValidationState { get; set; } = new List<RoomValidationState>();
+  private List<RoomValidationState> ValidationState { get; set; } = new();
 
   public sealed override Vector Position {
     get => mPosition;
@@ -547,7 +547,7 @@ public sealed class Room : Element, ISizeable {
       ValidationState.Add(state);
     }
 
-    if (Project.Current.MustHaveNoDanglingConnectors && Project.Current.Elements.OfType<Connection>().Count(p => p.GetSourceRoom() == this && p.GetTargetRoom() == null) > 0) {
+    if (Project.Current.MustHaveNoDanglingConnectors && Project.Current.Elements.OfType<Connection>().Any(p => p.GetSourceRoom() == this && p.GetTargetRoom() == null)) {
       state = new RoomValidationState {
         Message = "Room has dangling connectors.",
         Status = RoomValidationStatus.Invalid,
@@ -647,8 +647,6 @@ public sealed class Room : Element, ISizeable {
       var tBounds = InnerBounds;
       tBounds.Inflate(5);
 
-      var q = tBounds.Left;
-
       var topLeftSelect = tBounds.GetCorner(CompassPoint.NorthWest);
       var topRightSelect = tBounds.GetCorner(CompassPoint.NorthEast);
       var bottomLeftSelect = tBounds.GetCorner(CompassPoint.SouthWest);
@@ -688,11 +686,7 @@ public sealed class Room : Element, ISizeable {
         Drawing.AddLine(pathSelected, leftSelect, random, StraightEdges);
       }
 
-      SolidBrush brushSelected;
-      if (IsReference)
-        brushSelected = new SolidBrush(Color.LightBlue);
-      else
-        brushSelected = new SolidBrush(Settings.Color[IsStartRoom ? Colors.StartRoom : Colors.EndRoom]);
+      var brushSelected = IsReference ? new SolidBrush(Color.LightBlue) : new SolidBrush(Settings.Color[IsStartRoom ? Colors.StartRoom : Colors.EndRoom]);
       graphics.DrawPath(new Pen(brushSelected), pathSelected);
     }
 
@@ -740,220 +734,222 @@ public sealed class Room : Element, ISizeable {
         Drawing.AddLine(pathSelected, leftSelect, random, StraightEdges);
       }
 
-      var brushSelected = Project.Current.ActiveSelectedElement?.ID == ID ? new SolidBrush(Color.Gold) : new SolidBrush(Color.Gold);
+      var brushSelected = new SolidBrush(Color.Gold);
       graphics.DrawPath(new Pen(brushSelected), pathSelected);
     }
 
     // get region color
     var regionColor = Settings.Regions.FirstOrDefault(p => p.RegionName.Equals(Region, StringComparison.OrdinalIgnoreCase)) ?? Settings.Regions.FirstOrDefault(p => p.RegionName.Equals(Misc.Region.DefaultRegion, StringComparison.OrdinalIgnoreCase));
-    Brush brush = new SolidBrush(regionColor.RColor);
+    if (regionColor != null) {
+      Brush brush = new SolidBrush(regionColor.RColor);
 
-    // Room specific fill brush (White shows global color)
-    if (RoomFillColor != Color.Transparent) brush = new SolidBrush(RoomFillColor);
+      // Room specific fill brush (White shows global color)
+      if (RoomFillColor != Color.Transparent) brush = new SolidBrush(RoomFillColor);
 
-    // this is the main drawing routine for the actual room borders
-    if (!ApplicationSettingsController.AppSettings.DebugDisableLineRendering && BorderStyle != BorderDashStyle.None) {
-      var path = palette.Path();
+      // this is the main drawing routine for the actual room borders
+      if (!ApplicationSettingsController.AppSettings.DebugDisableLineRendering && BorderStyle != BorderDashStyle.None) {
+        var path = palette.Path();
 
-      if (RoundedCorners) {
-        createRoomPath(path, top, left);
-      } else if (Ellipse) {
-        path.AddEllipse(new RectangleF(top.Start.X, top.Start.Y, top.Length, left.Length));
-      } else if (Octagonal) {
-        Drawing.AddLine(path, new LineSegment(quarterPoint(bottomLeft, topLeft), quarterPoint(topLeft, bottomLeft)),
-          random, StraightEdges);
-        Drawing.AddLine(path, new LineSegment(quarterPoint(topLeft, bottomLeft), quarterPoint(topLeft, topRight)),
-          random, StraightEdges);
-        Drawing.AddLine(path, new LineSegment(quarterPoint(topLeft, topRight), quarterPoint(topRight, topLeft)),
-          random, StraightEdges);
-        Drawing.AddLine(path, new LineSegment(quarterPoint(topRight, topLeft), quarterPoint(topRight, bottomRight)),
-          random, StraightEdges);
-        Drawing.AddLine(path, new LineSegment(quarterPoint(topRight, bottomRight), quarterPoint(bottomRight, topRight)),
-          random, StraightEdges);
-        Drawing.AddLine(path, new LineSegment(quarterPoint(bottomRight, topRight), quarterPoint(bottomRight, bottomLeft)),
-          random, StraightEdges);
-        Drawing.AddLine(path, new LineSegment(quarterPoint(bottomRight, bottomLeft), quarterPoint(bottomLeft, bottomRight)),
-          random, StraightEdges);
-        Drawing.AddLine(path, new LineSegment(quarterPoint(bottomLeft, bottomRight), quarterPoint(bottomLeft, topLeft)),
-          random, StraightEdges);
-      } else {
-        Drawing.AddLine(path, top, random, StraightEdges);
-        Drawing.AddLine(path, right, random, StraightEdges);
-        Drawing.AddLine(path, bottom, random, StraightEdges);
-        Drawing.AddLine(path, left, random, StraightEdges);
-      }
-
-      graphics.DrawPath(new Pen(brush), path);
-
-      // Second fill for room specific colors with a split option
-      if (SecondFillColor != Color.Transparent) {
-        var state = graphics.Save();
-        graphics.IntersectClip(path.GetBounds());
-
-        // Set the second fill color
-        brush = new SolidBrush(SecondFillColor);
-
-        // Define the second path based on the second fill location
-        var secondPath = palette.Path();
-        switch (SecondFillLocation) {
-          case "Bottom":
-            Drawing.AddLine(secondPath, centerHorizontal, random, StraightEdges);
-            Drawing.AddLine(secondPath, halfRightBottom, random, StraightEdges);
-            Drawing.AddLine(secondPath, bottom, random, StraightEdges);
-            Drawing.AddLine(secondPath, halfLeftBottom, random, StraightEdges);
-            break;
-          case "BottomRight":
-            Drawing.AddLine(secondPath, slantUp, random, StraightEdges);
-            Drawing.AddLine(secondPath, right, random, StraightEdges);
-            Drawing.AddLine(secondPath, bottom, random, StraightEdges);
-            break;
-          case "BottomLeft":
-            Drawing.AddLine(secondPath, slantDown, random, StraightEdges);
-            Drawing.AddLine(secondPath, bottom, random, StraightEdges);
-            Drawing.AddLine(secondPath, left, random, StraightEdges);
-            break;
-          case "Left":
-            Drawing.AddLine(secondPath, halfTopLeft, random, StraightEdges);
-            Drawing.AddLine(secondPath, left, random, StraightEdges);
-            Drawing.AddLine(secondPath, halfBottomLeft, random, StraightEdges);
-            Drawing.AddLine(secondPath, centerVertical, random, StraightEdges);
-            break;
-          case "Right":
-            Drawing.AddLine(secondPath, halfTopRight, random, StraightEdges);
-            Drawing.AddLine(secondPath, right, random, StraightEdges);
-            Drawing.AddLine(secondPath, halfBottomRight, random, StraightEdges);
-            Drawing.AddLine(secondPath, centerVertical, random, StraightEdges);
-            break;
-          case "TopRight":
-            Drawing.AddLine(secondPath, top, random, StraightEdges);
-            Drawing.AddLine(secondPath, right, random, StraightEdges);
-            Drawing.AddLine(secondPath, slantDown, random, StraightEdges);
-            break;
-          case "TopLeft":
-            Drawing.AddLine(secondPath, top, random, StraightEdges);
-            Drawing.AddLine(secondPath, slantUp, random, StraightEdges);
-            Drawing.AddLine(secondPath, left, random, StraightEdges);
-            break;
-          case "Top":
-            Drawing.AddLine(secondPath, centerHorizontal, random, StraightEdges);
-            Drawing.AddLine(secondPath, halfRightTop, random, StraightEdges);
-            Drawing.AddLine(secondPath, top, random, StraightEdges);
-            Drawing.AddLine(secondPath, halfLeftTop, random, StraightEdges);
-            break;
-          default:
-            break;
-        }
-
-        // Draw the second fill over the first
-        graphics.DrawPath(new Pen(brush), secondPath);
-        graphics.Restore(state);
-      }
-
-      if (IsDark) {
-        var state = graphics.Save();
-        var solidBrush = (SolidBrush) palette.BorderBrush;
-        var darknessXDistance = Settings.DarknessStripeSize;
-        var darknessYDistance = Settings.DarknessStripeSize;
-        graphics.IntersectClip(path.GetBounds());
-        if (Ellipse) {
-          darknessYDistance = 2 * Height / 5;
-          darknessXDistance = 2 * Width / 5;
-        } else if (RoundedCorners) {
-          if (Corners.TopRight > 2 * Settings.DarknessStripeSize)
-            darknessYDistance = darknessXDistance = (float) Corners.TopRight / 2;
+        if (RoundedCorners) {
+          createRoomPath(path, top, left);
+        } else if (Ellipse) {
+          path.AddEllipse(new RectangleF(top.Start.X, top.Start.Y, top.Length, left.Length));
         } else if (Octagonal) {
-          darknessXDistance = Width * 7 / 20;
-          darknessYDistance = Height * 7 / 20;
+          Drawing.AddLine(path, new LineSegment(quarterPoint(bottomLeft, topLeft), quarterPoint(topLeft, bottomLeft)),
+            random, StraightEdges);
+          Drawing.AddLine(path, new LineSegment(quarterPoint(topLeft, bottomLeft), quarterPoint(topLeft, topRight)),
+            random, StraightEdges);
+          Drawing.AddLine(path, new LineSegment(quarterPoint(topLeft, topRight), quarterPoint(topRight, topLeft)),
+            random, StraightEdges);
+          Drawing.AddLine(path, new LineSegment(quarterPoint(topRight, topLeft), quarterPoint(topRight, bottomRight)),
+            random, StraightEdges);
+          Drawing.AddLine(path, new LineSegment(quarterPoint(topRight, bottomRight), quarterPoint(bottomRight, topRight)),
+            random, StraightEdges);
+          Drawing.AddLine(path, new LineSegment(quarterPoint(bottomRight, topRight), quarterPoint(bottomRight, bottomLeft)),
+            random, StraightEdges);
+          Drawing.AddLine(path, new LineSegment(quarterPoint(bottomRight, bottomLeft), quarterPoint(bottomLeft, bottomRight)),
+            random, StraightEdges);
+          Drawing.AddLine(path, new LineSegment(quarterPoint(bottomLeft, bottomRight), quarterPoint(bottomLeft, topLeft)),
+            random, StraightEdges);
+        } else {
+          Drawing.AddLine(path, top, random, StraightEdges);
+          Drawing.AddLine(path, right, random, StraightEdges);
+          Drawing.AddLine(path, bottom, random, StraightEdges);
+          Drawing.AddLine(path, left, random, StraightEdges);
         }
 
-        graphics.DrawPolygon(new Pen(solidBrush), new[] {topRight.ToPointF(), new PointF(topRight.X - darknessXDistance, topRight.Y), new PointF(topRight.X, topRight.Y + darknessYDistance)});
-        graphics.Restore(state);
+        graphics.DrawPath(new Pen(brush), path);
+
+        // Second fill for room specific colors with a split option
+        if (SecondFillColor != Color.Transparent) {
+          var state = graphics.Save();
+          graphics.IntersectClip(path.GetBounds());
+
+          // Set the second fill color
+          brush = new SolidBrush(SecondFillColor);
+
+          // Define the second path based on the second fill location
+          var secondPath = palette.Path();
+          switch (SecondFillLocation) {
+            case "Bottom":
+              Drawing.AddLine(secondPath, centerHorizontal, random, StraightEdges);
+              Drawing.AddLine(secondPath, halfRightBottom, random, StraightEdges);
+              Drawing.AddLine(secondPath, bottom, random, StraightEdges);
+              Drawing.AddLine(secondPath, halfLeftBottom, random, StraightEdges);
+              break;
+            case "BottomRight":
+              Drawing.AddLine(secondPath, slantUp, random, StraightEdges);
+              Drawing.AddLine(secondPath, right, random, StraightEdges);
+              Drawing.AddLine(secondPath, bottom, random, StraightEdges);
+              break;
+            case "BottomLeft":
+              Drawing.AddLine(secondPath, slantDown, random, StraightEdges);
+              Drawing.AddLine(secondPath, bottom, random, StraightEdges);
+              Drawing.AddLine(secondPath, left, random, StraightEdges);
+              break;
+            case "Left":
+              Drawing.AddLine(secondPath, halfTopLeft, random, StraightEdges);
+              Drawing.AddLine(secondPath, left, random, StraightEdges);
+              Drawing.AddLine(secondPath, halfBottomLeft, random, StraightEdges);
+              Drawing.AddLine(secondPath, centerVertical, random, StraightEdges);
+              break;
+            case "Right":
+              Drawing.AddLine(secondPath, halfTopRight, random, StraightEdges);
+              Drawing.AddLine(secondPath, right, random, StraightEdges);
+              Drawing.AddLine(secondPath, halfBottomRight, random, StraightEdges);
+              Drawing.AddLine(secondPath, centerVertical, random, StraightEdges);
+              break;
+            case "TopRight":
+              Drawing.AddLine(secondPath, top, random, StraightEdges);
+              Drawing.AddLine(secondPath, right, random, StraightEdges);
+              Drawing.AddLine(secondPath, slantDown, random, StraightEdges);
+              break;
+            case "TopLeft":
+              Drawing.AddLine(secondPath, top, random, StraightEdges);
+              Drawing.AddLine(secondPath, slantUp, random, StraightEdges);
+              Drawing.AddLine(secondPath, left, random, StraightEdges);
+              break;
+            case "Top":
+              Drawing.AddLine(secondPath, centerHorizontal, random, StraightEdges);
+              Drawing.AddLine(secondPath, halfRightTop, random, StraightEdges);
+              Drawing.AddLine(secondPath, top, random, StraightEdges);
+              Drawing.AddLine(secondPath, halfLeftTop, random, StraightEdges);
+              break;
+            default:
+              break;
+          }
+
+          // Draw the second fill over the first
+          graphics.DrawPath(new Pen(brush), secondPath);
+          graphics.Restore(state);
+        }
+
+        if (IsDark) {
+          var state = graphics.Save();
+          var solidBrush = (SolidBrush) palette.BorderBrush;
+          var darknessXDistance = Settings.DarknessStripeSize;
+          var darknessYDistance = Settings.DarknessStripeSize;
+          graphics.IntersectClip(path.GetBounds());
+          if (Ellipse) {
+            darknessYDistance = 2 * Height / 5;
+            darknessXDistance = 2 * Width / 5;
+          } else if (RoundedCorners) {
+            if (Corners.TopRight > 2 * Settings.DarknessStripeSize)
+              darknessYDistance = darknessXDistance = (float) Corners.TopRight / 2;
+          } else if (Octagonal) {
+            darknessXDistance = Width * 7 / 20;
+            darknessYDistance = Height * 7 / 20;
+          }
+
+          graphics.DrawPolygon(new Pen(solidBrush), new[] {topRight.ToPointF(), new PointF(topRight.X - darknessXDistance, topRight.Y), new PointF(topRight.X, topRight.Y + darknessYDistance)});
+          graphics.Restore(state);
+        }
+
+        if (RoomBorderColor == Color.Transparent) {
+          var pen = palette.BorderPen;
+          pen.DashStyle = IsReference ? BorderDashStyle.Dot.ConvertToDashStyle() : BorderStyle.ConvertToDashStyle();
+          graphics.DrawPath(pen, path);
+        } else {
+          var roomBorderPen = new Pen(RoomBorderColor, Settings.LineWidth) {StartCap = LineCap.Round, EndCap = LineCap.Round, DashStyle = IsReference ? BorderDashStyle.Dot.ConvertToDashStyle() : BorderStyle.ConvertToDashStyle()};
+          graphics.DrawPath(roomBorderPen, path);
+        }
       }
 
-      if (RoomBorderColor == Color.Transparent) {
-        var pen = palette.BorderPen;
-        pen.DashStyle = IsReference ? BorderDashStyle.Dot.ConvertToDashStyle() : BorderStyle.ConvertToDashStyle();
-        graphics.DrawPath(pen, path);
-      } else {
-        var roomBorderPen = new Pen(RoomBorderColor, Settings.LineWidth) {StartCap = LineCap.Round, EndCap = LineCap.Round, DashStyle = IsReference ? BorderDashStyle.Dot.ConvertToDashStyle() : BorderStyle.ConvertToDashStyle()};
-        graphics.DrawPath(roomBorderPen, path);
-      }
-    }
+      var font = Settings.RoomNameFont;
+      var roombrush = new SolidBrush(regionColor.TextColor);
+      // Room specific fill brush (White shows global color)
 
-    var font = Settings.RoomNameFont;
-    var roombrush = new SolidBrush(regionColor.TextColor);
-    // Room specific fill brush (White shows global color)
+      if (RoomNameColor != Color.Transparent) roombrush = new SolidBrush(RoomNameColor);
 
-    if (RoomNameColor != Color.Transparent) roombrush = new SolidBrush(RoomNameColor);
+      var textBounds = InnerBounds;
+      if (Ellipse)
+        textBounds.Inflate(-11.5f);
+      else
+        textBounds.Inflate(-5, -5);
 
-    var textBounds = InnerBounds;
-    if (Ellipse)
-      textBounds.Inflate(-11.5f);
-    else
-      textBounds.Inflate(-5, -5);
+      if (textBounds.Width > 0 && textBounds.Height > 0 && !ApplicationSettingsController.AppSettings.DebugDisableTextRendering) {
+        var tName = IsReference ? new TextBlock {Text = "To"} : mName;
+        var tSubtitle = IsReference ? new TextBlock {Text = ReferenceRoom.Name} : mSubTitle;
+        var RoomTextRect = tName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, StringFormats.Center);
 
-    if (textBounds.Width > 0 && textBounds.Height > 0 && !ApplicationSettingsController.AppSettings.DebugDisableTextRendering) {
-      var tName = IsReference ? new TextBlock {Text = "To"} : mName;
-      var tSubtitle = IsReference ? new TextBlock {Text = ReferenceRoom.Name} : mSubTitle;
-      var RoomTextRect = tName.Draw(graphics, font, roombrush, textBounds.Position, textBounds.Size, StringFormats.Center);
-
-      // draw subtitle text
-      var subTitleBrush = IsReference ? roombrush : RoomSubtitleColor != Color.Transparent ? new SolidBrush(RoomSubtitleColor) : palette.SubtitleTextBrush;
-      var SubtitleTextRect = new Rect(RoomTextRect.Left, RoomTextRect.Bottom, RoomTextRect.Right - RoomTextRect.Left, textBounds.Bottom - RoomTextRect.Bottom);
-      tSubtitle.Draw(graphics, Settings.SubtitleFont, subTitleBrush, SubtitleTextRect.Position, SubtitleTextRect.Size, StringFormats.Center);
-    }
-
-    var expandedBounds = InnerBounds;
-    expandedBounds.Inflate(Settings.ObjectListOffsetFromRoom, Settings.ObjectListOffsetFromRoom);
-    var drawnObjectList = false;
-
-    font = Settings.ObjectFont;
-    brush = palette.SmallTextBrush;
-    // Room specific fill brush (White shows global color)
-    var bUseObjectRoomBrush = false;
-    if (RoomObjectTextColor != Color.Transparent) {
-      bUseObjectRoomBrush = true;
-      brush = new SolidBrush(RoomObjectTextColor);
-    }
-
-    if (!string.IsNullOrEmpty(Objects)) {
-      var format = new StringFormat();
-      var pos = expandedBounds.GetCorner(mObjectsPosition);
-
-      var tempStr = mObjects.Text;
-      var rgx = new Regex(@"\[[^\]\[]*\]");
-      mObjects.Text = rgx.Replace(mObjects.Text, "");
-
-      if (!Drawing.SetAlignmentFromCardinalOrOrdinalDirection(format, mObjectsPosition)) {
-        // object list appears inside the room below its name
-        format.LineAlignment = StringAlignment.Far;
-        format.Alignment = StringAlignment.Near;
-        var height = InnerBounds.Height / 2 - font.Height / 2;
-        var bounds = new Rect(InnerBounds.Left + Settings.ObjectListOffsetFromRoom, InnerBounds.Bottom - height, InnerBounds.Width - Settings.ObjectListOffsetFromRoom, height - Settings.ObjectListOffsetFromRoom);
-        if (bUseObjectRoomBrush)
-          brush = new SolidBrush(RoomObjectTextColor);
-        pos = bounds.Position;
-        pos.X += ObjectsCustomPosition ? ObjectsCustomPositionRight : 0;
-        pos.Y += ObjectsCustomPosition ? ObjectsCustomPositionDown : 0;
-        if (bounds.Width > 0 && bounds.Height > 0)
-          mObjects.Draw(graphics, font, brush, pos, bounds.Size, format);
-        drawnObjectList = true;
-      } else if (mObjectsPosition == CompassPoint.North || mObjectsPosition == CompassPoint.South) {
-        pos.X += Settings.ObjectListOffsetFromRoom + (ObjectsCustomPosition ? ObjectsCustomPositionRight : 0);
-        pos.Y += ObjectsCustomPosition ? ObjectsCustomPositionDown : 0;
-      } else {
-        pos.X += ObjectsCustomPosition ? ObjectsCustomPositionRight : 0;
-        pos.Y += ObjectsCustomPosition ? ObjectsCustomPositionDown : 0;
+        // draw subtitle text
+        var subTitleBrush = IsReference ? roombrush : RoomSubtitleColor != Color.Transparent ? new SolidBrush(RoomSubtitleColor) : palette.SubtitleTextBrush;
+        var subtitleTextRect = new Rect(RoomTextRect.Left, RoomTextRect.Bottom, RoomTextRect.Right - RoomTextRect.Left, textBounds.Bottom - RoomTextRect.Bottom);
+        tSubtitle.Draw(graphics, Settings.SubtitleFont, subTitleBrush, subtitleTextRect.Position, subtitleTextRect.Size, StringFormats.Center);
       }
 
-      if (!drawnObjectList && !ApplicationSettingsController.AppSettings.DebugDisableTextRendering) {
-        var tString = mObjects.Text;
-        var displayObjects = new TextBlock {Text = tString};
+      var expandedBounds = InnerBounds;
+      expandedBounds.Inflate(Settings.ObjectListOffsetFromRoom, Settings.ObjectListOffsetFromRoom);
+      var drawnObjectList = false;
 
-        var block = displayObjects.Draw(graphics, font, brush, pos, Vector.Zero, format);
+      font = Settings.ObjectFont;
+      brush = palette.SmallTextBrush;
+      // Room specific fill brush (White shows global color)
+      var bUseObjectRoomBrush = false;
+      if (RoomObjectTextColor != Color.Transparent) {
+        bUseObjectRoomBrush = true;
+        brush = new SolidBrush(RoomObjectTextColor);
       }
 
-      mObjects.Text = tempStr;
+      if (!string.IsNullOrEmpty(Objects)) {
+        var format = new StringFormat();
+        var pos = expandedBounds.GetCorner(mObjectsPosition);
+
+        var tempStr = mObjects.Text;
+        var rgx = new Regex(@"\[[^\]\[]*\]");
+        mObjects.Text = rgx.Replace(mObjects.Text, "");
+
+        if (!Drawing.SetAlignmentFromCardinalOrOrdinalDirection(format, mObjectsPosition)) {
+          // object list appears inside the room below its name
+          format.LineAlignment = StringAlignment.Far;
+          format.Alignment = StringAlignment.Near;
+          var height = InnerBounds.Height / 2 - font.Height / 2;
+          var bounds = new Rect(InnerBounds.Left + Settings.ObjectListOffsetFromRoom, InnerBounds.Bottom - height, InnerBounds.Width - Settings.ObjectListOffsetFromRoom, height - Settings.ObjectListOffsetFromRoom);
+          if (bUseObjectRoomBrush)
+            brush = new SolidBrush(RoomObjectTextColor);
+          pos = bounds.Position;
+          pos.X += ObjectsCustomPosition ? ObjectsCustomPositionRight : 0;
+          pos.Y += ObjectsCustomPosition ? ObjectsCustomPositionDown : 0;
+          if (bounds.Width > 0 && bounds.Height > 0)
+            mObjects.Draw(graphics, font, brush, pos, bounds.Size, format);
+          drawnObjectList = true;
+        } else if (mObjectsPosition == CompassPoint.North || mObjectsPosition == CompassPoint.South) {
+          pos.X += Settings.ObjectListOffsetFromRoom + (ObjectsCustomPosition ? ObjectsCustomPositionRight : 0);
+          pos.Y += ObjectsCustomPosition ? ObjectsCustomPositionDown : 0;
+        } else {
+          pos.X += ObjectsCustomPosition ? ObjectsCustomPositionRight : 0;
+          pos.Y += ObjectsCustomPosition ? ObjectsCustomPositionDown : 0;
+        }
+
+        if (!drawnObjectList && !ApplicationSettingsController.AppSettings.DebugDisableTextRendering) {
+          var tString = mObjects.Text;
+          var displayObjects = new TextBlock {Text = tString};
+
+          displayObjects.Draw(graphics, font, brush, pos, Vector.Zero, format);
+        }
+
+        mObjects.Text = tempStr;
+      }
     }
 
     if (!valid()) {
@@ -991,7 +987,7 @@ public sealed class Room : Element, ISizeable {
       var connection = element;
       foreach (var vertex in connection.VertexList) {
         var port = vertex.Port;
-        if (port == null || port.Owner != this || !(port is CompassPort))
+        if (port.Owner != this || port is not CompassPort)
           continue;
 
         var compassPort = (CompassPort) vertex.Port;
@@ -1056,13 +1052,12 @@ public sealed class Room : Element, ISizeable {
   }
 
   public override string GetToolTipHeader() {
-    var sText = $"{Name}{(!isDefaultRegion() ? $" ({Region})" : string.Empty)}";
-    if (!valid()) {
-      if (sText.Length > 0) sText += " - ";
-      sText += "Room validation issues:";
-    }
+    var text = $"{Name}{(!isDefaultRegion() ? $" ({Region})" : string.Empty)}";
+    if (valid()) return text;
+    if (text.Length > 0) text += " - ";
+    text += "Room validation issues:";
 
-    return sText;
+    return text;
   }
 
   public override string GetToolTipText() {
@@ -1205,28 +1200,17 @@ public sealed class Room : Element, ISizeable {
     var right = new LineSegment(topRight, bottomRight);
     var bottom = new LineSegment(bottomRight, bottomLeft);
     var left = new LineSegment(bottomLeft, topLeft);
-
-    var halfTopRight = new LineSegment(topCenter, topRight);
-    var halfBottomRight = new LineSegment(bottomRight, bottomCenter);
-    var centerVertical = new LineSegment(bottomCenter, topCenter);
-
-    var centerHorizontal = new LineSegment(leftCenter, rightCenter);
-    var halfRightBottom = new LineSegment(rightCenter, bottomRight);
-    var halfLeftBottom = new LineSegment(bottomLeft, leftCenter);
-
-    var slantUp = new LineSegment(bottomLeft, topRight);
-    var slantDown = new LineSegment(bottomRight, topLeft);
-
     context.LinesDrawn.Add(top);
     context.LinesDrawn.Add(right);
     context.LinesDrawn.Add(bottom);
     context.LinesDrawn.Add(left);
   }
 
-  public Vector quarterPoint(Vector frompoint, Vector topoint) {
-    var retVector = new Vector();
-    retVector.X = (frompoint.X * 3 + topoint.X) / 4;
-    retVector.Y = (frompoint.Y * 3 + topoint.Y) / 4;
+  private static Vector quarterPoint(Vector fromPoint, Vector toPoint) {
+    var retVector = new Vector {
+      X = (fromPoint.X * 3 + toPoint.X) / 4,
+      Y = (fromPoint.Y * 3 + toPoint.Y) / 4
+    };
     return retVector;
   }
 
@@ -1285,22 +1269,21 @@ public sealed class Room : Element, ISizeable {
 
     // Up to this point was added to turn colors to Hex code for xmpl saving/loading
 
-    if (!string.IsNullOrEmpty(Objects) || ObjectsPosition != DEFAULT_OBJECTS_POSITION) {
-      scribe.StartElement("objects");
+    if (string.IsNullOrEmpty(Objects) && ObjectsPosition == DEFAULT_OBJECTS_POSITION) return;
+    scribe.StartElement("objects");
 
-      if (ObjectsPosition != DEFAULT_OBJECTS_POSITION)
-        scribe.Attribute("at", ObjectsPosition);
+    if (ObjectsPosition != DEFAULT_OBJECTS_POSITION)
+      scribe.Attribute("at", ObjectsPosition);
 
-      if (ObjectsCustomPosition) {
-        scribe.Attribute("custom", ObjectsCustomPosition);
-        scribe.Attribute("customRight", ObjectsCustomPositionRight);
-        scribe.Attribute("customDown", ObjectsCustomPositionDown);
-      }
-
-      if (!string.IsNullOrEmpty(Objects))
-        scribe.Value(Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|"));
-      scribe.EndElement();
+    if (ObjectsCustomPosition) {
+      scribe.Attribute("custom", ObjectsCustomPosition);
+      scribe.Attribute("customRight", ObjectsCustomPositionRight);
+      scribe.Attribute("customDown", ObjectsCustomPositionDown);
     }
+
+    if (!string.IsNullOrEmpty(Objects))
+      scribe.Value(Objects.Replace("\r", string.Empty).Replace("|", "\\|").Replace("\n", "|"));
+    scribe.EndElement();
   }
 
   public void ShowDialog(PropertiesStartType startPoint) {
@@ -1390,82 +1373,81 @@ public sealed class Room : Element, ISizeable {
   }
 
   private void showRoomDialog(PropertiesStartType start = PropertiesStartType.RoomName) {
-    using (var dialog = new RoomPropertiesDialog(start, ID)) {
-      dialog.RoomName = Name;
-      dialog.Description = PrimaryDescription;
-      dialog.RoomSubTitle = SubTitle;
-      dialog.IsDark = IsDark;
-      dialog.IsStartRoom = IsStartRoom;
-      dialog.IsEndRoom = IsEndRoom;
-      dialog.HandDrawnEdges = HandDrawnEdges;
-      dialog.Objects = Objects;
-      dialog.ObjectsPosition = ObjectsPosition;
-      dialog.ObjectsCustomPosition = ObjectsCustomPosition;
-      dialog.ObjectsCustomPositionDown = ObjectsCustomPositionDown;
-      dialog.ObjectsCustomPositionRight = ObjectsCustomPositionRight;
-      dialog.BorderStyle = BorderStyle;
+    using var dialog = new RoomPropertiesDialog(start, ID);
+    dialog.RoomName = Name;
+    dialog.Description = PrimaryDescription;
+    dialog.RoomSubTitle = SubTitle;
+    dialog.IsDark = IsDark;
+    dialog.IsStartRoom = IsStartRoom;
+    dialog.IsEndRoom = IsEndRoom;
+    dialog.HandDrawnEdges = HandDrawnEdges;
+    dialog.Objects = Objects;
+    dialog.ObjectsPosition = ObjectsPosition;
+    dialog.ObjectsCustomPosition = ObjectsCustomPosition;
+    dialog.ObjectsCustomPositionDown = ObjectsCustomPositionDown;
+    dialog.ObjectsCustomPositionRight = ObjectsCustomPositionRight;
+    dialog.BorderStyle = BorderStyle;
 
-      dialog.RoomFillColor = RoomFillColor;
-      dialog.SecondFillColor = SecondFillColor;
-      dialog.SecondFillLocation = SecondFillLocation;
-      dialog.RoomBorderColor = RoomBorderColor;
-      dialog.RoomNameColor = RoomNameColor;
-      dialog.ObjectTextColor = RoomObjectTextColor;
-      dialog.RoomSubtitleColor = RoomSubtitleColor;
-      dialog.RoomRegion = Region;
-      dialog.ReferenceRoom = ReferenceRoom;
-      dialog.Corners = Corners;
-      dialog.RoundedCorners = RoundedCorners;
-      //dialog.Octagonal = Octagonal;
-      dialog.Ellipse = Ellipse;
-      dialog.StraightEdges = StraightEdges;
-      dialog.AllCornersEqual = AllCornersEqual;
-      dialog.Shape = Shape;
+    dialog.RoomFillColor = RoomFillColor;
+    dialog.SecondFillColor = SecondFillColor;
+    dialog.SecondFillLocation = SecondFillLocation;
+    dialog.RoomBorderColor = RoomBorderColor;
+    dialog.RoomNameColor = RoomNameColor;
+    dialog.ObjectTextColor = RoomObjectTextColor;
+    dialog.RoomSubtitleColor = RoomSubtitleColor;
+    dialog.RoomRegion = Region;
+    dialog.ReferenceRoom = ReferenceRoom;
+    dialog.Corners = Corners;
+    dialog.RoundedCorners = RoundedCorners;
+    //dialog.Octagonal = Octagonal;
+    dialog.Ellipse = Ellipse;
+    dialog.StraightEdges = StraightEdges;
+    dialog.AllCornersEqual = AllCornersEqual;
+    dialog.Shape = Shape;
 
-      if (dialog.ShowDialog(Project.Canvas) == DialogResult.OK) {
-        Name = dialog.RoomName;
-        SubTitle = dialog.RoomSubTitle;
-        if (PrimaryDescription != dialog.Description) {
-          ClearDescriptions();
-          AddDescription(dialog.Description);
-        }
-
-        IsDark = dialog.IsDark;
-        IsStartRoom = dialog.IsStartRoom;
-        IsEndRoom = dialog.IsEndRoom;
-        HandDrawnEdges = dialog.HandDrawnEdges;
-        Objects = dialog.Objects;
-        BorderStyle = dialog.BorderStyle;
-        ObjectsPosition = dialog.ObjectsPosition;
-        ObjectsCustomPosition = dialog.ObjectsCustomPosition;
-        ObjectsCustomPositionDown = dialog.ObjectsCustomPositionDown;
-        ObjectsCustomPositionRight = dialog.ObjectsCustomPositionRight;
-        // Added for Room specific colors
-        RoomFillColor = dialog.RoomFillColor;
-        RoomSubtitleColor = dialog.RoomSubtitleColor;
-        SecondFillColor = dialog.SecondFillColor;
-        SecondFillLocation = dialog.SecondFillLocation;
-        RoomBorderColor = dialog.RoomBorderColor;
-        RoomNameColor = dialog.RoomNameColor;
-        RoomObjectTextColor = dialog.ObjectTextColor;
-
-
-        Region = dialog.RoomRegion;
-
-        ReferenceRoomId = dialog.ReferenceRoom?.ID ?? -1;
-        Corners = dialog.Corners;
-        RoundedCorners = dialog.RoundedCorners;
-        Shape = dialog.Shape;
-        //Octagonal = dialog.Octagonal;
-        Ellipse = dialog.Ellipse;
-        StraightEdges = dialog.StraightEdges;
-        AllCornersEqual = dialog.AllCornersEqual;
-      }
+    if (dialog.ShowDialog(Project.Canvas) != DialogResult.OK) return;
+    
+    Name = dialog.RoomName;
+    SubTitle = dialog.RoomSubTitle;
+    if (PrimaryDescription != dialog.Description) {
+      ClearDescriptions();
+      AddDescription(dialog.Description);
     }
+
+    IsDark = dialog.IsDark;
+    IsStartRoom = dialog.IsStartRoom;
+    IsEndRoom = dialog.IsEndRoom;
+    HandDrawnEdges = dialog.HandDrawnEdges;
+    Objects = dialog.Objects;
+    BorderStyle = dialog.BorderStyle;
+    ObjectsPosition = dialog.ObjectsPosition;
+    ObjectsCustomPosition = dialog.ObjectsCustomPosition;
+    ObjectsCustomPositionDown = dialog.ObjectsCustomPositionDown;
+    ObjectsCustomPositionRight = dialog.ObjectsCustomPositionRight;
+    // Added for Room specific colors
+    RoomFillColor = dialog.RoomFillColor;
+    RoomSubtitleColor = dialog.RoomSubtitleColor;
+    SecondFillColor = dialog.SecondFillColor;
+    SecondFillLocation = dialog.SecondFillLocation;
+    RoomBorderColor = dialog.RoomBorderColor;
+    RoomNameColor = dialog.RoomNameColor;
+    RoomObjectTextColor = dialog.ObjectTextColor;
+
+
+    Region = dialog.RoomRegion;
+
+    ReferenceRoomId = dialog.ReferenceRoom?.ID ?? -1;
+    Corners = dialog.Corners;
+    RoundedCorners = dialog.RoundedCorners;
+    Shape = dialog.Shape;
+    //Octagonal = dialog.Octagonal;
+    Ellipse = dialog.Ellipse;
+    StraightEdges = dialog.StraightEdges;
+    AllCornersEqual = dialog.AllCornersEqual;
   }
 
   private bool valid() {
-    return ValidationState == null || ValidationState.Count == 0;
+    return ValidationState.Count == 0;
   }
 
   internal sealed class CompassPort : Port {
@@ -1476,12 +1458,7 @@ public sealed class Room : Element, ISizeable {
 
     public CompassPoint CompassPoint { get; set; }
 
-    public override string ID {
-      get {
-        string name;
-        return CompassPointHelper.ToName(CompassPoint, out name) ? name : string.Empty;
-      }
-    }
+    public override string ID => CompassPointHelper.ToName(CompassPoint, out var name) ? name : string.Empty;
 
     public Room Room { get; }
   }
@@ -1496,36 +1473,44 @@ public sealed class CornerRadii {
   public float BottomLeft {
     get => bottomLeft;
     set {
-      if (value < 1) bottomLeft = 1;
-      else if (value > 30) bottomLeft = 30;
-      else bottomLeft = value;
+      bottomLeft = value switch {
+        < 1 => 1,
+        > 30 => 30,
+        _ => value
+      };
     }
   }
 
   public float BottomRight {
     get => bottomRight;
     set {
-      if (value < 1) bottomRight = 1;
-      else if (value > 30) bottomRight = 30;
-      else bottomRight = value;
+      bottomRight = value switch {
+        < 1 => 1,
+        > 30 => 30,
+        _ => value
+      };
     }
   }
 
   public float TopLeft {
     get => topLeft;
     set {
-      if (value < 1) topLeft = 1;
-      else if (value > 30) topLeft = 30;
-      else topLeft = value;
+      topLeft = value switch {
+        < 1 => 1,
+        > 30 => 30,
+        _ => value
+      };
     }
   }
 
   public float TopRight {
     get => topRight;
     set {
-      if (value < 1) topRight = 1;
-      else if (value > 30) topRight = 30;
-      else topRight = value;
+      topRight = value switch {
+        < 1 => 1,
+        > 30 => 30,
+        _ => value
+      };
     }
   }
 }

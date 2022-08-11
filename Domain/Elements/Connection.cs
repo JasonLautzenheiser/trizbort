@@ -106,10 +106,9 @@ public sealed class Connection : Element {
   public Door Door {
     get => door;
     set {
-      if (door != value) {
-        door = value;
-        RaiseChanged();
-      }
+      if (door == value) return;
+      door = value;
+      RaiseChanged();
     }
   }
 
@@ -302,15 +301,14 @@ public sealed class Connection : Element {
     var elements = (List<XmlElementReader>) state;
     for (var index = 0; index < elements.Count; ++index) {
       var element = elements[index];
-      if (element.HasName("dock") && Project.FindElement(element.Attribute("id").ToInt(), out var target)) {
-        var portID = element.Attribute("port").Text;
-        foreach (var port in target.PortList)
-          if (StringComparer.InvariantCultureIgnoreCase.Compare(portID, port.ID) == 0) {
-            var vertex = VertexList[index];
-            vertex.Port = port;
-            break;
-          }
-      }
+      if (!element.HasName("dock") || !Project.FindElement(element.Attribute("id").ToInt(), out var target)) continue;
+      var portId = element.Attribute("port").Text;
+      foreach (var port in target.PortList)
+        if (StringComparer.InvariantCultureIgnoreCase.Compare(portId, port.ID) == 0) {
+          var vertex = VertexList[index];
+          vertex.Port = port;
+          break;
+        }
     }
   }
 
@@ -323,11 +321,11 @@ public sealed class Connection : Element {
     return GetPortPosition(port);
   }
 
-  public Room GetSourceRoom() {
+  public Room? GetSourceRoom() {
     return GetSourceRoom(out var t);
   }
 
-  public Room GetSourceRoom(out CompassPoint sourceCompassPoint) {
+  public Room? GetSourceRoom(out CompassPoint sourceCompassPoint) {
     if (VertexList.Count > 0 && VertexList[0].Port is var port and Room.CompassPort) {
       var compassPort = (Room.CompassPort) port;
       sourceCompassPoint = compassPort.CompassPoint;
@@ -338,12 +336,12 @@ public sealed class Connection : Element {
     return null;
   }
 
-  public Room GetTargetRoom() {
+  public Room? GetTargetRoom() {
     CompassPoint t;
     return GetTargetRoom(out t);
   }
 
-  public Room GetTargetRoom(out CompassPoint targetCompassPoint) {
+  public Room? GetTargetRoom(out CompassPoint targetCompassPoint) {
     if (VertexList.Count > 1 && VertexList[^1].Port is var port and Room.CompassPort) {
       var compassPort = (Room.CompassPort) port;
       targetCompassPoint = compassPort.CompassPoint;
@@ -378,6 +376,8 @@ public sealed class Connection : Element {
         start = Out;
         end = In;
         break;
+      default:
+        throw new ArgumentOutOfRangeException(nameof(label), label, null);
     }
   }
 

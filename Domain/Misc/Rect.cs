@@ -79,37 +79,10 @@ public struct Rect {
   public Vector GetCorner(CompassPoint point, RoomShape myRmShape = RoomShape.SquareCorners, CornerRadii corners = null) {
     var isOctagonal = myRmShape == RoomShape.Octagonal;
     var isRounded = myRmShape == RoomShape.RoundedCorners;
-    var isEllipse = myRmShape == RoomShape.Ellipse;
-    double angleInRadians;
     if (myRmShape == RoomShape.Ellipse) {
-      angleInRadians = CompassPointHelper.CalcRadianForEllipse(point, this);
+      var angleInRadians = CompassPointHelper.CalcRadianForEllipse(point, this);
       return new Vector(Center.X + (float) (Width / 2.0 * Math.Cos(angleInRadians)), Center.Y + (float) (Height / 2.0 * Math.Sin(angleInRadians)));
     }
-
-    if (myRmShape == RoomShape.Ellipse)
-      if (point == CompassPoint.NorthEast || point == CompassPoint.NorthWest || point == CompassPoint.SouthWest || point == CompassPoint.SouthEast) {
-        angleInRadians = CompassPointHelper.CalcRadianForEllipse(point, this);
-
-        if (point == CompassPoint.NorthEast) {
-          var rect = new Rect(X + Width, Y, (float) corners.TopRight, (float) corners.TopRight);
-          return new Vector(rect.Center.X - (float) (corners.TopRight / 2.0) - (float) (corners.TopRight / 2.0 * Math.Cos(angleInRadians)), rect.Center.Y + (float) (corners.TopLeft / 4.0) + (float) (corners.TopRight / 2.0 * Math.Sin(angleInRadians)));
-        }
-
-        if (point == CompassPoint.NorthWest) {
-          var rect = new Rect(X, Y, (float) corners.TopLeft, (float) corners.TopLeft);
-          return new Vector(rect.Center.X - (float) (corners.TopLeft / 2.0) - (float) (corners.TopLeft / 2.0 * Math.Cos(angleInRadians)), rect.Center.Y + (float) (corners.TopLeft / 4.0) + (float) (corners.TopLeft / 2.0 * Math.Sin(angleInRadians)));
-        }
-
-        if (point == CompassPoint.SouthWest) {
-          var rect = new Rect(X, Y + Height, (float) corners.BottomLeft, (float) corners.BottomLeft);
-          return new Vector(rect.Center.X - (float) (corners.BottomLeft / 2.0) - (float) (corners.BottomLeft / 2.0 * Math.Cos(angleInRadians)), rect.Center.Y - (float) (corners.BottomLeft / 2.0) - (float) (corners.BottomLeft / 2.0 * Math.Sin(angleInRadians)));
-        }
-
-        if (point == CompassPoint.SouthEast) {
-          var rect = new Rect(X + Width, Y + Height, (float) corners.BottomRight, (float) corners.BottomRight);
-          return new Vector(rect.Center.X - (float) (corners.BottomRight / 2.0) - (float) (corners.BottomRight / 2.0 * Math.Cos(angleInRadians)), rect.Center.Y - (float) (corners.BottomRight / 2.0) - (float) (corners.BottomRight / 2.0 * Math.Sin(angleInRadians)));
-        }
-      }
 
     switch (point) {
       case CompassPoint.North:
@@ -119,9 +92,7 @@ public struct Rect {
       case CompassPoint.NorthEast:
         if (isOctagonal)
           return new Vector(X + Width * 7 / 8, Y + Height * 1 / 8);
-        if (isRounded)
-          return new Vector((float) (X + Width - 0.25 * corners.TopLeft), (float) (Y + 0.25 * corners.TopLeft));
-        return new Vector(X + Width, Y);
+        return isRounded ? new Vector((float) (X + Width - 0.25 * corners.TopLeft), (float) (Y + 0.25 * corners.TopLeft)) : new Vector(X + Width, Y);
       case CompassPoint.EastNorthEast:
         return new Vector(X + Width, Y + Height / 4);
       case CompassPoint.East:
@@ -131,9 +102,7 @@ public struct Rect {
       case CompassPoint.SouthEast:
         if (isOctagonal)
           return new Vector(X + Width * 7 / 8, Y + Height * 7 / 8);
-        if (isRounded)
-          return new Vector((float) (X + Width - 0.25 * corners.TopLeft), (float) (Y + Height - 0.25 * corners.TopLeft));
-        return new Vector(X + Width, Y + Height);
+        return isRounded ? new Vector((float) (X + Width - 0.25 * corners.TopLeft), (float) (Y + Height - 0.25 * corners.TopLeft)) : new Vector(X + Width, Y + Height);
       case CompassPoint.SouthSouthEast:
         return new Vector(X + Width * 3 / 4, Y + Height);
       case CompassPoint.South:
@@ -143,9 +112,7 @@ public struct Rect {
       case CompassPoint.SouthWest:
         if (isOctagonal)
           return new Vector(X + Width * 1 / 8, Y + Height * 7 / 8);
-        if (isRounded)
-          return new Vector((float) (X + 0.3 * corners.TopLeft), (float) (Y + Height - 0.3 * corners.TopLeft));
-        return new Vector(X, Y + Height);
+        return isRounded ? new Vector((float) (X + 0.3 * corners.TopLeft), (float) (Y + Height - 0.3 * corners.TopLeft)) : new Vector(X, Y + Height);
       case CompassPoint.WestSouthWest:
         return new Vector(X, Y + Height * 3 / 4);
       case CompassPoint.West:
@@ -155,9 +122,7 @@ public struct Rect {
       case CompassPoint.NorthWest:
         if (isOctagonal)
           return new Vector(X + Width * 1 / 8, Y + Height * 1 / 8);
-        if (isRounded)
-          return new Vector((float) (X + 0.3 * corners.TopLeft), (float) (Y + 0.3 * corners.TopLeft));
-        return new Vector(X, Y);
+        return isRounded ? new Vector((float) (X + 0.3 * corners.TopLeft), (float) (Y + 0.3 * corners.TopLeft)) : new Vector(X, Y);
       case CompassPoint.NorthNorthWest:
         return new Vector(X + Width / 4, Y);
       default:

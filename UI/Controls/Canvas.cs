@@ -17,11 +17,6 @@ using Trizbort.Domain.Misc;
 using Trizbort.Setup;
 using Region = Trizbort.Domain.Misc.Region;
 using Timer = System.Threading.Timer;
-
-// ReSharper disable PossibleLossOfFraction
-// ReSharper disable CompareOfFloatsByEqualityOperator
-// ReSharper disable CanBeReplacedWithTryCastAndCheckForNull
-
 namespace Trizbort.UI.Controls; 
 
 public sealed partial class Canvas : UserControl, IAutomapCanvas {
@@ -66,7 +61,6 @@ public sealed partial class Canvas : UserControl, IAutomapCanvas {
 
     SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw, true);
     DoubleBuffered = true;
-    m_cornerPanel.BackColor = SystemColors.Control;
 
     PreviewKeyDown += onPreviewKeyDown;
 
@@ -121,10 +115,8 @@ public sealed partial class Canvas : UserControl, IAutomapCanvas {
       m_minimap.Visible = value;
       if (!m_minimap.Visible) {
         m_vScrollBar.Top = 0;
-        m_vScrollBar.Height = Height - m_cornerPanel.Height;
       } else {
         m_vScrollBar.Top = m_minimap.Bottom;
-        m_vScrollBar.Height = Height - m_cornerPanel.Height - m_minimap.Height;
       }
     }
   }

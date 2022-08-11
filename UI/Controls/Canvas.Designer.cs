@@ -42,7 +42,6 @@ namespace Trizbort.UI.Controls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.m_cornerPanel = new System.Windows.Forms.Panel();
             this.ctxCanvasMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addRoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -93,14 +92,6 @@ namespace Trizbort.UI.Controls
             this.ctxCanvasMenu.SuspendLayout();
             this.SuspendLayout();
             // 
-            // m_cornerPanel
-            // 
-            this.m_cornerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_cornerPanel.Location = new System.Drawing.Point(450, 305);
-            this.m_cornerPanel.Name = "m_cornerPanel";
-            this.m_cornerPanel.Size = new System.Drawing.Size(10, 10);
-            this.m_cornerPanel.TabIndex = 2;
-            // 
             // ctxCanvasMenu
             // 
             this.ctxCanvasMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -129,14 +120,14 @@ namespace Trizbort.UI.Controls
             this.mapSettingsToolStripMenuItem,
             this.applicationSettingsToolStripMenuItem});
             this.ctxCanvasMenu.Name = "ctxCanvasMenu";
-            this.ctxCanvasMenu.Size = new System.Drawing.Size(190, 398);
+            this.ctxCanvasMenu.Size = new System.Drawing.Size(222, 430);
             this.ctxCanvasMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxCanvasMenu_Opening);
             // 
             // addRoomToolStripMenuItem
             // 
             this.addRoomToolStripMenuItem.Name = "addRoomToolStripMenuItem";
             this.addRoomToolStripMenuItem.ShortcutKeyDisplayString = "R";
-            this.addRoomToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.addRoomToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.addRoomToolStripMenuItem.Text = "Add &Room";
             this.addRoomToolStripMenuItem.Click += new System.EventHandler(this.addRoomToolStripMenuItem_Click);
             // 
@@ -144,19 +135,19 @@ namespace Trizbort.UI.Controls
             // 
             this.toolStripSeparator7.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(186, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(218, 6);
             // 
             // sendToBackToolStripMenuItem
             // 
             this.sendToBackToolStripMenuItem.Name = "sendToBackToolStripMenuItem";
-            this.sendToBackToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.sendToBackToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.sendToBackToolStripMenuItem.Text = "Send to Back";
             this.sendToBackToolStripMenuItem.Click += new System.EventHandler(this.sendToBackToolStripMenuItem_Click);
             // 
             // bringToFrontToolStripMenuItem
             // 
             this.bringToFrontToolStripMenuItem.Name = "bringToFrontToolStripMenuItem";
-            this.bringToFrontToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.bringToFrontToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.bringToFrontToolStripMenuItem.Text = "Bring to Front";
             this.bringToFrontToolStripMenuItem.Click += new System.EventHandler(this.bringToFrontToolStripMenuItem_Click);
             // 
@@ -164,7 +155,7 @@ namespace Trizbort.UI.Controls
             // 
             this.toolStripSeparator3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(186, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(218, 6);
             // 
             // m_lineStylesMenuItem
             // 
@@ -181,27 +172,27 @@ namespace Trizbort.UI.Controls
             this.m_outLinesMenuItem});
             this.m_lineStylesMenuItem.Name = "m_lineStylesMenuItem";
             this.m_lineStylesMenuItem.ShortcutKeyDisplayString = "";
-            this.m_lineStylesMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.m_lineStylesMenuItem.Size = new System.Drawing.Size(221, 24);
             this.m_lineStylesMenuItem.Text = "&Line Styles";
             // 
             // m_plainLinesMenuItem
             // 
             this.m_plainLinesMenuItem.Name = "m_plainLinesMenuItem";
             this.m_plainLinesMenuItem.ShortcutKeyDisplayString = "P";
-            this.m_plainLinesMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.m_plainLinesMenuItem.Size = new System.Drawing.Size(214, 26);
             this.m_plainLinesMenuItem.Text = "Plain";
             this.m_plainLinesMenuItem.Click += new System.EventHandler(this.m_plainLinesMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(169, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(211, 6);
             // 
             // m_toggleDottedLinesMenuItem
             // 
             this.m_toggleDottedLinesMenuItem.Name = "m_toggleDottedLinesMenuItem";
             this.m_toggleDottedLinesMenuItem.ShortcutKeyDisplayString = "T";
-            this.m_toggleDottedLinesMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.m_toggleDottedLinesMenuItem.Size = new System.Drawing.Size(214, 26);
             this.m_toggleDottedLinesMenuItem.Text = "Dotted";
             this.m_toggleDottedLinesMenuItem.Click += new System.EventHandler(this.m_toggleDottedLinesMenuItem_Click);
             // 
@@ -209,20 +200,20 @@ namespace Trizbort.UI.Controls
             // 
             this.m_toggleDirectionalLinesMenuItem.Name = "m_toggleDirectionalLinesMenuItem";
             this.m_toggleDirectionalLinesMenuItem.ShortcutKeyDisplayString = "A";
-            this.m_toggleDirectionalLinesMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.m_toggleDirectionalLinesMenuItem.Size = new System.Drawing.Size(214, 26);
             this.m_toggleDirectionalLinesMenuItem.Text = "One Way Arrow";
             this.m_toggleDirectionalLinesMenuItem.Click += new System.EventHandler(this.m_toggleDirectionalLinesMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(169, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(211, 6);
             // 
             // m_upLinesMenuItem
             // 
             this.m_upLinesMenuItem.Name = "m_upLinesMenuItem";
             this.m_upLinesMenuItem.ShortcutKeyDisplayString = "U";
-            this.m_upLinesMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.m_upLinesMenuItem.Size = new System.Drawing.Size(214, 26);
             this.m_upLinesMenuItem.Text = "Up";
             this.m_upLinesMenuItem.Click += new System.EventHandler(this.m_upLinesMenuItem_Click);
             // 
@@ -230,20 +221,20 @@ namespace Trizbort.UI.Controls
             // 
             this.m_downLinesMenuItem.Name = "m_downLinesMenuItem";
             this.m_downLinesMenuItem.ShortcutKeyDisplayString = "D";
-            this.m_downLinesMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.m_downLinesMenuItem.Size = new System.Drawing.Size(214, 26);
             this.m_downLinesMenuItem.Text = "Down";
             this.m_downLinesMenuItem.Click += new System.EventHandler(this.m_downLinesMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(169, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(211, 6);
             // 
             // m_inLinesMenuItem
             // 
             this.m_inLinesMenuItem.Name = "m_inLinesMenuItem";
             this.m_inLinesMenuItem.ShortcutKeyDisplayString = "I";
-            this.m_inLinesMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.m_inLinesMenuItem.Size = new System.Drawing.Size(214, 26);
             this.m_inLinesMenuItem.Text = "In";
             this.m_inLinesMenuItem.Click += new System.EventHandler(this.m_inLinesMenuItem_Click);
             // 
@@ -251,7 +242,7 @@ namespace Trizbort.UI.Controls
             // 
             this.m_outLinesMenuItem.Name = "m_outLinesMenuItem";
             this.m_outLinesMenuItem.ShortcutKeyDisplayString = "O";
-            this.m_outLinesMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.m_outLinesMenuItem.Size = new System.Drawing.Size(214, 26);
             this.m_outLinesMenuItem.Text = "Out";
             this.m_outLinesMenuItem.Click += new System.EventHandler(this.m_outLinesMenuItem_Click);
             // 
@@ -259,7 +250,7 @@ namespace Trizbort.UI.Controls
             // 
             this.m_reverseLineMenuItem.Name = "m_reverseLineMenuItem";
             this.m_reverseLineMenuItem.ShortcutKeyDisplayString = "V";
-            this.m_reverseLineMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.m_reverseLineMenuItem.Size = new System.Drawing.Size(221, 24);
             this.m_reverseLineMenuItem.Text = "Reverse Line";
             this.m_reverseLineMenuItem.Click += new System.EventHandler(this.m_reverseLineMenuItem_Click);
             // 
@@ -267,7 +258,7 @@ namespace Trizbort.UI.Controls
             // 
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
             this.renameToolStripMenuItem.ShortcutKeyDisplayString = "F2";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.renameToolStripMenuItem.Text = "Rename";
             this.renameToolStripMenuItem.Visible = false;
             this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
@@ -276,7 +267,7 @@ namespace Trizbort.UI.Controls
             // 
             this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
             this.darkToolStripMenuItem.ShortcutKeyDisplayString = "K";
-            this.darkToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.darkToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.darkToolStripMenuItem.Text = "Toggle &Darkness";
             this.darkToolStripMenuItem.Visible = false;
             this.darkToolStripMenuItem.Click += new System.EventHandler(this.darkToolStripMenuItem_Click_1);
@@ -284,13 +275,13 @@ namespace Trizbort.UI.Controls
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(186, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(218, 6);
             // 
             // startRoomToolStripMenuItem
             // 
             this.startRoomToolStripMenuItem.Name = "startRoomToolStripMenuItem";
             this.startRoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
-            this.startRoomToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.startRoomToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.startRoomToolStripMenuItem.Text = "Start Room";
             this.startRoomToolStripMenuItem.Click += new System.EventHandler(this.startRoomToolStripMenuItem_Click);
             // 
@@ -298,27 +289,27 @@ namespace Trizbort.UI.Controls
             // 
             this.endRoomToolStripMenuItem.Name = "endRoomToolStripMenuItem";
             this.endRoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F5)));
-            this.endRoomToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.endRoomToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.endRoomToolStripMenuItem.Text = "End Room";
             this.endRoomToolStripMenuItem.Click += new System.EventHandler(this.endRoomToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(186, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(218, 6);
             this.toolStripMenuItem1.Visible = false;
             // 
             // regionToolStripMenuItem
             // 
             this.regionToolStripMenuItem.Name = "regionToolStripMenuItem";
-            this.regionToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.regionToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.regionToolStripMenuItem.Text = "&Set Region";
             this.regionToolStripMenuItem.Visible = false;
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(186, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(218, 6);
             this.toolStripMenuItem2.Visible = false;
             // 
             // roomShapeToolStripMenuItem
@@ -329,7 +320,7 @@ namespace Trizbort.UI.Controls
             this.roundedEdgesToolStripMenuItem,
             this.octagonalEdgesToolStripMenuItem});
             this.roomShapeToolStripMenuItem.Name = "roomShapeToolStripMenuItem";
-            this.roomShapeToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.roomShapeToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.roomShapeToolStripMenuItem.Text = "Room Shape";
             this.roomShapeToolStripMenuItem.Visible = false;
             // 
@@ -337,7 +328,7 @@ namespace Trizbort.UI.Controls
             // 
             this.handDrawnToolStripMenuItem.Name = "handDrawnToolStripMenuItem";
             this.handDrawnToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+H";
-            this.handDrawnToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.handDrawnToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
             this.handDrawnToolStripMenuItem.Text = "Square Corners";
             this.handDrawnToolStripMenuItem.Click += new System.EventHandler(this.handDrawnToolStripMenuItem_Click);
             // 
@@ -345,7 +336,7 @@ namespace Trizbort.UI.Controls
             // 
             this.ellipseToolStripMenuItem.Name = "ellipseToolStripMenuItem";
             this.ellipseToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+E";
-            this.ellipseToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.ellipseToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
             this.ellipseToolStripMenuItem.Text = "Ellipse";
             this.ellipseToolStripMenuItem.Click += new System.EventHandler(this.ellipseToolStripMenuItem_Click);
             // 
@@ -353,7 +344,7 @@ namespace Trizbort.UI.Controls
             // 
             this.roundedEdgesToolStripMenuItem.Name = "roundedEdgesToolStripMenuItem";
             this.roundedEdgesToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+R";
-            this.roundedEdgesToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.roundedEdgesToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
             this.roundedEdgesToolStripMenuItem.Text = "Rounded Edges";
             this.roundedEdgesToolStripMenuItem.Click += new System.EventHandler(this.roundedEdgesToolStripMenuItem_Click);
             // 
@@ -361,7 +352,7 @@ namespace Trizbort.UI.Controls
             // 
             this.octagonalEdgesToolStripMenuItem.Name = "octagonalEdgesToolStripMenuItem";
             this.octagonalEdgesToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+8";
-            this.octagonalEdgesToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.octagonalEdgesToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
             this.octagonalEdgesToolStripMenuItem.Text = "Octagonal Edges";
             this.octagonalEdgesToolStripMenuItem.Click += new System.EventHandler(this.octagonalEdgesToolStripMenuItem_Click);
             // 
@@ -369,7 +360,7 @@ namespace Trizbort.UI.Controls
             // 
             this.joinRoomsToolStripMenuItem.Name = "joinRoomsToolStripMenuItem";
             this.joinRoomsToolStripMenuItem.ShortcutKeyDisplayString = "J";
-            this.joinRoomsToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.joinRoomsToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.joinRoomsToolStripMenuItem.Text = "&Join Rooms";
             this.joinRoomsToolStripMenuItem.Visible = false;
             this.joinRoomsToolStripMenuItem.Click += new System.EventHandler(this.joinRoomsToolStripMenuItem_Click);
@@ -382,7 +373,7 @@ namespace Trizbort.UI.Controls
             this.formatsFillsToolStripMenuItem,
             this.regionsToolStripMenuItem});
             this.swapObjectsToolStripMenuItem.Name = "swapObjectsToolStripMenuItem";
-            this.swapObjectsToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.swapObjectsToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.swapObjectsToolStripMenuItem.Text = "S&wap";
             this.swapObjectsToolStripMenuItem.Visible = false;
             // 
@@ -390,7 +381,7 @@ namespace Trizbort.UI.Controls
             // 
             this.objectsToolStripMenuItem.Name = "objectsToolStripMenuItem";
             this.objectsToolStripMenuItem.ShortcutKeyDisplayString = "W";
-            this.objectsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.objectsToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.objectsToolStripMenuItem.Text = "Objects";
             this.objectsToolStripMenuItem.Click += new System.EventHandler(this.objectsToolStripMenuItem_Click);
             // 
@@ -398,7 +389,7 @@ namespace Trizbort.UI.Controls
             // 
             this.namesToolStripMenuItem.Name = "namesToolStripMenuItem";
             this.namesToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+W";
-            this.namesToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.namesToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.namesToolStripMenuItem.Text = "Names";
             this.namesToolStripMenuItem.Click += new System.EventHandler(this.namesToolStripMenuItem_Click);
             // 
@@ -406,7 +397,7 @@ namespace Trizbort.UI.Controls
             // 
             this.formatsFillsToolStripMenuItem.Name = "formatsFillsToolStripMenuItem";
             this.formatsFillsToolStripMenuItem.ShortcutKeyDisplayString = "Shift+W";
-            this.formatsFillsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.formatsFillsToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.formatsFillsToolStripMenuItem.Text = "Formats / Fills";
             this.formatsFillsToolStripMenuItem.Click += new System.EventHandler(this.formatsFillsToolStripMenuItem_Click);
             // 
@@ -414,21 +405,21 @@ namespace Trizbort.UI.Controls
             // 
             this.regionsToolStripMenuItem.Name = "regionsToolStripMenuItem";
             this.regionsToolStripMenuItem.ShortcutKeyDisplayString = "Alt+W";
-            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.regionsToolStripMenuItem.Text = "Regions";
             this.regionsToolStripMenuItem.Click += new System.EventHandler(this.regionsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(186, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(218, 6);
             this.toolStripSeparator1.Visible = false;
             // 
             // roomPropertiesToolStripMenuItem
             // 
             this.roomPropertiesToolStripMenuItem.Name = "roomPropertiesToolStripMenuItem";
             this.roomPropertiesToolStripMenuItem.ShortcutKeyDisplayString = "Enter";
-            this.roomPropertiesToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.roomPropertiesToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.roomPropertiesToolStripMenuItem.Text = "&Properties...";
             this.roomPropertiesToolStripMenuItem.Visible = false;
             this.roomPropertiesToolStripMenuItem.Click += new System.EventHandler(this.roomPropertiesToolStripMenuItem_Click);
@@ -436,20 +427,20 @@ namespace Trizbort.UI.Controls
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(186, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(218, 6);
             this.toolStripSeparator2.Visible = false;
             // 
             // mapSettingsToolStripMenuItem
             // 
             this.mapSettingsToolStripMenuItem.Name = "mapSettingsToolStripMenuItem";
-            this.mapSettingsToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.mapSettingsToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.mapSettingsToolStripMenuItem.Text = "&Map Settings...";
             this.mapSettingsToolStripMenuItem.Click += new System.EventHandler(this.mapSettingsToolStripMenuItem_Click);
             // 
             // applicationSettingsToolStripMenuItem
             // 
             this.applicationSettingsToolStripMenuItem.Name = "applicationSettingsToolStripMenuItem";
-            this.applicationSettingsToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.applicationSettingsToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.applicationSettingsToolStripMenuItem.Text = "&Application Settings...";
             this.applicationSettingsToolStripMenuItem.Click += new System.EventHandler(this.applicationSettingsToolStripMenuItem_Click);
             // 
@@ -457,11 +448,11 @@ namespace Trizbort.UI.Controls
             // 
             this.lblZoom.AutoSize = true;
             this.lblZoom.BackColor = System.Drawing.Color.Transparent;
-            this.lblZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblZoom.ForeColor = System.Drawing.SystemColors.GrayText;
             this.lblZoom.Location = new System.Drawing.Point(2, 2);
             this.lblZoom.Name = "lblZoom";
-            this.lblZoom.Size = new System.Drawing.Size(50, 20);
+            this.lblZoom.Size = new System.Drawing.Size(62, 25);
             this.lblZoom.TabIndex = 7;
             this.lblZoom.Text = "Zoom";
             // 
@@ -516,9 +507,8 @@ namespace Trizbort.UI.Controls
             this.Controls.Add(this.m_hScrollBar);
             this.Controls.Add(this.m_vScrollBar);
             this.Controls.Add(this.lblZoom);
-            this.Controls.Add(this.m_cornerPanel);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Canvas";
             this.Size = new System.Drawing.Size(718, 492);
             this.ctxCanvasMenu.ResumeLayout(false);
@@ -528,7 +518,6 @@ namespace Trizbort.UI.Controls
         }
 
         #endregion
-        private System.Windows.Forms.Panel m_cornerPanel;
         private System.Windows.Forms.ContextMenuStrip ctxCanvasMenu;
         private System.Windows.Forms.ToolStripMenuItem regionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;

@@ -13,7 +13,9 @@ namespace Trizbort.UI.Controls {
 
     private void updateCue() {
       if (this.IsHandleCreated && mCue != null) {
-        SendMessage(this.Handle, EM_SETCUEBANNER, (IntPtr) 1, mCue);
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+          SendMessage(this.Handle, EM_SETCUEBANNER, (IntPtr) 1, mCue);
+        }
       }
     }
 

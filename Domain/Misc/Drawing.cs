@@ -103,11 +103,10 @@ internal static class Drawing {
       }
 
       if (round) {
-        graphics.DrawEllipse(new Pen(brush), bounds.ToRectangleF());
-        //          graphics.DrawRectangle(new XPen(Color.Red), bounds.ToRectangleF() );
+        graphics.FillEllipse(brush, bounds.ToRectangleF());
         graphics.DrawEllipse(pen, bounds.ToRectangleF());
       } else {
-        graphics.DrawRectangle(new Pen(brush), bounds.ToRectangle());
+        graphics.FillRectangle(brush, bounds.ToRectangle());
         graphics.DrawRectangle(pen, bounds.ToRectangle());
       }
     }

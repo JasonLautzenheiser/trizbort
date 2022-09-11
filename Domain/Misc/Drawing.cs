@@ -12,22 +12,15 @@ using Settings = Trizbort.Setup.Settings;
 namespace Trizbort.Domain.Misc; 
 
 internal static class Drawing {
-  private static readonly Cursor m_drawLineCursor;
-  private static readonly Cursor m_drawLineInvertedCursor;
-  private static readonly Cursor m_moveLineCursor;
-  private static readonly Cursor m_moveLineInvertedCursor;
-  private static GraphicsPath m_chevronPath;
+  private static readonly Cursor drawLineCursor = loadCursor(Resources.DrawLineCursor);
+  private static readonly Cursor drawLineInvertedCursor = loadCursor(Resources.DrawLineInvertedCursor);
+  private static readonly Cursor moveLineCursor = loadCursor(Resources.MoveLineCursor);
+  private static readonly Cursor moveLineInvertedCursor = loadCursor(Resources.MoveLineInvertedCursor);
+  private static GraphicsPath? chevronPath;
 
-  static Drawing() {
-    m_drawLineCursor = LoadCursor(Resources.DrawLineCursor);
-    m_drawLineInvertedCursor = LoadCursor(Resources.DrawLineInvertedCursor);
-    m_moveLineCursor = LoadCursor(Resources.MoveLineCursor);
-    m_moveLineInvertedCursor = LoadCursor(Resources.MoveLineInvertedCursor);
-  }
+  public static Cursor DrawLineCursor => isDark(Settings.Color[Colors.Canvas]) ? drawLineInvertedCursor : drawLineCursor;
 
-  public static Cursor DrawLineCursor => IsDark(Settings.Color[Colors.Canvas]) ? m_drawLineInvertedCursor : m_drawLineCursor;
-
-  public static Cursor MoveLineCursor => IsDark(Settings.Color[Colors.Canvas]) ? m_moveLineInvertedCursor : m_moveLineCursor;
+  public static Cursor MoveLineCursor => isDark(Settings.Color[Colors.Canvas]) ? moveLineInvertedCursor : moveLineCursor;
 
   public static void AddLine(GraphicsPath path, LineSegment segment, Random random, bool straightEdges) {
     //      if (Settings.HandDrawnDoc && !straightEdges)
@@ -67,57 +60,55 @@ internal static class Drawing {
   }
 
   public static void DrawChevron(Graphics graphics, PointF pos, float angle, float size, Brush fillBrush) {
-    if (m_chevronPath == null) {
+    if (chevronPath == null) {
       var apex = new PointF(0.5f, 0);
       var leftCorner = new PointF(-0.5f, 0.5f);
       var rightCorner = new PointF(-0.5f, -0.5f);
-      m_chevronPath = new GraphicsPath();
-      m_chevronPath.AddLine(apex, rightCorner);
-      m_chevronPath.AddLine(rightCorner, leftCorner);
-      m_chevronPath.AddLine(leftCorner, apex);
+      chevronPath = new GraphicsPath();
+      chevronPath.AddLine(apex, rightCorner);
+      chevronPath.AddLine(rightCorner, leftCorner);
+      chevronPath.AddLine(leftCorner, apex);
     }
 
     var state = graphics.Save();
     graphics.TranslateTransform(pos.X, pos.Y);
     graphics.RotateTransform(angle);
     graphics.ScaleTransform(size, size);
-    graphics.DrawPath(new Pen(fillBrush), m_chevronPath);
+    graphics.DrawPath(new Pen(fillBrush), chevronPath);
     graphics.Restore(state);
   }
 
   public static void DrawHandle(Canvas canvas, Graphics graphics, Palette palette, Rect bounds, DrawingContext context, bool alwaysAlpha, bool round) {
     if (bounds.Width <= 0 || bounds.Height <= 0) return;
 
-    using (var quality = new Smoothing(graphics, SmoothingMode.Default)) {
-      Brush brush;
-      Pen pen;
-      var alpha = 180;
+    using var quality = new Smoothing(graphics, SmoothingMode.Default);
+    Brush brush;
+    Pen pen;
+    var alpha = 180;
 
-      if (context.Selected) {
-        if (!alwaysAlpha) alpha = 255;
-        brush = palette.Gradient(bounds, Color.FromArgb(alpha, Color.LemonChiffon), Color.FromArgb(alpha, Color.DarkOrange));
-        pen = palette.Pen(Color.FromArgb(alpha, Color.Chocolate), 0);
-      } else {
-        brush = palette.Gradient(bounds, Color.FromArgb(alpha, Color.LightCyan), Color.FromArgb(alpha, Color.SteelBlue));
-        pen = palette.Pen(Color.FromArgb(alpha, Color.Navy), 0);
-      }
+    if (context.Selected) {
+      if (!alwaysAlpha) alpha = 255;
+      brush = palette.Gradient(bounds, Color.FromArgb(alpha, Color.LemonChiffon), Color.FromArgb(alpha, Color.DarkOrange));
+      pen = palette.Pen(Color.FromArgb(alpha, Color.Chocolate), 0);
+    } else {
+      brush = palette.Gradient(bounds, Color.FromArgb(alpha, Color.LightCyan), Color.FromArgb(alpha, Color.SteelBlue));
+      pen = palette.Pen(Color.FromArgb(alpha, Color.Navy), 0);
+    }
 
-      if (round) {
-        graphics.FillEllipse(brush, bounds.ToRectangleF());
-        graphics.DrawEllipse(pen, bounds.ToRectangleF());
-      } else {
-        graphics.FillRectangle(brush, bounds.ToRectangle());
-        graphics.DrawRectangle(pen, bounds.ToRectangle());
-      }
+    if (round) {
+      graphics.FillEllipse(brush, bounds.ToRectangleF());
+      graphics.DrawEllipse(pen, bounds.ToRectangleF());
+    } else {
+      graphics.FillRectangle(brush, bounds.ToRectangle());
+      graphics.DrawRectangle(pen, bounds.ToRectangle());
     }
   }
 
   public static string FontName(Font font) {
-    if (!string.IsNullOrEmpty(font.OriginalFontName)) return font.OriginalFontName;
-    return font.Name;
+    return !string.IsNullOrEmpty(font.OriginalFontName) ? font.OriginalFontName : font.Name;
   }
 
-  public static bool IsDark(Color color) {
+  private static bool isDark(Color color) {
     return Math.Max(color.R, Math.Max(color.G, color.B)) < 128;
   }
 
@@ -166,9 +157,8 @@ internal static class Drawing {
     return new Rectangle((int) rect.X, (int) rect.Y, (int) rect.Width, (int) rect.Height);
   }
 
-  private static Cursor LoadCursor(byte[] bytes) {
-    using (var stream = new MemoryStream(bytes)) {
-      return new Cursor(stream);
-    }
+  private static Cursor loadCursor(byte[] bytes) {
+    using var stream = new MemoryStream(bytes);
+    return new Cursor(stream);
   }
 }

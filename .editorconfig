@@ -2,8 +2,6 @@
 # You can modify the rules from these initially generated values to suit your own policies
 # You can learn more about editorconfig here: https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference
 [*.cs]
-
-
 #Core editorconfig formatting - indentation
 
 #use soft tabs (spaces) for indentation
@@ -146,13 +144,11 @@ dotnet_naming_rule.private_method_rule.resharper_guid = e684a11b-98eb-4e91-a5dc-
 dotnet_naming_rule.private_method_rule.severity = warning
 dotnet_naming_rule.private_method_rule.style = lower_camel_case_style
 dotnet_naming_rule.private_method_rule.symbols = private_method_symbols
-dotnet_naming_rule.private_static_fields_rule.import_to_resharper = as_predefined
 dotnet_naming_rule.private_static_fields_rule.severity = warning
-dotnet_naming_rule.private_static_fields_rule.style = s_upper_camel_case_style
+dotnet_naming_rule.private_static_fields_rule.style = lower_camel_case_style
 dotnet_naming_rule.private_static_fields_rule.symbols = private_static_fields_symbols
-dotnet_naming_rule.private_static_readonly_rule.import_to_resharper = as_predefined
 dotnet_naming_rule.private_static_readonly_rule.severity = warning
-dotnet_naming_rule.private_static_readonly_rule.style = upper_camel_case_style
+dotnet_naming_rule.private_static_readonly_rule.style = lower_camel_case_style
 dotnet_naming_rule.private_static_readonly_rule.symbols = private_static_readonly_symbols
 dotnet_naming_style.all_upper_style.capitalization = all_upper
 dotnet_naming_style.all_upper_style.word_separator = _

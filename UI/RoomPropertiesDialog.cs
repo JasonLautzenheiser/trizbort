@@ -17,17 +17,17 @@ internal sealed partial class RoomPropertiesDialog : Form {
   private const int VERTICAL_MARGIN = 2;
   private const int WIDTH = 24;
   private const string NO_COLOR_SET = "No Color Set";
-  private static int mLastViewedTab = (int)Tab.Objects;
-  private readonly int roomID;
-  private bool mAdjustingPosition;
+  private int lastViewedTab = (int)Tab.Description;
+  private readonly int roomId;
+  private bool adjustingPosition;
 
   public RoomPropertiesDialog(PropertiesStartType start, int id) {
     InitializeComponent();
-
-    roomID = id;
+    roomId = id;
 
     // load regions control
     cboRegion.Items.Clear();
+    KeyPreview = true;
     foreach (var region in Settings.Regions.OrderBy(p => p.RegionName != Domain.Misc.Region.DefaultRegion)
                                    .ThenBy(p => p.RegionName)) cboRegion.Items.Add(region.RegionName);
 
@@ -35,7 +35,7 @@ internal sealed partial class RoomPropertiesDialog : Form {
     cboRegion.DrawItem += RegionListBox_DrawItem;
 
     cboReference.Items.Add("");
-    foreach (var room in Project.Current.Elements.OfType<Room>().Where(p => p.ID != roomID).OrderBy(p => p.Name))
+    foreach (var room in Project.Current.Elements.OfType<Room>().Where(p => p.ID != roomId).OrderBy(p => p.Name))
       cboReference.Items.Add(room);
 
     if (Settings.Regions.Count > 0)
@@ -45,23 +45,14 @@ internal sealed partial class RoomPropertiesDialog : Form {
       m_tabControl.SelectedTab = tabRegions;
       cboRegion.Select();
     } else {
-      switch (mLastViewedTab) {
-        case (int)Tab.Objects:
-          m_tabControl.SelectedTab = tabObjects;
-          break;
-        case (int)Tab.Description:
-          m_tabControl.SelectedTab = tabDescription;
-          break;
-        case (int)Tab.Colors:
-          m_tabControl.SelectedTab = tabColors;
-          break;
-        case(int) Tab.Regions:
-          m_tabControl.SelectedTab = tabRegions;
-          break;
-        case (int)Tab.RoomShapes:
-          m_tabControl.SelectedTab = tabRoomShapes;
-          break;
-      }
+      m_tabControl.SelectedTab = lastViewedTab switch {
+        (int) Tab.Objects => tabObjects,
+        (int) Tab.Description => tabDescription,
+        (int) Tab.Colors => tabColors,
+        (int) Tab.Regions => tabRegions,
+        (int) Tab.RoomShapes => tabRoomShapes,
+        _ => m_tabControl.SelectedTab
+      };
 
       if (start == PropertiesStartType.RoomName)
         txtName.Focus();
@@ -74,7 +65,7 @@ internal sealed partial class RoomPropertiesDialog : Form {
   }
 
   public BorderDashStyle BorderStyle {
-    get => (BorderDashStyle) Enum.Parse(typeof(BorderDashStyle), cboBorderStyle.SelectedItem.ToString());
+    get => (BorderDashStyle) Enum.Parse(typeof(BorderDashStyle), cboBorderStyle.SelectedItem.ToString() ?? string.Empty);
     set => cboBorderStyle.SelectedItem = value.ToString();
   }
 
@@ -213,9 +204,9 @@ internal sealed partial class RoomPropertiesDialog : Form {
     }
   }
 
-  public Room ReferenceRoom {
+  public Room? ReferenceRoom {
     get {
-      if (cboReference.SelectedItem != null && cboReference.SelectedItem.ToString() != "")
+      if (cboReference.SelectedItem is not null && cboReference.SelectedItem.ToString() != "")
         return (Room) cboReference.SelectedItem;
       return null;
     }
@@ -316,57 +307,30 @@ internal sealed partial class RoomPropertiesDialog : Form {
   // Added for Room specific colors
   public string SecondFillLocation {
     get {
-      switch (comboBox1.SelectedIndex) {
-        case 0:
-          return "Bottom";
-        case 1:
-          return "BottomRight";
-        case 2:
-          return "BottomLeft";
-        case 3:
-          return "Left";
-        case 4:
-          return "Right";
-        case 5:
-          return "TopRight";
-        case 6:
-          return "TopLeft";
-        case 7:
-          return "Top";
-        default:
-          return "Bottom";
-      }
+      return comboBox1.SelectedIndex switch {
+        0 => "Bottom",
+        1 => "BottomRight",
+        2 => "BottomLeft",
+        3 => "Left",
+        4 => "Right",
+        5 => "TopRight",
+        6 => "TopLeft",
+        7 => "Top",
+        _ => "Bottom"
+      };
     }
     set {
-      switch (value) {
-        case "Bottom":
-          comboBox1.SelectedIndex = 0;
-          break;
-        case "BottomRight":
-          comboBox1.SelectedIndex = 1;
-          break;
-        case "BottomLeft":
-          comboBox1.SelectedIndex = 2;
-          break;
-        case "Left":
-          comboBox1.SelectedIndex = 3;
-          break;
-        case "Right":
-          comboBox1.SelectedIndex = 4;
-          break;
-        case "TopRight":
-          comboBox1.SelectedIndex = 5;
-          break;
-        case "TopLeft":
-          comboBox1.SelectedIndex = 6;
-          break;
-        case "Top":
-          comboBox1.SelectedIndex = 7;
-          break;
-        default:
-          comboBox1.SelectedIndex = 0;
-          break;
-      }
+      comboBox1.SelectedIndex = value switch {
+        "Bottom" => 0,
+        "BottomRight" => 1,
+        "BottomLeft" => 2,
+        "Left" => 3,
+        "Right" => 4,
+        "TopRight" => 5,
+        "TopLeft" => 6,
+        "Top" => 7,
+        _ => 0
+      };
     }
   }
 
@@ -398,13 +362,17 @@ internal sealed partial class RoomPropertiesDialog : Form {
   }
 
   private void cboDrawType_SelectedIndexChanged(object sender, EventArgs e) {
-    if (cboDrawType.SelectedItem.ToString() == "Ellipse") {
-      groupRoundedCorners.Visible = false;
-    } else if (cboDrawType.SelectedItem.ToString() == "Rounded Corners") {
-      groupRoundedCorners.Location = new Point(cboDrawType.Left, cboDrawType.Bottom + 20);
-      groupRoundedCorners.Visible = true;
-    } else {
-      groupRoundedCorners.Visible = false;
+    switch (cboDrawType.SelectedItem.ToString()) {
+      case "Ellipse":
+        groupRoundedCorners.Visible = false;
+        break;
+      case "Rounded Corners":
+        groupRoundedCorners.Location = new Point(cboDrawType.Left, cboDrawType.Bottom + 20);
+        groupRoundedCorners.Visible = true;
+        break;
+      default:
+        groupRoundedCorners.Visible = false;
+        break;
     }
 
     // Hand drawn style is currently only implemented for "Straight Edges" line style.
@@ -442,28 +410,24 @@ internal sealed partial class RoomPropertiesDialog : Form {
     txtBottomLeft.Enabled = !chkCornersSame.Checked;
     txtBottomRight.Enabled = !chkCornersSame.Checked;
     txtTopRight.Enabled = !chkCornersSame.Checked;
-    if (chkCornersSame.Checked) {
-      txtBottomLeft.Value = txtTopLeft.Value;
-      txtBottomRight.Value = txtTopLeft.Value;
-      txtTopRight.Value = txtTopLeft.Value;
-    }
+    if (!chkCornersSame.Checked) return;
+    txtBottomLeft.Value = txtTopLeft.Value;
+    txtBottomRight.Value = txtTopLeft.Value;
+    txtTopRight.Value = txtTopLeft.Value;
   }
 
-  private void chkHandDrawnRoom_CheckedChanged(object sender, EventArgs e) { }
-
   private void chkStartRoom_CheckedChanged(object sender, EventArgs e) {
-    if (chkStartRoom.Checked) {
-      var list = Project.Current.Elements.OfType<Room>().Where(p => p.IsStartRoom && p.ID != roomID).ToList();
+    if (!chkStartRoom.Checked) return;
+    var list = Project.Current.Elements.OfType<Room>().Where(p => p.IsStartRoom && p.ID != roomId).ToList();
 
-      if (list.Count <= 0) return;
+    if (list.Count <= 0) return;
 
-      if (MessageBox.Show(
-            $"The room '{list.First().Name}' is set as the starting room.  Do you want to change it to this room?",
-            "Change Starting Room", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-        Project.Current.Elements.OfType<Room>().ToList().ForEach(p => p.IsStartRoom = false);
-      else
-        chkStartRoom.Checked = false;
-    }
+    if (MessageBox.Show(
+          $"The room '{list.First().Name}' is set as the starting room.  Do you want to change it to this room?",
+          "Change Starting Room", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+      Project.Current.Elements.OfType<Room>().ToList().ForEach(p => p.IsStartRoom = false);
+    else
+      chkStartRoom.Checked = false;
   }
 
   private void lblObjectSyntaxHelp_Click(object sender, EventArgs e) {
@@ -484,7 +448,7 @@ internal sealed partial class RoomPropertiesDialog : Form {
   }
 
   private void m_descriptionTextBox_KeyDown(object sender, KeyEventArgs e) {
-    SelectAllHandler(sender, e);
+    selectAllHandler(sender, e);
   }
 
   private void m_objectTextTextBox_ButtonCustomClick(object sender, EventArgs e) {
@@ -580,25 +544,6 @@ internal sealed partial class RoomPropertiesDialog : Form {
     m_changeSubtitleTextButton.Focus();
   }
 
-
-  private void m_tabControl_Enter(object sender, EventArgs e) {
-    switch (m_tabControl.SelectedIndex) {
-      case (int) Tab.Objects:
-        setObjectsTabFocus();
-        break;
-      case (int) Tab.Description:
-        setDescriptionTabFocus();
-        break;
-      case (int) Tab.Regions:
-        setRegionsTabFocus();
-        break;
-      case (int) Tab.Colors:
-        setColorsTabFocus();
-        break;
-    }
-  }
-
-
   private void pnlSampleRoomShape_Paint(object sender, PaintEventArgs e) {
     var graph = pnlSampleRoomShape.CreateGraphics();
     var path = new GraphicsPath();
@@ -606,62 +551,66 @@ internal sealed partial class RoomPropertiesDialog : Form {
 
     var rect = new RectangleF(10, 10, 3 * Settings.GridSize, 2 * Settings.GridSize);
 
-    if (cboDrawType.SelectedItem.ToString() == "Rounded Corners") {
-      var corners = new CornerRadii {
-        BottomLeft = (float) txtBottomLeft.Value,
-        BottomRight = (float) txtBottomRight.Value,
-        TopRight = (float) txtTopRight.Value,
-        TopLeft = (float) txtTopLeft.Value
-      };
+    switch (cboDrawType.SelectedItem.ToString()) {
+      case "Rounded Corners": {
+        var corners = new CornerRadii {
+          BottomLeft = (float) txtBottomLeft.Value,
+          BottomRight = (float) txtBottomRight.Value,
+          TopRight = (float) txtTopRight.Value,
+          TopLeft = (float) txtTopLeft.Value
+        };
 
-      path.AddArc(rect.X + rect.Width - corners.TopRight * 2, rect.Y, corners.TopRight * 2,
-        corners.TopRight * 2, 270, 90);
-      path.AddArc(rect.X + rect.Width - corners.BottomRight * 2,
-        rect.Y + rect.Height - corners.BottomRight * 2, corners.BottomRight * 2,
-        corners.BottomRight * 2, 0, 90);
-      path.AddArc(rect.X, rect.Y + rect.Height - corners.BottomLeft * 2, corners.BottomLeft * 2,
-        corners.BottomLeft * 2, 90, 90);
-      path.AddArc(rect.X, rect.Y, corners.TopLeft * 2, corners.TopLeft * 2, 180, 90);
-      path.CloseFigure();
-    } else if (cboDrawType.SelectedItem.ToString() == "Ellipse") {
-      path.AddEllipse(new RectangleF(rect.X, rect.Y, rect.Width, rect.Height));
-    } else if (cboDrawType.SelectedItem.ToString() == "Octagonal") {
-      path.AddLine(rect.X, rect.Y + rect.Height / 4, rect.X, rect.Y + 3 * rect.Height / 4);
-      path.AddLine(rect.X, rect.Y + 3 * rect.Height / 4, rect.X + rect.Width / 4, rect.Y + rect.Height);
-      path.AddLine(rect.X + rect.Width / 4, rect.Y + rect.Height, rect.X + 3 * rect.Width / 4, rect.Y + rect.Height);
-      path.AddLine(rect.X + 3 * rect.Width / 4, rect.Y + rect.Height, rect.X + rect.Width,
-        rect.Y + 3 * rect.Height / 4);
-      path.AddLine(rect.X + rect.Width, rect.Y + rect.Height / 4, rect.X + rect.Width, rect.Y + 3 * rect.Height / 4);
-      path.AddLine(rect.X + rect.Width, rect.Y + rect.Height / 4, rect.X + 3 * rect.Width / 4, rect.Y);
-      path.AddLine(rect.X + 3 * rect.Width / 4, rect.Y, rect.X + rect.Width / 4, rect.Y);
-      path.AddLine(rect.X + rect.Width / 4, rect.Y, rect.X, rect.Y + rect.Height / 4);
-    } else if (cboDrawType.SelectedItem.ToString() == "Straight Edges") {
-      path.AddRectangle(rect);
+        path.AddArc(rect.X + rect.Width - corners.TopRight * 2, rect.Y, corners.TopRight * 2,
+          corners.TopRight * 2, 270, 90);
+        path.AddArc(rect.X + rect.Width - corners.BottomRight * 2,
+          rect.Y + rect.Height - corners.BottomRight * 2, corners.BottomRight * 2,
+          corners.BottomRight * 2, 0, 90);
+        path.AddArc(rect.X, rect.Y + rect.Height - corners.BottomLeft * 2, corners.BottomLeft * 2,
+          corners.BottomLeft * 2, 90, 90);
+        path.AddArc(rect.X, rect.Y, corners.TopLeft * 2, corners.TopLeft * 2, 180, 90);
+        path.CloseFigure();
+        break;
+      }
+      case "Ellipse":
+        path.AddEllipse(new RectangleF(rect.X, rect.Y, rect.Width, rect.Height));
+        break;
+      case "Octagonal":
+        path.AddLine(rect.X, rect.Y + rect.Height / 4, rect.X, rect.Y + 3 * rect.Height / 4);
+        path.AddLine(rect.X, rect.Y + 3 * rect.Height / 4, rect.X + rect.Width / 4, rect.Y + rect.Height);
+        path.AddLine(rect.X + rect.Width / 4, rect.Y + rect.Height, rect.X + 3 * rect.Width / 4, rect.Y + rect.Height);
+        path.AddLine(rect.X + 3 * rect.Width / 4, rect.Y + rect.Height, rect.X + rect.Width,
+          rect.Y + 3 * rect.Height / 4);
+        path.AddLine(rect.X + rect.Width, rect.Y + rect.Height / 4, rect.X + rect.Width, rect.Y + 3 * rect.Height / 4);
+        path.AddLine(rect.X + rect.Width, rect.Y + rect.Height / 4, rect.X + 3 * rect.Width / 4, rect.Y);
+        path.AddLine(rect.X + 3 * rect.Width / 4, rect.Y, rect.X + rect.Width / 4, rect.Y);
+        path.AddLine(rect.X + rect.Width / 4, rect.Y, rect.X, rect.Y + rect.Height / 4);
+        break;
+      case "Straight Edges":
+        path.AddRectangle(rect);
+        break;
     }
 
     graph.DrawPath(pen, path);
   }
 
   private void PositionCheckBox_CheckedChanged(object sender, EventArgs e) {
-    if (mAdjustingPosition)
+    if (adjustingPosition)
       return;
 
-    mAdjustingPosition = true;
+    adjustingPosition = true;
     try {
       var checkBox = (CheckBox) sender;
       if (checkBox.Checked)
         foreach (Control other in checkBox.Parent.Controls) {
-          var box = other as CheckBox;
-          if (box != null && other != checkBox) box.Checked = false;
+          if (other is CheckBox box && other != checkBox) box.Checked = false;
         }
       else
         m_sCheckBox.Checked = true;
     }
     finally {
-      mAdjustingPosition = false;
+      adjustingPosition = false;
     }
   }
-
 
   private void redrawSampleOnChange(object sender, EventArgs e) {
     if (sender == txtTopLeft && chkCornersSame.Checked) {
@@ -673,20 +622,19 @@ internal sealed partial class RoomPropertiesDialog : Form {
     pnlSampleRoomShape.Invalidate();
   }
 
-  private void RegionListBox_DrawItem(object sender, DrawItemEventArgs e) {
-    using (var palette = new Palette()) {
-      e.DrawBackground();
+  private void RegionListBox_DrawItem(object? sender, DrawItemEventArgs e) {
+    using var palette = new Palette();
+    e.DrawBackground();
 
-      var colorBounds = new Rectangle(e.Bounds.Left + HORIZONTAL_MARGIN, e.Bounds.Top + VERTICAL_MARGIN, WIDTH,
-        e.Bounds.Height - VERTICAL_MARGIN * 2);
-      var textBounds = new Rectangle(colorBounds.Right + HORIZONTAL_MARGIN, e.Bounds.Top,
-        e.Bounds.Width - colorBounds.Width - HORIZONTAL_MARGIN * 2, e.Bounds.Height);
-      var firstOrDefault = Settings.Regions.FirstOrDefault(p => p.RegionName == cboRegion.Items[e.Index].ToString());
-      if (firstOrDefault != null) e.Graphics.FillRectangle(palette.Brush(firstOrDefault.RColor), colorBounds);
-      e.Graphics.DrawRectangle(palette.Pen(e.ForeColor, 0), colorBounds);
-      e.Graphics.DrawString(cboRegion.Items[e.Index].ToString(), e.Font, palette.Brush(e.ForeColor), textBounds,
-        StringFormats.Left);
-    }
+    var colorBounds = new Rectangle(e.Bounds.Left + HORIZONTAL_MARGIN, e.Bounds.Top + VERTICAL_MARGIN, WIDTH,
+      e.Bounds.Height - VERTICAL_MARGIN * 2);
+    var textBounds = new Rectangle(colorBounds.Right + HORIZONTAL_MARGIN, e.Bounds.Top,
+      e.Bounds.Width - colorBounds.Width - HORIZONTAL_MARGIN * 2, e.Bounds.Height);
+    var firstOrDefault = Settings.Regions.FirstOrDefault(p => p.RegionName == cboRegion.Items[e.Index].ToString());
+    if (firstOrDefault != null) e.Graphics.FillRectangle(palette.Brush(firstOrDefault.RColor), colorBounds);
+    e.Graphics.DrawRectangle(palette.Pen(e.ForeColor, 0), colorBounds);
+    e.Graphics.DrawString(cboRegion.Items[e.Index].ToString(), e.Font, palette.Brush(e.ForeColor), textBounds,
+      StringFormats.Left);
   }
 
   private void RoomPropertiesDialog_KeyUp(object sender, KeyEventArgs e) {
@@ -738,11 +686,10 @@ internal sealed partial class RoomPropertiesDialog : Form {
       }
   }
 
-  private static void SelectAllHandler(object sender, KeyEventArgs e) {
-    if (e.Control && e.KeyCode == Keys.A) {
-      ((TextBox) sender).SelectAll();
-      e.Handled = true;
-    }
+  private static void selectAllHandler(object sender, KeyEventArgs e) {
+    if (!e.Control || e.KeyCode != Keys.A) return;
+    ((TextBox) sender).SelectAll();
+    e.Handled = true;
   }
 
   private void setColorsTabFocus() {
@@ -763,35 +710,16 @@ internal sealed partial class RoomPropertiesDialog : Form {
   }
 
   private void txtObjects_KeyDown(object sender, KeyEventArgs e) {
-    SelectAllHandler(sender, e);
+    selectAllHandler(sender, e);
   }
 
   private void m_tabControl_SelectedIndexChanged(object sender, EventArgs e) {
-
-    mLastViewedTab = m_tabControl.SelectedIndex;
-      
-    // switch (m_tabControl.SelectedIndex) {
-    //   case (int)Tab.Description:
-    //     mLastViewedTab = Tab.Description;
-    //     break;
-    //   case (int)Tab.Colors:
-    //     mLastViewedTab = Tab.Colors;
-    //     break;
-    //   case (int)Tab.Regions:
-    //     mLastViewedTab = Tab.Regions;
-    //     break;
-    //   case (int)Tab.RoomShapes:
-    //     mLastViewedTab = Tab.RoomShapes;
-    //     break;
-    //   default:
-    //     mLastViewedTab = Tab.Objects;
-    //     break;
-    // }
+    lastViewedTab = m_tabControl.SelectedIndex;
   }
 
   private enum Tab {
-    Objects,
     Description,
+    Objects,
     Colors,
     Regions,
     RoomShapes

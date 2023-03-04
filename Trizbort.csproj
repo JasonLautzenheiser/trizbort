@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<LangVersion>10</LangVersion>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<LangVersion>11</LangVersion>
 		<Nullable>enable</Nullable>
 		<OutputType>WinExe</OutputType>
 		<ApplicationIcon>Map.ico</ApplicationIcon>
@@ -22,9 +22,9 @@
 			<SpecificVersion>False</SpecificVersion>
 			<HintPath>lib\AutoUpdater.NET.dll</HintPath>
 		</Reference>
-		<Reference Include="System.Design"/>
-		<Reference Include="System.Drawing.Design"/>
-		<Reference Include="System.Runtime.Serialization.Formatters.Soap"/>
+		<Reference Include="System.Design" />
+		<Reference Include="System.Drawing.Design" />
+		<Reference Include="System.Runtime.Serialization.Formatters.Soap" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Update="UI\Controls\TrizbortTextBox.cs">
@@ -45,28 +45,28 @@
 		<Compile Update="UI\Controls\Minimap.cs">
 			<SubType>UserControl</SubType>
 		</Compile>
-		<Compile Remove="packages\**"/>
+		<Compile Remove="packages\**" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="CommandLineParser" Version="2.8.0"/>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
-		<PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.330701">
+		<PackageReference Include="CommandLineParser" Version="2.8.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.355802">
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0"/>
+		<PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Remove="Trizbort.Tests\Properties\AssemblyInfo.cs"/>
-		<Compile Remove="Trizbort.Tests\StringExentensionTests.cs"/>
+		<Compile Remove="Trizbort.Tests\Properties\AssemblyInfo.cs" />
+		<Compile Remove="Trizbort.Tests\StringExentensionTests.cs" />
 	</ItemGroup>
-	<PropertyGroup/>
+	<PropertyGroup />
 	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App"/>
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Remove="packages\**"/>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Remove="packages\**"/>
+		<EmbeddedResource Remove="packages\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="packages\**" />
 	</ItemGroup>
 </Project>

@@ -39,7 +39,7 @@ namespace Trizbort.Export;
 
 public abstract partial class CodeExporter : IDisposable {
   private readonly Dictionary<Room, Location> mMapRoomToLocation = new Dictionary<Room, Location>();
-
+  protected Enum? Dialect = null;
   protected CodeExporter() {
     LocationsInExportOrder = new List<Location>();
     RegionsInExportOrder = new List<ExportRegion>();
@@ -59,68 +59,46 @@ public abstract partial class CodeExporter : IDisposable {
     Dispose(true);
   }
 
-  protected static string Deaccent(string mystr) {
-    var x = "";
-    foreach (var c in mystr)
-      if (c >= 'à' && c <= 'å')
-        x = x + 'a';
-      else if (c >= 'À' && c <= 'Å') x = x + 'A';
-      else if (c == 'Ç') x = x + 'C';
-      else if (c == 'ç') x = x + 'c';
-      else if (c >= 'è' && c <= 'ë') x = x + 'e';
-      else if (c >= 'È' && c <= 'Ë') x = x + 'E';
-      else if (c >= 'ì' && c <= 'ï') x = x + 'i';
-      else if (c >= 'Ì' && c <= 'Ï') x = x + 'I';
-      else if (c == 'ñ') x = x + 'n';
-      else if (c == 'Ñ') x = x + 'N';
-      else if (c >= 'Ò' && c <= 'Ö') x = x + 'o';
-      else if (c >= 'ò' && c <= 'ö') x = x + 'O';
-      else if (c >= 'ù' && c <= 'ü') x = x + 'u';
-      else if (c >= 'Ù' && c <= 'Ü') x = x + 'U';
-      else x = x + c;
-    return x;
-  }
-
-  public string Export() {
-    string ss;
-    using (var writer = new StringWriter()) {
-      var title = Project.Current.Title;
-      if (string.IsNullOrEmpty(title)) {
-        title = PathHelper.SafeGetFilenameWithoutExtension(Project.Current.FileName);
-        if (string.IsNullOrEmpty(title)) title = "A Trizbort Map";
-      }
-
-      var author = Project.Current.Author;
-      if (string.IsNullOrEmpty(author)) author = "A Trizbort User";
-      var history = Project.Current.History;
-
-      prepareContent();
-      ExportHeader(writer, title, author, Project.Current.Description ?? string.Empty, history);
-      ExportContent(writer);
-
-      ss = writer.ToString();
+  public string Export(Enum? dialect = default) {
+    this.Dialect = dialect;
+    using var writer = new StringWriter();
+    var title = Project.Current.Title;
+    if (string.IsNullOrEmpty(title)) {
+      title = PathHelper.SafeGetFilenameWithoutExtension(Project.Current.FileName);
+      if (string.IsNullOrEmpty(title)) title = "A Trizbort Map";
     }
+
+    var author = Project.Current.Author;
+    if (string.IsNullOrEmpty(author)) author = "A Trizbort User";
+    var history = Project.Current.History;
+
+    prepareContent();
+    ExportHeader(writer, title, author, Project.Current.Description ?? string.Empty, history);
+    ExportContent(writer);
+
+    var ss = writer.ToString();
 
     return ss;
   }
 
+  
 
-  public void Export(string fileName) {
-    using (var writer = Create(fileName)) {
-      var title = Project.Current.Title;
-      if (string.IsNullOrEmpty(title)) {
-        title = PathHelper.SafeGetFilenameWithoutExtension(Project.Current.FileName);
-        if (string.IsNullOrEmpty(title)) title = "A Trizbort Map";
-      }
-
-      var author = Project.Current.Author;
-      if (string.IsNullOrEmpty(author)) author = "A Trizbort User";
-
-      var history = Project.Current.History;
-      prepareContent();
-      ExportHeader(writer, title, author, Project.Current.Description ?? string.Empty, history);
-      ExportContent(writer);
+  public void Export(string fileName, Enum? dialect = default) {
+    this.Dialect = dialect;
+    using var writer = Create(fileName);
+    var title = Project.Current.Title;
+    if (string.IsNullOrEmpty(title)) {
+      title = PathHelper.SafeGetFilenameWithoutExtension(Project.Current.FileName);
+      if (string.IsNullOrEmpty(title)) title = "A Trizbort Map";
     }
+
+    var author = Project.Current.Author;
+    if (string.IsNullOrEmpty(author)) author = "A Trizbort User";
+
+    var history = Project.Current.History;
+    prepareContent();
+    ExportHeader(writer, title, author, Project.Current.Description ?? string.Empty, history);
+    ExportContent(writer);
   }
 
   protected virtual StreamWriter Create(string fileName) {

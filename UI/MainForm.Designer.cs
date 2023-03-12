@@ -85,6 +85,7 @@ namespace Trizbort.UI
             this.hugoToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inform7ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inform6ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.punyInformToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tADSToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zILToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.questToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -329,6 +330,7 @@ namespace Trizbort.UI
             this.hugoToTextToolStripMenuItem,
             this.inform7ToTextToolStripMenuItem,
             this.inform6ToTextToolStripMenuItem,
+            this.punyInformToTextToolStripMenuItem,
             this.tADSToTextToolStripMenuItem,
             this.zILToClipboardToolStripMenuItem,
             this.questToTextToolStripMenuItem,
@@ -475,6 +477,13 @@ namespace Trizbort.UI
             this.inform6ToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.inform6ToTextToolStripMenuItem.Text = "Inform 6 to Clipboard";
             this.inform6ToTextToolStripMenuItem.Click += new System.EventHandler(this.inform6ToTextToolStripMenuItem_Click);
+            
+            this.punyInformToTextToolStripMenuItem.Name = "punyInformToTextToolStripMenuItem";
+            this.punyInformToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+              | System.Windows.Forms.Keys.P)));
+            this.punyInformToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.punyInformToTextToolStripMenuItem.Text = "PunyInform to Clipboard";
+            this.punyInformToTextToolStripMenuItem.Click += new System.EventHandler(this.punyInformToTextToolStripMenuItem_Click);
             // 
             // tADSToTextToolStripMenuItem
             // 
@@ -1525,6 +1534,7 @@ namespace Trizbort.UI
         private System.Windows.Forms.ToolStripMenuItem hugoToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inform7ToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inform6ToTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem punyInformToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tADSToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem questToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem questRoomsToTextToolStripMenuItem;

@@ -24,6 +24,7 @@ using Trizbort.Util;
 using Settings = Trizbort.Setup.Settings;
 using AutoUpdaterDotNET;
 using Trizbort.Domain.StatusBar;
+using Trizbort.Export.Inform6;
 using Trizbort.Export.Languages;
 using Trizbort.Extensions;
 
@@ -254,50 +255,47 @@ public sealed partial class MainForm : Form {
     commandController.SetEndRoom();
   }
 
-  private void exportCode<T>() where T : CodeExporter, new() {
-    using (var exporter = new T()) {
-      var s = exporter.Export();
-      Clipboard.SetText(s, TextDataFormat.Text);
-    }
+  private void exportCode<T>(Enum? dialect = default) where T : CodeExporter, new() {
+    using var exporter = new T();
+    var s = exporter.Export(dialect);
+    Clipboard.SetText(s, TextDataFormat.Text);
   }
 
-  private bool exportCode<T>(ref string lastExportFileName) where T : CodeExporter, new() {
-    using (var exporter = new T()) {
-      using (var dialog = new SaveFileDialog()) {
-        // compose filter string for file dialog
-        var filterString = string.Empty;
-        var filters = exporter.FileDialogFilters;
-        foreach (var filter in filters) {
-          if (!string.IsNullOrEmpty(filterString)) filterString += "|";
-          filterString += $"{filter.Key}|*{filter.Value}";
-        }
+  private static bool exportCode<T>(ref string lastExportFileName, Enum dialect = default) where T : CodeExporter, new() {
+    using var exporter = new T();
+    using var dialog = new SaveFileDialog();
+    // compose filter string for file dialog
+    var filterString = string.Empty;
+    var filters = exporter.FileDialogFilters;
+    foreach (var filter in filters) {
+      if (!string.IsNullOrEmpty(filterString)) filterString += "|";
+      filterString += $"{filter.Key}|*{filter.Value}";
+    }
 
-        if (!string.IsNullOrEmpty(filterString)) filterString += "|";
-        filterString += "All Files|*.*||";
-        dialog.Filter = filterString;
+    if (!string.IsNullOrEmpty(filterString)) filterString += "|";
+    filterString += "All Files|*.*||";
+    dialog.Filter = filterString;
 
-        // set default filter by extension
-        var extension = PathHelper.SafeGetExtension(lastExportFileName);
-        for (var filterIndex = 0; filterIndex < filters.Count; ++filterIndex)
-          if (StringComparer.InvariantCultureIgnoreCase.Compare(extension, filters[filterIndex].Value) == 0) {
-            dialog.FilterIndex = filterIndex + 1; // 1 based index
-            break;
-          }
-
-        // show dialog
-        dialog.Title = exporter.FileDialogTitle;
-        dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(lastExportFileName);
-        if (dialog.ShowDialog() == DialogResult.OK)
-          try {
-            // export source code
-            exporter.Export(dialog.FileName);
-            lastExportFileName = dialog.FileName;
-            return true;
-          }
-          catch (Exception ex) {
-            MessageBox.Show(Program.MainForm, $"There was a problem exporting the map:\n\n{ex.Message}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-          }
+    // set default filter by extension
+    var extension = PathHelper.SafeGetExtension(lastExportFileName);
+    for (var filterIndex = 0; filterIndex < filters.Count; ++filterIndex)
+      if (StringComparer.InvariantCultureIgnoreCase.Compare(extension, filters[filterIndex].Value) == 0) {
+        dialog.FilterIndex = filterIndex + 1; // 1 based index
+        break;
       }
+
+    // show dialog
+    dialog.Title = exporter.FileDialogTitle;
+    dialog.InitialDirectory = PathHelper.SafeGetDirectoryName(lastExportFileName);
+    if (dialog.ShowDialog() != DialogResult.OK) return false;
+    try {
+      // export source code
+      exporter.Export(dialog.FileName);
+      lastExportFileName = dialog.FileName;
+      return true;
+    }
+    catch (Exception ex) {
+      MessageBox.Show(Program.MainForm, $"There was a problem exporting the map:\n\n{ex.Message}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
 
     return false;
@@ -353,7 +351,7 @@ public sealed partial class MainForm : Form {
   private void FileExportAdventuronMenuItem_Click(object sender, EventArgs e)
   {
     var fileName = ApplicationSettingsController.AppSettings.LastExportAdventuronFileName;
-    if (exportCode<Trizbort.Export.Languages.AdventuronExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportAdventuronFileName = fileName;
+    if (exportCode<AdventuronExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportAdventuronFileName = fileName;
   }
 
   private void FileExportHugoMenuItem_Click(object sender, EventArgs e) {
@@ -492,7 +490,11 @@ public sealed partial class MainForm : Form {
   }
 
   private void inform6ToTextToolStripMenuItem_Click(object sender, EventArgs e) {
-    exportCode<Inform6Exporter>();
+    exportCode<Inform6Exporter>(Inform6Dialect.I6);
+  }  
+  
+  private void punyInformToTextToolStripMenuItem_Click(object sender, EventArgs e) {
+    exportCode<Inform6Exporter>(Inform6Dialect.PunyInform);
   }
 
   private void inform7ToTextToolStripMenuItem_Click(object sender, EventArgs e) {

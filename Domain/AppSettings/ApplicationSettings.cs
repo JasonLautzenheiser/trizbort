@@ -33,6 +33,7 @@ namespace Trizbort.Domain.AppSettings
     public string LastExportInform6FileName { get; set; }
     public string LastExportInform7FileName { get; set; }
     public string LastExportTadsFileName { get; set; }
+    public string LastExportTXTFileName { get; set; }
     public string LastExportZilFileName { get; set; }
     public string LastExportQuestFileName { get; set; }
     public string LastExportQuestRoomsFileName { get; set; }

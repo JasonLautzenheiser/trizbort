@@ -453,6 +453,10 @@ namespace Trizbort.UI {
       if (exportCode<TadsExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportTadsFileName = fileName;
     }
 
+    private void FileExportTXTMenuItem_Click(object sender, EventArgs e) {
+        var fileName = ApplicationSettingsController.AppSettings.LastExportTXTFileName;
+        if (exportCode<TXTExporter>(ref fileName)) ApplicationSettingsController.AppSettings.LastExportTXTFileName = fileName;
+    }
 
         private void FileMenu_DropDownOpening(object sender, EventArgs e) {
       setupMRUMenu();
@@ -1030,6 +1034,10 @@ namespace Trizbort.UI {
 
     private void tADSToTextToolStripMenuItem_Click(object sender, EventArgs e) {
       exportCode<TadsExporter>();
+    }
+
+    private void tXTToClipboardToolStripMenuItem_Click(object sender, EventArgs e) {
+      exportCode<TXTExporter>();
     }
 
     private void ToggleDirectionalLines_Click(object sender, EventArgs e) {

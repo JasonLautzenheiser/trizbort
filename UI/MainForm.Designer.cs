@@ -77,6 +77,7 @@ namespace Trizbort.UI
             this.m_fileExportInform7MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_fileExportInform6MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_fileExportTADSMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_fileExportTXTMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zILToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_fileExportQuestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
@@ -86,6 +87,7 @@ namespace Trizbort.UI
             this.inform7ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inform6ToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tADSToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tXTToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zILToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.questToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.questRoomsToTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -321,6 +323,7 @@ namespace Trizbort.UI
             this.m_fileExportInform7MenuItem,
             this.m_fileExportInform6MenuItem,
             this.m_fileExportTADSMenuItem,
+            this.m_fileExportTXTMenuItem,
             this.zILToolStripMenuItem,
             this.m_fileExportQuestMenuItem,
             this.toolStripSeparator13,
@@ -330,6 +333,7 @@ namespace Trizbort.UI
             this.inform7ToTextToolStripMenuItem,
             this.inform6ToTextToolStripMenuItem,
             this.tADSToTextToolStripMenuItem,
+            this.tXTToClipboardToolStripMenuItem,
             this.zILToClipboardToolStripMenuItem,
             this.questToTextToolStripMenuItem,
             this.questRoomsToTextToolStripMenuItem});
@@ -408,6 +412,13 @@ namespace Trizbort.UI
             this.m_fileExportTADSMenuItem.Text = "&TADS...";
             this.m_fileExportTADSMenuItem.Click += new System.EventHandler(this.FileExportTadsMenuItem_Click);
             // 
+            // m_fileExportTXTMenuItem
+            // 
+            this.m_fileExportTXTMenuItem.Name = "m_fileExportTXTMenuItem";
+            this.m_fileExportTXTMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.m_fileExportTXTMenuItem.Text = "TXT...";
+            this.m_fileExportTXTMenuItem.Click += new System.EventHandler(this.FileExportTXTMenuItem_Click);
+            // 
             // zILToolStripMenuItem
             // 
             this.zILToolStripMenuItem.Name = "zILToolStripMenuItem";
@@ -484,6 +495,13 @@ namespace Trizbort.UI
             this.tADSToTextToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.tADSToTextToolStripMenuItem.Text = "TADS to Clipboard";
             this.tADSToTextToolStripMenuItem.Click += new System.EventHandler(this.tADSToTextToolStripMenuItem_Click);
+            // 
+            // tXTToClipboardToolStripMenuItem
+            // 
+            this.tXTToClipboardToolStripMenuItem.Name = "tXTToClipboardToolStripMenuItem";
+            this.tXTToClipboardToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.tXTToClipboardToolStripMenuItem.Text = "TXT to Clipboard";
+            this.tXTToClipboardToolStripMenuItem.Click += new System.EventHandler(this.tXTToClipboardToolStripMenuItem_Click);
             // 
             // zILToClipboardToolStripMenuItem
             // 
@@ -1511,6 +1529,7 @@ namespace Trizbort.UI
         private System.Windows.Forms.ToolStripMenuItem m_viewEntireMapMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem m_fileExportTADSMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_fileExportTXTMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_fileExportInform6MenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem m_editCopyMenuItem;
@@ -1526,6 +1545,7 @@ namespace Trizbort.UI
         private System.Windows.Forms.ToolStripMenuItem inform7ToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inform6ToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tADSToTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tXTToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem questToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem questRoomsToTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;

@@ -38,6 +38,9 @@ namespace Trizbort.Domain.Application
     [Option("tads", HelpText = "Export to Tads.")]
     public string Tads { get; set; }
 
+    [Option("TXT", HelpText = "Export to TXT.")]
+    public string TXT { get; set; }
+
     [Option("alan", HelpText = "Export to Alan.")]
     public string Alan { get; set; }
 

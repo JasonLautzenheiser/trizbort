@@ -131,6 +131,7 @@ namespace Trizbort.Domain.AppSettings {
              settings.LastExportInform7FileName = root["lastExportedInform7FileName"].Text;
              settings.LastExportInform6FileName = root["lastExportedInform6FileName"].Text;
              settings.LastExportTadsFileName = root["lastExportedTadsFileName"].Text;
+             settings.LastExportTXTFileName = root["lastExportedTXTFileName"].Text;
              settings.LastExportHugoFileName = root["lastExportedHugoFileName"].Text;
              settings.LastExportZilFileName = root["lastExportedZilFileName"].Text;
              settings.LastExportQuestFileName = root["lastExportedQuestFileName"].Text;

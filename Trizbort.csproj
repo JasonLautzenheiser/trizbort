@@ -173,6 +173,7 @@
     <Compile Include="Export\Languages\QuestExporter.cs" />
     <Compile Include="Export\Languages\TadsExporter.cs" />
     <Compile Include="Export\Domain\Thing.cs" />
+    <Compile Include="Export\Languages\TXTExporter.cs" />
     <Compile Include="Export\Languages\ZilExporter.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
     <Compile Include="Extensions\FileExtensions.cs" />

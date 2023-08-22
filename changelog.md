@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ## [Unreleased]
 
+## [1.7.4.2] - 2023-08-22
+- added TXT export
+- modified update mechanism (redirection to your own server)
+
 ## [1.7.4.1] - 2022-03-28
 There were a few UI issues when scaling mode was changed in windows.  If you see any further issues, please create an issue
 
@@ -201,7 +205,7 @@ Thanks to [ainslec](https://github.com/ainslec) for adding exporting of code sup
  Tooltips will now show on items with out a title.  This will help with being able to put different attributes or descriptions on items (connections, rooms).
 - Added option to app settings to show / not-show tooltips on objects.
 
-### Fixed 
+### Fixed
 - Fix wording on context menu for hand-drawn room.
 
 ### Changed
@@ -331,7 +335,7 @@ on github.  Documentation is a little outdated so apologies on that.  Hopefully 
 - Cleaned up context menu for connections
 - Cleaned up context menu for the map canvas.
 
-### Fixed 
+### Fixed
 - Regions weren't respecting reserved words when exporting to I7
 
 
@@ -418,7 +422,7 @@ on github.  Documentation is a little outdated so apologies on that.  Hopefully 
 - add room subtitles
 - Adding a room between two rooms when connection is selected now keeps region if both rooms are the same region.
 
-### Fixed 
+### Fixed
 - minor misc bugs and UX improvements
 
 

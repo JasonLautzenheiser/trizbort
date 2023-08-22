@@ -1439,7 +1439,7 @@ namespace Trizbort.UI
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.m_menuStrip;
             this.Name = "MainForm";
-            this.Text = "Trizbort - Interactive Fiction Mapper";
+            this.Text = "Trizbort with TXT export - Interactive Fiction Mapper";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.m_menuStrip.ResumeLayout(false);
             this.m_menuStrip.PerformLayout();

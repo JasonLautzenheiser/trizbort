@@ -57,6 +57,7 @@ namespace Trizbort.UI
             this.label2 = new System.Windows.Forms.Label();
             this.m_versionLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.linkTXT = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -75,7 +76,7 @@ namespace Trizbort.UI
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 15);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Trizbort";
+            this.label1.Text = "Trizbort with TXT export";
             // 
             // label2
             // 
@@ -96,6 +97,18 @@ namespace Trizbort.UI
             this.m_versionLabel.Size = new System.Drawing.Size(99, 15);
             this.m_versionLabel.TabIndex = 3;
             this.m_versionLabel.Text = "Version Unknown";
+            // 
+            // linkTXT
+            // 
+            this.linkTXT.AutoSize = true;
+            this.linkTXT.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.linkTXT.Location = new System.Drawing.Point(330, 9);
+            this.linkTXT.Name = "linkTXT";
+            this.linkTXT.Size = new System.Drawing.Size(102, 15);
+            this.linkTXT.TabIndex = 8;
+            this.linkTXT.TabStop = true;
+            this.linkTXT.Text = "github.com/pedromagician/trizbort";
+            this.linkTXT.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.onLinkClicked);
             // 
             // label4
             // 
@@ -207,6 +220,7 @@ namespace Trizbort.UI
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.m_versionLabel);
+            this.Controls.Add(this.linkTXT);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
@@ -232,6 +246,7 @@ namespace Trizbort.UI
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label m_versionLabel;
+        private System.Windows.Forms.LinkLabel linkTXT;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;

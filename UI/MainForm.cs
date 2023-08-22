@@ -64,7 +64,7 @@ namespace Trizbort.UI {
     // TODO: private ToolStripStatusLabel statusLabel;
     private Status trizStatusBar;
 
-    private const string UPDATE_PATH = "http://www.trizbort.com/trizbortupdate.xml";
+    private const string UPDATE_PATH = "https://raw.githubusercontent.com/pedromagician/trizbort/master/_Release/trizbortupdate.xml";
 
     private DateTime mLastUpdateUITime;
     private SynchronizationContext synchronizationContext;

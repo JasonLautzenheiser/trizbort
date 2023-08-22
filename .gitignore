@@ -114,3 +114,4 @@ UpgradeLog*.XML
 /*.DotSettings
 /.vs/Trizbort/v15/sqlite3/storage.ide
 .vs
+/desktop.ini

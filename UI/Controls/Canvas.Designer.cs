@@ -42,7 +42,6 @@ namespace Trizbort.UI.Controls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.m_cornerPanel = new System.Windows.Forms.Panel();
             this.ctxCanvasMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addRoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -92,14 +91,7 @@ namespace Trizbort.UI.Controls
             this.m_minimap = new Trizbort.UI.Controls.Minimap();
             this.ctxCanvasMenu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // m_cornerPanel
-            // 
-            this.m_cornerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_cornerPanel.Location = new System.Drawing.Point(450, 305);
-            this.m_cornerPanel.Name = "m_cornerPanel";
-            this.m_cornerPanel.Size = new System.Drawing.Size(10, 10);
-            this.m_cornerPanel.TabIndex = 2;
+    
             // 
             // ctxCanvasMenu
             // 
@@ -516,7 +508,6 @@ namespace Trizbort.UI.Controls
             this.Controls.Add(this.m_hScrollBar);
             this.Controls.Add(this.m_vScrollBar);
             this.Controls.Add(this.lblZoom);
-            this.Controls.Add(this.m_cornerPanel);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Canvas";
@@ -528,7 +519,6 @@ namespace Trizbort.UI.Controls
         }
 
         #endregion
-        private System.Windows.Forms.Panel m_cornerPanel;
         private System.Windows.Forms.ContextMenuStrip ctxCanvasMenu;
         private System.Windows.Forms.ToolStripMenuItem regionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;

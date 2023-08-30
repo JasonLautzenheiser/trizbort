@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using Trizbort.Domain.Elements;
 using Trizbort.Domain.Misc;
@@ -126,8 +127,8 @@ namespace Trizbort.Domain.Application {
     }
 
     public void CheckDocVersion() {
-      var appVers = Version.Parse(System.Windows.Forms.Application.ProductVersion);
-      var infoList = $"Executable Version = {System.Windows.Forms.Application.ProductVersion}{Environment.NewLine}Document Version = {Version}{Environment.NewLine}{Environment.NewLine}";
+      var appVers = Version.Parse(Assembly.GetEntryAssembly().GetName().Version.ToString());
+      var infoList = $"Executable Version = {Assembly.GetEntryAssembly().GetName().Version}{Environment.NewLine}Document Version = {Version}{Environment.NewLine}{Environment.NewLine}";
       var newVersionText = "Visit www.trizbort.com to learn about and download the latest version.";
 
       if (Version.Major < appVers.Major) return;

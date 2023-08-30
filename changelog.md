@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.  Version numbers will conform to the semver style versioning (https://semver.org/)
 
 ## [Unreleased]
+### Update
+- update to .net 7.0
+
+### Fix
+- fix issue with PDF export, updated to preview version of latest PDFSharp (#576)
 
 ## [1.7.4.1] - 2022-03-28
 There were a few UI issues when scaling mode was changed in windows.  If you see any further issues, please create an issue

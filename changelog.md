@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.  Version nu
 ### Fix
 - fix issue with PDF export, updated to preview version of latest PDFSharp (#576)
 - fix tab issues in room properties dialog (#569)
+- fix issue with corrupt trizbort file that has orphaned connections (#575)
 
 ## [1.7.4.1] - 2022-03-28
 There were a few UI issues when scaling mode was changed in windows.  If you see any further issues, please create an issue

@@ -70,8 +70,8 @@ namespace Trizbort.Domain.Application {
             var connection = new Connection(project, project.Elements.Count + 1);
             connection.ID = element.Attribute("id").ToInt(connection.ID);
             var loadState = connection.BeginLoad(element);
-            if (loadState != null)
-              mapConnectionToLoadState.Add(connection, loadState);
+            if (loadState == null) continue;
+            mapConnectionToLoadState.Add(connection, loadState);
             project.Elements.Add(connection);
           }
 

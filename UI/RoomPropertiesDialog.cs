@@ -1,27 +1,3 @@
-/*
-    Copyright (c) 2010-2018 by Genstein and Jason Lautzenheiser.
-
-    This file is (or was originally) part of Trizbort, the Interactive Fiction Mapper.
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
-
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -40,7 +16,7 @@ namespace Trizbort.UI {
     private const int VERTICAL_MARGIN = 2;
     private const int WIDTH = 24;
     private const string NO_COLOR_SET = "No Color Set";
-    private static int mLastViewedTab = (int)Tab.Objects;
+    private static int mLastViewedTab = (int)Tab.Description;
     private readonly int roomID;
     private bool mAdjustingPosition;
 
@@ -51,6 +27,7 @@ namespace Trizbort.UI {
 
       // load regions control
       cboRegion.Items.Clear();
+      KeyPreview = true;
       foreach (var region in Settings.Regions.OrderBy(p => p.RegionName != Domain.Misc.Region.DefaultRegion)
         .ThenBy(p => p.RegionName)) cboRegion.Items.Add(region.RegionName);
 
@@ -68,23 +45,14 @@ namespace Trizbort.UI {
         m_tabControl.SelectedTab = tabRegions;
         cboRegion.Select();
       } else {
-        switch (mLastViewedTab) {
-          case (int)Tab.Objects:
-            m_tabControl.SelectedTab = tabObjects;
-            break;
-          case (int)Tab.Description:
-            m_tabControl.SelectedTab = tabDescription;
-            break;
-          case (int)Tab.Colors:
-            m_tabControl.SelectedTab = tabColors;
-            break;
-          case(int) Tab.Regions:
-            m_tabControl.SelectedTab = tabRegions;
-            break;
-          case (int)Tab.RoomShapes:
-            m_tabControl.SelectedTab = tabRoomShapes;
-            break;
-        }
+        m_tabControl.SelectedTab = mLastViewedTab switch {
+          (int) Tab.Objects => tabObjects,
+          (int) Tab.Description => tabDescription,
+          (int) Tab.Colors => tabColors,
+          (int) Tab.Regions => tabRegions,
+          (int) Tab.RoomShapes => tabRoomShapes,
+          _ => m_tabControl.SelectedTab
+        };
 
         if (start == PropertiesStartType.RoomName)
           txtName.Focus();
@@ -813,8 +781,8 @@ namespace Trizbort.UI {
     }
 
     private enum Tab {
-      Objects,
       Description,
+      Objects,
       Colors,
       Regions,
       RoomShapes

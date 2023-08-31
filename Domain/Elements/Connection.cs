@@ -211,23 +211,15 @@ namespace Trizbort.Domain.Elements {
           Openable = element.Attribute("openable").Text == "yes"
         };
 
-      switch (element.Attribute("style").Text) {
-        default:
-          Style = ConnectionStyle.Solid;
-          break;
-        case "dashed":
-          Style = ConnectionStyle.Dashed;
-          break;
-      }
+      Style = element.Attribute("style").Text switch {
+        "dashed" => ConnectionStyle.Dashed,
+        _ => ConnectionStyle.Solid
+      };
 
-      switch (element.Attribute("flow").Text) {
-        default:
-          Flow = ConnectionFlow.TwoWay;
-          break;
-        case "oneWay":
-          Flow = ConnectionFlow.OneWay;
-          break;
-      }
+      Flow = element.Attribute("flow").Text switch {
+        "oneWay" => ConnectionFlow.OneWay,
+        _ => ConnectionFlow.TwoWay
+      };
 
       Name = element.Attribute("name").Text;
       Description = element.Attribute("description").Text;
@@ -251,7 +243,7 @@ namespace Trizbort.Domain.Elements {
           VertexList.Add(vertex);
         }
 
-      return vertexElementList;
+      return vertexElementList.Count != 2 ? null : vertexElementList;
     }
 
     public int ConnectedRoomToRotate(bool whichRoom) {

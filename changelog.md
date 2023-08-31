@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.  Version nu
 
 ## [Unreleased]
 
+## [1.8.0.0]
+
+### Update
+- update to .net 7.0
+
+### Fix
+- fix issue with PDF export, updated to preview version of latest PDFSharp (#576)
+- fix tab issues in room properties dialog (#569)
+- fix issue with corrupt trizbort file that has orphaned connections (#575)
+
 ## [1.7.4.1] - 2022-03-28
 There were a few UI issues when scaling mode was changed in windows.  If you see any further issues, please create an issue
 
@@ -589,7 +599,8 @@ on github.  Documentation is a little outdated so apologies on that.  Hopefully 
 - In the room properties, you can now assign a room to a region.  This will show the room in the region color assigned to the region.
 - some minor bug fixes.
 
-[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.4.1...HEAD
+[Unreleased]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.8.0...HEAD
+[1.8.0.0]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.8.0...v1.7.4.1
 [1.7.4.1]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.4...v1.7.4.1
 [1.7.4]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.3...v1.7.4
 [1.7.3]: https://github.com/JasonLautzenheiser/trizbort/compare/v1.7.2...v1.7.3

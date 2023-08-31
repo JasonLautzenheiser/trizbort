@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
 using Trizbort.Domain.Elements;
@@ -69,8 +70,8 @@ namespace Trizbort.Domain.Application {
             var connection = new Connection(project, project.Elements.Count + 1);
             connection.ID = element.Attribute("id").ToInt(connection.ID);
             var loadState = connection.BeginLoad(element);
-            if (loadState != null)
-              mapConnectionToLoadState.Add(connection, loadState);
+            if (loadState == null) continue;
+            mapConnectionToLoadState.Add(connection, loadState);
             project.Elements.Add(connection);
           }
 
@@ -104,7 +105,7 @@ namespace Trizbort.Domain.Application {
       try {
         using (var scribe = XmlScribe.Create(fileName)) {
           scribe.StartElement("trizbort");
-          scribe.Attribute("version", System.Windows.Forms.Application.ProductVersion);
+          scribe.Attribute("version", Assembly.GetEntryAssembly().GetName().Version.ToString());
           scribe.StartElement("info");
           if (!string.IsNullOrEmpty(project.Title))
             scribe.Element("title", project.Title);

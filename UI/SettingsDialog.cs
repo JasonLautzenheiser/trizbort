@@ -397,8 +397,8 @@ namespace Trizbort.UI {
     }
 
     private void SettingsDialog_FormClosing(object sender, FormClosingEventArgs e) {
-      Properties.Settings.Default.SettingsLastTabIndex = tabControl1.SelectedIndex;
-      Properties.Settings.Default.Save();
+      // Properties.Settings.Default.SettingsLastTabIndex = tabControl1.SelectedIndex;
+      // Properties.Settings.Default.Save();
     }
 
     private void SettingsDialog_Load(object sender, EventArgs e) {
